@@ -7,7 +7,13 @@ import { Router } from '@angular/router';
   template: `
     <h1>dashboard</h1>
 
-    <div *ngIf="game.isConnected()">Game is on</div>
+    <div *ngIf="game.isConnected()">Game infos</div>
+
+    <ul>
+      <li>saveKey: {{game.game.saveKey}}</li>
+      <li>rank: {{game.game.rank}}</li>
+      <li>characters: {{game.game.characters.length}}</li>
+    </ul>
 
     <button (click)="exitGame()">Back to home</button>
   `,

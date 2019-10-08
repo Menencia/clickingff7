@@ -49,10 +49,13 @@ export class GameService {
   /**
    * Load a game
    */
-  load(game: Game) {
+  load(saveKey) {
+    const saveData = localStorage.getItem(saveKey);
+    const save = JSON.parse(saveData);
     this.game = new Game();
-    this.game.rank = game.rank;
-    this.game.characters = game.characters;
+    this.game.saveKey = saveKey;
+    this.game.rank = save.rank;
+    this.game.characters = save.characters;
   }
 
   /**

@@ -5,6 +5,7 @@ import { Character } from './character';
  */
 export class Game {
 
+  saveKey: string;
   rank: number;
   characters: Character[];
 
