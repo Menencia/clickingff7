@@ -1,0 +1,67 @@
+import { Injectable } from '@angular/core';
+import { Game } from './game';
+
+const PREFIX_SAVE = 'cff7-save-';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class GameService {
+
+  /** Current game */
+  game: Game;
+
+  constructor() { }
+
+  /**
+   * Create a new brand game
+   */
+  newGame() {
+    this.game = new Game();
+    this.game.rank = 1;
+    this.game.characters = [];
+  }
+
+  /**
+   * Return save keys from localstorage
+   */
+  getGames() {
+    const result = [];
+    const keys = Object.keys(localStorage);
+    let i = keys.length;
+
+    while (i--) {
+      if (keys[i].startsWith(PREFIX_SAVE)) {
+        result.push(keys[i]);
+      }
+    }
+
+    return result;
+  }
+
+  /**
+   * Load a game
+   */
+  load(game: Game) {
+    this.game = new Game();
+    this.game.rank = game.rank;
+    this.game.characters = game.characters;
+  }
+
+  /**
+   * Quit current game
+   */
+  quit() {
+    this.save();
+    this.game = null;
+  }
+
+  /**
+   * Save current game
+   */
+  save() {
+    const key = PREFIX_SAVE + '001';
+    const data = this.game.export();
+    localStorage.setItem(key, JSON.stringify(data));
+  }
+}
