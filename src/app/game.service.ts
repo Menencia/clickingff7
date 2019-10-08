@@ -27,6 +27,10 @@ export class GameService {
     this.game = new Game();
     this.game.rank = 1;
     this.game.characters = [];
+    this.game.story = {
+      chapter: 1,
+      part: 1
+    };
   }
 
   /**
@@ -56,6 +60,9 @@ export class GameService {
     this.game.saveKey = saveKey;
     this.game.rank = save.rank;
     this.game.characters = save.characters;
+
+    const [chapter, part] = save.storyProgress.split('-');
+    this.game.story = {chapter, part};
   }
 
   /**

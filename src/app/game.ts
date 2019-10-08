@@ -8,6 +8,10 @@ export class Game {
   saveKey: string;
   rank: number;
   characters: Character[];
+  story: {
+    chapter: number;
+    part: number;
+  };
 
   /**
    * Export game data to JSON
@@ -15,7 +19,8 @@ export class Game {
   export() {
     return {
       rank: this.rank,
-      characters: []
+      characters: [],
+      storyProgress: [this.story.chapter, this.story.part].join('-')
     };
   }
 
