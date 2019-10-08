@@ -23,6 +23,9 @@ export class DashboardComponent implements OnInit {
   ngOnInit() {
   }
 
+  /**
+   * Quit the current game
+   */
   exitGame() {
     this.game.quit();
     this.router.navigateByUrl('/home');

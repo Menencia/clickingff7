@@ -8,18 +8,18 @@ import { Router } from '@angular/router';
     <p>
       <button (click)="newSave()">New game</button>
     </p>
-    <p>
-      Saves
-    </p>
-    <div *ngFor="let save of saves">
-      {{save.number}}
+    <div>
+      Saves :
+      <ul>
+        <li *ngFor="let save of saves" (click)="loadSave(save)">{{save}}</li>
+      </ul>
     </div>
   `,
   styles: []
 })
 export class HomeComponent implements OnInit {
 
-  saves: [];
+  saves;
 
   constructor(
     public game: GameService,
@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.saves = this.game.getGames();
   }
 
   /**
@@ -34,6 +35,14 @@ export class HomeComponent implements OnInit {
    */
   newSave() {
     this.game.newGame();
+    this.router.navigateByUrl('/dashboard');
+  }
+
+  /**
+   * Load a game
+   */
+  loadSave(save) {
+    this.game.load(save);
     this.router.navigateByUrl('/dashboard');
   }
 
