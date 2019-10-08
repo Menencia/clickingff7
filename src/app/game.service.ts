@@ -14,6 +14,13 @@ export class GameService {
   constructor() { }
 
   /**
+   * return true ig a game is currently played
+   */
+  isConnected() {
+    return this.game != null;
+  }
+
+  /**
    * Create a new brand game
    */
   newGame() {
@@ -52,8 +59,10 @@ export class GameService {
    * Quit current game
    */
   quit() {
-    this.save();
-    this.game = null;
+    if (this.game) {
+      this.save();
+      this.game = null;
+    }
   }
 
   /**

@@ -1,7 +1,11 @@
 <h2>clicking FF7</h2>
 
-<nav>
+<nav *ngIf="!game.isConnected()">
   <a routerLink="/home" routerLinkActive="active">Home</a>
+</nav>
+
+<nav *ngIf="game.isConnected()">
+  <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
 </nav>
 
 <router-outlet></router-outlet>

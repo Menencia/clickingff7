@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { GameService } from '../game.service';
-import { Location } from '@angular/common';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public game: GameService,
-    public location: Location
+    public router: Router
   ) { }
 
   ngOnInit() {
@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
    */
   newSave() {
     this.game.newGame();
-    this.location.go('/dashboard');
+    this.router.navigateByUrl('/dashboard');
   }
 
 }
