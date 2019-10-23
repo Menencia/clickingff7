@@ -1,4 +1,5 @@
 import { Character } from './character';
+import { Unit } from './unit';
 
 /**
  * Game state
@@ -7,7 +8,7 @@ export class Game {
 
   saveKey: string;
   rank: number;
-  characters: Character[];
+  characters: Unit[];
   story: {
     chapter: number;
     part: number;

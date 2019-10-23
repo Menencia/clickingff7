@@ -1,3 +1,5 @@
+import { BattleService } from './battle.service';
+
 export class Unit {
 
   name: string;
@@ -26,4 +28,18 @@ export class Unit {
   magicRes: number;
   physicRes: number;
   lifeSteal: number;
+
+  constructor() {
+    this.lvl = 1;
+    this.cc = 0.05;
+    this.prec = 50;
+    this.eva = 50;
+    this.speed = 0.5;
+    this.regen = 0;
+    this.magicRes = 0;
+    this.physicRes = 0;
+    this.lifeSteal = 0;
+  }
+
+  action(bs: BattleService): void {}
 }

@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Game } from './game';
+import { Cloud } from './units/cloud';
 
 const PREFIX_SAVE = 'cff7-save-';
 
@@ -26,7 +27,9 @@ export class GameService {
   newGame() {
     this.game = new Game();
     this.game.rank = 1;
-    this.game.characters = [];
+    this.game.characters = [
+      new Cloud()
+    ];
     this.game.story = {
       chapter: 1,
       part: 1
