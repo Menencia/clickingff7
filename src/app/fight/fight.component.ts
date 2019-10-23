@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BattleService } from '../battle.service';
 import { BattleUnit } from '../battle-unit';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-fight',
@@ -27,7 +28,7 @@ export class FightComponent implements OnInit {
   timer;
   pause;
 
-  constructor(public battle: BattleService) { }
+  constructor(public battle: BattleService, public router: Router) { }
 
   ngOnInit() {
     this.team = [];
@@ -55,6 +56,8 @@ export class FightComponent implements OnInit {
     }
     if (this.isBattleEnded()) {
       console.log('battle ended');
+      // todo progress in story
+      this.router.navigateByUrl('/win');
       return;
     }
     setTimeout(() => {
