@@ -56,7 +56,6 @@ export class FightComponent implements OnInit {
     }
     if (this.isBattleEnded()) {
       console.log('battle ended');
-      // todo progress in story
       this.router.navigateByUrl('/win');
       return;
     }
