@@ -15,6 +15,13 @@ export class Game {
   };
 
   /**
+   * Returns story progress
+   */
+  getProgress() {
+    return this.story.chapter + '-' + this.story.part;
+  }
+
+  /**
    * Export game data to JSON
    */
   export() {

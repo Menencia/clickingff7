@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
@@ -23,7 +24,8 @@ const appRoutes: Routes = [
     RouterModule.forRoot(appRoutes)
   ],
   exports: [
-    RouterModule
+    RouterModule,
+    HttpClientModule
   ],
   providers: [
   ]
