@@ -11,26 +11,45 @@ import { BuilderService } from '../builder.service';
   template: `
     <h1>Prepare fight</h1>
 
-    <div class="team">
-      <div class="unit" *ngFor="let unit of team">
-        {{ unit.name }} Lv.{{ unit.lvl }}
+    <div class="container">
+      <div class="row">
+        <div class="col-sm team">
+          <div class="unit" *ngFor="let unit of team">
+            {{ unit.name }} Lv.{{ unit.lvl }}
+          </div>
+        </div>
+        <div class="col-sm enemies">
+          <div class="unit" *ngFor="let unit of enemies">
+            {{ unit.name }} Lv.{{ unit.lvl }}
+          </div>
+        </div>
       </div>
-    </div>
-    <div class="enemies">
-      <div class="unit" *ngFor="let unit of enemies">
-        {{ unit.name }} Lv.{{ unit.lvl }}
-      </div>
-    </div>
 
-    <div class="units">
-      <div class="unit" *ngFor="let unit of units" (click)="addToTeam(unit)">
-        {{ unit.name }} Lv.{{ unit.lvl }}
+      <div class="row">
+        <div class="units">
+          <div class="unit" *ngFor="let unit of units" (click)="addToTeam(unit)">
+            {{ unit.name }} Lv.{{ unit.lvl }}
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm text-center">
+          <button (click)="fight()" class="btn btn-primary" [disabled]="team.length === 0">
+            Fight
+          </button>
+        </div>
       </div>
     </div>
-
-    <button (click)="fight()">Fight</button>
   `,
-  styles: []
+  styles: [`
+    .team {
+      display: inline-block;
+    }
+    .enemies {
+      display: inline-block;
+    }
+  `]
 })
 export class PrepareFightComponent implements OnInit {
 
