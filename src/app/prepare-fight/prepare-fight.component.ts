@@ -14,20 +14,22 @@ import { BuilderService } from '../builder.service';
     <div class="container">
       <div class="row">
         <div class="col-sm team">
-          <div class="unit" *ngFor="let unit of team" (click)="removeFromTeam(unit)">
+          <h3>Team</h3>
+          <div class="unit selectable" *ngFor="let unit of team" (click)="removeFromTeam(unit)">
             {{ unit.name }} Lv.{{ unit.lvl }}
           </div>
         </div>
         <div class="col-sm enemies">
+          <h3>Enemies</h3>
           <div class="unit" *ngFor="let unit of enemies">
             {{ unit.name }} Lv.{{ unit.lvl }}
           </div>
         </div>
       </div>
 
-      <div class="row">
+      <div class="row mt-4 mb-4 pt-3 pb-3 border-top border-bottom">
         <div class="units">
-          <div class="unit" *ngFor="let unit of units" (click)="addToTeam(unit)">
+          <div class="unit selectable" *ngFor="let unit of units" (click)="addToTeam(unit)" [class.disabled]="isAlreadyIn(unit)">
             {{ unit.name }} Lv.{{ unit.lvl }}
           </div>
         </div>
@@ -48,6 +50,13 @@ import { BuilderService } from '../builder.service';
     }
     .enemies {
       display: inline-block;
+    }
+    .selectable {
+      cursor: pointer;
+    }
+    .disabled {
+      cursor: default;
+      color: grey;
     }
   `]
 })
@@ -88,11 +97,8 @@ export class PrepareFightComponent implements OnInit {
    * @param unit unit to add
    */
   addToTeam(unit: Unit) {
-    const found = this.team.find((u: Unit) => {
-      return u.name === unit.name;
-    });
     const full = this.team.length === 5;
-    if (!found && !full) {
+    if (!this.isAlreadyIn(unit) && !full) {
       this.team.push(unit);
     }
   }
@@ -108,6 +114,17 @@ export class PrepareFightComponent implements OnInit {
     if (foundIndex >= 0) {
       this.team.splice(foundIndex, 1);
     }
+  }
+
+  /**
+   * Returns true if the unit is found
+   * @param unit unit to find
+   */
+  isAlreadyIn(unit: Unit) {
+    const found = this.team.find((u: Unit) => {
+      return u.name === unit.name;
+    });
+    return found;
   }
 
   fight() {
