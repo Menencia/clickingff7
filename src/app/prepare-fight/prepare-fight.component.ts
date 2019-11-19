@@ -14,7 +14,7 @@ import { BuilderService } from '../builder.service';
     <div class="container">
       <div class="row">
         <div class="col-sm team">
-          <div class="unit" *ngFor="let unit of team">
+          <div class="unit" *ngFor="let unit of team" (click)="removeFromTeam(unit)">
             {{ unit.name }} Lv.{{ unit.lvl }}
           </div>
         </div>
@@ -88,7 +88,26 @@ export class PrepareFightComponent implements OnInit {
    * @param unit unit to add
    */
   addToTeam(unit: Unit) {
-    this.team.push(unit);
+    const found = this.team.find((u: Unit) => {
+      return u.name === unit.name;
+    });
+    const full = this.team.length === 5;
+    if (!found && !full) {
+      this.team.push(unit);
+    }
+  }
+
+  /**
+   * Remove unit from team
+   * @param unit unit to remove
+   */
+  removeFromTeam(unit: Unit) {
+    const foundIndex = this.team.findIndex((u: Unit) => {
+      return u.name === unit.name;
+    });
+    if (foundIndex >= 0) {
+      this.team.splice(foundIndex, 1);
+    }
   }
 
   fight() {
