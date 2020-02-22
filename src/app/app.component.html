@@ -1,12 +1,27 @@
-<h2>clicking FF7</h2>
-
-<nav *ngIf="!game.isConnected()">
-  <a routerLink="/home" routerLinkActive="active">Home</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">clickingff7</a>
 </nav>
 
-<nav *ngIf="game.isConnected()">
-  <a routerLink="/dashboard" routerLinkActive="active">Dashboard</a> -
-  <a routerLink="/story" routerLinkActive="active">Story</a>
-</nav>
+<div class="container mt-3">
+  <div class="row">
+    <!-- not connected -->
+    <div class="col-sm-2" *ngIf="!game.isConnected()">
+      <ul class="list-group list-group-flush">
+        <a routerLink="/home" routerLinkActive="active" class="list-group-item list-group-item-action">Home</a>
+      </ul>
+    </div>
 
-<router-outlet></router-outlet>
+    <!-- connected -->
+    <div class="col-sm-2" *ngIf="game.isConnected()">
+      <ul class="list-group list-group-flush">
+        <a routerLink="/dashboard" routerLinkActive="active" class="list-group-item list-group-item-action">Dashboard</a>
+        <a routerLink="/story" routerLinkActive="active" class="list-group-item list-group-item-action">Story</a>
+      </ul>
+    </div>
+
+    <!-- content -->
+    <div class="col">
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

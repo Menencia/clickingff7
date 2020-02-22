@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
   selector: 'app-home',
   template: `
     <p>
-      <button (click)="newSave()">New game</button>
+      <button type="button" class="btn btn-outline-primary" (click)="newSave()">New game</button>
     </p>
     <div>
       Saves :
