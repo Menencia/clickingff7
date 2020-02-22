@@ -14,8 +14,6 @@ import { Router } from '@angular/router';
       <li>rank: {{game.game.rank}}</li>
       <li>characters: {{game.game.characters.length}}</li>
     </ul>
-
-    <button (click)="exitGame()">Back to home</button>
   `,
   styles: []
 })
@@ -27,14 +25,6 @@ export class DashboardComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-  }
-
-  /**
-   * Quit the current game
-   */
-  exitGame() {
-    this.game.quit();
-    this.router.navigateByUrl('/home');
   }
 
 }

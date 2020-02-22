@@ -21,4 +21,12 @@ export class AppComponent {
       this.router.navigateByUrl('/home');
     }
   }
+
+  /**
+   * Quit the current game
+   */
+  exitGame() {
+    this.game.quit();
+    this.router.navigateByUrl('/home');
+  }
 }
