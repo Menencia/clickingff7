@@ -69,6 +69,13 @@ export class GameService {
   }
 
   /**
+   * Delete a game
+   */
+  delete(saveKey) {
+    localStorage.removeItem(saveKey);
+  }
+
+  /**
    * Quit current game
    */
   quit() {

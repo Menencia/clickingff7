@@ -8,10 +8,15 @@ import { Router } from '@angular/router';
     <p>
       <button type="button" class="btn btn-outline-primary" (click)="newSave()">New game</button>
     </p>
-    <div>
+    <div *ngIf="saves.length > 0">
       Saves :
-      <ul>
-        <li *ngFor="let save of saves" (click)="loadSave(save)">{{save}}</li>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item" *ngFor="let save of saves">
+          <button class="btn btn-link" (click)="loadSave(save)">{{save}}</button>
+          <button class="btn btn-outline-danger" (click)="deleteSave(save)">
+            <fa-icon [icon]="['fas', 'times']"></fa-icon>
+          </button>
+        </li>
       </ul>
     </div>
   `,
@@ -27,6 +32,13 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.refreshGames();
+  }
+
+  /**
+   * Refresh games from localstorage
+   */
+  refreshGames() {
     this.saves = this.game.getGames();
   }
 
@@ -44,6 +56,15 @@ export class HomeComponent implements OnInit {
   loadSave(save) {
     this.game.load(save);
     this.router.navigateByUrl('/dashboard');
+  }
+
+  /**
+   * Delete save
+   * @param save save
+   */
+  deleteSave(save) {
+    this.game.delete(save);
+    this.refreshGames();
   }
 
 }
