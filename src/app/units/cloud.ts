@@ -7,6 +7,7 @@ export class Cloud extends Unit {
     super();
 
     this.name = 'Cloud';
+    this.image = '/assets/units/cloud.jpg';
     this.rarity = 2; // Rare
     this.element = 3; // Thunder
     this.type = 1;

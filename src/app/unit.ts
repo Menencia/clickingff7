@@ -3,6 +3,7 @@ import { BattleService } from './battle.service';
 export class Unit {
 
   name: string;
+  image: string;
   lvl: number;
 
   // normal, rare, elite, legendary, mythic

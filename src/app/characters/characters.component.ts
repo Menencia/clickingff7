@@ -5,8 +5,8 @@ import { GameService } from '../game.service';
   selector: 'app-characters',
   template: `
     <ul class="list-group">
-      <li *ngFor="let character of characters">
-        {{character.name}}
+      <li *ngFor="let character of characters" class="list-group-item">
+        <app-character-icon [unit]="character"></app-character-icon>
       </li>
     </ul>
   `,
