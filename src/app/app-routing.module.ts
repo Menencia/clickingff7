@@ -8,10 +8,12 @@ import { StoryComponent } from './story/story.component';
 import { PrepareFightComponent } from './prepare-fight/prepare-fight.component';
 import { FightComponent } from './fight/fight.component';
 import { WinComponent } from './win/win.component';
+import { CharactersComponent } from './characters/characters.component';
 
 const appRoutes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'dashboard', component: DashboardComponent },
+  { path: 'characters', component: CharactersComponent },
   { path: 'story', component: StoryComponent },
   { path: 'prepareFight', component: PrepareFightComponent },
   { path: 'fight', component: FightComponent },

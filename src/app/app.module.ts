@@ -13,6 +13,7 @@ import { WinComponent } from './win/win.component';
 
 import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import { CharactersComponent } from './characters/characters.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
     PrepareFightComponent,
     FightComponent,
     LoseComponent,
-    WinComponent
+    WinComponent,
+    CharactersComponent
   ],
   imports: [
     BrowserModule,
