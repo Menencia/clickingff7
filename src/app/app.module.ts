@@ -15,6 +15,7 @@ import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontaweso
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CharactersComponent } from './characters/characters.component';
 import { CharacterIconComponent } from './character-icon/character-icon.component';
+import { UnitComponent } from './unit/unit.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CharacterIconComponent } from './character-icon/character-icon.componen
     LoseComponent,
     WinComponent,
     CharactersComponent,
-    CharacterIconComponent
+    CharacterIconComponent,
+    UnitComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,9 @@
+import * as uuid from 'uuid';
 import { BattleService } from './battle.service';
 
 export class Unit {
 
+  id: string;
   name: string;
   image: string;
   lvl: number;
@@ -31,6 +33,7 @@ export class Unit {
   lifeSteal: number;
 
   constructor() {
+    this.id = uuid.v4();
     this.lvl = 1;
     this.cc = 0.05;
     this.prec = 50;
