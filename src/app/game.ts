@@ -8,6 +8,9 @@ export class Game {
 
   saveKey: string;
   rank: number;
+  diamonds: number;
+  gils: number;
+  exp: number;
   characters: Unit[];
   story: {
     chapter: number;

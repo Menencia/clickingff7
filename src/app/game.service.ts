@@ -26,7 +26,10 @@ export class GameService {
    */
   newGame() {
     this.game = new Game();
-    this.game.rank = 1;
+    this.game.rank = 0;
+    this.game.diamonds = 0;
+    this.game.gils = 0;
+    this.game.exp = 0;
     this.game.characters = [
       new Cloud()
     ];

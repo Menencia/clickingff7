@@ -6,13 +6,23 @@ import { GameService } from '../game.service';
   selector: 'app-win',
   template: `
     <p>
-      win works!
+      VICTOIRE
     </p>
+    <div class="p-3">
+      Diamants: {{diamonds}}<br />
+      Gils: {{gils}}<br />
+      Exp: {{exp}}
+    </div>
     <button (click)="goNext()">Continue</button>
   `,
   styles: []
 })
 export class WinComponent implements OnInit {
+
+  // rewards;
+  diamonds;
+  gils;
+  exp;
 
   constructor(
     public router: Router,
@@ -20,9 +30,13 @@ export class WinComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-  }
-
-  goNext() {
+    this.diamonds = 100;
+    this.gils = 300;
+    this.exp = 150;
+    // rewards
+    this.game.game.diamonds += this.diamonds;
+    this.game.game.gils += this.gils;
+    this.game.game.exp += this.exp;
     // progress in story
     let {chapter, part} = this.game.game.story;
     part++;
@@ -32,7 +46,9 @@ export class WinComponent implements OnInit {
     }
     this.game.game.story = {chapter, part};
     this.game.save();
+  }
 
+  goNext() {
     this.router.navigateByUrl('/story');
   }
 
