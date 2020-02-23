@@ -13,50 +13,44 @@ import { BuilderService } from '../builder.service';
 
     <div class="container">
       <div class="row">
-        <div class="col-sm team">
-          <h3>Team</h3>
+        <div class="col-sm team p-3">
+          <h3>Équipe</h3>
           <div class="unit selectable" *ngFor="let unit of team" (click)="removeFromTeam(unit)">
-            {{ unit.name }} Lv.{{ unit.lvl }}
+            <app-character-icon [unit]="unit"></app-character-icon>
           </div>
         </div>
-        <div class="col-sm enemies">
-          <h3>Enemies</h3>
+        <div class="col-sm enemies p-3">
+          <h3>Ennemis</h3>
           <div class="unit" *ngFor="let unit of enemies">
-            {{ unit.name }} Lv.{{ unit.lvl }}
+            <app-character-icon [unit]="unit"></app-character-icon>
           </div>
         </div>
       </div>
 
-      <div class="row mt-4 mb-4 pt-3 pb-3 border-top border-bottom">
-        <div class="units">
-          <div class="unit selectable" *ngFor="let unit of units" (click)="addToTeam(unit)" [class.disabled]="isAlreadyIn(unit)">
-            {{ unit.name }} Lv.{{ unit.lvl }}
+      <div class="row p-3 border-top border-bottom">
+        <div class="col-sm units p-3">
+          <h3>Unités</h3>
+          <div class="unit selectable" *ngFor="let unit of units" (click)="addToTeam(unit)">
+            <app-character-icon [unit]="unit" [disabled]="isAlreadyIn(unit)"></app-character-icon>
           </div>
         </div>
       </div>
 
       <div class="row">
-        <div class="col-sm text-center">
+        <div class="col-sm p-3 text-center">
           <button (click)="fight()" class="btn btn-primary" [disabled]="team.length === 0">
-            Fight
+            Débuter le combat
           </button>
         </div>
       </div>
     </div>
   `,
   styles: [`
-    .team {
-      display: inline-block;
-    }
-    .enemies {
+    .team, .enemies, .units {
       display: inline-block;
     }
     .selectable {
       cursor: pointer;
-    }
-    .disabled {
-      cursor: default;
-      color: grey;
     }
   `]
 })
@@ -100,6 +94,8 @@ export class PrepareFightComponent implements OnInit {
     const full = this.team.length === 5;
     if (!this.isAlreadyIn(unit) && !full) {
       this.team.push(unit);
+    } else {
+      this.removeFromTeam(unit);
     }
   }
 

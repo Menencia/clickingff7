@@ -6,6 +6,7 @@ export class FirstRay extends Unit {
     super();
 
     this.name = '1st Ray';
+    this.image = '/assets/units/first-ray.png';
     this.rarity = 1; // Rare
     this.element = 3; // Thunder
     this.type = 1;
