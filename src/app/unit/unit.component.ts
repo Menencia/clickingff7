@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { SaveService } from '../save.service';
+import { GameService } from '../game.service';
 
 @Component({
   selector: 'app-unit',
@@ -37,23 +38,47 @@ import { SaveService } from '../save.service';
       <dt class="col-sm-3">Vol de vie</dt>
       <dd class="col-sm-9">{{unit.lifeSteal}}</dd>
     </dl>
+    LV {{unit.lvl}} LV {{unit.lvl}} LV {{unit.lvl}} LV {{unit.lvl}} +
+    <i class="fas fa-coins"></i>{{save.gils}} / {{gilsRequired}}
+    <i class="fas fa-angle-double-down"></i>{{save.exp}} / {{expRequired}}
+    <button type="button" class="btn btn-primary" [disabled]="!canLevelUp()" (click)="levelUp()">Nv. supérieur</button>
   `,
   styles: []
 })
 export class UnitComponent implements OnInit {
 
   public unit;
+  public gilsRequired;
+  public expRequired;
 
   constructor(
     private route: ActivatedRoute,
-    public save: SaveService
+    public save: SaveService,
+    public game: GameService
   ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
       const characters = this.save.characters;
       this.unit = characters.find(elt => elt.id === params.id);
+      this.gilsRequired = this.unit.lvl * 5;
+      this.expRequired = this.unit.lvl * 10;
     });
+  }
+
+  canLevelUp() {
+    let res = false;
+    if (this.save.gils >= this.gilsRequired && this.save.exp >= this.expRequired) {
+      res = true;
+    }
+    return res;
+  }
+
+  levelUp() {
+    this.save.gils -= this.gilsRequired;
+    this.save.exp -= this.expRequired;
+    this.unit.lvl += 1;
+    this.game.register();
   }
 
 }
