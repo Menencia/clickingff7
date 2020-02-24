@@ -9,9 +9,9 @@ import { GameService } from '../game.service';
       VICTOIRE
     </p>
     <div class="p-3">
-      Diamants: {{diamonds}}<br />
-      Gils: {{gils}}<br />
-      Exp: {{exp}}
+      <i class="far fa-gem"></i> {{gems}}<br />
+      <i class="fas fa-coins"></i> {{gils}}<br />
+      <i class="fas fa-angle-double-down"></i> {{exp}}
     </div>
     <button (click)="goNext()">Continue</button>
   `,
@@ -20,7 +20,7 @@ import { GameService } from '../game.service';
 export class WinComponent implements OnInit {
 
   // rewards;
-  diamonds;
+  gems;
   gils;
   exp;
 
@@ -30,11 +30,11 @@ export class WinComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.diamonds = 100;
+    this.gems = 100;
     this.gils = 300;
     this.exp = 150;
     // rewards
-    this.game.game.diamonds += this.diamonds;
+    this.game.game.gems += this.gems;
     this.game.game.gils += this.gils;
     this.game.game.exp += this.exp;
     // progress in story

@@ -8,7 +8,7 @@ export class Game {
 
   saveKey: string;
   rank: number;
-  diamonds: number;
+  gems: number;
   gils: number;
   exp: number;
   characters: Unit[];
