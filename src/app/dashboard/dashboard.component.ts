@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from '../game.service';
 import { Router } from '@angular/router';
+import { SaveService } from '../save.service';
+import { GameService } from '../game.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,9 +11,9 @@ import { Router } from '@angular/router';
     <div *ngIf="game.isConnected()">Game infos</div>
 
     <ul>
-      <li>saveKey: {{game.game.saveKey}}</li>
-      <li>rank: {{game.game.rank}}</li>
-      <li>characters: {{game.game.characters.length}}</li>
+      <li>saveKey: {{save.key}}</li>
+      <li>rank: {{save.rank}}</li>
+      <li>characters: {{save.characters.length}}</li>
     </ul>
   `,
   styles: []
@@ -20,6 +21,7 @@ import { Router } from '@angular/router';
 export class DashboardComponent implements OnInit {
 
   constructor(
+    public save: SaveService,
     public game: GameService,
     public router: Router
   ) { }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Game } from './game';
-import { Cloud } from './units/cloud';
+import { SaveService } from './save.service';
 
 const PREFIX_SAVE = 'cff7-save-';
 
@@ -9,34 +8,23 @@ const PREFIX_SAVE = 'cff7-save-';
 })
 export class GameService {
 
-  /** Current game */
-  game: Game;
-
-  constructor() { }
+  constructor(
+    public save: SaveService
+  ) { }
 
   /**
    * return true ig a game is currently played
    */
   isConnected() {
-    return this.game != null;
+    return this.save.key != null;
   }
 
   /**
-   * Create a new brand game
+   * Create a new brand save
    */
   newGame() {
-    this.game = new Game();
-    this.game.rank = 0;
-    this.game.gems = 0;
-    this.game.gils = 0;
-    this.game.exp = 0;
-    this.game.characters = [
-      new Cloud()
-    ];
-    this.game.story = {
-      chapter: 1,
-      part: 1
-    };
+    const key = PREFIX_SAVE + '001';
+    this.save.create(key);
   }
 
   /**
@@ -57,43 +45,36 @@ export class GameService {
   }
 
   /**
-   * Load a game
+   * Load a save
    */
-  load(saveKey) {
-    const saveData = localStorage.getItem(saveKey);
-    const save = JSON.parse(saveData);
-    this.game = new Game();
-    this.game.saveKey = saveKey;
-    this.game.rank = save.rank;
-    this.game.characters = save.characters;
-
-    const [chapter, part] = save.storyProgress.split('-');
-    this.game.story = {chapter, part};
+  loadSave(key) {
+    const item = localStorage.getItem(key);
+    const data = JSON.parse(item);
+    this.save.load(key, data);
   }
 
   /**
    * Delete a game
    */
-  delete(saveKey) {
-    localStorage.removeItem(saveKey);
+  delete(key) {
+    localStorage.removeItem(key);
   }
 
   /**
    * Quit current game
    */
   quit() {
-    if (this.game) {
-      this.save();
-      this.game = null;
+    if (this.save.key) {
+      this.register();
+      this.save.key = null;
     }
   }
 
   /**
-   * Save current game
+   * register current save
    */
-  save() {
-    const key = PREFIX_SAVE + '001';
-    const data = this.game.export();
-    localStorage.setItem(key, JSON.stringify(data));
+  register() {
+    const data = this.save.export();
+    localStorage.setItem(this.save.key, JSON.stringify(data));
   }
 }

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from '../game.service';
 import { Router } from '@angular/router';
+import { SaveService } from '../save.service';
 
 @Component({
   selector: 'app-story',
   template: `
     <h1>Story</h1>
-    <div>Chapter: {{game.game.story.chapter}}</div>
-    <div>Part: {{game.game.story.part}}</div>
+    <div>Chapter: {{save.story.chapter}}</div>
+    <div>Part: {{save.story.part}}</div>
     <button (click)="prepareFight()">Fight</button>
   `,
   styles: []
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
 export class StoryComponent implements OnInit {
 
   constructor(
-    public game: GameService,
+    public save: SaveService,
     public router: Router
   ) { }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { GameService } from '../game.service';
+import { SaveService } from '../save.service';
 
 @Component({
   selector: 'app-unit',
@@ -46,12 +46,12 @@ export class UnitComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    public game: GameService
+    public save: SaveService
   ) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
-      const characters = this.game.game.characters;
+      const characters = this.save.characters;
       this.unit = characters.find(elt => elt.id === params.id);
     });
   }

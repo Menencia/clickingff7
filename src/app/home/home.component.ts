@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
    * Load a game
    */
   loadSave(save) {
-    this.game.load(save);
+    this.game.loadSave(save);
     this.router.navigateByUrl('/dashboard');
   }
 

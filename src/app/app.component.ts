@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { GameService } from './game.service';
 import { Router } from '@angular/router';
+import { SaveService } from './save.service';
 
 @Component({
   selector: 'app-root',
@@ -11,6 +12,7 @@ export class AppComponent {
   title = 'clickingff7';
 
   constructor(
+    public save: SaveService,
     public game: GameService,
     public router: Router
   ) {

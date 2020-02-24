@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from '../game.service';
 import { Router } from '@angular/router';
 import { Unit } from '../unit';
 import { BattleService } from '../battle.service';
 import { HttpClient } from '@angular/common/http';
 import { BuilderService } from '../builder.service';
+import { SaveService } from '../save.service';
 
 @Component({
   selector: 'app-prepare-fight',
@@ -62,7 +62,7 @@ export class PrepareFightComponent implements OnInit {
 
   constructor(
     public battle: BattleService,
-    public game: GameService,
+    public save: SaveService,
     public router: Router,
     public http: HttpClient,
     public builder: BuilderService
@@ -73,7 +73,7 @@ export class PrepareFightComponent implements OnInit {
     this.enemies = [];
     this.http.get('assets/enemies.json')
       .subscribe(data => {
-        const progress = this.game.game.getProgress();
+        const progress = this.save.getProgress();
         if (progress in data) {
           for (const unitInfos of data[progress]) {
             const unit = this.builder.buildUnit(unitInfos);
@@ -83,7 +83,7 @@ export class PrepareFightComponent implements OnInit {
           }
         }
       });
-    this.units = this.game.game.characters;
+    this.units = this.save.characters;
   }
 
   /**

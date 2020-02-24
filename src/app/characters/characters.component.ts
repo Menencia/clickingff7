@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { GameService } from '../game.service';
 import { Router } from '@angular/router';
+import { SaveService } from '../save.service';
 
 @Component({
   selector: 'app-characters',
@@ -18,12 +18,12 @@ export class CharactersComponent implements OnInit {
   public characters;
 
   constructor(
-    public game: GameService,
+    public save: SaveService,
     public router: Router
   ) { }
 
   ngOnInit() {
-    this.characters = this.game.game.characters;
+    this.characters = this.save.characters;
   }
 
   /**
