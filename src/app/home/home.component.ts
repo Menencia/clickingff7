@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
         <li class="list-group-item" *ngFor="let save of saves">
           <button class="btn btn-link" (click)="loadSave(save)">{{save}}</button>
           <button class="btn btn-outline-danger" (click)="deleteSave(save)">
-            <fa-icon [icon]="['fas', 'times']"></fa-icon>
+            <i class="fas fa-times"></i>
           </button>
         </li>
       </ul>

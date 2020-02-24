@@ -10,9 +10,6 @@ import { PrepareFightComponent } from './prepare-fight/prepare-fight.component';
 import { FightComponent } from './fight/fight.component';
 import { LoseComponent } from './lose/lose.component';
 import { WinComponent } from './win/win.component';
-
-import { FontAwesomeModule, FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { CharactersComponent } from './characters/characters.component';
 import { CharacterIconComponent } from './character-icon/character-icon.component';
 import { UnitComponent } from './unit/unit.component';
@@ -33,15 +30,9 @@ import { UnitComponent } from './unit/unit.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    FontAwesomeModule
+    AppRoutingModule
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  constructor(library: FaIconLibrary) {
-    // Add an icon to the library for convenient access in other components
-    library.addIcons(faTimes);
-  }
-}
+export class AppModule { }
