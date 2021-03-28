@@ -1,32 +1,12 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { AppRoutingModule } from './app-routing.module';
+import { BrowserModule } from '@angular/platform-browser';
 
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HomeComponent } from './home/home.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { StoryComponent } from './story/story.component';
-import { PrepareFightComponent } from './prepare-fight/prepare-fight.component';
-import { FightComponent } from './fight/fight.component';
-import { LoseComponent } from './lose/lose.component';
-import { WinComponent } from './win/win.component';
-import { CharactersComponent } from './characters/characters.component';
-import { CharacterIconComponent } from './character-icon/character-icon.component';
-import { UnitComponent } from './unit/unit.component';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    HomeComponent,
-    DashboardComponent,
-    StoryComponent,
-    PrepareFightComponent,
-    FightComponent,
-    LoseComponent,
-    WinComponent,
-    CharactersComponent,
-    CharacterIconComponent,
-    UnitComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
