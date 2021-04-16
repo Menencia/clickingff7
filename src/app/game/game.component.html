@@ -1,0 +1,165 @@
+<nav class="actions">
+  <div class="block">
+    <ul>
+      <li ng-click="fightRandom()" ng-class="{disabled: game.battle.isBattle}" id="step6">
+        {{"Fight random"|translate}}
+      </li>
+      <li ng-click="fightBoss()" ng-class="{disabled: !game.battle.canFightBoss()}">
+        <div class="pull-right new" ng-show="game.battle.canFightBoss()">NEW</div>
+        {{"Fight boss"|translate}}
+      </li>
+      <li ng-click="attack($event)"
+        ng-class="{disabled: !game.battle.isBattle, limit: game.characters.canLimit()}" id="step7">
+        <span ng-if="!game.characters.canLimit()">{{"Attack"|translate}}</span>
+        <span ng-if="game.characters.canLimit()">{{"Limit"|translate}}</span>
+      </li>
+      <li ng-click="escape()" ng-class="{disabled: !game.battle.isBattle}" id="step8">
+        {{"Escape"|translate}}
+      </li>
+    </ul>
+  </div>
+
+  <div class="block" id="step9">
+    <ul>
+      <li *ngFor="let materia of game.materias.getEquipped()"
+        ng-click="materia.action()"
+        ng-class="{disabled: !materia.canUse()}">
+        <div class="pull-right">{{materia.getMpCost()}}</div>
+        <div class="menu-action">
+          <img src="/img/icons/materias/{{materia.color}}.gif" />
+          {{'Mat. '+materia.name+' name'|translate}}
+        </div>
+      </li>
+    </ul>
+  </div>
+
+  <div class="block" ng-if="game.items.getEquipped().length > 0" id="step10">
+    <ul>
+      <li *ngFor="let item of game.items.getEquipped()"
+        ng-click="item.action()"
+        ng-class="{disabled: !item.canUse()}">
+        <div class="pull-right">{{item.nbr}}</div>
+        {{'It. '+item.name+' name'|translate}}
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="wrapper">
+
+  <div class="c1">
+    <!-- characters bars -->
+    <div class="bars">
+      <div class="enemies_hits">
+        <div class="hit hit_{{index+1}}" *ngFor="let hit of game.enemies.arrHits; let index = index">{{hit}}</div>
+      </div>
+
+      <div>
+        <div class="progress characters_hp" id="step2">
+          <div class="characters_hp_progress"
+            ng-style="{width: game.characters.hpProgress(300) + 'px'}"></div>
+          <span class="bar-label">{{game.characters.hp}} / {{game.characters.hpMax}} HP</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="progress characters_mp" id="step3">
+          <div class="characters_mp_progress"
+            ng-style="{width: game.characters.mpProgress(300) + 'px'}"></div>
+          <span class="bar-label">{{game.characters.mp}} / {{game.characters.mpMax}} MP</span>
+        </div>
+      </div>
+
+      <div>
+        <div class="progress characters_limit" id="step4">
+          <div class="characters_limit_progress"
+            ng-style="{width: game.characters.limitProgress(300) + 'px'}"></div>
+          <span class="bar-label">LIMIT</span>
+        </div>
+      </div>
+    </div>
+
+      <!-- characters list -->
+    <div id="step1">
+      <div *ngFor="let character of game.characters.getTeam()" class="card">
+        <div class="avatar">
+          <img src="{{character.image}}" alt="avatar" width="80" class="icon"/>
+        </div>
+        <!--
+                -->
+        <div class="main">
+
+          <div class="progress characters_xp">
+            <div class="xp_progress" ng-style="{width: character.xpProgress(200) + 'px'}"></div>
+            <span class="bar-label">{{character.xp}} / {{character.getXpMax()}} EXP</span>
+          </div>
+
+          <div>{{character.name}} <strong>(LVL{{character.level}})</strong></div>
+          <div ng-if="character.level > 0">
+            <span class="label">hp</span> {{character.getHpMax()}}
+            <span class="label">mp</span> {{character.getMpMax()}}
+            <span class="label">pwr</span> {{character.getHits()}}
+          </div>
+          <div class="line">"{{character.getLine()|translate}}"</div>
+        </div>
+
+        <div style="clear: left"></div>
+      </div>
+    </div>
+  </div><!--
+  --><div class="c3" id="step5">
+    <!-- enemies bars -->
+    <div class="bars" ng-if="game.enemies.list.length > 0">
+      <div class="characters_hits">
+        <div class="hit hit_{{index+1}}" *ngFor="let hit of game.characters.arrHits; let index = index">{{hit}}
+        </div>
+      </div>
+
+      <div class="progress enemy_hp">
+        <div class="enemy_hp_progress" ng-style="{width: game.enemies.hpProgress(300) + 'px'}"></div>
+        <span class="bar-label">{{game.enemies.hp}} / {{game.enemies.hpMax}} HP</span>
+      </div>
+    </div>
+
+    <div ng-if="game.enemies.list.length === 0" class="no-data">
+      {{"No enemies"|translate}}
+    </div>
+
+      <!-- enemies list -->
+      <div *ngFor="let enemy of game.enemies.list" class="card_enemy">
+        <div class="avatar_enemy">
+          <img [src]="enemy.image" alt="avatar" height="80" />
+        </div>
+        <!--
+                    -->
+        <div class="main_enemy">
+
+          <div>{{enemy.name}} <strong>(LVL{{enemy.level}})</strong>
+              <span ng-if="enemy.boss" class="boss">ZONE BOSS</span>
+              <span ng-if="enemy.miboss" class="boss">BOSS</span>
+          </div>
+
+          <div>
+              <span class="label">hp</span> {{enemy.getHpMax()}}
+              <span class="label">pwr</span> {{enemy.getHits()}}
+          </div>
+          <div>
+              <span class="label">xp</span> {{enemy.xpReward()}}
+              <span class="label">ap</span> {{enemy.apReward()}}
+              <span class="label">gils</span> {{enemy.gilsReward()}}
+          </div>
+          <div ng-if="enemy.weakness.length > 0">
+              {{'Weakness'|translate}}
+              <img *ngFor="let weakness of enemy.weakness" src="/img/icons/elements/{{weakness}}.png" class="weakness" />
+          </div>
+          <div ng-if="enemy.resistance.length > 0">
+              {{'Resistance'|translate}}
+              <img *ngFor="let resistance of enemy.resistance" src="/img/icons/elements/{{resistance}}.png" class="resistance" />
+          </div>
+        </div>
+
+        <div style="clear: left"></div>
+      </div>
+  </div>
+
+</div>
