@@ -48,7 +48,7 @@ export abstract class Item {
   /**
    * Executes materia action
    */
-  action(fn: () => void): void {
+  action(fn = () => {}): void {
     // cost
     if (this.canUse()) {
       this.remove();

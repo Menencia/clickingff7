@@ -3,44 +3,34 @@ import { GameService } from '../game.service';
 export abstract class Enemy {
 
   level: number;
-  baseHpMax: number;
-  baseHits: number;
-  baseXp: number;
-  baseAp: number;
-  baseGils: number;
   hpMax: number;
   hits: number;
   xp: number;
   ap: number;
   gils: number;
-  name: string;
-  image: string;
-  weakness: string[];
-  resistance: string[];
-  boss: boolean;
-  miboss: boolean;
+
+  abstract name: string;
+  abstract image: string;
+  abstract baseHpMax: number;
+  abstract baseHits: number;
+  abstract baseXp: number;
+  abstract baseAp: number;
+  abstract baseGils: number;
+  abstract weakness: string[];
+  abstract resistance: string[];
+  abstract boss: boolean;
+  abstract miboss: boolean;
 
   /**
    * Init
    */
   constructor(public game: GameService) {
     this.level = 0;
-    this.baseHpMax = 0;
-    this.baseHits = 0;
-    this.baseXp = 0;
-    this.baseAp = 0;
-    this.baseGils = 0;
     this.hpMax = 0;
     this.hits = 0;
     this.xp = 0;
     this.ap = 0;
     this.gils = 0;
-    this.name = '';
-    this.image = '';
-    this.weakness = [];
-    this.resistance = [];
-    this.boss = false;
-    this.miboss = false;
   }
 
   /**

@@ -1,19 +1,19 @@
 <nav class="actions">
   <div class="block">
     <ul>
-      <li ng-click="fightRandom()" ng-class="{disabled: game.battle.isBattle}" id="step6">
+      <li (click)="fightRandom()" [class.disabled]="game.battle.isBattle" id="step6">
         {{"Fight random"|translate}}
       </li>
-      <li ng-click="fightBoss()" ng-class="{disabled: !game.battle.canFightBoss()}">
-        <div class="pull-right new" ng-show="game.battle.canFightBoss()">NEW</div>
+      <li (click)="fightBoss()" [class.disabled]="!game.battle.canFightBoss()">
+        <div class="pull-right new" *ngIf="game.battle.canFightBoss()">NEW</div>
         {{"Fight boss"|translate}}
       </li>
-      <li ng-click="attack($event)"
-        ng-class="{disabled: !game.battle.isBattle, limit: game.characters.canLimit()}" id="step7">
-        <span ng-if="!game.characters.canLimit()">{{"Attack"|translate}}</span>
-        <span ng-if="game.characters.canLimit()">{{"Limit"|translate}}</span>
+      <li (click)="attack()"
+      [class]="{disabled: !game.battle.isBattle, limit: game.characters.canLimit()}" id="step7">
+        <span *ngIf="!game.characters.canLimit()">{{"Attack"|translate}}</span>
+        <span *ngIf="game.characters.canLimit()">{{"Limit"|translate}}</span>
       </li>
-      <li ng-click="escape()" ng-class="{disabled: !game.battle.isBattle}" id="step8">
+      <li (click)="escape()" [class.disabled]="!game.battle.isBattle" id="step8">
         {{"Escape"|translate}}
       </li>
     </ul>
@@ -22,8 +22,8 @@
   <div class="block" id="step9">
     <ul>
       <li *ngFor="let materia of game.materias.getEquipped()"
-        ng-click="materia.action()"
-        ng-class="{disabled: !materia.canUse()}">
+        (click)="materia.action()"
+        [class.disabled]="!materia.canUse()">
         <div class="pull-right">{{materia.getMpCost()}}</div>
         <div class="menu-action">
           <img src="/assets/images/icons/materias/{{materia.color}}.gif" />
@@ -33,11 +33,11 @@
     </ul>
   </div>
 
-  <div class="block" ng-if="game.items.getEquipped().length > 0" id="step10">
+  <div class="block" *ngIf="game.items.getEquipped().length > 0" id="step10">
     <ul>
       <li *ngFor="let item of game.items.getEquipped()"
-        ng-click="item.action()"
-        ng-class="{disabled: !item.canUse()}">
+        (click)="item.action()"
+        [class.disabled]="!item.canUse()">
         <div class="pull-right">{{item.nbr}}</div>
         {{'It. '+item.name+' name'|translate}}
       </li>
@@ -57,7 +57,7 @@
       <div>
         <div class="progress characters_hp" id="step2">
           <div class="characters_hp_progress"
-            ng-style="{width: game.characters.hpProgress(300) + 'px'}"></div>
+            [style.width]="game.characters.hpProgress(300) + 'px'"></div>
           <span class="bar-label">{{game.characters.hp}} / {{game.characters.hpMax}} HP</span>
         </div>
       </div>
@@ -65,7 +65,7 @@
       <div>
         <div class="progress characters_mp" id="step3">
           <div class="characters_mp_progress"
-            ng-style="{width: game.characters.mpProgress(300) + 'px'}"></div>
+            [style.width]="game.characters.mpProgress(300) + 'px'"></div>
           <span class="bar-label">{{game.characters.mp}} / {{game.characters.mpMax}} MP</span>
         </div>
       </div>
@@ -73,7 +73,7 @@
       <div>
         <div class="progress characters_limit" id="step4">
           <div class="characters_limit_progress"
-            ng-style="{width: game.characters.limitProgress(300) + 'px'}"></div>
+            [style.width]="game.characters.limitProgress(300) + 'px'"></div>
           <span class="bar-label">LIMIT</span>
         </div>
       </div>
@@ -90,12 +90,12 @@
         <div class="main">
 
           <div class="progress characters_xp">
-            <div class="xp_progress" ng-style="{width: character.xpProgress(200) + 'px'}"></div>
+            <div class="xp_progress" [style.width]="character.xpProgress(200) + 'px'"></div>
             <span class="bar-label">{{character.xp}} / {{character.getXpMax()}} EXP</span>
           </div>
 
           <div>{{character.name}} <strong>(LVL{{character.level}})</strong></div>
-          <div ng-if="character.level > 0">
+          <div *ngIf="character.level > 0">
             <span class="label">hp</span> {{character.getHpMax()}}
             <span class="label">mp</span> {{character.getMpMax()}}
             <span class="label">pwr</span> {{character.getHits()}}
@@ -109,19 +109,19 @@
   </div><!--
   --><div class="c3" id="step5">
     <!-- enemies bars -->
-    <div class="bars" ng-if="game.enemies.list.length > 0">
+    <div class="bars" *ngIf="game.enemies.list.length > 0">
       <div class="characters_hits">
         <div class="hit hit_{{index+1}}" *ngFor="let hit of game.characters.arrHits; let index = index">{{hit}}
         </div>
       </div>
 
       <div class="progress enemy_hp">
-        <div class="enemy_hp_progress" ng-style="{width: game.enemies.hpProgress(300) + 'px'}"></div>
+        <div class="enemy_hp_progress" [style.width]="game.enemies.hpProgress(300) + 'px'"></div>
         <span class="bar-label">{{game.enemies.hp}} / {{game.enemies.hpMax}} HP</span>
       </div>
     </div>
 
-    <div ng-if="game.enemies.list.length === 0" class="no-data">
+    <div *ngIf="game.enemies.list.length === 0" class="no-data">
       {{"No enemies"|translate}}
     </div>
 
@@ -135,8 +135,8 @@
         <div class="main_enemy">
 
           <div>{{enemy.name}} <strong>(LVL{{enemy.level}})</strong>
-              <span ng-if="enemy.boss" class="boss">ZONE BOSS</span>
-              <span ng-if="enemy.miboss" class="boss">BOSS</span>
+              <span *ngIf="enemy.boss" class="boss">ZONE BOSS</span>
+              <span *ngIf="enemy.miboss" class="boss">BOSS</span>
           </div>
 
           <div>
@@ -148,13 +148,13 @@
               <span class="label">ap</span> {{enemy.apReward()}}
               <span class="label">gils</span> {{enemy.gilsReward()}}
           </div>
-          <div ng-if="enemy.weakness.length > 0">
+          <div *ngIf="enemy.weakness.length > 0">
               {{'Weakness'|translate}}
-              <img *ngFor="let weakness of enemy.weakness" src="/img/icons/elements/{{weakness}}.png" class="weakness" />
+              <img *ngFor="let weakness of enemy.weakness" src="/assets/images/icons/elements/{{weakness}}.png" class="weakness" />
           </div>
-          <div ng-if="enemy.resistance.length > 0">
+          <div *ngIf="enemy.resistance.length > 0">
               {{'Resistance'|translate}}
-              <img *ngFor="let resistance of enemy.resistance" src="/img/icons/elements/{{resistance}}.png" class="resistance" />
+              <img *ngFor="let resistance of enemy.resistance" src="/assets/images/icons/elements/{{resistance}}.png" class="resistance" />
           </div>
         </div>
 
