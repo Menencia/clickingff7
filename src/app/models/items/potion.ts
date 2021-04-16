@@ -3,10 +3,14 @@ import { Item } from '../item';
 
 export class Potion extends Item {
 
+  name = 'Potion';
+  price = 60;
+
+  /**
+   * Init
+   */
   constructor(game: GameService) {
     super(game);
-    this.name = 'Potion';
-    this.price = 60;
   }
 
   available(): boolean {

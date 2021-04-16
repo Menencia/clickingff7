@@ -15,6 +15,7 @@ import { MateriaComponent } from './materia/materia.component';
 import { ItemsComponent } from './items/items.component';
 import { ConfigComponent } from './config/config.component';
 import { FormsModule } from '@angular/forms';
+import { SaveComponent } from './save/save.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -31,7 +32,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     EquipComponent,
     MateriaComponent,
     ItemsComponent,
-    ConfigComponent
+    ConfigComponent,
+    SaveComponent
   ],
   imports: [
     BrowserModule,

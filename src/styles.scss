@@ -524,11 +524,7 @@ table tr.item td {
   margin-right: 5px;
 }
 
-#area-export, #area-import {
-  display: none;
-}
-
-.areaExport, .areaImport {
+textarea {
   width: 280px;
   height: 280px;
 }

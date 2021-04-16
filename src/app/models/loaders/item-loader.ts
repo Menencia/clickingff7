@@ -3,7 +3,7 @@ import { Item } from '../item';
 import { Potion } from '../items/potion';
 
 export enum ItemRef {
-  Potion = 'potion'
+  Potion = 'Potion'
 }
 
 export class ItemLoader {
@@ -18,7 +18,7 @@ export class ItemLoader {
         item = new Potion(game);
         break;
       default:
-        throw new Error('Item not found');
+        throw new Error('Item not found: ' + ref);
     }
     return item;
   }

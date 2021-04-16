@@ -229,56 +229,56 @@ export class GameService {
    * Load a save
    */
   load(save: Save, confirm = true): void {
-    // if (!confirm) {
-    //   return;
-    // }
+    if (!confirm) {
+      return;
+    }
 
-    // // characters
-    // for (const c of save.characters.list) {
-    //   const character = new window[c.ref](this).load(c);
-    //   this.characters.add(character, c.inTeam);
-    // }
+    // characters
+    for (const c of save.characters.list) {
+      const character = CharacterLoader.build(c.ref, this).load(c);
+      this.characters.add(character, c.inTeam);
+    }
 
-    // this.characters.hp = save.characters.hp;
-    // this.characters.mp = save.characters.mp;
-    // this.characters.limit = save.characters.limit;
+    this.characters.hp = save.characters.hp;
+    this.characters.mp = save.characters.mp;
+    this.characters.limit = save.characters.limit;
 
-    // // zones
-    // for (const z of save.zones.list) {
-    //   const zone = new window[z.ref](this).load(z);
-    //   this.zones.add(zone);
-    // }
+    // zones
+    for (const z of save.zones.list) {
+      const zone = ZoneLoader.build(z.ref, this).load(z);
+      this.zones.add(zone);
+    }
 
-    // this.zones.level = save.zones.level;
-    // this.zones.levelMax = save.zones.levelMax;
+    this.zones.level = save.zones.level;
+    this.zones.levelMax = save.zones.levelMax;
 
-    // this.characters.available();
+    this.characters.available();
 
-    // // weapons
-    // for (const w of save.weapons) {
-    //   const weapon = new window[w.ref](this).load(w);
-    //   this.weapons.add(weapon, w.equipped);
-    // }
+    // weapons
+    for (const w of save.weapons) {
+      const weapon = WeaponLoader.build(w.ref, this).load(w);
+      this.weapons.add(weapon, w.equipped);
+    }
 
-    // // materias
-    // for (const m of save.materias) {
-    //   const materia = new window[m.ref](this).load(m);
-    //   this.materias.add(materia, m.equipped);
-    // }
+    // materias
+    for (const m of save.materias) {
+      const materia = MateriaLoader.build(m.ref, this).load(m);
+      this.materias.add(materia, m.equipped);
+    }
 
-    // // items
-    // for (const i of save.items) {
-    //   const item = new window[i.ref](this).load(i);
-    //   this.items.add(item, i.equipped);
-    // }
+    // items
+    for (const i of save.items) {
+      const item = ItemLoader.build(i.ref, this).load(i);
+      this.items.add(item, i.equipped);
+    }
 
-    // this.language = save.language;
-    // this.difficulty = save.difficulty;
+    this.language = save.language;
+    this.difficulty = save.difficulty;
 
-    // this.time = save.time;
-    // this.gils = save.gils;
+    this.time = save.time;
+    this.gils = save.gils;
 
-    // this.loaded = true;
+    this.loaded = true;
   }
 
   /**

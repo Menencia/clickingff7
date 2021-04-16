@@ -1,30 +1,29 @@
 import { GameService } from '../game.service';
+import { ItemRef } from './loaders/item-loader';
 import { ItemSave } from './save';
 
 export const MAX_ITEMS = 2;
 
 export abstract class Item {
 
-  ref: string;
+  ref: ItemRef;
   nbr: number;
   equipped: boolean;
-  price: number;
-  name: string;
+
+  abstract name: string;
+  abstract price: number;
 
   /**
    * Constructor
    */
   constructor(public game: GameService) {
-    this.ref = this.constructor.name;
+    this.ref = this.constructor.name as ItemRef;
 
     // nbr owned
     this.nbr = 1;
 
     // equipped
     this.equipped = false;
-
-    this.price = 0;
-    this.name = '';
   }
 
   /**

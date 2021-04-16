@@ -1,9 +1,10 @@
 import { GameService } from '../game.service';
+import { MateriaRef } from './loaders/materia-loader';
 import { MateriaSave } from './save';
 
 export abstract class Materia {
 
-  ref: string;
+  ref: MateriaRef;
   level: number;
   ap: number;
   equipped: boolean;
@@ -19,7 +20,7 @@ export abstract class Materia {
    * Init
    */
   constructor(public game: GameService) {
-    this.ref = this.constructor.name;
+    this.ref = this.constructor.name as MateriaRef;
 
     // current level
     this.level = 1;

@@ -1,3 +1,9 @@
+import { CharacterRef } from './loaders/character-loader';
+import { ItemRef } from './loaders/item-loader';
+import { MateriaRef } from './loaders/materia-loader';
+import { WeaponRef } from './loaders/weapon-loader';
+import { ZoneRef } from './loaders/zone-loader';
+
 export interface CharactersSave {
   list: CharacterSave[];
   hp: number;
@@ -6,10 +12,11 @@ export interface CharactersSave {
 }
 
 export interface CharacterSave {
-  ref: string;
+  ref: CharacterRef;
   inTeam: boolean;
   level: number;
   xp: number;
+  image: string;
 }
 
 export interface ZonesSave {
@@ -19,32 +26,31 @@ export interface ZonesSave {
 }
 
 export interface ZoneSave {
-  ref: string;
+  ref: ZoneRef;
   nbFights: number;
   completed: boolean;
 }
 
 export interface WeaponSave {
-  ref: string;
+  ref: WeaponRef;
   nbr: number;
   equipped: boolean;
 }
 
 export interface MateriaSave {
-  ref: string;
+  ref: MateriaRef;
   ap: number;
   level: number;
   equipped: boolean;
 }
 
 export interface ItemSave {
-  ref: string;
+  ref: ItemRef;
   nbr: number;
   equipped: boolean;
 }
 
 export interface Save {
-
   characters: CharactersSave;
   zones: ZonesSave;
   weapons: WeaponSave[];
@@ -55,5 +61,4 @@ export interface Save {
   time: number;
   gils: number;
   version: string;
-
 }

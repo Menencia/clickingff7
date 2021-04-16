@@ -1,6 +1,10 @@
 import { GameService } from 'src/app/game.service';
-import { Zone, ZoneRef } from '../zone';
+import { Zone } from '../zone';
 import { Zone1 } from '../zones/zone1';
+
+export enum ZoneRef {
+  Zone1 = 'Zone1'
+}
 
 export class ZoneLoader {
 

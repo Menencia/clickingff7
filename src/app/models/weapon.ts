@@ -1,31 +1,28 @@
 import { GameService } from '../game.service';
 import { WeaponSave } from '../models/save';
+import { WeaponRef } from './loaders/weapon-loader';
 
-export class Weapon {
+export abstract class Weapon {
 
-  ref: string;
+  ref: WeaponRef;
   nbr: number;
   equipped: boolean;
-  name: string;
-  price: number;
-  type: string;
-  hits: number;
-  maxMaterias: number;
+
+  abstract name: string;
+  abstract type: string;
+  abstract hits: number;
+  abstract price: number;
+  abstract maxMaterias: number;
+  abstract zoneAvailable: number;
 
   constructor(public game: GameService) {
-    this.ref = this.constructor.name;
+    this.ref = this.constructor.name as WeaponRef;
 
     // nbr owned
     this.nbr = 1;
 
     // equipped
     this.equipped = false;
-
-    this.name = '';
-    this.price = 0;
-    this.type = '';
-    this.hits = 0;
-    this.maxMaterias = 0;
   }
 
   /**

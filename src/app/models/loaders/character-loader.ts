@@ -13,7 +13,7 @@ export class CharacterLoader {
   /**
    *
    */
-  static build(ref: string, game: GameService): Character {
+  static build(ref: CharacterRef, game: GameService): Character {
     let character;
     switch (ref) {
       case CharacterRef.Cloud:

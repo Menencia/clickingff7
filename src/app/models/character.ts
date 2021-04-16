@@ -2,10 +2,11 @@ import { GameService } from '../game.service';
 import { Weapon } from './weapon';
 import { MAX_TEAM } from './characters';
 import { CharacterSave } from './save';
+import { CharacterRef } from './loaders/character-loader';
 
 export abstract class Character {
 
-  ref: string;
+  ref: CharacterRef;
   level: number;
   xp: number;
   isNotAvailable: boolean;
@@ -20,7 +21,7 @@ export abstract class Character {
   abstract notA: number[];
 
   constructor(public game: GameService) {
-    this.ref = this.constructor.name;
+    this.ref = this.constructor.name as CharacterRef;
     this.level = 1;
     this.xp = 0;
     this.isNotAvailable = false;
@@ -189,8 +190,8 @@ export abstract class Character {
    *
    */
   export(): CharacterSave {
-    const {ref, inTeam, level, xp} = this;
-    return {ref, inTeam, level, xp};
+    const {ref, inTeam, level, xp, image} = this;
+    return {ref, inTeam, level, xp, image};
   }
 
 }
