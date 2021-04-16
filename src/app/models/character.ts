@@ -3,34 +3,28 @@ import { Weapon } from './weapon';
 import { MAX_TEAM } from './characters';
 import { CharacterSave } from './save';
 
-export class Character {
+export abstract class Character {
 
   ref: string;
   level: number;
   xp: number;
-  notA: number[];
   isNotAvailable: boolean;
-  weaponType: string;
-  hpBase: number;
-  mpBase: number;
-  xpBase: number;
   inTeam: boolean;
-  image: string;
-  name: string;
+
+  abstract name: string;
+  abstract image: string;
+  abstract weaponType: string;
+  abstract hpBase: number;
+  abstract mpBase: number;
+  abstract xpBase: number;
+  abstract notA: number[];
 
   constructor(public game: GameService) {
     this.ref = this.constructor.name;
     this.level = 1;
     this.xp = 0;
-    this.notA = [];
     this.isNotAvailable = false;
-    this.weaponType = '';
-    this.hpBase = 0;
-    this.mpBase = 0;
-    this.xpBase = 0;
     this.inTeam = false;
-    this.image = '';
-    this.name = '';
   }
 
   /**
@@ -38,6 +32,14 @@ export class Character {
    */
   load(data: CharacterSave): Character {
     Object.assign({}, this, data);
+    return this;
+  }
+
+  /**
+   * Set current level
+   */
+  setLevel(level: number): Character {
+    this.level = level;
     return this;
   }
 

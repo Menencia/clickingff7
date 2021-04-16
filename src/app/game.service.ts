@@ -11,6 +11,10 @@ import { Zones } from './models/zones';
 import * as compareVersions from 'compare-versions';
 import { TranslateService } from '@ngx-translate/core';
 import { ZoneLoader } from './models/loaders/zone-loader';
+import { CharacterLoader, CharacterRef } from './models/loaders/character-loader';
+import { WeaponLoader, WeaponRef } from './models/loaders/weapon-loader';
+import { ItemLoader, ItemRef } from './models/loaders/item-loader';
+import { MateriaLoader, MateriaRef } from './models/loaders/materia-loader';
 
 const SAVE_1 = 'save1';
 
@@ -93,9 +97,10 @@ export class GameService {
     this.loaded = true;
 
     // search for save
+    let save;
     const s = localStorage[SAVE_1];
     if (s) {
-      let save = JSON.parse(atob(s));
+      save = JSON.parse(atob(s));
       if (save) {
         if (compareVersions(save.version, '1.1.0') >= 0) {
           this.saves.push(save);
@@ -104,15 +109,15 @@ export class GameService {
           this.reset();
         }
       }
+    }
 
-      // load save
-      if (save) {
-        this.load(save);
-        this.zones.checkLastZone();
-      } else {
-        this.reset();
-        this.buildLevel(1);
-      }
+    // load save
+    if (save) {
+      this.load(save);
+      this.zones.checkLastZone();
+    } else {
+      this.reset();
+      this.buildLevel(1);
     }
 
     // POSTLOAD
@@ -143,20 +148,20 @@ export class GameService {
     switch (level) {
       case 1:
         // add cloud in the team
-        // this.characters.add(new Cloud(this).load(data), true);
-        // this.weapons.add(new BusterSword(this), true);
+        this.characters.add(CharacterLoader.build(CharacterRef.Cloud, this).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.BusterSword, this), true);
 
         // add barret in the team
-        // this.characters.add(new Barret(this).load(data), true);
-        // this.weapons.add(new GatlingGun(this), true);
+        this.characters.add(CharacterLoader.build(CharacterRef.Barret, this).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.GatlingGun, this), true);
 
         // add materias
-        // this.materias.add(new Restore(this), true);
-        // this.materias.add(new Bolt(this), true);
+        this.materias.add(MateriaLoader.build(MateriaRef.Restore, this), true);
+        this.materias.add(MateriaLoader.build(MateriaRef.Bolt, this), true);
 
         // add items
-        // this.items.add(new Potion(this), true);
-        // this.items.add(new Potion(this), true);
+        this.items.add(ItemLoader.build(ItemRef.Potion, this), true);
+        this.items.add(ItemLoader.build(ItemRef.Potion, this), true);
 
         break;
       // case 2:

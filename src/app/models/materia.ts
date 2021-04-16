@@ -7,11 +7,17 @@ export abstract class Materia {
   level: number;
   ap: number;
   equipped: boolean;
-  price: number;
-  name: string;
-  apBase: number;
-  color: string;
 
+  abstract name: string;
+  abstract color: string;
+  abstract price: number;
+  abstract apBase: number;
+  abstract pwr: number;
+  abstract zoneAvailable: number;
+
+  /**
+   * Init
+   */
   constructor(public game: GameService) {
     this.ref = this.constructor.name;
 
@@ -23,11 +29,6 @@ export abstract class Materia {
 
     // nbr equipped
     this.equipped = false;
-
-    this.price = 0;
-    this.name = '';
-    this.apBase = 0;
-    this.color = '';
   }
 
   /**
@@ -51,7 +52,7 @@ export abstract class Materia {
   /**
    * Executes materia action
    */
-  action(fn: () => {}): void {
+  action(fn: () => void): void {
     // cost
     if (this.canUse()) {
       this.game.characters.mp -= this.getMpCost();
