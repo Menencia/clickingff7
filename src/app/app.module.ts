@@ -7,6 +7,8 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
+import { TimePipe } from './time.pipe';
+import { MapComponent } from './map/map.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -16,7 +18,9 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 @NgModule({
   declarations: [
     AppComponent,
-    GameComponent
+    GameComponent,
+    TimePipe,
+    MapComponent
   ],
   imports: [
     BrowserModule,

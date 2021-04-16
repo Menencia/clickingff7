@@ -14,15 +14,16 @@ export interface ZoneSave {
   completed: boolean;
 }
 
-export class Zone {
+export abstract class Zone {
 
   ref: string;
   nbFights: number;
   completed: boolean;
-  level: number;
-  image: string;
-  enemies: Enemy[];
-  boss: Enemy[];
+
+  abstract level: number;
+  abstract image: string;
+  abstract enemies: Enemy[];
+  abstract boss: Enemy[];
 
   /**
    * Init
@@ -31,10 +32,6 @@ export class Zone {
     this.ref = this.constructor.name;
     this.nbFights = 0;
     this.completed = false;
-    this.level = 0;
-    this.image = '';
-    this.enemies = [];
-    this.boss = [];
   }
 
   /**

@@ -13,25 +13,25 @@
 
   <nav class="game-menu" id="step10">
     <ul>
-      <li ng-click="goGame()" ng-class="{ current: isActive('/game')}">{{"Game"|translate}}</li>
-      <li ng-click="goMap()" ng-class="{ current: isActive('/map')}">
-          <div class="pull-right new" *ngIf="game.zones.nextZone">NEW</div>
-          {{"Map"|translate}}
+      <li (click)="goGame()" routerLinkActive="current">{{"Game"|translate}}</li>
+      <li (click)="goMap()" routerLinkActive="current">
+        <div class="pull-right new" *ngIf="game.zones.nextZone">NEW</div>
+        {{"Map"|translate}}
       </li>
-      <li ng-click="goShop()" ng-class="{ current: isActive('/shop')}">{{"Shop"|translate}}</li>
-      <li ng-click="goEquip()" ng-class="{ current: isActive('/equip')}">{{"Equip"|translate}}</li>
-      <li ng-click="goMateria()" ng-class="{ current: isActive('/materia')}">{{"Materia"|translate}}</li>
-      <li ng-click="goItems()" ng-class="{ current: isActive('/items')}">{{"Items"|translate}}</li>
-      <li ng-click="goConfig()" ng-class="{ current: isActive('/config')}">{{"Config"|translate}}</li>
-      <li ng-click="goPHS()" ng-class="{ current: isActive('/phs'), disabled: game.zones.levelMax < 5}">
-          {{"PHS"|translate}}
+      <li (click)="goShop()" routerLinkActive="current">{{"Shop"|translate}}</li>
+      <li (click)="goEquip()" routerLinkActive="current">{{"Equip"|translate}}</li>
+      <li (click)="goMateria()" routerLinkActive="current">{{"Materia"|translate}}</li>
+      <li (click)="goItems()" routerLinkActive="current">{{"Items"|translate}}</li>
+      <li (click)="goConfig()" routerLinkActive="current">{{"Config"|translate}}</li>
+      <li (click)="goPHS()" routerLinkActive="current" [class.disabled]="game.zones.levelMax < 5">
+        {{"PHS"|translate}}
       </li>
-      <li ng-click="goSave()" ng-class="{ current: isActive('/save')}">{{"Save"|translate}}</li>
+      <li (click)="goSave()" routerLinkActive="current">{{"Save"|translate}}</li>
     </ul>
   </nav>
 
   <div class="game-infos">
-    <div class="pull-right">{{game.time}}</div>
+    <div class="pull-right">{{game.time|time}}</div>
     <div>{{"Time"|translate}}:</div>
     <div class="pull-right">{{game.gils}}</div>
     <div>{{"Gil"|translate}}:</div>

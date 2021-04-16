@@ -1,0 +1,37 @@
+<nav class="actions">
+  <div class="block">
+    <ul>
+      <li *ngFor="let zone of game.zones.list" [class.current]="game.zones.level === zone.level"
+        (click)="game.zones.goZone(zone.level)">
+        {{'Zone'|translate}} {{zone.level}}
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="c1">
+
+  <img [src]="game.zones.current().image" width="80" alt="current_zone" style="float: left"/>
+
+  <div class="main">
+    <p>
+      {{"Zone "+game.zones.current().level+" name"|translate}} <strong>(#{{game.zones.current().level}})</strong>
+    </p>
+
+    <p>{{'Zone '+game.zones.current().level+' desc'|translate}}</p>
+  </div>
+
+</div><!--
+--><div class="c3">
+
+  <div class="no-data" *ngIf="!game.zones.current().completed">
+      {{"Not completed"|translate}}
+  </div>
+
+  <div class="no-data" *ngIf="game.zones.current().completed">
+    <div>{{"Completed"|translate}}</div>
+    <div *ngIf="game.zones.isNextZone()" (click)="game.zones.goNextZone()" class="button">
+      {{"Go next zone"|translate}}
+    </div>
+  </div>
+</div>
