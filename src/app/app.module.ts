@@ -11,6 +11,7 @@ import { TimePipe } from './time.pipe';
 import { MapComponent } from './map/map.component';
 import { ShopComponent } from './shop/shop.component';
 import { EquipComponent } from './equip/equip.component';
+import { MateriaComponent } from './materia/materia.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -24,7 +25,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     TimePipe,
     MapComponent,
     ShopComponent,
-    EquipComponent
+    EquipComponent,
+    MateriaComponent
   ],
   imports: [
     BrowserModule,

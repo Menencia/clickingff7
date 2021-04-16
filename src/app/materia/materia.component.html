@@ -1,0 +1,42 @@
+<div class="c2">
+
+  <table style="width: 100%">
+
+    <tr>
+      <th>{{'Name'|translate}}</th>
+      <th>{{'Evolution'|translate}}</th>
+      <th class="total">
+        {{game.materias.getEquipped().length}} <span class="b">/ {{game.weapons.maxMaterias()}}</span>
+      </th>
+    </tr>
+
+    <tr *ngFor="let materia of game.materias.list" class="materia">
+      <td>
+        <img src="/assets/images/icons/materias/{{materia.color}}.gif"/>
+        {{'Mat. '+materia.name +' name'|translate}}
+        <strong>(LVL{{materia.level}})</strong> PWR: {{materia.pwr}}<br/>
+        <span class="desc">{{'Mat. '+materia.name +' desc'|translate}}</span>
+      </td>
+      <td>
+        <div class="progress materia_ap">
+          <div class="materia_ap_progress" [style.width]="materia.apProgress(200) + 'px'"></div>
+          <span class="bar-label">{{materia.ap}} / {{materia.getApMax()}} AP</span>
+        </div>
+      </td>
+      <td class="total">
+        <span (click)="materia.unequip()" *ngIf="materia.equipped" class="hover">
+          ❌
+        </span>
+        <span (click)="materia.equip()" *ngIf="!materia.equipped && materia.canEquip()" class="hover">
+          ➕
+        </span>
+      </td>
+    </tr>
+
+    <tr *ngIf="game.materias.list.length === 0" class="nothing">
+      <td colspan="4">{{"No materia"|translate}}</td>
+    </tr>
+
+  </table>
+
+</div>
