@@ -89,17 +89,17 @@ export class Shop {
   /**
    * Enable a shop option
    */
-  // enable(option: string) {
-  //   this[option] = true;
-  //   this.refresh();
-  // }
+  enableAllWeapons(): void {
+    this.allWeapons = true;
+    this.refresh();
+  }
 
   /**
    * Disable a shop option
    */
-  // disable(option: string) {
-  //   this[option] = false;
-  //   this.refresh();
-  // }
+  disableAllWeapons(): void {
+    this.allWeapons = false;
+    this.refresh();
+  }
 
 }

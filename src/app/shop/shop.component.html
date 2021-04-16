@@ -1,0 +1,190 @@
+<nav class="actions" id="step1">
+  <div class="block">
+    <ul>
+      <li [class.current]="game.shop.section === 'buy'" (click)="changeSection('buy')">
+        {{"Buy"|translate}}
+      </li>
+      <li [class.current]="game.shop.section === 'sell'" (click)="changeSection('sell')">
+        {{"Sell"|translate}}
+      </li>
+    </ul>
+  </div>
+
+  <div class="block">
+    <ul>
+      <li [class.current]="game.shop.type === 'weapons'" (click)="changeType('weapons')">
+        {{"Weapons"|translate}}
+      </li>
+      <li [class.current]="game.shop.type === 'materias'" (click)="changeType('materias')">
+        {{"Materia"|translate}}
+      </li>
+      <li [class.current]="game.shop.type === 'items'" (click)="changeType('items')">
+        {{"Items"|translate}}
+      </li>
+    </ul>
+  </div>
+
+  <div class="block" *ngIf="game.shop.section === 'buy' && game.shop.type === 'weapons'">
+    <ul>
+      <li [class.current]="game.shop.allWeapons" (click)="game.shop.enableAllWeapons()">
+        {{"All"|translate}}
+      </li>
+      <li [class.current]="!game.shop.allWeapons" (click)="game.shop.disableAllWeapons()">
+        {{"New"|translate}}
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="c2">
+
+  <section *ngIf="game.shop.section === 'buy'">
+
+    <table style="width: 100%">
+
+      <tr>
+        <th>{{"Name"|translate}}</th>
+        <th>{{"In stock"|translate}}</th>
+        <th>{{"Price"|translate}}</th>
+        <th></th>
+      </tr>
+
+      <ng-template *ngIf="game.shop.type === 'weapons'">
+        <tr *ngFor="let weapon of game.shop.weapons">
+          <td>
+            <img src="/assets/images/icons/weapons/{{weapon.type}}.png" />
+            {{weapon.name}} <span class="desc">({{"Power"|translate}} {{weapon.hits}})</span>
+          </td>
+          <td>{{weapon.inStock()}}</td>
+          <td>{{weapon.price}} {{"Gils"|translate}}</td>
+          <td>
+            <span (click)="weapon.buy()" *ngIf="weapon.canBuy()" class="button">
+              {{"Buy"|translate}}
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+
+      <tr *ngIf="game.shop.type === 'weapons' && game.shop.weapons.length === 0" class="nothing">
+        <td colspan="4">
+          {{"Nothing new to buy"|translate}}<br />
+          <div class="link" (click)="game.shop.enableAllWeapons()">{{'See all weapons'|translate}}</div>
+        </td>
+      </tr>
+
+      <ng-template *ngIf="game.shop.type === 'materias'">
+        <tr *ngFor="let materia of game.shop.materias" class="materia">
+          <td>
+            <img src="/assets/images/icons/materias/{{materia.color}}.gif" />
+            {{'Mat. '+materia.name+' name'|translate}}<br />
+            <span class="desc">{{'Mat. '+materia.name+' desc'|translate}}</span>
+          </td>
+          <td>{{materia.inStock()}}</td>
+          <td>{{materia.price}} {{"Gils"|translate}}</td>
+          <td>
+            <span (click)="materia.buy()" *ngIf="materia.canBuy()" class="button">
+              {{"Buy"|translate}}
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+
+      <ng-template *ngIf="game.shop.type === 'items'">
+        <tr *ngFor="let item of game.shop.items" class="item">
+          <td>
+            <img src="/assets/images/icons/item.gif" />
+            {{'It. '+item.name+' name'|translate}}<br />
+            <span class="desc">{{'It. '+item.name+' desc'|translate}}</span>
+          </td>
+          <td>{{item.inStock()}}</td>
+          <td>{{item.price}} {{"Gils"|translate}}</td>
+          <td>
+            <span (click)="item.buy()" *ngIf="item.canBuy()" class="button">
+              {{"Buy"|translate}}
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+
+    </table>
+
+  </section>
+
+  <section *ngIf="game.shop.section === 'sell'">
+
+    <table style="width: 100%">
+
+      <tr>
+        <th>{{"Name"|translate}}</th>
+        <th>{{"In stock"|translate}}</th>
+        <th>{{"Price"|translate}}</th>
+        <th></th>
+      </tr>
+
+      <ng-template *ngIf="game.shop.type === 'weapons'">
+        <tr *ngFor="let weapon of game.weapons.list">
+          <td>
+            <img src="/assets/images/icons/weapons/{{weapon.type}}.png" />
+            {{weapon.name}} <span class="desc">({{"Power"|translate}} {{weapon.hits}})</span>
+          </td>
+          <td>{{weapon.inStock()}}</td>
+          <td>{{weapon.getSellPrice()}} {{"Gils"|translate}}</td>
+          <td>
+            <span (click)="weapon.sell()" *ngIf="weapon.canSell()" class="button">
+              {{"Sell"|translate}}
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+
+      <tr *ngIf="game.shop.type === 'weapons' && game.shop.type.length === 0" class="nothing">
+        <td colspan="4">{{"Nothing to sell"|translate}}</td>
+      </tr>
+
+      <ng-template *ngIf="game.shop.type === 'materias'">
+        <tr *ngFor="let materia of game.materias.list" class="materia">
+          <td>
+            <img src="/assets/images/icons/materias/{{materia.color}}.gif" />
+            {{'Mat. '+materia.name+' name'|translate}}
+            <span class="desc">{{'Mat. '+materia.name+' desc'|translate}}</span>
+          </td>
+          <td>{{materia.inStock()}}</td>
+          <td>{{materia.getSellPrice()}} {{"Gils"|translate}}</td>
+          <td>
+            <span (click)="materia.sell()" *ngIf="materia.canSell()" class="button">
+              {{"Sell"|translate}}
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+
+      <tr *ngIf="game.shop.type === 'materias' && game.materias.list.length === 0" class="nothing">
+        <td colspan="4">{{"Nothing to sell"|translate}}</td>
+      </tr>
+
+      <ng-template *ngIf="game.shop.type === 'items'">
+        <tr *ngFor="let item of game.items.list" class="item">
+          <td>
+            <img src="/assets/images/icons/item.gif" />
+            {{'It. '+item.name+' name'|translate}}<br />
+            <span class="desc">{{'It. '+item.name+' desc'|translate}}</span>
+          </td>
+          <td>{{item.inStock()}}</td>
+          <td>{{item.getSellPrice()}} {{"Gils"|translate}}</td>
+          <td>
+            <span (click)="item.sell()" *ngIf="item.canSell()" class="button">
+              {{"Sell"|translate}}
+            </span>
+          </td>
+        </tr>
+      </ng-template>
+
+      <tr *ngIf="game.shop.type === 'items' && game.items.list.length === 0" class="nothing">
+        <td colspan="4">{{"Nothing to sell"|translate}}</td>
+      </tr>
+
+    </table>
+
+  </section>
+
+</div>
