@@ -59,10 +59,16 @@ export abstract class Character {
   /*
   *
   */
-  weapon(): Weapon | undefined {
-    return this.game.weapons.list.find((w: Weapon) => {
+  weapon(): Weapon {
+    const weapon = this.game.weapons.list.find((w: Weapon) => {
       return w.type === this.weaponType && w.equipped === true;
     });
+
+    if (!weapon) {
+      throw new Error('Weapon not found !');
+    }
+
+    return weapon;
   }
 
   /**
@@ -70,7 +76,7 @@ export abstract class Character {
    */
   getOthersWeapons(): Weapon[] {
     return this.game.weapons.list.filter((w: Weapon) => {
-      return (w.type === this.weaponType && w.name !== this.weapon()?.name);
+      return (w.type === this.weaponType && w.name !== this.weapon().name);
     });
   }
 

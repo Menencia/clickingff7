@@ -10,6 +10,7 @@ import { GameComponent } from './game/game.component';
 import { TimePipe } from './time.pipe';
 import { MapComponent } from './map/map.component';
 import { ShopComponent } from './shop/shop.component';
+import { EquipComponent } from './equip/equip.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -22,7 +23,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     GameComponent,
     TimePipe,
     MapComponent,
-    ShopComponent
+    ShopComponent,
+    EquipComponent
   ],
   imports: [
     BrowserModule,
