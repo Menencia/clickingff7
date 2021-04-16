@@ -12,6 +12,7 @@ import { MapComponent } from './map/map.component';
 import { ShopComponent } from './shop/shop.component';
 import { EquipComponent } from './equip/equip.component';
 import { MateriaComponent } from './materia/materia.component';
+import { ItemsComponent } from './items/items.component';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -26,7 +27,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     MapComponent,
     ShopComponent,
     EquipComponent,
-    MateriaComponent
+    MateriaComponent,
+    ItemsComponent
   ],
   imports: [
     BrowserModule,

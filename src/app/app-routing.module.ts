@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EquipComponent } from './equip/equip.component';
 import { GameComponent } from './game/game.component';
+import { ItemsComponent } from './items/items.component';
 import { MapComponent } from './map/map.component';
 import { MateriaComponent } from './materia/materia.component';
 import { ShopComponent } from './shop/shop.component';
@@ -12,6 +13,7 @@ const routes: Routes = [
   { path: 'shop', component: ShopComponent },
   { path: 'equip', component: EquipComponent },
   { path: 'materia', component: MateriaComponent },
+  { path: 'items', component: ItemsComponent },
   { path: '', redirectTo: '/game', pathMatch: 'full' },
 ];
 
