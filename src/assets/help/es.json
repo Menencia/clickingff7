@@ -1,0 +1,75 @@
+{
+    "steps": [
+        {
+            "intro"   : "Bienvenido a éste pequeño tutorial. Empecemos a ver cómo funciona éste juego."
+        },
+        {
+            "element" : "#step1",
+            "intro"   : "¡Éste es tu grupo! Empiezas con dos personajes. Si ganan batallas, subirán de nivel y se volverán más poderosos.",
+            "position": "right"
+        },
+        {
+            "element" : "#step2",
+            "intro"   : "Éstos son los puntos de vida de tu grupo: si llegan a 0, habrás perdido la batalla.",
+            "position": "bottom"
+        },
+        {
+            "element" : "#step3",
+            "intro"   : "Aquí puedes ver los puntos mágicos de tu grupo. Los necesitas para utilizar hechizos.",
+            "position": "bottom"
+        },
+        {
+            "element" : "#step4",
+            "intro"   : "Cuando recibas daño, ésta barra irá creciendo. ¡Cuando esté llena, tu siguiente ataque hará muchísimo más daño!",
+            "position": "bottom"
+        },
+        {
+            "element" : "#step5",
+            "intro"   : "Aquí aparece el enemigo. Para ganar la batalla, debes matarlo antes de que él te liquide a tí.",
+            "position": "left"
+        },
+        {
+            "element" : "#step6",
+            "intro"   : "Haz click aquí para luchar contra enemigos. ¡Así de simple!",
+            "position": "right"
+        },
+        {
+            "element" : "#step7",
+            "intro"   : "Durante la batalla, puedes pulsar aquí tantas veces como desees. El HP de los enemigos disminuirá más rápido.",
+            "position": "right"
+        },
+        {
+            "element" : "#step8",
+            "intro"   : "Si piensas que el enemigo es demasiado fuerte, puedes escapar de la batalla.",
+            "position": "right"
+        },
+        {
+            "element" : "#step9",
+            "intro"   : "¡Éstas son tus magias! Recuerda que necesitas MP para utilizarlas. Por ejemplo, puedes usar 'Recuperar' para curar a tus personajes.",
+            "position": "right"
+        },
+        {
+            "element" : "#step10",
+            "intro"   : "Éste es el menú principal. Puedes comprar objetos en la tienda, administrar tus objetos, guardar tu partida, etc.",
+            "position": "left"
+        },
+        {
+            "element" : "#step11",
+            "intro"   : "Actualmente estás en ésta zona. Hay un Jefe oculto en cada zona. ¡Encuéntralo y desafíalo para para desbloquear la siguiente zona!",
+            "position": "top"
+        },
+        {
+            "element" : "#step12",
+            "intro"   : "Cada vez que el juego sea actualizado, puedes revisar las nuevas características haciendo click aquí.",
+            "position": "top"
+        },
+        {
+            "element" : "#step13",
+            "intro"   : "Si deseas reportar un bug o sugerir mejoras para hacer éste juego más divertido y completo, entra aquí.",
+            "position": "top"
+        },
+        {
+            "intro": "¡Bueno, eso es todo! ¡Gracias por tu atención! Buena suerte y diviértete ;)"
+        }
+    ]
+}

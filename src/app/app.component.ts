@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { GameService } from './game.service';
+import { HttpClient } from '@angular/common/http';
+import * as introJs from 'intro.js';
 
 @Component({
   selector: 'app-root',
@@ -12,7 +14,8 @@ export class AppComponent {
 
   constructor(
     public game: GameService,
-    public router: Router
+    public router: Router,
+    public http: HttpClient
   ) {}
 
   /**
@@ -96,19 +99,15 @@ export class AppComponent {
 
   // Show help
   help(): void {
-    // if (!Game.battle.isBattle) {
-    //   $location.path("/game");
+    if (!this.game.battle.isBattle) {
+      this.router.navigateByUrl('game');
 
-    //   $http({method: 'GET', url: 'help/' + Game.language + '.json'}).
-    //     success(function (data, status, headers, config) {
-    //       var intro = introJs();
-    //       intro.setOptions(data);
-    //       intro.start();
-    //     }).
-    //     error(function (data, status, headers, config) {
-    //       // called asynchronously if an error occurs
-    //       // or server returns response with an error status.
-    //     });
-    // }
+      this.http.get('/assets/help/' + this.game.language + '.json')
+        .subscribe((data) => {
+          const intro = introJs();
+          intro.setOptions(data);
+          intro.start();
+        });
+    }
   }
 }

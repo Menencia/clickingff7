@@ -1,0 +1,75 @@
+{
+    "steps": [
+        {
+            "intro"   : "Welcome to this little tutorial. Let's begin to see how to play this game."
+        },
+        {
+            "element" : "#step1",
+            "intro"   : "This is your team ! You begin with 2 characters. If they win battles, characters will level up and get stronger.",
+            "position": "right"
+        },
+        {
+            "element" : "#step2",
+            "intro"   : "This is the life points of your team : if it comes to 0, you fail the battle.",
+            "position": "bottom"
+        },
+        {
+            "element" : "#step3",
+            "intro"   : "This is the magic points of your team. You need them to use magic.",
+            "position": "bottom"
+        },
+        {
+            "element" : "#step4",
+            "intro"   : "When you get damaged, this bar will rise up. When it gets full, your next attack will be overkill !",
+            "position": "bottom"
+        },
+        {
+            "element" : "#step5",
+            "intro"   : "This is where the enemy will appears. To win the battle, you have to kill them before they do.",
+            "position": "left"
+        },
+        {
+            "element" : "#step6",
+            "intro"   : "Click here to fight enemies. That simple !",
+            "position": "right"
+        },
+        {
+            "element" : "#step7",
+            "intro"   : "During the battle, you can click as many times as you want on this button, enemies hp will decrease faster.",
+            "position": "right"
+        },
+        {
+            "element" : "#step8",
+            "intro"   : "If you think the enemy is too strong, you can also escape the battle.",
+            "position": "right"
+        },
+        {
+            "element" : "#step9",
+            "intro"   : "This is your magic ! Don't forget you need MP to use them. For example, you can use 'Restore' to cure your characters.",
+            "position": "right"
+        },
+        {
+            "element" : "#step10",
+            "intro"   : "This is the main menu. You can buy new items at the shop, handle your inventory, save your party, etc.",
+            "position": "left"
+        },
+        {
+            "element" : "#step11",
+            "intro"   : "Your are actually into this zone. There is a hidden boss in each zones. Find it and kill it to go next zone !",
+            "position": "top"
+        },
+        {
+            "element" : "#step12",
+            "intro"   : "Each time the game is updated, you can check the new features by clicking here.",
+            "position": "top"
+        },
+        {
+            "element" : "#step13",
+            "intro"   : "If you want to report a bug, or ask for features that can make this game more fun, go there.",
+            "position": "top"
+        },
+        {
+            "intro": "Well, that's all ! Thanks for your attention ! Good luck and have fun ;)"
+        }
+    ]
+}

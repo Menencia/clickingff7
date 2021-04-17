@@ -1,0 +1,75 @@
+{
+    "steps": [
+        {
+            "intro"   : "Bienvenue dans ce tutorial. Voyons comment jouer à ce jeu."
+        },
+        {
+            "element" : "#step1",
+            "intro"   : "Voici votre équipe ! Vous commencez avec 2 personnages. Lorsque vous affrontez des ennemis, vos personnages montent de niveau et deviennent plus forts.",
+            "position": "right"
+        },
+        {
+            "element" : "#step2",
+            "intro"   : "Voici les points de vie de votre équipe (HP) : s'ils sont réduits à 0, vous perdez le combat.",
+            "position": "bottom"
+        },
+        {
+            "element" : "#step3",
+            "intro"   : "Voici les points de magie de votre équipe (MP). Vous en aurez besoin pour lancer de la magie.",
+            "position": "bottom"
+        },
+        {
+            "element" : "#step4",
+            "intro"   : "Lorsque vous subissez des dégats, cette barre se remplit petit à petit. Lorsqu'elle est pleine, votre prochaine attaque devient surpuissante !",
+            "position": "bottom"
+        },
+        {
+            "element" : "#step5",
+            "intro"   : "Les ennemis apparaissent ici. Pour gagner le combat, vous devez les vaincre avant qu'ils ne le fassent.",
+            "position": "left"
+        },
+        {
+            "element" : "#step6",
+            "intro"   : "Cliquez ici pour affronter les ennemis. Aussi simple  que ça !",
+            "position": "right"
+        },
+        {
+            "element" : "#step7",
+            "intro"   : "Durant le combat, vous pouvez cliquer sur ce bouton autant de fois que vous le souhaitez, Les HP des ennemis baisseront plus rapidement.",
+            "position": "right"
+        },
+        {
+            "element" : "#step8",
+            "intro"   : "Si vous trouvez le combat trop difficile, vous avez la possibilité de fuir.",
+            "position": "right"
+        },
+        {
+            "element" : "#step9",
+            "intro"   : "Voici votre magie ! N'oubliez pas qu'il faut des MP pour vous en servir. Par exemple, vous pouvez utiliser 'Restaurer' pour soigner votre équipe.",
+            "position": "right"
+        },
+        {
+            "element" : "#step10",
+            "intro"   : "Voici le menu principal. Vous pouvez acheter de nouveaux objets à la boutique, gérer votre inventaire, enregistrer votre partie, etc.",
+            "position": "left"
+        },
+        {
+            "element" : "#step11",
+            "intro"   : "Vous vous trouvez actuellement dans cette zone. Un boss caché se trouve dans chacune des zones. Trouvez-le et affrontez-le pour passer à la zone suivante.",
+            "position": "top"
+        },
+        {
+            "element" : "#step12",
+            "intro"   : "Chaque fois que le jeu est mis à jour, vous pouvez vérifier les nouveautés en cliquant ici.",
+            "position": "top"
+        },
+        {
+            "element" : "#step13",
+            "intro"   : "Si vous voulez reporter une anomalie, ou demander une fonctionnalité qui pourrait rendre le jeu encore plus génial, allez-ici.",
+            "position": "top"
+        },
+        {
+            "intro": "Voilà, c'est fini ! Merci de votre attention ! Bonne chance et bon jeu ;)"
+        }
+    ]
+}
