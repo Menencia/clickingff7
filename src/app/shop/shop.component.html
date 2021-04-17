@@ -49,7 +49,7 @@
         <th></th>
       </tr>
 
-      <ng-template *ngIf="game.shop.type === 'weapons'">
+      <ng-container *ngIf="game.shop.type === 'weapons'">
         <tr *ngFor="let weapon of game.shop.weapons">
           <td>
             <img src="/assets/images/icons/weapons/{{weapon.type}}.png" />
@@ -63,7 +63,7 @@
             </span>
           </td>
         </tr>
-      </ng-template>
+      </ng-container>
 
       <tr *ngIf="game.shop.type === 'weapons' && game.shop.weapons.length === 0" class="nothing">
         <td colspan="4">
@@ -72,14 +72,15 @@
         </td>
       </tr>
 
-      <ng-template *ngIf="game.shop.type === 'materias'">
+      <ng-container *ngIf="game.shop.type === 'materias'">
         <tr *ngFor="let materia of game.shop.materias" class="materia">
           <td>
             <img src="/assets/images/icons/materias/{{materia.color}}.gif" />
             {{'Mat. '+materia.name+' name'|translate}}<br />
             <span class="desc">{{'Mat. '+materia.name+' desc'|translate}}</span>
           </td>
-          <td>{{materia.inStock()}}</td>
+          <td *ngIf="materia.inStock">🗸</td>
+          <td *ngIf="!materia.inStock"></td>
           <td>{{materia.price}} {{"Gils"|translate}}</td>
           <td>
             <span (click)="materia.buy()" *ngIf="materia.canBuy()" class="button">
@@ -87,9 +88,9 @@
             </span>
           </td>
         </tr>
-      </ng-template>
+      </ng-container>
 
-      <ng-template *ngIf="game.shop.type === 'items'">
+      <ng-container *ngIf="game.shop.type === 'items'">
         <tr *ngFor="let item of game.shop.items" class="item">
           <td>
             <img src="/assets/images/icons/item.gif" />
@@ -104,7 +105,7 @@
             </span>
           </td>
         </tr>
-      </ng-template>
+      </ng-container>
 
     </table>
 
@@ -121,7 +122,7 @@
         <th></th>
       </tr>
 
-      <ng-template *ngIf="game.shop.type === 'weapons'">
+      <ng-container *ngIf="game.shop.type === 'weapons'">
         <tr *ngFor="let weapon of game.weapons.list">
           <td>
             <img src="/assets/images/icons/weapons/{{weapon.type}}.png" />
@@ -135,13 +136,13 @@
             </span>
           </td>
         </tr>
-      </ng-template>
+      </ng-container>
 
       <tr *ngIf="game.shop.type === 'weapons' && game.shop.type.length === 0" class="nothing">
         <td colspan="4">{{"Nothing to sell"|translate}}</td>
       </tr>
 
-      <ng-template *ngIf="game.shop.type === 'materias'">
+      <ng-container *ngIf="game.shop.type === 'materias'">
         <tr *ngFor="let materia of game.materias.list" class="materia">
           <td>
             <img src="/assets/images/icons/materias/{{materia.color}}.gif" />
@@ -156,13 +157,13 @@
             </span>
           </td>
         </tr>
-      </ng-template>
+      </ng-container>
 
       <tr *ngIf="game.shop.type === 'materias' && game.materias.list.length === 0" class="nothing">
         <td colspan="4">{{"Nothing to sell"|translate}}</td>
       </tr>
 
-      <ng-template *ngIf="game.shop.type === 'items'">
+      <ng-container *ngIf="game.shop.type === 'items'">
         <tr *ngFor="let item of game.items.list" class="item">
           <td>
             <img src="/assets/images/icons/item.gif" />
@@ -177,7 +178,7 @@
             </span>
           </td>
         </tr>
-      </ng-template>
+      </ng-container>
 
       <tr *ngIf="game.shop.type === 'items' && game.items.list.length === 0" class="nothing">
         <td colspan="4">{{"Nothing to sell"|translate}}</td>

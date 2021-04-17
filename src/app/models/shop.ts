@@ -1,6 +1,8 @@
 import { GameService } from '../game.service';
 import { Item } from './item';
 import { ItemLoader, ItemRef } from './loaders/item-loader';
+import { MateriaLoader } from './loaders/materia-loader';
+import { WeaponLoader } from './loaders/weapon-loader';
 import { Materia } from './materia';
 import { Weapon } from './weapon';
 
@@ -35,42 +37,42 @@ export class Shop {
     this.materias = [];
     this.items = [];
 
-    // const weapons = [
-    //   'BusterSword',
-    //   'GatlingGun',
-    //   'AssaultGun',
-    //   'LeatherGlove',
-    //   'MetalKnuckle',
-    //   'GuardStick',
-    //   'MythrilRod',
-    //   'MythrilSaber',
-    //   'CannonBall',
-    //   'MythrilClaw',
-    //   'FullMetalStaff',
-    //   'FPtShuriken'
-    // ];
-    // for (const w of weapons) {
-    //   const weapon = Weapon.buildByRef(w, this.game);
-    //   if (weapon.zoneAvailable <= this.game.zones.levelMax && (this.allWeapons || weapon.inStock() === 0)) {
-    //     this.weapons.push(weapon);
-    //   }
-    // }
+    const weapons = [
+      'BusterSword',
+      'GatlingGun'
+      // 'AssaultGun',
+      // 'LeatherGlove',
+      // 'MetalKnuckle',
+      // 'GuardStick',
+      // 'MythrilRod',
+      // 'MythrilSaber',
+      // 'CannonBall',
+      // 'MythrilClaw',
+      // 'FullMetalStaff',
+      // 'FPtShuriken'
+    ];
+    for (const w of weapons) {
+      const weapon = WeaponLoader.build(w, this.game);
+      if (weapon.zoneAvailable <= this.game.zones.levelMax && (this.allWeapons || weapon.inStock() === 0)) {
+        this.weapons.push(weapon);
+      }
+    }
 
-    // const materias = [
-    //   'Restore',
-    //   'Bolt',
-    //   'Ice',
-    //   'Fire',
-    //   'Poison',
-    //   'Earth',
-    //   'ChocoMog'
-    // ];
-    // for (const m of materias) {
-    //   const materia = Materia.buildByRef(m, this.game);
-    //   if (materia.zoneAvailable <= this.game.zones.levelMax) {
-    //     this.materias.push(materia);
-    //   }
-    // }
+    const materias = [
+      'Restore',
+      'Bolt'
+      // 'Ice',
+      // 'Fire',
+      // 'Poison',
+      // 'Earth',
+      // 'ChocoMog'
+    ];
+    for (const m of materias) {
+      const materia = MateriaLoader.build(m, this.game);
+      if (materia.zoneAvailable <= this.game.zones.levelMax) {
+        this.materias.push(materia);
+      }
+    }
 
     const items = [
       ItemRef.Potion,
