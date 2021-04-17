@@ -30,8 +30,8 @@
 
   <div class="no-data" *ngIf="game.zones.current().completed">
     <div>{{"Completed"|translate}}</div>
-    <div *ngIf="game.zones.isNextZone()" (click)="game.zones.goNextZone()" class="button">
+    <!-- <div *ngIf="game.zones.isNextZone()" (click)="game.zones.goNextZone()" class="button">
       {{"Go next zone"|translate}}
-    </div>
+    </div> -->
   </div>
 </div>

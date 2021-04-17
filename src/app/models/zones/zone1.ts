@@ -8,9 +8,9 @@ export class Zone1 extends Zone {
   image = '/assets/images/zones/Sector_1_Reactor.png';
   enemies = [
     EnemyLoader.build(EnemyRef.FirstRay, this.game),
-    // 'MP',
-    // 'Grunt',
-    // 'Sweeper'
+    EnemyLoader.build(EnemyRef.MP, this.game),
+    EnemyLoader.build(EnemyRef.Grunt, this.game),
+    EnemyLoader.build(EnemyRef.Sweeper, this.game)
   ];
   boss = [
     EnemyLoader.build(EnemyRef.GuardScorpion, this.game)
