@@ -107,7 +107,6 @@ export class Enemies {
     if (this.arrHits.length > 5) {
       this.arrHits.pop();
     }
-    // this.game.$rootScope.$apply();
   }
 
   /**

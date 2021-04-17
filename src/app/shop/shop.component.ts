@@ -9,12 +9,7 @@ import { GameService } from '../game.service';
 })
 export class ShopComponent {
 
-  constructor(public game: GameService, public router: Router) {
-    // Redirection
-    if (!game.loaded) {
-      this.router.navigateByUrl('game');
-    }
-  }
+  constructor(public game: GameService) {}
 
   changeSection(s: string): void {
     this.game.shop.section = s;

@@ -15,11 +15,6 @@ export class SaveComponent {
   showAreaImport: boolean;
 
   constructor(public game: GameService, public router: Router) {
-    // Redirection
-    if (!this.game.loaded) {
-      this.router.navigateByUrl('game');
-    }
-
     this.areaExport = '';
     this.areaImport = '';
     this.showAreaExport = false;
@@ -38,8 +33,10 @@ export class SaveComponent {
    */
   resetGame(): void {
     if (this.game.saves[0] && confirm('Are you sure ? You\'ll lose everything !')) {
+      this.game.preload();
       this.game.reset();
       this.game.buildLevel(1);
+      this.game.postload();
       this.router.navigateByUrl('game');
     }
   }
@@ -79,7 +76,9 @@ export class SaveComponent {
   importSave(): void {
     if (this.areaImport && confirm('Are you sure ? You\'ll lose your current save !')) {
       const save = JSON.parse(atob(this.areaImport));
+      this.game.preload();
       this.game.load(save);
+      this.game.postload();
       this.router.navigateByUrl('game');
     }
   }

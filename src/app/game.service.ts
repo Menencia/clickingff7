@@ -17,43 +17,56 @@ import { ItemLoader, ItemRef } from './models/loaders/item-loader';
 import { MateriaLoader, MateriaRef } from './models/loaders/materia-loader';
 
 const SAVE_1 = 'save1';
+const CURRENT_VERSION = '1.1.2';
+const BASE_GILS = 200;
+
+enum Difficulty {
+  Easy = 1,
+  Normal = 2,
+  Hard = 3
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class GameService {
 
-  loaded: boolean;
-  mode: string;
+  /** time counter */
   timer: number;
 
+  /** battle module */
   battle: Battle;
+
+  /** shop module */
   shop: Shop;
+
+  /** Enemies module */
   enemies: Enemies;
 
-  characters: Characters;
-  zones: Zones;
-  weapons: Weapons;
-  materias: Materias;
-  items: Items;
+  /** List of saves */
+  saves: Save[] = [];
 
-  gils: number;
-  language: string;
-  difficulty: number;
-  time: number;
-  version: string;
+  /** Last export */
+  lastExport = '';
 
-  saves: Save[];
-  lastExport: string;
+  /**
+   * Save settings
+   */
+  characters = new Characters(this);
+  zones = new Zones(this);
+  weapons = new Weapons(this);
+  materias = new Materias(this);
+  items = new Items(this);
+  gils = BASE_GILS;
+  language = this.getLanguage(this.translate.getBrowserLang());
+  difficulty = Difficulty.Normal;
+  time = 0;
+  version = CURRENT_VERSION;
 
-  constructor(public translateService: TranslateService) {
-    // detect first load
-    this.loaded = false;
-
-    // fight mode
-    // @deprecated
-    this.mode = 'normal';
-
+  /**
+   * init
+   */
+  constructor(public translate: TranslateService) {
     // timer
     this.timer = 0;
 
@@ -61,23 +74,6 @@ export class GameService {
     this.battle = new Battle(this);
     this.shop = new Shop(this);
     this.enemies = new Enemies(this);
-
-    // savable models
-    this.characters = new Characters(this);
-    this.zones = new Zones(this);
-    this.weapons = new Weapons(this);
-    this.materias = new Materias(this);
-    this.items = new Items(this);
-
-    // savable vars
-    this.gils = 200;
-    this.language = this.getLanguage(translateService.getDefaultLang());
-    this.difficulty = 2;
-    this.time = 0;
-    this.version = '1.1.2';
-
-    this.saves = [];
-    this.lastExport = '';
 
     // load all resources
     this.run();
@@ -94,7 +90,8 @@ export class GameService {
   }
 
   run(): void {
-    this.loaded = true;
+    // PRELOAD
+    this.preload();
 
     // search for save
     let save;
@@ -121,7 +118,30 @@ export class GameService {
     }
 
     // POSTLOAD
-    // this.$translate.use(this.language);
+    this.postload();
+  }
+
+  /**
+   * Preload all savable variables
+   */
+  preload(): void {
+    this.characters = new Characters(this);
+    this.zones = new Zones(this);
+    this.weapons = new Weapons(this);
+    this.materias = new Materias(this);
+    this.items = new Items(this);
+    this.gils = BASE_GILS;
+    this.language = this.getLanguage(this.translate.getBrowserLang());
+    this.difficulty = Difficulty.Normal;
+    this.time = 0;
+    this.version = CURRENT_VERSION;
+  }
+
+  /**
+   * Refresh the game with data loaded
+   */
+  postload(): void {
+    this.translate.use(this.language);
 
     this.shop.refresh();
 
@@ -143,7 +163,6 @@ export class GameService {
 
     // data to load characters
     const levelMax = this.characters.levelMax ? this.characters.levelMax : 1;
-    const data = {level: levelMax};
 
     switch (level) {
       case 1:
@@ -277,8 +296,6 @@ export class GameService {
 
     this.time = save.time;
     this.gils = save.gils;
-
-    this.loaded = true;
   }
 
   /**

@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { GameService } from '../game.service';
 
@@ -10,12 +9,7 @@ import { GameService } from '../game.service';
 })
 export class ConfigComponent {
 
-  constructor(public game: GameService, public router: Router, public translate: TranslateService) {
-    // Redirection
-    if (!this.game.loaded) {
-      this.router.navigateByUrl('game');
-    }
-  }
+  constructor(public game: GameService, public translate: TranslateService) {}
 
   changeLanguage(): void {
     this.translate.use(this.game.language);

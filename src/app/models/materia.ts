@@ -36,7 +36,10 @@ export abstract class Materia {
    * Extends
    */
   load(data: MateriaSave): Materia {
-    Object.assign({}, this, data);
+    this.ref = data.ref;
+    this.level = data.level;
+    this.ap = data.ap;
+    this.equipped = data.equipped;
     return this;
   }
 

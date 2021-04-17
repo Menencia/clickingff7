@@ -29,7 +29,9 @@ export abstract class Zone {
    * Extends
    */
   load(data: ZoneSave): Zone {
-    Object.assign({}, this, data);
+    this.ref = data.ref;
+    this.nbFights = data.nbFights;
+    this.completed = data.completed;
     return this;
   }
 

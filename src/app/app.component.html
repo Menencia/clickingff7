@@ -1,15 +1,11 @@
 <header>
   <div class="wrapper">
     clicking ff7
-    <span ng-click="help()" class="help" *ngIf="game.loaded">{{"How to play?"|translate}}</span>
-    <div class="progress game_load" *ngIf="!game.loaded">
-      <!-- <div class="game_load_progress" style="width:{{game.loader.loadProgress(300)}}px;"></div>
-      <span class="bar-label">{{game.loader.filesLoaded}} / {{game.loader.nbFiles}} – {{game.loader.currentLabel}}</span> -->
-    </div>
+    <span ng-click="help()" class="help">{{"How to play?"|translate}}</span>
   </div>
 </header>
 
-<div class="page" *ngIf="game.loaded">
+<div class="page">
 
   <nav class="game-menu" id="step10">
     <ul>
@@ -50,7 +46,7 @@
 
 </div>
 
-<footer ng-show="game.loaded">
+<footer>
   <div class="wrapper">
     <div>
       ©2014 <a href="http://menencia.com" target="_blank">menencia.com</a>, version <a

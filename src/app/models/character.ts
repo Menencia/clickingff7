@@ -32,7 +32,11 @@ export abstract class Character {
    * Extends
    */
   load(data: CharacterSave): Character {
-    Object.assign({}, this, data);
+    this.ref = data.ref;
+    this.level = data.level;
+    this.xp = data.xp;
+    this.inTeam = data.inTeam;
+    this.image = data.image;
     return this;
   }
 

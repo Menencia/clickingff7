@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { GameService } from '../game.service';
 
 @Component({
@@ -6,11 +6,8 @@ import { GameService } from '../game.service';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent {
 
   constructor(public game: GameService) { }
-
-  ngOnInit(): void {
-  }
 
 }

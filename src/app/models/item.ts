@@ -30,7 +30,9 @@ export abstract class Item {
    * Extends
    */
   load(data: ItemSave): Item {
-    Object.assign({}, this, data);
+    this.ref = data.ref;
+    this.nbr = data.nbr;
+    this.equipped = data.equipped;
     return this;
   }
 
