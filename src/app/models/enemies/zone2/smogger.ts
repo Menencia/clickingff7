@@ -1,0 +1,25 @@
+import { GameService } from 'src/app/game.service';
+import { Enemy } from '../../enemy';
+
+export class Smogger extends Enemy {
+
+  name = 'Smogger';
+  image = '/assets/images/enemies/zone2/smogger.png';
+  baseHpMax = 4;
+  baseHits = 2;
+  baseXp = 2;
+  baseAp = 1;
+  baseGils = 3;
+  weakness = ['bolt'];
+  resistance = [];
+  boss = false;
+  miboss = false;
+
+  /**
+   * Init
+   */
+  constructor(game: GameService) {
+    super(game);
+  }
+
+}

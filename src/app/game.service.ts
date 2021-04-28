@@ -183,34 +183,34 @@ export class GameService {
         this.items.add(ItemLoader.build(ItemRef.Potion, this), true);
 
         break;
-      // case 2:
-      //   // add tifa in the team
-      //   this.characters.add(new Tifa(this).load(data), true);
-      //   this.weapons.add(new LeatherGlove(this), true);
-      //   break;
-      // case 3:
-      //   // add aerith in the team
-      //   this.characters.add(new Aerith(this).load(data), true);
-      //   this.weapons.add(new GuardStick(this), true);
-      //   break;
-      // case 4:
-      //   // add barret & tifa in the team
-      //   for (var c of this.characters.list) {
-      //     if (c.constructor.name === 'Barret' || c.constructor.name === 'Tifa') {
-      //       c.inTeam = true;
-      //     }
-      //   }
-      //   break;
-      // case 5:
-      //   // add redxiii in the team
-      //   this.characters.add(new RedXIII(this).load(data), true);
-      //   this.weapons.add(new MythrilClip(this), true);
-      //   break;
-      // case 9:
-      //   // add yuffie in the team
-      //   this.characters.add(new Yuffie(this).load(data), true);
-      //   this.weapons.add(new FPtShuriken(this), true);
-      //   break;
+      case 2:
+        // add tifa in the team
+        this.characters.add(CharacterLoader.build(CharacterRef.Tifa, this).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.LeatherGlove, this), true);
+        break;
+      case 3:
+        // add aerith in the team
+        // this.characters.add(new Aerith(this).load(data), true);
+        // this.weapons.add(new GuardStick(this), true);
+        break;
+      case 4:
+        // add barret & tifa in the team
+        // for (var c of this.characters.list) {
+        //   if (c.constructor.name === 'Barret' || c.constructor.name === 'Tifa') {
+        //     c.inTeam = true;
+        //   }
+        // }
+        break;
+      case 5:
+        // add redxiii in the team
+        // this.characters.add(new RedXIII(this).load(data), true);
+        // this.weapons.add(new MythrilClip(this), true);
+        break;
+      case 9:
+        // add yuffie in the team
+        // this.characters.add(new Yuffie(this).load(data), true);
+        // this.weapons.add(new FPtShuriken(this), true);
+        break;
     }
 
   }
