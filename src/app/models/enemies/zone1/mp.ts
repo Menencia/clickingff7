@@ -10,8 +10,5 @@ export class Mp extends Enemy {
   baseAp = 1;
   baseGils = 3;
   weakness = ['ice'];
-  resistance = [];
-  boss = false;
-  miboss = false;
 
 }

@@ -1,13 +1,15 @@
 import { GameService } from 'src/app/game.service';
 import { Character } from '../character';
+import { Aerith } from '../characters/aerith';
 import { Barret } from '../characters/barret';
 import { Cloud } from '../characters/cloud';
 import { Tifa } from '../characters/tifa';
 
 export enum CharacterRef {
-  Cloud = 'Cloud',
+  Aerith = 'Aerith',
   Barret = 'Barret',
-  Tifa = 'Tifa'
+  Cloud = 'Cloud',
+  Tifa = 'Tifa',
 }
 
 export class CharacterLoader {
@@ -18,11 +20,14 @@ export class CharacterLoader {
   static build(ref: CharacterRef, game: GameService): Character {
     let character;
     switch (ref) {
-      case CharacterRef.Cloud:
-        character = new Cloud(game);
+      case CharacterRef.Aerith:
+        character = new Aerith(game);
         break;
       case CharacterRef.Barret:
         character = new Barret(game);
+        break;
+      case CharacterRef.Cloud:
+        character = new Cloud(game);
         break;
       case CharacterRef.Tifa:
         character = new Tifa(game);

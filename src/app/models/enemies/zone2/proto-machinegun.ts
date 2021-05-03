@@ -10,8 +10,5 @@ export class ProtoMachinegun extends Enemy {
   baseAp = 1;
   baseGils = 1;
   weakness = ['bolt'];
-  resistance = [];
-  boss = false;
-  miboss = false;
 
 }

@@ -190,8 +190,8 @@ export class GameService {
         break;
       case 3:
         // add aerith in the team
-        // this.characters.add(new Aerith(this).load(data), true);
-        // this.weapons.add(new GuardStick(this), true);
+        this.characters.add(CharacterLoader.build(CharacterRef.Aerith, this).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.GuardStick, this), true);
         break;
       case 4:
         // add barret & tifa in the team

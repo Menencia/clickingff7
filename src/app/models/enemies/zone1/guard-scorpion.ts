@@ -10,8 +10,6 @@ export class GuardScorpion extends Enemy {
   baseAp = 3;
   baseGils = 3;
   weakness = ['bolt'];
-  resistance = [];
   boss = true;
-  miboss = false;
 
 }

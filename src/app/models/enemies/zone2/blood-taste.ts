@@ -10,8 +10,5 @@ export class BloodTaste extends Enemy {
   baseAp = 1;
   baseGils = 4;
   weakness = ['fire'];
-  resistance = [];
-  boss = false;
-  miboss = false;
 
 }

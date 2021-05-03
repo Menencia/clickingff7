@@ -10,8 +10,5 @@ export class Smogger extends Enemy {
   baseAp = 1;
   baseGils = 3;
   weakness = ['bolt'];
-  resistance = [];
-  boss = false;
-  miboss = false;
 
 }

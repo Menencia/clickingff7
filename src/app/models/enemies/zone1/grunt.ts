@@ -10,8 +10,5 @@ export class Grunt extends Enemy {
   baseAp = 1;
   baseGils = 4;
   weakness = ['ice'];
-  resistance = [];
-  boss = false;
-  miboss = false;
 
 }

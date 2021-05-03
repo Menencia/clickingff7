@@ -10,8 +10,6 @@ export class AirBuster extends Enemy {
   baseAp = 5;
   baseGils = 5;
   weakness = ['bolt'];
-  resistance = [];
   boss = true;
-  miboss = false;
 
 }

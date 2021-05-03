@@ -10,8 +10,5 @@ export class FirstRay extends Enemy {
   baseAp = 1;
   baseGils = 5;
   weakness = ['bolt'];
-  resistance = [];
-  boss = false;
-  miboss = false;
 
 }

@@ -16,10 +16,11 @@ export abstract class Enemy {
   abstract baseXp: number;
   abstract baseAp: number;
   abstract baseGils: number;
-  abstract weakness: string[];
-  abstract resistance: string[];
-  abstract boss: boolean;
-  abstract miboss: boolean;
+
+  weakness: string[];
+  resistance: string[];
+  boss: boolean;
+  miboss: boolean;
 
   /**
    * Init
@@ -31,6 +32,11 @@ export abstract class Enemy {
     this.xp = 0;
     this.ap = 0;
     this.gils = 0;
+
+    this.weakness = [];
+    this.resistance = [];
+    this.boss = false;
+    this.miboss = false;
   }
 
   /**
