@@ -2,7 +2,7 @@ import { GameService } from '../game.service';
 import { ZonesSave } from './save';
 import { Zone } from './zone';
 
-export const MAX_ZONES = 3;
+export const MAX_ZONES = 4;
 
 export class Zones {
 

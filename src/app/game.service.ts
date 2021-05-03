@@ -195,11 +195,11 @@ export class GameService {
         break;
       case 4:
         // add barret & tifa in the team
-        // for (var c of this.characters.list) {
-        //   if (c.constructor.name === 'Barret' || c.constructor.name === 'Tifa') {
-        //     c.inTeam = true;
-        //   }
-        // }
+        for (const c of this.characters.list) {
+          if (c.constructor.name === 'Barret' || c.constructor.name === 'Tifa') {
+            c.inTeam = true;
+          }
+        }
         break;
       case 5:
         // add redxiii in the team

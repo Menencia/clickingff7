@@ -14,19 +14,29 @@ import { HedgehogPie } from '../enemies/zone3/hedgehog-pie';
 import { HellHouse } from '../enemies/zone3/hell-house';
 import { Vice } from '../enemies/zone3/vice';
 import { WholeEater } from '../enemies/zone3/whole-eater';
+import { AeroCombatant } from '../enemies/zone4/aero-combatant';
+import { Deenglow } from '../enemies/zone4/deenglow';
+import { Eligor } from '../enemies/zone4/eligor';
+import { GuardHound } from '../enemies/zone4/guard-hound';
+import { Reno } from '../enemies/zone4/reno';
 import { Enemy } from '../enemy';
 
 export enum EnemyRef {
+  AeroCombatant = 'AeroCombatant',
   AirBuster = 'AirBuster',
   Aps = 'Aps',
   BloodTaste = 'BloodTaste',
+  Deenglow = 'Deenglow',
+  Eligor = 'Eligor',
   FirstRay = 'FirstRay',
   Grunt = 'Grunt',
+  GuardHound = 'GuardHound',
   GuardScorpion = 'GuardScorpion',
   HedgehogPie = 'HedgehogPie',
   HellHouse = 'HellHouse',
   MP = 'MP',
   ProtoMachinegun = 'ProtoMachinegun',
+  Reno = 'Reno',
   Smogger = 'Smogger',
   SpecialCombatant = 'SpecialCombatant',
   Sweeper = 'Sweeper',
@@ -42,6 +52,9 @@ export class EnemyLoader {
   static build(ref: string, game: GameService): Enemy {
     let enemy;
     switch (ref) {
+      case EnemyRef.AeroCombatant:
+        enemy = new AeroCombatant(game);
+        break;
       case EnemyRef.AirBuster:
         enemy = new AirBuster(game);
         break;
@@ -51,11 +64,20 @@ export class EnemyLoader {
       case EnemyRef.BloodTaste:
         enemy = new BloodTaste(game);
         break;
+      case EnemyRef.Deenglow:
+        enemy = new Deenglow(game);
+        break;
+      case EnemyRef.Eligor:
+        enemy = new Eligor(game);
+        break;
       case EnemyRef.FirstRay:
         enemy = new FirstRay(game);
         break;
       case EnemyRef.Grunt:
         enemy = new Grunt(game);
+        break;
+      case EnemyRef.GuardHound:
+        enemy = new GuardHound(game);
         break;
       case EnemyRef.GuardScorpion:
         enemy = new GuardScorpion(game);
@@ -74,6 +96,9 @@ export class EnemyLoader {
         break;
       case EnemyRef.Smogger:
         enemy = new Smogger(game);
+        break;
+      case EnemyRef.Reno:
+        enemy = new Reno(game);
         break;
       case EnemyRef.SpecialCombatant:
         enemy = new SpecialCombatant(game);
