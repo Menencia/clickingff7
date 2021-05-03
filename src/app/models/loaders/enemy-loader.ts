@@ -24,6 +24,11 @@ import { SampleH0512 } from '../enemies/zone5/sample-h0512';
 import { Soldier3rd } from '../enemies/zone5/soldier3rd';
 import { SwordDance } from '../enemies/zone5/sword-dance';
 import { VargidPolice } from '../enemies/zone5/vargid-police';
+import { HeliGunner } from '../enemies/zone6/heli-gunner';
+import { HundredGunner } from '../enemies/zone6/hundred-gunner';
+import { MotorBall } from '../enemies/zone6/motor-ball';
+import { Rufus } from '../enemies/zone6/rufus';
+import { Zenene } from '../enemies/zone6/zenene';
 import { Enemy } from '../enemy';
 
 export enum EnemyRef {
@@ -38,11 +43,15 @@ export enum EnemyRef {
   GuardHound = 'GuardHound',
   GuardScorpion = 'GuardScorpion',
   HedgehogPie = 'HedgehogPie',
+  HeliGunner = 'HeliGunner',
   HellHouse = 'HellHouse',
+  HundredGunner = 'HundredGunner',
   MightyGrunt = 'MightyGrunt',
+  MotorBall = 'MotorBall',
   MP = 'MP',
   ProtoMachinegun = 'ProtoMachinegun',
   Reno = 'Reno',
+  Rufus = 'Rufus',
   SampleH0512 = 'SampleH0512',
   Smogger = 'Smogger',
   Soldier3rd = 'Soldier3rd',
@@ -52,6 +61,7 @@ export enum EnemyRef {
   VargidPolice = 'VargidPolice',
   Vice = 'Vice',
   WholeEater = 'WholeEater',
+  Zenene = 'Zenene',
 }
 
 export class EnemyLoader {
@@ -95,11 +105,20 @@ export class EnemyLoader {
       case EnemyRef.HedgehogPie:
         enemy = new HedgehogPie(game);
         break;
+      case EnemyRef.HeliGunner:
+        enemy = new HeliGunner(game);
+        break;
       case EnemyRef.HellHouse:
         enemy = new HellHouse(game);
         break;
+      case EnemyRef.HundredGunner:
+        enemy = new HundredGunner(game);
+        break;
       case EnemyRef.MightyGrunt:
         enemy = new MightyGrunt(game);
+        break;
+      case EnemyRef.MotorBall:
+        enemy = new MotorBall(game);
         break;
       case EnemyRef.MP:
         enemy = new Mp(game);
@@ -112,6 +131,9 @@ export class EnemyLoader {
         break;
       case EnemyRef.Reno:
         enemy = new Reno(game);
+        break;
+      case EnemyRef.Rufus:
+        enemy = new Rufus(game);
         break;
       case EnemyRef.SampleH0512:
         enemy = new SampleH0512(game);
@@ -136,6 +158,9 @@ export class EnemyLoader {
         break;
       case EnemyRef.WholeEater:
         enemy = new WholeEater(game);
+        break;
+      case EnemyRef.Zenene:
+        enemy = new Zenene(game);
         break;
       default:
         throw new Error('Enemy not found');

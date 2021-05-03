@@ -4,12 +4,16 @@ import { Zone1 } from '../zones/zone1';
 import { Zone2 } from '../zones/zone2';
 import { Zone3 } from '../zones/zone3';
 import { Zone4 } from '../zones/zone4';
+import { Zone5 } from '../zones/zone5';
+import { Zone6 } from '../zones/zone6';
 
 export enum ZoneRef {
   Zone1 = 'Zone1',
   Zone2 = 'Zone2',
   Zone3 = 'Zone3',
   Zone4 = 'Zone4',
+  Zone5 = 'Zone5',
+  Zone6 = 'Zone6',
 }
 
 export class ZoneLoader {
@@ -31,6 +35,12 @@ export class ZoneLoader {
         break;
       case ZoneRef.Zone4:
         zone = new Zone4(game);
+        break;
+      case ZoneRef.Zone5:
+        zone = new Zone5(game);
+        break;
+      case ZoneRef.Zone6:
+        zone = new Zone6(game);
         break;
       default:
         throw new Error('Zone not found');
@@ -55,6 +65,12 @@ export class ZoneLoader {
         break;
       case 4:
         zone = ZoneLoader.build(ZoneRef.Zone4, game);
+        break;
+      case 5:
+        zone = ZoneLoader.build(ZoneRef.Zone5, game);
+        break;
+      case 6:
+        zone = ZoneLoader.build(ZoneRef.Zone6, game);
         break;
       default:
         throw new Error('Zone not found');
