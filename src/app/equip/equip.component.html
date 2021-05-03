@@ -43,7 +43,7 @@
       </tr>
       <tr *ngFor="let weapon of game.characters.selected.getOthersWeapons()" class="weapon">
         <td>{{weapon.name}}</td>
-        <td><span ng-click="weapon.equip()" class="button">{{"Equip"|translate}}</span></td>
+        <td><span (click)="weapon.equip()" class="button">{{"Equip"|translate}}</span></td>
       </tr>
     </table>
   </div>
