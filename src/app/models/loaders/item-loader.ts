@@ -1,9 +1,11 @@
 import { GameService } from 'src/app/game.service';
 import { Item } from '../item';
+import { Ether } from '../items/ether';
 import { Potion } from '../items/potion';
 
 export enum ItemRef {
-  Potion = 'Potion'
+  Ether = 'Ether',
+  Potion = 'Potion',
 }
 
 export class ItemLoader {
@@ -14,6 +16,9 @@ export class ItemLoader {
     static build(ref: ItemRef, game: GameService): Item {
     let item;
     switch (ref) {
+      case ItemRef.Ether:
+        item = new Ether(game);
+        break;
       case ItemRef.Potion:
         item = new Potion(game);
         break;

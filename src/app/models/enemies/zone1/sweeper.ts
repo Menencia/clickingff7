@@ -1,4 +1,3 @@
-import { GameService } from 'src/app/game.service';
 import { Enemy } from '../../enemy';
 
 export class Sweeper extends Enemy {
@@ -14,12 +13,5 @@ export class Sweeper extends Enemy {
   resistance = [];
   boss = false;
   miboss = false;
-
-  /**
-   * Init
-   */
-  constructor(game: GameService) {
-    super(game);
-  }
 
 }

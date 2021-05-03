@@ -1,13 +1,13 @@
 import { AttackMateria } from '../attack-materia';
 
-export class Bolt extends AttackMateria {
+export class Ice extends AttackMateria {
 
-  name = 'Bolt';
+  name = 'Ice';
   color = 'green';
   price = 300;
   apBase = 3;
   pwr = 50;
+  elements = ['ice'];
   zoneAvailable = 1;
-  elements = ['bolt'];
 
 }

@@ -1,8 +1,8 @@
 import { GameService } from '../game.service';
 import { Item } from './item';
 import { ItemLoader, ItemRef } from './loaders/item-loader';
-import { MateriaLoader } from './loaders/materia-loader';
-import { WeaponLoader } from './loaders/weapon-loader';
+import { MateriaLoader, MateriaRef } from './loaders/materia-loader';
+import { WeaponLoader, WeaponRef } from './loaders/weapon-loader';
 import { Materia } from './materia';
 import { Weapon } from './weapon';
 
@@ -38,10 +38,10 @@ export class Shop {
     this.items = [];
 
     const weapons = [
-      'BusterSword',
-      'GatlingGun'
-      // 'AssaultGun',
-      // 'LeatherGlove',
+      WeaponRef.BusterSword,
+      WeaponRef.GatlingGun,
+      WeaponRef.AssaultGun,
+      WeaponRef.LeatherGlove,
       // 'MetalKnuckle',
       // 'GuardStick',
       // 'MythrilRod',
@@ -59,10 +59,10 @@ export class Shop {
     }
 
     const materias = [
-      'Restore',
-      'Bolt'
-      // 'Ice',
-      // 'Fire',
+      MateriaRef.Restore,
+      MateriaRef.Bolt,
+      MateriaRef.Ice,
+      MateriaRef.Fire,
       // 'Poison',
       // 'Earth',
       // 'ChocoMog'
@@ -76,7 +76,7 @@ export class Shop {
 
     const items = [
       ItemRef.Potion,
-      // 'Ether',
+      ItemRef.Ether,
       // 'HiPotion',
       // 'HiEther'
     ];

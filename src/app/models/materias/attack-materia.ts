@@ -1,17 +1,9 @@
-import { GameService } from 'src/app/game.service';
 import { Attack } from '../attack';
 import { Materia } from '../materia';
 
 export abstract class AttackMateria extends Materia {
 
   abstract elements: string[];
-
-  /**
-   * Init
-   */
-  constructor(game: GameService) {
-    super(game);
-  }
 
   /**
    * MP cost

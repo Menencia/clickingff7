@@ -1,4 +1,3 @@
-import { GameService } from 'src/app/game.service';
 import { EnemyLoader, EnemyRef } from '../loaders/enemy-loader';
 import { Zone } from '../zone';
 
@@ -15,12 +14,5 @@ export class Zone2 extends Zone {
   boss = [
     EnemyLoader.build(EnemyRef.AirBuster, this.game)
   ];
-
-  /**
-   * Init
-   */
-  constructor(game: GameService) {
-    super(game);
-  }
 
 }

@@ -1,13 +1,15 @@
 import { GameService } from 'src/app/game.service';
 import { Weapon } from '../weapon';
 import { BusterSword } from '../weapons/broadswords/buster-sword';
+import { AssaultGun } from '../weapons/gun-arms/assault-gun';
 import { GatlingGun } from '../weapons/gun-arms/gatling-gun';
 import { LeatherGlove } from '../weapons/knuckles/leather-glove';
 
 export enum WeaponRef {
+  AssaultGun = 'AssaultGun',
   BusterSword = 'BusterSword',
   GatlingGun = 'GatlingGun',
-  LeatherGlove = 'LeatherGlove'
+  LeatherGlove = 'LeatherGlove',
 }
 
 export class WeaponLoader {
@@ -18,6 +20,9 @@ export class WeaponLoader {
   static build(ref: string, game: GameService): Weapon {
     let weapon;
     switch (ref) {
+      case WeaponRef.AssaultGun:
+        weapon = new AssaultGun(game);
+        break;
       case WeaponRef.BusterSword:
         weapon = new BusterSword(game);
         break;

@@ -1,4 +1,3 @@
-import { GameService } from 'src/app/game.service';
 import { Character } from '../character';
 
 export class Barret extends Character {
@@ -10,12 +9,5 @@ export class Barret extends Character {
   mpBase = 1;
   xpBase = 2;
   notA = [3];
-
-  /**
-   * Init
-   */
-  constructor(game: GameService) {
-    super(game);
-  }
 
 }

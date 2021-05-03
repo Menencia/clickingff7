@@ -1,15 +1,7 @@
-import { GameService } from '../../game.service';
 import { Cure } from '../cure';
 import { Materia } from '../materia';
 
 export abstract class CureMateria extends Materia {
-
-  /**
-   * Init
-   */
-  constructor(game: GameService) {
-    super(game);
-  }
 
   /**
    * MP cost

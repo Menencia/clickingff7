@@ -1,17 +1,9 @@
-import { GameService } from 'src/app/game.service';
 import { Item } from '../item';
 
 export class Potion extends Item {
 
   name = 'Potion';
   price = 60;
-
-  /**
-   * Init
-   */
-  constructor(game: GameService) {
-    super(game);
-  }
 
   available(): boolean {
     return true;

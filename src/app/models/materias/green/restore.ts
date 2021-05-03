@@ -1,4 +1,3 @@
-import { GameService } from 'src/app/game.service';
 import { CureMateria } from '../cure-materia';
 
 export class Restore extends CureMateria {
@@ -9,12 +8,5 @@ export class Restore extends CureMateria {
   apBase = 2;
   pwr = 20;
   zoneAvailable = 7;
-
-  /**
-   * Init
-   */
-  constructor(game: GameService) {
-    super(game);
-  }
 
 }

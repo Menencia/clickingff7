@@ -1,4 +1,3 @@
-import { GameService } from 'src/app/game.service';
 import { Weapon } from '../../weapon';
 
 export class GatlingGun extends Weapon {
@@ -9,12 +8,5 @@ export class GatlingGun extends Weapon {
   price = 130;
   maxMaterias = 1;
   zoneAvailable = 1;
-
-  /**
-   * Init
-   */
-  constructor(game: GameService) {
-    super(game);
-  }
 
 }

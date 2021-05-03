@@ -1,4 +1,3 @@
-import { GameService } from 'src/app/game.service';
 import { Character } from '../character';
 
 export class Cloud extends Character {
@@ -10,12 +9,5 @@ export class Cloud extends Character {
   mpBase = 3;
   xpBase = 3;
   notA = [];
-
-  /**
-   * Init
-   */
-  constructor(game: GameService) {
-    super(game);
-  }
 
 }

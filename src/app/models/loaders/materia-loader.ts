@@ -1,11 +1,15 @@
 import { GameService } from 'src/app/game.service';
 import { Materia } from '../materia';
 import { Bolt } from '../materias/green/bolt';
+import { Fire } from '../materias/green/fire';
+import { Ice } from '../materias/green/ice';
 import { Restore } from '../materias/green/restore';
 
 export enum MateriaRef {
+  Bolt = 'Bolt',
+  Fire = 'Fire',
+  Ice = 'Ice',
   Restore = 'Restore',
-  Bolt = 'Bolt'
 }
 
 export class MateriaLoader {
@@ -16,11 +20,17 @@ export class MateriaLoader {
   static build(ref: string, game: GameService): Materia {
     let materia;
     switch (ref) {
-      case MateriaRef.Restore:
-        materia = new Restore(game);
-        break;
       case MateriaRef.Bolt:
         materia = new Bolt(game);
+        break;
+      case MateriaRef.Fire:
+        materia = new Fire(game);
+        break;
+      case MateriaRef.Ice:
+        materia = new Ice(game);
+        break;
+      case MateriaRef.Restore:
+        materia = new Restore(game);
         break;
       default:
         throw new Error('Materia not found');

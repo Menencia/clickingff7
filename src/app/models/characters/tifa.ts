@@ -1,4 +1,3 @@
-import { GameService } from 'src/app/game.service';
 import { Character } from '../character';
 
 export class Tifa extends Character {
@@ -10,12 +9,5 @@ export class Tifa extends Character {
   mpBase = 2;
   xpBase = 3;
   notA = [3];
-
-  /**
-   * Init
-   */
-  constructor(game: GameService) {
-    super(game);
-  }
 
 }
