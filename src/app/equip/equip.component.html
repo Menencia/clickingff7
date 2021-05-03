@@ -15,7 +15,7 @@
 
   <div class="main">
     <div>{{game.characters.selected.name}} <strong>(LVL{{game.characters.selected.level}})</strong></div>
-    <div ng-if="game.characters.selected.level > 0">
+    <div *ngIf="game.characters.selected.level > 0">
       <span class="label">hp</span> {{game.characters.selected.getHpMax()}}
       <span class="label">mp</span> {{game.characters.selected.getMpMax()}}
       <span class="label">pwr</span> {{game.characters.selected.getHits()}}
