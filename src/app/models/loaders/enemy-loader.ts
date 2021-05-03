@@ -19,6 +19,11 @@ import { Deenglow } from '../enemies/zone4/deenglow';
 import { Eligor } from '../enemies/zone4/eligor';
 import { GuardHound } from '../enemies/zone4/guard-hound';
 import { Reno } from '../enemies/zone4/reno';
+import { MightyGrunt } from '../enemies/zone5/mighty-grunt';
+import { SampleH0512 } from '../enemies/zone5/sample-h0512';
+import { Soldier3rd } from '../enemies/zone5/soldier3rd';
+import { SwordDance } from '../enemies/zone5/sword-dance';
+import { VargidPolice } from '../enemies/zone5/vargid-police';
 import { Enemy } from '../enemy';
 
 export enum EnemyRef {
@@ -34,12 +39,17 @@ export enum EnemyRef {
   GuardScorpion = 'GuardScorpion',
   HedgehogPie = 'HedgehogPie',
   HellHouse = 'HellHouse',
+  MightyGrunt = 'MightyGrunt',
   MP = 'MP',
   ProtoMachinegun = 'ProtoMachinegun',
   Reno = 'Reno',
+  SampleH0512 = 'SampleH0512',
   Smogger = 'Smogger',
+  Soldier3rd = 'Soldier3rd',
   SpecialCombatant = 'SpecialCombatant',
   Sweeper = 'Sweeper',
+  SwordDance = 'SwordDance',
+  VargidPolice = 'VargidPolice',
   Vice = 'Vice',
   WholeEater = 'WholeEater',
 }
@@ -88,6 +98,9 @@ export class EnemyLoader {
       case EnemyRef.HellHouse:
         enemy = new HellHouse(game);
         break;
+      case EnemyRef.MightyGrunt:
+        enemy = new MightyGrunt(game);
+        break;
       case EnemyRef.MP:
         enemy = new Mp(game);
         break;
@@ -100,11 +113,23 @@ export class EnemyLoader {
       case EnemyRef.Reno:
         enemy = new Reno(game);
         break;
+      case EnemyRef.SampleH0512:
+        enemy = new SampleH0512(game);
+        break;
       case EnemyRef.SpecialCombatant:
         enemy = new SpecialCombatant(game);
         break;
+      case EnemyRef.Soldier3rd:
+        enemy = new Soldier3rd(game);
+        break;
       case EnemyRef.Sweeper:
         enemy = new Sweeper(game);
+        break;
+      case EnemyRef.SwordDance:
+        enemy = new SwordDance(game);
+        break;
+      case EnemyRef.VargidPolice:
+        enemy = new VargidPolice(game);
         break;
       case EnemyRef.Vice:
         enemy = new Vice(game);

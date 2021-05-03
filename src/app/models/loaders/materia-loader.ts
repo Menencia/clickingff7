@@ -3,12 +3,14 @@ import { Materia } from '../materia';
 import { Bolt } from '../materias/green/bolt';
 import { Fire } from '../materias/green/fire';
 import { Ice } from '../materias/green/ice';
+import { Poison } from '../materias/green/poison';
 import { Restore } from '../materias/green/restore';
 
 export enum MateriaRef {
   Bolt = 'Bolt',
   Fire = 'Fire',
   Ice = 'Ice',
+  Poison = 'Poison',
   Restore = 'Restore',
 }
 
@@ -28,6 +30,9 @@ export class MateriaLoader {
         break;
       case MateriaRef.Ice:
         materia = new Ice(game);
+        break;
+      case MateriaRef.Poison:
+        materia = new Poison(game);
         break;
       case MateriaRef.Restore:
         materia = new Restore(game);

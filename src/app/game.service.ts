@@ -203,8 +203,8 @@ export class GameService {
         break;
       case 5:
         // add redxiii in the team
-        // this.characters.add(new RedXIII(this).load(data), true);
-        // this.weapons.add(new MythrilClip(this), true);
+        this.characters.add(CharacterLoader.build(CharacterRef.RedXIII, this).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.MythrilClip, this), true);
         break;
       case 9:
         // add yuffie in the team

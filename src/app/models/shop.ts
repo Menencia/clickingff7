@@ -63,7 +63,7 @@ export class Shop {
       MateriaRef.Bolt,
       MateriaRef.Ice,
       MateriaRef.Fire,
-      // 'Poison',
+      MateriaRef.Poison,
       // 'Earth',
       // 'ChocoMog'
     ];

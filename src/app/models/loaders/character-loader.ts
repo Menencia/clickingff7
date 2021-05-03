@@ -3,12 +3,14 @@ import { Character } from '../character';
 import { Aerith } from '../characters/aerith';
 import { Barret } from '../characters/barret';
 import { Cloud } from '../characters/cloud';
+import { RedXIII } from '../characters/red-xiii';
 import { Tifa } from '../characters/tifa';
 
 export enum CharacterRef {
   Aerith = 'Aerith',
   Barret = 'Barret',
   Cloud = 'Cloud',
+  RedXIII = 'RedXIII',
   Tifa = 'Tifa',
 }
 
@@ -28,6 +30,9 @@ export class CharacterLoader {
         break;
       case CharacterRef.Cloud:
         character = new Cloud(game);
+        break;
+      case CharacterRef.RedXIII:
+        character = new RedXIII(game);
         break;
       case CharacterRef.Tifa:
         character = new Tifa(game);

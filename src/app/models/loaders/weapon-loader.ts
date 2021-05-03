@@ -3,6 +3,7 @@ import { Weapon } from '../weapon';
 import { BusterSword } from '../weapons/broadswords/buster-sword';
 import { AssaultGun } from '../weapons/gun-arms/assault-gun';
 import { GatlingGun } from '../weapons/gun-arms/gatling-gun';
+import { MythrilClip } from '../weapons/headdresses/mythril-clip';
 import { LeatherGlove } from '../weapons/knuckles/leather-glove';
 import { MetalKnuckle } from '../weapons/knuckles/metal-knuckle';
 import { GuardStick } from '../weapons/staves/guard-stick';
@@ -15,6 +16,7 @@ export enum WeaponRef {
   GuardStick = 'GuardStick',
   LeatherGlove = 'LeatherGlove',
   MetalKnuckle = 'MetalKnuckle',
+  MythrilClip = 'MythrilClip',
   MythrilRod = 'MythrilRod',
 }
 
@@ -43,6 +45,9 @@ export class WeaponLoader {
         break;
       case WeaponRef.MetalKnuckle:
         weapon = new MetalKnuckle(game);
+        break;
+      case WeaponRef.MythrilClip:
+        weapon = new MythrilClip(game);
         break;
       case WeaponRef.MythrilRod:
         weapon = new MythrilRod(game);
