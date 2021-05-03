@@ -1,0 +1,35 @@
+<div class="c1">
+
+  <h3>{{'Team'|translate}}</h3>
+
+  <div *ngFor="let character of game.characters.getTeam()" class="phs_character">
+    <img [src]="character.image" alt="character" width="80" style="float: left"
+      (click)="character.leaveTeam()"/>
+
+    <div class="main">
+      <div class="progress characters_xp">
+        <div class="xp_progress" [style.width]="character.xpProgress(200) + 'px'"></div>
+        <span class="bar-label">{{character.xp}} / {{character.getXpMax()}} EXP</span>
+      </div>
+
+      <div>{{character.name}} <strong>(LVL{{character.level}})</strong></div>
+      <div *ngIf="character.level > 0">
+        <span class="label">hp</span> {{character.getHpMax()}}
+        <span class="label">mp</span> {{character.getMpMax()}}
+        <span class="label">pwr</span> {{character.getHits()}}
+      </div>
+    </div>
+    <div style="clear: left"></div>
+  </div>
+
+</div><!--
+--><div class="c3">
+
+  <h3>{{'Backup'|translate}}</h3>
+
+  <span *ngFor="let character of game.characters.getBackup()" class="phs_character">
+    <img [src]="character.image" alt="character" width="80" style="float: left"
+      (click)="character.joinTeam()"/>
+  </span>
+
+</div>

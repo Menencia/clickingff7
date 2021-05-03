@@ -6,6 +6,7 @@ import { GameComponent } from './game/game.component';
 import { ItemsComponent } from './items/items.component';
 import { MapComponent } from './map/map.component';
 import { MateriaComponent } from './materia/materia.component';
+import { PHSComponent } from './phs/phs.component';
 import { SaveComponent } from './save/save.component';
 import { ShopComponent } from './shop/shop.component';
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'materia', component: MateriaComponent },
   { path: 'items', component: ItemsComponent },
   { path: 'config', component: ConfigComponent },
+  { path: 'phs', component: PHSComponent },
   { path: 'save', component: SaveComponent },
   { path: '', redirectTo: '/game', pathMatch: 'full' },
 ];
