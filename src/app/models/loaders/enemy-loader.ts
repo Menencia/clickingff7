@@ -34,13 +34,21 @@ import { KalmFang } from '../enemies/zone7/kalm-fang';
 import { Levrikon } from '../enemies/zone7/levrikon';
 import { Mandragora } from '../enemies/zone7/mandragora';
 import { MidgarZolom } from '../enemies/zone7/midgar-zolom';
+import { ArkDragon } from '../enemies/zone8/ark-dragon';
+import { Castanets } from '../enemies/zone8/castanets';
+import { Crawler } from '../enemies/zone8/crawler';
+import { Madouge } from '../enemies/zone8/madouge';
+import { MysteryNinja } from '../enemies/zone8/mystery-ninja';
 import { Enemy } from '../enemy';
 
 export enum EnemyRef {
   AeroCombatant = 'AeroCombatant',
   AirBuster = 'AirBuster',
   Aps = 'Aps',
+  ArkDragon = 'ArkDragon',
   BloodTaste = 'BloodTaste',
+  Castanets = 'Castanets',
+  Crawler = 'Crawler',
   Deenglow = 'Deenglow',
   Eligor = 'Eligor',
   Elfadunk = 'Elfadunk',
@@ -54,11 +62,13 @@ export enum EnemyRef {
   HundredGunner = 'HundredGunner',
   KalmFang = 'KalmFang',
   Levrikon = 'Levrikon',
+  Madouge = 'Madouge',
   Mandragora = 'Mandragora',
   MidgarZolom = 'MidgarZolom',
   MightyGrunt = 'MightyGrunt',
   MotorBall = 'MotorBall',
   MP = 'MP',
+  MysteryNinja = 'MysteryNinja',
   ProtoMachinegun = 'ProtoMachinegun',
   Reno = 'Reno',
   Rufus = 'Rufus',
@@ -91,8 +101,17 @@ export class EnemyLoader {
       case EnemyRef.Aps:
         enemy = new Aps(game);
         break;
+      case EnemyRef.ArkDragon:
+        enemy = new ArkDragon(game);
+        break;
       case EnemyRef.BloodTaste:
         enemy = new BloodTaste(game);
+        break;
+      case EnemyRef.Castanets:
+        enemy = new Castanets(game);
+        break;
+      case EnemyRef.Crawler:
+        enemy = new Crawler(game);
         break;
       case EnemyRef.Deenglow:
         enemy = new Deenglow(game);
@@ -133,6 +152,9 @@ export class EnemyLoader {
       case EnemyRef.Levrikon:
         enemy = new Levrikon(game);
         break;
+      case EnemyRef.Madouge:
+        enemy = new Madouge(game);
+        break;
       case EnemyRef.Mandragora:
         enemy = new Mandragora(game);
         break;
@@ -147,6 +169,9 @@ export class EnemyLoader {
         break;
       case EnemyRef.MP:
         enemy = new Mp(game);
+        break;
+      case EnemyRef.MysteryNinja:
+        enemy = new MysteryNinja(game);
         break;
       case EnemyRef.ProtoMachinegun:
         enemy = new ProtoMachinegun(game);
