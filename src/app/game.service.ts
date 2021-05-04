@@ -17,7 +17,7 @@ import { ItemLoader, ItemRef } from './models/loaders/item-loader';
 import { MateriaLoader, MateriaRef } from './models/loaders/materia-loader';
 
 const SAVE_1 = 'save1';
-const CURRENT_VERSION = '1.1.3-beta.1';
+const CURRENT_VERSION = '1.1.3-beta.2';
 const BASE_GILS = 200;
 
 enum Difficulty {
