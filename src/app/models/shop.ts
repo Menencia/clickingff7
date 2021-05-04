@@ -45,10 +45,10 @@ export class Shop {
       WeaponRef.MetalKnuckle,
       WeaponRef.GuardStick,
       WeaponRef.MythrilRod,
-      // 'MythrilSaber',
-      // 'CannonBall',
-      // 'MythrilClaw',
-      // 'FullMetalStaff',
+      WeaponRef.MythrilSaber,
+      WeaponRef.CannonBall,
+      WeaponRef.MythrilClaw,
+      WeaponRef.FullMetalStaff,
       // 'FPtShuriken'
     ];
     for (const w of weapons) {
@@ -64,8 +64,8 @@ export class Shop {
       MateriaRef.Ice,
       MateriaRef.Fire,
       MateriaRef.Poison,
-      // 'Earth',
-      // 'ChocoMog'
+      MateriaRef.Earth,
+      MateriaRef.ChocoMog,
     ];
     for (const m of materias) {
       const materia = MateriaLoader.build(m, this.game);
@@ -77,8 +77,8 @@ export class Shop {
     const items = [
       ItemRef.Potion,
       ItemRef.Ether,
-      // 'HiPotion',
-      // 'HiEther'
+      ItemRef.HiPotion,
+      ItemRef.HiEther,
     ];
     for (const i of items) {
       const item = ItemLoader.build(i, this.game);

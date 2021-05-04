@@ -1,13 +1,17 @@
 import { GameService } from 'src/app/game.service';
 import { Materia } from '../materia';
 import { Bolt } from '../materias/green/bolt';
+import { Earth } from '../materias/green/earth';
 import { Fire } from '../materias/green/fire';
 import { Ice } from '../materias/green/ice';
 import { Poison } from '../materias/green/poison';
 import { Restore } from '../materias/green/restore';
+import { ChocoMog } from '../materias/red/choco-mog';
 
 export enum MateriaRef {
   Bolt = 'Bolt',
+  ChocoMog = 'ChocoMog',
+  Earth = 'Earth',
   Fire = 'Fire',
   Ice = 'Ice',
   Poison = 'Poison',
@@ -24,6 +28,12 @@ export class MateriaLoader {
     switch (ref) {
       case MateriaRef.Bolt:
         materia = new Bolt(game);
+        break;
+      case MateriaRef.ChocoMog:
+        materia = new ChocoMog(game);
+        break;
+      case MateriaRef.Earth:
+        materia = new Earth(game);
         break;
       case MateriaRef.Fire:
         materia = new Fire(game);

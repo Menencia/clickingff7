@@ -29,6 +29,11 @@ import { HundredGunner } from '../enemies/zone6/hundred-gunner';
 import { MotorBall } from '../enemies/zone6/motor-ball';
 import { Rufus } from '../enemies/zone6/rufus';
 import { Zenene } from '../enemies/zone6/zenene';
+import { Elfadunk } from '../enemies/zone7/elfadunk';
+import { KalmFang } from '../enemies/zone7/kalm-fang';
+import { Levrikon } from '../enemies/zone7/levrikon';
+import { Mandragora } from '../enemies/zone7/mandragora';
+import { MidgarZolom } from '../enemies/zone7/midgar-zolom';
 import { Enemy } from '../enemy';
 
 export enum EnemyRef {
@@ -38,6 +43,7 @@ export enum EnemyRef {
   BloodTaste = 'BloodTaste',
   Deenglow = 'Deenglow',
   Eligor = 'Eligor',
+  Elfadunk = 'Elfadunk',
   FirstRay = 'FirstRay',
   Grunt = 'Grunt',
   GuardHound = 'GuardHound',
@@ -46,6 +52,10 @@ export enum EnemyRef {
   HeliGunner = 'HeliGunner',
   HellHouse = 'HellHouse',
   HundredGunner = 'HundredGunner',
+  KalmFang = 'KalmFang',
+  Levrikon = 'Levrikon',
+  Mandragora = 'Mandragora',
+  MidgarZolom = 'MidgarZolom',
   MightyGrunt = 'MightyGrunt',
   MotorBall = 'MotorBall',
   MP = 'MP',
@@ -90,6 +100,9 @@ export class EnemyLoader {
       case EnemyRef.Eligor:
         enemy = new Eligor(game);
         break;
+      case EnemyRef.Elfadunk:
+        enemy = new Elfadunk(game);
+        break;
       case EnemyRef.FirstRay:
         enemy = new FirstRay(game);
         break;
@@ -113,6 +126,18 @@ export class EnemyLoader {
         break;
       case EnemyRef.HundredGunner:
         enemy = new HundredGunner(game);
+        break;
+      case EnemyRef.KalmFang:
+        enemy = new KalmFang(game);
+        break;
+      case EnemyRef.Levrikon:
+        enemy = new Levrikon(game);
+        break;
+      case EnemyRef.Mandragora:
+        enemy = new Mandragora(game);
+        break;
+      case EnemyRef.MidgarZolom:
+        enemy = new MidgarZolom(game);
         break;
       case EnemyRef.MightyGrunt:
         enemy = new MightyGrunt(game);
