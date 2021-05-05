@@ -1,7 +1,9 @@
 import { Item } from '../item';
+import { ItemRef } from '../refs/items';
 
 export class Potion extends Item {
 
+  ref = ItemRef.Potion;
   name = 'Potion';
   price = 60;
 

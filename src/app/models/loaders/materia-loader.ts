@@ -7,23 +7,14 @@ import { Ice } from '../materias/green/ice';
 import { Poison } from '../materias/green/poison';
 import { Restore } from '../materias/green/restore';
 import { ChocoMog } from '../materias/red/choco-mog';
-
-export enum MateriaRef {
-  Bolt = 'Bolt',
-  ChocoMog = 'ChocoMog',
-  Earth = 'Earth',
-  Fire = 'Fire',
-  Ice = 'Ice',
-  Poison = 'Poison',
-  Restore = 'Restore',
-}
+import { MateriaRef } from '../refs/materias';
 
 export class MateriaLoader {
 
   /**
    *
    */
-  static build(ref: string, game: GameService): Materia {
+  static build(ref: MateriaRef, game: GameService): Materia {
     let materia;
     switch (ref) {
       case MateriaRef.Bolt:

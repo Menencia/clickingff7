@@ -11,10 +11,14 @@ import { Zones } from './models/zones';
 import * as compareVersions from 'compare-versions';
 import { TranslateService } from '@ngx-translate/core';
 import { ZoneLoader } from './models/loaders/zone-loader';
-import { CharacterLoader, CharacterRef } from './models/loaders/character-loader';
-import { WeaponLoader, WeaponRef } from './models/loaders/weapon-loader';
-import { ItemLoader, ItemRef } from './models/loaders/item-loader';
-import { MateriaLoader, MateriaRef } from './models/loaders/materia-loader';
+import { CharacterLoader } from './models/loaders/character-loader';
+import { WeaponLoader } from './models/loaders/weapon-loader';
+import { ItemLoader } from './models/loaders/item-loader';
+import { MateriaLoader } from './models/loaders/materia-loader';
+import { CharacterRef } from './models/refs/characters';
+import { WeaponRef } from './models/refs/weapons';
+import { ItemRef } from './models/refs/items';
+import { MateriaRef } from './models/refs/materias';
 
 const SAVE_1 = 'save1';
 const CURRENT_VERSION = '1.1.3-beta.2';
@@ -196,7 +200,7 @@ export class GameService {
       case 4:
         // add barret & tifa in the team
         for (const c of this.characters.list) {
-          if (c.constructor.name === 'Barret' || c.constructor.name === 'Tifa') {
+          if (c.ref === CharacterRef.Barret || c.ref === CharacterRef.Tifa) {
             c.inTeam = true;
           }
         }

@@ -1,8 +1,10 @@
 import { EnemyLoader, EnemyRef } from '../loaders/enemy-loader';
+import { ZoneRef } from '../refs/zones';
 import { Zone } from '../zone';
 
 export class Zone8 extends Zone {
 
+  ref = ZoneRef.Zone8;
   level = 8;
   image = '/assets/images/zones/Mythril_mine.png';
   enemies = [

@@ -4,13 +4,7 @@ import { Ether } from '../items/ether';
 import { HiEther } from '../items/hi-ether';
 import { HiPotion } from '../items/hi-potion';
 import { Potion } from '../items/potion';
-
-export enum ItemRef {
-  Ether = 'Ether',
-  HiEther = 'HiEther',
-  HiPotion = 'HiPotion',
-  Potion = 'Potion',
-}
+import { ItemRef } from '../refs/items';
 
 export class ItemLoader {
 

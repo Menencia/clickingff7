@@ -1,7 +1,9 @@
 import { Character } from '../character';
+import { CharacterRef } from '../refs/characters';
 
 export class Aerith extends Character {
 
+  ref = CharacterRef.Aerith;
   name = 'Aerith Gainsborough';
   image = '/assets/images/characters/aerith.jpg';
   weaponType = 'stave';

@@ -1,0 +1,15 @@
+export enum WeaponRef {
+  AssaultGun = 'AssaultGun',
+  BusterSword = 'BusterSword',
+  CannonBall = 'CannonBall',
+  FPtShuriken = 'FPtShuriken',
+  FullMetalStaff = 'FullMetalStaff',
+  GatlingGun = 'GatlingGun',
+  GuardStick = 'GuardStick',
+  LeatherGlove = 'LeatherGlove',
+  MetalKnuckle = 'MetalKnuckle',
+  MythrilClaw = 'MythrilClaw',
+  MythrilClip = 'MythrilClip',
+  MythrilRod = 'MythrilRod',
+  MythrilSaber = 'MythrilSaber',
+}

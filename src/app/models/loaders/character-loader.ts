@@ -6,15 +6,7 @@ import { Cloud } from '../characters/cloud';
 import { RedXIII } from '../characters/red-xiii';
 import { Tifa } from '../characters/tifa';
 import { Yuffie } from '../characters/yuffie';
-
-export enum CharacterRef {
-  Aerith = 'Aerith',
-  Barret = 'Barret',
-  Cloud = 'Cloud',
-  RedXIII = 'RedXIII',
-  Tifa = 'Tifa',
-  Yuffie = 'Yuffie',
-}
+import { CharacterRef } from '../refs/characters';
 
 export class CharacterLoader {
 

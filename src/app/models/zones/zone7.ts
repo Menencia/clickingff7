@@ -1,8 +1,10 @@
 import { EnemyLoader, EnemyRef } from '../loaders/enemy-loader';
+import { ZoneRef } from '../refs/zones';
 import { Zone } from '../zone';
 
 export class Zone7 extends Zone {
 
+  ref = ZoneRef.Zone7;
   level = 7;
   image = '/assets/images/zones/kalm.png';
   enemies = [

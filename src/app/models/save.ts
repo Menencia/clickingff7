@@ -1,8 +1,8 @@
-import { CharacterRef } from './loaders/character-loader';
-import { ItemRef } from './loaders/item-loader';
-import { MateriaRef } from './loaders/materia-loader';
-import { WeaponRef } from './loaders/weapon-loader';
-import { ZoneRef } from './loaders/zone-loader';
+import { CharacterRef } from './refs/characters';
+import { ItemRef } from './refs/items';
+import { MateriaRef } from './refs/materias';
+import { WeaponRef } from './refs/weapons';
+import { ZoneRef } from './refs/zones';
 
 export interface CharactersSave {
   list: CharacterSave[];

@@ -1,7 +1,9 @@
+import { WeaponRef } from '../../refs/weapons';
 import { Weapon } from '../../weapon';
 
 export class MythrilRod extends Weapon {
 
+  ref = WeaponRef.MythrilRod;
   name = 'Mythril Rod';
   type = 'stave';
   hits = 16;

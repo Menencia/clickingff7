@@ -1,7 +1,9 @@
+import { MateriaRef } from '../../refs/materias';
 import { AttackMateria } from '../attack-materia';
 
 export class ChocoMog extends AttackMateria {
 
+  ref = MateriaRef.ChocoMog;
   name = 'Choco/Mog';
   color = 'red';
   price = 600;

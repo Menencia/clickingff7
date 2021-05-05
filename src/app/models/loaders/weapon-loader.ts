@@ -1,4 +1,5 @@
 import { GameService } from 'src/app/game.service';
+import { WeaponRef } from '../refs/weapons';
 import { Weapon } from '../weapon';
 import { BusterSword } from '../weapons/broadswords/buster-sword';
 import { MythrilSaber } from '../weapons/broadswords/mythril-saber';
@@ -14,28 +15,12 @@ import { FullMetalStaff } from '../weapons/staves/full-metal-staff';
 import { GuardStick } from '../weapons/staves/guard-stick';
 import { MythrilRod } from '../weapons/staves/mythril-rod';
 
-export enum WeaponRef {
-  AssaultGun = 'AssaultGun',
-  BusterSword = 'BusterSword',
-  CannonBall = 'CannonBall',
-  FPtShuriken = 'FPtShuriken',
-  FullMetalStaff = 'FullMetalStaff',
-  GatlingGun = 'GatlingGun',
-  GuardStick = 'GuardStick',
-  LeatherGlove = 'LeatherGlove',
-  MetalKnuckle = 'MetalKnuckle',
-  MythrilClaw = 'MythrilClaw',
-  MythrilClip = 'MythrilClip',
-  MythrilRod = 'MythrilRod',
-  MythrilSaber = 'MythrilSaber',
-}
-
 export class WeaponLoader {
 
   /**
    *
    */
-  static build(ref: string, game: GameService): Weapon {
+  static build(ref: WeaponRef, game: GameService): Weapon {
     let weapon;
     switch (ref) {
       case WeaponRef.AssaultGun:

@@ -1,9 +1,12 @@
 import { GameService } from '../game.service';
 import { Item } from './item';
-import { ItemLoader, ItemRef } from './loaders/item-loader';
-import { MateriaLoader, MateriaRef } from './loaders/materia-loader';
-import { WeaponLoader, WeaponRef } from './loaders/weapon-loader';
+import { ItemLoader } from './loaders/item-loader';
+import { MateriaLoader } from './loaders/materia-loader';
+import { WeaponLoader } from './loaders/weapon-loader';
 import { Materia } from './materia';
+import { ItemRef } from './refs/items';
+import { MateriaRef } from './refs/materias';
+import { WeaponRef } from './refs/weapons';
 import { Weapon } from './weapon';
 
 export class Shop {

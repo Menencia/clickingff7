@@ -1,10 +1,10 @@
 import { GameService } from '../game.service';
 import { WeaponSave } from '../models/save';
-import { WeaponRef } from './loaders/weapon-loader';
+import { WeaponRef } from './refs/weapons';
 
 export abstract class Weapon {
 
-  ref: WeaponRef;
+  abstract ref: WeaponRef;
   nbr: number;
   equipped: boolean;
 
@@ -16,8 +16,6 @@ export abstract class Weapon {
   abstract zoneAvailable: number;
 
   constructor(public game: GameService) {
-    this.ref = this.constructor.name as WeaponRef;
-
     // nbr owned
     this.nbr = 1;
 

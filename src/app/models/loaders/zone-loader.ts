@@ -1,4 +1,5 @@
 import { GameService } from 'src/app/game.service';
+import { ZoneRef } from '../refs/zones';
 import { Zone } from '../zone';
 import { Zone1 } from '../zones/zone1';
 import { Zone2 } from '../zones/zone2';
@@ -9,18 +10,6 @@ import { Zone6 } from '../zones/zone6';
 import { Zone7 } from '../zones/zone7';
 import { Zone8 } from '../zones/zone8';
 import { Zone9 } from '../zones/zone9';
-
-export enum ZoneRef {
-  Zone1 = 'Zone1',
-  Zone2 = 'Zone2',
-  Zone3 = 'Zone3',
-  Zone4 = 'Zone4',
-  Zone5 = 'Zone5',
-  Zone6 = 'Zone6',
-  Zone7 = 'Zone7',
-  Zone8 = 'Zone8',
-  Zone9 = 'Zone9',
-}
 
 export class ZoneLoader {
 
