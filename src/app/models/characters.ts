@@ -107,7 +107,7 @@ export class Characters {
     for (const character of characters) {
       // Level
       if (character.level > this.levelMax) {
-          this.levelMax = character.level;
+        this.levelMax = character.level;
       }
 
       // HP, hits
@@ -126,14 +126,11 @@ export class Characters {
 
     this.limitMax = 2 * this.hpMax / 3;
 
-    if (!this.hp || this.hp > this.hpMax) {
+    if (this.hp > this.hpMax) {
       this.hp = this.hpMax;
     }
-    if (!this.mp || this.mp > this.mpMax) {
+    if (this.mp > this.mpMax) {
       this.mp = this.mpMax;
-    }
-    if (!this.limit) {
-      this.limit = 0;
     }
     if (this.limit > this.limitMax) {
       this.limit = this.limitMax;

@@ -213,6 +213,11 @@ export class GameService {
         break;
     }
 
+    // restore hp & mp
+    this.characters.refresh();
+    this.characters.hp = this.characters.hpMax;
+    this.characters.mp = this.characters.mpMax;
+    this.characters.limit = 0;
   }
 
   /**
