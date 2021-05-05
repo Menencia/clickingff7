@@ -5,6 +5,7 @@ import { Barret } from '../characters/barret';
 import { Cloud } from '../characters/cloud';
 import { RedXIII } from '../characters/red-xiii';
 import { Tifa } from '../characters/tifa';
+import { Yuffie } from '../characters/yuffie';
 
 export enum CharacterRef {
   Aerith = 'Aerith',
@@ -12,6 +13,7 @@ export enum CharacterRef {
   Cloud = 'Cloud',
   RedXIII = 'RedXIII',
   Tifa = 'Tifa',
+  Yuffie = 'Yuffie',
 }
 
 export class CharacterLoader {
@@ -36,6 +38,9 @@ export class CharacterLoader {
         break;
       case CharacterRef.Tifa:
         character = new Tifa(game);
+        break;
+      case CharacterRef.Yuffie:
+        character = new Yuffie(game);
         break;
       default:
         throw new Error('Character not found');

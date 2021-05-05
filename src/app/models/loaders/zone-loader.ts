@@ -8,6 +8,7 @@ import { Zone5 } from '../zones/zone5';
 import { Zone6 } from '../zones/zone6';
 import { Zone7 } from '../zones/zone7';
 import { Zone8 } from '../zones/zone8';
+import { Zone9 } from '../zones/zone9';
 
 export enum ZoneRef {
   Zone1 = 'Zone1',
@@ -18,6 +19,7 @@ export enum ZoneRef {
   Zone6 = 'Zone6',
   Zone7 = 'Zone7',
   Zone8 = 'Zone8',
+  Zone9 = 'Zone9',
 }
 
 export class ZoneLoader {
@@ -51,6 +53,9 @@ export class ZoneLoader {
         break;
       case ZoneRef.Zone8:
         zone = new Zone8(game);
+        break;
+      case ZoneRef.Zone9:
+        zone = new Zone9(game);
         break;
       default:
         throw new Error('Zone not found');

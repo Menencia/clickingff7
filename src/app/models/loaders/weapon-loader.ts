@@ -9,6 +9,7 @@ import { MythrilClip } from '../weapons/headdresses/mythril-clip';
 import { LeatherGlove } from '../weapons/knuckles/leather-glove';
 import { MetalKnuckle } from '../weapons/knuckles/metal-knuckle';
 import { MythrilClaw } from '../weapons/knuckles/mythril-claw';
+import { FPtShuriken } from '../weapons/shurikens/fpt-shuriken';
 import { FullMetalStaff } from '../weapons/staves/full-metal-staff';
 import { GuardStick } from '../weapons/staves/guard-stick';
 import { MythrilRod } from '../weapons/staves/mythril-rod';
@@ -17,6 +18,7 @@ export enum WeaponRef {
   AssaultGun = 'AssaultGun',
   BusterSword = 'BusterSword',
   CannonBall = 'CannonBall',
+  FPtShuriken = 'FPtShuriken',
   FullMetalStaff = 'FullMetalStaff',
   GatlingGun = 'GatlingGun',
   GuardStick = 'GuardStick',
@@ -44,6 +46,9 @@ export class WeaponLoader {
         break;
       case WeaponRef.CannonBall:
         weapon = new CannonBall(game);
+        break;
+      case WeaponRef.FPtShuriken:
+        weapon = new FPtShuriken(game);
         break;
       case WeaponRef.FullMetalStaff:
         weapon = new FullMetalStaff(game);

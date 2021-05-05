@@ -39,6 +39,11 @@ import { Castanets } from '../enemies/zone8/castanets';
 import { Crawler } from '../enemies/zone8/crawler';
 import { Madouge } from '../enemies/zone8/madouge';
 import { MysteryNinja } from '../enemies/zone8/mystery-ninja';
+import { Bottomswell } from '../enemies/zone9/bottomswell';
+import { Capparwire } from '../enemies/zone9/capparwire';
+import { Formula } from '../enemies/zone9/formula';
+import { HellRider } from '../enemies/zone9/hell-rider';
+import { Zemzelett } from '../enemies/zone9/zemzelett';
 import { Enemy } from '../enemy';
 
 export enum EnemyRef {
@@ -47,18 +52,22 @@ export enum EnemyRef {
   Aps = 'Aps',
   ArkDragon = 'ArkDragon',
   BloodTaste = 'BloodTaste',
+  Bottomswell = 'Bottomswell',
+  Capparwire = 'Capparwire',
   Castanets = 'Castanets',
   Crawler = 'Crawler',
   Deenglow = 'Deenglow',
   Eligor = 'Eligor',
   Elfadunk = 'Elfadunk',
   FirstRay = 'FirstRay',
+  Formula = 'Formula',
   Grunt = 'Grunt',
   GuardHound = 'GuardHound',
   GuardScorpion = 'GuardScorpion',
   HedgehogPie = 'HedgehogPie',
   HeliGunner = 'HeliGunner',
   HellHouse = 'HellHouse',
+  HellRider = 'HellRider',
   HundredGunner = 'HundredGunner',
   KalmFang = 'KalmFang',
   Levrikon = 'Levrikon',
@@ -81,6 +90,7 @@ export enum EnemyRef {
   VargidPolice = 'VargidPolice',
   Vice = 'Vice',
   WholeEater = 'WholeEater',
+  Zemzelett = 'Zemzelett',
   Zenene = 'Zenene',
 }
 
@@ -107,6 +117,12 @@ export class EnemyLoader {
       case EnemyRef.BloodTaste:
         enemy = new BloodTaste(game);
         break;
+      case EnemyRef.Bottomswell:
+        enemy = new Bottomswell(game);
+        break;
+      case EnemyRef.Capparwire:
+        enemy = new Capparwire(game);
+        break;
       case EnemyRef.Castanets:
         enemy = new Castanets(game);
         break;
@@ -125,6 +141,9 @@ export class EnemyLoader {
       case EnemyRef.FirstRay:
         enemy = new FirstRay(game);
         break;
+      case EnemyRef.Formula:
+        enemy = new Formula(game);
+        break;
       case EnemyRef.Grunt:
         enemy = new Grunt(game);
         break;
@@ -142,6 +161,9 @@ export class EnemyLoader {
         break;
       case EnemyRef.HellHouse:
         enemy = new HellHouse(game);
+        break;
+      case EnemyRef.HellRider:
+        enemy = new HellRider(game);
         break;
       case EnemyRef.HundredGunner:
         enemy = new HundredGunner(game);
@@ -208,6 +230,9 @@ export class EnemyLoader {
         break;
       case EnemyRef.WholeEater:
         enemy = new WholeEater(game);
+        break;
+      case EnemyRef.Zemzelett:
+        enemy = new Zemzelett(game);
         break;
       case EnemyRef.Zenene:
         enemy = new Zenene(game);

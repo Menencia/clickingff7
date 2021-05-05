@@ -208,8 +208,8 @@ export class GameService {
         break;
       case 9:
         // add yuffie in the team
-        // this.characters.add(new Yuffie(this).load(data), true);
-        // this.weapons.add(new FPtShuriken(this), true);
+        this.characters.add(CharacterLoader.build(CharacterRef.Yuffie, this).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.FPtShuriken, this), true);
         break;
     }
 
