@@ -8,7 +8,6 @@ import { Save } from './models/save';
 import { Shop } from './models/shop';
 import { Weapons } from './models/weapons';
 import { Zones } from './models/zones';
-import * as compareVersions from 'compare-versions';
 import { TranslateService } from '@ngx-translate/core';
 import { ZoneLoader } from './models/loaders/zone-loader';
 import { CharacterLoader } from './models/loaders/character-loader';
@@ -19,6 +18,7 @@ import { CharacterRef } from './models/refs/characters';
 import { WeaponRef } from './models/refs/weapons';
 import { ItemRef } from './models/refs/items';
 import { MateriaRef } from './models/refs/materias';
+import { compareVersions } from './utils';
 
 const SAVE_1 = 'save1';
 const CURRENT_VERSION = '1.1.3-beta.2';
@@ -103,7 +103,7 @@ export class GameService {
     if (s) {
       save = JSON.parse(atob(s));
       if (save) {
-        if (compareVersions(save.version, '1.1.0') >= 0) {
+        if (compareVersions(save.version, '1.1.0')) {
           this.saves.push(save);
         } else {
           save = null;
