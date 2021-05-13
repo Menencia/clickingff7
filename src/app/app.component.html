@@ -1,20 +1,21 @@
-<header>
+<!-- <header>
   <div class="wrapper">
     clicking ff7
     <span (click)="help()" class="help">{{"How to play?"|translate}}</span>
   </div>
-</header>
+</header> -->
 
-<div class="page">
-
-  <nav class="game-menu" id="step10">
-    <ul>
-      <li (click)="goGame()" routerLinkActive="current">{{"Game"|translate}}</li>
-      <li (click)="goMap()" routerLinkActive="current">
-        <div class="pull-right new" *ngIf="game.zones.nextZone">NEW</div>
-        {{"Map"|translate}}
-      </li>
-      <li (click)="goShop()" routerLinkActive="current">{{"Shop"|translate}}</li>
+<nav class="bg-gray-300 dark:bg-gray-800 py-2" id="step10">
+  <div class="flex items-center">
+    <div class="ml-10 flex items-baseline space-x-4">
+      <div>
+        ClickingFF7
+      </div>
+      <a routerLink="/game" (click)="goGame()" routerLinkActive="active" class="px-3 text-sm">{{"Game"|translate}}</a>
+      <a routerLink="/map" (click)="goMap()" routerLinkActive="active" class="px-3 text-sm">
+        {{"Map"|translate}}<span *ngIf="game.zones.nextZone">*</span>
+      </a>
+      <!-- <li (click)="goShop()" routerLinkActive="current">{{"Shop"|translate}}</li>
       <li (click)="goEquip()" routerLinkActive="current">{{"Equip"|translate}}</li>
       <li (click)="goMateria()" routerLinkActive="current">{{"Materia"|translate}}</li>
       <li (click)="goItems()" routerLinkActive="current">{{"Items"|translate}}</li>
@@ -22,11 +23,14 @@
       <li (click)="goPHS()" routerLinkActive="current" [class.disabled]="game.zones.levelMax < 5">
         {{"PHS"|translate}}
       </li>
-      <li (click)="goSave()" routerLinkActive="current">{{"Save"|translate}}</li>
-    </ul>
-  </nav>
+      <li (click)="goSave()" routerLinkActive="current">{{"Save"|translate}}</li> -->
+    </div>
+  </div>
+</nav>
 
-  <div class="game-infos">
+<div class="container pt-5 mx-auto">
+
+  <!-- <div class="game-infos">
     <div class="pull-right">{{game.time|time}}</div>
     <div>{{"Time"|translate}}:</div>
     <div class="pull-right">{{game.gils}}</div>
@@ -38,15 +42,12 @@
     <strong>
       (#{{game.zones.level}})
     </strong>
-  </div>
+  </div> -->
 
-  <div class="game-view">
-    <router-outlet></router-outlet>
-  </div>
-
+  <router-outlet></router-outlet>
 </div>
 
-<footer>
+<footer class="mt-5">
   <div class="wrapper">
     <div>
       ©2014 <a href="http://menencia.com" target="_blank">menencia.com</a>, version <a
