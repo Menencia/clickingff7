@@ -1,8 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { GameService } from './game.service';
 import { HttpClient } from '@angular/common/http';
 import * as introJs from 'intro.js';
+import { DOCUMENT } from '@angular/common';
+
+enum Theme {
+  Light = 'light',
+  Dark = 'dark',
+}
 
 @Component({
   selector: 'app-root',
@@ -11,12 +17,36 @@ import * as introJs from 'intro.js';
 })
 export class AppComponent {
   title = 'clickingff7';
+  theme: string;
 
   constructor(
     public game: GameService,
     public router: Router,
-    public http: HttpClient
-  ) {}
+    public http: HttpClient,
+    @Inject(DOCUMENT) private document: Document
+  ) {
+    // default theme
+    const theme = localStorage.getItem('theme') as Theme;
+    this.theme = theme ? theme: Theme.Light;
+    this.applyTheme();
+  }
+
+  toggleDark() {
+    this.theme = this.theme === Theme.Light ? Theme.Dark : Theme.Light;
+    this.applyTheme();
+  }
+
+  applyTheme() {
+    localStorage.setItem('theme', this.theme);
+    const htmlNode = this.document.querySelector('html');
+    if (htmlNode) {
+      if (this.theme === Theme.Dark) {
+        htmlNode.classList.add('dark')
+      } else {
+        htmlNode.classList.remove('dark')
+      }
+    }
+  }
 
   /**
    * Go to the game

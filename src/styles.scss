@@ -5,9 +5,5 @@
 @import 'tailwindcss/utilities';
 
 body {
-  margin: 0;
-}
-
-a.active {
-  @apply font-bold;
+  @apply dark:bg-gray-800 dark:text-white;
 }

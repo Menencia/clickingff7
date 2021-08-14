@@ -5,25 +5,32 @@
   </div>
 </header> -->
 
-<nav class="bg-gray-300 dark:bg-gray-800 py-2" id="step10">
-  <div class="flex items-center">
-    <div class="ml-10 flex items-baseline space-x-4">
-      <div>
-        ClickingFF7
-      </div>
-      <a routerLink="/game" (click)="goGame()" routerLinkActive="active" class="px-3 text-sm">{{"Game"|translate}}</a>
-      <a routerLink="/map" (click)="goMap()" routerLinkActive="active" class="px-3 text-sm">
-        {{"Map"|translate}}<span *ngIf="game.zones.nextZone">*</span>
-      </a>
-      <!-- <li (click)="goShop()" routerLinkActive="current">{{"Shop"|translate}}</li>
-      <li (click)="goEquip()" routerLinkActive="current">{{"Equip"|translate}}</li>
-      <li (click)="goMateria()" routerLinkActive="current">{{"Materia"|translate}}</li>
-      <li (click)="goItems()" routerLinkActive="current">{{"Items"|translate}}</li>
-      <li (click)="goConfig()" routerLinkActive="current">{{"Config"|translate}}</li>
-      <li (click)="goPHS()" routerLinkActive="current" [class.disabled]="game.zones.levelMax < 5">
-        {{"PHS"|translate}}
-      </li>
-      <li (click)="goSave()" routerLinkActive="current">{{"Save"|translate}}</li> -->
+<nav class="flex items-center gap-5 p-3 bg-gray-300 dark:bg-gray-800 dark:text-white" id="step10">
+  <div class="text-red-500 tracking-wider text-2xl">
+    ClickingFF7
+  </div>
+  <a routerLink="/game" (click)="goGame()" routerLinkActive="active">{{"Game"|translate}}</a>
+  <a routerLink="/map" (click)="goMap()" routerLinkActive="active">
+    {{"Map"|translate}}<span *ngIf="game.zones.nextZone">*</span>
+  </a>
+  <a routerLink="/shop" (click)="goShop()" routerLinkActive="active">{{"Shop"|translate}}</a>
+  <a routerLink="/equip" (click)="goEquip()" routerLinkActive="active">{{"Equip"|translate}}</a>
+  <a routerLink="/materia" (click)="goMateria()" routerLinkActive="active">{{"Materia"|translate}}</a>
+  <a routerLink="/items" (click)="goItems()" routerLinkActive="active">{{"Items"|translate}}</a>
+  <a routerLink="/config" (click)="goConfig()" routerLinkActive="active">{{"Config"|translate}}</a>
+  <a routerLink="/phs" (click)="goPHS()" routerLinkActive="active" [class.disabled]="game.zones.levelMax < 5">
+    {{"PHS"|translate}}
+  </a>
+  <a routerLink="/save" (click)="goSave()" routerLinkActive="active">{{"Save"|translate}}</a>
+  <div class="flex-grow"></div>
+  <div>
+    <div class="cursor-pointer" (click)="toggleDark()">
+      <span *ngIf="theme === 'light'" class="material-icons-outlined">
+        light_mode
+      </span>
+      <span *ngIf="theme === 'dark'" class="material-icons-outlined">
+        dark_mode
+      </span>
     </div>
   </div>
 </nav>

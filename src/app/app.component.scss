@@ -1,0 +1,11 @@
+nav a {
+  @apply text-xl text-gray-500 uppercase;
+}
+
+nav a:hover {
+  @apply text-gray-700;
+}
+
+nav a.active {
+  @apply text-gray-900;
+}
