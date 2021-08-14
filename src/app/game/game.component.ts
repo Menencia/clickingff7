@@ -9,6 +9,9 @@ import { Attack } from '../models/attack';
 })
 export class GameComponent {
 
+  /** Send Math to html */
+  Math = Math;
+
   /**
    * Init
    */
