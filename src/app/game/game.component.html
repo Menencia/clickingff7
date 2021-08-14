@@ -1,7 +1,7 @@
 <div class="grid grid-cols-5 gap-x-4">
 
-  <div class="divide-y divide-fuchsia-300">
-    <div class="flex flex-col mt-5">
+  <div>
+    <div class="flex flex-col gap-1">
       <button class="button" (click)="fightRandom()" [class.disabled]="game.battle.isBattle" id="step6">
         {{"Fight random"|translate}}
       </button>
@@ -19,9 +19,9 @@
       </button>
     </div>
 
-    <div class="flex flex-col mt-5" id="step9">
+    <div class="flex flex-col gap-1 mt-5" id="step9">
       <button
-        class="flex flex-row items-center"
+        class="button flex flex-row items-center"
         *ngFor="let materia of game.materias.getEquipped()"
         (click)="materia.action()"
         [class.disabled]="!materia.canUse()">
@@ -35,7 +35,7 @@
 
     <div class="flex flex-col mt-5" *ngIf="game.items.getEquipped().length > 0" id="step10">
       <button
-        class="flex flex-row items-center"
+        class="button flex flex-row items-center"
         *ngFor="let item of game.items.getEquipped()"
         (click)="item.action()"
         [class.disabled]="!item.canUse()">

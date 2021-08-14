@@ -11,11 +11,3 @@ body {
 a.active {
   @apply font-bold;
 }
-
-.button {
-  @apply bg-blue-100 px-4 py-2 text-lg font-semibold tracking-wider text-blue-600 rounded hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2;
-
-  .disabled {
-    @apply text-gray-400;
-  }
-}
