@@ -1,14 +1,3 @@
-.button {
-  @apply bg-blue-100 px-4 py-2 text-lg font-semibold tracking-wider text-blue-600 rounded;
-  @apply hover:bg-blue-200;
-  @apply focus:outline-none focus:ring-0;
-
-  &.disabled {
-    @apply text-gray-400;
-    @apply hover:bg-blue-100;
-  }
-}
-
 .stat {
   @apply flex-1 bg-blue-100 p-2 rounded;
 }
