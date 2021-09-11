@@ -51,41 +51,26 @@
       <div class="hit hit_{{index+1}}" *ngFor="let hit of game.enemies.arrHits; let index = index">{{hit}}</div>
     </div>
 
-    <div class="relative mb-1" id="step2">
-      <div class="overflow-hidden h-5 flex rounder bg-green-50">
-        <div
-          [style.width]="Math.round(game.characters.hp / game.characters.hpMax * 100) + '%'"
-          class="text-center bg-green-200">
-        </div>
-      </div>
-      <div class="absolute right-0 top-0 text-xs">
-        {{game.characters.hp}} / {{game.characters.hpMax}} HP
-      </div>
-    </div>
+    <app-bar
+      [progress]="Math.round(game.characters.hp / game.characters.hpMax * 100)"
+      [text]="game.characters.hp + ' / ' + game.characters.hpMax + 'HP'"
+      [bgCurrent]="'bg-green-200'"
+      [bgMax]="'bg-green-50'"
+    ></app-bar>
 
-    <div class="relative mb-1" id="step3">
-      <div class="overflow-hidden h-5 flex rounder bg-blue-50">
-        <div
-          [style.width]="Math.round(game.characters.mp / game.characters.mpMax * 100) + '%'"
-          class="text-center bg-blue-200">
-        </div>
-      </div>
-      <div class="absolute right-0 top-0 text-xs">
-        {{game.characters.mp}} / {{game.characters.mpMax}} MP
-      </div>
-    </div>
+    <app-bar
+      [progress]="Math.round(game.characters.mp / game.characters.mpMax * 100)"
+      [text]="game.characters.mp + ' / ' + game.characters.mpMax + 'MP'"
+      [bgCurrent]="'bg-blue-200'"
+      [bgMax]="'bg-blue-50'"
+    ></app-bar>
 
-    <div class="relative mb-1" id="step4">
-      <div class="overflow-hidden h-5 flex rounder bg-red-50">
-        <div
-          [style.width]="Math.round(game.characters.limit / game.characters.limitMax * 100) + '%'"
-          class="text-center bg-red-200">
-        </div>
-      </div>
-      <div class="absolute right-0 top-0 text-xs">
-        LIMIT
-      </div>
-    </div>
+    <app-bar
+      [progress]="Math.round(game.characters.limit / game.characters.limitMax * 100)"
+      [text]="'LIMIT'"
+      [bgCurrent]="'bg-red-200'"
+      [bgMax]="'bg-red-50'"
+    ></app-bar>
 
       <!-- characters list -->
     <div id="step1">
@@ -100,17 +85,12 @@
         </div>
 
         <div class="flex-grow">
-          <div class="relative mb-1">
-            <div class="overflow-hidden h-5 flex rounder bg-indigo-50">
-              <div
-                [style.width]="Math.round(character.xp / character.getXpMax() * 100) + '%'"
-                class="text-center bg-indigo-200">
-              </div>
-            </div>
-            <div class="absolute right-0 top-0 text-xs">
-              {{character.xp}} / {{character.getXpMax()}} EXP
-            </div>
-          </div>
+          <app-bar
+            [progress]="Math.round(character.xp / character.getXpMax() * 100)"
+            [text]="character.xp + ' / '+ character.getXpMax() + 'EXP'"
+            [bgCurrent]="'bg-indigo-200'"
+            [bgMax]="'bg-indigo-50'"
+          ></app-bar>
 
           <div class="text-2xl">{{character.name}}</div>
           <!-- <div *ngIf="character.level > 0">
@@ -126,16 +106,18 @@
 
   <div class="col-span-2" id="step5">
     <!-- enemies bars -->
-    <div class="bars" *ngIf="game.enemies.list.length > 0">
-      <div class="characters_hits">
+    <div *ngIf="game.enemies.list.length > 0">
+      <div class="float-right">
         <div class="hit hit_{{index+1}}" *ngFor="let hit of game.characters.arrHits; let index = index">{{hit}}
         </div>
       </div>
 
-      <div class="progress enemy_hp">
-        <div class="enemy_hp_progress" [style.width]="game.enemies.hpProgress(300) + 'px'"></div>
-        <span class="bar-label">{{game.enemies.hp}} / {{game.enemies.hpMax}} HP</span>
-      </div>
+      <app-bar
+        [progress]="Math.round(game.enemies.hp / game.enemies.hpMax * 100)"
+        [text]="game.enemies.hp + ' / ' + game.enemies.hpMax + 'HP'"
+        [bgCurrent]="'bg-green-200'"
+        [bgMax]="'bg-green-50'"
+      ></app-bar>
     </div>
 
     <div *ngIf="game.enemies.list.length === 0" class="text-gray-300 uppercase text-center mt-10">
@@ -143,20 +125,24 @@
     </div>
 
       <!-- enemies list -->
-      <div *ngFor="let enemy of game.enemies.list" class="card_enemy">
-        <div class="avatar_enemy">
-          <img [src]="enemy.image" alt="avatar" height="80" />
+      <div *ngFor="let enemy of game.enemies.list" class="flex gap-4 mt-5">
+        <div class="relative">
+          <img [src]="enemy.image" alt="avatar" width="80" class="icon"/>
+          <div class="absolute bg-black h-5 bottom-0 right-0 left-0 opacity-75 text-center">
+            <span class="text-white text-sm">
+              LVL{{enemy.level}}
+            </span>
+          </div>
         </div>
-        <!--
-                    -->
-        <div class="main_enemy">
 
-          <div>{{enemy.name}} <strong>(LVL{{enemy.level}})</strong>
-              <span *ngIf="enemy.boss" class="boss">ZONE BOSS</span>
-              <span *ngIf="enemy.miboss" class="boss">BOSS</span>
+        <div class="flex-grow">
+
+          <div class="text-2xl">{{enemy.name}}
+            <span *ngIf="enemy.boss" class="boss">ZONE BOSS</span>
+            <span *ngIf="enemy.miboss" class="boss">BOSS</span>
           </div>
 
-          <div>
+          <!-- <div>
               <span class="label">hp</span> {{enemy.getHpMax()}}
               <span class="label">pwr</span> {{enemy.getHits()}}
           </div>
@@ -164,18 +150,16 @@
               <span class="label">xp</span> {{enemy.xpReward()}}
               <span class="label">ap</span> {{enemy.apReward()}}
               <span class="label">gils</span> {{enemy.gilsReward()}}
-          </div>
-          <div *ngIf="enemy.weakness.length > 0">
+          </div> -->
+          <!-- <div *ngIf="enemy.weakness.length > 0">
               {{'Weakness'|translate}}
               <img *ngFor="let weakness of enemy.weakness" src="/assets/images/icons/elements/{{weakness}}.png" class="weakness" />
           </div>
           <div *ngIf="enemy.resistance.length > 0">
               {{'Resistance'|translate}}
               <img *ngFor="let resistance of enemy.resistance" src="/assets/images/icons/elements/{{resistance}}.png" class="resistance" />
-          </div>
+          </div> -->
         </div>
-
-        <div style="clear: left"></div>
       </div>
   </div>
 
