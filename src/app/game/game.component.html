@@ -47,10 +47,6 @@
 
   <div class="col-span-2">
     <!-- characters bars -->
-    <div class="float-right">
-      <div class="hit hit_{{index+1}}" *ngFor="let hit of game.enemies.arrHits; let index = index">{{hit}}</div>
-    </div>
-
     <app-bar
       [progress]="Math.round(game.characters.hp / game.characters.hpMax * 100)"
       [text]="game.characters.hp + ' / ' + game.characters.hpMax + 'HP'"
@@ -107,11 +103,6 @@
   <div class="col-span-2" id="step5">
     <!-- enemies bars -->
     <div *ngIf="game.enemies.list.length > 0">
-      <div class="float-right">
-        <div class="hit hit_{{index+1}}" *ngFor="let hit of game.characters.arrHits; let index = index">{{hit}}
-        </div>
-      </div>
-
       <app-bar
         [progress]="Math.round(game.enemies.hp / game.enemies.hpMax * 100)"
         [text]="game.enemies.hp + ' / ' + game.enemies.hpMax + 'HP'"
