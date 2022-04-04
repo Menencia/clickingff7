@@ -1,54 +1,59 @@
-<nav class="actions">
-  <div class="block">
-    <ul>
-      <li *ngFor="let character of game.characters.getTeam()" (click)="character.select()"
-        [class.current]="game.characters.selected && game.characters.selected.name === character.name">
+<div class="grid grid-cols-5 gap-x-4">
+
+  <div>
+    <div class="flex flex-col gap-1">
+      <button class="button" 
+              *ngFor="let character of game.characters.getTeam()" 
+              (click)="character.select()"
+              [class.current]="game.characters.selected && game.characters.selected.name === character.name">
         {{character.name}}
-      </li>
-    </ul>
+      </button>
+    </div>
   </div>
-</nav>
 
-<div class="c1" *ngIf="game.characters.selected">
+  <div class="col-span-2" *ngIf="game.characters.selected">
 
-  <img [src]="game.characters.selected.image" width="80" alt="current_character" style="float: left"/>
+    <img [src]="game.characters.selected.image" width="80" alt="current_character" style="float: left"/>
 
-  <div class="main">
-    <div>{{game.characters.selected.name}} <strong>(LVL{{game.characters.selected.level}})</strong></div>
-    <div *ngIf="game.characters.selected.level > 0">
-      <span class="label">hp</span> {{game.characters.selected.getHpMax()}}
-      <span class="label">mp</span> {{game.characters.selected.getMpMax()}}
-      <span class="label">pwr</span> {{game.characters.selected.getHits()}}
+    <div class="main">
+      <div>{{game.characters.selected.name}} <strong>(LVL{{game.characters.selected.level}})</strong></div>
+      <div *ngIf="game.characters.selected.level > 0">
+        <span class="label">hp</span> {{game.characters.selected.getHpMax()}}
+        <span class="label">mp</span> {{game.characters.selected.getMpMax()}}
+        <span class="label">pwr</span> {{game.characters.selected.getHits()}}
+      </div>
+
+      <p>
+        {{"Equipped weapon"|translate}}<br/>
+        <img src="/assets/images/icons/weapons/{{game.characters.selected.weapon().type}}.png" />
+        {{game.characters.selected.weapon().name}}
+        <span class="desc">({{"Power"|translate}} {{game.characters.selected.weapon().hits}})</span>
+      </p>
+
+      <p>
+        {{"Nb materia"|translate}} +{{game.characters.selected.weapon().maxMaterias}}
+      </p>
     </div>
 
-    <p>
-      {{"Equipped weapon"|translate}}<br/>
-      <img src="/assets/images/icons/weapons/{{game.characters.selected.weapon().type}}.png" />
-      {{game.characters.selected.weapon().name}}
-      <span class="desc">({{"Power"|translate}} {{game.characters.selected.weapon().hits}})</span>
-    </p>
+  </div>
+  
+  <div class="col-span-2" *ngIf="game.characters.selected">
+    <div *ngIf="game.characters.selected.getOthersWeapons().length !== 0">
+      <table style="width: 100%">
+        <tr>
+          <th>{{"Name"|translate}}</th>
+          <th></th>
+        </tr>
+        <tr *ngFor="let weapon of game.characters.selected.getOthersWeapons()" class="weapon">
+          <td>{{weapon.name}}</td>
+          <td><span (click)="weapon.equip()" class="button">{{"Equip"|translate}}</span></td>
+        </tr>
+      </table>
+    </div>
 
-    <p>
-      {{"Nb materia"|translate}} +{{game.characters.selected.weapon().maxMaterias}}
-    </p>
+    <div class="no-data" *ngIf="game.characters.selected.getOthersWeapons().length === 0">
+        {{"No weapons"|translate}}
+    </div>
   </div>
 
-</div><!--
---><div class="c3" *ngIf="game.characters.selected">
-  <div *ngIf="game.characters.selected.getOthersWeapons().length !== 0">
-    <table style="width: 100%">
-      <tr>
-        <th>{{"Name"|translate}}</th>
-        <th></th>
-      </tr>
-      <tr *ngFor="let weapon of game.characters.selected.getOthersWeapons()" class="weapon">
-        <td>{{weapon.name}}</td>
-        <td><span (click)="weapon.equip()" class="button">{{"Equip"|translate}}</span></td>
-      </tr>
-    </table>
-  </div>
-
-  <div class="no-data" *ngIf="game.characters.selected.getOthersWeapons().length === 0">
-      {{"No weapons"|translate}}
-  </div>
 </div>
