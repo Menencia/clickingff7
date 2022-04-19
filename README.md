@@ -1,6 +1,6 @@
 # Clickingff7
 
-This project is build with Angular 11.
+This project is build with Angular 12.
 
 [Official website](https://clickingff7.menencia.com)
 
