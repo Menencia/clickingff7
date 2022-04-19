@@ -104,7 +104,7 @@ export class Enemies {
    */
   displayAutoHits(hits: number): void {
     this.arrHits.unshift(hits);
-    if (this.arrHits.length > 5) {
+    if (this.arrHits.length > 1) {
       this.arrHits.pop();
     }
   }

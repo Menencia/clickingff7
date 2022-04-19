@@ -1,10 +1,20 @@
+import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
 import { GameService } from 'src/app/game.service';
 
 @Component({
   selector: 'app-bar',
   templateUrl: './bar.component.html',
-  styleUrls: ['./bar.component.scss']
+  styleUrls: ['./bar.component.scss'],
+  animations: [
+    trigger('animation', [
+      transition(':enter', [
+        style({opacity: 1, top: -20}),
+        animate('1s', 
+          style({opacity: 0, top: -40}))
+      ])
+    ])
+  ]
 })
 export class BarComponent implements OnInit {
 
@@ -14,10 +24,15 @@ export class BarComponent implements OnInit {
   @Input('text') text: string = '';
   @Input('bgCurrent') bgCurrent: string = '';
   @Input('bgMax') bgMax: string = '';
+  @Input('hits') hits: number[] = [];
 
   constructor(public game: GameService) { }
 
   ngOnInit(): void {
+  }
+
+  onAnimationEvent($event: any) {
+    this.hits.pop();
   }
 
 }

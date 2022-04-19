@@ -8,4 +8,10 @@
   <div class="absolute right-0 top-0 text-xs">
     {{text}}
   </div>
+  <div @animation 
+       (@animation.done)="onAnimationEvent($event)"
+       *ngFor="let hit of hits" 
+       class="absolute right-0 top-0 text-red-600 text-lg">
+    {{hit}}
+  </div>
 </div>

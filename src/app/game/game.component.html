@@ -49,14 +49,15 @@
     <!-- characters bars -->
     <app-bar
       [progress]="Math.round(game.characters.hp / game.characters.hpMax * 100)"
-      [text]="game.characters.hp + ' / ' + game.characters.hpMax + 'HP'"
+      [text]="'HP ' + game.characters.hp"
       [bgCurrent]="'bg-green-200'"
       [bgMax]="'bg-green-50'"
+      [hits]="game.enemies.arrHits"
     ></app-bar>
 
     <app-bar
       [progress]="Math.round(game.characters.mp / game.characters.mpMax * 100)"
-      [text]="game.characters.mp + ' / ' + game.characters.mpMax + 'MP'"
+      [text]="'MP ' + game.characters.mp"
       [bgCurrent]="'bg-blue-200'"
       [bgMax]="'bg-blue-50'"
     ></app-bar>
@@ -105,9 +106,10 @@
     <div *ngIf="game.enemies.list.length > 0">
       <app-bar
         [progress]="Math.round(game.enemies.hp / game.enemies.hpMax * 100)"
-        [text]="game.enemies.hp + ' / ' + game.enemies.hpMax + 'HP'"
+        [text]="'HP ' + game.enemies.hp"
         [bgCurrent]="'bg-green-200'"
         [bgMax]="'bg-green-50'"
+        [hits]="game.characters.arrHits"
       ></app-bar>
     </div>
 
