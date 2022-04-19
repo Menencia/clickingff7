@@ -10,6 +10,6 @@ export class MotorBall extends Enemy {
   baseAp = 5;
   baseGils = 5;
   weakness = ['bolt'];
-  miboss = true;
+  boss = true;
 
 }

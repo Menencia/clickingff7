@@ -76,6 +76,15 @@ export class ZoneLoader {
       case 6:
         zone = ZoneLoader.build(ZoneRef.Zone6, game);
         break;
+      case 7:
+        zone = ZoneLoader.build(ZoneRef.Zone7, game);
+        break;
+      case 8:
+        zone = ZoneLoader.build(ZoneRef.Zone8, game);
+        break;
+      case 9:
+        zone = ZoneLoader.build(ZoneRef.Zone9, game);
+        break;
       default:
         throw new Error('Zone not found');
     }

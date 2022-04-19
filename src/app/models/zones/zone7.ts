@@ -6,7 +6,7 @@ export class Zone7 extends Zone {
 
   ref = ZoneRef.Zone7;
   level = 7;
-  image = '/assets/images/zones/kalm.png';
+  image = '/assets/images/zones/Kalm.png';
   enemies = [
     EnemyLoader.build(EnemyRef.KalmFang, this.game),
     EnemyLoader.build(EnemyRef.Mandragora, this.game),
