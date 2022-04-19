@@ -83,7 +83,7 @@ export class GameService {
     this.run();
   }
 
-  getLanguage(language: string, def = 'en'): string {
+  getLanguage(language: string | undefined, def = 'en'): string {
     const languages = ['en', 'fr', 'es'];
     for (const l of languages) {
       if (l === language) {
