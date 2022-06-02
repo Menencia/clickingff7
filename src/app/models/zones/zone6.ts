@@ -8,13 +8,13 @@ export class Zone6 extends Zone {
   level = 6;
   image = '/assets/images/zones/Shinra_headquarters.png';
   enemies = [
-    EnemyLoader.build(EnemyRef.HeliGunner, this.game),
-    EnemyLoader.build(EnemyRef.HundredGunner, this.game),
-    EnemyLoader.build(EnemyRef.Rufus, this.game),
-    EnemyLoader.build(EnemyRef.Zenene, this.game)
+    EnemyLoader.build(EnemyRef.HeliGunner),
+    EnemyLoader.build(EnemyRef.HundredGunner),
+    EnemyLoader.build(EnemyRef.Rufus),
+    EnemyLoader.build(EnemyRef.Zenene)
   ];
   boss = [
-    EnemyLoader.build(EnemyRef.MotorBall, this.game)
+    EnemyLoader.build(EnemyRef.MotorBall)
   ];
 
 }

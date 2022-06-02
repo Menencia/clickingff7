@@ -1,4 +1,3 @@
-import { GameService } from 'src/app/game.service';
 import { Item } from '../item';
 import { Ether } from '../items/ether';
 import { HiEther } from '../items/hi-ether';
@@ -11,20 +10,20 @@ export class ItemLoader {
   /**
    * Build by reference
    */
-    static build(ref: ItemRef, game: GameService): Item {
+    static build(ref: ItemRef): Item {
     let item;
     switch (ref) {
       case ItemRef.Ether:
-        item = new Ether(game);
+        item = new Ether();
         break;
       case ItemRef.HiEther:
-        item = new HiEther(game);
+        item = new HiEther();
         break;
       case ItemRef.HiPotion:
-        item = new HiPotion(game);
+        item = new HiPotion();
         break;
       case ItemRef.Potion:
-        item = new Potion(game);
+        item = new Potion();
         break;
       default:
         throw new Error('Item not found: ' + ref);

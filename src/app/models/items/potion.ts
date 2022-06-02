@@ -1,3 +1,4 @@
+import { BattleService } from 'src/app/services/battle.service';
 import { Item } from '../item';
 import { ItemRef } from '../refs/items';
 
@@ -11,16 +12,13 @@ export class Potion extends Item {
     return true;
   }
 
-  canUse(): boolean {
-    return (this.game.characters.hp < this.game.characters.hpMax);
+  canUse(battleService: BattleService): boolean {
+    return (battleService.characters.hp < battleService.characters.hpMax);
   }
 
-  action(): void {
-    const hp = Math.ceil(33 / 100 * this.game.characters.hpMax);
-
-    super.action(() => {
-      this.game.characters.addHp(hp);
-    });
+  use(battleService: BattleService): void {
+    const hp = Math.ceil(33 / 100 * battleService.characters.hpMax);
+    battleService.characters.addHp(hp);
   }
 
 }

@@ -8,13 +8,13 @@ export class Zone8 extends Zone {
   level = 8;
   image = '/assets/images/zones/Mythril_mine.png';
   enemies = [
-    EnemyLoader.build(EnemyRef.Crawler, this.game),
-    EnemyLoader.build(EnemyRef.Castanets, this.game),
-    EnemyLoader.build(EnemyRef.Madouge, this.game),
-    EnemyLoader.build(EnemyRef.ArkDragon, this.game)
+    EnemyLoader.build(EnemyRef.Crawler),
+    EnemyLoader.build(EnemyRef.Castanets),
+    EnemyLoader.build(EnemyRef.Madouge),
+    EnemyLoader.build(EnemyRef.ArkDragon)
   ];
   boss = [
-    EnemyLoader.build(EnemyRef.MysteryNinja, this.game)
+    EnemyLoader.build(EnemyRef.MysteryNinja)
   ];
 
 }

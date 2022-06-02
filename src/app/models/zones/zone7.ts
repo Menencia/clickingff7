@@ -8,13 +8,13 @@ export class Zone7 extends Zone {
   level = 7;
   image = '/assets/images/zones/Kalm.png';
   enemies = [
-    EnemyLoader.build(EnemyRef.KalmFang, this.game),
-    EnemyLoader.build(EnemyRef.Mandragora, this.game),
-    EnemyLoader.build(EnemyRef.Elfadunk, this.game),
-    EnemyLoader.build(EnemyRef.Levrikon, this.game)
+    EnemyLoader.build(EnemyRef.KalmFang),
+    EnemyLoader.build(EnemyRef.Mandragora),
+    EnemyLoader.build(EnemyRef.Elfadunk),
+    EnemyLoader.build(EnemyRef.Levrikon)
   ];
   boss = [
-    EnemyLoader.build(EnemyRef.MidgarZolom, this.game)
+    EnemyLoader.build(EnemyRef.MidgarZolom)
   ];
 
 }

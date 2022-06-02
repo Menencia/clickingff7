@@ -1,4 +1,3 @@
-import { GameService } from '../game.service';
 import { ZonesSave } from './save';
 import { Zone } from './zone';
 
@@ -14,7 +13,7 @@ export class Zones {
   /**
    * Init
    */
-  constructor(public game: GameService) {
+  constructor() {
     this.list = [];
     this.level = 1;
     this.levelMax = 1;
@@ -96,34 +95,6 @@ export class Zones {
       return zone.completed && this.levelMax < MAX_ZONES;
     }
     return false;
-  }
-
-  /**
-   * Go next zone
-   */
-  goNextZone(): void {
-    this.level++;
-
-    // Known level
-    if (this.level <= this.levelMax) {
-      this.goZone(this.level);
-    }
-
-    // New level
-    else {
-      this.levelMax++;
-      this.nextZone = false;
-      this.game.buildLevel(this.level);
-      this.game.characters.refresh();
-      this.game.shop.refresh();
-    }
-  }
-
-  /**
-   * Go to the level zone
-   */
-  goZone(level: number): void {
-    this.level = level;
   }
 
   /**

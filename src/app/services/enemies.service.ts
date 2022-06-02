@@ -1,10 +1,13 @@
-import { GameService } from '../game.service';
+import { Injectable } from '@angular/core';
+import { Attack } from '../models/attack';
+import { Enemy } from '../models/enemy';
+import { MAX_FIGHTS, Zone } from '../models/zone';
 import { random } from '../utils';
-import { Attack } from './attack';
-import { Enemy } from './enemy';
-import { MAX_FIGHTS } from './zone';
 
-export class Enemies {
+@Injectable({
+  providedIn: 'root'
+})
+export class EnemiesService {
 
   list: Enemy[];
   arrHits: number[];
@@ -19,7 +22,7 @@ export class Enemies {
   /**
    * Init
    */
-  constructor(public game: GameService) {
+  constructor() {
     this.list = [];
     this.arrHits = [];
     this.timer = 0;
@@ -34,9 +37,7 @@ export class Enemies {
   /**
    * Fight against a random enemy
    */
-  fightRandom(): void {
-    let levelSum = this.game.characters.levelSum;
-    const zone = this.game.zones.current();
+  fightRandom(levelSum: number, zone: Zone, difficulty: number): Enemy[] {
 
     let range;
     range = Math.floor((zone.nbFights / MAX_FIGHTS) * 4);
@@ -48,21 +49,21 @@ export class Enemies {
       levelSum *= 1.2;
     }
 
-    enemy.toLevel(levelSum);
+    enemy.toLevel(levelSum, difficulty);
 
     this.list = [enemy];
+
+    return this.list;
   }
 
   /**
    * Fight against the zone boss
    */
-  fightBoss(): void {
-    const zone = this.game.zones.current();
-    const nbCharacters = this.game.characters.getTeam().length;
+  fightBoss(zone: Zone, nbCharacters: number, difficulty: number): void {
 
     const enemies = zone.boss;
     enemies.forEach(e => {
-      e.toLevel(zone.level * (nbCharacters + 1) * 3 * 1.4);
+      e.toLevel(zone.level * (nbCharacters + 1) * 3 * 1.4, difficulty);
     });
 
     this.list = enemies;
@@ -110,59 +111,9 @@ export class Enemies {
   }
 
   /**
-   * Enemies auto-attack process
-   */
-  autoFighting(): void {
-    this.timer = window.setTimeout(() => {
-      const pwr = this.getHits();
-      const alive = this.game.characters.getAutoAttacked(new Attack(pwr));
-
-      if (alive) {
-        this.autoFighting();
-      } else {
-        this.game.battle.end(false);
-      }
-    }, 1000);
-  }
-
-  /**
-   * Stop fighting
-   */
-  stopFighting(): void {
-    clearTimeout(this.timer);
-  }
-
-  /**
-   * Enemies are under auto attack
-   */
-  getAutoAttacked(attack: Attack): boolean {
-    let hits = attack.getHits();
-
-    // weakness
-    if (this.hasWeakness(attack.type)) {
-      hits *= 3;
-    }
-
-    // resistance
-    if (this.hasResistance(attack.type)) {
-      hits = Math.floor(hits / 10);
-    }
-
-    this.hp -= hits;
-    this.game.characters.displayAutoHits(hits);
-
-    if (this.hp <= 0) {
-      this.hp = 0;
-
-      return false;
-    }
-    return true;
-  }
-
-  /**
    * Enemies are under manual attack
    */
-  getAttacked(attack: Attack): void {
+  getAttacked(attack: Attack): number {
     let hits = attack.getHits();
 
     // weakness
@@ -176,12 +127,17 @@ export class Enemies {
     }
 
     this.hp -= hits;
-    this.game.characters.displayHits(hits);
 
+    return hits;
+  }
+
+  isAlive(): boolean {
     if (this.hp <= 0) {
       this.hp = 0;
-      this.game.battle.end(true);
+
+      return false;
     }
+    return true;
   }
 
   /**
@@ -212,5 +168,4 @@ export class Enemies {
     this.list = [];
     this.refresh();
   }
-
 }

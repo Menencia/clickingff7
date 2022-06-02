@@ -1,4 +1,3 @@
-import { GameService } from 'src/app/game.service';
 import { Character } from '../character';
 import { Aerith } from '../characters/aerith';
 import { Barret } from '../characters/barret';
@@ -13,26 +12,26 @@ export class CharacterLoader {
   /**
    *
    */
-  static build(ref: CharacterRef, game: GameService): Character {
+  static build(ref: CharacterRef): Character {
     let character;
     switch (ref) {
       case CharacterRef.Aerith:
-        character = new Aerith(game);
+        character = new Aerith();
         break;
       case CharacterRef.Barret:
-        character = new Barret(game);
+        character = new Barret();
         break;
       case CharacterRef.Cloud:
-        character = new Cloud(game);
+        character = new Cloud();
         break;
       case CharacterRef.RedXIII:
-        character = new RedXIII(game);
+        character = new RedXIII();
         break;
       case CharacterRef.Tifa:
-        character = new Tifa(game);
+        character = new Tifa();
         break;
       case CharacterRef.Yuffie:
-        character = new Yuffie(game);
+        character = new Yuffie();
         break;
       default:
         throw new Error('Character not found');

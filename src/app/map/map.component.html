@@ -2,8 +2,8 @@
 
   <div>
     <div class="flex flex-col gap-1">
-      <button class="button" *ngFor="let zone of game.zones.list" [class.current]="game.zones.level === zone.level"
-        (click)="game.zones.goZone(zone.level)">
+      <button class="button" *ngFor="let zone of list" [class.current]="level === zone.level"
+        (click)="goZone(zone.level)">
         {{'Zone'|translate}} {{zone.level}}
       </button>
     </div>
@@ -12,16 +12,16 @@
   <div class="col-span-2">
 
     <div class="flex gap-2">
-      <img class="w-32" [src]="game.zones.current().image" alt="current_zone" />
+      <img class="w-32" [src]="current.image" alt="current_zone" />
 
       <div>
         <div class="">
-          {{"Zone "+game.zones.current().level+" name"|translate}}
-          <strong>(#{{game.zones.current().level}})</strong>
+          {{"Zone "+current.level+" name"|translate}}
+          <strong>(#{{current.level}})</strong>
         </div>
 
         <div class="text-sm">
-          {{'Zone '+game.zones.current().level+' desc'|translate}}
+          {{'Zone '+current.level+' desc'|translate}}
         </div>
       </div>
     </div>
@@ -30,13 +30,13 @@
 
   <div class="col-span-2">
 
-    <div class="uppercase text-gray-400 text-center" *ngIf="!game.zones.current().completed">
+    <div class="uppercase text-gray-400 text-center" *ngIf="!current.completed">
         {{"Not completed"|translate}}
     </div>
 
-    <div class="no-data" *ngIf="game.zones.current().completed">
+    <div class="no-data" *ngIf="current.completed">
       <div>{{"Completed"|translate}}</div>
-      <div *ngIf="game.zones.isNextZone()" (click)="game.zones.goNextZone()" class="button">
+      <div *ngIf="canGoNextZone()" (click)="goNextZone()" class="button">
         {{"Go next zone"|translate}}
       </div>
     </div>

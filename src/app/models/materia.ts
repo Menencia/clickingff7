@@ -1,4 +1,4 @@
-import { GameService } from '../game.service';
+import { BattleService } from '../services/battle.service';
 import { MateriaRef } from './refs/materias';
 import { MateriaSave } from './save';
 
@@ -19,7 +19,7 @@ export abstract class Materia {
   /**
    * Init
    */
-  constructor(public game: GameService) {
+  constructor() {
     // current level
     this.level = 1;
 
@@ -41,30 +41,11 @@ export abstract class Materia {
     return this;
   }
 
-  /**
-   *
-   */
-  abstract canUse(): boolean;
-
-  /**
-   *
-   */
   abstract getMpCost(): number;
 
-  /**
-   * Executes materia action
-   */
-  action(fn = () => {}): void {
-    // cost
-    if (this.canUse()) {
-      this.game.characters.mp -= this.getMpCost();
-    } else {
-      throw new Error('CANNOT USE');
-    }
+  abstract canUse(battleService: BattleService): boolean;
 
-    // do action
-    fn();
-  }
+  abstract use(battleService: BattleService): void;
 
   /**
    * Returns the price of the materia
@@ -81,44 +62,10 @@ export abstract class Materia {
   }
 
   /**
-   * Returns true if the materia can be bought
-   */
-  canBuy(): boolean {
-    return (this.game.gils >= this.getPrice());
-  }
-
-  /**
-   * Buy the materia
-   */
-  buy(): void {
-    if (this.canBuy()) {
-      this.game.gils -= this.getPrice();
-      this.game.materias.add(this);
-    }
-  }
-
-  /**
-   * Returns true if the materia can be sold
-   */
-  canSell(): boolean {
-    return (true);
-  }
-
-  /**
-   * Sell the materia
-   */
-  sell(): void {
-    if (this.canSell()) {
-      this.game.gils += this.getSellPrice();
-      this.remove();
-    }
-  }
-
-  /**
    * Returns the number of owned
    */
-  inStock(): boolean {
-    const materia = this.game.materias.list.filter(e => e.name = this.name);
+  inStock(materias: Materia[]): boolean {
+    const materia = materias.filter(e => e.name = this.name);
     if (materia) {
       return true;
     }
@@ -150,42 +97,6 @@ export abstract class Materia {
         this.level += 1;
       }
     }
-  }
-
-  /**
-   * Returns true if the materia can be equipped
-   */
-  canEquip(): boolean {
-    return (this.game.materias.getEquipped().length < this.game.weapons.maxMaterias());
-  }
-
-  /**
-   * Equip the materia
-   */
-  equip(refresh = true): void {
-    this.equipped = true;
-
-    if (refresh) {
-      this.game.characters.refresh();
-    }
-  }
-
-  /**
-   * Unequip the materia
-   */
-  unequip(refresh = true): void {
-    this.equipped = false;
-
-    if (refresh) {
-      this.game.characters.refresh();
-    }
-  }
-
-  /**
-   * Remove one ex. of the materia
-   */
-  remove(): void {
-    this.game.materias.list = this.game.materias.list.filter(e => e !== this);
   }
 
   /**

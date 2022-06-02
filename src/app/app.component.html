@@ -11,14 +11,14 @@
   </div>
   <a routerLink="/game" (click)="goGame()" routerLinkActive="active">{{"Game"|translate}}</a>
   <a routerLink="/map" (click)="goMap()" routerLinkActive="active">
-    {{"Map"|translate}}<span *ngIf="game.zones.nextZone">*</span>
+    {{"Map"|translate}}<span *ngIf="gameService.zones.nextZone">*</span>
   </a>
   <a routerLink="/shop" (click)="goShop()" routerLinkActive="active">{{"Shop"|translate}}</a>
   <a routerLink="/equip" (click)="goEquip()" routerLinkActive="active">{{"Equip"|translate}}</a>
   <a routerLink="/materia" (click)="goMateria()" routerLinkActive="active">{{"Materia"|translate}}</a>
   <a routerLink="/items" (click)="goItems()" routerLinkActive="active">{{"Items"|translate}}</a>
   <a routerLink="/config" (click)="goConfig()" routerLinkActive="active">{{"Config"|translate}}</a>
-  <a routerLink="/phs" (click)="goPHS()" routerLinkActive="active" [class.disabled]="game.zones.levelMax < 5">
+  <a routerLink="/phs" (click)="goPHS()" routerLinkActive="active" [class.disabled]="gameService.zones.levelMax < 5">
     {{"PHS"|translate}}
   </a>
   <a routerLink="/save" (click)="goSave()" routerLinkActive="active">{{"Save"|translate}}</a>
@@ -61,7 +61,7 @@
     <div>
       ©2014 <a href="http://menencia.com" target="_blank">menencia.com</a>, version <a
         href="https://github.com/Menencia/clickingff7/releases"
-        target="_blank" id="step12">{{game.version}}</a>
+        target="_blank" id="step12">{{gameService.version}}</a>
     </div>
     <div>
       <a href="https://github.com/Menencia/clickingff7" target="_blank">Github</a> -

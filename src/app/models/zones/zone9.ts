@@ -8,13 +8,13 @@ export class Zone9 extends Zone {
   level = 9;
   image = '/assets/images/zones/Junon.jpg';
   enemies = [
-    EnemyLoader.build(EnemyRef.Capparwire, this.game),
-    EnemyLoader.build(EnemyRef.Formula, this.game),
-    EnemyLoader.build(EnemyRef.Zemzelett, this.game),
-    EnemyLoader.build(EnemyRef.HellRider, this.game)
+    EnemyLoader.build(EnemyRef.Capparwire),
+    EnemyLoader.build(EnemyRef.Formula),
+    EnemyLoader.build(EnemyRef.Zemzelett),
+    EnemyLoader.build(EnemyRef.HellRider)
   ];
   boss = [
-    EnemyLoader.build(EnemyRef.Bottomswell, this.game)
+    EnemyLoader.build(EnemyRef.Bottomswell)
   ];
 
 }

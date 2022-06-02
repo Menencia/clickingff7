@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { GameService } from '../game.service';
-import { MAX_ITEMS } from '../models/item';
+import { GameService } from '../services/game.service';
+import { Item, MAX_ITEMS } from '../models/item';
 
 @Component({
   selector: 'app-items',
@@ -10,7 +10,24 @@ import { MAX_ITEMS } from '../models/item';
 export class ItemsComponent {
 
   MAX_ITEMS = MAX_ITEMS;
+  list: Item[] = [];
+  nbrItems = 0;
 
-  constructor(public game: GameService) {}
+  constructor(public gameService: GameService) {
+    this.list = this.gameService.items.list;
+    this.nbrItems = this.gameService.items.getEquipped().length;
+  }
+
+  canEquipItem(item: Item): boolean {
+    return !item.equipped && this.gameService.items.getEquipped().length < MAX_ITEMS;
+  }
+
+  equipItem(item: Item): void {
+    item.equipped = true;
+  }
+
+  unequipItem(item: Item): void {
+    item.equipped = false;
+  }
 
 }

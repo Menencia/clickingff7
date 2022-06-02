@@ -8,13 +8,13 @@ export class Zone3 extends Zone {
   level = 3;
   image = '/assets/images/zones/Sector_6.png';
   enemies = [
-    EnemyLoader.build(EnemyRef.Vice, this.game),
-    EnemyLoader.build(EnemyRef.WholeEater, this.game),
-    EnemyLoader.build(EnemyRef.HedgehogPie, this.game),
-    EnemyLoader.build(EnemyRef.HellHouse, this.game)
+    EnemyLoader.build(EnemyRef.Vice),
+    EnemyLoader.build(EnemyRef.WholeEater),
+    EnemyLoader.build(EnemyRef.HedgehogPie),
+    EnemyLoader.build(EnemyRef.HellHouse)
   ];
   boss = [
-    EnemyLoader.build(EnemyRef.Aps, this.game)
+    EnemyLoader.build(EnemyRef.Aps)
   ];
 
 }

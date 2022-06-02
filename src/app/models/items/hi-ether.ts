@@ -1,3 +1,4 @@
+import { BattleService } from 'src/app/services/battle.service';
 import { Item } from '../item';
 import { ItemRef } from '../refs/items';
 
@@ -11,16 +12,13 @@ export class HiEther extends Item {
     return x >= 7;
   }
 
-  canUse(): boolean {
-    return (this.game.characters.mp < this.game.characters.mpMax);
+  canUse(battleService: BattleService): boolean {
+    return (battleService.characters.mp < battleService.characters.mpMax);
   }
 
-  action(): void {
-    const mp = Math.ceil(66 / 100 * this.game.characters.mpMax);
-
-    super.action(() => {
-      this.game.characters.addMp(mp);
-    });
+  use(battleService: BattleService): void {
+    const mp = Math.ceil(66 / 100 * battleService.characters.mpMax);
+    battleService.characters.addMp(mp);
   }
 
 }

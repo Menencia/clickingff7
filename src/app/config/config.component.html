@@ -1,7 +1,7 @@
 <div class="c1">
 
   <p>
-    {{"Difficulty"|translate}} : <select [(ngModel)]="game.difficulty">
+    {{"Difficulty"|translate}} : <select [(ngModel)]="difficulty">
     <option value="1">{{'Easy'|translate}}</option>
     <option value="2">{{'Normal'|translate}}</option>
     <option value="3">{{'Hard'|translate}}</option>
@@ -9,7 +9,7 @@
   </p>
 
   <p>
-    {{"Language"|translate}} : <select [(ngModel)]="game.language" (change)="changeLanguage()">
+    {{"Language"|translate}} : <select [(ngModel)]="language" (change)="changeLanguage()">
     <option value="fr">Français</option>
     <option value="en">English</option>
     <option value="es">Español</option>

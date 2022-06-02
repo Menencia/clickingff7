@@ -1,4 +1,3 @@
-import { GameService } from '../game.service';
 import { WeaponSave } from '../models/save';
 import { WeaponRef } from './refs/weapons';
 
@@ -15,7 +14,7 @@ export abstract class Weapon {
   abstract maxMaterias: number;
   abstract zoneAvailable: number;
 
-  constructor(public game: GameService) {
+  constructor() {
     // nbr owned
     this.nbr = 1;
 
@@ -48,47 +47,13 @@ export abstract class Weapon {
   }
 
   /**
-   * Returns true if the weapon can be bought
-   */
-  canBuy(): boolean {
-    return this.game.gils >= this.getPrice();
-  }
-
-  /**
-   * Buy the weapon
-   */
-  buy(): void {
-    if (this.canBuy()) {
-      this.game.gils -= this.getPrice();
-      this.game.weapons.add(this, false);
-    }
-  }
-
-  /**
-   * Returns true if the weapon can be sold
-   */
-  canSell(): boolean {
-    return (this.equipped && this.nbr > 1) || (!this.equipped);
-  }
-
-  /**
-   * Sell the weapon
-   */
-  sell(): void {
-    if (this.canSell()) {
-      this.game.gils += this.getSellPrice();
-      this.remove();
-    }
-  }
-
-  /**
    * Returns the number of owned
    */
-  inStock(): number {
+  inStock(weapons: Weapon[]): number { // weapons.list
     let sum = 0;
-    for (const w of this.game.weapons.list) {
+    for (const w of weapons) {
       if (w.name === this.name) {
-          sum += w.nbr;
+        sum += w.nbr;
       }
     }
     return sum;
@@ -99,38 +64,6 @@ export abstract class Weapon {
    */
   canEquip(): boolean {
     return true;
-  }
-
-  /**
-   * Equip a weapon
-   */
-  equip(refresh = true): void {
-    // find current equipped weapon
-    const weapon = this.game.weapons.list.find((w: Weapon) => {
-      return w.type === this.type && w.equipped === true;
-    });
-
-    if (weapon) {
-      weapon.equipped = false;
-    }
-
-    // then equipped this one
-    this.equipped = true;
-
-    if (refresh) {
-      this.game.characters.refresh();
-    }
-  }
-
-  /**
-   * Remove one ex. of the weapon
-   */
-  remove(): void {
-    if (this.nbr > 1) {
-      this.nbr--;
-    } else {
-      this.game.weapons.list = this.game.weapons.list.filter(e => e !== this);
-    }
   }
 
   /*

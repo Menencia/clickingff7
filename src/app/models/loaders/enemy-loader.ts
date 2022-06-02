@@ -1,4 +1,3 @@
-import { GameService } from 'src/app/game.service';
 import { FirstRay } from '../enemies/zone1/first-ray';
 import { Grunt } from '../enemies/zone1/grunt';
 import { GuardScorpion } from '../enemies/zone1/guard-scorpion';
@@ -99,143 +98,143 @@ export class EnemyLoader {
   /**
    *
    */
-  static build(ref: string, game: GameService): Enemy {
+  static build(ref: string): Enemy {
     let enemy;
     switch (ref) {
       case EnemyRef.AeroCombatant:
-        enemy = new AeroCombatant(game);
+        enemy = new AeroCombatant();
         break;
       case EnemyRef.AirBuster:
-        enemy = new AirBuster(game);
+        enemy = new AirBuster();
         break;
       case EnemyRef.Aps:
-        enemy = new Aps(game);
+        enemy = new Aps();
         break;
       case EnemyRef.ArkDragon:
-        enemy = new ArkDragon(game);
+        enemy = new ArkDragon();
         break;
       case EnemyRef.BloodTaste:
-        enemy = new BloodTaste(game);
+        enemy = new BloodTaste();
         break;
       case EnemyRef.Bottomswell:
-        enemy = new Bottomswell(game);
+        enemy = new Bottomswell();
         break;
       case EnemyRef.Capparwire:
-        enemy = new Capparwire(game);
+        enemy = new Capparwire();
         break;
       case EnemyRef.Castanets:
-        enemy = new Castanets(game);
+        enemy = new Castanets();
         break;
       case EnemyRef.Crawler:
-        enemy = new Crawler(game);
+        enemy = new Crawler();
         break;
       case EnemyRef.Deenglow:
-        enemy = new Deenglow(game);
+        enemy = new Deenglow();
         break;
       case EnemyRef.Eligor:
-        enemy = new Eligor(game);
+        enemy = new Eligor();
         break;
       case EnemyRef.Elfadunk:
-        enemy = new Elfadunk(game);
+        enemy = new Elfadunk();
         break;
       case EnemyRef.FirstRay:
-        enemy = new FirstRay(game);
+        enemy = new FirstRay();
         break;
       case EnemyRef.Formula:
-        enemy = new Formula(game);
+        enemy = new Formula();
         break;
       case EnemyRef.Grunt:
-        enemy = new Grunt(game);
+        enemy = new Grunt();
         break;
       case EnemyRef.GuardHound:
-        enemy = new GuardHound(game);
+        enemy = new GuardHound();
         break;
       case EnemyRef.GuardScorpion:
-        enemy = new GuardScorpion(game);
+        enemy = new GuardScorpion();
         break;
       case EnemyRef.HedgehogPie:
-        enemy = new HedgehogPie(game);
+        enemy = new HedgehogPie();
         break;
       case EnemyRef.HeliGunner:
-        enemy = new HeliGunner(game);
+        enemy = new HeliGunner();
         break;
       case EnemyRef.HellHouse:
-        enemy = new HellHouse(game);
+        enemy = new HellHouse();
         break;
       case EnemyRef.HellRider:
-        enemy = new HellRider(game);
+        enemy = new HellRider();
         break;
       case EnemyRef.HundredGunner:
-        enemy = new HundredGunner(game);
+        enemy = new HundredGunner();
         break;
       case EnemyRef.KalmFang:
-        enemy = new KalmFang(game);
+        enemy = new KalmFang();
         break;
       case EnemyRef.Levrikon:
-        enemy = new Levrikon(game);
+        enemy = new Levrikon();
         break;
       case EnemyRef.Madouge:
-        enemy = new Madouge(game);
+        enemy = new Madouge();
         break;
       case EnemyRef.Mandragora:
-        enemy = new Mandragora(game);
+        enemy = new Mandragora();
         break;
       case EnemyRef.MidgarZolom:
-        enemy = new MidgarZolom(game);
+        enemy = new MidgarZolom();
         break;
       case EnemyRef.MightyGrunt:
-        enemy = new MightyGrunt(game);
+        enemy = new MightyGrunt();
         break;
       case EnemyRef.MotorBall:
-        enemy = new MotorBall(game);
+        enemy = new MotorBall();
         break;
       case EnemyRef.MP:
-        enemy = new Mp(game);
+        enemy = new Mp();
         break;
       case EnemyRef.MysteryNinja:
-        enemy = new MysteryNinja(game);
+        enemy = new MysteryNinja();
         break;
       case EnemyRef.ProtoMachinegun:
-        enemy = new ProtoMachinegun(game);
+        enemy = new ProtoMachinegun();
         break;
       case EnemyRef.Smogger:
-        enemy = new Smogger(game);
+        enemy = new Smogger();
         break;
       case EnemyRef.Reno:
-        enemy = new Reno(game);
+        enemy = new Reno();
         break;
       case EnemyRef.Rufus:
-        enemy = new Rufus(game);
+        enemy = new Rufus();
         break;
       case EnemyRef.SampleH0512:
-        enemy = new SampleH0512(game);
+        enemy = new SampleH0512();
         break;
       case EnemyRef.SpecialCombatant:
-        enemy = new SpecialCombatant(game);
+        enemy = new SpecialCombatant();
         break;
       case EnemyRef.Soldier3rd:
-        enemy = new Soldier3rd(game);
+        enemy = new Soldier3rd();
         break;
       case EnemyRef.Sweeper:
-        enemy = new Sweeper(game);
+        enemy = new Sweeper();
         break;
       case EnemyRef.SwordDance:
-        enemy = new SwordDance(game);
+        enemy = new SwordDance();
         break;
       case EnemyRef.VargidPolice:
-        enemy = new VargidPolice(game);
+        enemy = new VargidPolice();
         break;
       case EnemyRef.Vice:
-        enemy = new Vice(game);
+        enemy = new Vice();
         break;
       case EnemyRef.WholeEater:
-        enemy = new WholeEater(game);
+        enemy = new WholeEater();
         break;
       case EnemyRef.Zemzelett:
-        enemy = new Zemzelett(game);
+        enemy = new Zemzelett();
         break;
       case EnemyRef.Zenene:
-        enemy = new Zenene(game);
+        enemy = new Zenene();
         break;
       default:
         throw new Error('Enemy not found');

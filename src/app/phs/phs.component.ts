@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { GameService } from '../game.service';
+import { GameService } from '../services/game.service';
+import { Character } from '../models/character';
+import { MAX_TEAM } from '../models/characters';
 
 @Component({
   selector: 'app-phs',
@@ -8,6 +10,50 @@ import { GameService } from '../game.service';
 })
 export class PHSComponent {
 
-  constructor(public game: GameService) {}
+  team: Character[];
+  backup: Character[];
+
+  constructor(public gameService: GameService) {
+    this.team = this.gameService.characters.getTeam();
+    this.backup = this.gameService.characters.getBackup();
+  }
+
+  canJoinTeam(): boolean {
+    return this.gameService.characters.getTeam().length < MAX_TEAM;
+  }
+
+  /**
+   * Character joins the team
+   */
+  joinTeam(character: Character): void {
+    character.inTeam = true;
+    this.refresh();
+  }
+
+  /**
+   * Returns true if the character can leave the team
+   */
+  canLeaveTeam(): boolean {
+    return this.gameService.characters.getTeam().length > 1;
+  }
+
+  /**
+   * Character leaves the team
+   */
+  leaveTeam(character: Character): void {
+    character.inTeam = false;
+    this.refresh();
+  }
+
+  private refresh(): void {
+    this.gameService.refreshCharacters();
+    this.team = this.gameService.characters.getTeam();
+    this.backup = this.gameService.characters.getBackup();
+  }
+
+  getHits(character: Character): number {
+    const weapon = this.gameService.weapons.getCurrent(character);
+    return character.getHits(weapon);
+  }
 
 }

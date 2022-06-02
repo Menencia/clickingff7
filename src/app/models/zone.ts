@@ -1,4 +1,3 @@
-import { GameService } from '../game.service';
 import { Enemy } from './enemy';
 import { ZoneRef } from './refs/zones';
 import { ZoneSave } from './save';
@@ -19,7 +18,7 @@ export abstract class Zone {
   /**
    * Init
    */
-  constructor(public game: GameService) {
+  constructor() {
     this.nbFights = 0;
     this.completed = false;
   }
@@ -32,20 +31,6 @@ export abstract class Zone {
     this.nbFights = data.nbFights;
     this.completed = data.completed;
     return this;
-  }
-
-  /**
-   * Go to the zone
-   */
-  go(): void {
-    this.game.zones.level = this.level;
-  }
-
-  /**
-   * Returns true if player is on this level
-   */
-  here(): boolean {
-    return (this.level === this.game.zones.level);
   }
 
   /**

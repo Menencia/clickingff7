@@ -1,3 +1,4 @@
+import { BattleService } from 'src/app/services/battle.service';
 import { Attack } from '../attack';
 import { Materia } from '../materia';
 
@@ -26,21 +27,18 @@ export abstract class AttackMateria extends Materia {
 /**
  * Can use the materia?
  */
-  canUse(): boolean {
-    return this.game.battle.isBattle && this.game.characters.mp >= this.getMpCost();
+  canUse(battleService: BattleService): boolean {
+    return battleService.isBattle && battleService.characters.mp >= this.getMpCost();
   }
 
   /**
    * Do materia action
    */
-  action(): void {
-    const hits = this.game.characters.hits;
+  use(battleService: BattleService): void {
+    const hits = battleService.characters.hits;
     const pwr = hits * (1 + (this.getPwr()) / 100);
     const attack = new Attack(Math.ceil(pwr), this.elements);
-
-    super.action(() => {
-      this.game.enemies.getAttacked(attack);
-    });
-}
+    battleService.enemiesService.getAttacked(attack);
+  }
 
 }

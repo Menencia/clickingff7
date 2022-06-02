@@ -1,4 +1,4 @@
-import { GameService } from '../game.service';
+import { Character } from './character';
 import { WeaponSave } from './save';
 import { Weapon } from './weapon';
 
@@ -9,8 +9,7 @@ export class Weapons {
   /**
    * Init
    */
-  constructor(public game: GameService) {
-    this.game = game;
+  constructor() {
     this.list = [];
   }
 
@@ -27,22 +26,22 @@ export class Weapons {
     }
   }
 
-  /**
-   * Returns maximum materias that can be equipped
-   */
-  maxMaterias(): number {
-    let maxMaterias = 0;
+  getCurrent(character: Character): Weapon {
+    const weapon = this.list.find((w: Weapon) => {
+      return w.type === character.weaponType && w.equipped;
+    });
 
-    const team = this.game.characters.getTeam();
-
-    for (const character of team) {
-      const weapon = character.weapon();
-      if (weapon) {
-        maxMaterias += weapon.maxMaterias;
-      }
+    if (!weapon) {
+      throw new Error('Weapon not found !');
     }
 
-    return maxMaterias;
+    return weapon;
+  }
+
+  getOthers(character: Character): Weapon[] {
+    return this.list.filter((w: Weapon) => {
+      return (w.type === character.weaponType && w.name !== this.getCurrent(character).name);
+    });
   }
 
   /**

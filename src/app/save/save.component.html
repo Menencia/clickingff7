@@ -1,17 +1,17 @@
 <div class="grid grid-cols-5 gap-x-4">
-  
+
   <div>
     <div class="flex flex-col gap-1">
       <button class="button" (click)="saveGame()">
         {{"Save"|translate}}
       </button>
-      <button class="button" (click)="resetGame()" [class.disabled]="game.saves.length === 0">
+      <button class="button" (click)="resetGame()" [class.disabled]="saves.length === 0">
         {{"Reset"|translate}}
       </button>
     </div>
 
     <div class="flex flex-col gap-1 mt-5">
-      <button class="button" (click)="exportLastSave()" [class.disabled]="game.saves.length === 0">
+      <button class="button" (click)="exportLastSave()" [class.disabled]="saves.length === 0">
         {{"Export save"|translate}}
       </button>
       <button class="button" (click)="exportCurrentGame()">
@@ -24,21 +24,21 @@
   </div>
 
   <div class="col-span-2">
-    <div *ngIf="game.saves.length === 0" class="no-data">
+    <div *ngIf="saves.length === 0" class="no-data">
       {{"No saves"|translate}}
     </div>
 
-    <div *ngIf="game.saves.length > 0">
-      <ng-container *ngFor="let character of game.saves[0].characters.list">
+    <div *ngIf="saves.length > 0">
+      <ng-container *ngFor="let character of saves[0].characters.list">
         <img *ngIf="character.inTeam" [src]="character.image" alt="" width="80" class="save_character"/>
       </ng-container>
       <br/>
-      {{"Time"|translate}}: {{game.saves[0].time|time}}
+      {{"Time"|translate}}: {{saves[0].time|time}}
       <br/>
-      {{"Gil"|translate}}: {{game.saves[0].gils}}
+      {{"Gil"|translate}}: {{saves[0].gils}}
     </div>
   </div>
-  
+
   <div class="col-span-2">
     <div *ngIf="showAreaExport">
       <textarea [(ngModel)]="areaExport"></textarea>

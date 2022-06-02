@@ -1,6 +1,5 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { Component, Input, OnInit } from '@angular/core';
-import { GameService } from 'src/app/game.service';
 
 @Component({
   selector: 'app-bar',
@@ -10,7 +9,7 @@ import { GameService } from 'src/app/game.service';
     trigger('animation', [
       transition(':enter', [
         style({opacity: 1, top: -20}),
-        animate('1s', 
+        animate('1s',
           style({opacity: 0, top: -40}))
       ])
     ])
@@ -26,7 +25,7 @@ export class BarComponent implements OnInit {
   @Input('bgMax') bgMax: string = '';
   @Input('hits') hits: number[] = [];
 
-  constructor(public game: GameService) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

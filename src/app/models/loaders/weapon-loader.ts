@@ -1,4 +1,3 @@
-import { GameService } from 'src/app/game.service';
 import { WeaponRef } from '../refs/weapons';
 import { Weapon } from '../weapon';
 import { BusterSword } from '../weapons/broadswords/buster-sword';
@@ -20,47 +19,47 @@ export class WeaponLoader {
   /**
    *
    */
-  static build(ref: WeaponRef, game: GameService): Weapon {
+  static build(ref: WeaponRef): Weapon {
     let weapon;
     switch (ref) {
       case WeaponRef.AssaultGun:
-        weapon = new AssaultGun(game);
+        weapon = new AssaultGun();
         break;
       case WeaponRef.BusterSword:
-        weapon = new BusterSword(game);
+        weapon = new BusterSword();
         break;
       case WeaponRef.CannonBall:
-        weapon = new CannonBall(game);
+        weapon = new CannonBall();
         break;
       case WeaponRef.FPtShuriken:
-        weapon = new FPtShuriken(game);
+        weapon = new FPtShuriken();
         break;
       case WeaponRef.FullMetalStaff:
-        weapon = new FullMetalStaff(game);
+        weapon = new FullMetalStaff();
         break;
       case WeaponRef.GatlingGun:
-        weapon = new GatlingGun(game);
+        weapon = new GatlingGun();
         break;
       case WeaponRef.GuardStick:
-        weapon = new GuardStick(game);
+        weapon = new GuardStick();
         break;
       case WeaponRef.LeatherGlove:
-        weapon = new LeatherGlove(game);
+        weapon = new LeatherGlove();
         break;
       case WeaponRef.MetalKnuckle:
-        weapon = new MetalKnuckle(game);
+        weapon = new MetalKnuckle();
         break;
       case WeaponRef.MythrilClaw:
-        weapon = new MythrilClaw(game);
+        weapon = new MythrilClaw();
         break;
       case WeaponRef.MythrilClip:
-        weapon = new MythrilClip(game);
+        weapon = new MythrilClip();
         break;
       case WeaponRef.MythrilRod:
-        weapon = new MythrilRod(game);
+        weapon = new MythrilRod();
         break;
       case WeaponRef.MythrilSaber:
-        weapon = new MythrilSaber(game);
+        weapon = new MythrilSaber();
         break;
       default:
         throw new Error('Weapon not found');

@@ -2,56 +2,56 @@
 
   <div>
     <div class="flex flex-col gap-1">
-      <button class="button" 
-              *ngFor="let character of game.characters.getTeam()" 
-              (click)="character.select()"
-              [class.current]="game.characters.selected && game.characters.selected.name === character.name">
+      <button class="button"
+              *ngFor="let character of team"
+              (click)="selectCharacter(character)"
+              [class.current]="selected && selected.name === character.name">
         {{character.name}}
       </button>
     </div>
   </div>
 
-  <div class="col-span-2" *ngIf="game.characters.selected">
+  <div class="col-span-2" *ngIf="selected">
 
-    <img [src]="game.characters.selected.image" width="80" alt="current_character" style="float: left"/>
+    <img [src]="selected.image" width="80" alt="current_character" style="float: left"/>
 
     <div class="main">
-      <div>{{game.characters.selected.name}} <strong>(LVL{{game.characters.selected.level}})</strong></div>
-      <div *ngIf="game.characters.selected.level > 0">
-        <span class="label">hp</span> {{game.characters.selected.getHpMax()}}
-        <span class="label">mp</span> {{game.characters.selected.getMpMax()}}
-        <span class="label">pwr</span> {{game.characters.selected.getHits()}}
+      <div>{{selected.name}} <strong>(LVL{{selected.level}})</strong></div>
+      <div *ngIf="selected.level > 0">
+        <span class="label">hp</span> {{selected.getHpMax()}}
+        <span class="label">mp</span> {{selected.getMpMax()}}
+        <span class="label">pwr</span> {{getHits(selected)}}
       </div>
 
       <p>
         {{"Equipped weapon"|translate}}<br/>
-        <img src="/assets/images/icons/weapons/{{game.characters.selected.weapon().type}}.png" />
-        {{game.characters.selected.weapon().name}}
-        <span class="desc">({{"Power"|translate}} {{game.characters.selected.weapon().hits}})</span>
+        <img src="/assets/images/icons/weapons/{{currentWeapon.type}}.png" />
+        {{currentWeapon.name}}
+        <span class="desc">({{"Power"|translate}} {{currentWeapon.hits}})</span>
       </p>
 
       <p>
-        {{"Nb materia"|translate}} +{{game.characters.selected.weapon().maxMaterias}}
+        {{"Nb materia"|translate}} +{{currentWeapon.maxMaterias}}
       </p>
     </div>
 
   </div>
-  
-  <div class="col-span-2" *ngIf="game.characters.selected">
-    <div *ngIf="game.characters.selected.getOthersWeapons().length !== 0">
+
+  <div class="col-span-2" *ngIf="selected">
+    <div *ngIf="otherWeapons.length !== 0">
       <table style="width: 100%">
         <tr>
           <th>{{"Name"|translate}}</th>
           <th></th>
         </tr>
-        <tr *ngFor="let weapon of game.characters.selected.getOthersWeapons()" class="weapon">
+        <tr *ngFor="let weapon of otherWeapons" class="weapon">
           <td>{{weapon.name}}</td>
-          <td><span (click)="weapon.equip()" class="button">{{"Equip"|translate}}</span></td>
+          <td><span (click)="equipWeapon(weapon)" class="button">{{"Equip"|translate}}</span></td>
         </tr>
       </table>
     </div>
 
-    <div class="no-data" *ngIf="game.characters.selected.getOthersWeapons().length === 0">
+    <div class="no-data" *ngIf="otherWeapons.length === 0">
         {{"No weapons"|translate}}
     </div>
   </div>

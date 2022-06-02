@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { GameService } from '../game.service';
+import { Difficulty, GameService } from '../services/game.service';
 
 @Component({
   selector: 'app-config',
@@ -9,10 +9,17 @@ import { GameService } from '../game.service';
 })
 export class ConfigComponent {
 
-  constructor(public game: GameService, public translate: TranslateService) {}
+  difficulty: Difficulty;
+  language: string;
+
+  constructor(public gameService: GameService,
+              public translateService: TranslateService) {
+    this.difficulty = this.gameService.difficulty;
+    this.language = this.gameService.language;
+  }
 
   changeLanguage(): void {
-    this.translate.use(this.game.language);
+    this.translateService.use(this.gameService.language);
   }
 
 }

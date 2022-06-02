@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { GameService } from '../game.service';
+import { GameService } from '../services/game.service';
+import { Save } from '../models/save';
 
 @Component({
   selector: 'app-save',
@@ -9,12 +10,15 @@ import { GameService } from '../game.service';
 })
 export class SaveComponent {
 
+  saves: Save[];
   areaExport: string;
   areaImport: string;
   showAreaExport: boolean;
   showAreaImport: boolean;
 
-  constructor(public game: GameService, public router: Router) {
+  constructor(public gameService: GameService,
+              public router: Router) {
+    this.saves = this.gameService.saves;
     this.areaExport = '';
     this.areaImport = '';
     this.showAreaExport = false;
@@ -25,18 +29,18 @@ export class SaveComponent {
    * Save the game
    */
   saveGame(): void {
-    this.game.save();
+    this.gameService.save();
   }
 
   /**
    * Reset the game
    */
   resetGame(): void {
-    if (this.game.saves[0] && confirm('Are you sure ? You\'ll lose everything !')) {
-      this.game.preload();
-      this.game.reset();
-      this.game.buildLevel(1);
-      this.game.postload();
+    if (this.gameService.saves[0] && confirm('Are you sure ? You\'ll lose everything !')) {
+      this.gameService.preload();
+      this.gameService.reset();
+      this.gameService.buildLevel(1);
+      this.gameService.postload();
       this.router.navigateByUrl('game');
     }
   }
@@ -45,7 +49,7 @@ export class SaveComponent {
    * Export the current save
    */
   exportLastSave(): void {
-    const save = this.game.saves[0];
+    const save = this.gameService.saves[0];
     if (save) {
       this.showAreaImport = false;
       this.showAreaExport = true;
@@ -57,7 +61,7 @@ export class SaveComponent {
    * Export the current game
    */
   exportCurrentGame(): void {
-    this.areaExport = btoa(JSON.stringify(this.game.export()));
+    this.areaExport = btoa(JSON.stringify(this.gameService.export()));
     this.showAreaImport = false;
     this.showAreaExport = true;
   }
@@ -76,9 +80,9 @@ export class SaveComponent {
   importSave(): void {
     if (this.areaImport && confirm('Are you sure ? You\'ll lose your current save !')) {
       const save = JSON.parse(atob(this.areaImport));
-      this.game.preload();
-      this.game.load(save);
-      this.game.postload();
+      this.gameService.preload();
+      this.gameService.load(save);
+      this.gameService.postload();
       this.router.navigateByUrl('game');
     }
   }

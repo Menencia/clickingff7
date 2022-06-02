@@ -1,5 +1,3 @@
-import { GameService } from '../game.service';
-
 export abstract class Enemy {
 
   level: number;
@@ -25,7 +23,7 @@ export abstract class Enemy {
   /**
    * Init
    */
-  constructor(public game: GameService) {
+  constructor() {
     this.level = 0;
     this.hpMax = 0;
     this.hits = 0;
@@ -42,10 +40,10 @@ export abstract class Enemy {
   /**
    * Get the enemy to the given level
    */
-  toLevel(levelSum: number): void {
+  toLevel(levelSum: number, difficulty: number): void {
 
     // Difficulty
-    levelSum *= (1 + (this.game.difficulty - 2) * 20 / 100);
+    levelSum *= (1 + (difficulty - 2) * 20 / 100);
     levelSum = Math.ceil(levelSum);
 
     this.level = Math.ceil(levelSum / 3);

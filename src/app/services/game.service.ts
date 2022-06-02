@@ -1,30 +1,27 @@
 import { Injectable } from '@angular/core';
-import { Battle } from './models/battle';
-import { Characters } from './models/characters';
-import { Enemies } from './models/enemies';
-import { Items } from './models/items';
-import { Materias } from './models/materias';
-import { Save } from './models/save';
-import { Shop } from './models/shop';
-import { Weapons } from './models/weapons';
-import { Zones } from './models/zones';
 import { TranslateService } from '@ngx-translate/core';
-import { ZoneLoader } from './models/loaders/zone-loader';
-import { CharacterLoader } from './models/loaders/character-loader';
-import { WeaponLoader } from './models/loaders/weapon-loader';
-import { ItemLoader } from './models/loaders/item-loader';
-import { MateriaLoader } from './models/loaders/materia-loader';
-import { CharacterRef } from './models/refs/characters';
-import { WeaponRef } from './models/refs/weapons';
-import { ItemRef } from './models/refs/items';
-import { MateriaRef } from './models/refs/materias';
-import { compareVersions } from './utils';
+import { Characters } from '../models/characters';
+import { Items } from '../models/items';
+import { CharacterLoader } from '../models/loaders/character-loader';
+import { ItemLoader } from '../models/loaders/item-loader';
+import { MateriaLoader } from '../models/loaders/materia-loader';
+import { WeaponLoader } from '../models/loaders/weapon-loader';
+import { ZoneLoader } from '../models/loaders/zone-loader';
+import { Materias } from '../models/materias';
+import { CharacterRef } from '../models/refs/characters';
+import { ItemRef } from '../models/refs/items';
+import { MateriaRef } from '../models/refs/materias';
+import { WeaponRef } from '../models/refs/weapons';
+import { Save } from '../models/save';
+import { Weapons } from '../models/weapons';
+import { Zones } from '../models/zones';
+import { compareVersions } from '../utils';
 
 const SAVE_1 = 'save1';
 const CURRENT_VERSION = '1.2.0';
 const BASE_GILS = 200;
 
-enum Difficulty {
+export enum Difficulty {
   Easy = 1,
   Normal = 2,
   Hard = 3
@@ -38,15 +35,6 @@ export class GameService {
   /** time counter */
   timer: number;
 
-  /** battle module */
-  battle: Battle;
-
-  /** shop module */
-  shop: Shop;
-
-  /** Enemies module */
-  enemies: Enemies;
-
   /** List of saves */
   saves: Save[] = [];
 
@@ -56,11 +44,11 @@ export class GameService {
   /**
    * Save settings
    */
-  characters = new Characters(this);
-  zones = new Zones(this);
-  weapons = new Weapons(this);
-  materias = new Materias(this);
-  items = new Items(this);
+  characters = new Characters();
+  zones = new Zones();
+  weapons = new Weapons();
+  materias = new Materias();
+  items = new Items();
   gils = BASE_GILS;
   language = this.getLanguage(this.translate.getBrowserLang());
   difficulty = Difficulty.Normal;
@@ -73,11 +61,6 @@ export class GameService {
   constructor(public translate: TranslateService) {
     // timer
     this.timer = 0;
-
-    // temp models
-    this.battle = new Battle(this);
-    this.shop = new Shop(this);
-    this.enemies = new Enemies(this);
 
     // load all resources
     this.run();
@@ -129,11 +112,11 @@ export class GameService {
    * Preload all savable variables
    */
   preload(): void {
-    this.characters = new Characters(this);
-    this.zones = new Zones(this);
-    this.weapons = new Weapons(this);
-    this.materias = new Materias(this);
-    this.items = new Items(this);
+    this.characters = new Characters();
+    this.zones = new Zones();
+    this.weapons = new Weapons();
+    this.materias = new Materias();
+    this.items = new Items();
     this.gils = BASE_GILS;
     this.language = this.getLanguage(this.translate.getBrowserLang());
     this.difficulty = Difficulty.Normal;
@@ -147,12 +130,38 @@ export class GameService {
   postload(): void {
     this.translate.use(this.language);
 
-    this.shop.refresh();
-
-    this.characters.refresh();
+    this.refreshCharacters();
     this.characters.select();
 
     this.autoTimer();
+  }
+
+  refreshCharacters(): void {
+    this.characters.refresh();
+    const maxMaterias = this.getMaxMaterias();
+    this.materias.refresh(maxMaterias);
+
+    // update hits
+    const characters = this.characters.getTeam();
+    this.characters.hits = 0;
+    for (const character of characters) {
+      const weapon = this.weapons.getCurrent(character);
+      this.characters.hits += character.getHits(weapon);
+    }
+  }
+
+  getMaxMaterias(): number {
+    let maxMaterias = 0;
+
+    const characters = this.characters.getTeam();
+    for (const character of characters) {
+      // max materias
+      const weapon = this.weapons.getCurrent(character);
+      if (weapon) {
+        maxMaterias += weapon.maxMaterias;
+      }
+    }
+    return maxMaterias;
   }
 
   /*
@@ -160,10 +169,11 @@ export class GameService {
     */
   buildLevel(level: number): void {
     // build zone
-    const z = ZoneLoader.buildByLevel(level, this);
+    const z = ZoneLoader.buildByLevel(level);
     this.zones.add(z);
 
-    this.characters.available();
+    const zonelevelMax = this.zones.levelMax;
+    this.characters.available(zonelevelMax);
 
     // data to load characters
     const levelMax = this.characters.levelMax ? this.characters.levelMax : 1;
@@ -171,31 +181,31 @@ export class GameService {
     switch (level) {
       case 1:
         // add cloud in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Cloud, this).setLevel(levelMax), true);
-        this.weapons.add(WeaponLoader.build(WeaponRef.BusterSword, this), true);
+        this.characters.add(CharacterLoader.build(CharacterRef.Cloud).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.BusterSword), true);
 
         // add barret in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Barret, this).setLevel(levelMax), true);
-        this.weapons.add(WeaponLoader.build(WeaponRef.GatlingGun, this), true);
+        this.characters.add(CharacterLoader.build(CharacterRef.Barret).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.GatlingGun), true);
 
         // add materias
-        this.materias.add(MateriaLoader.build(MateriaRef.Restore, this), true);
-        this.materias.add(MateriaLoader.build(MateriaRef.Bolt, this), true);
+        this.materias.add(MateriaLoader.build(MateriaRef.Restore), true);
+        this.materias.add(MateriaLoader.build(MateriaRef.Bolt), true);
 
         // add items
-        this.items.add(ItemLoader.build(ItemRef.Potion, this), true);
-        this.items.add(ItemLoader.build(ItemRef.Potion, this), true);
+        this.items.add(ItemLoader.build(ItemRef.Potion), true);
+        this.items.add(ItemLoader.build(ItemRef.Potion), true);
 
         break;
       case 2:
         // add tifa in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Tifa, this).setLevel(levelMax), true);
-        this.weapons.add(WeaponLoader.build(WeaponRef.LeatherGlove, this), true);
+        this.characters.add(CharacterLoader.build(CharacterRef.Tifa).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.LeatherGlove), true);
         break;
       case 3:
         // add aerith in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Aerith, this).setLevel(levelMax), true);
-        this.weapons.add(WeaponLoader.build(WeaponRef.GuardStick, this), true);
+        this.characters.add(CharacterLoader.build(CharacterRef.Aerith).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.GuardStick), true);
         break;
       case 4:
         // add barret & tifa in the team
@@ -207,18 +217,18 @@ export class GameService {
         break;
       case 5:
         // add redxiii in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.RedXIII, this).setLevel(levelMax), true);
-        this.weapons.add(WeaponLoader.build(WeaponRef.MythrilClip, this), true);
+        this.characters.add(CharacterLoader.build(CharacterRef.RedXIII).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.MythrilClip), true);
         break;
       case 9:
         // add yuffie in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Yuffie, this).setLevel(levelMax), true);
-        this.weapons.add(WeaponLoader.build(WeaponRef.FPtShuriken, this), true);
+        this.characters.add(CharacterLoader.build(CharacterRef.Yuffie).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.FPtShuriken), true);
         break;
     }
 
     // restore hp & mp
-    this.characters.refresh();
+    this.refreshCharacters();
     this.characters.hp = this.characters.hpMax;
     this.characters.mp = this.characters.mpMax;
     this.characters.limit = 0;
@@ -263,7 +273,7 @@ export class GameService {
 
     // characters
     for (const c of save.characters.list) {
-      const character = CharacterLoader.build(c.ref, this).load(c);
+      const character = CharacterLoader.build(c.ref).load(c);
       this.characters.add(character, c.inTeam);
     }
 
@@ -273,30 +283,31 @@ export class GameService {
 
     // zones
     for (const z of save.zones.list) {
-      const zone = ZoneLoader.build(z.ref, this).load(z);
+      const zone = ZoneLoader.build(z.ref).load(z);
       this.zones.add(zone);
     }
 
     this.zones.level = save.zones.level;
     this.zones.levelMax = save.zones.levelMax;
 
-    this.characters.available();
+    const zonelevelMax = this.zones.levelMax;
+    this.characters.available(zonelevelMax);
 
     // weapons
     for (const w of save.weapons) {
-      const weapon = WeaponLoader.build(w.ref, this).load(w);
+      const weapon = WeaponLoader.build(w.ref).load(w);
       this.weapons.add(weapon, w.equipped);
     }
 
     // materias
     for (const m of save.materias) {
-      const materia = MateriaLoader.build(m.ref, this).load(m);
+      const materia = MateriaLoader.build(m.ref).load(m);
       this.materias.add(materia, m.equipped);
     }
 
     // items
     for (const i of save.items) {
-      const item = ItemLoader.build(i.ref, this).load(i);
+      const item = ItemLoader.build(i.ref).load(i);
       this.items.add(item, i.equipped);
     }
 
@@ -326,7 +337,7 @@ export class GameService {
   /**
    * Remove the COOKIE & reset the game
    */
-  reset(): void {
+   reset(): void {
     this.saves = [];
 
     localStorage.removeItem(SAVE_1);

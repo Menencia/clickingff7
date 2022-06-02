@@ -1,4 +1,3 @@
-import { GameService } from '../game.service';
 import { Materia } from './materia';
 import { MateriaSave } from './save';
 
@@ -9,7 +8,7 @@ export class Materias {
   /**
    * Init
    */
-  constructor(public game: GameService) {
+  constructor() {
     this.list = [];
   }
 
@@ -17,7 +16,7 @@ export class Materias {
    * Add a materia
    */
   add(materia: Materia, equipped = false): void {
-    materia.equipped = (materia.canEquip()) ? equipped : false;
+    materia.equipped = equipped;
     this.list.push(materia);
   }
 
@@ -33,6 +32,19 @@ export class Materias {
    */
   getUnequipped(): Materia[] {
     return this.list.filter(e => !e.equipped);
+  }
+
+  refresh(maxMaterias: number): void {
+    const materias = this.getEquipped();
+    if (materias.length > maxMaterias) {
+      let equipped = true;
+      for (const [i, m] of materias.entries()) {
+        if (i < maxMaterias) {
+          equipped = false;
+        }
+        m.equipped = equipped;
+      }
+    }
   }
 
   /**

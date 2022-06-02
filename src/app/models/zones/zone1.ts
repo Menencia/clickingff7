@@ -8,13 +8,13 @@ export class Zone1 extends Zone {
   level = 1;
   image = '/assets/images/zones/Sector_1_Reactor.png';
   enemies = [
-    EnemyLoader.build(EnemyRef.FirstRay, this.game),
-    EnemyLoader.build(EnemyRef.MP, this.game),
-    EnemyLoader.build(EnemyRef.Grunt, this.game),
-    EnemyLoader.build(EnemyRef.Sweeper, this.game)
+    EnemyLoader.build(EnemyRef.FirstRay),
+    EnemyLoader.build(EnemyRef.MP),
+    EnemyLoader.build(EnemyRef.Grunt),
+    EnemyLoader.build(EnemyRef.Sweeper)
   ];
   boss = [
-    EnemyLoader.build(EnemyRef.GuardScorpion, this.game)
+    EnemyLoader.build(EnemyRef.GuardScorpion)
   ];
 
 }

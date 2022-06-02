@@ -1,9 +1,10 @@
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { GameService } from './game.service';
+import { GameService } from './services/game.service';
 import { HttpClient } from '@angular/common/http';
 import * as introJs from 'intro.js';
 import { DOCUMENT } from '@angular/common';
+import { BattleService } from './services/battle.service';
 
 enum Theme {
   Light = 'light',
@@ -20,7 +21,8 @@ export class AppComponent {
   theme: string;
 
   constructor(
-    public game: GameService,
+    public gameService: GameService,
+    public battleService: BattleService,
     public router: Router,
     public http: HttpClient,
     @Inject(DOCUMENT) private document: Document
@@ -59,7 +61,7 @@ export class AppComponent {
    * Go to the map
    */
   goMap(): void {
-    if (!this.game.battle.isBattle) {
+    if (!this.battleService.isBattle) {
       this.router.navigateByUrl('map');
     }
   }
@@ -68,7 +70,7 @@ export class AppComponent {
    * Go to the shop
    */
   goShop(): void {
-    if (!this.game.battle.isBattle) {
+    if (!this.battleService.isBattle) {
       this.router.navigateByUrl('shop');
     }
   }
@@ -77,7 +79,7 @@ export class AppComponent {
    * Go to the items
    */
   goItems(): void {
-    if (!this.game.battle.isBattle) {
+    if (!this.battleService.isBattle) {
       this.router.navigateByUrl('items');
     }
   }
@@ -86,7 +88,7 @@ export class AppComponent {
    * Go to the weapons
    */
   goEquip(): void {
-    if (!this.game.battle.isBattle) {
+    if (!this.battleService.isBattle) {
       this.router.navigateByUrl('equip');
     }
   }
@@ -95,7 +97,7 @@ export class AppComponent {
    * Go to the materias
    */
   goMateria(): void {
-    if (!this.game.battle.isBattle) {
+    if (!this.battleService.isBattle) {
       this.router.navigateByUrl('materia');
     }
   }
@@ -104,7 +106,7 @@ export class AppComponent {
    * Go to the game configuration
    */
   goConfig(): void {
-    if (!this.game.battle.isBattle) {
+    if (!this.battleService.isBattle) {
       this.router.navigateByUrl('config');
     }
   }
@@ -113,7 +115,7 @@ export class AppComponent {
    * Go to the PHS
    */
   goPHS(): void {
-    if (!this.game.battle.isBattle && this.game.zones.levelMax >= 5) {
+    if (!this.battleService.isBattle && this.gameService.zones.levelMax >= 5) {
       this.router.navigateByUrl('phs');
     }
   }
@@ -122,17 +124,17 @@ export class AppComponent {
    * Save the game
    */
   goSave(): void {
-    if (!this.game.battle.isBattle) {
+    if (!this.battleService.isBattle) {
       this.router.navigateByUrl('save');
     }
   }
 
   // Show help
   help(): void {
-    if (!this.game.battle.isBattle) {
+    if (!this.battleService.isBattle) {
       this.router.navigateByUrl('game');
 
-      this.http.get('/assets/help/' + this.game.language + '.json')
+      this.http.get('/assets/help/' + this.gameService.language + '.json')
         .subscribe((data) => {
           const intro = introJs();
           intro.setOptions(data);

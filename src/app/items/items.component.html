@@ -6,12 +6,12 @@
         <th>{{'Name'|translate}}</th>
         <th>{{'In stock'|translate}}</th>
         <th class="total">
-          {{game.items.getEquipped().length}} <span class="b">/ {{MAX_ITEMS}}</span>
+          {{nbrItems}} <span class="b">/ {{MAX_ITEMS}}</span>
         </th>
     </tr>
 
 
-    <tr *ngFor="let item of game.items.list" class="item">
+    <tr *ngFor="let item of list" class="item">
       <td>
         <img src="/assets/images/icons/item.gif"/>
         {{'It. '+item.name+' name'|translate}}<br />
@@ -19,16 +19,16 @@
       </td>
       <td>{{item.nbr}}</td>
       <td class="total">
-        <span (click)="item.unequip()" *ngIf="item.equipped" class="hover">
+        <span (click)="unequipItem(item)" *ngIf="item.equipped" class="hover">
           ❌
         </span>
-        <span (click)="item.equip()" *ngIf="!item.equipped && item.canEquip()" class="hover">
+        <span (click)="equipItem(item)" *ngIf="canEquipItem(item)" class="hover">
           ➕
         </span>
       </td>
     </tr>
 
-    <tr *ngIf="game.items.list.length === 0" class="nothing">
+    <tr *ngIf="list.length === 0" class="nothing">
       <td colspan="4">{{"No items"|translate}}</td>
     </tr>
 

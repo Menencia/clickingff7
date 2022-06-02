@@ -1,3 +1,4 @@
+import { BattleService } from 'src/app/services/battle.service';
 import { Cure } from '../cure';
 import { Materia } from '../materia';
 
@@ -24,23 +25,20 @@ export abstract class CureMateria extends Materia {
   /**
    * Can use the materia?
    */
-  canUse(): boolean {
-    return (this.game.characters.mp >= this.getMpCost()
-      && this.game.characters.hp < this.game.characters.hpMax);
+  canUse(battleService: BattleService): boolean {
+    return (battleService.characters.mp >= this.getMpCost()
+      && battleService.characters.hp < battleService.characters.hpMax);
   }
 
   /**
    * Do materia action
    * Add to HP : +30% to +60%
    */
-  action(): void {
-    const hpMax = this.game.characters.hpMax;
+  use(battleService: BattleService): void {
+    const hpMax = battleService.characters.hpMax;
     const pwr = Math.ceil(hpMax * (this.getPwr() / 100));
     const cure = new Cure(pwr);
-
-    super.action(() => {
-      this.game.characters.addHp(cure.getCure());
-    });
+    battleService.characters.addHp(cure.getCure());
   }
 
 }

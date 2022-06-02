@@ -1,4 +1,3 @@
-import { GameService } from 'src/app/game.service';
 import { Materia } from '../materia';
 import { Bolt } from '../materias/green/bolt';
 import { Earth } from '../materias/green/earth';
@@ -14,29 +13,29 @@ export class MateriaLoader {
   /**
    *
    */
-  static build(ref: MateriaRef, game: GameService): Materia {
+  static build(ref: MateriaRef): Materia {
     let materia;
     switch (ref) {
       case MateriaRef.Bolt:
-        materia = new Bolt(game);
+        materia = new Bolt();
         break;
       case MateriaRef.ChocoMog:
-        materia = new ChocoMog(game);
+        materia = new ChocoMog();
         break;
       case MateriaRef.Earth:
-        materia = new Earth(game);
+        materia = new Earth();
         break;
       case MateriaRef.Fire:
-        materia = new Fire(game);
+        materia = new Fire();
         break;
       case MateriaRef.Ice:
-        materia = new Ice(game);
+        materia = new Ice();
         break;
       case MateriaRef.Poison:
-        materia = new Poison(game);
+        materia = new Poison();
         break;
       case MateriaRef.Restore:
-        materia = new Restore(game);
+        materia = new Restore();
         break;
       default:
         throw new Error('Materia not found');

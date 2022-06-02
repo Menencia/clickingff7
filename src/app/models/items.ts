@@ -1,4 +1,3 @@
-import { GameService } from '../game.service';
 import { Item } from './item';
 import { ItemSave } from './save';
 
@@ -10,7 +9,7 @@ export class Items {
   /**
    * Init
    */
-  constructor(public game: GameService) {
+  constructor() {
     this.list = [];
     this.equipped = false;
   }
@@ -23,7 +22,7 @@ export class Items {
     if (i) {
       i.nbr++;
     } else {
-      item.equipped = (item.canEquip()) ? equipped : false;
+      item.equipped = equipped;
       this.list.push(item);
     }
   }

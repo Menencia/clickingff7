@@ -1,12 +1,12 @@
 <div class="grid grid-cols-5 gap-x-4">
-  
+
   <div class="col-span-2">
 
     <h3>{{'Team'|translate}}</h3>
 
-    <div *ngFor="let character of game.characters.getTeam()" class="phs_character">
+    <div *ngFor="let character of team" class="phs_character">
       <img [src]="character.image" alt="character" width="80" style="float: left"
-        (click)="character.leaveTeam()"/>
+        (click)="leaveTeam(character)"/>
 
       <div class="main">
         <div class="progress characters_xp">
@@ -18,21 +18,21 @@
         <div *ngIf="character.level > 0">
           <span class="label">hp</span> {{character.getHpMax()}}
           <span class="label">mp</span> {{character.getMpMax()}}
-          <span class="label">pwr</span> {{character.getHits()}}
+          <span class="label">pwr</span> {{getHits(character)}}
         </div>
       </div>
       <div style="clear: left"></div>
     </div>
 
   </div>
-  
+
   <div class="col-span-2">
 
     <h3>{{'Backup'|translate}}</h3>
 
-    <span *ngFor="let character of game.characters.getBackup()" class="phs_character">
+    <span *ngFor="let character of backup" class="phs_character">
       <img [src]="character.image" alt="character" width="80" style="float: left"
-        (click)="character.joinTeam()"/>
+        (click)="joinTeam(character)"/>
     </span>
 
   </div>
