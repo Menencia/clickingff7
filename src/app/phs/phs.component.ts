@@ -46,14 +46,9 @@ export class PHSComponent {
   }
 
   private refresh(): void {
-    this.gameService.refreshCharacters();
+    this.gameService.characters.refresh();
     this.team = this.gameService.characters.getTeam();
     this.backup = this.gameService.characters.getBackup();
-  }
-
-  getHits(character: Character): number {
-    const weapon = this.gameService.weapons.getCurrent(character);
-    return character.getHits(weapon);
   }
 
 }

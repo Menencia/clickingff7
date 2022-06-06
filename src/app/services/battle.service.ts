@@ -122,7 +122,7 @@ export class BattleService {
 
     this.enemiesService.remove();
     this.enemiesService.refresh();
-    this.gameService.refreshCharacters();
+    this.gameService.characters.refresh();
   }
 
 }

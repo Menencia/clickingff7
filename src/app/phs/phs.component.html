@@ -18,7 +18,7 @@
         <div *ngIf="character.level > 0">
           <span class="label">hp</span> {{character.getHpMax()}}
           <span class="label">mp</span> {{character.getMpMax()}}
-          <span class="label">pwr</span> {{getHits(character)}}
+          <span class="label">pwr</span> {{character.getHits()}}
         </div>
       </div>
       <div style="clear: left"></div>

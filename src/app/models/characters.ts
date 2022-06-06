@@ -90,6 +90,19 @@ export class Characters {
     return this.list.filter(e => !e.inTeam && !e.isNotAvailable);
   }
 
+  getMaxMaterias(): number {
+    let maxMaterias = 0;
+
+    const characters = this.getTeam();
+    for (const character of characters) {
+      // max materias
+      if (character.weapon) {
+        maxMaterias += character.weapon.maxMaterias;
+      }
+    }
+    return maxMaterias;
+  }
+
   /*
   * Refresh characters stats
   */
@@ -97,6 +110,7 @@ export class Characters {
     this.hpMax = 0;
     this.mpMax = 0;
     this.limitMax = 0;
+    this.hits = 0;
     this.arrHits = [];
     this.levelMax = 0;
     this.levelSum = 0;
@@ -113,6 +127,8 @@ export class Characters {
       this.mpMax += character.getMpMax();
 
       this.levelSum += character.level;
+
+      this.hits += character.getHits();
     }
 
     this.limitMax = 2 * this.hpMax / 3;

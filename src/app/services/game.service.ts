@@ -130,38 +130,10 @@ export class GameService {
   postload(): void {
     this.translate.use(this.language);
 
-    this.refreshCharacters();
+    this.characters.refresh();
     this.characters.select();
 
     this.autoTimer();
-  }
-
-  refreshCharacters(): void {
-    this.characters.refresh();
-    const maxMaterias = this.getMaxMaterias();
-    this.materias.refresh(maxMaterias);
-
-    // update hits
-    const characters = this.characters.getTeam();
-    this.characters.hits = 0;
-    for (const character of characters) {
-      const weapon = this.weapons.getCurrent(character);
-      this.characters.hits += character.getHits(weapon);
-    }
-  }
-
-  getMaxMaterias(): number {
-    let maxMaterias = 0;
-
-    const characters = this.characters.getTeam();
-    for (const character of characters) {
-      // max materias
-      const weapon = this.weapons.getCurrent(character);
-      if (weapon) {
-        maxMaterias += weapon.maxMaterias;
-      }
-    }
-    return maxMaterias;
   }
 
   /*
@@ -228,7 +200,7 @@ export class GameService {
     }
 
     // restore hp & mp
-    this.refreshCharacters();
+    this.characters.refresh();
     this.characters.hp = this.characters.hpMax;
     this.characters.mp = this.characters.mpMax;
     this.characters.limit = 0;

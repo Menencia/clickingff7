@@ -26,21 +26,9 @@ export class Weapons {
     }
   }
 
-  getCurrent(character: Character): Weapon {
-    const weapon = this.list.find((w: Weapon) => {
-      return w.type === character.weaponType && w.equipped;
-    });
-
-    if (!weapon) {
-      throw new Error('Weapon not found !');
-    }
-
-    return weapon;
-  }
-
   getOthers(character: Character): Weapon[] {
     return this.list.filter((w: Weapon) => {
-      return (w.type === character.weaponType && w.name !== this.getCurrent(character).name);
+      return (w.type === character.weaponType && w.name !== character.weapon.name);
     });
   }
 

@@ -42,7 +42,7 @@ export class MapComponent {
       this.gameService.zones.levelMax++;
       this.gameService.zones.nextZone = false;
       this.gameService.buildLevel(this.gameService.zones.level);
-      this.gameService.refreshCharacters();
+      this.gameService.characters.refresh();
       const zoneLevelMax = this.gameService.zones.levelMax;
       this.shopService.refresh(zoneLevelMax);
     }

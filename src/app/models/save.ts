@@ -17,6 +17,7 @@ export interface CharacterSave {
   level: number;
   xp: number;
   image: string;
+  weaponRef: WeaponRef;
 }
 
 export interface ZonesSave {

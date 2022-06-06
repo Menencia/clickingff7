@@ -20,18 +20,18 @@
       <div *ngIf="selected.level > 0">
         <span class="label">hp</span> {{selected.getHpMax()}}
         <span class="label">mp</span> {{selected.getMpMax()}}
-        <span class="label">pwr</span> {{getHits(selected)}}
+        <span class="label">pwr</span> {{selected.getHits()}}
       </div>
 
       <p>
         {{"Equipped weapon"|translate}}<br/>
-        <img src="/assets/images/icons/weapons/{{currentWeapon.type}}.png" />
-        {{currentWeapon.name}}
-        <span class="desc">({{"Power"|translate}} {{currentWeapon.hits}})</span>
+        <img src="/assets/images/icons/weapons/{{selected.weapon.type}}.png" />
+        {{selected.weapon.name}}
+        <span class="desc">({{"Power"|translate}} {{selected.weapon.hits}})</span>
       </p>
 
       <p>
-        {{"Nb materia"|translate}} +{{currentWeapon.maxMaterias}}
+        {{"Nb materia"|translate}} +{{selected.weapon.maxMaterias}}
       </p>
     </div>
 

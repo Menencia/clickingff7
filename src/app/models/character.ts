@@ -1,6 +1,7 @@
 import { Weapon } from './weapon';
 import { CharacterSave } from './save';
 import { CharacterRef } from './refs/characters';
+import { WeaponLoader } from './loaders/weapon-loader';
 
 export abstract class Character {
 
@@ -13,6 +14,7 @@ export abstract class Character {
   abstract name: string;
   abstract image: string;
   abstract weaponType: string;
+  abstract weapon: Weapon;
   abstract hpBase: number;
   abstract mpBase: number;
   abstract xpBase: number;
@@ -34,6 +36,7 @@ export abstract class Character {
     this.xp = data.xp;
     this.inTeam = data.inTeam;
     this.image = data.image;
+    this.weapon = WeaponLoader.build(data.weaponRef);
     return this;
   }
 
@@ -82,9 +85,9 @@ export abstract class Character {
   /**
    *
    */
-  getHits(weapon: Weapon): number {
-    if (weapon) {
-      return this.level * weapon.hits / 10;
+  getHits(): number {
+    if (this.weapon) {
+      return this.level * this.weapon.hits / 10;
     }
     return 0;
   }
@@ -115,8 +118,9 @@ export abstract class Character {
    *
    */
   export(): CharacterSave {
-    const {ref, inTeam, level, xp, image} = this;
-    return {ref, inTeam, level, xp, image};
+    const {ref, inTeam, level, xp, image, weapon} = this;
+    const weaponRef = weapon.ref;
+    return {ref, inTeam, level, xp, image, weaponRef};
   }
 
 }

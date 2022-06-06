@@ -16,7 +16,7 @@ export class MateriaComponent {
   constructor(public gameService: GameService) {
     this.list = this.gameService.materias.list;
     this.nbrEquipped = this.gameService.materias.getEquipped().length;
-    this.maxMaterias = this.gameService.getMaxMaterias();
+    this.maxMaterias = this.gameService.characters.getMaxMaterias();
   }
 
   canEquip(materia: Materia): boolean {
@@ -26,13 +26,13 @@ export class MateriaComponent {
   equip(materia: Materia): void {
     materia.equipped = true;
 
-    this.gameService.refreshCharacters();
+    this.gameService.characters.refresh();
   }
 
   unequip(materia: Materia): void {
     materia.equipped = false;
 
-    this.gameService.refreshCharacters();
+    this.gameService.characters.refresh();
   }
 
 }

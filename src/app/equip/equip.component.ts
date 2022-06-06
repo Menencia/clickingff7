@@ -12,13 +12,11 @@ export class EquipComponent {
 
   selected: Character;
   team: Character[];
-  currentWeapon: Weapon;
   otherWeapons: Weapon[] = [];
 
   constructor(public gameService: GameService) {
     this.selected = this.gameService.characters.selected;
     this.team = this.gameService.characters.getTeam();
-    this.currentWeapon = this.gameService.weapons.getCurrent(this.selected);
     this.otherWeapons = this.gameService.weapons.getOthers(this.selected);
   }
 
@@ -32,22 +30,17 @@ export class EquipComponent {
       currentWeapon.equipped = false;
     }
 
-    // then equipped this one
+    // mark both weapon and character as equipped
     newWeapon.equipped = true;
+    this.selected.weapon = newWeapon;
 
-    this.gameService.refreshCharacters();
+    this.gameService.characters.refresh();
   }
 
   selectCharacter(character: Character): void {
     this.gameService.characters.select(character);
     this.selected = character;
-    this.currentWeapon = this.gameService.weapons.getCurrent(character);
     this.otherWeapons = this.gameService.weapons.getOthers(character);
-  }
-
-  getHits(character: Character): number {
-    const weapon = this.gameService.weapons.getCurrent(character);
-    return character.getHits(weapon);
   }
 
 }
