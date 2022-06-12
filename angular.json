@@ -85,9 +85,21 @@
           "options": {
             "browserTarget": "clickingff7:build"
           }
+        },
+        "lint": {
+          "builder": "@angular-eslint/builder:lint",
+          "options": {
+            "lintFilePatterns": [
+              "src/**/*.ts",
+              "src/**/*.html"
+            ]
+          }
         }
       }
     }
   },
-  "defaultProject": "clickingff7"
+  "defaultProject": "clickingff7",
+  "cli": {
+    "defaultCollection": "@angular-eslint/schematics"
+  }
 }

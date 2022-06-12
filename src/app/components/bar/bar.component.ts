@@ -15,20 +15,17 @@ import { Component, Input, OnInit } from '@angular/core';
     ])
   ]
 })
-export class BarComponent implements OnInit {
+export class BarComponent {
 
   Math = Math;
 
-  @Input('progress') progress: number = 0;
-  @Input('text') text: string = '';
-  @Input('bgCurrent') bgCurrent: string = '';
-  @Input('bgMax') bgMax: string = '';
-  @Input('hits') hits: number[] = [];
+  @Input() progress: number = 0;
+  @Input() text: string = '';
+  @Input() bgCurrent: string = '';
+  @Input() bgMax: string = '';
+  @Input() hits: number[] = [];
 
   constructor() { }
-
-  ngOnInit(): void {
-  }
 
   onAnimationEvent($event: any) {
     this.hits.pop();
