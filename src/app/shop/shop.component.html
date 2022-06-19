@@ -57,7 +57,7 @@
         <ng-container *ngIf="type === 'materias'">
           <tr *ngFor="let materia of materias" class="materia">
             <td>
-              <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.gif" />
+              <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.webp" />
               {{'Mat. '+materia.name+' name'|translate}}<br />
               <span class="desc">{{'Mat. '+materia.name+' desc'|translate}}</span>
             </td>
@@ -108,12 +108,13 @@
           <tr *ngFor="let weapon of gameService.weapons.list">
             <td>
               <img class="icon" src="/assets/images/icons/weapons/{{weapon.type}}.png" />
-              {{weapon.name}} <span class="desc">({{"Power"|translate}} {{weapon.hits}})</span>
+              {{weapon.name}}<br />
+              <span class="desc">({{"Power"|translate}} {{weapon.hits}})</span>
             </td>
             <td>{{inStockWeapon(weapon)}}</td>
             <td>{{weapon.getSellPrice()}} {{"Gils"|translate}}</td>
             <td>
-              <button class="button" (click)="sellWeapon(weapon)" *ngIf="canSellWeapon(weapon)">
+              <button class="button" (click)="sellWeapon(weapon)" [disabled]="!canSellWeapon(weapon)">
                 {{"Sell"|translate}}
               </button>
             </td>
@@ -123,8 +124,8 @@
         <ng-container *ngIf="type === 'materias'">
           <tr *ngFor="let materia of gameService.materias.list" class="materia">
             <td>
-              <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.gif" />
-              {{'Mat. '+materia.name+' name'|translate}}
+              <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.webp" />
+              {{'Mat. '+materia.name+' name'|translate}}<br />
               <span class="desc">{{'Mat. '+materia.name+' desc'|translate}}</span>
             </td>
             <td *ngIf="materia.inStock">🗸</td>

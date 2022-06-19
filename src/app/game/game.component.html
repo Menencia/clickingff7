@@ -2,30 +2,31 @@
 
   <div>
     <div class="flex flex-col gap-1">
-      <button class="button" (click)="fightRandom()" [class.disabled]="battleService.isBattle" id="step6">
+      <button class="button" (click)="fightRandom()" [disabled]="battleService.isBattle" id="step6">
         {{"Fight random"|translate}}
       </button>
-      <button class="button" (click)="fightBoss()" [class.disabled]="!battleService.canFightBoss()">
+      <button class="button" (click)="fightBoss()" [disabled]="!battleService.canFightBoss()">
         <div class="float-right text-red-700" *ngIf="battleService.canFightBoss()">NEW</div>
         {{"Fight boss"|translate}}
       </button>
       <button class="button" (click)="attack()"
-      [class]="{disabled: !battleService.isBattle, limit: gameService.characters.canLimit()}" id="step7">
+              [class.limit]="gameService.characters.canLimit()"
+              [disabled]="!battleService.isBattle"
+              id="step7">
         <span *ngIf="!gameService.characters.canLimit()">{{"Attack"|translate}}</span>
         <span *ngIf="gameService.characters.canLimit()">{{"Limit"|translate}}</span>
       </button>
-      <button class="button" (click)="escape()" [class.disabled]="!battleService.isBattle" id="step8">
+      <button class="button" (click)="escape()" [disabled]="!battleService.isBattle" id="step8">
         {{"Escape"|translate}}
       </button>
     </div>
 
     <div class="flex flex-col gap-1 mt-5" id="step9">
-      <button
-        class="button flex flex-row items-center"
-        *ngFor="let materia of gameService.materias.getEquipped()"
-        (click)="useMateria(materia)"
-        [class.disabled]="!canUseMateria(materia)">
-        <img class="flex-none" src="/assets/images/icons/materias/{{materia.color}}.gif" />
+      <button class="button flex flex-row items-center"
+              *ngFor="let materia of gameService.materias.getEquipped()"
+              (click)="useMateria(materia)"
+              [disabled]="!canUseMateria(materia)">
+        <img class="flex-none" src="/assets/images/icons/materias/{{materia.color}}.webp" />
         <div class="flex-grow">
           {{'Mat. '+materia.name+' name'|translate}}
         </div>
@@ -34,11 +35,10 @@
     </div>
 
     <div class="flex flex-col mt-5" *ngIf="gameService.items.getEquipped().length > 0" id="step10">
-      <button
-        class="button flex flex-row items-center"
-        *ngFor="let item of gameService.items.getEquipped()"
-        (click)="useItem(item)"
-        [class.disabled]="!canUseItem(item)">
+      <button class="button flex flex-row items-center"
+              *ngFor="let item of gameService.items.getEquipped()"
+              (click)="useItem(item)"
+              [disabled]="!canUseItem(item)">
         <div class="flex-grow">{{'It. '+item.name+' name'|translate}}</div>
         <div class="flex-none">{{item.nbr}}</div>
     </button>
