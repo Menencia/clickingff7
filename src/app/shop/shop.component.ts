@@ -19,13 +19,14 @@ export class ShopComponent {
 
   section = 'buy';
   type = 'weapons';
-  allWeapons = false;
 
   weapons: Weapon[] = [];
   materias: Materia[] = [];
   items: Item[] = [];
 
-  constructor(public gameService: GameService) { }
+  constructor(public gameService: GameService) {
+    this.refresh();
+  }
 
   changeSection(s: string): void {
     this.section = s;
@@ -40,7 +41,7 @@ export class ShopComponent {
   }
 
   canBuyWeapon(weapon: Weapon): boolean {
-    return this.gameService.gils >= weapon.getPrice();
+    return this.inStockWeapon(weapon) === 0 && this.gameService.gils >= weapon.getPrice();
   }
 
   buyWeapon(weapon: Weapon): void {
@@ -102,7 +103,8 @@ export class ShopComponent {
     }
   }
 
-  refresh(levelMax: number): void { // zones.levelMax
+  refresh(): void {
+    const levelMax = this.gameService.zones.levelMax;
     this.weapons = [];
     this.materias = [];
     this.items = [];
@@ -123,11 +125,11 @@ export class ShopComponent {
     ];
     for (const w of weapons) {
       const weapon = WeaponLoader.build(w);
-      const weapons = this.gameService.weapons.list;
-      if (weapon.zoneAvailable <= levelMax && (this.allWeapons || weapon.inStock(weapons) === 0)) {
+      if (weapon.zoneAvailable <= levelMax) {
         this.weapons.push(weapon);
       }
     }
+    console.log(weapons)
 
     const materias = [
       MateriaRef.Restore,
@@ -157,22 +159,6 @@ export class ShopComponent {
         this.items.push(item);
       }
     }
-  }
-
-  /**
-   * Enable a shop option
-   */
-  enableAllWeapons(): void {
-    this.allWeapons = true;
-    // this.refresh();
-  }
-
-  /**
-   * Disable a shop option
-   */
-  disableAllWeapons(): void {
-    this.allWeapons = false;
-    // this.refresh();
   }
 
 }
