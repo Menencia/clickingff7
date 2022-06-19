@@ -1,4 +1,4 @@
-import { random } from '../utils';
+import { random } from '../utils'
 
 export class Cure {
 
@@ -12,10 +12,10 @@ export class Cure {
    */
   getCure(): number {
     // base cure
-    const a = this.pwr * (1 - 10 / 100);
-    const b = this.pwr * (1 + 10 / 100);
+    const a = this.pwr * (1 - 10 / 100)
+    const b = this.pwr * (1 + 10 / 100)
 
-    return Math.round(random(a, b));
+    return Math.round(random(a, b))
   }
 
 }

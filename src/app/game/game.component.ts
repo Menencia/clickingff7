@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
-import { BattleService } from '../services/battle.service';
-import { EnemiesService } from '../services/enemies.service';
-import { GameService } from '../services/game.service';
-import { Attack } from '../models/attack';
-import { Character } from '../models/character';
-import { Item } from '../models/item';
-import { Materia } from '../models/materia';
+import { Component } from '@angular/core'
+import { BattleService } from '../services/battle.service'
+import { EnemiesService } from '../services/enemies.service'
+import { GameService } from '../services/game.service'
+import { Attack } from '../models/attack'
+import { Character } from '../models/character'
+import { Item } from '../models/item'
+import { Materia } from '../models/materia'
 
 @Component({
   selector: 'app-game',
@@ -15,7 +15,7 @@ import { Materia } from '../models/materia';
 export class GameComponent {
 
   /** Send Math to html */
-  Math = Math;
+  Math = Math
 
   /**
    * Init
@@ -25,8 +25,8 @@ export class GameComponent {
               public enemiesService: EnemiesService) { }
 
   getLine(character: Character): string {
-    const levelMax = this.gameService.zones.levelMax;
-    return 'Line ' + levelMax + ' ' + character.ref;
+    const levelMax = this.gameService.zones.levelMax
+    return 'Line ' + levelMax + ' ' + character.ref
   }
 
   /**
@@ -34,7 +34,7 @@ export class GameComponent {
    */
   fightRandom(): void {
     if (!this.battleService.isBattle) {
-      this.battleService.startRandom();
+      this.battleService.startRandom()
     }
   }
 
@@ -43,7 +43,7 @@ export class GameComponent {
    */
   fightBoss(): void {
     if (this.battleService.canFightBoss()) {
-      this.battleService.startBoss();
+      this.battleService.startBoss()
     }
   }
 
@@ -52,12 +52,12 @@ export class GameComponent {
    */
   attack(): void {
     if (this.battleService.isBattle) {
-      const pwr = this.gameService.characters.getHits();
-      const hits = this.enemiesService.getAttacked(new Attack(pwr));
-      this.gameService.characters.displayHits(hits);
+      const pwr = this.gameService.characters.getHits()
+      const hits = this.enemiesService.getAttacked(new Attack(pwr))
+      this.gameService.characters.displayHits(hits)
 
       if (!this.enemiesService.isAlive()) {
-        this.battleService.end(true);
+        this.battleService.end(true)
       }
     }
   }
@@ -67,44 +67,44 @@ export class GameComponent {
    */
   escape(): void {
     if (this.battleService.isBattle) {
-      this.battleService.end(false);
+      this.battleService.end(false)
     }
   }
 
   canUseMateria(materia: Materia): boolean {
-    return materia.canUse(this.battleService);
+    return materia.canUse(this.battleService)
   }
 
   useMateria(materia: Materia): void {
     // cost
     if (this.canUseMateria(materia)) {
-      this.gameService.characters.mp -= materia.getMpCost();
+      this.gameService.characters.mp -= materia.getMpCost()
     } else {
-      throw new Error('CANNOT USE');
+      throw new Error('CANNOT USE')
     }
 
     // do action
-    materia.use(this.battleService);
+    materia.use(this.battleService)
   }
 
   canUseItem(item: Item): boolean {
-    return item.canUse(this.battleService);
+    return item.canUse(this.battleService)
   }
 
   useItem(item: Item): void {
     // cost
     if (this.canUseItem(item)) {
       if (item.nbr > 1) {
-        item.nbr--;
+        item.nbr--
       } else {
-        this.gameService.items.list = this.gameService.items.list.filter(e => e !== item);
+        this.gameService.items.list = this.gameService.items.list.filter(e => e !== item)
       }
     } else {
-      throw new Error('CANNOT USE');
+      throw new Error('CANNOT USE')
     }
 
     // do action
-    item.use(this.battleService);
+    item.use(this.battleService)
   }
 
 }

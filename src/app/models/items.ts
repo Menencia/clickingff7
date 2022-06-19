@@ -1,29 +1,29 @@
-import { Item } from './item';
-import { ItemSave } from './save';
+import { Item } from './item'
+import { ItemSave } from './save'
 
 export class Items {
 
-  list: Item[];
-  equipped: boolean;
+  list: Item[]
+  equipped: boolean
 
   /**
    * Init
    */
   constructor() {
-    this.list = [];
-    this.equipped = false;
+    this.list = []
+    this.equipped = false
   }
 
   /**
    * Add an item
    */
   add(item: Item, equipped = false): void {
-    const i = this.list.find(e => e.name === item.name);
+    const i = this.list.find(e => e.name === item.name)
     if (i) {
-      i.nbr++;
+      i.nbr++
     } else {
-      item.equipped = equipped;
-      this.list.push(item);
+      item.equipped = equipped
+      this.list.push(item)
     }
   }
 
@@ -31,25 +31,25 @@ export class Items {
    * Returns equipped items
    */
   getEquipped(): Item[] {
-    return this.list.filter(e => e.equipped);
+    return this.list.filter(e => e.equipped)
   }
 
   /**
    * Get unequipped items
    */
   getUnequipped(): Item[] {
-    return this.list.filter(e => !e.equipped);
+    return this.list.filter(e => !e.equipped)
   }
 
   /**
    * Export all items
    */
   export(): ItemSave[] {
-    const json = [];
+    const json = []
     for (const i of this.list) {
-      json.push(i.export());
+      json.push(i.export())
     }
-    return json;
+    return json
   }
 
 }

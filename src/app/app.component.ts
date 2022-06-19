@@ -1,10 +1,10 @@
-import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
-import { GameService } from './services/game.service';
-import { HttpClient } from '@angular/common/http';
-import * as introJs from 'intro.js';
-import { DOCUMENT } from '@angular/common';
-import { BattleService } from './services/battle.service';
+import { Component, Inject } from '@angular/core'
+import { Router } from '@angular/router'
+import { GameService } from './services/game.service'
+import { HttpClient } from '@angular/common/http'
+import * as introJs from 'intro.js'
+import { DOCUMENT } from '@angular/common'
+import { BattleService } from './services/battle.service'
 
 enum Theme {
   Light = 'light',
@@ -17,8 +17,8 @@ enum Theme {
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'clickingff7';
-  theme: string;
+  title = 'clickingff7'
+  theme: string
 
   constructor(
     public gameService: GameService,
@@ -28,19 +28,19 @@ export class AppComponent {
     @Inject(DOCUMENT) private document: Document
   ) {
     // default theme
-    const theme = localStorage.getItem('theme') as Theme;
-    this.theme = theme ? theme: Theme.Light;
-    this.applyTheme();
+    const theme = localStorage.getItem('theme') as Theme
+    this.theme = theme ? theme: Theme.Light
+    this.applyTheme()
   }
 
   toggleDark() {
-    this.theme = this.theme === Theme.Light ? Theme.Dark : Theme.Light;
-    this.applyTheme();
+    this.theme = this.theme === Theme.Light ? Theme.Dark : Theme.Light
+    this.applyTheme()
   }
 
   applyTheme() {
-    localStorage.setItem('theme', this.theme);
-    const htmlNode = this.document.querySelector('html');
+    localStorage.setItem('theme', this.theme)
+    const htmlNode = this.document.querySelector('html')
     if (htmlNode) {
       if (this.theme === Theme.Dark) {
         htmlNode.classList.add('dark')
@@ -54,7 +54,7 @@ export class AppComponent {
    * Go to the game
    */
   goGame(): void {
-    this.router.navigateByUrl('game');
+    this.router.navigateByUrl('game')
   }
 
   /**
@@ -62,7 +62,7 @@ export class AppComponent {
    */
   goMap(): void {
     if (!this.battleService.isBattle) {
-      this.router.navigateByUrl('map');
+      this.router.navigateByUrl('map')
     }
   }
 
@@ -71,7 +71,7 @@ export class AppComponent {
    */
   goShop(): void {
     if (!this.battleService.isBattle) {
-      this.router.navigateByUrl('shop');
+      this.router.navigateByUrl('shop')
     }
   }
 
@@ -80,7 +80,7 @@ export class AppComponent {
    */
   goItems(): void {
     if (!this.battleService.isBattle) {
-      this.router.navigateByUrl('items');
+      this.router.navigateByUrl('items')
     }
   }
 
@@ -89,7 +89,7 @@ export class AppComponent {
    */
   goEquip(): void {
     if (!this.battleService.isBattle) {
-      this.router.navigateByUrl('equip');
+      this.router.navigateByUrl('equip')
     }
   }
 
@@ -98,7 +98,7 @@ export class AppComponent {
    */
   goMateria(): void {
     if (!this.battleService.isBattle) {
-      this.router.navigateByUrl('materia');
+      this.router.navigateByUrl('materia')
     }
   }
 
@@ -107,7 +107,7 @@ export class AppComponent {
    */
   goConfig(): void {
     if (!this.battleService.isBattle) {
-      this.router.navigateByUrl('config');
+      this.router.navigateByUrl('config')
     }
   }
 
@@ -116,7 +116,7 @@ export class AppComponent {
    */
   goPHS(): void {
     if (!this.battleService.isBattle && this.gameService.zones.levelMax >= 5) {
-      this.router.navigateByUrl('phs');
+      this.router.navigateByUrl('phs')
     }
   }
 
@@ -125,21 +125,21 @@ export class AppComponent {
    */
   goSave(): void {
     if (!this.battleService.isBattle) {
-      this.router.navigateByUrl('save');
+      this.router.navigateByUrl('save')
     }
   }
 
   // Show help
   help(): void {
     if (!this.battleService.isBattle) {
-      this.router.navigateByUrl('game');
+      this.router.navigateByUrl('game')
 
       this.http.get('/assets/help/' + this.gameService.language + '.json')
         .subscribe((data) => {
-          const intro = introJs();
-          intro.setOptions(data);
-          intro.start();
-        });
+          const intro = introJs()
+          intro.setOptions(data)
+          intro.start()
+        })
     }
   }
 }

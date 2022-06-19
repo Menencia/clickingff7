@@ -1,46 +1,46 @@
-import { Character } from './character';
-import { WeaponSave } from './save';
-import { Weapon } from './weapon';
+import { Character } from './character'
+import { WeaponSave } from './save'
+import { Weapon } from './weapon'
 
 export class Weapons {
 
-  list: Weapon[];
+  list: Weapon[]
 
   /**
    * Init
    */
   constructor() {
-    this.list = [];
+    this.list = []
   }
 
   /**
    * Add a weapon
    */
   add(weapon: Weapon, equipped = false): void {
-    const w = this.list.find(e => e.name === weapon.name);
+    const w = this.list.find(e => e.name === weapon.name)
     if (w) {
-      w.nbr++;
+      w.nbr++
     } else {
-      weapon.equipped = (weapon.canEquip()) ? equipped : false;
-      this.list.push(weapon);
+      weapon.equipped = (weapon.canEquip()) ? equipped : false
+      this.list.push(weapon)
     }
   }
 
   getOthers(character: Character): Weapon[] {
     return this.list.filter((w: Weapon) => {
-      return (w.type === character.weaponType && w.name !== character.weapon.name);
-    });
+      return (w.type === character.weaponType && w.name !== character.weapon.name)
+    })
   }
 
   /**
    * Export all weapons
    */
   export(): WeaponSave[] {
-    const json = [];
+    const json = []
     for (const w of this.list) {
-      json.push(w.export());
+      json.push(w.export())
     }
-    return json;
+    return json
   }
 
 }

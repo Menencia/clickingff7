@@ -1,5 +1,5 @@
-import { animate, state, style, transition, trigger } from '@angular/animations';
-import { Component, Input, OnInit } from '@angular/core';
+import { animate, state, style, transition, trigger } from '@angular/animations'
+import { Component, Input, OnInit } from '@angular/core'
 
 @Component({
   selector: 'app-bar',
@@ -17,18 +17,18 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class BarComponent {
 
-  Math = Math;
+  Math = Math
 
-  @Input() progress: number = 0;
-  @Input() text: string = '';
-  @Input() bgCurrent: string = '';
-  @Input() bgMax: string = '';
-  @Input() hits: number[] = [];
+  @Input() progress: number = 0
+  @Input() text: string = ''
+  @Input() bgCurrent: string = ''
+  @Input() bgMax: string = ''
+  @Input() hits: number[] = []
 
   constructor() { }
 
   onAnimationEvent($event: any) {
-    this.hits.pop();
+    this.hits.pop()
   }
 
 }
