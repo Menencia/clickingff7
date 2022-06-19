@@ -12,7 +12,7 @@
 
     <tr *ngFor="let materia of list" class="materia">
       <td>
-        <img src="/assets/images/icons/materias/{{materia.color}}.gif"/>
+        <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.gif"/>
         {{'Mat. '+materia.name +' name'|translate}}
         <strong>(LVL{{materia.level}})</strong> PWR: {{materia.pwr}}<br/>
         <span class="desc">{{'Mat. '+materia.name +' desc'|translate}}</span>

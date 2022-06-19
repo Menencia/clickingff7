@@ -40,6 +40,13 @@ nav {
 .icon {
   @apply inline-block;
 }
+.desc {
+  @apply text-xs italic;
+}
+.hover {
+  @apply cursor-pointer;
+}
+
 
 /** TABLE */
 
