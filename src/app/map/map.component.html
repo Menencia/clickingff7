@@ -36,9 +36,9 @@
 
     <div class="no-data" *ngIf="current.completed">
       <div>{{"Completed"|translate}}</div>
-      <div *ngIf="canGoNextZone()" (click)="goNextZone()" class="button">
+      <button class="button" *ngIf="canGoNextZone()" (click)="goNextZone()">
         {{"Go next zone"|translate}}
-      </div>
+      </button>
     </div>
   </div>
 

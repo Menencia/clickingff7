@@ -41,7 +41,11 @@
               [disabled]="!canUseItem(item)">
         <div class="flex-grow">{{'It. '+item.name+' name'|translate}}</div>
         <div class="flex-none">{{item.nbr}}</div>
-    </button>
+      </button>
+    </div>
+
+    <div class="flex flex-col mt-5 text-center italic">
+      <p>Gils: {{getGils()}}</p>
     </div>
   </div>
 

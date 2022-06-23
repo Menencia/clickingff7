@@ -24,6 +24,10 @@ export class GameComponent {
               public battleService: BattleService,
               public enemiesService: EnemiesService) { }
 
+  getGils(): number {
+    return this.gameService.gils
+  }
+
   getLine(character: Character): string {
     const levelMax = this.gameService.zones.levelMax
     return 'Line ' + levelMax + ' ' + character.ref

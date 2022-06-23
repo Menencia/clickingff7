@@ -23,6 +23,8 @@ export class MapComponent {
 
   goZone(zoneLevel: number): void {
     this.gameService.zones.level = zoneLevel
+    this.current = this.gameService.zones.current()
+    this.level = this.gameService.zones.level
   }
 
   canGoNextZone(): boolean {
@@ -45,6 +47,7 @@ export class MapComponent {
       this.gameService.characters.refresh()
       const zoneLevelMax = this.gameService.zones.levelMax
       this.shopService.refresh(zoneLevelMax)
+      this.goZone(this.gameService.zones.level)
     }
   }
 
