@@ -21,9 +21,9 @@
   }
 
   .exp {
-    @apply bg-red-50 dark:bg-gray-700;
+    @apply bg-purple-50 dark:bg-gray-700;
     div {
-      @apply bg-red-200 bg-purple-700;
+      @apply bg-purple-200 dark:bg-purple-700;
     }
   }
 }
