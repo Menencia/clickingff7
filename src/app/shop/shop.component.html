@@ -1,6 +1,8 @@
 <div class="grid grid-cols-5 gap-x-4">
 
   <div>
+    <p>Gils: {{gils}}</p>
+
     <div class="flex flex-col gap-1">
       <button class="button" [class.current]="section === 'buy'" (click)="changeSection('buy')">
         {{"Buy"|translate}}
@@ -47,7 +49,7 @@
             <td>{{inStockWeapon(weapon)}}</td>
             <td>{{weapon.price}} {{"Gils"|translate}}</td>
             <td>
-              <button class="button" (click)="buyWeapon(weapon)" *ngIf="canBuyWeapon(weapon)">
+              <button class="button" (click)="buyWeapon(weapon)" [disabled]="!canBuyWeapon(weapon)">
                 {{"Buy"|translate}}
               </button>
             </td>
@@ -65,7 +67,7 @@
             <td *ngIf="!materia.inStock"></td>
             <td>{{materia.price}} {{"Gils"|translate}}</td>
             <td>
-              <button class="button" (click)="buyMateria(materia)" *ngIf="canBuyMateria(materia)">
+              <button class="button" (click)="buyMateria(materia)" [disabled]="!canBuyMateria(materia)">
                 {{"Buy"|translate}}
               </button>
             </td>
@@ -82,7 +84,7 @@
             <td>{{inStockItem(item)}}</td>
             <td>{{item.price}} {{"Gils"|translate}}</td>
             <td>
-              <button class="button" (click)="buyItem(item)" *ngIf="canBuyItem(item)">
+              <button class="button" (click)="buyItem(item)" [disabled]="!canBuyItem(item)">
                 {{"Buy"|translate}}
               </button>
             </td>

@@ -1,16 +1,13 @@
 <div class="relative mb-1" id="step2">
-  <div class="overflow-hidden h-5 flex rounder" [class]="bgMax">
-    <div
-      [style.width]="progress + '%'"
-      class="text-center" [class]="bgCurrent">
-    </div>
+  <div class="overflow-hidden h-5 flex rounder" [class]="name">
+    <div [style.width]="progress + '%'" class="text-center"></div>
   </div>
   <div class="absolute right-0 top-0 text-xs">
     {{text}}
   </div>
-  <div @animation 
+  <div @animation
        (@animation.done)="onAnimationEvent($event)"
-       *ngFor="let hit of hits" 
+       *ngFor="let hit of hits"
        class="absolute right-0 top-0 text-red-600 text-lg">
     {{hit}}
   </div>

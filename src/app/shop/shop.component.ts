@@ -17,6 +17,7 @@ import { Weapon } from '../models/weapon'
 })
 export class ShopComponent {
 
+  gils: number
   section = 'buy'
   type = 'weapons'
 
@@ -25,6 +26,7 @@ export class ShopComponent {
   items: Item[] = []
 
   constructor(public gameService: GameService) {
+    this.gils = this.gameService.gils
     this.refresh()
   }
 

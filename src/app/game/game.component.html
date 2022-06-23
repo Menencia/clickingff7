@@ -50,23 +50,20 @@
     <app-bar
       [progress]="Math.round(gameService.characters.hp / gameService.characters.hpMax * 100)"
       [text]="'HP ' + gameService.characters.hp"
-      [bgCurrent]="'bg-green-200'"
-      [bgMax]="'bg-green-50'"
+      [name]="'hp'"
       [hits]="enemiesService.arrHits"
     ></app-bar>
 
     <app-bar
       [progress]="Math.round(gameService.characters.mp / gameService.characters.mpMax * 100)"
       [text]="'MP ' + gameService.characters.mp"
-      [bgCurrent]="'bg-blue-200'"
-      [bgMax]="'bg-blue-50'"
+      [name]="'mp'"
     ></app-bar>
 
     <app-bar
       [progress]="Math.round(gameService.characters.limit / gameService.characters.limitMax * 100)"
       [text]="'LIMIT'"
-      [bgCurrent]="'bg-red-200'"
-      [bgMax]="'bg-red-50'"
+      [name]="'limit'"
     ></app-bar>
 
       <!-- characters list -->
@@ -85,8 +82,7 @@
           <app-bar
             [progress]="Math.round(character.xp / character.getXpMax() * 100)"
             [text]="character.xp + ' / '+ character.getXpMax() + 'EXP'"
-            [bgCurrent]="'bg-indigo-200'"
-            [bgMax]="'bg-indigo-50'"
+            [name]="'exp'"
           ></app-bar>
 
           <div class="text-2xl">{{character.name}}</div>
@@ -107,8 +103,7 @@
       <app-bar
         [progress]="Math.round(enemiesService.hp / enemiesService.hpMax * 100)"
         [text]="'HP ' + enemiesService.hp"
-        [bgCurrent]="'bg-green-200'"
-        [bgMax]="'bg-green-50'"
+        [name]="'hp'"
         [hits]="gameService.characters.arrHits"
       ></app-bar>
     </div>

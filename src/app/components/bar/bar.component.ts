@@ -1,5 +1,5 @@
-import { animate, state, style, transition, trigger } from '@angular/animations'
-import { Component, Input, OnInit } from '@angular/core'
+import { animate, style, transition, trigger } from '@angular/animations'
+import { Component, Input } from '@angular/core'
 
 @Component({
   selector: 'app-bar',
@@ -21,8 +21,7 @@ export class BarComponent {
 
   @Input() progress: number = 0
   @Input() text: string = ''
-  @Input() bgCurrent: string = ''
-  @Input() bgMax: string = ''
+  @Input() name: string = ''
   @Input() hits: number[] = []
 
   constructor() { }
