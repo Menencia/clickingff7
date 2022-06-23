@@ -5,8 +5,11 @@
     <h3>{{'Team'|translate}}</h3>
 
     <div *ngFor="let character of team" class="phs_character">
-      <img [src]="character.image" alt="character" width="80" style="float: left"
-        (click)="leaveTeam(character)"/>
+      <img [src]="character.image"
+           alt="character"
+           width="80"
+           class="float-left cursor-pointer"
+           (click)="leaveTeam(character)"/>
 
       <div class="main">
         <div class="progress characters_xp">
@@ -31,8 +34,11 @@
     <h3>{{'Backup'|translate}}</h3>
 
     <span *ngFor="let character of backup" class="phs_character">
-      <img [src]="character.image" alt="character" width="80" style="float: left"
-        (click)="joinTeam(character)"/>
+      <img [src]="character.image"
+           alt="character"
+           width="80"
+           class="float-left cursor-pointer"
+           (click)="joinTeam(character)"/>
     </span>
 
   </div>
