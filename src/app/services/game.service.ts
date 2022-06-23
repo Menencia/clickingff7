@@ -18,7 +18,7 @@ import { Zones } from '../models/zones'
 import { compareVersions } from '../utils'
 
 const SAVE_1 = 'save1'
-const CURRENT_VERSION = '1.2.0'
+const CURRENT_VERSION = '1.2.1'
 const BASE_GILS = 200
 
 export enum Difficulty {
