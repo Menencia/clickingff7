@@ -26,9 +26,9 @@ export class Weapons {
     }
   }
 
-  getOthers(character: Character): Weapon[] {
+  getAllWeapons(character: Character): Weapon[] {
     return this.list.filter((w: Weapon) => {
-      return (w.type === character.weaponType && w.name !== character.weapon.name)
+      return (w.type === character.weaponType)
     })
   }
 

@@ -12,12 +12,16 @@ export class EquipComponent {
 
   selected: Character
   team: Character[]
-  otherWeapons: Weapon[] = []
+  weapons: Weapon[] = []
 
   constructor(public gameService: GameService) {
     this.selected = this.gameService.characters.selected
     this.team = this.gameService.characters.getTeam()
-    this.otherWeapons = this.gameService.weapons.getOthers(this.selected)
+    this.weapons = this.gameService.weapons.getAllWeapons(this.selected)
+  }
+
+  canEquipWeapon(weapon: Weapon): boolean {
+    return !weapon.equipped
   }
 
   equipWeapon(newWeapon: Weapon): void {
@@ -40,7 +44,7 @@ export class EquipComponent {
   selectCharacter(character: Character): void {
     this.gameService.characters.select(character)
     this.selected = character
-    this.otherWeapons = this.gameService.weapons.getOthers(character)
+    this.weapons = this.gameService.weapons.getAllWeapons(character)
   }
 
 }

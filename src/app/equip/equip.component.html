@@ -13,9 +13,9 @@
 
   <div class="col-span-2" *ngIf="selected">
 
-    <img [src]="selected.image" width="80" alt="current_character" style="float: left"/>
+    <img [src]="selected.image" width="80" alt="current_character" class="float-left"/>
 
-    <div class="main">
+    <div class="ml-24">
       <div>{{selected.name}} <strong>(LVL{{selected.level}})</strong></div>
       <div *ngIf="selected.level > 0">
         <span class="label">hp</span> {{selected.getHpMax()}}
@@ -23,14 +23,13 @@
         <span class="label">pwr</span> {{selected.getHits()}}
       </div>
 
-      <p>
-        {{"Equipped weapon"|translate}}<br/>
-        <img src="/assets/images/icons/weapons/{{selected.weapon.type}}.png" />
+      <p class="mt-3">
+        <img class="icon" src="/assets/images/icons/weapons/{{selected.weapon.type}}.png" />
         {{selected.weapon.name}}
-        <span class="desc">({{"Power"|translate}} {{selected.weapon.hits}})</span>
       </p>
 
-      <p>
+      <p class="desc ml-4">
+        {{"Power"|translate}} {{selected.weapon.hits}}<br />
         {{"Nb materia"|translate}} +{{selected.weapon.maxMaterias}}
       </p>
     </div>
@@ -38,22 +37,19 @@
   </div>
 
   <div class="col-span-2" *ngIf="selected">
-    <div *ngIf="otherWeapons.length !== 0">
-      <table style="width: 100%">
-        <tr>
-          <th>{{"Name"|translate}}</th>
-          <th></th>
-        </tr>
-        <tr *ngFor="let weapon of otherWeapons" class="weapon">
-          <td>{{weapon.name}}</td>
-          <td><span (click)="equipWeapon(weapon)" class="button">{{"Equip"|translate}}</span></td>
-        </tr>
-      </table>
-    </div>
-
-    <div class="no-data" *ngIf="otherWeapons.length === 0">
-        {{"No weapons"|translate}}
-    </div>
+    <table style="width: 100%">
+      <tr>
+        <th>{{"Name"|translate}}</th>
+        <th></th>
+      </tr>
+      <tr *ngFor="let weapon of weapons" class="weapon">
+        <td>{{weapon.name}}</td>
+        <td>
+          <button class="button" (click)="equipWeapon(weapon)" [disabled]="!canEquipWeapon(weapon)">
+            {{"Equip"|translate}}
+          </button></td>
+      </tr>
+    </table>
   </div>
 
 </div>
