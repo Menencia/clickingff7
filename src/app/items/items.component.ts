@@ -11,11 +11,13 @@ export class ItemsComponent {
 
   MAX_ITEMS = MAX_ITEMS
   list: Item[] = []
-  nbrItems = 0
 
   constructor(public gameService: GameService) {
     this.list = this.gameService.items.list
-    this.nbrItems = this.gameService.items.getEquipped().length
+  }
+
+  getNbrItems(): number {
+    return this.gameService.items.getEquipped().length
   }
 
   canEquipItem(item: Item): boolean {
