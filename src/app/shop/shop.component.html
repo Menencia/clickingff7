@@ -1,7 +1,6 @@
 <div class="grid grid-cols-5 gap-x-4">
 
   <div>
-    <p>Gils: {{gils}}</p>
 
     <div class="flex flex-col gap-1">
       <button class="button" [class.current]="section === 'buy'" (click)="changeSection('buy')">
@@ -22,6 +21,10 @@
       <button class="button" [class.current]="type === 'items'" (click)="changeType('items')">
         {{"Items"|translate}}
       </button>
+    </div>
+
+    <div class="flex flex-col gap-1 mt-5 text-center italic">
+      <p>Gils: {{getGils()}}</p>
     </div>
 
   </div>
