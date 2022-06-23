@@ -8,9 +8,9 @@ import { Component, Input } from '@angular/core'
   animations: [
     trigger('animation', [
       transition(':enter', [
-        style({opacity: 1, top: -20}),
+        style({opacity: 1, top: -30}),
         animate('1s',
-          style({opacity: 0, top: -40}))
+          style({opacity: 0, top: -50}))
       ])
     ])
   ]
