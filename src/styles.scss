@@ -60,6 +60,9 @@ nav {
   }
 }
 
+select, textarea {
+  @apply dark:text-black;
+}
 
 /** TABLE */
 
