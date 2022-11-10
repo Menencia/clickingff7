@@ -1,78 +1,31 @@
 <div class="grid grid-cols-5 gap-x-4">
 
-  <div>
-    <div class="flex flex-col gap-1">
-      <button class="button" (click)="fightRandom()" [disabled]="battleService.isBattle" id="step6">
-        {{"Fight random"|translate}}
-      </button>
-      <button class="button" (click)="fightBoss()" [disabled]="!battleService.canFightBoss()">
-        <div class="float-right text-red-700" *ngIf="battleService.canFightBoss()">NEW</div>
-        {{"Fight boss"|translate}}
-      </button>
-      <button class="button" (click)="attack()"
-              [class.limit]="gameService.characters.canLimit()"
-              [disabled]="!battleService.isBattle"
-              id="step7">
-        <span *ngIf="!gameService.characters.canLimit()">{{"Attack"|translate}}</span>
-        <span *ngIf="gameService.characters.canLimit()">{{"Limit"|translate}}</span>
-      </button>
-      <button class="button" (click)="escape()" [disabled]="!battleService.isBattle" id="step8">
-        {{"Escape"|translate}}
-      </button>
-    </div>
-
-    <div class="flex flex-col gap-1 mt-5" id="step9">
-      <button class="button flex flex-row items-center"
-              *ngFor="let materia of gameService.materias.getEquipped()"
-              (click)="useMateria(materia)"
-              [disabled]="!canUseMateria(materia)">
-        <img class="flex-none" src="/assets/images/icons/materias/{{materia.color}}.webp" />
-        <div class="flex-grow">
-          {{'Mat. '+materia.name+' name'|translate}}
-        </div>
-        <span class="flex-none">{{materia.getMpCost()}}</span>
-      </button>
-    </div>
-
-    <div class="flex flex-col mt-5" *ngIf="gameService.items.getEquipped().length > 0" id="step10">
-      <button class="button flex flex-row items-center"
-              *ngFor="let item of gameService.items.getEquipped()"
-              (click)="useItem(item)"
-              [disabled]="!canUseItem(item)">
-        <div class="flex-grow">{{'It. '+item.name+' name'|translate}}</div>
-        <div class="flex-none">{{item.nbr}}</div>
-      </button>
-    </div>
-
-    <div class="flex flex-col mt-5 text-center italic">
-      <p>Gils: {{getGils()}}</p>
-    </div>
-  </div>
+  <app-actions></app-actions>
 
   <div class="col-span-2">
     <!-- characters bars -->
     <app-bar
-      [progress]="Math.round(gameService.characters.hp / gameService.characters.hpMax * 100)"
-      [text]="'HP ' + gameService.characters.hp"
+      [progress]="round(characters.hp / characters.hpMax * 100)"
+      [text]="'HP ' + characters.hp"
       [name]="'hp'"
-      [hits]="enemiesService.arrHits"
+      [hits]="enemies.arrHits"
     ></app-bar>
 
     <app-bar
-      [progress]="Math.round(gameService.characters.mp / gameService.characters.mpMax * 100)"
-      [text]="'MP ' + gameService.characters.mp"
+      [progress]="round(characters.mp / characters.mpMax * 100)"
+      [text]="'MP ' + characters.mp"
       [name]="'mp'"
     ></app-bar>
 
     <app-bar
-      [progress]="Math.round(gameService.characters.limit / gameService.characters.limitMax * 100)"
+      [progress]="round(characters.limit / characters.limitMax * 100)"
       [text]="'LIMIT'"
       [name]="'limit'"
     ></app-bar>
 
       <!-- characters list -->
     <div id="step1">
-      <div *ngFor="let character of gameService.characters.getTeam()" class="flex gap-4 mt-5">
+      <div *ngFor="let character of characters.getTeam()" class="flex gap-4 mt-5">
         <div class="relative">
           <img src="{{character.image}}" alt="avatar" width="80" class="icon"/>
           <div class="absolute bg-black h-5 bottom-0 right-0 left-0 opacity-75 text-center">
@@ -84,17 +37,12 @@
 
         <div class="flex-grow">
           <app-bar
-            [progress]="Math.round(character.xp / character.getXpMax() * 100)"
+            [progress]="round(character.xp / character.getXpMax() * 100)"
             [text]="character.xp + ' / '+ character.getXpMax() + 'EXP'"
             [name]="'exp'"
           ></app-bar>
 
           <div class="text-2xl">{{character.name}}</div>
-          <!-- <div *ngIf="character.level > 0">
-            <span class="">hp</span> {{character.getHpMax()}}
-            <span class="">mp</span> {{character.getMpMax()}}
-            <span class="">pwr</span> {{character.getHits()}}
-          </div> -->
           <div class="text-sm italic">"{{getLine(character)|translate}}"</div>
         </div>
       </div>
@@ -103,21 +51,21 @@
 
   <div class="col-span-2" id="step5">
     <!-- enemies bars -->
-    <div *ngIf="enemiesService.list.length > 0">
+    <div *ngIf="enemies.list.length > 0">
       <app-bar
-        [progress]="Math.round(enemiesService.hp / enemiesService.hpMax * 100)"
-        [text]="'HP ' + enemiesService.hp"
+        [progress]="round(enemies.hp / enemies.hpMax * 100)"
+        [text]="'HP ' + enemies.hp"
         [name]="'hp'"
-        [hits]="gameService.characters.arrHits"
+        [hits]="characters.arrHits"
       ></app-bar>
     </div>
 
-    <div *ngIf="enemiesService.list.length === 0" class="text-gray-300 uppercase text-center mt-10">
+    <div *ngIf="enemies.list.length === 0" class="text-gray-300 uppercase text-center mt-10">
       {{"No enemies"|translate}}
     </div>
 
       <!-- enemies list -->
-      <div *ngFor="let enemy of enemiesService.list" class="flex gap-4 mt-5">
+      <div *ngFor="let enemy of enemies.list" class="flex gap-4 mt-5">
         <div class="relative">
           <img [src]="enemy.image" alt="avatar" width="80" class="icon"/>
           <div class="absolute bg-black h-5 bottom-0 right-0 left-0 opacity-75 text-center">
@@ -133,24 +81,6 @@
             <span *ngIf="enemy.boss" class="boss">ZONE BOSS</span>
             <span *ngIf="enemy.miboss" class="boss">BOSS</span>
           </div>
-
-          <!-- <div>
-              <span class="label">hp</span> {{enemy.getHpMax()}}
-              <span class="label">pwr</span> {{enemy.getHits()}}
-          </div>
-          <div>
-              <span class="label">xp</span> {{enemy.xpReward()}}
-              <span class="label">ap</span> {{enemy.apReward()}}
-              <span class="label">gils</span> {{enemy.gilsReward()}}
-          </div> -->
-          <!-- <div *ngIf="enemy.weakness.length > 0">
-              {{'Weakness'|translate}}
-              <img *ngFor="let weakness of enemy.weakness" src="/assets/images/icons/elements/{{weakness}}.png" class="weakness" />
-          </div>
-          <div *ngIf="enemy.resistance.length > 0">
-              {{'Resistance'|translate}}
-              <img *ngFor="let resistance of enemy.resistance" src="/assets/images/icons/elements/{{resistance}}.png" class="resistance" />
-          </div> -->
         </div>
       </div>
   </div>

@@ -12,7 +12,7 @@ export class ItemsComponent {
   MAX_ITEMS = MAX_ITEMS
   list: Item[] = []
 
-  constructor(public gameService: GameService) {
+  constructor(private gameService: GameService) {
     this.list = this.gameService.items.list
   }
 

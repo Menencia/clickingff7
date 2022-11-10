@@ -110,7 +110,7 @@
         </tr>
 
         <ng-container *ngIf="type === 'weapons'">
-          <tr *ngFor="let weapon of gameService.weapons.list">
+          <tr *ngFor="let weapon of weapons">
             <td>
               <img class="icon" src="/assets/images/icons/weapons/{{weapon.type}}.png" />
               {{weapon.name}}<br />
@@ -127,7 +127,7 @@
         </ng-container>
 
         <ng-container *ngIf="type === 'materias'">
-          <tr *ngFor="let materia of gameService.materias.list" class="materia">
+          <tr *ngFor="let materia of materias" class="materia">
             <td>
               <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.webp" />
               {{'Mat. '+materia.name+' name'|translate}}<br />
@@ -145,7 +145,7 @@
         </ng-container>
 
         <ng-container *ngIf="type === 'items'">
-          <tr *ngFor="let item of gameService.items.list" class="item">
+          <tr *ngFor="let item of items" class="item">
             <td>
               <img class="icon" src="/assets/images/icons/item.gif" />
               {{'It. '+item.name+' name'|translate}}<br />

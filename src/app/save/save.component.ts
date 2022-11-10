@@ -16,8 +16,8 @@ export class SaveComponent {
   showAreaExport: boolean
   showAreaImport: boolean
 
-  constructor(public gameService: GameService,
-              public router: Router) {
+  constructor(private gameService: GameService,
+              private router: Router) {
     this.saves = this.gameService.saves
     this.areaExport = ''
     this.areaImport = ''

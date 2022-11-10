@@ -5,7 +5,7 @@ export class Cure {
   /**
    * Init
    */
-  constructor(public pwr: number) {}
+  constructor(private pwr: number) {}
 
   /**
    * Get *random* cure from power

@@ -12,7 +12,7 @@ export class MateriaComponent {
   list: Materia[] = []
   maxMaterias = 0
 
-  constructor(public gameService: GameService) {
+  constructor(private gameService: GameService) {
     this.list = this.gameService.materias.list
     this.maxMaterias = this.gameService.characters.getMaxMaterias()
   }

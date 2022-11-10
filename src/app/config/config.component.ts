@@ -12,8 +12,8 @@ export class ConfigComponent {
   difficulty: Difficulty
   language: string
 
-  constructor(public gameService: GameService,
-              public translateService: TranslateService) {
+  constructor(private gameService: GameService,
+              private translateService: TranslateService) {
     this.difficulty = this.gameService.difficulty
     this.language = this.gameService.language
   }

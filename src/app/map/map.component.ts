@@ -14,8 +14,8 @@ export class MapComponent {
   level: number
   list: Zone[]
 
-  constructor(public gameService: GameService,
-              public shopService: ShopService) {
+  constructor(private gameService: GameService,
+              private shopService: ShopService) {
     this.current = this.gameService.zones.current()
     this.level = this.gameService.zones.level
     this.list = this.gameService.zones.list

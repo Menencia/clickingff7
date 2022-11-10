@@ -1,13 +1,9 @@
-import { Injectable } from '@angular/core'
-import { Attack } from '../models/attack'
-import { Enemy } from '../models/enemy'
-import { MAX_FIGHTS, Zone } from '../models/zone'
+import { Attack } from './attack'
+import { Enemy } from './enemy'
+import { MAX_FIGHTS, Zone } from './zone'
 import { random } from '../utils'
 
-@Injectable({
-  providedIn: 'root'
-})
-export class EnemiesService {
+export class Enemies {
 
   list: Enemy[]
   arrHits: number[]

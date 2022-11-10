@@ -1,0 +1,48 @@
+<div>
+  <div class="flex flex-col gap-1">
+    <button class="button" (click)="fightRandom()" [disabled]="isBattle()" id="step6">
+      {{"Fight random"|translate}}
+    </button>
+    <button class="button" (click)="fightBoss()" [disabled]="!canFightBoss()">
+      <div class="float-right text-red-700" *ngIf="canFightBoss()">NEW</div>
+      {{"Fight boss"|translate}}
+    </button>
+    <button class="button" (click)="attack()"
+            [class.limit]="canLimit()"
+            [disabled]="!isBattle()"
+            id="step7">
+      <span *ngIf="!canLimit()">{{"Attack"|translate}}</span>
+      <span *ngIf="canLimit()">{{"Limit"|translate}}</span>
+    </button>
+    <button class="button" (click)="escape()" [disabled]="!isBattle()" id="step8">
+      {{"Escape"|translate}}
+    </button>
+  </div>
+
+  <div class="flex flex-col gap-1 mt-5" id="step9">
+    <button class="button flex flex-row items-center"
+            *ngFor="let materia of getMaterias()"
+            (click)="useMateria(materia)"
+            [disabled]="!canUseMateria(materia)">
+      <img class="flex-none" src="/assets/images/icons/materias/{{materia.color}}.webp" />
+      <div class="flex-grow">
+        {{'Mat. '+materia.name+' name'|translate}}
+      </div>
+      <span class="flex-none">{{materia.getMpCost()}}</span>
+    </button>
+  </div>
+
+  <div class="flex flex-col mt-5" *ngIf="getItems().length > 0" id="step10">
+    <button class="button flex flex-row items-center"
+            *ngFor="let item of getItems()"
+            (click)="useItem(item)"
+            [disabled]="!canUseItem(item)">
+      <div class="flex-grow">{{'It. '+item.name+' name'|translate}}</div>
+      <div class="flex-none">{{item.nbr}}</div>
+    </button>
+  </div>
+
+  <div class="flex flex-col mt-5 text-center italic">
+    <p>Gils: {{getGils()}}</p>
+  </div>
+</div>

@@ -58,7 +58,7 @@ export class GameService {
   /**
    * init
    */
-  constructor(public translate: TranslateService) {
+  constructor(private translate: TranslateService) {
     // timer
     this.timer = 0
 

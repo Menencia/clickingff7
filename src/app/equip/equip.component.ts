@@ -14,7 +14,7 @@ export class EquipComponent {
   team: Character[]
   weapons: Weapon[] = []
 
-  constructor(public gameService: GameService) {
+  constructor(private gameService: GameService) {
     this.selected = this.gameService.characters.selected
     this.team = this.gameService.characters.getTeam()
     this.weapons = this.gameService.weapons.getAllWeapons(this.selected)

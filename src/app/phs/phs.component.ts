@@ -13,7 +13,7 @@ export class PHSComponent {
   team: Character[]
   backup: Character[]
 
-  constructor(public gameService: GameService) {
+  constructor(private gameService: GameService) {
     this.team = this.gameService.characters.getTeam()
     this.backup = this.gameService.characters.getBackup()
   }

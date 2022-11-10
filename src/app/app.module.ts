@@ -19,6 +19,7 @@ import { FormsModule } from '@angular/forms'
 import { SaveComponent } from './save/save.component'
 import { PHSComponent } from './phs/phs.component'
 import { BarComponent } from './components/bar/bar.component'
+import { ActionsComponent } from './game/components/actions/actions.component'
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
@@ -38,7 +39,8 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
     ConfigComponent,
     SaveComponent,
     PHSComponent,
-    BarComponent
+    BarComponent,
+    ActionsComponent
   ],
   imports: [
     BrowserModule,

@@ -1,25 +1,24 @@
 import { Injectable } from '@angular/core'
-import { EnemiesService } from './enemies.service'
 import { GameService } from './game.service'
 import { Attack } from '../models/attack'
 import { Characters } from '../models/characters'
-import { Enemy } from '../models/enemy'
 import { MAX_FIGHTS } from '../models/zone'
+import { Enemies } from '../models/enemies'
 
 @Injectable({
   providedIn: 'root'
 })
 export class BattleService {
 
-  isBattle = false
-  timer = 0
+  public characters: Characters
+  public enemies: Enemies
+  public isBattle = false
 
-  characters: Characters
-  enemies: Enemy[] = []
+  private timer = 0
 
-  constructor(public gameService: GameService,
-              public enemiesService: EnemiesService) {
+  constructor(private gameService: GameService) {
     this.characters = this.gameService.characters
+    this.enemies = new Enemies()
   }
 
   /**
@@ -31,8 +30,8 @@ export class BattleService {
 
       let levelSum = this.gameService.characters.levelSum
       const zone = this.gameService.zones.current()
-      this.enemiesService.fightRandom(levelSum, zone, this.gameService.difficulty)
-      this.enemiesService.refresh()
+      this.enemies.fightRandom(levelSum, zone, this.gameService.difficulty)
+      this.enemies.refresh()
       this.autoFighting()
     }
   }
@@ -54,17 +53,17 @@ export class BattleService {
 
       const zone = this.gameService.zones.current()
       const nbCharacters = this.gameService.characters.getTeam().length
-      this.enemiesService.fightBoss(zone, nbCharacters, this.gameService.difficulty)
-      this.enemiesService.refresh()
+      this.enemies.fightBoss(zone, nbCharacters, this.gameService.difficulty)
+      this.enemies.refresh()
       this.autoFighting()
     }
   }
 
   autoFighting(): void {
     this.timer = window.setTimeout(() => {
-      const pwr = this.enemiesService.getHits()
+      const pwr = this.enemies.getHits()
       const hits = this.gameService.characters.getAutoAttacked(new Attack(pwr))
-      this.enemiesService.displayAutoHits(hits)
+      this.enemies.displayAutoHits(hits)
 
       if (this.gameService.characters.isAlive()) {
         this.autoFighting()
@@ -89,7 +88,7 @@ export class BattleService {
 
     this.stopFighting()
 
-    const enemies = this.enemiesService.list
+    const enemies = this.enemies.list
     const characters = this.gameService.characters.getTeam()
     const materias = this.gameService.materias.getEquipped()
 
@@ -120,8 +119,8 @@ export class BattleService {
       }
     }
 
-    this.enemiesService.remove()
-    this.enemiesService.refresh()
+    this.enemies.remove()
+    this.enemies.refresh()
     this.gameService.characters.refresh()
   }
 

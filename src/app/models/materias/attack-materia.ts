@@ -38,7 +38,7 @@ export abstract class AttackMateria extends Materia {
     const hits = battleService.characters.hits
     const pwr = hits * (1 + (this.getPwr()) / 100)
     const attack = new Attack(Math.ceil(pwr), this.elements)
-    battleService.enemiesService.getAttacked(attack)
+    battleService.enemies.getAttacked(attack)
   }
 
 }

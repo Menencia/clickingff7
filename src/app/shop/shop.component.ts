@@ -24,7 +24,7 @@ export class ShopComponent {
   materias: Materia[] = []
   items: Item[] = []
 
-  constructor(public gameService: GameService) {
+  constructor(private gameService: GameService) {
     this.refresh()
   }
 
