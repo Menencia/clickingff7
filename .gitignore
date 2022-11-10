@@ -47,5 +47,3 @@ testem.log
 Thumbs.db
 
 # Others
-cypress/screenshots/
-cypress/videos/
