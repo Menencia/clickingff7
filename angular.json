@@ -116,8 +116,9 @@
       }
     }
   },
-  "defaultProject": "clickingff7",
   "cli": {
-    "defaultCollection": "@angular-eslint/schematics"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ]
   }
 }
