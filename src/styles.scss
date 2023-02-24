@@ -60,6 +60,10 @@ nav {
   }
 }
 
+.introjs-tooltip div {
+  @apply text-black;
+}
+
 select, textarea {
   @apply dark:text-black;
 }

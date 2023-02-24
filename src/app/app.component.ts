@@ -2,9 +2,12 @@ import { Component, Inject } from '@angular/core'
 import { Router } from '@angular/router'
 import { GameService } from './services/game.service'
 import { HttpClient } from '@angular/common/http'
-import * as introJs from 'intro.js'
 import { DOCUMENT } from '@angular/common'
 import { BattleService } from './services/battle.service'
+
+// declare this to by pass typescript error
+// can put this in index.d.ts file
+declare var introJs: any
 
 enum Theme {
   Light = 'light',
