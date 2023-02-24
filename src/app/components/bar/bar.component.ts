@@ -19,6 +19,7 @@ export class BarComponent {
 
   Math = Math
 
+  @Input() id: string = ''
   @Input() progress: number = 0
   @Input() text: string = ''
   @Input() name: string = ''

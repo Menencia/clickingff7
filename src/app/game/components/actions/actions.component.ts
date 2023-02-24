@@ -117,4 +117,8 @@ export class ActionsComponent {
     return this.gameService.characters.canLimit()
   }
 
+  public getZoneLvl(): number {
+    return this.gameService.zones.level
+  }
+
 }

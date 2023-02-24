@@ -5,6 +5,7 @@
   <div class="col-span-2">
     <!-- characters bars -->
     <app-bar
+      [id]="'step2'"
       [progress]="round(characters.hp / characters.hpMax * 100)"
       [text]="'HP ' + characters.hp"
       [name]="'hp'"
@@ -12,12 +13,14 @@
     ></app-bar>
 
     <app-bar
+      [id]="'step3'"
       [progress]="round(characters.mp / characters.mpMax * 100)"
       [text]="'MP ' + characters.mp"
       [name]="'mp'"
     ></app-bar>
 
     <app-bar
+      [id]="'step4'"
       [progress]="round(characters.limit / characters.limitMax * 100)"
       [text]="'LIMIT'"
       [name]="'limit'"

@@ -43,6 +43,14 @@
   </div>
 
   <div class="flex flex-col mt-5 text-center italic">
-    <p>Gils: {{getGils()}}</p>
+    <!-- <p>{{"Time"|translate}}: {{getGils()}}</p> -->
+    <p>{{"Gil"|translate}}: {{getGils()}}</p>
+    <div class="game-location" id="step11">
+      {{'Zone '+ getZoneLvl() +' name'|translate}}
+      <strong>
+        (#{{getZoneLvl()}})
+      </strong>
+    </div>
   </div>
+
 </div>
