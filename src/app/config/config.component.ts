@@ -18,7 +18,12 @@ export class ConfigComponent {
     this.language = this.gameService.language
   }
 
+  changeDifficulty(): void {
+    this.gameService.difficulty = this.difficulty
+  }
+
   changeLanguage(): void {
+    this.gameService.language = this.language
     this.translateService.use(this.gameService.language)
   }
 

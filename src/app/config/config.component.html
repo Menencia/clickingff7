@@ -1,7 +1,7 @@
 <div class="c1">
 
   <p>
-    {{"Difficulty"|translate}} : <select [(ngModel)]="difficulty">
+    {{"Difficulty"|translate}} : <select [(ngModel)]="difficulty" (change)="changeDifficulty()">
     <option value="1">{{'Easy'|translate}}</option>
     <option value="2">{{'Normal'|translate}}</option>
     <option value="3">{{'Hard'|translate}}</option>
