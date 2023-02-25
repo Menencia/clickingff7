@@ -141,7 +141,7 @@ export class AppComponent {
       this.router.navigateByUrl('game')
 
       helpData.steps.forEach((step, index) => {
-        step.intro = this.translateService.instant(`step${index}`)
+        step.intro = this.translateService.instant(`step${index + 1}`)
       })
       const intro = introJs()
       intro.setOptions(helpData)

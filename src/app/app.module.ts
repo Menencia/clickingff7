@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core'
-import { HttpClientModule, HttpClient } from '@angular/common/http'
+import { HttpClientModule, HttpBackend } from '@angular/common/http'
 import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 
 import { AppRoutingModule } from './app-routing.module'
@@ -20,10 +20,14 @@ import { SaveComponent } from './save/save.component'
 import { PHSComponent } from './phs/phs.component'
 import { BarComponent } from './components/bar/bar.component'
 import { ActionsComponent } from './game/components/actions/actions.component'
+import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader'
 
 // AoT requires an exported function for factories
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http, './assets/i18n/', '/main.json')
+export function HttpLoaderFactory(_httpBackend: HttpBackend) {
+  return new MultiTranslateHttpLoader(_httpBackend, [
+    {prefix: './assets/i18n/', suffix: '/main.json'},
+    {prefix: './assets/i18n/', suffix: '/help.json'}
+  ])
 }
 
 @NgModule({
@@ -52,7 +56,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpClient]
+        deps: [HttpBackend]
       }
     }),
     AppRoutingModule
