@@ -4,6 +4,8 @@ import { GameService } from './services/game.service'
 import { HttpClient } from '@angular/common/http'
 import { DOCUMENT } from '@angular/common'
 import { BattleService } from './services/battle.service'
+import { helpData } from './models/help'
+import { TranslateService } from '@ngx-translate/core'
 
 // declare this to by pass typescript error
 // can put this in index.d.ts file
@@ -26,6 +28,7 @@ export class AppComponent {
   constructor(
     public gameService: GameService,
     public battleService: BattleService,
+    private translateService: TranslateService,
     public router: Router,
     public http: HttpClient,
     @Inject(DOCUMENT) private document: Document
@@ -137,12 +140,12 @@ export class AppComponent {
     if (!this.battleService.isBattle) {
       this.router.navigateByUrl('game')
 
-      this.http.get('/assets/help/' + this.gameService.language + '.json')
-        .subscribe((data) => {
-          const intro = introJs()
-          intro.setOptions(data)
-          intro.start()
-        })
+      helpData.steps.forEach((step, index) => {
+        step.intro = this.translateService.instant(`step${index}`)
+      })
+      const intro = introJs()
+      intro.setOptions(helpData)
+      intro.start()
     }
   }
 }
