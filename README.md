@@ -1,6 +1,6 @@
 # Clickingff7
 
-This project is build with Angular 13.
+This project is build with Angular 15.2.8.
 
 [Official website](https://clickingff7.menencia.com)
 
