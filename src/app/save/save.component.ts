@@ -1,7 +1,7 @@
-import { Component } from '@angular/core'
-import { Router } from '@angular/router'
-import { GameService } from '../services/game.service'
-import { Save } from '../models/save'
+import { Component } from '@angular/core';
+import { Router } from '@angular/router';
+import { GameService } from '../services/game.service';
+import { Save } from '../models/save';
 
 @Component({
   selector: 'app-save',
@@ -10,26 +10,26 @@ import { Save } from '../models/save'
 })
 export class SaveComponent {
 
-  saves: Save[]
-  areaExport: string
-  areaImport: string
-  showAreaExport: boolean
-  showAreaImport: boolean
+  saves: Save[];
+  areaExport: string;
+  areaImport: string;
+  showAreaExport: boolean;
+  showAreaImport: boolean;
 
   constructor(private gameService: GameService,
               private router: Router) {
-    this.saves = this.gameService.saves
-    this.areaExport = ''
-    this.areaImport = ''
-    this.showAreaExport = false
-    this.showAreaImport = false
+    this.saves = this.gameService.saves;
+    this.areaExport = '';
+    this.areaImport = '';
+    this.showAreaExport = false;
+    this.showAreaImport = false;
   }
 
   /**
    * Save the game
    */
   saveGame(): void {
-    this.gameService.save()
+    this.gameService.save();
   }
 
   /**
@@ -37,11 +37,11 @@ export class SaveComponent {
    */
   resetGame(): void {
     if (this.gameService.saves[0] && confirm('Are you sure ? You\'ll lose everything !')) {
-      this.gameService.preload()
-      this.gameService.reset()
-      this.gameService.buildLevel(1)
-      this.gameService.postload()
-      this.router.navigateByUrl('game')
+      this.gameService.preload();
+      this.gameService.reset();
+      this.gameService.buildLevel(1);
+      this.gameService.postload();
+      this.router.navigateByUrl('game');
     }
   }
 
@@ -49,11 +49,11 @@ export class SaveComponent {
    * Export the current save
    */
   exportLastSave(): void {
-    const save = this.gameService.saves[0]
+    const save = this.gameService.saves[0];
     if (save) {
-      this.showAreaImport = false
-      this.showAreaExport = true
-      this.areaExport = btoa(JSON.stringify(save))
+      this.showAreaImport = false;
+      this.showAreaExport = true;
+      this.areaExport = btoa(JSON.stringify(save));
     }
   }
 
@@ -61,17 +61,17 @@ export class SaveComponent {
    * Export the current game
    */
   exportCurrentGame(): void {
-    this.areaExport = btoa(JSON.stringify(this.gameService.export()))
-    this.showAreaImport = false
-    this.showAreaExport = true
+    this.areaExport = btoa(JSON.stringify(this.gameService.export()));
+    this.showAreaImport = false;
+    this.showAreaExport = true;
   }
 
   /**
    * Show import area
    */
   showImport(): void {
-    this.showAreaImport = true
-    this.showAreaExport = false
+    this.showAreaImport = true;
+    this.showAreaExport = false;
   }
 
   /**
@@ -79,11 +79,11 @@ export class SaveComponent {
    */
   importSave(): void {
     if (this.areaImport && confirm('Are you sure ? You\'ll lose your current save !')) {
-      const save = JSON.parse(atob(this.areaImport))
-      this.gameService.preload()
-      this.gameService.load(save)
-      this.gameService.postload()
-      this.router.navigateByUrl('game')
+      const save = JSON.parse(atob(this.areaImport));
+      this.gameService.preload();
+      this.gameService.load(save);
+      this.gameService.postload();
+      this.router.navigateByUrl('game');
     }
   }
 

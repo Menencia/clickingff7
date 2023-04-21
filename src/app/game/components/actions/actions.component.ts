@@ -1,9 +1,9 @@
-import { Component } from '@angular/core'
-import { Attack } from 'src/app/models/attack'
-import { Item } from 'src/app/models/item'
-import { Materia } from 'src/app/models/materia'
-import { BattleService } from 'src/app/services/battle.service'
-import { GameService } from 'src/app/services/game.service'
+import { Component } from '@angular/core';
+import { Attack } from 'src/app/models/attack';
+import { Item } from 'src/app/models/item';
+import { Materia } from 'src/app/models/materia';
+import { BattleService } from 'src/app/services/battle.service';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-actions',
@@ -16,19 +16,19 @@ export class ActionsComponent {
               private gameService: GameService) { }
 
   public getMaterias(): Materia[] {
-    return this.gameService.materias.getEquipped()
+    return this.gameService.materias.getEquipped();
   }
 
   public getItems(): Item[] {
-    return this.gameService.items.getEquipped()
+    return this.gameService.items.getEquipped();
   }
 
   public getGils(): number {
-    return this.gameService.gils
+    return this.gameService.gils;
   }
 
   public isBattle(): boolean {
-    return this.battleService.isBattle
+    return this.battleService.isBattle;
   }
 
   /**
@@ -36,12 +36,12 @@ export class ActionsComponent {
    */
   public fightRandom(): void {
     if (!this.battleService.isBattle) {
-      this.battleService.startRandom()
+      this.battleService.startRandom();
     }
   }
 
   public canFightBoss(): boolean {
-    return this.battleService.canFightBoss()
+    return this.battleService.canFightBoss();
   }
 
   /**
@@ -49,7 +49,7 @@ export class ActionsComponent {
    */
   public fightBoss(): void {
     if (this.battleService.canFightBoss()) {
-      this.battleService.startBoss()
+      this.battleService.startBoss();
     }
   }
 
@@ -58,12 +58,12 @@ export class ActionsComponent {
    */
   public attack(): void {
     if (this.battleService.isBattle) {
-      const pwr = this.gameService.characters.getHits()
-      const hits = this.battleService.enemies.getAttacked(new Attack(pwr))
-      this.gameService.characters.displayHits(hits)
+      const pwr = this.gameService.characters.getHits();
+      const hits = this.battleService.enemies.getAttacked(new Attack(pwr));
+      this.gameService.characters.displayHits(hits);
 
       if (!this.battleService.enemies.isAlive()) {
-        this.battleService.end(true)
+        this.battleService.end(true);
       }
     }
   }
@@ -73,52 +73,52 @@ export class ActionsComponent {
    */
   public escape(): void {
     if (this.battleService.isBattle) {
-      this.battleService.end(false)
+      this.battleService.end(false);
     }
   }
 
   public canUseMateria(materia: Materia): boolean {
-    return materia.canUse(this.battleService)
+    return materia.canUse(this.battleService);
   }
 
   public useMateria(materia: Materia): void {
     // cost
     if (this.canUseMateria(materia)) {
-      this.gameService.characters.mp -= materia.getMpCost()
+      this.gameService.characters.mp -= materia.getMpCost();
     } else {
-      throw new Error('CANNOT USE')
+      throw new Error('CANNOT USE');
     }
 
     // do action
-    materia.use(this.battleService)
+    materia.use(this.battleService);
   }
 
   public canUseItem(item: Item): boolean {
-    return item.canUse(this.battleService)
+    return item.canUse(this.battleService);
   }
 
   public useItem(item: Item): void {
     // cost
     if (this.canUseItem(item)) {
       if (item.nbr > 1) {
-        item.nbr--
+        item.nbr--;
       } else {
-        this.gameService.items.list = this.gameService.items.list.filter(e => e !== item)
+        this.gameService.items.list = this.gameService.items.list.filter(e => e !== item);
       }
     } else {
-      throw new Error('CANNOT USE')
+      throw new Error('CANNOT USE');
     }
 
     // do action
-    item.use(this.battleService)
+    item.use(this.battleService);
   }
 
   public canLimit(): boolean {
-    return this.gameService.characters.canLimit()
+    return this.gameService.characters.canLimit();
   }
 
   public getZoneLvl(): number {
-    return this.gameService.zones.level
+    return this.gameService.zones.level;
   }
 
 }

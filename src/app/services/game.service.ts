@@ -1,25 +1,25 @@
-import { Injectable } from '@angular/core'
-import { TranslateService } from '@ngx-translate/core'
-import { Characters } from '../models/characters'
-import { Items } from '../models/items'
-import { CharacterLoader } from '../models/loaders/character-loader'
-import { ItemLoader } from '../models/loaders/item-loader'
-import { MateriaLoader } from '../models/loaders/materia-loader'
-import { WeaponLoader } from '../models/loaders/weapon-loader'
-import { ZoneLoader } from '../models/loaders/zone-loader'
-import { Materias } from '../models/materias'
-import { CharacterRef } from '../models/refs/characters'
-import { ItemRef } from '../models/refs/items'
-import { MateriaRef } from '../models/refs/materias'
-import { WeaponRef } from '../models/refs/weapons'
-import { Save } from '../models/save'
-import { Weapons } from '../models/weapons'
-import { Zones } from '../models/zones'
-import { compareVersions } from '../utils'
+import { Injectable } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
+import { Characters } from '../models/characters';
+import { Items } from '../models/items';
+import { CharacterLoader } from '../models/loaders/character-loader';
+import { ItemLoader } from '../models/loaders/item-loader';
+import { MateriaLoader } from '../models/loaders/materia-loader';
+import { WeaponLoader } from '../models/loaders/weapon-loader';
+import { ZoneLoader } from '../models/loaders/zone-loader';
+import { Materias } from '../models/materias';
+import { CharacterRef } from '../models/refs/characters';
+import { ItemRef } from '../models/refs/items';
+import { MateriaRef } from '../models/refs/materias';
+import { WeaponRef } from '../models/refs/weapons';
+import { Save } from '../models/save';
+import { Weapons } from '../models/weapons';
+import { Zones } from '../models/zones';
+import { compareVersions } from '../utils';
 
-const SAVE_1 = 'save1'
-const CURRENT_VERSION = '1.2.1'
-const BASE_GILS = 200
+const SAVE_1 = 'save1';
+const CURRENT_VERSION = '1.2.1';
+const BASE_GILS = 200;
 
 export enum Difficulty {
   Easy = 1,
@@ -33,107 +33,107 @@ export enum Difficulty {
 export class GameService {
 
   /** time counter */
-  timer: number
+  timer: number;
 
   /** List of saves */
-  saves: Save[] = []
+  saves: Save[] = [];
 
   /** Last export */
-  lastExport = ''
+  lastExport = '';
 
   /**
    * Save settings
    */
-  characters = new Characters()
-  zones = new Zones()
-  weapons = new Weapons()
-  materias = new Materias()
-  items = new Items()
-  gils = BASE_GILS
-  language = this.getLanguage(this.translate.getBrowserLang())
-  difficulty = Difficulty.Normal
-  time = 0
-  version = CURRENT_VERSION
+  characters = new Characters();
+  zones = new Zones();
+  weapons = new Weapons();
+  materias = new Materias();
+  items = new Items();
+  gils = BASE_GILS;
+  language = this.getLanguage(this.translate.getBrowserLang());
+  difficulty = Difficulty.Normal;
+  time = 0;
+  version = CURRENT_VERSION;
 
   /**
    * init
    */
   constructor(private translate: TranslateService) {
     // timer
-    this.timer = 0
+    this.timer = 0;
 
     // load all resources
-    this.run()
+    this.run();
   }
 
   getLanguage(language: string | undefined, def = 'en'): string {
-    const languages = ['en', 'fr', 'es']
+    const languages = ['en', 'fr', 'es'];
     for (const l of languages) {
       if (l === language) {
-        return language
+        return language;
       }
     }
-    return def
+    return def;
   }
 
   run(): void {
     // PRELOAD
-    this.preload()
+    this.preload();
 
     // search for save
-    let save
-    const s = localStorage[SAVE_1]
+    let save;
+    const s = localStorage[SAVE_1];
     if (s) {
-      save = JSON.parse(atob(s))
+      save = JSON.parse(atob(s));
       if (save) {
         if (compareVersions(save.version, '1.1.0')) {
-          this.saves.push(save)
+          this.saves.push(save);
         } else {
-          save = null
-          this.reset()
+          save = null;
+          this.reset();
         }
       }
     }
 
     // load save
     if (save) {
-      this.load(save)
-      this.zones.checkLastZone()
+      this.load(save);
+      this.zones.checkLastZone();
     } else {
-      this.reset()
-      this.buildLevel(1)
+      this.reset();
+      this.buildLevel(1);
     }
 
     // POSTLOAD
-    this.postload()
+    this.postload();
   }
 
   /**
    * Preload all savable variables
    */
   preload(): void {
-    this.characters = new Characters()
-    this.zones = new Zones()
-    this.weapons = new Weapons()
-    this.materias = new Materias()
-    this.items = new Items()
-    this.gils = BASE_GILS
-    this.language = this.getLanguage(this.translate.getBrowserLang())
-    this.difficulty = Difficulty.Normal
-    this.time = 0
-    this.version = CURRENT_VERSION
+    this.characters = new Characters();
+    this.zones = new Zones();
+    this.weapons = new Weapons();
+    this.materias = new Materias();
+    this.items = new Items();
+    this.gils = BASE_GILS;
+    this.language = this.getLanguage(this.translate.getBrowserLang());
+    this.difficulty = Difficulty.Normal;
+    this.time = 0;
+    this.version = CURRENT_VERSION;
   }
 
   /**
    * Refresh the game with data loaded
    */
   postload(): void {
-    this.translate.use(this.language)
+    this.translate.use(this.language);
 
-    this.characters.refresh()
-    this.characters.select()
+    this.characters.refresh();
+    this.characters.select();
 
-    this.autoTimer()
+    this.autoTimer();
   }
 
   /*
@@ -141,80 +141,80 @@ export class GameService {
     */
   buildLevel(level: number): void {
     // build zone
-    const z = ZoneLoader.buildByLevel(level)
-    this.zones.add(z)
+    const z = ZoneLoader.buildByLevel(level);
+    this.zones.add(z);
 
-    const zonelevelMax = this.zones.levelMax
-    this.characters.available(zonelevelMax)
+    const zonelevelMax = this.zones.levelMax;
+    this.characters.available(zonelevelMax);
 
     // data to load characters
-    const levelMax = this.characters.levelMax ? this.characters.levelMax : 1
+    const levelMax = this.characters.levelMax ? this.characters.levelMax : 1;
 
     switch (level) {
       case 1:
         // add cloud in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Cloud).setLevel(levelMax), true)
-        this.weapons.add(WeaponLoader.build(WeaponRef.BusterSword), true)
+        this.characters.add(CharacterLoader.build(CharacterRef.Cloud).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.BusterSword), true);
 
         // add barret in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Barret).setLevel(levelMax), true)
-        this.weapons.add(WeaponLoader.build(WeaponRef.GatlingGun), true)
+        this.characters.add(CharacterLoader.build(CharacterRef.Barret).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.GatlingGun), true);
 
         // add materias
-        this.materias.add(MateriaLoader.build(MateriaRef.Restore), true)
-        this.materias.add(MateriaLoader.build(MateriaRef.Bolt), true)
+        this.materias.add(MateriaLoader.build(MateriaRef.Restore), true);
+        this.materias.add(MateriaLoader.build(MateriaRef.Bolt), true);
 
         // add items
-        this.items.add(ItemLoader.build(ItemRef.Potion), true)
-        this.items.add(ItemLoader.build(ItemRef.Potion), true)
+        this.items.add(ItemLoader.build(ItemRef.Potion), true);
+        this.items.add(ItemLoader.build(ItemRef.Potion), true);
 
-        break
+        break;
       case 2:
         // add tifa in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Tifa).setLevel(levelMax), true)
-        this.weapons.add(WeaponLoader.build(WeaponRef.LeatherGlove), true)
-        break
+        this.characters.add(CharacterLoader.build(CharacterRef.Tifa).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.LeatherGlove), true);
+        break;
       case 3:
         // add aerith in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Aerith).setLevel(levelMax), true)
-        this.weapons.add(WeaponLoader.build(WeaponRef.GuardStick), true)
-        break
+        this.characters.add(CharacterLoader.build(CharacterRef.Aerith).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.GuardStick), true);
+        break;
       case 4:
         // add barret & tifa in the team
         for (const c of this.characters.list) {
           if (c.ref === CharacterRef.Barret || c.ref === CharacterRef.Tifa) {
-            c.inTeam = true
+            c.inTeam = true;
           }
         }
-        break
+        break;
       case 5:
         // add redxiii in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.RedXIII).setLevel(levelMax), true)
-        this.weapons.add(WeaponLoader.build(WeaponRef.MythrilClip), true)
-        break
+        this.characters.add(CharacterLoader.build(CharacterRef.RedXIII).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.MythrilClip), true);
+        break;
       case 9:
         // add yuffie in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Yuffie).setLevel(levelMax), true)
-        this.weapons.add(WeaponLoader.build(WeaponRef.FPtShuriken), true)
-        break
+        this.characters.add(CharacterLoader.build(CharacterRef.Yuffie).setLevel(levelMax), true);
+        this.weapons.add(WeaponLoader.build(WeaponRef.FPtShuriken), true);
+        break;
     }
 
     // restore hp & mp
-    this.characters.refresh()
-    this.characters.hp = this.characters.hpMax
-    this.characters.mp = this.characters.mpMax
-    this.characters.limit = 0
+    this.characters.refresh();
+    this.characters.hp = this.characters.hpMax;
+    this.characters.mp = this.characters.mpMax;
+    this.characters.limit = 0;
   }
 
   /**
    * Auto-chrono
    */
   autoTimer(): void {
-    clearTimeout(this.timer)
+    clearTimeout(this.timer);
     this.timer = window.setTimeout(() => {
-      this.time++
-      this.autoTimer()
-    }, 1000)
+      this.time++;
+      this.autoTimer();
+    }, 1000);
   }
 
   /**
@@ -232,7 +232,7 @@ export class GameService {
       difficulty: this.difficulty,
       time      : this.time,
       version   : this.version
-    }
+    };
   }
 
   /**
@@ -240,54 +240,54 @@ export class GameService {
    */
   load(save: Save, confirm = true): void {
     if (!confirm) {
-      return
+      return;
     }
 
     // characters
     for (const c of save.characters.list) {
-      const character = CharacterLoader.build(c.ref).load(c)
-      this.characters.add(character, c.inTeam)
+      const character = CharacterLoader.build(c.ref).load(c);
+      this.characters.add(character, c.inTeam);
     }
 
-    this.characters.hp = save.characters.hp
-    this.characters.mp = save.characters.mp
-    this.characters.limit = save.characters.limit
+    this.characters.hp = save.characters.hp;
+    this.characters.mp = save.characters.mp;
+    this.characters.limit = save.characters.limit;
 
     // zones
     for (const z of save.zones.list) {
-      const zone = ZoneLoader.build(z.ref).load(z)
-      this.zones.add(zone)
+      const zone = ZoneLoader.build(z.ref).load(z);
+      this.zones.add(zone);
     }
 
-    this.zones.level = save.zones.level
-    this.zones.levelMax = save.zones.levelMax
+    this.zones.level = save.zones.level;
+    this.zones.levelMax = save.zones.levelMax;
 
-    const zonelevelMax = this.zones.levelMax
-    this.characters.available(zonelevelMax)
+    const zonelevelMax = this.zones.levelMax;
+    this.characters.available(zonelevelMax);
 
     // weapons
     for (const w of save.weapons) {
-      const weapon = WeaponLoader.build(w.ref).load(w)
-      this.weapons.add(weapon, w.equipped)
+      const weapon = WeaponLoader.build(w.ref).load(w);
+      this.weapons.add(weapon, w.equipped);
     }
 
     // materias
     for (const m of save.materias) {
-      const materia = MateriaLoader.build(m.ref).load(m)
-      this.materias.add(materia, m.equipped)
+      const materia = MateriaLoader.build(m.ref).load(m);
+      this.materias.add(materia, m.equipped);
     }
 
     // items
     for (const i of save.items) {
-      const item = ItemLoader.build(i.ref).load(i)
-      this.items.add(item, i.equipped)
+      const item = ItemLoader.build(i.ref).load(i);
+      this.items.add(item, i.equipped);
     }
 
-    this.language = save.language
-    this.difficulty = save.difficulty
+    this.language = save.language;
+    this.difficulty = save.difficulty;
 
-    this.time = save.time
-    this.gils = save.gils
+    this.time = save.time;
+    this.gils = save.gils;
   }
 
   /**
@@ -295,24 +295,24 @@ export class GameService {
    */
   save(confirm = true): void {
     if (!confirm) {
-      return
+      return;
     }
 
-    const s = this.export()
-    this.saves[0] = s
+    const s = this.export();
+    this.saves[0] = s;
 
-    const ss = btoa(JSON.stringify(s))
-    localStorage[SAVE_1] = ss
-    this.lastExport = ss
+    const ss = btoa(JSON.stringify(s));
+    localStorage[SAVE_1] = ss;
+    this.lastExport = ss;
   }
 
   /**
    * Remove the COOKIE & reset the game
    */
    reset(): void {
-    this.saves = []
+    this.saves = [];
 
-    localStorage.removeItem(SAVE_1)
+    localStorage.removeItem(SAVE_1);
   }
 
 }

@@ -65,4 +65,4 @@ export const helpData: HelpData = {
     },
     {}
   ]
-}
+};

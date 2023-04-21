@@ -1,6 +1,6 @@
-import { BattleService } from 'src/app/services/battle.service'
-import { Cure } from '../cure'
-import { Materia } from '../materia'
+import { BattleService } from 'src/app/services/battle.service';
+import { Cure } from '../cure';
+import { Materia } from '../materia';
 
 export abstract class CureMateria extends Materia {
 
@@ -8,18 +8,18 @@ export abstract class CureMateria extends Materia {
    * MP cost
    */
   getMpCost(): number {
-    return Math.ceil((this.getPwr() + 1) / 20) - 1
+    return Math.ceil((this.getPwr() + 1) / 20) - 1;
   }
 
   /**
    * Return materia power
    */
   getPwr(): number {
-    let level = this.level - 1
+    let level = this.level - 1;
     if (this.level === 100) {
-      level++
+      level++;
     }
-    return Math.ceil(this.pwr + level / 100 * 20)
+    return Math.ceil(this.pwr + level / 100 * 20);
   }
 
   /**
@@ -27,7 +27,7 @@ export abstract class CureMateria extends Materia {
    */
   canUse(battleService: BattleService): boolean {
     return (battleService.characters.mp >= this.getMpCost()
-      && battleService.characters.hp < battleService.characters.hpMax)
+      && battleService.characters.hp < battleService.characters.hpMax);
   }
 
   /**
@@ -35,10 +35,10 @@ export abstract class CureMateria extends Materia {
    * Add to HP : +30% to +60%
    */
   use(battleService: BattleService): void {
-    const hpMax = battleService.characters.hpMax
-    const pwr = Math.ceil(hpMax * (this.getPwr() / 100))
-    const cure = new Cure(pwr)
-    battleService.characters.addHp(cure.getCure())
+    const hpMax = battleService.characters.hpMax;
+    const pwr = Math.ceil(hpMax * (this.getPwr() / 100));
+    const cure = new Cure(pwr);
+    battleService.characters.addHp(cure.getCure());
   }
 
 }

@@ -1,6 +1,6 @@
-import { Component } from '@angular/core'
-import { GameService } from '../services/game.service'
-import { Materia } from '../models/materia'
+import { Component } from '@angular/core';
+import { GameService } from '../services/game.service';
+import { Materia } from '../models/materia';
 
 @Component({
   selector: 'app-materia',
@@ -9,32 +9,32 @@ import { Materia } from '../models/materia'
 })
 export class MateriaComponent {
 
-  list: Materia[] = []
-  maxMaterias = 0
+  list: Materia[] = [];
+  maxMaterias = 0;
 
   constructor(private gameService: GameService) {
-    this.list = this.gameService.materias.list
-    this.maxMaterias = this.gameService.characters.getMaxMaterias()
+    this.list = this.gameService.materias.list;
+    this.maxMaterias = this.gameService.characters.getMaxMaterias();
   }
 
   getNbrEquipped(): number {
-    return this.gameService.materias.getEquipped().length
+    return this.gameService.materias.getEquipped().length;
   }
 
   canEquip(materia: Materia): boolean {
-    return !materia.equipped && this.getNbrEquipped() < this.maxMaterias
+    return !materia.equipped && this.getNbrEquipped() < this.maxMaterias;
   }
 
   equip(materia: Materia): void {
-    materia.equipped = true
+    materia.equipped = true;
 
-    this.gameService.characters.refresh()
+    this.gameService.characters.refresh();
   }
 
   unequip(materia: Materia): void {
-    materia.equipped = false
+    materia.equipped = false;
 
-    this.gameService.characters.refresh()
+    this.gameService.characters.refresh();
   }
 
 }
