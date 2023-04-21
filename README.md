@@ -8,10 +8,10 @@ Please create an [issue](https://github.com/Menencia/clickingff7/issues/new) if 
 
 ## Development server
 
-Run `yarn install` to install all deps.
+Run `npm install` to install all deps.
 
-Run `ng serve` for a dev server. 
+Run `ng serve` for a dev server.
 
-Navigate to `http://localhost:4200/`. 
+Navigate to `http://localhost:4200/`.
 
 The app will automatically reload if you change any of the source files.
