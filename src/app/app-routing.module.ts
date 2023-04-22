@@ -12,7 +12,7 @@ import { SaveComponent } from './save/save.component';
 const routes: Routes = [
   { path: 'game', component: GameComponent },
   { path: 'map', component: MapComponent },
-  { path: 'shop', loadChildren: () => import('./views/shop/shop.module').then(m => m.ShopModule) },
+  { path: 'shop', loadChildren: () => import('./views/view-shop/view-shop.module').then(m => m.ViewShopModule) },
   { path: 'equip', component: EquipComponent },
   { path: 'materia', component: MateriaComponent },
   { path: 'items', component: ItemsComponent },

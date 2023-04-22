@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
-import { ShopModule } from './shop/shop.module';
+import { ViewShopModule } from './view-shop/view-shop.module';
 
 @NgModule({
   declarations: [],
   imports: [
-    ShopModule
+    ViewShopModule
   ]
 })
 export class ViewsModule { }

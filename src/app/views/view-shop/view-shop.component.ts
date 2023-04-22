@@ -12,10 +12,10 @@ import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-shop',
-  templateUrl: './shop.component.html',
-  styleUrls: ['./shop.component.scss']
+  templateUrl: './view-shop.component.html',
+  styleUrls: ['./view-shop.component.scss']
 })
-export class ShopComponent {
+export class ViewShopComponent {
 
   section = 'buy';
   type = 'weapons';
