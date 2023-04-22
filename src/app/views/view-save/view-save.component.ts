@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { GameService } from '../services/game.service';
-import { Save } from '../models/save';
+import { Save } from 'src/app/models/save';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
-  selector: 'app-save',
-  templateUrl: './save.component.html',
-  styleUrls: ['./save.component.scss']
+  selector: 'app-view-save',
+  templateUrl: './view-save.component.html',
+  styleUrls: ['./view-save.component.scss']
 })
-export class SaveComponent {
+export class ViewSaveComponent {
 
   saves: Save[];
   areaExport: string;

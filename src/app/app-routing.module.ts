@@ -7,7 +7,6 @@ import { ItemsComponent } from './items/items.component';
 import { MapComponent } from './map/map.component';
 import { MateriaComponent } from './materia/materia.component';
 import { PHSComponent } from './phs/phs.component';
-import { SaveComponent } from './save/save.component';
 
 const routes: Routes = [
   { path: 'game', component: GameComponent },
@@ -18,7 +17,7 @@ const routes: Routes = [
   { path: 'items', component: ItemsComponent },
   { path: 'config', component: ConfigComponent },
   { path: 'phs', component: PHSComponent },
-  { path: 'save', component: SaveComponent },
+  { path: 'save', loadChildren: () => import('./views/view-save/view-save.module').then(m => m.ViewSaveModule) },
   { path: '', redirectTo: '/game', pathMatch: 'full' },
 ];
 
