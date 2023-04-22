@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { ConfigComponent } from './config/config.component';
 import { GameComponent } from './game/game.component';
 
 const routes: Routes = [
@@ -11,7 +10,7 @@ const routes: Routes = [
   { path: 'equip', loadChildren: () => import('./views/view-equip/view-equip.module').then(m => m.ViewEquipModule) },
   { path: 'materia', loadChildren: () => import('./views/view-materia/view-materia.module').then(m => m.ViewMateriaModule) },
   { path: 'items', loadChildren: () => import('./views/view-items/view-items.module').then(m => m.ViewItemsModule) },
-  { path: 'config', component: ConfigComponent },
+  { path: 'config', loadChildren: () => import('./views/view-config/view-config.module').then(m => m.ViewConfigModule) },
   { path: 'phs', loadChildren: () => import('./views/view-phs/view-phs.module').then(m => m.ViewPhsModule) },
   { path: 'save', loadChildren: () => import('./views/view-save/view-save.module').then(m => m.ViewSaveModule) },
   { path: '', redirectTo: '/game', pathMatch: 'full' },

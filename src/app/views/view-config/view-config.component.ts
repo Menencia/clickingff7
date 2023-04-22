@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Difficulty, GameService } from '../services/game.service';
+import { Difficulty, GameService } from 'src/app/services/game.service';
 
 @Component({
-  selector: 'app-config',
-  templateUrl: './config.component.html',
-  styleUrls: ['./config.component.scss']
+  selector: 'app-view-config',
+  templateUrl: './view-config.component.html',
+  styleUrls: ['./view-config.component.scss']
 })
-export class ConfigComponent {
+export class ViewConfigComponent {
 
   difficulty: Difficulty;
   language: string;
