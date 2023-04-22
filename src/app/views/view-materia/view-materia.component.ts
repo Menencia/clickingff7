@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { GameService } from 'src/app/core/services/game.service';
 import { Materia } from 'src/app/models/materia';
-import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-view-materia',

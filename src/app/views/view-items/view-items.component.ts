@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
+import { GameService } from 'src/app/core/services/game.service';
 import { Item, MAX_ITEMS } from 'src/app/models/item';
-import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-view-items',

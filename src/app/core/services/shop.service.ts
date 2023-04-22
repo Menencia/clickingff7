@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { Item } from '../models/item';
-import { ItemLoader } from '../models/loaders/item-loader';
-import { MateriaLoader } from '../models/loaders/materia-loader';
-import { WeaponLoader } from '../models/loaders/weapon-loader';
-import { Materia } from '../models/materia';
-import { ItemRef } from '../models/refs/items';
-import { MateriaRef } from '../models/refs/materias';
-import { WeaponRef } from '../models/refs/weapons';
-import { Weapon } from '../models/weapon';
+import { Item } from 'src/app/models/item';
+import { ItemLoader } from 'src/app/models/loaders/item-loader';
+import { MateriaLoader } from 'src/app/models/loaders/materia-loader';
+import { WeaponLoader } from 'src/app/models/loaders/weapon-loader';
+import { Materia } from 'src/app/models/materia';
+import { ItemRef } from 'src/app/models/refs/items';
+import { MateriaRef } from 'src/app/models/refs/materias';
+import { WeaponRef } from 'src/app/models/refs/weapons';
+import { Weapon } from 'src/app/models/weapon';
 
 @Injectable({
   providedIn: 'root'
@@ -75,4 +75,5 @@ export class ShopService {
       }
     }
   }
+
 }

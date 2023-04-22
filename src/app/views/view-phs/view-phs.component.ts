@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { GameService } from 'src/app/core/services/game.service';
 import { Character } from 'src/app/models/character';
 import { MAX_TEAM } from 'src/app/models/characters';
-import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-view-phs',

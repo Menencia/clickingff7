@@ -1,4 +1,4 @@
-import { BattleService } from '../services/battle.service';
+import { BattleService } from '../core/services/battle.service';
 import { MateriaRef } from './refs/materias';
 import { MateriaSave } from './save';
 

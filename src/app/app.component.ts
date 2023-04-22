@@ -1,11 +1,11 @@
 import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
-import { GameService } from './services/game.service';
 import { HttpClient } from '@angular/common/http';
 import { DOCUMENT } from '@angular/common';
-import { BattleService } from './services/battle.service';
 import { helpData } from './models/help';
 import { TranslateService } from '@ngx-translate/core';
+import { GameService } from './core/services/game.service';
+import { BattleService } from './core/services/battle.service';
 
 // declare this to by pass typescript error
 // can put this in index.d.ts file

@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { BattleService } from 'src/app/core/services/battle.service';
+import { GameService } from 'src/app/core/services/game.service';
 import { Character } from 'src/app/models/character';
 import { Characters } from 'src/app/models/characters';
 import { Enemies } from 'src/app/models/enemies';
-import { BattleService } from 'src/app/services/battle.service';
-import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-view-game',

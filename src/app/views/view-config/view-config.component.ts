@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Difficulty, GameService } from 'src/app/services/game.service';
+import { Difficulty, GameService } from 'src/app/core/services/game.service';
 
 @Component({
   selector: 'app-view-config',

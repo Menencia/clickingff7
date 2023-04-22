@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
+import { Characters } from 'src/app/models/characters';
+import { Enemies } from 'src/app/models/enemies';
 import { GameService } from './game.service';
-import { Attack } from '../models/attack';
-import { Characters } from '../models/characters';
-import { MAX_FIGHTS } from '../models/zone';
-import { Enemies } from '../models/enemies';
+import { MAX_FIGHTS } from 'src/app/models/zone';
+import { Attack } from 'src/app/models/attack';
 
 @Injectable({
   providedIn: 'root'

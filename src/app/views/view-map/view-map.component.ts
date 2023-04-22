@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { GameService } from 'src/app/core/services/game.service';
+import { ShopService } from 'src/app/core/services/shop.service';
 import { Zone } from 'src/app/models/zone';
-import { GameService } from 'src/app/services/game.service';
-import { ShopService } from 'src/app/services/shop.service';
 
 @Component({
   selector: 'app-view-map',

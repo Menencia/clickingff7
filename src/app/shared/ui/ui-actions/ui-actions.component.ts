@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
+import { BattleService } from 'src/app/core/services/battle.service';
+import { GameService } from 'src/app/core/services/game.service';
 import { Attack } from 'src/app/models/attack';
 import { Item } from 'src/app/models/item';
 import { Materia } from 'src/app/models/materia';
-import { BattleService } from 'src/app/services/battle.service';
-import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-ui-actions',

@@ -1,4 +1,4 @@
-import { BattleService } from 'src/app/services/battle.service';
+import { BattleService } from 'src/app/core/services/battle.service';
 import { Cure } from '../cure';
 import { Materia } from '../materia';
 
