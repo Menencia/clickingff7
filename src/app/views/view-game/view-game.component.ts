@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
-import { GameService } from '../services/game.service';
-import { Character } from '../models/character';
-import { Characters } from '../models/characters';
-import { Enemies } from '../models/enemies';
-import { BattleService } from '../services/battle.service';
+import { Character } from 'src/app/models/character';
+import { Characters } from 'src/app/models/characters';
+import { Enemies } from 'src/app/models/enemies';
+import { BattleService } from 'src/app/services/battle.service';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
-  selector: 'app-game',
-  templateUrl: './game.component.html',
-  styleUrls: ['./game.component.scss']
+  selector: 'app-view-game',
+  templateUrl: './view-game.component.html',
+  styleUrls: ['./view-game.component.scss']
 })
-export class GameComponent {
+export class ViewGameComponent {
 
   public characters: Characters;
   public enemies: Enemies;

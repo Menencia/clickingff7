@@ -6,11 +6,11 @@ import { BattleService } from 'src/app/services/battle.service';
 import { GameService } from 'src/app/services/game.service';
 
 @Component({
-  selector: 'app-actions',
-  templateUrl: './actions.component.html',
-  styleUrls: ['./actions.component.scss']
+  selector: 'app-ui-actions',
+  templateUrl: './ui-actions.component.html',
+  styleUrls: ['./ui-actions.component.scss']
 })
-export class ActionsComponent {
+export class UiActionsComponent {
 
   constructor(private battleService: BattleService,
               private gameService: GameService) { }

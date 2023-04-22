@@ -1,10 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
-import { GameComponent } from './game/game.component';
-
 const routes: Routes = [
-  { path: 'game', component: GameComponent },
+  { path: 'game', loadChildren: () => import('./views/view-game/view-game.module').then(m => m.ViewGameModule) },
   { path: 'map', loadChildren: () => import('./views/view-map/view-map.module').then(m => m.ViewMapModule) },
   { path: 'shop', loadChildren: () => import('./views/view-shop/view-shop.module').then(m => m.ViewShopModule) },
   { path: 'equip', loadChildren: () => import('./views/view-equip/view-equip.module').then(m => m.ViewEquipModule) },
@@ -17,7 +15,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, {useHash: true})],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
