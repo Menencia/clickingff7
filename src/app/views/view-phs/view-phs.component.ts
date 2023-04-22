@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { GameService } from '../services/game.service';
-import { Character } from '../models/character';
-import { MAX_TEAM } from '../models/characters';
+import { Character } from 'src/app/models/character';
+import { MAX_TEAM } from 'src/app/models/characters';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
-  selector: 'app-phs',
-  templateUrl: './phs.component.html',
-  styleUrls: ['./phs.component.scss']
+  selector: 'app-view-phs',
+  templateUrl: './view-phs.component.html',
+  styleUrls: ['./view-phs.component.scss']
 })
-export class PHSComponent {
+export class ViewPhsComponent {
 
   team: Character[];
   backup: Character[];

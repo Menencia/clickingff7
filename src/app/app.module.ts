@@ -11,7 +11,6 @@ import { EquipComponent } from './equip/equip.component';
 import { MateriaComponent } from './materia/materia.component';
 import { ItemsComponent } from './items/items.component';
 import { ConfigComponent } from './config/config.component';
-import { PHSComponent } from './phs/phs.component';
 import { ActionsComponent } from './game/components/actions/actions.component';
 import { ViewsModule } from './views/views.module';
 import { SharedModule } from './shared/shared.module';
@@ -25,7 +24,6 @@ import { SharedModule } from './shared/shared.module';
     MateriaComponent,
     ItemsComponent,
     ConfigComponent,
-    PHSComponent,
     ActionsComponent
   ],
   imports: [
