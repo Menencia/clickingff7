@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+// import { ViewEquipModule } from './view-equip/view-equip.module';
 // import { ViewItemsModule } from './view-items/view-items.module';
 // import { ViewMapModule } from './view-map/view-map.module';
 // import { ViewMateriaModule } from './view-materia/view-materia.module';
@@ -14,6 +15,7 @@ import { NgModule } from '@angular/core';
     // ViewMateriaModule
     // ViewMapModule
     // ViewItemsModule
+    // ViewEquipModule
   ]
 })
 export class ViewsModule { }

@@ -2,14 +2,13 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 import { ConfigComponent } from './config/config.component';
-import { EquipComponent } from './equip/equip.component';
 import { GameComponent } from './game/game.component';
 
 const routes: Routes = [
   { path: 'game', component: GameComponent },
   { path: 'map', loadChildren: () => import('./views/view-map/view-map.module').then(m => m.ViewMapModule) },
   { path: 'shop', loadChildren: () => import('./views/view-shop/view-shop.module').then(m => m.ViewShopModule) },
-  { path: 'equip', component: EquipComponent },
+  { path: 'equip', loadChildren: () => import('./views/view-equip/view-equip.module').then(m => m.ViewEquipModule) },
   { path: 'materia', loadChildren: () => import('./views/view-materia/view-materia.module').then(m => m.ViewMateriaModule) },
   { path: 'items', loadChildren: () => import('./views/view-items/view-items.module').then(m => m.ViewItemsModule) },
   { path: 'config', component: ConfigComponent },

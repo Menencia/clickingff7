@@ -6,7 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
-import { EquipComponent } from './equip/equip.component';
 import { ConfigComponent } from './config/config.component';
 import { ActionsComponent } from './game/components/actions/actions.component';
 
@@ -17,7 +16,6 @@ import { SharedModule } from './shared/shared.module';
   declarations: [
     AppComponent,
     GameComponent,
-    EquipComponent,
     ConfigComponent,
     ActionsComponent
   ],

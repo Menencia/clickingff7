@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { GameService } from '../services/game.service';
-import { Character } from '../models/character';
-import { Weapon } from '../models/weapon';
+import { Character } from 'src/app/models/character';
+import { Weapon } from 'src/app/models/weapon';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
-  selector: 'app-equip',
-  templateUrl: './equip.component.html',
-  styleUrls: ['./equip.component.scss']
+  selector: 'app-view-equip',
+  templateUrl: './view-equip.component.html',
+  styleUrls: ['./view-equip.component.scss']
 })
-export class EquipComponent {
+export class ViewEquipComponent {
 
   selected: Character;
   team: Character[];
