@@ -8,12 +8,11 @@ import { MapComponent } from './map/map.component';
 import { MateriaComponent } from './materia/materia.component';
 import { PHSComponent } from './phs/phs.component';
 import { SaveComponent } from './save/save.component';
-import { ShopComponent } from './shop/shop.component';
 
 const routes: Routes = [
   { path: 'game', component: GameComponent },
   { path: 'map', component: MapComponent },
-  { path: 'shop', component: ShopComponent },
+  { path: 'shop', loadChildren: () => import('./views/shop/shop.module').then(m => m.ShopModule) },
   { path: 'equip', component: EquipComponent },
   { path: 'materia', component: MateriaComponent },
   { path: 'items', component: ItemsComponent },
