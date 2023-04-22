@@ -1,45 +1,49 @@
-<div class="grid grid-cols-5 gap-x-4">
+<app-ui-layout-default>
 
-  <div>
-    <div class="flex flex-col gap-1">
-      <button class="button" *ngFor="let zone of list" [class.current]="level === zone.level"
-        (click)="goZone(zone.level)">
-        {{'Zone'|translate}} {{zone.level}}
-      </button>
+  <div class="grid grid-cols-5 gap-x-4">
+
+    <div>
+      <div class="flex flex-col gap-1">
+        <button class="button" *ngFor="let zone of list" [class.current]="level === zone.level"
+          (click)="goZone(zone.level)">
+          {{'Zone'|translate}} {{zone.level}}
+        </button>
+      </div>
     </div>
-  </div>
 
-  <div class="col-span-2">
+    <div class="col-span-2">
 
-    <div class="flex gap-2">
-      <img class="w-32" [src]="current.image" alt="current_zone" />
+      <div class="flex gap-2">
+        <img class="w-32" [src]="current.image" alt="current_zone" />
 
-      <div>
-        <div class="">
-          {{"Zone "+current.level+" name"|translate}}
-          <strong>(#{{current.level}})</strong>
+        <div>
+          <div class="">
+            {{"Zone "+current.level+" name"|translate}}
+            <strong>(#{{current.level}})</strong>
+          </div>
+
+          <div class="text-sm">
+            {{'Zone '+current.level+' desc'|translate}}
+          </div>
         </div>
+      </div>
 
-        <div class="text-sm">
-          {{'Zone '+current.level+' desc'|translate}}
-        </div>
+    </div>
+
+    <div class="col-span-2">
+
+      <div class="uppercase text-gray-400 text-center" *ngIf="!current.completed">
+          {{"Not completed"|translate}}
+      </div>
+
+      <div class="no-data" *ngIf="current.completed">
+        <div>{{"Completed"|translate}}</div>
+        <button class="button" *ngIf="canGoNextZone()" (click)="goNextZone()">
+          {{"Go next zone"|translate}}
+        </button>
       </div>
     </div>
 
   </div>
 
-  <div class="col-span-2">
-
-    <div class="uppercase text-gray-400 text-center" *ngIf="!current.completed">
-        {{"Not completed"|translate}}
-    </div>
-
-    <div class="no-data" *ngIf="current.completed">
-      <div>{{"Completed"|translate}}</div>
-      <button class="button" *ngIf="canGoNextZone()" (click)="goNextZone()">
-        {{"Go next zone"|translate}}
-      </button>
-    </div>
-  </div>
-
-</div>
+</app-ui-layout-default>

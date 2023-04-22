@@ -1,46 +1,50 @@
-<div class="grid grid-cols-5 gap-x-4">
+<app-ui-layout-default>
 
-  <div class="col-span-2">
+  <div class="grid grid-cols-5 gap-x-4">
 
-    <h3>{{'Team'|translate}}</h3>
+    <div class="col-span-2">
 
-    <div *ngFor="let character of team" class="phs_character">
-      <img [src]="character.image"
-           alt="character"
-           width="80"
-           class="float-left cursor-pointer"
-           (click)="leaveTeam(character)"/>
+      <h3>{{'Team'|translate}}</h3>
 
-      <div class="main">
-        <div class="progress characters_xp">
-          <div class="xp_progress" [style.width]="character.xpProgress(200) + 'px'"></div>
-          <span class="bar-label">{{character.xp}} / {{character.getXpMax()}} EXP</span>
+      <div *ngFor="let character of team" class="phs_character">
+        <img [src]="character.image"
+            alt="character"
+            width="80"
+            class="float-left cursor-pointer"
+            (click)="leaveTeam(character)"/>
+
+        <div class="main">
+          <div class="progress characters_xp">
+            <div class="xp_progress" [style.width]="character.xpProgress(200) + 'px'"></div>
+            <span class="bar-label">{{character.xp}} / {{character.getXpMax()}} EXP</span>
+          </div>
+
+          <div>{{character.name}} <strong>(LVL{{character.level}})</strong></div>
+          <div *ngIf="character.level > 0">
+            <span class="label">hp</span> {{character.getHpMax()}}
+            <span class="label">mp</span> {{character.getMpMax()}}
+            <span class="label">pwr</span> {{character.getHits()}}
+          </div>
         </div>
-
-        <div>{{character.name}} <strong>(LVL{{character.level}})</strong></div>
-        <div *ngIf="character.level > 0">
-          <span class="label">hp</span> {{character.getHpMax()}}
-          <span class="label">mp</span> {{character.getMpMax()}}
-          <span class="label">pwr</span> {{character.getHits()}}
-        </div>
+        <div style="clear: left"></div>
       </div>
-      <div style="clear: left"></div>
+
+    </div>
+
+    <div class="col-span-2">
+
+      <h3>{{'Backup'|translate}}</h3>
+
+      <span *ngFor="let character of backup" class="phs_character">
+        <img [src]="character.image"
+            alt="character"
+            width="80"
+            class="float-left cursor-pointer"
+            (click)="joinTeam(character)"/>
+      </span>
+
     </div>
 
   </div>
 
-  <div class="col-span-2">
-
-    <h3>{{'Backup'|translate}}</h3>
-
-    <span *ngFor="let character of backup" class="phs_character">
-      <img [src]="character.image"
-           alt="character"
-           width="80"
-           class="float-left cursor-pointer"
-           (click)="joinTeam(character)"/>
-    </span>
-
-  </div>
-
-</div>
+</app-ui-layout-default>

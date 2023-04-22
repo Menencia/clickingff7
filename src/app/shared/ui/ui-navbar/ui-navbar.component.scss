@@ -2,3 +2,7 @@ h1 {
   color: var(--cl-color-accent);
   @apply tracking-wider text-2xl;
 }
+
+a.disabled {
+  color: #eee;
+}

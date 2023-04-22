@@ -21,7 +21,7 @@
   <a routerLink="/config" routerLinkActive="active">
     {{"Config"|translate}}
   </a>
-  <a routerLink="/phs" routerLinkActive="active" [class.disabled]="displayPhs">
+  <a routerLink="/phs" routerLinkActive="active" *ngIf="displayPhs">
     {{"PHS"|translate}}
   </a>
   <a routerLink="/save" routerLinkActive="active">

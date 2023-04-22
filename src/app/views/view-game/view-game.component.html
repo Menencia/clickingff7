@@ -1,91 +1,95 @@
-<div class="grid grid-cols-5 gap-x-4">
+<app-ui-layout-default>
 
-  <app-ui-actions></app-ui-actions>
+  <div class="grid grid-cols-5 gap-x-4">
 
-  <div class="col-span-2">
-    <!-- characters bars -->
-    <app-ui-bar
-      [id]="'step2'"
-      [progress]="round(characters.hp / characters.hpMax * 100)"
-      [text]="'HP ' + characters.hp"
-      [name]="'hp'"
-      [hits]="enemies.arrHits"
-    ></app-ui-bar>
+    <app-ui-actions></app-ui-actions>
 
-    <app-ui-bar
-      [id]="'step3'"
-      [progress]="round(characters.mp / characters.mpMax * 100)"
-      [text]="'MP ' + characters.mp"
-      [name]="'mp'"
-    ></app-ui-bar>
-
-    <app-ui-bar
-      [id]="'step4'"
-      [progress]="round(characters.limit / characters.limitMax * 100)"
-      [text]="'LIMIT'"
-      [name]="'limit'"
-    ></app-ui-bar>
-
-      <!-- characters list -->
-    <div id="step1">
-      <div *ngFor="let character of characters.getTeam()" class="flex gap-4 mt-5">
-        <div class="relative">
-          <img src="{{character.image}}" alt="avatar" width="80" class="icon"/>
-          <div class="absolute bg-black h-5 bottom-0 right-0 left-0 opacity-75 text-center">
-            <span class="text-white text-sm">
-              LVL{{character.level}}
-            </span>
-          </div>
-        </div>
-
-        <div class="flex-grow">
-          <app-ui-bar
-            [progress]="round(character.xp / character.getXpMax() * 100)"
-            [text]="character.xp + ' / '+ character.getXpMax() + 'EXP'"
-            [name]="'exp'"
-          ></app-ui-bar>
-
-          <div class="text-2xl">{{character.name}}</div>
-          <div class="text-sm italic">"{{getLine(character)|translate}}"</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-span-2" id="step5">
-    <!-- enemies bars -->
-    <div *ngIf="enemies.list.length > 0">
+    <div class="col-span-2">
+      <!-- characters bars -->
       <app-ui-bar
-        [progress]="round(enemies.hp / enemies.hpMax * 100)"
-        [text]="'HP ' + enemies.hp"
+        [id]="'step2'"
+        [progress]="round(characters.hp / characters.hpMax * 100)"
+        [text]="'HP ' + characters.hp"
         [name]="'hp'"
-        [hits]="characters.arrHits"
+        [hits]="enemies.arrHits"
       ></app-ui-bar>
-    </div>
 
-    <div *ngIf="enemies.list.length === 0" class="text-gray-300 uppercase text-center mt-10">
-      {{"No enemies"|translate}}
-    </div>
+      <app-ui-bar
+        [id]="'step3'"
+        [progress]="round(characters.mp / characters.mpMax * 100)"
+        [text]="'MP ' + characters.mp"
+        [name]="'mp'"
+      ></app-ui-bar>
 
-      <!-- enemies list -->
-      <div *ngFor="let enemy of enemies.list" class="flex gap-4 mt-5">
-        <div class="relative">
-          <img [src]="enemy.image" alt="avatar" width="80" class="icon"/>
-          <div class="absolute bg-black h-5 bottom-0 right-0 left-0 opacity-75 text-center">
-            <span class="text-white text-sm">
-              LVL{{enemy.level}}
-            </span>
+      <app-ui-bar
+        [id]="'step4'"
+        [progress]="round(characters.limit / characters.limitMax * 100)"
+        [text]="'LIMIT'"
+        [name]="'limit'"
+      ></app-ui-bar>
+
+        <!-- characters list -->
+      <div id="step1">
+        <div *ngFor="let character of characters.getTeam()" class="flex gap-4 mt-5">
+          <div class="relative">
+            <img src="{{character.image}}" alt="avatar" width="80" class="icon"/>
+            <div class="absolute bg-black h-5 bottom-0 right-0 left-0 opacity-75 text-center">
+              <span class="text-white text-sm">
+                LVL{{character.level}}
+              </span>
+            </div>
           </div>
-        </div>
 
-        <div class="flex-grow">
+          <div class="flex-grow">
+            <app-ui-bar
+              [progress]="round(character.xp / character.getXpMax() * 100)"
+              [text]="character.xp + ' / '+ character.getXpMax() + 'EXP'"
+              [name]="'exp'"
+            ></app-ui-bar>
 
-          <div class="text-2xl">{{enemy.name}}
-            <span *ngIf="enemy.boss" class="boss">ZONE BOSS</span>
-            <span *ngIf="enemy.miboss" class="boss">BOSS</span>
+            <div class="text-2xl">{{character.name}}</div>
+            <div class="text-sm italic">"{{getLine(character)|translate}}"</div>
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="col-span-2" id="step5">
+      <!-- enemies bars -->
+      <div *ngIf="enemies.list.length > 0">
+        <app-ui-bar
+          [progress]="round(enemies.hp / enemies.hpMax * 100)"
+          [text]="'HP ' + enemies.hp"
+          [name]="'hp'"
+          [hits]="characters.arrHits"
+        ></app-ui-bar>
+      </div>
+
+      <div *ngIf="enemies.list.length === 0" class="text-gray-300 uppercase text-center mt-10">
+        {{"No enemies"|translate}}
+      </div>
+
+        <!-- enemies list -->
+        <div *ngFor="let enemy of enemies.list" class="flex gap-4 mt-5">
+          <div class="relative">
+            <img [src]="enemy.image" alt="avatar" width="80" class="icon"/>
+            <div class="absolute bg-black h-5 bottom-0 right-0 left-0 opacity-75 text-center">
+              <span class="text-white text-sm">
+                LVL{{enemy.level}}
+              </span>
+            </div>
+          </div>
+
+          <div class="flex-grow">
+
+            <div class="text-2xl">{{enemy.name}}
+              <span *ngIf="enemy.boss" class="boss">ZONE BOSS</span>
+              <span *ngIf="enemy.miboss" class="boss">BOSS</span>
+            </div>
+          </div>
+        </div>
+    </div>
+
   </div>
 
-</div>
+</app-ui-layout-default>

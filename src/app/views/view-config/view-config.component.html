@@ -1,4 +1,4 @@
-<div class="c1">
+<app-ui-layout-default>
 
   <p>
     {{"Difficulty"|translate}} : <select [(ngModel)]="difficulty" (change)="changeDifficulty()">
@@ -9,15 +9,12 @@
   </p>
 
   <p>
-    {{"Language"|translate}} : <select [(ngModel)]="language" (change)="changeLanguage()">
-    <option value="fr">Français</option>
-    <option value="en">English</option>
-    <option value="es">Español</option>
-  </select>
+    {{"Language"|translate}} :
+    <select [(ngModel)]="language" (change)="changeLanguage()">
+      <option value="fr">Français</option>
+      <option value="en">English</option>
+      <option value="es">Español</option>
+    </select>
   </p>
 
-</div><!--
--->
-<div class="c3">
-
-</div>
+</app-ui-layout-default>

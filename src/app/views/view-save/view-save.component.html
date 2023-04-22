@@ -1,55 +1,59 @@
-<div class="grid grid-cols-5 gap-x-4">
+<app-ui-layout-default>
 
-  <div>
-    <div class="flex flex-col gap-1">
-      <button class="button" (click)="saveGame()">
-        {{"Save"|translate}}
-      </button>
-      <button class="button" (click)="resetGame()" [class.disabled]="saves.length === 0">
-        {{"Reset"|translate}}
-      </button>
-    </div>
+  <div class="grid grid-cols-5 gap-x-4">
 
-    <div class="flex flex-col gap-1 mt-5">
-      <button class="button" (click)="exportLastSave()" [class.disabled]="saves.length === 0">
-        {{"Export save"|translate}}
-      </button>
-      <button class="button" (click)="exportCurrentGame()">
-        {{"Export game"|translate}}
-      </button>
-      <button class="button" (click)="showImport()">
-        {{"Import"|translate}}
-      </button>
-    </div>
-  </div>
+    <div>
+      <div class="flex flex-col gap-1">
+        <button class="button" (click)="saveGame()">
+          {{"Save"|translate}}
+        </button>
+        <button class="button" (click)="resetGame()" [class.disabled]="saves.length === 0">
+          {{"Reset"|translate}}
+        </button>
+      </div>
 
-  <div class="col-span-2">
-    <div *ngIf="saves.length === 0" class="no-data">
-      {{"No saves"|translate}}
-    </div>
-
-    <div *ngIf="saves.length > 0">
-      <ng-container *ngFor="let character of saves[0].characters.list">
-        <img *ngIf="character.inTeam" [src]="character.image" alt="" width="80" class="save_character"/>
-      </ng-container>
-      <br/>
-      {{"Time"|translate}}: {{saves[0].time|time}}
-      <br/>
-      {{"Gil"|translate}}: {{saves[0].gils}}
-    </div>
-  </div>
-
-  <div class="col-span-2">
-    <div *ngIf="showAreaExport">
-      <textarea [(ngModel)]="areaExport"></textarea>
-    </div>
-    <div  *ngIf="showAreaImport">
-      <textarea [(ngModel)]="areaImport"></textarea>
-
-      <div (click)="importSave()" class="button">
-        IMPORT
+      <div class="flex flex-col gap-1 mt-5">
+        <button class="button" (click)="exportLastSave()" [class.disabled]="saves.length === 0">
+          {{"Export save"|translate}}
+        </button>
+        <button class="button" (click)="exportCurrentGame()">
+          {{"Export game"|translate}}
+        </button>
+        <button class="button" (click)="showImport()">
+          {{"Import"|translate}}
+        </button>
       </div>
     </div>
+
+    <div class="col-span-2">
+      <div *ngIf="saves.length === 0" class="no-data">
+        {{"No saves"|translate}}
+      </div>
+
+      <div *ngIf="saves.length > 0">
+        <ng-container *ngFor="let character of saves[0].characters.list">
+          <img *ngIf="character.inTeam" [src]="character.image" alt="" width="80" class="save_character"/>
+        </ng-container>
+        <br/>
+        {{"Time"|translate}}: {{saves[0].time|time}}
+        <br/>
+        {{"Gil"|translate}}: {{saves[0].gils}}
+      </div>
+    </div>
+
+    <div class="col-span-2">
+      <div *ngIf="showAreaExport">
+        <textarea [(ngModel)]="areaExport"></textarea>
+      </div>
+      <div  *ngIf="showAreaImport">
+        <textarea [(ngModel)]="areaImport"></textarea>
+
+        <div (click)="importSave()" class="button">
+          IMPORT
+        </div>
+      </div>
+    </div>
+
   </div>
 
-</div>
+</app-ui-layout-default>
