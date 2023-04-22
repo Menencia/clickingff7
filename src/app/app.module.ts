@@ -7,7 +7,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
 import { EquipComponent } from './equip/equip.component';
-import { ItemsComponent } from './items/items.component';
 import { ConfigComponent } from './config/config.component';
 import { ActionsComponent } from './game/components/actions/actions.component';
 
@@ -19,7 +18,6 @@ import { SharedModule } from './shared/shared.module';
     AppComponent,
     GameComponent,
     EquipComponent,
-    ItemsComponent,
     ConfigComponent,
     ActionsComponent
   ],

@@ -4,7 +4,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { ConfigComponent } from './config/config.component';
 import { EquipComponent } from './equip/equip.component';
 import { GameComponent } from './game/game.component';
-import { ItemsComponent } from './items/items.component';
 
 const routes: Routes = [
   { path: 'game', component: GameComponent },
@@ -12,7 +11,7 @@ const routes: Routes = [
   { path: 'shop', loadChildren: () => import('./views/view-shop/view-shop.module').then(m => m.ViewShopModule) },
   { path: 'equip', component: EquipComponent },
   { path: 'materia', loadChildren: () => import('./views/view-materia/view-materia.module').then(m => m.ViewMateriaModule) },
-  { path: 'items', component: ItemsComponent },
+  { path: 'items', loadChildren: () => import('./views/view-items/view-items.module').then(m => m.ViewItemsModule) },
   { path: 'config', component: ConfigComponent },
   { path: 'phs', loadChildren: () => import('./views/view-phs/view-phs.module').then(m => m.ViewPhsModule) },
   { path: 'save', loadChildren: () => import('./views/view-save/view-save.module').then(m => m.ViewSaveModule) },

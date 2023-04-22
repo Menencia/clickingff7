@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { GameService } from '../services/game.service';
-import { Item, MAX_ITEMS } from '../models/item';
+import { Item, MAX_ITEMS } from 'src/app/models/item';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
-  selector: 'app-items',
-  templateUrl: './items.component.html',
-  styleUrls: ['./items.component.scss']
+  selector: 'app-view-items',
+  templateUrl: './view-items.component.html',
+  styleUrls: ['./view-items.component.scss']
 })
-export class ItemsComponent {
+export class ViewItemsComponent {
 
   MAX_ITEMS = MAX_ITEMS;
   list: Item[] = [];
