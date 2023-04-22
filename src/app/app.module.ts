@@ -8,10 +8,10 @@ import { AppComponent } from './app.component';
 import { GameComponent } from './game/game.component';
 import { MapComponent } from './map/map.component';
 import { EquipComponent } from './equip/equip.component';
-import { MateriaComponent } from './materia/materia.component';
 import { ItemsComponent } from './items/items.component';
 import { ConfigComponent } from './config/config.component';
 import { ActionsComponent } from './game/components/actions/actions.component';
+
 import { ViewsModule } from './views/views.module';
 import { SharedModule } from './shared/shared.module';
 
@@ -21,7 +21,6 @@ import { SharedModule } from './shared/shared.module';
     GameComponent,
     MapComponent,
     EquipComponent,
-    MateriaComponent,
     ItemsComponent,
     ConfigComponent,
     ActionsComponent

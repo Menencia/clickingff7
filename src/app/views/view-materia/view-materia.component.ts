@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
-import { GameService } from '../services/game.service';
-import { Materia } from '../models/materia';
+import { Materia } from 'src/app/models/materia';
+import { GameService } from 'src/app/services/game.service';
 
 @Component({
-  selector: 'app-materia',
-  templateUrl: './materia.component.html',
-  styleUrls: ['./materia.component.scss']
+  selector: 'app-view-materia',
+  templateUrl: './view-materia.component.html',
+  styleUrls: ['./view-materia.component.scss']
 })
-export class MateriaComponent {
+export class ViewMateriaComponent {
 
   list: Materia[] = [];
   maxMaterias = 0;

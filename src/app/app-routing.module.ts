@@ -6,14 +6,13 @@ import { EquipComponent } from './equip/equip.component';
 import { GameComponent } from './game/game.component';
 import { ItemsComponent } from './items/items.component';
 import { MapComponent } from './map/map.component';
-import { MateriaComponent } from './materia/materia.component';
 
 const routes: Routes = [
   { path: 'game', component: GameComponent },
   { path: 'map', component: MapComponent },
   { path: 'shop', loadChildren: () => import('./views/view-shop/view-shop.module').then(m => m.ViewShopModule) },
   { path: 'equip', component: EquipComponent },
-  { path: 'materia', component: MateriaComponent },
+  { path: 'materia', loadChildren: () => import('./views/view-materia/view-materia.module').then(m => m.ViewMateriaModule) },
   { path: 'items', component: ItemsComponent },
   { path: 'config', component: ConfigComponent },
   { path: 'phs', loadChildren: () => import('./views/view-phs/view-phs.module').then(m => m.ViewPhsModule) },
