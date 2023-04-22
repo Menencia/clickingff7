@@ -4,6 +4,10 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+:root {
+  --cl-color-accent: rgb(329, 68, 68);
+}
+
 body {
   @apply dark:bg-gray-800 bg-gray-200 dark:text-white;
 }

@@ -1,39 +1,8 @@
-<nav class="flex items-center gap-5 p-3 bg-gray-200 dark:bg-gray-800 dark:text-white" id="step10">
-  <div class="text-red-500 tracking-wider text-2xl">
-    ClickingFF7
-  </div>
-  <a routerLink="/game" (click)="goGame()" routerLinkActive="active">{{"Game"|translate}}</a>
-  <a routerLink="/map" (click)="goMap()" routerLinkActive="active">
-    {{"Map"|translate}}<span *ngIf="gameService.zones.nextZone">*</span>
-  </a>
-  <a routerLink="/shop" (click)="goShop()" routerLinkActive="active">{{"Shop"|translate}}</a>
-  <a routerLink="/equip" (click)="goEquip()" routerLinkActive="active">{{"Equip"|translate}}</a>
-  <a routerLink="/materia" (click)="goMateria()" routerLinkActive="active">{{"Materia"|translate}}</a>
-  <a routerLink="/items" (click)="goItems()" routerLinkActive="active">{{"Items"|translate}}</a>
-  <a routerLink="/config" (click)="goConfig()" routerLinkActive="active">{{"Config"|translate}}</a>
-  <a routerLink="/phs" (click)="goPHS()" routerLinkActive="active" [class.disabled]="gameService.zones.levelMax < 5">
-    {{"PHS"|translate}}
-  </a>
-  <a routerLink="/save" (click)="goSave()" routerLinkActive="active">{{"Save"|translate}}</a>
-  <div class="flex-grow"></div>
-  <div>
-    <div class="cursor-pointer" (click)="help()">
-      <span class="material-icons-outlined">
-        help
-      </span>
-    </div>
-  </div>
-  <div>
-    <div class="cursor-pointer" (click)="toggleDark()">
-      <span *ngIf="theme === 'light'" class="material-icons-outlined">
-        light_mode
-      </span>
-      <span *ngIf="theme === 'dark'" class="material-icons-outlined">
-        dark_mode
-      </span>
-    </div>
-  </div>
-</nav>
+<app-ui-navbar
+  [displayNextZone]="gameService.zones.nextZone"
+  [displayPhs]="gameService.zones.levelMax >= 5"
+  [isBattle]="battleService.isBattle"
+></app-ui-navbar>
 
 <div class="bg-white dark:bg-gray-800 py-5">
   <div class="container mx-auto ">
@@ -41,17 +10,6 @@
   </div>
 </div>
 
-<footer class="bg-gray-200 dark:bg-gray-800 text-gray-400 pt-2 text-sm">
-  <div class="container mx-auto text-center">
-    <div>
-      ©2014 <a href="http://menencia.com" target="_blank">menencia.com</a>, version <a
-        href="https://github.com/Menencia/clickingff7/releases"
-        target="_blank" id="step12">{{gameService.version}}</a>
-    </div>
-    <div>
-      <a href="https://github.com/Menencia/clickingff7" target="_blank">Github</a> -
-      <a href="https://github.com/Menencia/clickingff7/issues" target="_blank">Browse Issues</a> -
-      <a href="https://github.com/Menencia/clickingff7/issues/new" target="_blank" id="step13">New Issue</a>
-    </div>
-  </div>
-</footer>
+<app-ui-footer
+  [version]="gameService.version"
+></app-ui-footer>

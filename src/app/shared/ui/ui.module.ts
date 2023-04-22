@@ -7,6 +7,7 @@ import { PipeTimePipe } from './pipes/pipe-time.pipe';
 import { UiBarComponent } from './ui-bar/ui-bar.component';
 import { UiActionsComponent } from './ui-actions/ui-actions.component';
 import { I18nModule } from '../i18n.module';
+import { UiFooterComponent } from './ui-footer/ui-footer.component';
 
 
 
@@ -17,7 +18,8 @@ import { I18nModule } from '../i18n.module';
     UiMainContainerComponent,
     PipeTimePipe,
     UiBarComponent,
-    UiActionsComponent
+    UiActionsComponent,
+    UiFooterComponent
   ],
   imports: [
     NgInjectModule,
@@ -29,7 +31,8 @@ import { I18nModule } from '../i18n.module';
     UiMainContainerComponent,
     PipeTimePipe,
     UiBarComponent,
-    UiActionsComponent
+    UiActionsComponent,
+    UiFooterComponent
   ]
 })
 export class UiModule { }
