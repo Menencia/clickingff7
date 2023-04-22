@@ -1,14 +1,14 @@
 import { Component } from '@angular/core';
-import { GameService } from '../services/game.service';
-import { Zone } from '../models/zone';
-import { ShopService } from '../services/shop.service';
+import { Zone } from 'src/app/models/zone';
+import { GameService } from 'src/app/services/game.service';
+import { ShopService } from 'src/app/services/shop.service';
 
 @Component({
-  selector: 'app-map',
-  templateUrl: './map.component.html',
-  styleUrls: ['./map.component.scss']
+  selector: 'app-view-map',
+  templateUrl: './view-map.component.html',
+  styleUrls: ['./view-map.component.scss']
 })
-export class MapComponent {
+export class ViewMapComponent {
 
   current: Zone;
   level: number;
