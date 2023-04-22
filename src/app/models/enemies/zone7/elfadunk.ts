@@ -9,6 +9,6 @@ export class Elfadunk extends Enemy {
   baseXp = 1;
   baseAp = 2;
   baseGils = 1;
-  weakness = ['earth'];
+  override weakness = ['earth'];
 
 }

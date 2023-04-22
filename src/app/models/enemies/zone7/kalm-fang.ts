@@ -9,6 +9,6 @@ export class KalmFang extends Enemy {
   baseXp = 1;
   baseAp = 1;
   baseGils = 2;
-  weakness = ['fire', 'earth'];
+  override weakness = ['fire', 'earth'];
 
 }

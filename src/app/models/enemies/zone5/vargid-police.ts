@@ -9,6 +9,6 @@ export class VargidPolice extends Enemy {
   baseXp = 3;
   baseAp = 3;
   baseGils = 0;
-  weakness = ['fire', 'poison'];
+  override weakness = ['fire', 'poison'];
 
 }

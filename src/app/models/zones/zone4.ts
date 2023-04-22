@@ -13,7 +13,7 @@ export class Zone4 extends Zone {
     EnemyLoader.build(EnemyRef.Eligor),
     EnemyLoader.build(EnemyRef.GuardHound)
   ];
-  boss = [
+  override boss = [
     EnemyLoader.build(EnemyRef.Reno)
   ];
 

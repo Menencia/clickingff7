@@ -9,7 +9,7 @@ export class HundredGunner extends Enemy {
   baseXp = 1;
   baseAp = 1;
   baseGils = 0;
-  weakness = ['bolt'];
-  miboss = true;
+  override weakness = ['bolt'];
+  override miboss = true;
 
 }

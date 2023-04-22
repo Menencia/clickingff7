@@ -9,7 +9,7 @@ export class MidgarZolom extends Enemy {
   baseXp = 5;
   baseAp = 5;
   baseGils = 5;
-  weakness = ['bolt'];
-  boss = true;
+  override weakness = ['bolt'];
+  override boss = true;
 
 }

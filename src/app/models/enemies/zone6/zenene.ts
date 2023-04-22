@@ -9,6 +9,6 @@ export class Zenene extends Enemy {
   baseXp = 3;
   baseAp = 1;
   baseGils = 3;
-  weakness = ['fire', 'poison'];
+  override weakness = ['fire', 'poison'];
 
 }

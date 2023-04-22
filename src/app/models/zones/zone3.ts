@@ -13,7 +13,7 @@ export class Zone3 extends Zone {
     EnemyLoader.build(EnemyRef.HedgehogPie),
     EnemyLoader.build(EnemyRef.HellHouse)
   ];
-  boss = [
+  override boss = [
     EnemyLoader.build(EnemyRef.Aps)
   ];
 

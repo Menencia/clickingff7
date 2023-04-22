@@ -9,7 +9,7 @@ export class HeliGunner extends Enemy {
   baseXp = 3;
   baseAp = 3;
   baseGils = 0;
-  weakness = ['bolt'];
-  miboss = true;
+  override weakness = ['bolt'];
+  override miboss = true;
 
 }

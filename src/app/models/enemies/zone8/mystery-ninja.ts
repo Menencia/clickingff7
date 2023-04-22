@@ -9,6 +9,6 @@ export class MysteryNinja extends Enemy {
   baseXp = 5;
   baseAp = 5;
   baseGils = 5;
-  boss = true;
+  override boss = true;
 
 }

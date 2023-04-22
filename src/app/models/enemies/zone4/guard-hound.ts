@@ -9,6 +9,6 @@ export class GuardHound extends Enemy {
   baseXp = 2;
   baseAp = 4;
   baseGils = 1;
-  weakness = ['fire'];
+  override weakness = ['fire'];
 
 }

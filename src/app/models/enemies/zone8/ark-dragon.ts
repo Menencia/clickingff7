@@ -9,7 +9,7 @@ export class ArkDragon extends Enemy {
   baseXp = 3;
   baseAp = 3;
   baseGils = 1;
-  weakness = ['fire'];
-  resistance = ['earth'];
+  override weakness = ['fire'];
+  override resistance = ['earth'];
 
 }

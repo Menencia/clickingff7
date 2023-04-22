@@ -9,6 +9,6 @@ export class Capparwire extends Enemy {
   baseXp = 2;
   baseAp = 1;
   baseGils = 1;
-  weakness = ['fire'];
+  override weakness = ['fire'];
 
 }

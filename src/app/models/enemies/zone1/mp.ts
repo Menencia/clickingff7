@@ -9,6 +9,6 @@ export class Mp extends Enemy {
   baseXp = 2;
   baseAp = 1;
   baseGils = 3;
-  weakness = ['ice'];
+  override weakness = ['ice'];
 
 }

@@ -9,6 +9,6 @@ export class Zemzelett extends Enemy {
   baseXp = 3;
   baseAp = 4;
   baseGils = 1;
-  weakness = ['fire'];
+  override weakness = ['fire'];
 
 }

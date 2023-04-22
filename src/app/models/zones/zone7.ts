@@ -13,7 +13,7 @@ export class Zone7 extends Zone {
     EnemyLoader.build(EnemyRef.Elfadunk),
     EnemyLoader.build(EnemyRef.Levrikon)
   ];
-  boss = [
+  override boss = [
     EnemyLoader.build(EnemyRef.MidgarZolom)
   ];
 

@@ -13,7 +13,7 @@ export class Zone5 extends Zone {
     EnemyLoader.build(EnemyRef.SwordDance),
     EnemyLoader.build(EnemyRef.VargidPolice)
   ];
-  boss = [
+  override boss = [
     EnemyLoader.build(EnemyRef.SampleH0512)
   ];
 

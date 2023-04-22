@@ -9,6 +9,6 @@ export class Soldier3rd extends Enemy {
   baseXp = 4;
   baseAp = 4;
   baseGils = 0;
-  weakness = ['poison'];
+  override weakness = ['poison'];
 
 }

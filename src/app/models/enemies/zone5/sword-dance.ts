@@ -9,6 +9,6 @@ export class SwordDance extends Enemy {
   baseXp = 1;
   baseAp = 1;
   baseGils = 0;
-  weakness = ['bolt'];
+  override weakness = ['bolt'];
 
 }

@@ -9,6 +9,6 @@ export class BloodTaste extends Enemy {
   baseXp = 3;
   baseAp = 1;
   baseGils = 4;
-  weakness = ['fire'];
+  override weakness = ['fire'];
 
 }

@@ -9,6 +9,6 @@ export class HellHouse extends Enemy {
   baseXp = 5;
   baseAp = 2;
   baseGils = 2;
-  weakness = ['ice'];
+  override weakness = ['ice'];
 
 }

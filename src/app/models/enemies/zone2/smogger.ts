@@ -9,6 +9,6 @@ export class Smogger extends Enemy {
   baseXp = 2;
   baseAp = 1;
   baseGils = 3;
-  weakness = ['bolt'];
+  override weakness = ['bolt'];
 
 }

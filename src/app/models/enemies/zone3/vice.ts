@@ -9,6 +9,6 @@ export class Vice extends Enemy {
   baseXp = 2;
   baseAp = 2;
   baseGils = 3;
-  weakness = ['fire'];
+  override weakness = ['fire'];
 
 }

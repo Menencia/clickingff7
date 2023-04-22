@@ -9,6 +9,6 @@ export class Deenglow extends Enemy {
   baseXp = 3;
   baseAp = 2;
   baseGils = 0;
-  weakness = ['ice'];
+  override weakness = ['ice'];
 
 }

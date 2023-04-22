@@ -9,7 +9,7 @@ export class Madouge extends Enemy {
   baseXp = 3;
   baseAp = 1;
   baseGils = 3;
-  weakness = ['fire'];
-  resistance = ['earth'];
+  override weakness = ['fire'];
+  override resistance = ['earth'];
 
 }

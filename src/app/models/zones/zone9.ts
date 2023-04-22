@@ -13,7 +13,7 @@ export class Zone9 extends Zone {
     EnemyLoader.build(EnemyRef.Zemzelett),
     EnemyLoader.build(EnemyRef.HellRider)
   ];
-  boss = [
+  override boss = [
     EnemyLoader.build(EnemyRef.Bottomswell)
   ];
 

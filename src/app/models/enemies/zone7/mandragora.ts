@@ -9,6 +9,6 @@ export class Mandragora extends Enemy {
   baseXp = 1;
   baseAp = 3;
   baseGils = 0;
-  weakness = ['fire'];
+  override weakness = ['fire'];
 
 }

@@ -9,7 +9,7 @@ export class Rufus extends Enemy {
   baseXp = 4;
   baseAp = 4;
   baseGils = 0;
-  weakness = ['bolt', 'ice', 'fire'];
-  miboss = true;
+  override weakness = ['bolt', 'ice', 'fire'];
+  override miboss = true;
 
 }

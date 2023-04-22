@@ -9,7 +9,7 @@ export class Reno extends Enemy {
   baseXp = 5;
   baseAp = 5;
   baseGils = 5;
-  resistance = ['bolt', 'fire', 'ice'];
-  boss = true;
+  override resistance = ['bolt', 'fire', 'ice'];
+  override boss = true;
 
 }

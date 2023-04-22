@@ -13,7 +13,7 @@ export class Zone6 extends Zone {
     EnemyLoader.build(EnemyRef.Rufus),
     EnemyLoader.build(EnemyRef.Zenene)
   ];
-  boss = [
+  override boss = [
     EnemyLoader.build(EnemyRef.MotorBall)
   ];
 

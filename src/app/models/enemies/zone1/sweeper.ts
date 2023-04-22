@@ -9,6 +9,6 @@ export class Sweeper extends Enemy {
   baseXp = 4;
   baseAp = 1;
   baseGils = 5;
-  weakness = ['bolt'];
+  override weakness = ['bolt'];
 
 }

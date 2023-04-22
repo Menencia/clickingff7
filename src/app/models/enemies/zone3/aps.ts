@@ -9,7 +9,7 @@ export class Aps extends Enemy {
   baseXp = 5;
   baseAp = 5;
   baseGils = 5;
-  weakness = ['fire'];
-  boss = true;
+  override weakness = ['fire'];
+  override boss = true;
 
 }

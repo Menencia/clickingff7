@@ -9,6 +9,6 @@ export class AeroCombatant extends Enemy {
   baseXp = 3;
   baseAp = 1;
   baseGils = 3;
-  weakness = ['bolt'];
+  override weakness = ['bolt'];
 
 }

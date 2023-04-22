@@ -9,7 +9,7 @@ export class Bottomswell extends Enemy {
   baseXp = 5;
   baseAp = 5;
   baseGils = 5;
-  weakness = ['bolt', 'wind'];
-  boss = true;
+  override weakness = ['bolt', 'wind'];
+  override boss = true;
 
 }

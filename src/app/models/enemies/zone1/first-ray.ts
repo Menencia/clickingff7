@@ -9,6 +9,6 @@ export class FirstRay extends Enemy {
   baseXp = 1;
   baseAp = 1;
   baseGils = 5;
-  weakness = ['bolt'];
+  override weakness = ['bolt'];
 
 }

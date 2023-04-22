@@ -9,6 +9,6 @@ export class WholeEater extends Enemy {
   baseXp = 2;
   baseAp = 2;
   baseGils = 2;
-  weakness = ['fire'];
+  override weakness = ['fire'];
 
 }

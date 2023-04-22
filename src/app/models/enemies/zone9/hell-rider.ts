@@ -9,6 +9,6 @@ export class HellRider extends Enemy {
   baseXp = 4;
   baseAp = 2;
   baseGils = 2;
-  weakness = ['poison'];
+  override weakness = ['poison'];
 
 }

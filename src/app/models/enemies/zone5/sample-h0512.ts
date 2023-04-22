@@ -9,7 +9,7 @@ export class SampleH0512 extends Enemy {
   baseXp = 5;
   baseAp = 5;
   baseGils = 5;
-  resistance = ['poison'];
-  boss = true;
+  override resistance = ['poison'];
+  override boss = true;
 
 }

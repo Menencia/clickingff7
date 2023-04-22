@@ -9,6 +9,6 @@ export class Levrikon extends Enemy {
   baseXp = 3;
   baseAp = 1;
   baseGils = 1;
-  weakness = ['fire', 'earth'];
+  override weakness = ['fire', 'earth'];
 
 }

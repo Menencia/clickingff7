@@ -13,7 +13,7 @@ export class Zone8 extends Zone {
     EnemyLoader.build(EnemyRef.Madouge),
     EnemyLoader.build(EnemyRef.ArkDragon)
   ];
-  boss = [
+  override boss = [
     EnemyLoader.build(EnemyRef.MysteryNinja)
   ];
 

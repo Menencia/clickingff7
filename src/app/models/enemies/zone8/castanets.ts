@@ -9,6 +9,6 @@ export class Castanets extends Enemy {
   baseXp = 2;
   baseAp = 2;
   baseGils = 1;
-  weakness = ['fire', 'earth'];
+  override weakness = ['fire', 'earth'];
 
 }

@@ -9,6 +9,6 @@ export class Formula extends Enemy {
   baseXp = 3;
   baseAp = 2;
   baseGils = 3;
-  weakness = ['wind'];
+  override weakness = ['wind'];
 
 }

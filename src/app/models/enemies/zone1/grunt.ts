@@ -9,6 +9,6 @@ export class Grunt extends Enemy {
   baseXp = 3;
   baseAp = 1;
   baseGils = 4;
-  weakness = ['ice'];
+  override weakness = ['ice'];
 
 }

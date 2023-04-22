@@ -9,6 +9,6 @@ export class HedgehogPie extends Enemy {
   baseXp = 3;
   baseAp = 2;
   baseGils = 1;
-  weakness = ['bolt'];
+  override weakness = ['bolt'];
 
 }

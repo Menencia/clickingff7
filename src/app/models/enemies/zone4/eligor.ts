@@ -9,6 +9,6 @@ export class Eligor extends Enemy {
   baseXp = 4;
   baseAp = 1;
   baseGils = 1;
-  weakness = ['bolt'];
+  override weakness = ['bolt'];
 
 }
