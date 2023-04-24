@@ -6,7 +6,7 @@ import { NgInjectModule } from '../ng-inject.module';
 import { PipeTimePipe } from './pipes/pipe-time.pipe';
 import { UiBarComponent } from './ui-bar/ui-bar.component';
 import { UiActionsComponent } from './ui-actions/ui-actions.component';
-import { I18nModule } from '../i18n.module';
+import { TranslateModule } from '@ngx-translate/core';
 import { UiFooterComponent } from './ui-footer/ui-footer.component';
 
 
@@ -23,7 +23,7 @@ import { UiFooterComponent } from './ui-footer/ui-footer.component';
   ],
   imports: [
     NgInjectModule,
-    I18nModule,
+    TranslateModule,
   ],
   exports: [
     UiLayoutDefaultComponent,

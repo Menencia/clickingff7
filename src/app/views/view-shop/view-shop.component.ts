@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { GameService } from 'src/app/core/services/game.service';
 import { Item, MAX_ITEMS } from 'src/app/models/item';
 import { ItemLoader } from 'src/app/models/loaders/item-loader';
 import { MateriaLoader } from 'src/app/models/loaders/materia-loader';
@@ -8,7 +9,6 @@ import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
 import { WeaponRef } from 'src/app/models/refs/weapons';
 import { Weapon } from 'src/app/models/weapon';
-import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-shop',
@@ -133,7 +133,6 @@ export class ViewShopComponent {
         this.weapons.push(weapon);
       }
     }
-    console.log(weapons);
 
     const materias = [
       MateriaRef.Restore,

@@ -12,5 +12,5 @@ export class AppComponent {
   constructor(
     public gameService: GameService,
     public battleService: BattleService
-  ) {}
+  ) { }
 }

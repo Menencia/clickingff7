@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
-import { I18nModule } from './i18n.module';
 import { NgInjectModule } from './ng-inject.module';
 import { UiModule } from './ui/ui.module';
+import { TranslateModule } from '@ngx-translate/core';
 
 @NgModule({
   exports: [
     UiModule,
-    I18nModule,
+    TranslateModule,
     NgInjectModule
   ]
 })

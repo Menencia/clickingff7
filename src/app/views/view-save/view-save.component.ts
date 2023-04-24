@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { GameService } from 'src/app/core/services/game.service';
 import { Save } from 'src/app/models/save';
-import { GameService } from 'src/app/services/game.service';
 
 @Component({
   selector: 'app-view-save',
