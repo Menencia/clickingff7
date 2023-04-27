@@ -1,29 +1,27 @@
-:host {
-  .hp {
-    @apply bg-green-50 dark:bg-gray-700;
-    div {
-      @apply bg-green-200 dark:bg-green-600;
-    }
+.hp {
+  @apply bg-green-50 dark:bg-gray-700;
+  div {
+    @apply bg-green-200 dark:bg-green-600;
   }
+}
 
-  .mp {
-    @apply bg-blue-50 dark:bg-gray-700;
-    div {
-      @apply bg-blue-200 dark:bg-blue-600;
-    }
+.mp {
+  @apply bg-blue-50 dark:bg-gray-700;
+  div {
+    @apply bg-blue-200 dark:bg-blue-600;
   }
+}
 
-  .limit {
-    @apply bg-red-50 dark:bg-gray-700;
-    div {
-      @apply bg-red-200 dark:bg-red-700;
-    }
+.limit {
+  @apply bg-red-50 dark:bg-gray-700;
+  div {
+    @apply bg-red-200 dark:bg-red-700;
   }
+}
 
-  .exp {
-    @apply bg-purple-50 dark:bg-gray-700;
-    div {
-      @apply bg-purple-200 dark:bg-purple-700;
-    }
+.exp {
+  @apply bg-purple-50 dark:bg-gray-700;
+  div {
+    @apply bg-purple-200 dark:bg-purple-700;
   }
 }
