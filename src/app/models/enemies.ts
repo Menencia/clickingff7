@@ -1,7 +1,10 @@
-import { Attack } from './attack';
 import { Enemy } from './enemy';
 import { MAX_FIGHTS, Zone } from './zone';
 import { random } from '../utils';
+import { ItDisplayHits } from '../core/interfaces/it-display-hits';
+import { Subject } from 'rxjs';
+import { ItActionAttack } from '../core/interfaces/it-action-attack';
+import { BattleService } from '../core/services/battle.service';
 
 export class Enemies {
 
@@ -14,6 +17,10 @@ export class Enemies {
   hpMax: number;
   resistance: string[];
   weakness: string[];
+
+  source = {
+    hp: new Subject<ItDisplayHits>() // health points
+  };
 
   /**
    * Init
@@ -97,34 +104,35 @@ export class Enemies {
   }
 
   /**
-   * Get total characters auto hits
+   * Get total enemies hits
    */
-  displayAutoHits(hits: number): void {
-    this.arrHits.unshift(hits);
-    if (this.arrHits.length > 1) {
-      this.arrHits.pop();
-    }
+  getAttackSkill(): ItActionAttack {
+    const hits = this.getHits();
+    return {
+      type: [],
+      use(battleService: BattleService) {
+        battleService.characters.getAttacked(hits, this);
+      },
+    };
   }
 
   /**
    * Enemies are under manual attack
    */
-  getAttacked(attack: Attack): number {
-    let hits = attack.getHits();
+  getAttacked(hits: number, context: ItActionAttack): void {
 
     // weakness
-    if (this.hasWeakness(attack.type)) {
+    if (this.hasWeakness(context.type)) {
       hits *= 3;
     }
 
     // resistance
-    if (this.hasResistance(attack.type)) {
+    if (this.hasResistance(context.type)) {
       hits = Math.floor(hits / 3);
     }
 
-    this.hp -= hits;
-
-    return hits;
+    this.hp = Math.max(this.hp - hits, 0);
+    this.source.hp.next({ hits } as ItDisplayHits);
   }
 
   isAlive(): boolean {

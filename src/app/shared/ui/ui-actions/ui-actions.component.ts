@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { BattleService } from 'src/app/core/services/battle.service';
 import { GameService } from 'src/app/core/services/game.service';
-import { Attack } from 'src/app/models/attack';
 import { Item } from 'src/app/models/item';
 import { Materia } from 'src/app/models/materia';
 
@@ -12,8 +11,10 @@ import { Materia } from 'src/app/models/materia';
 })
 export class UiActionsComponent {
 
-  constructor(private battleService: BattleService,
-              private gameService: GameService) { }
+  constructor(
+    private battleService: BattleService,
+    private gameService: GameService
+  ) { }
 
   public getMaterias(): Materia[] {
     return this.gameService.materias.getEquipped();
@@ -31,9 +32,6 @@ export class UiActionsComponent {
     return this.battleService.isBattle;
   }
 
-  /**
-   * Explore for fight
-   */
   public fightRandom(): void {
     if (!this.battleService.isBattle) {
       this.battleService.startRandom();
@@ -44,23 +42,17 @@ export class UiActionsComponent {
     return this.battleService.canFightBoss();
   }
 
-  /**
-   * Explore for fight
-   */
   public fightBoss(): void {
     if (this.battleService.canFightBoss()) {
       this.battleService.startBoss();
     }
   }
 
-  /**
-   * Attack manually enemy
-   */
   public attack(): void {
     if (this.battleService.isBattle) {
-      const pwr = this.gameService.characters.getHits();
-      const hits = this.battleService.enemies.getAttacked(new Attack(pwr));
-      this.gameService.characters.displayHits(hits);
+      this.gameService.characters
+        .getAttackSkill()
+        .use(this.battleService);
 
       if (!this.battleService.enemies.isAlive()) {
         this.battleService.end(true);

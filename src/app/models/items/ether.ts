@@ -1,6 +1,7 @@
 import { BattleService } from 'src/app/core/services/battle.service';
 import { Item } from '../item';
 import { ItemRef } from '../refs/items';
+import { ItAction } from 'src/app/core/interfaces/it-action';
 
 export class Ether extends Item {
 
@@ -16,9 +17,13 @@ export class Ether extends Item {
     return (battleService.characters.mp < battleService.characters.mpMax);
   }
 
-  use(battleService: BattleService): void {
-    const mp = Math.ceil(33 / 100 * battleService.characters.mpMax);
-    battleService.characters.addMp(mp);
+  getSkill(battleService: BattleService): ItAction[] {
+    const action: ItAction = {
+      use() {
+        battleService.characters.addMp(Math.ceil(.33 * battleService.characters.mpMax), this);
+      }
+    };
+    return [action];
   }
 
 }

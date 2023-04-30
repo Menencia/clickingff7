@@ -11,7 +11,7 @@
         [progress]="round(characters.hp / characters.hpMax * 100)"
         [text]="'HP ' + characters.hp"
         [name]="'hp'"
-        [hits]="enemies.arrHits"
+        [hits]="characters.source.hp"
       ></app-ui-bar>
 
       <app-ui-bar
@@ -24,7 +24,7 @@
       <app-ui-bar
         [id]="'step4'"
         [progress]="round(characters.limit / characters.limitMax * 100)"
-        [text]="'LIMIT'"
+        [text]="'LIMIT ' + round(characters.limit / characters.limitMax * 100) + '%'"
         [name]="'limit'"
       ></app-ui-bar>
 
@@ -61,7 +61,7 @@
           [progress]="round(enemies.hp / enemies.hpMax * 100)"
           [text]="'HP ' + enemies.hp"
           [name]="'hp'"
-          [hits]="characters.arrHits"
+          [hits]="enemies.source.hp"
         ></app-ui-bar>
       </div>
 

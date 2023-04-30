@@ -15,11 +15,10 @@ export class ViewGameComponent {
   public characters: Characters;
   public enemies: Enemies;
 
-  /**
-   * Init
-   */
-  constructor(private gameService: GameService,
-              private battleService: BattleService) {
+  constructor(
+    private gameService: GameService,
+    private battleService: BattleService
+  ) {
     this.characters = this.gameService.characters;
     this.enemies = this.battleService.enemies;
   }
@@ -32,5 +31,4 @@ export class ViewGameComponent {
   public round(value: number): number {
     return Math.round(value);
   }
-
 }

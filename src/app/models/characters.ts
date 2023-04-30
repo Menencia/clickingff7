@@ -1,7 +1,10 @@
-import { Attack } from './attack';
+import { Subject } from 'rxjs';
+import { Attack } from './actions/attack';
 import { Character } from './character';
-import { Materia } from './materia';
 import { CharactersSave } from './save';
+import { ItDisplayHits } from '../core/interfaces/it-display-hits';
+import { ItAction } from '../core/interfaces/it-action';
+import { ItActionAttack } from '../core/interfaces/it-action-attack';
 
 // maximum characters in the team
 export const MAX_TEAM = 3;
@@ -22,6 +25,10 @@ export class Characters {
   levelSum: number;
   weakness: string[];
   resistance: string[];
+
+  source = {
+    hp: new Subject<ItDisplayHits>(), // health points
+  };
 
   constructor() {
 
@@ -51,21 +58,16 @@ export class Characters {
   /**
    *
    */
-  addHp(hp: number): void {
-    this.hp += hp;
-    if (this.hp > this.hpMax) {
-      this.hp = this.hpMax;
-    }
+  addHp(value: number, context: ItAction): void {
+    this.hp = Math.min(this.hp + value, this.hpMax);
+    this.source.hp.next({ hits: value } as ItDisplayHits);
   }
 
   /**
    *
    */
-  addMp(mp: number): void {
-    this.mp += mp;
-    if (this.mp > this.mpMax) {
-      this.mp = this.mpMax;
-    }
+  addMp(value: number, context: ItAction): void {
+    this.mp = Math.min(this.mp + value, this.mpMax);
   }
 
   /**
@@ -171,36 +173,17 @@ export class Characters {
   /**
    * Get total characters hits
    */
-  getHits(): number {
+  getAttackSkill(): ItActionAttack {
     let hits = this.hits;
+    let pwr = 100;
 
     // limit
     if (this.canLimit()) {
-      hits *= 5;
+      pwr = 500;
       this.limit = 0;
     }
 
-    return hits;
-  }
-
-  /**
-   * Get total characters auto hits
-   */
-  displayAutoHits(hits: number): void {
-    this.arrHits.unshift(hits);
-    if (this.arrHits.length > 5) {
-      this.arrHits.pop();
-    }
-  }
-
-  /**
-   * Get total characters hits
-   */
-  displayHits(hits: number): void {
-    this.arrHits.unshift(hits);
-    if (this.arrHits.length > 5) {
-      this.arrHits.pop();
-    }
+    return new Attack(hits, pwr);
   }
 
   /**
@@ -225,29 +208,24 @@ export class Characters {
   }
 
   /**
-   * Enemies are under attack
+   * Characters are under attack
    */
-  getAutoAttacked(attack: Attack): number {
-    let hits = attack.getHits();
+  getAttacked(hits: number, context: ItActionAttack): void {
 
     // weakness
-    if (this.hasWeakness(attack.type)) {
+    if (this.hasWeakness(context.type)) {
       hits *= 3;
     }
 
     // resistance
-    if (this.hasResistance(attack.type)) {
+    if (this.hasResistance(context.type)) {
       hits = Math.floor(hits / 10);
     }
 
-    this.hp -= hits;
+    this.hp = Math.max(this.hp - hits, 0);
+    this.source.hp.next({ hits } as ItDisplayHits);
 
-    this.limit += hits;
-    if (this.limit > this.limitMax) {
-      this.limit = this.limitMax;
-    }
-
-    return hits;
+    this.limit = Math.min(this.limit + hits, this.limitMax);
   }
 
   isAlive(): boolean {

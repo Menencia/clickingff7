@@ -3,7 +3,6 @@ import { Characters } from 'src/app/models/characters';
 import { Enemies } from 'src/app/models/enemies';
 import { GameService } from './game.service';
 import { MAX_FIGHTS } from 'src/app/models/zone';
-import { Attack } from 'src/app/models/attack';
 
 @Injectable({
   providedIn: 'root'
@@ -61,9 +60,10 @@ export class BattleService {
 
   autoFighting(): void {
     this.timer = window.setTimeout(() => {
-      const pwr = this.enemies.getHits();
-      const hits = this.gameService.characters.getAutoAttacked(new Attack(pwr));
-      this.enemies.displayAutoHits(hits);
+      this.enemies
+        .getAttackSkill()
+        .use(this);
+
 
       if (this.gameService.characters.isAlive()) {
         this.autoFighting();

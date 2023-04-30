@@ -1,3 +1,4 @@
+import { ItAction } from '../core/interfaces/it-action';
 import { BattleService } from '../core/services/battle.service';
 import { ItemRef } from './refs/items';
 import { ItemSave } from './save';
@@ -38,8 +39,14 @@ export abstract class Item {
 
   abstract canUse(battleService: BattleService): boolean;
 
-  abstract use(battleService: BattleService): void;
+  abstract getSkill(battleService: BattleService): ItAction[];
 
+  use(battleService: BattleService) {
+    const actions = this.getSkill(battleService);
+    for (let action of actions) {
+      action.use(battleService);
+    }
+  }
 
   /**
    * Returns the price of the item

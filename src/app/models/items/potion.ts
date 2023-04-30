@@ -1,6 +1,7 @@
 import { BattleService } from 'src/app/core/services/battle.service';
 import { Item } from '../item';
 import { ItemRef } from '../refs/items';
+import { ItAction } from 'src/app/core/interfaces/it-action';
 
 export class Potion extends Item {
 
@@ -16,9 +17,13 @@ export class Potion extends Item {
     return (battleService.characters.hp < battleService.characters.hpMax);
   }
 
-  use(battleService: BattleService): void {
-    const hp = Math.ceil(33 / 100 * battleService.characters.hpMax);
-    battleService.characters.addHp(hp);
+  getSkill(battleService: BattleService): ItAction[] {
+    const action: ItAction = {
+      use() {
+        battleService.characters.addHp(Math.ceil(.33 * battleService.characters.hpMax), this);
+      }
+    };
+    return [action];
   }
 
 }

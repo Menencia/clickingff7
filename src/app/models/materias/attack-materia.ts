@@ -1,6 +1,7 @@
 import { BattleService } from 'src/app/core/services/battle.service';
-import { Attack } from '../attack';
 import { Materia } from '../materia';
+import { Attack } from '../actions/attack';
+import { ItAction } from 'src/app/core/interfaces/it-action';
 
 export abstract class AttackMateria extends Materia {
 
@@ -17,11 +18,7 @@ export abstract class AttackMateria extends Materia {
    * Return materia power
    */
   getPwr(): number {
-    let pwr = this.pwr + this.level - 1;
-    if (this.level === 100) {
-      pwr++;
-    }
-    return pwr;
+    return this.pwr + this.level - 1;
   }
 
 /**
@@ -32,13 +29,12 @@ export abstract class AttackMateria extends Materia {
   }
 
   /**
-   * Do materia action
+   * Get skill containing battle actions
    */
-  use(battleService: BattleService): void {
+  getSkill(battleService: BattleService): ItAction[] {
     const hits = battleService.characters.hits;
-    const pwr = hits * (1 + (this.getPwr()) / 100);
-    const attack = new Attack(Math.ceil(pwr), this.elements);
-    battleService.enemies.getAttacked(attack);
+    const attack = new Attack(hits, this.getPwr(), this.elements);
+    return [attack];
   }
 
 }
