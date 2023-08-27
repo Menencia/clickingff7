@@ -1,7 +1,8 @@
 import { BattleService } from 'src/app/core/services/battle.service';
 import { Item } from '../item';
 import { ItemRef } from '../refs/items';
-import { ItAction } from 'src/app/core/interfaces/it-action';
+import { ActionSub } from '../action-sub';
+import { CureMP } from '../action-subs/cure-mp';
 
 export class Ether extends Item {
 
@@ -13,17 +14,7 @@ export class Ether extends Item {
     return true;
   }
 
-  canUse(battleService: BattleService): boolean {
-    return (battleService.characters.mp < battleService.characters.mpMax);
+  getActionSubs(battleService: BattleService): ActionSub[] {
+    return [new CureMP(Math.ceil(.33 * battleService.characters.mpMax))];
   }
-
-  getSkill(battleService: BattleService): ItAction[] {
-    const action: ItAction = {
-      use() {
-        battleService.characters.addMp(Math.ceil(.33 * battleService.characters.mpMax), this);
-      }
-    };
-    return [action];
-  }
-
 }

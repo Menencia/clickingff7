@@ -1,39 +1,30 @@
 import { BattleService } from 'src/app/core/services/battle.service';
-import { Cure } from '../actions/cure';
 import { Materia } from '../materia';
-import { ItAction } from 'src/app/core/interfaces/it-action';
+import { Cure } from '../action-subs/cure';
+import { ActionSub } from '../action-sub';
 
 export abstract class CureMateria extends Materia {
 
-  /**
-   * MP cost
-   */
+  /** MP cost */
   getMpCost(): number {
     return Math.ceil((this.getPwr() + 1) / 20) - 1;
   }
 
-  /**
-   * Return materia power
-   */
+  /** Returns cure materia power */
   getPwr(): number {
     return this.pwr + this.level - 1;
   }
 
-  /**
-   * Can use the materia?
-   */
+  /** Can use the cure materia? */
   canUse(battleService: BattleService): boolean {
     return (battleService.characters.mp >= this.getMpCost()
       && battleService.characters.hp < battleService.characters.hpMax);
   }
 
-  /**
-   * Do materia action
-   * Add to HP : +30% to +60%
-   */
-  getSkill(battleService: BattleService): ItAction[] {
+  /** Builds actions to use cure materia */
+  getActionSubs(battleService: BattleService): ActionSub[] {
     const hits = battleService.characters.hpMax;
-    const cure = new Cure(hits, this.getPwr());
+    const cure = new Cure(hits);
     return [cure];
   }
 

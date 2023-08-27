@@ -3,8 +3,7 @@ import { MAX_FIGHTS, Zone } from './zone';
 import { random } from '../utils';
 import { ItDisplayHits } from '../core/interfaces/it-display-hits';
 import { Subject } from 'rxjs';
-import { ItActionAttack } from '../core/interfaces/it-action-attack';
-import { BattleService } from '../core/services/battle.service';
+import { Attack } from './action-subs/attack';
 
 export class Enemies {
 
@@ -104,22 +103,9 @@ export class Enemies {
   }
 
   /**
-   * Get total enemies hits
-   */
-  getAttackSkill(): ItActionAttack {
-    const hits = this.getHits();
-    return {
-      type: [],
-      use(battleService: BattleService) {
-        battleService.characters.getAttacked(hits, this);
-      },
-    };
-  }
-
-  /**
    * Enemies are under manual attack
    */
-  getAttacked(hits: number, context: ItActionAttack): void {
+  getAttacked(hits: number, context: Attack): void {
 
     // weakness
     if (this.hasWeakness(context.type)) {
@@ -132,7 +118,7 @@ export class Enemies {
     }
 
     this.hp = Math.max(this.hp - hits, 0);
-    this.source.hp.next({ hits } as ItDisplayHits);
+    this.source.hp.next({ hits, context } as ItDisplayHits);
   }
 
   isAlive(): boolean {

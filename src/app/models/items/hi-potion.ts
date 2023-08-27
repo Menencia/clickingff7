@@ -1,7 +1,8 @@
 import { BattleService } from 'src/app/core/services/battle.service';
 import { Item } from '../item';
 import { ItemRef } from '../refs/items';
-import { ItAction } from 'src/app/core/interfaces/it-action';
+import { ActionSub } from '../action-sub';
+import { Cure } from '../action-subs/cure';
 
 export class HiPotion extends Item {
 
@@ -13,17 +14,7 @@ export class HiPotion extends Item {
     return x >= 7;
   }
 
-  canUse(battleService: BattleService): boolean {
-    return (battleService.characters.hp < battleService.characters.hpMax);
+  getActionSubs(battleService: BattleService): ActionSub[] {
+    return [new Cure(Math.ceil(.66 * battleService.characters.hpMax))];
   }
-
-  getSkill(battleService: BattleService): ItAction[] {
-    const action: ItAction = {
-      use() {
-        battleService.characters.addHp(Math.ceil(.66 * battleService.characters.hpMax), this);
-      }
-    };
-    return [action];
-  }
-
 }

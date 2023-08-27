@@ -33,7 +33,7 @@ export class UiBarComponent implements OnInit {
 
   ngOnInit() {
     this.progressBg = this.progress;
-    this.hits.subscribe(hits => {
+    this.hits.subscribe((hits) => {
       this.arrHits.unshift(hits);
 
       clearTimeout(this.time);
@@ -44,7 +44,10 @@ export class UiBarComponent implements OnInit {
   }
 
   onAnimationEvent($event: any) {
-    this.arrHits.pop();
+    const hits = this.arrHits.pop();
+    if (!!hits) {
+      hits.context.complete();
+    }
   }
 
 }

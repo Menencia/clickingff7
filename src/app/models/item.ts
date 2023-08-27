@@ -1,5 +1,5 @@
-import { ItAction } from '../core/interfaces/it-action';
 import { BattleService } from '../core/services/battle.service';
+import { ActionSub } from './action-sub';
 import { ItemRef } from './refs/items';
 import { ItemSave } from './save';
 
@@ -13,6 +13,12 @@ export abstract class Item {
 
   abstract name: string;
   abstract price: number;
+
+  canUse(battleService: BattleService): boolean {
+    return true;
+  }
+
+  abstract getActionSubs(battleService: BattleService): ActionSub[];
 
   /**
    * Init
@@ -36,17 +42,6 @@ export abstract class Item {
   }
 
   abstract available(zoneLlevelMax: number): boolean;
-
-  abstract canUse(battleService: BattleService): boolean;
-
-  abstract getSkill(battleService: BattleService): ItAction[];
-
-  use(battleService: BattleService) {
-    const actions = this.getSkill(battleService);
-    for (let action of actions) {
-      action.use(battleService);
-    }
-  }
 
   /**
    * Returns the price of the item

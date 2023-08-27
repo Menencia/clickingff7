@@ -1,21 +1,23 @@
-import { ItAction } from '../core/interfaces/it-action';
 import { BattleService } from '../core/services/battle.service';
+import { ActionSub } from './action-sub';
 import { MateriaRef } from './refs/materias';
 import { MateriaSave } from './save';
 
 export abstract class Materia {
 
-  abstract ref: MateriaRef;
   level: number;
   ap: number;
   equipped: boolean;
 
+  abstract ref: MateriaRef;
   abstract name: string;
   abstract color: string;
   abstract price: number;
   abstract apBase: number;
   abstract pwr: number;
   abstract zoneAvailable: number;
+  abstract canUse(battleService: BattleService): boolean;
+  abstract getActionSubs(battleService: BattleService): ActionSub[];
 
   /**
    * Init
@@ -43,17 +45,6 @@ export abstract class Materia {
   }
 
   abstract getMpCost(): number;
-
-  abstract canUse(battleService: BattleService): boolean;
-
-  abstract getSkill(battleService: BattleService): ItAction[];
-
-  use(battleService: BattleService) {
-    const actions = this.getSkill(battleService);
-    for (let action of actions) {
-      action.use(battleService);
-    }
-  }
 
   /**
    * Returns the price of the materia

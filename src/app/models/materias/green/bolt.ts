@@ -1,5 +1,7 @@
+import { BattleService } from 'src/app/core/services/battle.service';
 import { MateriaRef } from '../../refs/materias';
 import { AttackMateria } from '../attack-materia';
+import { ActionSub } from '../../action-sub';
 
 export class Bolt extends AttackMateria {
 

@@ -1,10 +1,10 @@
 import { Subject } from 'rxjs';
-import { Attack } from './actions/attack';
+import { Attack } from './action-subs/attack';
 import { Character } from './character';
 import { CharactersSave } from './save';
 import { ItDisplayHits } from '../core/interfaces/it-display-hits';
-import { ItAction } from '../core/interfaces/it-action';
-import { ItActionAttack } from '../core/interfaces/it-action-attack';
+import { Action } from './action';
+import { ActionSub } from './action-sub';
 
 // maximum characters in the team
 export const MAX_TEAM = 3;
@@ -58,15 +58,15 @@ export class Characters {
   /**
    *
    */
-  addHp(value: number, context: ItAction): void {
+  addHp(value: number, context: ActionSub): void {
     this.hp = Math.min(this.hp + value, this.hpMax);
-    this.source.hp.next({ hits: value } as ItDisplayHits);
+    this.source.hp.next({ hits: value, context } as ItDisplayHits);
   }
 
   /**
    *
    */
-  addMp(value: number, context: ItAction): void {
+  addMp(value: number, context: ActionSub): void {
     this.mp = Math.min(this.mp + value, this.mpMax);
   }
 
@@ -173,7 +173,7 @@ export class Characters {
   /**
    * Get total characters hits
    */
-  getAttackSkill(): ItActionAttack {
+  getAction(): ActionSub {
     let hits = this.hits;
     let pwr = 100;
 
@@ -210,7 +210,7 @@ export class Characters {
   /**
    * Characters are under attack
    */
-  getAttacked(hits: number, context: ItActionAttack): void {
+  getAttacked(hits: number, context: Attack): void {
 
     // weakness
     if (this.hasWeakness(context.type)) {
@@ -223,7 +223,7 @@ export class Characters {
     }
 
     this.hp = Math.max(this.hp - hits, 0);
-    this.source.hp.next({ hits } as ItDisplayHits);
+    this.source.hp.next({ hits, context } as ItDisplayHits);
 
     this.limit = Math.min(this.limit + hits, this.limitMax);
   }

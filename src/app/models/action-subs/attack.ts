@@ -1,16 +1,18 @@
-import { ItAction } from '../../core/interfaces/it-action';
 import { BattleService } from '../../core/services/battle.service';
 import { random } from '../../utils';
+import { ActionSub } from '../action-sub';
 
-export class Attack implements ItAction {
+export class Attack extends ActionSub {
 
   public critical = false;
 
-   constructor(
+  constructor(
     public baseHits: number,
     public pwr: number,
     public type: string[] = []
-  ) { }
+  ) {
+    super();
+  }
 
   /** Calculate raw damages */
   calculateHits(): number {

@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { BattleService } from 'src/app/core/services/battle.service';
 import { GameService } from 'src/app/core/services/game.service';
+import { ItemAction } from 'src/app/models/actions/item';
+import { MateriaAction } from 'src/app/models/actions/materia';
 import { Item } from 'src/app/models/item';
 import { Materia } from 'src/app/models/materia';
 
@@ -50,13 +52,13 @@ export class UiActionsComponent {
 
   public attack(): void {
     if (this.battleService.isBattle) {
-      this.gameService.characters
-        .getAttackSkill()
-        .use(this.battleService);
+      const action = this.gameService.characters.getAction();
+      action.use(this.battleService);
 
-      if (!this.battleService.enemies.isAlive()) {
-        this.battleService.end(true);
-      }
+      action._complete.subscribe(() => {
+        this.battleService.nextTurn();
+      });
+
     }
   }
 
@@ -74,15 +76,19 @@ export class UiActionsComponent {
   }
 
   public useMateria(materia: Materia): void {
-    // cost
     if (this.canUseMateria(materia)) {
       this.gameService.characters.mp -= materia.getMpCost();
     } else {
       throw new Error('CANNOT USE');
     }
 
-    // do action
-    materia.use(this.battleService);
+    const action = new MateriaAction(materia);
+
+    action.use(this.battleService);
+
+    action._complete.subscribe(() => {
+      this.battleService.nextTurn();
+    });
   }
 
   public canUseItem(item: Item): boolean {
@@ -101,8 +107,13 @@ export class UiActionsComponent {
       throw new Error('CANNOT USE');
     }
 
-    // do action
-    item.use(this.battleService);
+    const action = new ItemAction(item);
+
+    action.use(this.battleService);
+
+    action._complete.subscribe(() => {
+      this.battleService.nextTurn();
+    });
   }
 
   public canLimit(): boolean {
