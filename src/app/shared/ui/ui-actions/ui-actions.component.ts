@@ -13,10 +13,21 @@ import { Materia } from 'src/app/models/materia';
 })
 export class UiActionsComponent {
 
+  /** True if the player has already played at his turn */
+  played = false;
+
   constructor(
     private battleService: BattleService,
     private gameService: GameService
   ) { }
+
+  public isPlayerTurn(): boolean {
+    return this.battleService.isPlayerTurn;
+  }
+
+  public actionDisabled(): boolean {
+    return this.played || !this.isPlayerTurn();
+  }
 
   public getMaterias(): Materia[] {
     return this.gameService.materias.getEquipped();
@@ -51,15 +62,13 @@ export class UiActionsComponent {
   }
 
   public attack(): void {
-    if (this.battleService.isBattle) {
-      const action = this.gameService.characters.getAction();
-      action.use(this.battleService);
-
-      action._complete.subscribe(() => {
-        this.battleService.nextTurn();
-      });
-
-    }
+    this.played = true;
+    const action = this.gameService.characters.getAction();
+    action.use(this.battleService);
+    action._complete.subscribe(() => {
+      this.played = false;
+      this.battleService.nextTurn();
+    });
   }
 
   /**
@@ -76,17 +85,12 @@ export class UiActionsComponent {
   }
 
   public useMateria(materia: Materia): void {
-    if (this.canUseMateria(materia)) {
-      this.gameService.characters.mp -= materia.getMpCost();
-    } else {
-      throw new Error('CANNOT USE');
-    }
-
+    this.played = true;
+    this.gameService.characters.mp -= materia.getMpCost();
     const action = new MateriaAction(materia);
-
     action.use(this.battleService);
-
     action._complete.subscribe(() => {
+      this.played = false;
       this.battleService.nextTurn();
     });
   }
@@ -96,22 +100,16 @@ export class UiActionsComponent {
   }
 
   public useItem(item: Item): void {
-    // cost
-    if (this.canUseItem(item)) {
-      if (item.nbr > 1) {
-        item.nbr--;
-      } else {
-        this.gameService.items.list = this.gameService.items.list.filter(e => e !== item);
-      }
+    this.played = true;
+    if (item.nbr > 1) {
+      item.nbr--;
     } else {
-      throw new Error('CANNOT USE');
+      this.gameService.items.list = this.gameService.items.list.filter(e => e !== item);
     }
-
     const action = new ItemAction(item);
-
     action.use(this.battleService);
-
     action._complete.subscribe(() => {
+      this.played = false;
       this.battleService.nextTurn();
     });
   }
