@@ -1,15 +1,16 @@
 import { Subject } from 'rxjs';
-import { Attack } from './actions/attack';
-import { Character } from './character';
-import { CharactersSave } from './save';
-import { ItDisplayHits } from '../core/interfaces/it-display-hits';
-import { ItAction } from '../core/interfaces/it-action';
-import { ItActionAttack } from '../core/interfaces/it-action-attack';
+import { ItAction } from '../../core/interfaces/it-action';
+import { ItActionAttack } from '../../core/interfaces/it-action-attack';
+import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
+import { Attack } from '../actions/attack';
+import { Character } from '../character';
+import { CharactersSave } from '../save';
+import { Units } from '../units';
 
 // maximum characters in the team
 export const MAX_TEAM = 3;
 
-export class Characters {
+export class Characters extends Units {
 
   list: Character[];
   arrHits: number[];
@@ -31,6 +32,7 @@ export class Characters {
   };
 
   constructor() {
+    super();
 
     // list of characters
     this.list = [];
@@ -205,6 +207,10 @@ export class Characters {
    */
   limitProgress(pixelsMax: number): number {
     return this.limit / this.limitMax * pixelsMax;
+  }
+
+  autoFighting(): ItActionAttack {
+    return this.getAttackSkill();
   }
 
   /**

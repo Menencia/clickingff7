@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Characters } from 'src/app/models/characters';
 import { Items } from 'src/app/models/items';
 import { CharacterLoader } from 'src/app/models/loaders/character-loader';
 import { ItemLoader } from 'src/app/models/loaders/item-loader';
@@ -13,6 +12,7 @@ import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
 import { WeaponRef } from 'src/app/models/refs/weapons';
 import { Save } from 'src/app/models/save';
+import { Characters } from 'src/app/models/units/characters';
 import { Weapons } from 'src/app/models/weapons';
 import { Zones } from 'src/app/models/zones';
 import { compareVersions } from 'src/app/utils';

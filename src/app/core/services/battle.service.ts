@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Characters } from 'src/app/models/characters';
-import { Enemies } from 'src/app/models/enemies';
-import { GameService } from './game.service';
+import { Characters } from 'src/app/models/units/characters';
+import { Enemies } from 'src/app/models/units/enemies';
 import { MAX_FIGHTS } from 'src/app/models/zone';
+import { AutoFighting } from '../helpers/auto-fighting';
+import { GameService } from './game.service';
 
 @Injectable({
   providedIn: 'root'
@@ -13,11 +14,13 @@ export class BattleService {
   public enemies: Enemies;
   public isBattle = false;
 
-  private timer = 0;
+  public autos: AutoFighting[] = [];
 
   constructor(private gameService: GameService) {
     this.characters = this.gameService.characters;
     this.enemies = new Enemies();
+    this.autos.push(new AutoFighting(this.characters, this));
+    this.autos.push(new AutoFighting(this.enemies, this));
   }
 
   /**
@@ -31,7 +34,7 @@ export class BattleService {
       const zone = this.gameService.zones.current();
       this.enemies.fightRandom(levelSum, zone, this.gameService.difficulty);
       this.enemies.refresh();
-      this.autoFighting();
+      this.autos.forEach(auto => auto.run());
     }
   }
 
@@ -54,30 +57,15 @@ export class BattleService {
       const nbCharacters = this.gameService.characters.getTeam().length;
       this.enemies.fightBoss(zone, nbCharacters, this.gameService.difficulty);
       this.enemies.refresh();
-      this.autoFighting();
+      this.autos.forEach(auto => auto.run());
     }
-  }
-
-  autoFighting(): void {
-    this.timer = window.setTimeout(() => {
-      this.enemies
-        .getAttackSkill()
-        .use(this);
-
-
-      if (this.gameService.characters.isAlive()) {
-        this.autoFighting();
-      } else {
-        this.end(false);
-      }
-    }, 1000);
   }
 
   /**
    * Stop fighting
    */
   stopFighting(): void {
-    clearTimeout(this.timer);
+    this.autos.forEach(auto => auto.stop());
   }
 
   /**

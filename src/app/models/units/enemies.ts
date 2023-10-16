@@ -1,12 +1,13 @@
-import { Enemy } from './enemy';
-import { MAX_FIGHTS, Zone } from './zone';
-import { random } from '../utils';
-import { ItDisplayHits } from '../core/interfaces/it-display-hits';
 import { Subject } from 'rxjs';
-import { ItActionAttack } from '../core/interfaces/it-action-attack';
-import { BattleService } from '../core/services/battle.service';
+import { ItActionAttack } from '../../core/interfaces/it-action-attack';
+import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
+import { BattleService } from '../../core/services/battle.service';
+import { random } from '../../utils';
+import { Enemy } from '../enemy';
+import { Units } from '../units';
+import { MAX_FIGHTS, Zone } from '../zone';
 
-export class Enemies {
+export class Enemies extends Units {
 
   list: Enemy[];
   arrHits: number[];
@@ -26,6 +27,7 @@ export class Enemies {
    * Init
    */
   constructor() {
+    super();
     this.list = [];
     this.arrHits = [];
     this.timer = 0;
