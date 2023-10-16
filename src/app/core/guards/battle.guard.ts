@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BattleService } from '../services/battle.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BattleGuard implements CanActivate {
+export class BattleGuard  {
 
   constructor(
     public battleService: BattleService

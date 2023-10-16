@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot, UrlTree } from '@angular/router';
+import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GameService } from '../services/game.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ZoneGuard implements CanActivate {
+export class ZoneGuard  {
 
   constructor(
     public gameService: GameService
