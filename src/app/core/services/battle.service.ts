@@ -19,7 +19,7 @@ export class BattleService {
   constructor(private gameService: GameService) {
     this.characters = this.gameService.characters;
     this.enemies = new Enemies();
-    this.autos.push(new AutoFighting(this.characters, this));
+    // this.autos.push(new AutoFighting(this.characters, this));
     this.autos.push(new AutoFighting(this.enemies, this));
   }
 
