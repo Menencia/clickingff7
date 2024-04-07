@@ -1,7 +1,7 @@
 <div>
   <div class="flex flex-col gap-1">
     <button class="button" (click)="fightRandom()" [disabled]="isBattle()" id="step6">
-      {{"Fight random"|translate}}
+      {{"Fight random"|translate}}{{remainingBattles()}}
     </button>
     <button class="button" (click)="fightBoss()" [disabled]="!canFightBoss()">
       <div class="float-right text-red-700" *ngIf="canFightBoss()">NEW</div>

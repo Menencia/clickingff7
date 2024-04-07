@@ -3,6 +3,7 @@ import { BattleService } from 'src/app/core/services/battle.service';
 import { GameService } from 'src/app/core/services/game.service';
 import { Item } from 'src/app/models/item';
 import { Materia } from 'src/app/models/materia';
+import { MAX_FIGHTS } from 'src/app/models/zone';
 
 @Component({
   selector: 'app-ui-actions',
@@ -15,6 +16,11 @@ export class UiActionsComponent {
     private battleService: BattleService,
     private gameService: GameService
   ) { }
+
+  public remainingBattles() {
+    const remain = MAX_FIGHTS - this.gameService.zones.current().nbFights;
+    return remain > 0 ? `(${remain})`: '';
+  }
 
   public getMaterias(): Materia[] {
     return this.gameService.materias.getEquipped();
