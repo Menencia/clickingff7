@@ -20,9 +20,13 @@ export class ViewShopComponent {
   section = 'buy';
   type = 'weapons';
 
-  weapons: Weapon[] = [];
-  materias: Materia[] = [];
-  items: Item[] = [];
+  shopWeapons: Weapon[] = [];
+  shopMaterias: Materia[] = [];
+  shopItems: Item[] = [];
+
+  playerWeapons: Weapon[] = [];
+  playerMaterias: Materia[] = [];
+  playerItems: Item[] = [];
 
   constructor(private gameService: GameService) {
     this.refresh();
@@ -51,6 +55,7 @@ export class ViewShopComponent {
   buyWeapon(weapon: Weapon): void {
     this.gameService.gils -= weapon.getPrice();
     this.gameService.weapons.add(weapon, false);
+    this.refreshPlayerWeapons();
   }
 
   canSellWeapon(weapon: Weapon): boolean {
@@ -63,6 +68,7 @@ export class ViewShopComponent {
       weapon.nbr--;
     } else {
       this.gameService.weapons.list = this.gameService.weapons.list.filter(e => e !== weapon);
+      this.refreshPlayerWeapons();
     }
   }
 
@@ -71,17 +77,19 @@ export class ViewShopComponent {
   }
 
   canBuyMateria(materia: Materia): boolean {
-    return this.gameService.gils >= materia.getPrice();
+    return !this.inStockMateria(materia) && this.gameService.gils >= materia.getPrice();
   }
 
   buyMateria(materia: Materia): void {
     this.gameService.gils -= materia.getPrice();
     this.gameService.materias.add(materia);
+    this.refreshPlayerMaterias();
   }
 
   sellMateria(materia: Materia): void {
     this.gameService.gils += materia.getSellPrice();
     this.gameService.materias.list = this.gameService.materias.list.filter(e => e !== materia);
+    this.refreshPlayerMaterias();
   }
 
   inStockItem(item: Item): number {
@@ -96,6 +104,7 @@ export class ViewShopComponent {
     this.gameService.gils -= item.getPrice();
     const equipped = (this.gameService.items.getEquipped().length < MAX_ITEMS);
     this.gameService.items.add(item, equipped);
+    this.refreshPlayerItems();
   }
 
   sellItem(item: Item): void {
@@ -104,14 +113,15 @@ export class ViewShopComponent {
       item.nbr--;
     } else {
       this.gameService.items.list = this.gameService.items.list.filter(e => e !== item);
+      this.refreshPlayerItems();
     }
   }
 
   refresh(): void {
     const levelMax = this.gameService.zones.levelMax;
-    this.weapons = [];
-    this.materias = [];
-    this.items = [];
+    this.shopWeapons = [];
+    this.shopMaterias = [];
+    this.shopItems = [];
 
     const weapons = [
       WeaponRef.BusterSword,
@@ -130,9 +140,11 @@ export class ViewShopComponent {
     for (const w of weapons) {
       const weapon = WeaponLoader.build(w);
       if (weapon.zoneAvailable <= levelMax) {
-        this.weapons.push(weapon);
+        this.shopWeapons.push(weapon);
       }
     }
+    this.shopWeapons = this.sortWeapons(this.shopWeapons);
+    this.refreshPlayerWeapons();
 
     const materias = [
       MateriaRef.Restore,
@@ -146,9 +158,11 @@ export class ViewShopComponent {
     for (const m of materias) {
       const materia = MateriaLoader.build(m);
       if (materia.zoneAvailable <= levelMax) {
-        this.materias.push(materia);
+        this.shopMaterias.push(materia);
       }
     }
+    this.shopMaterias = this.sortMaterias(this.shopMaterias);
+    this.refreshPlayerMaterias();
 
     const items = [
       ItemRef.Potion,
@@ -159,9 +173,43 @@ export class ViewShopComponent {
     for (const i of items) {
       const item = ItemLoader.build(i);
       if (item.available(levelMax)) {
-        this.items.push(item);
+        this.shopItems.push(item);
       }
     }
+    this.shopItems = this.sortItems(this.shopItems);
+    this.refreshPlayerItems();
   }
 
+  private refreshPlayerWeapons(): void {
+    this.playerWeapons = this.sortWeapons(this.gameService.weapons.list);
+  }
+
+  private sortWeapons(weapons: Weapon[]): Weapon[] {
+    const types: { [type: string]: number } = {
+      'broadsword': 1,
+      'gun-arm': 2,
+      'knuckle': 3
+    };
+    return weapons
+      .sort((a, b) => a.hits - b.hits)
+      .sort((a, b) => types[a.type] - types[b.type]);
+  }
+
+  private refreshPlayerMaterias(): void {
+    this.playerMaterias = this.gameService.materias.list;
+  }
+
+  private sortMaterias(materias: Materia[]): Materia[] {
+    return materias
+      .sort((a, b) => a.pwr - b.pwr);
+  }
+
+  private refreshPlayerItems(): void {
+    this.playerItems = this.sortItems(this.gameService.items.list);
+  }
+
+  private sortItems(items: Item[]): Item[] {
+    return items
+      .sort((a, b) => a.name.localeCompare(b.name));
+  }
 }

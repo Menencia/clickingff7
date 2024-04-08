@@ -73,7 +73,7 @@ export abstract class Materia {
    * Returns the number of owned
    */
   inStock(materias: Materia[]): boolean {
-    const materia = materias.filter(e => e.name = this.name);
+    const materia = materias.filter(e => e.name === this.name);
     if (materia) {
       return true;
     }

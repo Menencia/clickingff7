@@ -45,7 +45,7 @@
           </tr>
 
           <ng-container *ngIf="type === 'weapons'">
-            <tr *ngFor="let weapon of weapons">
+            <tr *ngFor="let weapon of shopWeapons">
               <td>
                 <img class="icon" src="/assets/images/icons/weapons/{{weapon.type}}.png" />
                 {{weapon.name}}<br />
@@ -62,7 +62,7 @@
           </ng-container>
 
           <ng-container *ngIf="type === 'materias'">
-            <tr *ngFor="let materia of materias" class="materia">
+            <tr *ngFor="let materia of shopMaterias" class="materia">
               <td>
                 <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.webp" />
                 {{'Mat. '+materia.name+' name'|translate}}<br />
@@ -80,7 +80,7 @@
           </ng-container>
 
           <ng-container *ngIf="type === 'items'">
-            <tr *ngFor="let item of items" class="item">
+            <tr *ngFor="let item of shopItems" class="item">
               <td>
                 <img class="icon" src="/assets/images/icons/item.gif" />
                 {{'It. '+item.name+' name'|translate}}<br />
@@ -112,7 +112,7 @@
           </tr>
 
           <ng-container *ngIf="type === 'weapons'">
-            <tr *ngFor="let weapon of weapons">
+            <tr *ngFor="let weapon of playerWeapons">
               <td>
                 <img class="icon" src="/assets/images/icons/weapons/{{weapon.type}}.png" />
                 {{weapon.name}}<br />
@@ -129,7 +129,7 @@
           </ng-container>
 
           <ng-container *ngIf="type === 'materias'">
-            <tr *ngFor="let materia of materias" class="materia">
+            <tr *ngFor="let materia of playerMaterias" class="materia">
               <td>
                 <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.webp" />
                 {{'Mat. '+materia.name+' name'|translate}}<br />
@@ -147,7 +147,7 @@
           </ng-container>
 
           <ng-container *ngIf="type === 'items'">
-            <tr *ngFor="let item of items" class="item">
+            <tr *ngFor="let item of playerItems" class="item">
               <td>
                 <img class="icon" src="/assets/images/icons/item.gif" />
                 {{'It. '+item.name+' name'|translate}}<br />
