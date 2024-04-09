@@ -25,10 +25,10 @@
       </td>
       <td class="total">
         <span (click)="unequip(materia)" *ngIf="materia.equipped" class="hover">
-          <i class="fa-solid fa-xmark text-red-600"></i>
+          <fa-icon [icon]="faXmark" class="text-red-600"></fa-icon>
         </span>
         <span (click)="equip(materia)" *ngIf="canEquip(materia)" class="hover">
-          <i class="fa-solid fa-plus text-green-600"></i>
+          <fa-icon [icon]="faPlus" class="text-green-600"></fa-icon>
         </span>
       </td>
     </tr>

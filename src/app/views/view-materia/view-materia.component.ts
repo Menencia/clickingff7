@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { GameService } from 'src/app/core/services/game.service';
 import { Materia } from 'src/app/models/materia';
+import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-view-materia',
@@ -9,6 +10,8 @@ import { Materia } from 'src/app/models/materia';
 })
 export class ViewMateriaComponent {
 
+  faXmark = faXmark;
+  faPlus = faPlus;
   list: Materia[] = [];
   maxMaterias = 0;
 
