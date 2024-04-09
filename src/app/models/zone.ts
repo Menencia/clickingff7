@@ -2,7 +2,7 @@ import { Enemy } from './enemy';
 import { ZoneRef } from './refs/zones';
 import { ZoneSave } from './save';
 
-export const MAX_FIGHTS = 10;
+export const MAX_FIGHTS = 15;
 
 export abstract class Zone {
 
