@@ -43,7 +43,7 @@ export class UiBarComponent implements OnInit {
     });
   }
 
-  onAnimationEvent($event: any) {
+  onAnimationEvent() {
     this.arrHits.pop();
   }
 

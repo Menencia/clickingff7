@@ -24,7 +24,7 @@
             *ngFor="let materia of getMaterias()"
             (click)="useMateria(materia)"
             [disabled]="!canUseMateria(materia)">
-      <img class="flex-none" src="/assets/images/icons/materias/{{materia.color}}.webp" />
+      <img class="flex-none" src="/assets/images/icons/materias/{{materia.color}}.webp" alt="materia" />
       <div class="flex-grow">
         {{'Mat. '+materia.name+' name'|translate}}
       </div>

@@ -29,14 +29,14 @@
   </a>
   <div class="flex-grow"></div>
   <div>
-    <div class="cursor-pointer" (click)="help()">
+    <div class="cursor-pointer" (click)="help()" (keypress)="help()" tabindex="0">
       <span class="material-icons-outlined">
         help
       </span>
     </div>
   </div>
   <div>
-    <div class="cursor-pointer" (click)="toggleDark()">
+    <div class="cursor-pointer" (click)="toggleDark()" (keypress)="toggleDark()" tabindex="0">
       <span *ngIf="theme === 'light'" class="material-icons-outlined">
         light_mode
       </span>

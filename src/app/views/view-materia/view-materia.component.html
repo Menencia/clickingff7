@@ -12,7 +12,7 @@
 
     <tr *ngFor="let materia of list" class="materia">
       <td>
-        <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.webp"/>
+        <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.webp" alt="materia" />
         {{'Mat. '+materia.name +' name'|translate}}
         <strong>(LVL{{materia.level}})</strong> PWR: {{materia.pwr}}<br/>
         <span class="desc">{{'Mat. '+materia.name +' desc'|translate}}</span>
@@ -24,10 +24,10 @@
         </div>
       </td>
       <td class="total">
-        <span (click)="unequip(materia)" *ngIf="materia.equipped" class="hover">
+        <span (click)="unequip(materia)" (keypress)="unequip(materia)" tabindex="0" *ngIf="materia.equipped" class="hover">
           <fa-icon [icon]="faXmark" class="text-red-600"></fa-icon>
         </span>
-        <span (click)="equip(materia)" *ngIf="canEquip(materia)" class="hover">
+        <span (click)="equip(materia)" (keypress)="equip(materia)" tabindex="0" *ngIf="canEquip(materia)" class="hover">
           <fa-icon [icon]="faPlus" class="text-green-600"></fa-icon>
         </span>
       </td>

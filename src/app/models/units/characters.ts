@@ -1,5 +1,4 @@
 import { Subject } from 'rxjs';
-import { ItAction } from '../../core/interfaces/it-action';
 import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
 import { Attack } from '../actions/attack';
@@ -60,7 +59,7 @@ export class Characters extends Units {
   /**
    *
    */
-  addHp(value: number, context: ItAction): void {
+  addHp(value: number): void {
     this.hp = Math.min(this.hp + value, this.hpMax);
     this.source.hp.next({ hits: value } as ItDisplayHits);
   }
@@ -68,7 +67,7 @@ export class Characters extends Units {
   /**
    *
    */
-  addMp(value: number, context: ItAction): void {
+  addMp(value: number): void {
     this.mp = Math.min(this.mp + value, this.mpMax);
   }
 
@@ -176,7 +175,7 @@ export class Characters extends Units {
    * Get total characters hits
    */
   getAttackSkill(): ItActionAttack {
-    let hits = this.hits;
+    const hits = this.hits;
     let pwr = 100;
 
     // limit

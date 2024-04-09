@@ -30,7 +30,7 @@ export class BattleService {
     if (!this.isBattle) {
       this.isBattle = true;
 
-      let levelSum = this.gameService.characters.levelSum;
+      const levelSum = this.gameService.characters.levelSum;
       const zone = this.gameService.zones.current();
       this.enemies.fightRandom(levelSum, zone, this.gameService.difficulty);
       this.enemies.refresh();

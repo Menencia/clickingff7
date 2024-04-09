@@ -6,7 +6,7 @@ import { helpData } from 'src/app/models/help';
 
 // declare this to by pass typescript error
 // can put this in index.d.ts file
-declare var introJs: any;
+declare const introJs: () => { setOptions: (data: unknown) => void, start: () => void };
 
 enum Theme {
   Light = 'light',

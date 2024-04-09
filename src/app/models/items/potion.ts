@@ -20,7 +20,7 @@ export class Potion extends Item {
   getSkill(battleService: BattleService): ItAction[] {
     const action: ItAction = {
       use() {
-        battleService.characters.addHp(Math.ceil(.33 * battleService.characters.hpMax), this);
+        battleService.characters.addHp(Math.ceil(.33 * battleService.characters.hpMax));
       }
     };
     return [action];

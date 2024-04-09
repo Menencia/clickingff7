@@ -43,7 +43,7 @@ export abstract class Item {
 
   use(battleService: BattleService) {
     const actions = this.getSkill(battleService);
-    for (let action of actions) {
+    for (const action of actions) {
       action.use(battleService);
     }
   }

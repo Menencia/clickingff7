@@ -47,7 +47,7 @@
           <ng-container *ngIf="type === 'weapons'">
             <tr *ngFor="let weapon of shopWeapons">
               <td>
-                <img class="icon" src="/assets/images/icons/weapons/{{weapon.type}}.png" />
+                <img class="icon" src="/assets/images/icons/weapons/{{weapon.type}}.png" alt="weapon" />
                 {{weapon.name}}<br />
                 <span class="desc">({{"Power"|translate}} {{weapon.hits}})</span>
               </td>
@@ -64,7 +64,7 @@
           <ng-container *ngIf="type === 'materias'">
             <tr *ngFor="let materia of shopMaterias" class="materia">
               <td>
-                <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.webp" />
+                <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.webp" alt="materia" />
                 {{'Mat. '+materia.name+' name'|translate}}<br />
                 <span class="desc">{{'Mat. '+materia.name+' desc'|translate}}</span>
               </td>
@@ -82,7 +82,7 @@
           <ng-container *ngIf="type === 'items'">
             <tr *ngFor="let item of shopItems" class="item">
               <td>
-                <img class="icon" src="/assets/images/icons/item.gif" />
+                <img class="icon" src="/assets/images/icons/item.gif" alt="item" />
                 {{'It. '+item.name+' name'|translate}}<br />
                 <span class="desc">{{'It. '+item.name+' desc'|translate}}</span>
               </td>
@@ -114,7 +114,7 @@
           <ng-container *ngIf="type === 'weapons'">
             <tr *ngFor="let weapon of playerWeapons">
               <td>
-                <img class="icon" src="/assets/images/icons/weapons/{{weapon.type}}.png" />
+                <img class="icon" src="/assets/images/icons/weapons/{{weapon.type}}.png" alt="weapon" />
                 {{weapon.name}}<br />
                 <span class="desc">({{"Power"|translate}} {{weapon.hits}})</span>
               </td>
@@ -131,7 +131,7 @@
           <ng-container *ngIf="type === 'materias'">
             <tr *ngFor="let materia of playerMaterias" class="materia">
               <td>
-                <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.webp" />
+                <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.webp" alt="materia" />
                 {{'Mat. '+materia.name+' name'|translate}}<br />
                 <span class="desc">{{'Mat. '+materia.name+' desc'|translate}}</span>
               </td>
@@ -149,7 +149,7 @@
           <ng-container *ngIf="type === 'items'">
             <tr *ngFor="let item of playerItems" class="item">
               <td>
-                <img class="icon" src="/assets/images/icons/item.gif" />
+                <img class="icon" src="/assets/images/icons/item.gif" alt="item" />
                 {{'It. '+item.name+' name'|translate}}<br />
                 <span class="desc">{{'It. '+item.name+' desc'|translate}}</span>
               </td>

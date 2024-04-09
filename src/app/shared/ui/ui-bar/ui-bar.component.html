@@ -4,7 +4,7 @@
   <div [style.width]="progressBg + '%'" class="progress-bg"></div>
   <div class="label">{{text}}</div>
   <div @animation
-       (@animation.done)="onAnimationEvent($event)"
+       (@animation.done)="onAnimationEvent()"
        *ngFor="let hits of arrHits"
        class="hits absolute right-0 top-0 text-red-600 text-3xl">
     {{ hits.hits }}

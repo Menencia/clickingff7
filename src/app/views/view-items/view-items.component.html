@@ -13,16 +13,16 @@
 
     <tr *ngFor="let item of list" class="item">
       <td>
-        <img class="icon" src="/assets/images/icons/item.gif"/>
+        <img class="icon" src="/assets/images/icons/item.gif" alt="item" />
         {{'It. '+item.name+' name'|translate}}<br />
         <span class="desc">{{'It. '+item.name+' desc'|translate}}</span>
       </td>
       <td>{{item.nbr}}</td>
       <td class="total">
-        <span (click)="unequipItem(item)" *ngIf="item.equipped" class="hover">
+        <span (click)="unequipItem(item)" (keypress)="unequipItem(item)" tabindex="0" *ngIf="item.equipped" class="hover">
           ❌
         </span>
-        <span (click)="equipItem(item)" *ngIf="canEquipItem(item)" class="hover">
+        <span (click)="equipItem(item)" (keypress)="equipItem(item)" tabindex="0" *ngIf="canEquipItem(item)" class="hover">
           ➕
         </span>
       </td>

@@ -14,13 +14,13 @@ export class Cure implements ItAction {
     // base hits with variance (-+10%)
     const a = this.baseHits * (this.pwr / 100) * (1 - 10 / 100);
     const b = this.baseHits * (this.pwr / 100) * (1 + 10 / 100);
-    let hits = Math.round(random(a, b));
+    const hits = Math.round(random(a, b));
 
     return hits;
   }
 
   use(battleService: BattleService): void {
-    battleService.characters.addHp(this.calculateHits(), this);
+    battleService.characters.addHp(this.calculateHits());
   }
 
 }

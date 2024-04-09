@@ -11,7 +11,8 @@
     "deploy": "npm run build:prod && firebase deploy",
     "compodoc:build": "compodoc -p tsconfig.doc.json",
     "compodoc:build-and-serve": "compodoc -p tsconfig.doc.json -s",
-    "compodoc:serve": "compodoc -s"
+    "compodoc:serve": "compodoc -s",
+    "lint": "ng lint"
   },
   "private": true,
   "dependencies": {
@@ -47,9 +48,9 @@
     "@angular/cli": "^17.3.3",
     "@angular/compiler-cli": "^17.3.3",
     "@types/jasmine": "~4.3.6",
-    "@typescript-eslint/eslint-plugin": "7.6.0",
-    "@typescript-eslint/parser": "7.6.0",
-    "eslint": "^8.51.0",
+    "@typescript-eslint/eslint-plugin": "7.2.0",
+    "@typescript-eslint/parser": "7.2.0",
+    "eslint": "^8.57.0",
     "jasmine-core": "~4.5.0",
     "karma": "~6.4.3",
     "karma-chrome-launcher": "~3.1.1",

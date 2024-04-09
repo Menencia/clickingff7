@@ -20,7 +20,7 @@ export class Ether extends Item {
   getSkill(battleService: BattleService): ItAction[] {
     const action: ItAction = {
       use() {
-        battleService.characters.addMp(Math.ceil(.33 * battleService.characters.mpMax), this);
+        battleService.characters.addMp(Math.ceil(.33 * battleService.characters.mpMax));
       }
     };
     return [action];
