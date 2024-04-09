@@ -89,6 +89,10 @@ export class UiActionsComponent {
 
     // do action
     materia.use(this.battleService);
+
+    if (!this.battleService.enemies.isAlive()) {
+      this.battleService.end(true);
+    }
   }
 
   public canUseItem(item: Item): boolean {
