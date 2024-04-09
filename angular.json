@@ -71,10 +71,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "clickingff7:build:production"
+              "buildTarget": "clickingff7:build:production"
             },
             "development": {
-              "browserTarget": "clickingff7:build:development"
+              "buildTarget": "clickingff7:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -82,7 +82,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "clickingff7:build"
+            "buildTarget": "clickingff7:build"
           }
         },
         "test": {
