@@ -189,12 +189,12 @@ export class GameService {
         break;
       case 5:
         // add redxiii in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.RedXIII).setLevel(levelMax), true);
+        this.characters.add(CharacterLoader.build(CharacterRef.RedXIII).setLevel(levelMax), false);
         this.weapons.add(WeaponLoader.build(WeaponRef.MythrilClip), true);
         break;
       case 9:
         // add yuffie in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Yuffie).setLevel(levelMax), true);
+        this.characters.add(CharacterLoader.build(CharacterRef.Yuffie).setLevel(levelMax), false);
         this.weapons.add(WeaponLoader.build(WeaponRef.FPtShuriken), true);
         break;
     }
