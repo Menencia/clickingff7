@@ -68,8 +68,8 @@
                 {{'Mat. '+materia.name+' name'|translate}}<br />
                 <span class="desc">{{'Mat. '+materia.name+' desc'|translate}}</span>
               </td>
-              <td *ngIf="materia.inStock">🗸</td>
-              <td *ngIf="!materia.inStock"></td>
+              <td *ngIf="materia.inStock(playerMaterias)">🗸</td>
+              <td *ngIf="!materia.inStock(playerMaterias)"></td>
               <td>{{materia.price}} {{"Gils"|translate}}</td>
               <td>
                 <button class="button" (click)="buyMateria(materia)" [disabled]="!canBuyMateria(materia)">
