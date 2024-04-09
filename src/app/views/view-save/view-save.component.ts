@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { BattleService } from 'src/app/core/services/battle.service';
 import { GameService } from 'src/app/core/services/game.service';
 import { Save } from 'src/app/models/save';
 
@@ -17,6 +18,7 @@ export class ViewSaveComponent {
   showAreaImport: boolean;
 
   constructor(private gameService: GameService,
+              private battleService: BattleService,
               private router: Router) {
     this.saves = this.gameService.saves;
     this.areaExport = '';
@@ -41,6 +43,7 @@ export class ViewSaveComponent {
       this.gameService.reset();
       this.gameService.buildLevel(1);
       this.gameService.postload();
+      this.battleService.characters = this.gameService.characters;
       this.router.navigateByUrl('game');
     }
   }
@@ -83,6 +86,7 @@ export class ViewSaveComponent {
       this.gameService.preload();
       this.gameService.load(save);
       this.gameService.postload();
+      this.battleService.characters = this.gameService.characters;
       this.router.navigateByUrl('game');
     }
   }
