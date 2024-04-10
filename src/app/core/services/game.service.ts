@@ -16,9 +16,10 @@ import { Characters } from 'src/app/models/units/characters';
 import { Weapons } from 'src/app/models/weapons';
 import { Zones } from 'src/app/models/zones';
 import { compareVersions } from 'src/app/utils';
+import packageJson from '../../../../package.json';
 
 const SAVE_1 = 'save1';
-const CURRENT_VERSION = '1.3.0';
+const CURRENT_VERSION = packageJson.version;
 const BASE_GILS = 200;
 
 export enum Difficulty {
