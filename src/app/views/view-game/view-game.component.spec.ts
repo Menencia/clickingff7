@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewGameComponent } from './view-game.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('ViewGameComponent', () => {
   let component: ViewGameComponent;
@@ -8,7 +10,8 @@ describe('ViewGameComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewGameComponent ]
+      declarations: [ ViewGameComponent ],
+      imports: [ TranslateModule.forRoot(), SharedModule ]
     })
     .compileComponents();
 

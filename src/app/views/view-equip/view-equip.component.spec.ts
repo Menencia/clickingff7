@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewEquipComponent } from './view-equip.component';
+import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 describe('ViewEquipComponent', () => {
   let component: ViewEquipComponent;
@@ -8,7 +10,8 @@ describe('ViewEquipComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewEquipComponent ]
+      declarations: [ ViewEquipComponent ],
+      imports: [ TranslateModule.forRoot(), SharedModule ]
     })
     .compileComponents();
 

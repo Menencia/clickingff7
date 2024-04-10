@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UiActionsComponent } from './ui-actions.component';
+import { TranslateModule } from '@ngx-translate/core';
 
 describe('UiActionsComponent', () => {
   let component: UiActionsComponent;
@@ -8,7 +9,8 @@ describe('UiActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiActionsComponent ]
+      declarations: [ UiActionsComponent ],
+      imports: [ TranslateModule.forRoot() ]
     })
     .compileComponents();
 
