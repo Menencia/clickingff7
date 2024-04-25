@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { ZoneGuard } from './zone.guard';
-import { TranslateModule } from '@ngx-translate/core';
 
 describe('ZoneGuard', () => {
   let guard: ZoneGuard;

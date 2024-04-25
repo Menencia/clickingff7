@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ViewItemsComponent } from './view-items.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+
+import { ViewItemsComponent } from './view-items.component';
 
 describe('ViewItemsComponent', () => {
   let component: ViewItemsComponent;

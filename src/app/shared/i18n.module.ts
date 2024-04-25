@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 import { HttpBackend } from '@angular/common/http';
+import { NgModule } from '@angular/core';
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(_httpBackend: HttpBackend) {

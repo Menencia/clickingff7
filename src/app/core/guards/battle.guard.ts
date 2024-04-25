@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
+
 import { BattleService } from '../services/battle.service';
 
 @Injectable({

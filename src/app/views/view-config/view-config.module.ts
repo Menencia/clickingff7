@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { ViewConfigRoutingModule } from './view-config-routing.module';
 import { ViewConfigComponent } from './view-config.component';
-import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
   declarations: [ViewConfigComponent],

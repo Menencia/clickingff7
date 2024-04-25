@@ -1,6 +1,6 @@
-import { random } from 'src/app/utils';
 import { ItAction } from 'src/app/core/interfaces/it-action';
 import { BattleService } from 'src/app/core/services/battle.service';
+import { random } from 'src/app/utils';
 
 export class Cure implements ItAction {
   constructor(

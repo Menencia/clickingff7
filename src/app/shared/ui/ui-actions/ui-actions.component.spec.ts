@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { UiActionsComponent } from './ui-actions.component';
-import { TranslateModule } from '@ngx-translate/core';
 
 describe('UiActionsComponent', () => {
   let component: UiActionsComponent;

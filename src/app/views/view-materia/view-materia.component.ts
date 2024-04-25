@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { GameService } from 'src/app/core/services/game.service';
 import { Materia } from 'src/app/models/materia';
-import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-view-materia',

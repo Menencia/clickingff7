@@ -1,7 +1,8 @@
+import { ItAction } from 'src/app/core/interfaces/it-action';
 import { BattleService } from 'src/app/core/services/battle.service';
+
 import { Item } from '../item';
 import { ItemRef } from '../refs/items';
-import { ItAction } from 'src/app/core/interfaces/it-action';
 
 export class Ether extends Item {
   ref = ItemRef.Ether;

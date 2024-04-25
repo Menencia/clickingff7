@@ -39,6 +39,10 @@
           }
         ],
         "class-methods-use-this": "off",
+        "import/order": ["error", {
+          "alphabetize": { "order": "asc", "caseInsensitive": true },
+          "newlines-between": "always"
+        }],
         "import/prefer-default-export": "off",
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
         "no-param-reassign": ["error", { "props": false }],
@@ -51,7 +55,6 @@
         "default-case": "off",
         "import/no-cycle": "off",
         "import/no-useless-path-segments": "off",
-        "import/order": "off",
         "no-alert": "off",
         "no-console": "off",
         "no-else-return": "off",

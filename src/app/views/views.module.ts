@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+
 import { ViewGameModule } from './view-game/view-game.module';
 // import { ViewConfigModule } from './view-config/view-config.module';
 // import { ViewEquipModule } from './view-equip/view-equip.module';

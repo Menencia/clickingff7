@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ViewPhsComponent } from './view-phs.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+
+import { ViewPhsComponent } from './view-phs.component';
 
 describe('ViewPhsComponent', () => {
   let component: ViewPhsComponent;

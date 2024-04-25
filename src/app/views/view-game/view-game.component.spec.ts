@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ViewGameComponent } from './view-game.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+
+import { ViewGameComponent } from './view-game.component';
 
 describe('ViewGameComponent', () => {
   let component: ViewGameComponent;

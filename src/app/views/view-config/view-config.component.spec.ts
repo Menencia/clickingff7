@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ViewConfigComponent } from './view-config.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+
+import { ViewConfigComponent } from './view-config.component';
 
 describe('ViewConfigComponent', () => {
   let component: ViewConfigComponent;

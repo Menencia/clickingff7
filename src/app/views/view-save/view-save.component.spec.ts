@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ViewSaveComponent } from './view-save.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+
+import { ViewSaveComponent } from './view-save.component';
 
 describe('ViewSaveComponent', () => {
   let component: ViewSaveComponent;

@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ViewEquipComponent } from './view-equip.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+
+import { ViewEquipComponent } from './view-equip.component';
 
 describe('ViewEquipComponent', () => {
   let component: ViewEquipComponent;

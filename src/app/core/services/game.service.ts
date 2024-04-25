@@ -16,6 +16,7 @@ import { Characters } from 'src/app/models/units/characters';
 import { Weapons } from 'src/app/models/weapons';
 import { Zones } from 'src/app/models/zones';
 import { compareVersions } from 'src/app/utils';
+
 import packageJson from '../../../../package.json';
 
 const SAVE_1 = 'save1';

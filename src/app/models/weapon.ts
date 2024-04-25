@@ -1,4 +1,5 @@
 import { WeaponSave } from '../models/save';
+
 import { WeaponRef } from './refs/weapons';
 
 export abstract class Weapon {

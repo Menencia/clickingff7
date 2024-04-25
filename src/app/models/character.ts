@@ -1,7 +1,7 @@
-import { Weapon } from './weapon';
-import { CharacterSave } from './save';
-import { CharacterRef } from './refs/characters';
 import { WeaponLoader } from './loaders/weapon-loader';
+import { CharacterRef } from './refs/characters';
+import { CharacterSave } from './save';
+import { Weapon } from './weapon';
 
 export abstract class Character {
   abstract ref: CharacterRef;

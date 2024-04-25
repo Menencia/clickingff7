@@ -1,5 +1,6 @@
 import { Units } from 'src/app/models/units';
 import { Characters } from 'src/app/models/units/characters';
+
 import { BattleService } from '../services/battle.service';
 
 export class AutoFighting {

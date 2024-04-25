@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { Characters } from 'src/app/models/units/characters';
 import { Enemies } from 'src/app/models/units/enemies';
 import { MAX_FIGHTS } from 'src/app/models/zone';
+
 import { AutoFighting } from '../helpers/auto-fighting';
+
 import { GameService } from './game.service';
 
 @Injectable({

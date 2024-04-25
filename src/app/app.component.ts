@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { GameService } from './core/services/game.service';
+
 import { BattleService } from './core/services/battle.service';
+import { GameService } from './core/services/game.service';
 
 @Component({
   selector: 'app-root',

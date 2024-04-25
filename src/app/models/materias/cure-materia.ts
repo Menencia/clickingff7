@@ -1,7 +1,8 @@
+import { ItAction } from 'src/app/core/interfaces/it-action';
 import { BattleService } from 'src/app/core/services/battle.service';
+
 import { Cure } from '../actions/cure';
 import { Materia } from '../materia';
-import { ItAction } from 'src/app/core/interfaces/it-action';
 
 export abstract class CureMateria extends Materia {
   /**

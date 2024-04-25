@@ -1,7 +1,8 @@
-import { BattleService } from 'src/app/core/services/battle.service';
-import { Materia } from '../materia';
-import { Attack } from '../actions/attack';
 import { ItAction } from 'src/app/core/interfaces/it-action';
+import { BattleService } from 'src/app/core/services/battle.service';
+
+import { Attack } from '../actions/attack';
+import { Materia } from '../materia';
 
 export abstract class AttackMateria extends Materia {
   abstract elements: string[];

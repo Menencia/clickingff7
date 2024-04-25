@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ViewShopComponent } from './view-shop.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+
+import { ViewShopComponent } from './view-shop.component';
 
 describe('ShopComponent', () => {
   let component: ViewShopComponent;

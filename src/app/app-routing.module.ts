@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { BattleGuard } from './core/guards/battle.guard';
 import { ZoneGuard } from './core/guards/zone.guard';
 

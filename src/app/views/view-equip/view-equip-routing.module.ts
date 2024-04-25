@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+
 import { ViewEquipComponent } from './view-equip.component';
 
 const routes: Routes = [

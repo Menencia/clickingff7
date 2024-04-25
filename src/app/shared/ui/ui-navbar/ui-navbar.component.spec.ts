@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { UiNavbarComponent } from './ui-navbar.component';
-import { TranslateModule } from '@ngx-translate/core';
 
 describe('UiNavbarComponent', () => {
   let component: UiNavbarComponent;

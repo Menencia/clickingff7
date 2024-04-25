@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 import { ViewMateriaComponent } from './view-materia.component';
-import { SharedModule } from 'src/app/shared/shared.module';
-import { TranslateModule } from '@ngx-translate/core';
 
 describe('ViewMateriaComponent', () => {
   let component: ViewMateriaComponent;

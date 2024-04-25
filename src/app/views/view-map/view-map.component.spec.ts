@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { ViewMapComponent } from './view-map.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { SharedModule } from 'src/app/shared/shared.module';
+
+import { ViewMapComponent } from './view-map.component';
 
 describe('ViewMapComponent', () => {
   let component: ViewMapComponent;
