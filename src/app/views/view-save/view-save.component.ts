@@ -20,6 +20,10 @@ export class ViewSaveComponent {
 
   showAreaImport: boolean;
 
+  msgImportSave = "Are you sure ? You'll lose your current save !";
+
+  msgResetGame = "Are you sure ? You'll lose everything !";
+
   constructor(
     private gameService: GameService,
     private battleService: BattleService,
@@ -42,11 +46,8 @@ export class ViewSaveComponent {
   /**
    * Reset the game
    */
-  resetGame(): void {
-    if (
-      this.gameService.saves[0] &&
-      window.confirm("Are you sure ? You'll lose everything !")
-    ) {
+  resetGame(confirm: boolean): void {
+    if (this.gameService.saves[0] && confirm) {
       this.gameService.preload();
       this.gameService.reset();
       this.gameService.buildLevel(1);
@@ -88,11 +89,8 @@ export class ViewSaveComponent {
   /**
    * Import a save
    */
-  importSave(): void {
-    if (
-      this.areaImport &&
-      window.confirm("Are you sure ? You'll lose your current save !")
-    ) {
+  importSave(confirm: boolean): void {
+    if (this.areaImport && confirm) {
       const save = JSON.parse(atob(this.areaImport));
       this.gameService.preload();
       this.gameService.load(save);

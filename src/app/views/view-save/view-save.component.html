@@ -7,9 +7,13 @@
         <button class="button" (click)="saveGame()">
           {{"Save"|translate}}
         </button>
-        <button class="button" (click)="resetGame()" [class.disabled]="saves.length === 0">
-          {{"Reset"|translate}}
-        </button>
+
+        <app-confirm-button
+          [message]="msgImportSave"
+          [disabled]="saves.length === 0"
+          (confirm)="resetGame($event)">
+            {{"Reset"|translate}}
+        </app-confirm-button>
       </div>
 
       <div class="flex flex-col gap-1 mt-5">
@@ -48,9 +52,7 @@
       <div  *ngIf="showAreaImport">
         <textarea [(ngModel)]="areaImport"></textarea>
 
-        <button (click)="importSave()" class="button">
-          IMPORT
-        </button>
+        <app-confirm-button [message]="msgImportSave" (confirm)="importSave($event)">IMPORT</app-confirm-button>
       </div>
     </div>
 

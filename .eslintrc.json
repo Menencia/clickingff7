@@ -46,9 +46,7 @@
         "import/prefer-default-export": "off",
         "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
         "no-param-reassign": ["error", { "props": false }],
-        "prettier/prettier": ["error"],
-        // $$$$ remove progressively all rules above
-        "no-alert": "off"
+        "prettier/prettier": ["error"]
       }
     },
     {

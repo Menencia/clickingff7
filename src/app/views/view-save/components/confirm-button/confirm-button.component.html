@@ -1,0 +1,6 @@
+<ng-container>
+  <p-confirmDialog></p-confirmDialog>
+  <button (click)="onConfirm($event)" class="button" [disabled]="disabled">
+    <ng-content></ng-content>
+  </button>
+</ng-container>
