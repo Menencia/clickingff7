@@ -1,10 +1,15 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
 import { Character } from 'src/app/models/character';
 import { MAX_TEAM } from 'src/app/models/units/characters';
+import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
   selector: 'app-view-phs',
+  standalone: true,
+  imports: [UiLayoutDefaultComponent, TranslateModule, NgFor, NgIf],
   templateUrl: './view-phs.component.html',
   styleUrls: ['./view-phs.component.scss'],
 })

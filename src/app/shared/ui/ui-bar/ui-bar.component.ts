@@ -1,10 +1,13 @@
 import { animate, style, transition, trigger } from '@angular/animations';
+import { NgFor } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ItDisplayHits } from 'src/app/core/interfaces/it-display-hits';
 
 @Component({
   selector: 'app-ui-bar',
+  standalone: true,
+  imports: [NgFor],
   templateUrl: './ui-bar.component.html',
   styleUrls: ['./ui-bar.component.scss'],
   animations: [

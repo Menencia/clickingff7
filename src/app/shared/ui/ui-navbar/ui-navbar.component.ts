@@ -1,7 +1,7 @@
-import { DOCUMENT } from '@angular/common';
+import { DOCUMENT, NgIf } from '@angular/common';
 import { Component, Inject, Input } from '@angular/core';
-import { Router } from '@angular/router';
-import { TranslateService } from '@ngx-translate/core';
+import { Router, RouterModule } from '@angular/router';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { helpData } from 'src/app/models/help';
 
 // declare this to by pass typescript error
@@ -18,6 +18,8 @@ enum Theme {
 
 @Component({
   selector: 'app-ui-navbar',
+  standalone: true,
+  imports: [TranslateModule, NgIf, RouterModule],
   templateUrl: './ui-navbar.component.html',
   styleUrls: ['./ui-navbar.component.scss'],
 })

@@ -1,4 +1,6 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
 import { Item, MAX_ITEMS } from 'src/app/models/item';
 import { ItemLoader } from 'src/app/models/loaders/item-loader';
@@ -9,9 +11,12 @@ import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
 import { WeaponRef } from 'src/app/models/refs/weapons';
 import { Weapon } from 'src/app/models/weapon';
+import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
   selector: 'app-shop',
+  standalone: true,
+  imports: [TranslateModule, UiLayoutDefaultComponent, NgFor, NgIf],
   templateUrl: './view-shop.component.html',
   styleUrls: ['./view-shop.component.scss'],
 })

@@ -1,6 +1,6 @@
 import { ItAction } from '../../core/interfaces/it-action';
 import { BattleService } from '../../core/services/battle.service';
-import { random } from '../../utils';
+import { random } from '../../shared/utils/math.utils';
 
 export class Attack implements ItAction {
   public critical = false;

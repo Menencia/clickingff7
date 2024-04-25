@@ -3,7 +3,7 @@ import { Subject } from 'rxjs';
 import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
 import { BattleService } from '../../core/services/battle.service';
-import { random } from '../../utils';
+import { random } from '../../shared/utils/math.utils';
 import { Enemy } from '../enemy';
 import { Units } from '../units';
 import { MAX_FIGHTS, Zone } from '../zone';

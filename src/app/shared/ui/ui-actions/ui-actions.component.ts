@@ -1,4 +1,6 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { BattleService } from 'src/app/core/services/battle.service';
 import { GameService } from 'src/app/core/services/game.service';
 import { Item } from 'src/app/models/item';
@@ -7,6 +9,8 @@ import { MAX_FIGHTS } from 'src/app/models/zone';
 
 @Component({
   selector: 'app-ui-actions',
+  standalone: true,
+  imports: [TranslateModule, NgFor, NgIf],
   templateUrl: './ui-actions.component.html',
   styleUrls: ['./ui-actions.component.scss'],
 })

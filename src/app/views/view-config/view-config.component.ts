@@ -1,9 +1,13 @@
 import { Component } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
+import { FormsModule } from '@angular/forms';
+import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { Difficulty, GameService } from 'src/app/core/services/game.service';
+import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
   selector: 'app-view-config',
+  standalone: true,
+  imports: [UiLayoutDefaultComponent, TranslateModule, FormsModule],
   templateUrl: './view-config.component.html',
   styleUrls: ['./view-config.component.scss'],
 })

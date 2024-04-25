@@ -1,10 +1,15 @@
+import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
 import { ShopService } from 'src/app/core/services/shop.service';
 import { Zone } from 'src/app/models/zone';
+import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
   selector: 'app-view-map',
+  standalone: true,
+  imports: [UiLayoutDefaultComponent, TranslateModule, NgFor, NgIf],
   templateUrl: './view-map.component.html',
   styleUrls: ['./view-map.component.scss'],
 })

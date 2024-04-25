@@ -1,7 +1,3 @@
-export function random(min: number, max: number): number {
-  return Math.floor(Math.random() * (max - min + 1) + min);
-}
-
 /**
  * Return true if version 1 is older than version 2
  */
