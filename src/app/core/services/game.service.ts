@@ -231,7 +231,7 @@ export class GameService {
   autoTimer(): void {
     clearTimeout(this.timer);
     this.timer = window.setTimeout(() => {
-      this.time++;
+      this.time += 1;
       this.autoTimer();
     }, 1000);
   }

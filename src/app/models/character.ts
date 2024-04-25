@@ -106,7 +106,7 @@ export abstract class Character {
       this.xp += xp;
       while (this.xp >= this.getXpMax()) {
         this.xp -= this.getXpMax();
-        this.level++;
+        this.level += 1;
       }
     } else {
       this.xp = 0;

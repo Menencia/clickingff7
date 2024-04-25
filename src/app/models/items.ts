@@ -19,7 +19,7 @@ export class Items {
   add(item: Item, equipped = false): void {
     const i = this.list.find((e) => e.name === item.name);
     if (i) {
-      i.nbr++;
+      i.nbr += 1;
     } else {
       item.equipped = equipped;
       this.list.push(item);

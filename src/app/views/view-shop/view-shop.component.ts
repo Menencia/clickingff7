@@ -67,7 +67,7 @@ export class ViewShopComponent {
   sellWeapon(weapon: Weapon): void {
     this.gameService.gils += weapon.getSellPrice();
     if (weapon.nbr > 1) {
-      weapon.nbr--;
+      weapon.nbr -= 1;
     } else {
       this.gameService.weapons.list = this.gameService.weapons.list.filter(
         (e) => e !== weapon,
@@ -119,7 +119,7 @@ export class ViewShopComponent {
   sellItem(item: Item): void {
     this.gameService.gils += item.getSellPrice();
     if (item.nbr > 1) {
-      item.nbr--;
+      item.nbr -= 1;
     } else {
       this.gameService.items.list = this.gameService.items.list.filter(
         (e) => e !== item,

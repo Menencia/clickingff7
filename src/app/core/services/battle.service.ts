@@ -106,7 +106,7 @@ export class BattleService {
           materia.setAp(ap);
         }
 
-        this.gameService.zones.current().nbFights++;
+        this.gameService.zones.current().nbFights += 1;
       }
     }
 

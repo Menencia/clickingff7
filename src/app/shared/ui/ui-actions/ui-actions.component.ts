@@ -100,7 +100,7 @@ export class UiActionsComponent {
     // cost
     if (this.canUseItem(item)) {
       if (item.nbr > 1) {
-        item.nbr--;
+        item.nbr -= 1;
       } else {
         this.gameService.items.list = this.gameService.items.list.filter(
           (e) => e !== item,

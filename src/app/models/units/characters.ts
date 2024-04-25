@@ -253,7 +253,7 @@ export class Characters extends Units {
       if (this.weakness.includes(types[i])) {
         res = true;
       }
-      i++;
+      i += 1;
     }
     return res;
   }
@@ -268,7 +268,7 @@ export class Characters extends Units {
       if (this.resistance.includes(types[i])) {
         res = true;
       }
-      i++;
+      i += 1;
     }
     return res;
   }

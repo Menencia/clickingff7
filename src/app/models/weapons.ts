@@ -18,7 +18,7 @@ export class Weapons {
   add(weapon: Weapon, equipped = false): void {
     const w = this.list.find((e) => e.name === weapon.name);
     if (w) {
-      w.nbr++;
+      w.nbr += 1;
     } else {
       weapon.equipped = weapon.canEquip() ? equipped : false;
       this.list.push(weapon);
