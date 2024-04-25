@@ -8,10 +8,13 @@ export const MAX_ITEMS = 2;
 
 export abstract class Item {
   abstract ref: ItemRef;
+
   nbr: number;
+
   equipped: boolean;
 
   abstract name: string;
+
   abstract price: number;
 
   /**
@@ -42,10 +45,7 @@ export abstract class Item {
   abstract getSkill(battleService: BattleService): ItAction[];
 
   use(battleService: BattleService) {
-    const actions = this.getSkill(battleService);
-    for (const action of actions) {
-      action.use(battleService);
-    }
+    this.getSkill(battleService).forEach((action) => action.use(battleService));
   }
 
   /**
@@ -67,11 +67,11 @@ export abstract class Item {
    */
   inStock(items: Item[]): number {
     let sum = 0;
-    for (const i of items) {
+    items.forEach((i) => {
       if (i.name === this.name) {
         sum += i.nbr;
       }
-    }
+    });
     return sum;
   }
 

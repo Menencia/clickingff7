@@ -6,15 +6,23 @@ import { MateriaSave } from './save';
 
 export abstract class Materia {
   abstract ref: MateriaRef;
+
   level: number;
+
   ap: number;
+
   equipped: boolean;
 
   abstract name: string;
+
   abstract color: string;
+
   abstract price: number;
+
   abstract apBase: number;
+
   abstract pwr: number;
+
   abstract zoneAvailable: number;
 
   /**
@@ -49,10 +57,7 @@ export abstract class Materia {
   abstract getSkill(battleService: BattleService): ItAction[];
 
   use(battleService: BattleService) {
-    const actions = this.getSkill(battleService);
-    for (const action of actions) {
-      action.use(battleService);
-    }
+    this.getSkill(battleService).forEach((action) => action.use(battleService));
   }
 
   /**

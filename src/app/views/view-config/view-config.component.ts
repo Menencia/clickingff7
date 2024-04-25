@@ -9,6 +9,7 @@ import { Difficulty, GameService } from 'src/app/core/services/game.service';
 })
 export class ViewConfigComponent {
   difficulty: Difficulty;
+
   language: string;
 
   constructor(

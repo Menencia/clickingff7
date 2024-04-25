@@ -11,9 +11,13 @@ import { Save } from 'src/app/models/save';
 })
 export class ViewSaveComponent {
   saves: Save[];
+
   areaExport: string;
+
   areaImport: string;
+
   showAreaExport: boolean;
+
   showAreaImport: boolean;
 
   constructor(
@@ -41,7 +45,7 @@ export class ViewSaveComponent {
   resetGame(): void {
     if (
       this.gameService.saves[0] &&
-      confirm("Are you sure ? You'll lose everything !")
+      window.confirm("Are you sure ? You'll lose everything !")
     ) {
       this.gameService.preload();
       this.gameService.reset();
@@ -87,7 +91,7 @@ export class ViewSaveComponent {
   importSave(): void {
     if (
       this.areaImport &&
-      confirm("Are you sure ? You'll lose your current save !")
+      window.confirm("Are you sure ? You'll lose your current save !")
     ) {
       const save = JSON.parse(atob(this.areaImport));
       this.gameService.preload();

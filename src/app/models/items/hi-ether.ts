@@ -6,7 +6,9 @@ import { ItemRef } from '../refs/items';
 
 export class HiEther extends Item {
   ref = ItemRef.HiEther;
+
   name = 'Hi-Ether';
+
   price = 130;
 
   available(x: number): boolean {

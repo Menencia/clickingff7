@@ -1,17 +1,23 @@
-import { WeaponSave } from '../models/save';
-
 import { WeaponRef } from './refs/weapons';
+import { WeaponSave } from './save';
 
 export abstract class Weapon {
   abstract ref: WeaponRef;
+
   nbr: number;
+
   equipped: boolean;
 
   abstract name: string;
+
   abstract type: string;
+
   abstract hits: number;
+
   abstract price: number;
+
   abstract maxMaterias: number;
+
   abstract zoneAvailable: number;
 
   constructor() {
@@ -52,11 +58,11 @@ export abstract class Weapon {
   inStock(weapons: Weapon[]): number {
     // weapons.list
     let sum = 0;
-    for (const w of weapons) {
+    weapons.forEach((w) => {
       if (w.name === this.name) {
         sum += w.nbr;
       }
-    }
+    });
     return sum;
   }
 

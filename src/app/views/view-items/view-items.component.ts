@@ -9,6 +9,7 @@ import { Item, MAX_ITEMS } from 'src/app/models/item';
 })
 export class ViewItemsComponent {
   MAX_ITEMS = MAX_ITEMS;
+
   list: Item[] = [];
 
   constructor(private gameService: GameService) {

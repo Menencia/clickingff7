@@ -33,27 +33,14 @@ export class Materias {
     return this.list.filter((e) => !e.equipped);
   }
 
-  refresh(maxMaterias: number): void {
-    const materias = this.getEquipped();
-    if (materias.length > maxMaterias) {
-      let equipped = true;
-      for (const [i, m] of materias.entries()) {
-        if (i < maxMaterias) {
-          equipped = false;
-        }
-        m.equipped = equipped;
-      }
-    }
-  }
-
   /**
    * Export all materias
    */
   export(): MateriaSave[] {
-    const json = [];
-    for (const m of this.list) {
+    const json: MateriaSave[] = [];
+    this.list.forEach((m) => {
       json.push(m.export());
-    }
+    });
     return json;
   }
 }

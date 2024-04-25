@@ -5,8 +5,11 @@ export const MAX_ZONES = 9;
 
 export class Zones {
   list: Zone[];
+
   level: number;
+
   levelMax: number;
+
   nextZone: boolean;
 
   /**
@@ -50,7 +53,7 @@ export class Zones {
    * Return all undiscovered zones
    */
   getOthers(): Zone[] {
-    const level = this.level;
+    const { level } = this;
     return this.list.filter((z) => {
       return z.level !== level;
     });
@@ -106,11 +109,11 @@ export class Zones {
       list: [],
     };
 
-    for (const z of this.list) {
+    this.list.forEach((z) => {
       if (z.level <= this.levelMax) {
         json.list.push(z.export());
       }
-    }
+    });
 
     return json;
   }

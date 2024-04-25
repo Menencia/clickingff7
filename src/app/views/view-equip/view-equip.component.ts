@@ -10,7 +10,9 @@ import { Weapon } from 'src/app/models/weapon';
 })
 export class ViewEquipComponent {
   selected: Character;
+
   team: Character[];
+
   weapons: Weapon[] = [];
 
   constructor(private gameService: GameService) {
@@ -18,7 +20,8 @@ export class ViewEquipComponent {
     this.selected = this.gameService.characters.selected;
     const found = this.team.find((character) => character === this.selected);
     if (!found) {
-      this.selected = this.team[0];
+      const [first] = this.team;
+      this.selected = first;
     }
     this.weapons = this.gameService.weapons.getAllWeapons(this.selected);
   }

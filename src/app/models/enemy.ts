@@ -1,22 +1,36 @@
 export abstract class Enemy {
   level: number;
+
   hpMax: number;
+
   hits: number;
+
   xp: number;
+
   ap: number;
+
   gils: number;
 
   abstract name: string;
+
   abstract image: string;
+
   abstract baseHpMax: number;
+
   abstract baseHits: number;
+
   abstract baseXp: number;
+
   abstract baseAp: number;
+
   abstract baseGils: number;
 
   weakness: string[];
+
   resistance: string[];
+
   boss: boolean;
+
   miboss: boolean;
 
   /**
@@ -39,7 +53,9 @@ export abstract class Enemy {
   /**
    * Get the enemy to the given level
    */
-  toLevel(levelSum: number, difficulty: number): void {
+  toLevel(levelSumBase: number, difficulty: number): void {
+    let levelSum = levelSumBase;
+
     // Difficulty
     levelSum *= 1 + ((difficulty - 2) * 20) / 100;
     levelSum = Math.ceil(levelSum);

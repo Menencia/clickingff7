@@ -20,13 +20,19 @@ export class UiBarComponent implements OnInit {
   Math = Math;
 
   @Input() id = '';
+
   @Input() progress = 0;
+
   @Input() text = '';
+
   @Input() name = '';
+
   @Input() hits = new Subject<ItDisplayHits>();
 
   public arrHits: ItDisplayHits[] = [];
+
   public progressBg = 0;
+
   private time!: ReturnType<typeof setTimeout>;
 
   ngOnInit() {

@@ -17,14 +17,19 @@ import { Weapon } from 'src/app/models/weapon';
 })
 export class ViewShopComponent {
   section = 'buy';
+
   type = 'weapons';
 
   shopWeapons: Weapon[] = [];
+
   shopMaterias: Materia[] = [];
+
   shopItems: Item[] = [];
 
   playerWeapons: Weapon[] = [];
+
   playerMaterias: Materia[] = [];
+
   playerItems: Item[] = [];
 
   constructor(private gameService: GameService) {
@@ -129,7 +134,7 @@ export class ViewShopComponent {
   }
 
   refresh(): void {
-    const levelMax = this.gameService.zones.levelMax;
+    const { levelMax } = this.gameService.zones;
     this.shopWeapons = [];
     this.shopMaterias = [];
     this.shopItems = [];
@@ -148,12 +153,12 @@ export class ViewShopComponent {
       WeaponRef.FullMetalStaff,
       // 'FPtShuriken'
     ];
-    for (const w of weapons) {
+    weapons.forEach((w) => {
       const weapon = WeaponLoader.build(w);
       if (weapon.zoneAvailable <= levelMax) {
         this.shopWeapons.push(weapon);
       }
-    }
+    });
     this.shopWeapons = this.sortWeapons(this.shopWeapons);
     this.refreshPlayerWeapons();
 
@@ -166,12 +171,12 @@ export class ViewShopComponent {
       MateriaRef.Earth,
       MateriaRef.ChocoMog,
     ];
-    for (const m of materias) {
+    materias.forEach((m) => {
       const materia = MateriaLoader.build(m);
       if (materia.zoneAvailable <= levelMax) {
         this.shopMaterias.push(materia);
       }
-    }
+    });
     this.shopMaterias = this.sortMaterias(this.shopMaterias);
     this.refreshPlayerMaterias();
 
@@ -181,12 +186,12 @@ export class ViewShopComponent {
       ItemRef.HiPotion,
       ItemRef.HiEther,
     ];
-    for (const i of items) {
+    items.forEach((i) => {
       const item = ItemLoader.build(i);
       if (item.available(levelMax)) {
         this.shopItems.push(item);
       }
-    }
+    });
     this.shopItems = this.sortItems(this.shopItems);
     this.refreshPlayerItems();
   }

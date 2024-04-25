@@ -10,6 +10,7 @@ import { MAX_TEAM } from 'src/app/models/units/characters';
 })
 export class ViewPhsComponent {
   team: Character[];
+
   backup: Character[];
 
   constructor(private gameService: GameService) {

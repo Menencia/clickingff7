@@ -6,12 +6,17 @@ export const MAX_FIGHTS = 15;
 
 export abstract class Zone {
   abstract ref: ZoneRef;
+
   nbFights: number;
+
   completed: boolean;
 
   abstract level: number;
+
   abstract image: string;
+
   abstract enemies: Enemy[];
+
   abstract boss: Enemy[];
 
   /**

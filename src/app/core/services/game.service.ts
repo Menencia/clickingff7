@@ -46,14 +46,23 @@ export class GameService {
    * Save settings
    */
   characters = new Characters();
+
   zones = new Zones();
+
   weapons = new Weapons();
+
   materias = new Materias();
+
   items = new Items();
+
   gils = BASE_GILS;
+
   language = this.getLanguage(this.translate.getBrowserLang());
+
   difficulty = Difficulty.Normal;
+
   time = 0;
+
   version = CURRENT_VERSION;
 
   /**
@@ -67,14 +76,9 @@ export class GameService {
     this.run();
   }
 
-  getLanguage(language: string | undefined, def = 'en'): string {
+  getLanguage(language: string | undefined, defaultLanguage = 'en'): string {
     const languages = ['en', 'fr', 'es'];
-    for (const l of languages) {
-      if (l === language) {
-        return language;
-      }
-    }
-    return def;
+    return languages.find((l) => l === language) || defaultLanguage;
   }
 
   run(): void {
@@ -194,11 +198,11 @@ export class GameService {
         break;
       case 4:
         // add barret & tifa in the team
-        for (const c of this.characters.list) {
+        this.characters.list.forEach((c) => {
           if (c.ref === CharacterRef.Barret || c.ref === CharacterRef.Tifa) {
             c.inTeam = true;
           }
-        }
+        });
         break;
       case 5:
         // add redxiii in the team
@@ -216,6 +220,8 @@ export class GameService {
         );
         this.weapons.add(WeaponLoader.build(WeaponRef.FPtShuriken), true);
         break;
+      default:
+      // do nothing
     }
 
     // restore hp & mp
@@ -263,20 +269,20 @@ export class GameService {
     }
 
     // characters
-    for (const c of save.characters.list) {
+    save.characters.list.forEach((c) => {
       const character = CharacterLoader.build(c.ref).load(c);
       this.characters.add(character, c.inTeam);
-    }
+    });
 
     this.characters.hp = save.characters.hp;
     this.characters.mp = save.characters.mp;
     this.characters.limit = save.characters.limit;
 
     // zones
-    for (const z of save.zones.list) {
+    save.zones.list.forEach((z) => {
       const zone = ZoneLoader.build(z.ref).load(z);
       this.zones.add(zone);
-    }
+    });
 
     this.zones.level = save.zones.level;
     this.zones.levelMax = save.zones.levelMax;
@@ -285,22 +291,22 @@ export class GameService {
     this.characters.available(zonelevelMax);
 
     // weapons
-    for (const w of save.weapons) {
+    save.weapons.forEach((w) => {
       const weapon = WeaponLoader.build(w.ref).load(w);
       this.weapons.add(weapon, w.equipped);
-    }
+    });
 
     // materias
-    for (const m of save.materias) {
+    save.materias.forEach((m) => {
       const materia = MateriaLoader.build(m.ref).load(m);
       this.materias.add(materia, m.equipped);
-    }
+    });
 
     // items
-    for (const i of save.items) {
+    save.items.forEach((i) => {
       const item = ItemLoader.build(i.ref).load(i);
       this.items.add(item, i.equipped);
-    }
+    });
 
     this.language = save.language;
     this.difficulty = save.difficulty;

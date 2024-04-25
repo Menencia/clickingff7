@@ -12,6 +12,7 @@ import { Enemies } from 'src/app/models/units/enemies';
 })
 export class ViewGameComponent {
   public characters: Characters;
+
   public enemies: Enemies;
 
   constructor(
@@ -23,8 +24,8 @@ export class ViewGameComponent {
   }
 
   public getLine(character: Character): string {
-    const levelMax = this.gameService.zones.levelMax;
-    return 'Line ' + levelMax + ' ' + character.ref;
+    const { levelMax } = this.gameService.zones;
+    return `Line ${levelMax} ${character.ref}`;
   }
 
   public round(value: number): number {

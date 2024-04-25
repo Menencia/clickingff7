@@ -6,7 +6,9 @@ import { ItemRef } from '../refs/items';
 
 export class Ether extends Item {
   ref = ItemRef.Ether;
+
   name = 'Ether';
+
   price = 70;
 
   available(): boolean {

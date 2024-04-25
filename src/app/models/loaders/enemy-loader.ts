@@ -44,54 +44,7 @@ import { Formula } from '../enemies/zone9/formula';
 import { HellRider } from '../enemies/zone9/hell-rider';
 import { Zemzelett } from '../enemies/zone9/zemzelett';
 import { Enemy } from '../enemy';
-
-export enum EnemyRef {
-  AeroCombatant = 'AeroCombatant',
-  AirBuster = 'AirBuster',
-  Aps = 'Aps',
-  ArkDragon = 'ArkDragon',
-  BloodTaste = 'BloodTaste',
-  Bottomswell = 'Bottomswell',
-  Capparwire = 'Capparwire',
-  Castanets = 'Castanets',
-  Crawler = 'Crawler',
-  Deenglow = 'Deenglow',
-  Eligor = 'Eligor',
-  Elfadunk = 'Elfadunk',
-  FirstRay = 'FirstRay',
-  Formula = 'Formula',
-  Grunt = 'Grunt',
-  GuardHound = 'GuardHound',
-  GuardScorpion = 'GuardScorpion',
-  HedgehogPie = 'HedgehogPie',
-  HeliGunner = 'HeliGunner',
-  HellHouse = 'HellHouse',
-  HellRider = 'HellRider',
-  HundredGunner = 'HundredGunner',
-  KalmFang = 'KalmFang',
-  Levrikon = 'Levrikon',
-  Madouge = 'Madouge',
-  Mandragora = 'Mandragora',
-  MidgarZolom = 'MidgarZolom',
-  MightyGrunt = 'MightyGrunt',
-  MotorBall = 'MotorBall',
-  MP = 'MP',
-  MysteryNinja = 'MysteryNinja',
-  ProtoMachinegun = 'ProtoMachinegun',
-  Reno = 'Reno',
-  Rufus = 'Rufus',
-  SampleH0512 = 'SampleH0512',
-  Smogger = 'Smogger',
-  Soldier3rd = 'Soldier3rd',
-  SpecialCombatant = 'SpecialCombatant',
-  Sweeper = 'Sweeper',
-  SwordDance = 'SwordDance',
-  VargidPolice = 'VargidPolice',
-  Vice = 'Vice',
-  WholeEater = 'WholeEater',
-  Zemzelett = 'Zemzelett',
-  Zenene = 'Zenene',
-}
+import { EnemyRef } from '../refs/enemy';
 
 export class EnemyLoader {
   /**

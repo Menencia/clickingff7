@@ -10,8 +10,11 @@ import { Materia } from 'src/app/models/materia';
 })
 export class ViewMateriaComponent {
   faXmark = faXmark;
+
   faPlus = faPlus;
+
   list: Materia[] = [];
+
   maxMaterias = 0;
 
   constructor(private gameService: GameService) {

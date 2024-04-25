@@ -23,7 +23,9 @@ enum Theme {
 })
 export class UiNavbarComponent {
   @Input() displayNextZone = false;
+
   @Input() displayPhs = false;
+
   @Input() isBattle = false;
 
   theme: string;
@@ -35,7 +37,7 @@ export class UiNavbarComponent {
   ) {
     // default theme
     const theme = localStorage.getItem('theme') as Theme;
-    this.theme = theme ? theme : Theme.Light;
+    this.theme = theme || Theme.Light;
     this.applyTheme();
   }
 

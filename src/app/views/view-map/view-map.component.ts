@@ -10,7 +10,9 @@ import { Zone } from 'src/app/models/zone';
 })
 export class ViewMapComponent {
   current: Zone;
+
   level: number;
+
   list: Zone[];
 
   constructor(

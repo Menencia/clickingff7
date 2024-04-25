@@ -3,8 +3,6 @@ import { Characters } from 'src/app/models/units/characters';
 import { Enemies } from 'src/app/models/units/enemies';
 import { MAX_FIGHTS } from 'src/app/models/zone';
 
-import { AutoFighting } from '../helpers/auto-fighting';
-
 import { GameService } from './game.service';
 
 @Injectable({
@@ -12,16 +10,16 @@ import { GameService } from './game.service';
 })
 export class BattleService {
   public characters: Characters;
+
   public enemies: Enemies;
+
   public isBattle = false;
 
-  public autos: AutoFighting[] = [];
+  public timer!: ReturnType<typeof setTimeout>;
 
   constructor(private gameService: GameService) {
     this.characters = this.gameService.characters;
     this.enemies = new Enemies();
-    // this.autos.push(new AutoFighting(this.characters, this));
-    this.autos.push(new AutoFighting(this.enemies, this));
   }
 
   /**
@@ -31,11 +29,11 @@ export class BattleService {
     if (!this.isBattle) {
       this.isBattle = true;
 
-      const levelSum = this.gameService.characters.levelSum;
+      const { levelSum } = this.gameService.characters;
       const zone = this.gameService.zones.current();
       this.enemies.fightRandom(levelSum, zone, this.gameService.difficulty);
       this.enemies.refresh();
-      this.autos.forEach((auto) => auto.run());
+      this.startFighting();
     }
   }
 
@@ -58,15 +56,27 @@ export class BattleService {
       const nbCharacters = this.gameService.characters.getTeam().length;
       this.enemies.fightBoss(zone, nbCharacters, this.gameService.difficulty);
       this.enemies.refresh();
-      this.autos.forEach((auto) => auto.run());
+      this.startFighting();
     }
+  }
+
+  startFighting(): void {
+    this.timer = setTimeout(() => {
+      this.enemies.getAttackSkill().use(this);
+
+      if (this.characters.isAlive()) {
+        this.startFighting();
+      } else {
+        this.end(false);
+      }
+    }, 1000);
   }
 
   /**
    * Stop fighting
    */
   stopFighting(): void {
-    this.autos.forEach((auto) => auto.stop());
+    clearTimeout(this.timer);
   }
 
   /**
@@ -81,7 +91,7 @@ export class BattleService {
     const characters = this.gameService.characters.getTeam();
     const materias = this.gameService.materias.getEquipped();
 
-    for (const enemy of enemies) {
+    enemies.forEach((enemy) => {
       // Rewards if victory
       if (victory) {
         this.gameService.gils += enemy.gilsReward();
@@ -96,19 +106,19 @@ export class BattleService {
 
         // XP for characters
         const xp = enemy.xpReward();
-        for (const character of characters) {
+        characters.forEach((character) => {
           character.setXp(xp);
-        }
+        });
 
         // AP for materias
         const ap = enemy.apReward();
-        for (const materia of materias) {
+        materias.forEach((materia) => {
           materia.setAp(ap);
-        }
+        });
 
         this.gameService.zones.current().nbFights += 1;
       }
-    }
+    });
 
     this.enemies.remove();
     this.enemies.refresh();

@@ -8,16 +8,16 @@ export class PipeTimePipe implements PipeTransform {
     let res = '';
     const hours = Math.floor(elapsed / 3600);
     res += hours;
-    elapsed -= hours * 3600;
+    const leftTime = elapsed - hours * 3600;
 
-    const minutes = Math.floor(elapsed / 60);
+    const minutes = Math.floor(leftTime / 60);
     res += ':';
     if (minutes < 10) {
       res += '0';
     }
     res += minutes;
 
-    const seconds = elapsed - minutes * 60;
+    const seconds = leftTime - minutes * 60;
     res += ':';
     if (seconds < 10) {
       res += '0';

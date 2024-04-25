@@ -5,18 +5,29 @@ import { Weapon } from './weapon';
 
 export abstract class Character {
   abstract ref: CharacterRef;
+
   level: number;
+
   xp: number;
+
   isNotAvailable: boolean;
+
   inTeam: boolean;
 
   abstract name: string;
+
   abstract image: string;
+
   abstract weaponType: string;
+
   abstract weapon: Weapon;
+
   abstract hpBase: number;
+
   abstract mpBase: number;
+
   abstract xpBase: number;
+
   abstract notA: number[];
 
   constructor() {
@@ -51,13 +62,7 @@ export abstract class Character {
    * Returns true if the character is available in the levelMax
    */
   notAvailable(zonelevelMax: number): boolean {
-    const t = this.notA;
-    for (const i of t) {
-      if (i === zonelevelMax) {
-        return true;
-      }
-    }
-    return false;
+    return this.notA.includes(zonelevelMax);
   }
 
   /**

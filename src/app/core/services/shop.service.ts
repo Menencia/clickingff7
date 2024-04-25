@@ -14,10 +14,10 @@ import { Weapon } from 'src/app/models/weapon';
 })
 export class ShopService {
   weapons: Weapon[] = [];
-  materias: Materia[] = [];
-  items: Item[] = [];
 
-  constructor() {}
+  materias: Materia[] = [];
+
+  items: Item[] = [];
 
   refresh(levelMax: number): void {
     this.weapons = [];
@@ -38,12 +38,12 @@ export class ShopService {
       WeaponRef.FullMetalStaff,
       // 'FPtShuriken'
     ];
-    for (const w of weapons) {
+    weapons.forEach((w) => {
       const weapon = WeaponLoader.build(w);
       if (weapon.zoneAvailable <= levelMax) {
         this.weapons.push(weapon);
       }
-    }
+    });
 
     const materias = [
       MateriaRef.Restore,
@@ -54,12 +54,12 @@ export class ShopService {
       MateriaRef.Earth,
       MateriaRef.ChocoMog,
     ];
-    for (const m of materias) {
+    materias.forEach((m) => {
       const materia = MateriaLoader.build(m);
       if (materia.zoneAvailable <= levelMax) {
         this.materias.push(materia);
       }
-    }
+    });
 
     const items = [
       ItemRef.Potion,
@@ -67,11 +67,11 @@ export class ShopService {
       ItemRef.HiPotion,
       ItemRef.HiEther,
     ];
-    for (const i of items) {
+    items.forEach((i) => {
       const item = ItemLoader.build(i);
       if (item.available(levelMax)) {
         this.items.push(item);
       }
-    }
+    });
   }
 }

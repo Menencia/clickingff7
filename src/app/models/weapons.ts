@@ -35,10 +35,10 @@ export class Weapons {
    * Export all weapons
    */
   export(): WeaponSave[] {
-    const json = [];
-    for (const w of this.list) {
+    const json: WeaponSave[] = [];
+    this.list.forEach((w) => {
       json.push(w.export());
-    }
+    });
     return json;
   }
 }

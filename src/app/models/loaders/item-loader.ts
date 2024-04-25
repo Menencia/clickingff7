@@ -25,7 +25,7 @@ export class ItemLoader {
         item = new Potion();
         break;
       default:
-        throw new Error('Item not found: ' + ref);
+        throw new Error(`Item not found: ${ref}`);
     }
     return item;
   }

@@ -10,13 +10,19 @@ import { MAX_FIGHTS, Zone } from '../zone';
 
 export class Enemies extends Units {
   list: Enemy[];
+
   arrHits: number[];
+
   timer: number;
 
   hits: number;
+
   hp: number;
+
   hpMax: number;
+
   resistance: string[];
+
   weakness: string[];
 
   source = {
@@ -42,13 +48,14 @@ export class Enemies extends Units {
   /**
    * Fight against a random enemy
    */
-  fightRandom(levelSum: number, zone: Zone, difficulty: number): Enemy[] {
+  fightRandom(levelSumBase: number, zone: Zone, difficulty: number): Enemy[] {
     let range;
     range = Math.floor((zone.nbFights / MAX_FIGHTS) * 4);
     range = Math.min(range, 3);
 
     const enemy = zone.enemies[random(0, range)];
 
+    let levelSum = levelSumBase;
     if (enemy.miboss) {
       levelSum *= 1.2;
     }
@@ -82,14 +89,13 @@ export class Enemies extends Units {
     this.weakness = [];
     this.resistance = [];
 
-    const enemies = this.list;
-    for (const enemy of enemies) {
+    this.list.forEach((enemy) => {
       // HP
       this.hpMax += enemy.getHpMax();
       this.hits += enemy.getHits();
       this.weakness = [...new Set([...this.weakness, ...enemy.weakness])];
       this.resistance = [...new Set([...this.resistance, ...enemy.resistance])];
-    }
+    });
 
     this.hp = this.hpMax;
   }
@@ -119,7 +125,9 @@ export class Enemies extends Units {
   /**
    * Enemies are under manual attack
    */
-  getAttacked(hits: number, context: ItActionAttack): void {
+  getAttacked(baseHits: number, context: ItActionAttack): void {
+    let hits = baseHits;
+
     // weakness
     if (this.hasWeakness(context.type)) {
       hits *= 3;

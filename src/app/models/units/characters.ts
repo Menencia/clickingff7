@@ -12,18 +12,31 @@ export const MAX_TEAM = 3;
 
 export class Characters extends Units {
   list: Character[];
+
   arrHits: number[];
+
   selected: Character;
+
   hits: number;
+
   hp: number;
+
   hpMax: number;
+
   mp: number;
+
   mpMax: number;
+
   limit: number;
+
   limitMax: number;
+
   levelMax: number;
+
   levelSum: number;
+
   weakness: string[];
+
   resistance: string[];
 
   source = {
@@ -40,7 +53,8 @@ export class Characters extends Units {
     this.arrHits = [];
 
     // current selected character in menus
-    this.selected = this.list[0];
+    const [first] = this.list;
+    this.selected = first;
 
     // Init
     this.hits = 0;
@@ -96,13 +110,12 @@ export class Characters extends Units {
   getMaxMaterias(): number {
     let maxMaterias = 0;
 
-    const characters = this.getTeam();
-    for (const character of characters) {
+    this.getTeam().forEach((character) => {
       // max materias
       if (character.weapon) {
         maxMaterias += character.weapon.maxMaterias;
       }
-    }
+    });
     return maxMaterias;
   }
 
@@ -118,8 +131,7 @@ export class Characters extends Units {
     this.levelMax = 0;
     this.levelSum = 0;
 
-    const characters = this.getTeam();
-    for (const character of characters) {
+    this.getTeam().forEach((character) => {
       // Level
       if (character.level > this.levelMax) {
         this.levelMax = character.level;
@@ -132,7 +144,7 @@ export class Characters extends Units {
       this.levelSum += character.level;
 
       this.hits += character.getHits();
-    }
+    });
 
     this.limitMax = (2 * this.hpMax) / 3;
 
@@ -151,31 +163,28 @@ export class Characters extends Units {
    * Remove characters from the team if not available
    */
   available(zonelevelMax: number): void {
-    for (const c of this.list) {
+    this.list.forEach((c) => {
       if (c.notAvailable(zonelevelMax)) {
         c.isNotAvailable = true;
         c.inTeam = false;
       } else {
         c.isNotAvailable = false;
       }
-    }
+    });
   }
 
   /**
    * Select a character in menus
    */
   select(character: null | Character = null): void {
-    if (!character) {
-      character = this.getTeam()[0];
-    }
-    this.selected = character;
+    this.selected = character || this.getTeam()[0];
   }
 
   /**
    * Get total characters hits
    */
   getAttackSkill(): ItActionAttack {
-    const hits = this.hits;
+    const { hits } = this;
     let pwr = 100;
 
     // limit
@@ -215,7 +224,9 @@ export class Characters extends Units {
   /**
    * Characters are under attack
    */
-  getAttacked(hits: number, context: ItActionAttack): void {
+  getAttacked(baseHits: number, context: ItActionAttack): void {
+    let hits = baseHits;
+
     // weakness
     if (this.hasWeakness(context.type)) {
       hits *= 3;
@@ -292,9 +303,9 @@ export class Characters extends Units {
     };
 
     res.list = [];
-    for (const c of this.list) {
+    this.list.forEach((c) => {
       res.list.push(c.export());
-    }
+    });
 
     return res;
   }

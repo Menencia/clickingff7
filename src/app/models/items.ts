@@ -3,6 +3,7 @@ import { ItemSave } from './save';
 
 export class Items {
   list: Item[];
+
   equipped: boolean;
 
   /**
@@ -44,10 +45,10 @@ export class Items {
    * Export all items
    */
   export(): ItemSave[] {
-    const json = [];
-    for (const i of this.list) {
+    const json: ItemSave[] = [];
+    this.list.forEach((i) => {
       json.push(i.export());
-    }
+    });
     return json;
   }
 }
