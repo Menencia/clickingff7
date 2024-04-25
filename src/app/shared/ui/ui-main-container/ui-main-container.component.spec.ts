@@ -8,7 +8,7 @@ describe('UiMainContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UiMainContainerComponent],
+      imports: [UiMainContainerComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UiMainContainerComponent);

@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { SharedModule } from 'src/app/shared/shared.module';
 
 import { ViewMapComponent } from './view-map.component';
 
@@ -10,8 +9,7 @@ describe('ViewMapComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ViewMapComponent],
-      imports: [TranslateModule.forRoot(), SharedModule],
+      imports: [ViewMapComponent, TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewMapComponent);

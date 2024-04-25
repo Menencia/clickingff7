@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 
 import { UiNavbarComponent } from './ui-navbar.component';
@@ -9,8 +10,8 @@ describe('UiNavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UiNavbarComponent],
-      imports: [TranslateModule.forRoot()],
+      imports: [UiNavbarComponent, TranslateModule.forRoot()],
+      providers: [provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UiNavbarComponent);

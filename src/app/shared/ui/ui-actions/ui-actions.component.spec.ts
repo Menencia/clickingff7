@@ -9,8 +9,7 @@ describe('UiActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UiActionsComponent],
-      imports: [TranslateModule.forRoot()],
+      imports: [UiActionsComponent, TranslateModule.forRoot()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UiActionsComponent);

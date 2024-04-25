@@ -8,7 +8,7 @@ describe('UiLayoutDefaultComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UiLayoutDefaultComponent],
+      imports: [UiLayoutDefaultComponent],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UiLayoutDefaultComponent);
