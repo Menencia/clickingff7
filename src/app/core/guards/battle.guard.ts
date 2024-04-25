@@ -4,16 +4,16 @@ import { Observable } from 'rxjs';
 import { BattleService } from '../services/battle.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class BattleGuard  {
+export class BattleGuard {
+  constructor(public battleService: BattleService) {}
 
-  constructor(
-    public battleService: BattleService
-  ) {}
-
-  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate():
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
     return !this.battleService.isBattle;
   }
-
 }

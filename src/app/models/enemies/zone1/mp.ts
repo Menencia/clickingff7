@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class Mp extends Enemy {
-
   name = 'MP';
   image = '/assets/images/enemies/zone1/mp.png';
   baseHpMax = 2;
@@ -10,5 +9,4 @@ export class Mp extends Enemy {
   baseAp = 1;
   baseGils = 3;
   override weakness = ['ice'];
-
 }

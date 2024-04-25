@@ -1,5 +1,5 @@
-import { BattleService } from "../services/battle.service";
+import { BattleService } from '../services/battle.service';
 
 export interface ItAction {
-  use: (battleService: BattleService) => void
+  use: (battleService: BattleService) => void;
 }

@@ -4,7 +4,6 @@ import { ItemRef } from '../refs/items';
 import { ItAction } from 'src/app/core/interfaces/it-action';
 
 export class Ether extends Item {
-
   ref = ItemRef.Ether;
   name = 'Ether';
   price = 70;
@@ -14,16 +13,17 @@ export class Ether extends Item {
   }
 
   canUse(battleService: BattleService): boolean {
-    return (battleService.characters.mp < battleService.characters.mpMax);
+    return battleService.characters.mp < battleService.characters.mpMax;
   }
 
   getSkill(battleService: BattleService): ItAction[] {
     const action: ItAction = {
       use() {
-        battleService.characters.addMp(Math.ceil(.33 * battleService.characters.mpMax));
-      }
+        battleService.characters.addMp(
+          Math.ceil(0.33 * battleService.characters.mpMax),
+        );
+      },
     };
     return [action];
   }
-
 }

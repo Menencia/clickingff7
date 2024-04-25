@@ -11,7 +11,6 @@ import { Zone8 } from '../zones/zone8';
 import { Zone9 } from '../zones/zone9';
 
 export class ZoneLoader {
-
   /**
    *
    */
@@ -89,5 +88,4 @@ export class ZoneLoader {
     }
     return zone;
   }
-
 }

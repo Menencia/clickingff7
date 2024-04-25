@@ -4,16 +4,16 @@ import { Observable } from 'rxjs';
 import { GameService } from '../services/game.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-export class ZoneGuard  {
+export class ZoneGuard {
+  constructor(public gameService: GameService) {}
 
-  constructor(
-    public gameService: GameService
-  ) {}
-
-  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate():
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
     return this.gameService.zones.levelMax >= 5;
   }
-
 }

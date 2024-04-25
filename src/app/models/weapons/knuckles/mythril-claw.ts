@@ -2,7 +2,6 @@ import { WeaponRef } from '../../refs/weapons';
 import { Weapon } from '../../weapon';
 
 export class MythrilClaw extends Weapon {
-
   ref = WeaponRef.MythrilClaw;
   name = 'Mythril Claw';
   type = 'knuckle';
@@ -10,5 +9,4 @@ export class MythrilClaw extends Weapon {
   price = 1100;
   maxMaterias = 1;
   zoneAvailable = 7;
-
 }

@@ -6,10 +6,9 @@ import { MAX_TEAM } from 'src/app/models/units/characters';
 @Component({
   selector: 'app-view-phs',
   templateUrl: './view-phs.component.html',
-  styleUrls: ['./view-phs.component.scss']
+  styleUrls: ['./view-phs.component.scss'],
 })
 export class ViewPhsComponent {
-
   team: Character[];
   backup: Character[];
 
@@ -50,5 +49,4 @@ export class ViewPhsComponent {
     this.team = this.gameService.characters.getTeam();
     this.backup = this.gameService.characters.getBackup();
   }
-
 }

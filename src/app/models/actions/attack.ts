@@ -3,14 +3,13 @@ import { BattleService } from '../../core/services/battle.service';
 import { random } from '../../utils';
 
 export class Attack implements ItAction {
-
   public critical = false;
 
-   constructor(
+  constructor(
     public baseHits: number,
     public pwr: number,
-    public type: string[] = []
-  ) { }
+    public type: string[] = [],
+  ) {}
 
   /** Calculate raw damages */
   calculateHits(): number {
@@ -32,5 +31,4 @@ export class Attack implements ItAction {
   use(battleService: BattleService): void {
     battleService.enemies.getAttacked(this.calculateHits(), this);
   }
-
 }

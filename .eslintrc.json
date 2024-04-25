@@ -61,8 +61,7 @@
         "no-restricted-syntax": "off",
         "no-unneeded-ternary": "off",
         "prefer-destructuring": "off",
-        "prefer-template": "off",
-        "prettier/prettier": "off"
+        "prefer-template": "off"
 
       }
     },

@@ -8,7 +8,6 @@ import { Units } from '../units';
 import { MAX_FIGHTS, Zone } from '../zone';
 
 export class Enemies extends Units {
-
   list: Enemy[];
   arrHits: number[];
   timer: number;
@@ -20,7 +19,7 @@ export class Enemies extends Units {
   weakness: string[];
 
   source = {
-    hp: new Subject<ItDisplayHits>() // health points
+    hp: new Subject<ItDisplayHits>(), // health points
   };
 
   /**
@@ -43,7 +42,6 @@ export class Enemies extends Units {
    * Fight against a random enemy
    */
   fightRandom(levelSum: number, zone: Zone, difficulty: number): Enemy[] {
-
     let range;
     range = Math.floor((zone.nbFights / MAX_FIGHTS) * 4);
     range = Math.min(range, 3);
@@ -65,9 +63,8 @@ export class Enemies extends Units {
    * Fight against the zone boss
    */
   fightBoss(zone: Zone, nbCharacters: number, difficulty: number): void {
-
     const enemies = zone.boss;
-    enemies.forEach(e => {
+    enemies.forEach((e) => {
       e.toLevel(zone.level * (nbCharacters + 1) * 3 * 1.4, difficulty);
     });
 
@@ -122,7 +119,6 @@ export class Enemies extends Units {
    * Enemies are under manual attack
    */
   getAttacked(hits: number, context: ItActionAttack): void {
-
     // weakness
     if (this.hasWeakness(context.type)) {
       hits *= 3;
@@ -150,21 +146,21 @@ export class Enemies extends Units {
    * Returns true if the enemy has this type in weakness
    */
   hasWeakness(types: string[]): boolean {
-    return this.weakness.filter(x => types.includes(x)).length > 0;
+    return this.weakness.filter((x) => types.includes(x)).length > 0;
   }
 
   /**
    * Returns true if the enemy has this type in weakness
    */
   hasResistance(types: string[]): boolean {
-    return this.resistance.filter(x => types.includes(x)).length > 0;
+    return this.resistance.filter((x) => types.includes(x)).length > 0;
   }
 
   /**
    * Returns in pixels enemy bar width
    */
   hpProgress(pixelsMax: number): number {
-    return this.hp / this.hpMax * pixelsMax;
+    return (this.hp / this.hpMax) * pixelsMax;
   }
 
   /**

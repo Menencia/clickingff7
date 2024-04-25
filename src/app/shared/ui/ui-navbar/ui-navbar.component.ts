@@ -6,7 +6,10 @@ import { helpData } from 'src/app/models/help';
 
 // declare this to by pass typescript error
 // can put this in index.d.ts file
-declare const introJs: () => { setOptions: (data: unknown) => void, start: () => void };
+declare const introJs: () => {
+  setOptions: (data: unknown) => void;
+  start: () => void;
+};
 
 enum Theme {
   Light = 'light',
@@ -16,10 +19,9 @@ enum Theme {
 @Component({
   selector: 'app-ui-navbar',
   templateUrl: './ui-navbar.component.html',
-  styleUrls: ['./ui-navbar.component.scss']
+  styleUrls: ['./ui-navbar.component.scss'],
 })
 export class UiNavbarComponent {
-
   @Input() displayNextZone = false;
   @Input() displayPhs = false;
   @Input() isBattle = false;
@@ -29,11 +31,11 @@ export class UiNavbarComponent {
   constructor(
     @Inject(DOCUMENT) private document: Document,
     public translateService: TranslateService,
-    public router: Router
+    public router: Router,
   ) {
     // default theme
     const theme = localStorage.getItem('theme') as Theme;
-    this.theme = theme ? theme: Theme.Light;
+    this.theme = theme ? theme : Theme.Light;
     this.applyTheme();
   }
 
@@ -42,7 +44,7 @@ export class UiNavbarComponent {
     this.applyTheme();
   }
 
-    // Show help
+  // Show help
   help(): void {
     if (!this.isBattle) {
       this.router.navigateByUrl('game');

@@ -5,12 +5,11 @@ import { BattleService } from './core/services/battle.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-
   constructor(
     public gameService: GameService,
-    public battleService: BattleService
-  ) { }
+    public battleService: BattleService,
+  ) {}
 }

@@ -8,16 +8,15 @@ import { Enemies } from 'src/app/models/units/enemies';
 @Component({
   selector: 'app-view-game',
   templateUrl: './view-game.component.html',
-  styleUrls: ['./view-game.component.scss']
+  styleUrls: ['./view-game.component.scss'],
 })
 export class ViewGameComponent {
-
   public characters: Characters;
   public enemies: Enemies;
 
   constructor(
     private gameService: GameService,
-    private battleService: BattleService
+    private battleService: BattleService,
   ) {
     this.characters = this.gameService.characters;
     this.enemies = this.battleService.enemies;

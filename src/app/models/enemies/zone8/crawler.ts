@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class Crawler extends Enemy {
-
   name = 'Crawler';
   image = '/assets/images/enemies/zone8/crawler.png';
   baseHpMax = 1;
@@ -10,5 +9,4 @@ export class Crawler extends Enemy {
   baseAp = 1;
   baseGils = 2;
   override weakness = ['fire'];
-
 }

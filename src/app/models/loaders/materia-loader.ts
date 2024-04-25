@@ -9,7 +9,6 @@ import { ChocoMog } from '../materias/red/choco-mog';
 import { MateriaRef } from '../refs/materias';
 
 export class MateriaLoader {
-
   /**
    *
    */
@@ -42,5 +41,4 @@ export class MateriaLoader {
     }
     return materia;
   }
-
 }

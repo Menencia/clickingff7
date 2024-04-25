@@ -4,7 +4,6 @@ import { Zone } from './zone';
 export const MAX_ZONES = 9;
 
 export class Zones {
-
   list: Zone[];
   level: number;
   levelMax: number;
@@ -43,7 +42,7 @@ export class Zones {
   getAll(): Zone[] {
     const zoneLvlMax = this.levelMax;
     return this.list.filter((z: Zone) => {
-      return (z.level <= zoneLvlMax);
+      return z.level <= zoneLvlMax;
     });
   }
 
@@ -53,7 +52,7 @@ export class Zones {
   getOthers(): Zone[] {
     const level = this.level;
     return this.list.filter((z) => {
-      return (z.level !== level);
+      return z.level !== level;
     });
   }
 
@@ -77,7 +76,7 @@ export class Zones {
    * Get the current zone
    */
   current(): Zone {
-    const zone = this.list.find(e => e.level === this.level);
+    const zone = this.list.find((e) => e.level === this.level);
 
     if (!zone) {
       throw new Error('Zone not found');
@@ -104,7 +103,7 @@ export class Zones {
     const json: ZonesSave = {
       level: this.level,
       levelMax: this.levelMax,
-      list: []
+      list: [],
     };
 
     for (const z of this.list) {
@@ -115,5 +114,4 @@ export class Zones {
 
     return json;
   }
-
 }

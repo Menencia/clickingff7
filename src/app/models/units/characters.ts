@@ -10,7 +10,6 @@ import { Units } from '../units';
 export const MAX_TEAM = 3;
 
 export class Characters extends Units {
-
   list: Character[];
   arrHits: number[];
   selected: Character;
@@ -83,14 +82,14 @@ export class Characters extends Units {
    * Returns the in-team characters
    */
   getTeam(): Character[] {
-    return this.list.filter(e => e.inTeam && !e.isNotAvailable);
+    return this.list.filter((e) => e.inTeam && !e.isNotAvailable);
   }
 
   /**
    * Returns the backup (not in team) characters
    */
   getBackup(): Character[] {
-    return this.list.filter(e => !e.inTeam && !e.isNotAvailable);
+    return this.list.filter((e) => !e.inTeam && !e.isNotAvailable);
   }
 
   getMaxMaterias(): number {
@@ -107,8 +106,8 @@ export class Characters extends Units {
   }
 
   /*
-  * Refresh characters stats
-  */
+   * Refresh characters stats
+   */
   refresh(): void {
     this.hpMax = 0;
     this.mpMax = 0;
@@ -134,7 +133,7 @@ export class Characters extends Units {
       this.hits += character.getHits();
     }
 
-    this.limitMax = 2 * this.hpMax / 3;
+    this.limitMax = (2 * this.hpMax) / 3;
 
     if (this.hp > this.hpMax) {
       this.hp = this.hpMax;
@@ -164,7 +163,7 @@ export class Characters extends Units {
   /**
    * Select a character in menus
    */
-  select(character: null|Character = null): void {
+  select(character: null | Character = null): void {
     if (!character) {
       character = this.getTeam()[0];
     }
@@ -191,21 +190,21 @@ export class Characters extends Units {
    * Returns in pixels characters hp bar width
    */
   hpProgress(pixelsMax: number): number {
-    return this.hp / this.hpMax * pixelsMax;
+    return (this.hp / this.hpMax) * pixelsMax;
   }
 
   /**
    * Returns in pixels characters mp bar width
    */
   mpProgress(pixelsMax: number): number {
-    return this.mp / this.mpMax * pixelsMax;
+    return (this.mp / this.mpMax) * pixelsMax;
   }
 
   /**
    * Returns in pixels characters hp bar width
    */
   limitProgress(pixelsMax: number): number {
-    return this.limit / this.limitMax * pixelsMax;
+    return (this.limit / this.limitMax) * pixelsMax;
   }
 
   autoFighting(): ItActionAttack {
@@ -216,7 +215,6 @@ export class Characters extends Units {
    * Characters are under attack
    */
   getAttacked(hits: number, context: ItActionAttack): void {
-
     // weakness
     if (this.hasWeakness(context.type)) {
       hits *= 3;
@@ -286,10 +284,10 @@ export class Characters extends Units {
    */
   export(): CharactersSave {
     const res: CharactersSave = {
-      hp   : this.hp,
-      mp   : this.mp,
+      hp: this.hp,
+      mp: this.mp,
       limit: this.limit,
-      list: []
+      list: [],
     };
 
     res.list = [];
@@ -299,5 +297,4 @@ export class Characters extends Units {
 
     return res;
   }
-
 }

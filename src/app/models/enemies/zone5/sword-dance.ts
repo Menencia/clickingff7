@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class SwordDance extends Enemy {
-
   name = 'Sword Dance';
   image = '/assets/images/enemies/zone5/sword-dance.png';
   baseHpMax = 1;
@@ -10,5 +9,4 @@ export class SwordDance extends Enemy {
   baseAp = 1;
   baseGils = 0;
   override weakness = ['bolt'];
-
 }

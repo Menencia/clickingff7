@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class MotorBall extends Enemy {
-
   name = 'MotorBall';
   image = '/assets/images/enemies/zone6/motor-ball.png';
   baseHpMax = 5;
@@ -11,5 +10,4 @@ export class MotorBall extends Enemy {
   baseGils = 5;
   override weakness = ['bolt'];
   override boss = true;
-
 }

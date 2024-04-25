@@ -8,7 +8,6 @@ import { Yuffie } from '../characters/yuffie';
 import { CharacterRef } from '../refs/characters';
 
 export class CharacterLoader {
-
   /**
    *
    */
@@ -38,5 +37,4 @@ export class CharacterLoader {
     }
     return character;
   }
-
 }

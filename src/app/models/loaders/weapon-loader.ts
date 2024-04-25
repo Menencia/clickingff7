@@ -15,7 +15,6 @@ import { GuardStick } from '../weapons/staves/guard-stick';
 import { MythrilRod } from '../weapons/staves/mythril-rod';
 
 export class WeaponLoader {
-
   /**
    *
    */
@@ -66,5 +65,4 @@ export class WeaponLoader {
     }
     return weapon;
   }
-
 }

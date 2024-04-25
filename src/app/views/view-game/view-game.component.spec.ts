@@ -10,10 +10,9 @@ describe('ViewGameComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewGameComponent ],
-      imports: [ TranslateModule.forRoot(), SharedModule ]
-    })
-    .compileComponents();
+      declarations: [ViewGameComponent],
+      imports: [TranslateModule.forRoot(), SharedModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ViewGameComponent);
     component = fixture.componentInstance;

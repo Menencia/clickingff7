@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class Mandragora extends Enemy {
-
   name = 'Mandragora';
   image = '/assets/images/enemies/zone7/mandragora.png';
   baseHpMax = 1;
@@ -10,5 +9,4 @@ export class Mandragora extends Enemy {
   baseAp = 3;
   baseGils = 0;
   override weakness = ['fire'];
-
 }

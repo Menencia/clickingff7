@@ -6,11 +6,10 @@ import { Potion } from '../items/potion';
 import { ItemRef } from '../refs/items';
 
 export class ItemLoader {
-
   /**
    * Build by reference
    */
-    static build(ref: ItemRef): Item {
+  static build(ref: ItemRef): Item {
     let item;
     switch (ref) {
       case ItemRef.Ether:
@@ -30,5 +29,4 @@ export class ItemLoader {
     }
     return item;
   }
-
 }

@@ -10,15 +10,14 @@ import { WeaponRef } from 'src/app/models/refs/weapons';
 import { Weapon } from 'src/app/models/weapon';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ShopService {
-
   weapons: Weapon[] = [];
   materias: Materia[] = [];
   items: Item[] = [];
 
-  constructor() { }
+  constructor() {}
 
   refresh(levelMax: number): void {
     this.weapons = [];
@@ -75,5 +74,4 @@ export class ShopService {
       }
     }
   }
-
 }

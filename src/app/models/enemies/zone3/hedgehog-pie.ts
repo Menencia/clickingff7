@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class HedgehogPie extends Enemy {
-
   name = 'Hedgehog Pie';
   image = '/assets/images/enemies/zone3/hedgehog-pie.png';
   baseHpMax = 3;
@@ -10,5 +9,4 @@ export class HedgehogPie extends Enemy {
   baseAp = 2;
   baseGils = 1;
   override weakness = ['bolt'];
-
 }

@@ -10,10 +10,9 @@ describe('ViewMapComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewMapComponent ],
-      imports: [ TranslateModule.forRoot(), SharedModule ]
-    })
-    .compileComponents();
+      declarations: [ViewMapComponent],
+      imports: [TranslateModule.forRoot(), SharedModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ViewMapComponent);
     component = fixture.componentInstance;

@@ -25,14 +25,13 @@ const BASE_GILS = 200;
 export enum Difficulty {
   Easy = 1,
   Normal = 2,
-  Hard = 3
+  Hard = 3,
 }
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GameService {
-
   /** time counter */
   timer: number;
 
@@ -138,8 +137,8 @@ export class GameService {
   }
 
   /*
-    * Basic inventory
-    */
+   * Basic inventory
+   */
   buildLevel(level: number): void {
     // build zone
     const z = ZoneLoader.buildByLevel(level);
@@ -154,11 +153,17 @@ export class GameService {
     switch (level) {
       case 1:
         // add cloud in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Cloud).setLevel(levelMax), true);
+        this.characters.add(
+          CharacterLoader.build(CharacterRef.Cloud).setLevel(levelMax),
+          true,
+        );
         this.weapons.add(WeaponLoader.build(WeaponRef.BusterSword), true);
 
         // add barret in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Barret).setLevel(levelMax), true);
+        this.characters.add(
+          CharacterLoader.build(CharacterRef.Barret).setLevel(levelMax),
+          true,
+        );
         this.weapons.add(WeaponLoader.build(WeaponRef.GatlingGun), true);
 
         // add materias
@@ -172,12 +177,18 @@ export class GameService {
         break;
       case 2:
         // add tifa in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Tifa).setLevel(levelMax), true);
+        this.characters.add(
+          CharacterLoader.build(CharacterRef.Tifa).setLevel(levelMax),
+          true,
+        );
         this.weapons.add(WeaponLoader.build(WeaponRef.LeatherGlove), true);
         break;
       case 3:
         // add aerith in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Aerith).setLevel(levelMax), true);
+        this.characters.add(
+          CharacterLoader.build(CharacterRef.Aerith).setLevel(levelMax),
+          true,
+        );
         this.weapons.add(WeaponLoader.build(WeaponRef.GuardStick), true);
         break;
       case 4:
@@ -190,12 +201,18 @@ export class GameService {
         break;
       case 5:
         // add redxiii in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.RedXIII).setLevel(levelMax), false);
+        this.characters.add(
+          CharacterLoader.build(CharacterRef.RedXIII).setLevel(levelMax),
+          false,
+        );
         this.weapons.add(WeaponLoader.build(WeaponRef.MythrilClip), true);
         break;
       case 9:
         // add yuffie in the team
-        this.characters.add(CharacterLoader.build(CharacterRef.Yuffie).setLevel(levelMax), false);
+        this.characters.add(
+          CharacterLoader.build(CharacterRef.Yuffie).setLevel(levelMax),
+          false,
+        );
         this.weapons.add(WeaponLoader.build(WeaponRef.FPtShuriken), true);
         break;
     }
@@ -224,15 +241,15 @@ export class GameService {
   export(): Save {
     return {
       characters: this.characters.export(),
-      zones     : this.zones.export(),
-      weapons   : this.weapons.export(),
-      materias  : this.materias.export(),
-      items     : this.items.export(),
-      gils      : this.gils,
-      language  : this.language,
+      zones: this.zones.export(),
+      weapons: this.weapons.export(),
+      materias: this.materias.export(),
+      items: this.items.export(),
+      gils: this.gils,
+      language: this.language,
       difficulty: this.difficulty,
-      time      : this.time,
-      version   : this.version
+      time: this.time,
+      version: this.version,
     };
   }
 
@@ -310,10 +327,9 @@ export class GameService {
   /**
    * Remove the COOKIE & reset the game
    */
-   reset(): void {
+  reset(): void {
     this.saves = [];
 
     localStorage.removeItem(SAVE_1);
   }
-
 }

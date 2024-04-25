@@ -8,7 +8,7 @@ describe('ZoneGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ TranslateModule.forRoot() ]
+      imports: [TranslateModule.forRoot()],
     });
     guard = TestBed.inject(ZoneGuard);
   });

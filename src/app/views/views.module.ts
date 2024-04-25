@@ -19,7 +19,7 @@ import { ViewGameModule } from './view-game/view-game.module';
     // ViewItemsModule,
     // ViewEquipModule,
     // ViewConfigModule,
-    ViewGameModule
-  ]
+    ViewGameModule,
+  ],
 })
-export class ViewsModule { }
+export class ViewsModule {}

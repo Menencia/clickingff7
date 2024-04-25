@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class SpecialCombatant extends Enemy {
-
   name = 'Special Combatant';
   image = '/assets/images/enemies/zone2/special-combatant.png';
   baseHpMax = 3;
@@ -10,5 +9,4 @@ export class SpecialCombatant extends Enemy {
   baseAp = 1;
   baseGils = 5;
   override weakness = ['bolt'];
-
 }

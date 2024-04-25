@@ -2,7 +2,6 @@ import { Materia } from './materia';
 import { MateriaSave } from './save';
 
 export class Materias {
-
   list: Materia[];
 
   /**
@@ -24,14 +23,14 @@ export class Materias {
    * Returns equipped materias
    */
   getEquipped(): Materia[] {
-    return this.list.filter(e => e.equipped);
+    return this.list.filter((e) => e.equipped);
   }
 
   /**
    * Get unequipped materias
    */
   getUnequipped(): Materia[] {
-    return this.list.filter(e => !e.equipped);
+    return this.list.filter((e) => !e.equipped);
   }
 
   refresh(maxMaterias: number): void {
@@ -57,5 +56,4 @@ export class Materias {
     }
     return json;
   }
-
 }

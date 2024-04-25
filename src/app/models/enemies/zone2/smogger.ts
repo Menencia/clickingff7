@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class Smogger extends Enemy {
-
   name = 'Smogger';
   image = '/assets/images/enemies/zone2/smogger.png';
   baseHpMax = 4;
@@ -10,5 +9,4 @@ export class Smogger extends Enemy {
   baseAp = 1;
   baseGils = 3;
   override weakness = ['bolt'];
-
 }

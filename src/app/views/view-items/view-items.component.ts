@@ -5,10 +5,9 @@ import { Item, MAX_ITEMS } from 'src/app/models/item';
 @Component({
   selector: 'app-view-items',
   templateUrl: './view-items.component.html',
-  styleUrls: ['./view-items.component.scss']
+  styleUrls: ['./view-items.component.scss'],
 })
 export class ViewItemsComponent {
-
   MAX_ITEMS = MAX_ITEMS;
   list: Item[] = [];
 
@@ -21,7 +20,9 @@ export class ViewItemsComponent {
   }
 
   canEquipItem(item: Item): boolean {
-    return !item.equipped && this.gameService.items.getEquipped().length < MAX_ITEMS;
+    return (
+      !item.equipped && this.gameService.items.getEquipped().length < MAX_ITEMS
+    );
   }
 
   equipItem(item: Item): void {
@@ -31,5 +32,4 @@ export class ViewItemsComponent {
   unequipItem(item: Item): void {
     item.equipped = false;
   }
-
 }

@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class FirstRay extends Enemy {
-
   name = '1st Ray';
   image = '/assets/images/enemies/zone1/1st-ray.png';
   baseHpMax = 2;
@@ -10,5 +9,4 @@ export class FirstRay extends Enemy {
   baseAp = 1;
   baseGils = 5;
   override weakness = ['bolt'];
-
 }

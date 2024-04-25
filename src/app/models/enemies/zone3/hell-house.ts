@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class HellHouse extends Enemy {
-
   name = 'Hell House';
   image = '/assets/images/enemies/zone3/hell-house.png';
   baseHpMax = 4;
@@ -10,5 +9,4 @@ export class HellHouse extends Enemy {
   baseAp = 2;
   baseGils = 2;
   override weakness = ['ice'];
-
 }

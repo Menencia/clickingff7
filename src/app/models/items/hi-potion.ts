@@ -4,7 +4,6 @@ import { ItemRef } from '../refs/items';
 import { ItAction } from 'src/app/core/interfaces/it-action';
 
 export class HiPotion extends Item {
-
   ref = ItemRef.HiPotion;
   name = 'Hi-Potion';
   price = 100;
@@ -14,16 +13,17 @@ export class HiPotion extends Item {
   }
 
   canUse(battleService: BattleService): boolean {
-    return (battleService.characters.hp < battleService.characters.hpMax);
+    return battleService.characters.hp < battleService.characters.hpMax;
   }
 
   getSkill(battleService: BattleService): ItAction[] {
     const action: ItAction = {
       use() {
-        battleService.characters.addHp(Math.ceil(.66 * battleService.characters.hpMax));
-      }
+        battleService.characters.addHp(
+          Math.ceil(0.66 * battleService.characters.hpMax),
+        );
+      },
     };
     return [action];
   }
-
 }

@@ -3,7 +3,6 @@ import { CharacterRef } from '../refs/characters';
 import { FPtShuriken } from '../weapons/shurikens/fpt-shuriken';
 
 export class Yuffie extends Character {
-
   ref = CharacterRef.Yuffie;
   name = 'Yuffie Kisaragi';
   image = '/assets/images/characters/yuffie.jpg';
@@ -13,5 +12,4 @@ export class Yuffie extends Character {
   mpBase = 4;
   xpBase = 4;
   notA = [];
-
 }

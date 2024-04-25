@@ -3,7 +3,6 @@ import { WeaponSave } from './save';
 import { Weapon } from './weapon';
 
 export class Weapons {
-
   list: Weapon[];
 
   /**
@@ -17,18 +16,18 @@ export class Weapons {
    * Add a weapon
    */
   add(weapon: Weapon, equipped = false): void {
-    const w = this.list.find(e => e.name === weapon.name);
+    const w = this.list.find((e) => e.name === weapon.name);
     if (w) {
       w.nbr++;
     } else {
-      weapon.equipped = (weapon.canEquip()) ? equipped : false;
+      weapon.equipped = weapon.canEquip() ? equipped : false;
       this.list.push(weapon);
     }
   }
 
   getAllWeapons(character: Character): Weapon[] {
     return this.list.filter((w: Weapon) => {
-      return (w.type === character.weaponType);
+      return w.type === character.weaponType;
     });
   }
 
@@ -42,5 +41,4 @@ export class Weapons {
     }
     return json;
   }
-
 }

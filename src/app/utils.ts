@@ -12,7 +12,7 @@ export function compareVersions(version1: string, version2: string): boolean {
   enum Change {
     Major = 1,
     Minor = 2,
-    Fix = 3
+    Fix = 3,
   }
 
   if (!match1 || !match2) {

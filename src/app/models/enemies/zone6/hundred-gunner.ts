@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class HundredGunner extends Enemy {
-
   name = 'Hundred Gunner';
   image = '/assets/images/enemies/zone6/hundred-gunner.png';
   baseHpMax = 1;
@@ -11,5 +10,4 @@ export class HundredGunner extends Enemy {
   baseGils = 0;
   override weakness = ['bolt'];
   override miboss = true;
-
 }

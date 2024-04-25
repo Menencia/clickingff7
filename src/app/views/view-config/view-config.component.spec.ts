@@ -10,10 +10,9 @@ describe('ViewConfigComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewConfigComponent ],
-      imports: [ TranslateModule.forRoot(), SharedModule ]
-    })
-    .compileComponents();
+      declarations: [ViewConfigComponent],
+      imports: [TranslateModule.forRoot(), SharedModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ViewConfigComponent);
     component = fixture.componentInstance;

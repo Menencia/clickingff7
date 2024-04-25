@@ -10,10 +10,9 @@ describe('ShopComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ViewShopComponent ],
-      imports: [ TranslateModule.forRoot(), SharedModule ]
-    })
-    .compileComponents();
+      declarations: [ViewShopComponent],
+      imports: [TranslateModule.forRoot(), SharedModule],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(ViewShopComponent);
     component = fixture.componentInstance;

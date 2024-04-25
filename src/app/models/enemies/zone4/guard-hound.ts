@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class GuardHound extends Enemy {
-
   name = 'Guard Hound';
   image = '/assets/images/enemies/zone4/guard-hound.png';
   baseHpMax = 2;
@@ -10,5 +9,4 @@ export class GuardHound extends Enemy {
   baseAp = 4;
   baseGils = 1;
   override weakness = ['fire'];
-
 }

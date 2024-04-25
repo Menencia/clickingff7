@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class Formula extends Enemy {
-
   name = 'Formula';
   image = '/assets/images/enemies/zone9/formula.png';
   baseHpMax = 3;
@@ -10,5 +9,4 @@ export class Formula extends Enemy {
   baseAp = 2;
   baseGils = 3;
   override weakness = ['wind'];
-
 }

@@ -9,8 +9,6 @@ import { UiActionsComponent } from './ui-actions/ui-actions.component';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiFooterComponent } from './ui-footer/ui-footer.component';
 
-
-
 @NgModule({
   declarations: [
     UiLayoutDefaultComponent,
@@ -19,12 +17,9 @@ import { UiFooterComponent } from './ui-footer/ui-footer.component';
     PipeTimePipe,
     UiBarComponent,
     UiActionsComponent,
-    UiFooterComponent
+    UiFooterComponent,
   ],
-  imports: [
-    NgInjectModule,
-    TranslateModule,
-  ],
+  imports: [NgInjectModule, TranslateModule],
   exports: [
     UiLayoutDefaultComponent,
     UiNavbarComponent,
@@ -32,7 +27,7 @@ import { UiFooterComponent } from './ui-footer/ui-footer.component';
     PipeTimePipe,
     UiBarComponent,
     UiActionsComponent,
-    UiFooterComponent
-  ]
+    UiFooterComponent,
+  ],
 })
-export class UiModule { }
+export class UiModule {}

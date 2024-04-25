@@ -4,7 +4,6 @@ import { MateriaRef } from './refs/materias';
 import { MateriaSave } from './save';
 
 export abstract class Materia {
-
   abstract ref: MateriaRef;
   level: number;
   ap: number;
@@ -73,7 +72,7 @@ export abstract class Materia {
    * Returns the number of owned
    */
   inStock(materias: Materia[]): boolean {
-    const materia = materias.find(e => e.name === this.name);
+    const materia = materias.find((e) => e.name === this.name);
     if (materia) {
       return true;
     }
@@ -84,14 +83,14 @@ export abstract class Materia {
    *
    */
   getApMax(): number {
-    return Math.ceil(((this.apBase - 3) * 10 / 100 + 1) * 60 * this.level);
+    return Math.ceil((((this.apBase - 3) * 10) / 100 + 1) * 60 * this.level);
   }
 
   /**
    *
    */
   apProgress(pixelsMax: number): number {
-    return (this.ap === 0 ? 0 : this.ap / this.getApMax() * pixelsMax);
+    return this.ap === 0 ? 0 : (this.ap / this.getApMax()) * pixelsMax;
   }
 
   /**
@@ -111,8 +110,7 @@ export abstract class Materia {
    * Exports
    */
   export(): MateriaSave {
-    const {ref, ap, level, equipped} = this;
-    return {ref, ap, level, equipped};
+    const { ref, ap, level, equipped } = this;
+    return { ref, ap, level, equipped };
   }
-
 }

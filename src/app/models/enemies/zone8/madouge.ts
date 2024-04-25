@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class Madouge extends Enemy {
-
   name = 'Madouge';
   image = '/assets/images/enemies/zone8/madouge.png';
   baseHpMax = 4;
@@ -11,5 +10,4 @@ export class Madouge extends Enemy {
   baseGils = 3;
   override weakness = ['fire'];
   override resistance = ['earth'];
-
 }

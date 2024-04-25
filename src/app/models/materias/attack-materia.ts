@@ -4,7 +4,6 @@ import { Attack } from '../actions/attack';
 import { ItAction } from 'src/app/core/interfaces/it-action';
 
 export abstract class AttackMateria extends Materia {
-
   abstract elements: string[];
 
   /**
@@ -21,11 +20,13 @@ export abstract class AttackMateria extends Materia {
     return this.pwr + this.level - 1;
   }
 
-/**
- * Can use the materia?
- */
+  /**
+   * Can use the materia?
+   */
   canUse(battleService: BattleService): boolean {
-    return battleService.isBattle && battleService.characters.mp >= this.getMpCost();
+    return (
+      battleService.isBattle && battleService.characters.mp >= this.getMpCost()
+    );
   }
 
   /**
@@ -36,5 +37,4 @@ export abstract class AttackMateria extends Materia {
     const attack = new Attack(hits, this.getPwr(), this.elements);
     return [attack];
   }
-
 }

@@ -7,19 +7,20 @@ import { Save } from 'src/app/models/save';
 @Component({
   selector: 'app-view-save',
   templateUrl: './view-save.component.html',
-  styleUrls: ['./view-save.component.scss']
+  styleUrls: ['./view-save.component.scss'],
 })
 export class ViewSaveComponent {
-
   saves: Save[];
   areaExport: string;
   areaImport: string;
   showAreaExport: boolean;
   showAreaImport: boolean;
 
-  constructor(private gameService: GameService,
-              private battleService: BattleService,
-              private router: Router) {
+  constructor(
+    private gameService: GameService,
+    private battleService: BattleService,
+    private router: Router,
+  ) {
     this.saves = this.gameService.saves;
     this.areaExport = '';
     this.areaImport = '';
@@ -38,7 +39,10 @@ export class ViewSaveComponent {
    * Reset the game
    */
   resetGame(): void {
-    if (this.gameService.saves[0] && confirm('Are you sure ? You\'ll lose everything !')) {
+    if (
+      this.gameService.saves[0] &&
+      confirm("Are you sure ? You'll lose everything !")
+    ) {
       this.gameService.preload();
       this.gameService.reset();
       this.gameService.buildLevel(1);
@@ -81,7 +85,10 @@ export class ViewSaveComponent {
    * Import a save
    */
   importSave(): void {
-    if (this.areaImport && confirm('Are you sure ? You\'ll lose your current save !')) {
+    if (
+      this.areaImport &&
+      confirm("Are you sure ? You'll lose your current save !")
+    ) {
       const save = JSON.parse(atob(this.areaImport));
       this.gameService.preload();
       this.gameService.load(save);
@@ -90,5 +97,4 @@ export class ViewSaveComponent {
       this.router.navigateByUrl('game');
     }
   }
-
 }

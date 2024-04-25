@@ -3,11 +3,10 @@ import { ItAction } from 'src/app/core/interfaces/it-action';
 import { BattleService } from 'src/app/core/services/battle.service';
 
 export class Cure implements ItAction {
-
   constructor(
     private baseHits: number,
-    private pwr: number
-  ) { }
+    private pwr: number,
+  ) {}
 
   /** Calcultae raw cure */
   calculateHits(): number {
@@ -22,5 +21,4 @@ export class Cure implements ItAction {
   use(battleService: BattleService): void {
     battleService.characters.addHp(this.calculateHits());
   }
-
 }

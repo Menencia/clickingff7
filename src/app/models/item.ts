@@ -6,7 +6,6 @@ import { ItemSave } from './save';
 export const MAX_ITEMS = 2;
 
 export abstract class Item {
-
   abstract ref: ItemRef;
   nbr: number;
   equipped: boolean;
@@ -79,8 +78,7 @@ export abstract class Item {
    * Save materia data
    */
   export(): ItemSave {
-    const {ref, nbr, equipped} = this;
-    return {ref, nbr, equipped};
+    const { ref, nbr, equipped } = this;
+    return { ref, nbr, equipped };
   }
-
 }

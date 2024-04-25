@@ -13,15 +13,13 @@ import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(_httpBackend: HttpBackend) {
   return new MultiTranslateHttpLoader(_httpBackend, [
-    {prefix: './assets/i18n/', suffix: '/main.json'},
-    {prefix: './assets/i18n/', suffix: '/help.json'}
+    { prefix: './assets/i18n/', suffix: '/main.json' },
+    { prefix: './assets/i18n/', suffix: '/help.json' },
   ]);
 }
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -31,14 +29,14 @@ export function HttpLoaderFactory(_httpBackend: HttpBackend) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpBackend]
-      }
+        deps: [HttpBackend],
+      },
     }),
     SharedModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

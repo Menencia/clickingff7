@@ -2,7 +2,6 @@ import { WeaponRef } from '../../refs/weapons';
 import { Weapon } from '../../weapon';
 
 export class FullMetalStaff extends Weapon {
-
   ref = WeaponRef.FullMetalStaff;
   name = 'Full Metal Staff';
   type = 'stave';
@@ -10,5 +9,4 @@ export class FullMetalStaff extends Weapon {
   price = 850;
   maxMaterias = 2;
   zoneAvailable = 7;
-
 }

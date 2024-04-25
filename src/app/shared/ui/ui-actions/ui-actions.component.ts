@@ -8,18 +8,17 @@ import { MAX_FIGHTS } from 'src/app/models/zone';
 @Component({
   selector: 'app-ui-actions',
   templateUrl: './ui-actions.component.html',
-  styleUrls: ['./ui-actions.component.scss']
+  styleUrls: ['./ui-actions.component.scss'],
 })
 export class UiActionsComponent {
-
   constructor(
     private battleService: BattleService,
-    private gameService: GameService
-  ) { }
+    private gameService: GameService,
+  ) {}
 
   public remainingBattles() {
     const remain = MAX_FIGHTS - this.gameService.zones.current().nbFights;
-    return remain > 0 ? `(${remain})`: '';
+    return remain > 0 ? `(${remain})` : '';
   }
 
   public getMaterias(): Materia[] {
@@ -56,9 +55,7 @@ export class UiActionsComponent {
 
   public attack(): void {
     if (this.battleService.isBattle) {
-      this.gameService.characters
-        .getAttackSkill()
-        .use(this.battleService);
+      this.gameService.characters.getAttackSkill().use(this.battleService);
 
       if (!this.battleService.enemies.isAlive()) {
         this.battleService.end(true);
@@ -105,7 +102,9 @@ export class UiActionsComponent {
       if (item.nbr > 1) {
         item.nbr--;
       } else {
-        this.gameService.items.list = this.gameService.items.list.filter(e => e !== item);
+        this.gameService.items.list = this.gameService.items.list.filter(
+          (e) => e !== item,
+        );
       }
     } else {
       throw new Error('CANNOT USE');
@@ -122,5 +121,4 @@ export class UiActionsComponent {
   public getZoneLvl(): number {
     return this.gameService.zones.level;
   }
-
 }

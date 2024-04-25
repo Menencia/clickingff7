@@ -6,10 +6,9 @@ import { AutoFighting } from '../helpers/auto-fighting';
 import { GameService } from './game.service';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BattleService {
-
   public characters: Characters;
   public enemies: Enemies;
   public isBattle = false;
@@ -34,7 +33,7 @@ export class BattleService {
       const zone = this.gameService.zones.current();
       this.enemies.fightRandom(levelSum, zone, this.gameService.difficulty);
       this.enemies.refresh();
-      this.autos.forEach(auto => auto.run());
+      this.autos.forEach((auto) => auto.run());
     }
   }
 
@@ -43,7 +42,7 @@ export class BattleService {
    */
   canFightBoss(): boolean {
     const zone = this.gameService.zones.current();
-    return (!this.isBattle && zone.nbFights >= MAX_FIGHTS && !zone.completed);
+    return !this.isBattle && zone.nbFights >= MAX_FIGHTS && !zone.completed;
   }
 
   /**
@@ -57,7 +56,7 @@ export class BattleService {
       const nbCharacters = this.gameService.characters.getTeam().length;
       this.enemies.fightBoss(zone, nbCharacters, this.gameService.difficulty);
       this.enemies.refresh();
-      this.autos.forEach(auto => auto.run());
+      this.autos.forEach((auto) => auto.run());
     }
   }
 
@@ -65,7 +64,7 @@ export class BattleService {
    * Stop fighting
    */
   stopFighting(): void {
-    this.autos.forEach(auto => auto.stop());
+    this.autos.forEach((auto) => auto.stop());
   }
 
   /**
@@ -81,12 +80,14 @@ export class BattleService {
     const materias = this.gameService.materias.getEquipped();
 
     for (const enemy of enemies) {
-
       // Rewards if victory
       if (victory) {
         this.gameService.gils += enemy.gilsReward();
 
-        if (enemy.boss && this.gameService.zones.level + 1 > this.gameService.zones.levelMax) {
+        if (
+          enemy.boss &&
+          this.gameService.zones.level + 1 > this.gameService.zones.levelMax
+        ) {
           // Complete zone
           this.gameService.zones.complete();
         }
@@ -111,5 +112,4 @@ export class BattleService {
     this.enemies.refresh();
     this.gameService.characters.refresh();
   }
-
 }

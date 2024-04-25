@@ -6,16 +6,17 @@ import { Zone } from 'src/app/models/zone';
 @Component({
   selector: 'app-view-map',
   templateUrl: './view-map.component.html',
-  styleUrls: ['./view-map.component.scss']
+  styleUrls: ['./view-map.component.scss'],
 })
 export class ViewMapComponent {
-
   current: Zone;
   level: number;
   list: Zone[];
 
-  constructor(private gameService: GameService,
-              private shopService: ShopService) {
+  constructor(
+    private gameService: GameService,
+    private shopService: ShopService,
+  ) {
     this.current = this.gameService.zones.current();
     this.level = this.gameService.zones.level;
     this.list = this.gameService.zones.list;
@@ -50,5 +51,4 @@ export class ViewMapComponent {
       this.goZone(this.gameService.zones.level);
     }
   }
-
 }

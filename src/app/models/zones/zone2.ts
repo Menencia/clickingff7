@@ -3,7 +3,6 @@ import { ZoneRef } from '../refs/zones';
 import { Zone } from '../zone';
 
 export class Zone2 extends Zone {
-
   ref = ZoneRef.Zone2;
   level = 2;
   image = '/assets/images/zones/Sector_5_Reactor.png';
@@ -11,10 +10,7 @@ export class Zone2 extends Zone {
     EnemyLoader.build(EnemyRef.BloodTaste),
     EnemyLoader.build(EnemyRef.ProtoMachinegun),
     EnemyLoader.build(EnemyRef.Smogger),
-    EnemyLoader.build(EnemyRef.SpecialCombatant)
+    EnemyLoader.build(EnemyRef.SpecialCombatant),
   ];
-  override boss = [
-    EnemyLoader.build(EnemyRef.AirBuster)
-  ];
-
+  override boss = [EnemyLoader.build(EnemyRef.AirBuster)];
 }

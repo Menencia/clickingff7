@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class Elfadunk extends Enemy {
-
   name = 'Elfadunk';
   image = '/assets/images/enemies/zone7/elfadunk.png';
   baseHpMax = 4;
@@ -10,5 +9,4 @@ export class Elfadunk extends Enemy {
   baseAp = 2;
   baseGils = 1;
   override weakness = ['earth'];
-
 }

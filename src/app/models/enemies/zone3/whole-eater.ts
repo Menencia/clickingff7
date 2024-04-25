@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class WholeEater extends Enemy {
-
   name = 'Whole Eater';
   image = '/assets/images/enemies/zone3/whole-eater.png';
   baseHpMax = 2;
@@ -10,5 +9,4 @@ export class WholeEater extends Enemy {
   baseAp = 2;
   baseGils = 2;
   override weakness = ['fire'];
-
 }

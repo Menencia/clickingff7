@@ -3,7 +3,6 @@ import { ZoneRef } from '../refs/zones';
 import { Zone } from '../zone';
 
 export class Zone6 extends Zone {
-
   ref = ZoneRef.Zone6;
   level = 6;
   image = '/assets/images/zones/Shinra_headquarters.png';
@@ -11,10 +10,7 @@ export class Zone6 extends Zone {
     EnemyLoader.build(EnemyRef.HeliGunner),
     EnemyLoader.build(EnemyRef.HundredGunner),
     EnemyLoader.build(EnemyRef.Rufus),
-    EnemyLoader.build(EnemyRef.Zenene)
+    EnemyLoader.build(EnemyRef.Zenene),
   ];
-  override boss = [
-    EnemyLoader.build(EnemyRef.MotorBall)
-  ];
-
+  override boss = [EnemyLoader.build(EnemyRef.MotorBall)];
 }

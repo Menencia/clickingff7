@@ -10,15 +10,13 @@ import { ItDisplayHits } from 'src/app/core/interfaces/it-display-hits';
   animations: [
     trigger('animation', [
       transition(':enter', [
-        style({opacity: 1, top: -20}),
-        animate('1s',
-          style({opacity: 0, top: -40}))
-      ])
-    ])
-  ]
+        style({ opacity: 1, top: -20 }),
+        animate('1s', style({ opacity: 0, top: -40 })),
+      ]),
+    ]),
+  ],
 })
 export class UiBarComponent implements OnInit {
-
   Math = Math;
 
   @Input() id = '';
@@ -33,7 +31,7 @@ export class UiBarComponent implements OnInit {
 
   ngOnInit() {
     this.progressBg = this.progress;
-    this.hits.subscribe(hits => {
+    this.hits.subscribe((hits) => {
       this.arrHits.unshift(hits);
 
       clearTimeout(this.time);
@@ -46,5 +44,4 @@ export class UiBarComponent implements OnInit {
   onAnimationEvent() {
     this.arrHits.pop();
   }
-
 }

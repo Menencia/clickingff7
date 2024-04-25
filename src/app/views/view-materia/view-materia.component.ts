@@ -6,10 +6,9 @@ import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 @Component({
   selector: 'app-view-materia',
   templateUrl: './view-materia.component.html',
-  styleUrls: ['./view-materia.component.scss']
+  styleUrls: ['./view-materia.component.scss'],
 })
 export class ViewMateriaComponent {
-
   faXmark = faXmark;
   faPlus = faPlus;
   list: Materia[] = [];
@@ -39,5 +38,4 @@ export class ViewMateriaComponent {
 
     this.gameService.characters.refresh();
   }
-
 }

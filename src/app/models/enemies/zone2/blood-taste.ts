@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class BloodTaste extends Enemy {
-
   name = 'Blood Taste';
   image = '/assets/images/enemies/zone2/blood-taste.png';
   baseHpMax = 2;
@@ -10,5 +9,4 @@ export class BloodTaste extends Enemy {
   baseAp = 1;
   baseGils = 4;
   override weakness = ['fire'];
-
 }

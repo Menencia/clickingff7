@@ -1,14 +1,14 @@
-import { Units } from "src/app/models/units";
-import { Characters } from "src/app/models/units/characters";
-import { BattleService } from "../services/battle.service";
+import { Units } from 'src/app/models/units';
+import { Characters } from 'src/app/models/units/characters';
+import { BattleService } from '../services/battle.service';
 
 export class AutoFighting {
-
   public timer!: ReturnType<typeof setTimeout>;
 
   constructor(
-    public units: Units, 
-    public battleService: BattleService) {}
+    public units: Units,
+    public battleService: BattleService,
+  ) {}
 
   run(): void {
     this.timer = setTimeout(() => {

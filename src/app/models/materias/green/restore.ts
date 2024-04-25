@@ -2,7 +2,6 @@ import { MateriaRef } from '../../refs/materias';
 import { CureMateria } from '../cure-materia';
 
 export class Restore extends CureMateria {
-
   ref = MateriaRef.Restore;
   name = 'Restore';
   color = 'green';
@@ -10,5 +9,4 @@ export class Restore extends CureMateria {
   apBase = 2;
   pwr = 20;
   zoneAvailable = 7;
-
 }

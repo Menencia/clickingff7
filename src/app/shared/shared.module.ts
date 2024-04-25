@@ -5,11 +5,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
-  exports: [
-    UiModule,
-    TranslateModule,
-    NgInjectModule,
-    FontAwesomeModule
-  ]
+  exports: [UiModule, TranslateModule, NgInjectModule, FontAwesomeModule],
 })
-export class SharedModule { }
+export class SharedModule {}

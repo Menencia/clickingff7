@@ -5,15 +5,16 @@ import { Difficulty, GameService } from 'src/app/core/services/game.service';
 @Component({
   selector: 'app-view-config',
   templateUrl: './view-config.component.html',
-  styleUrls: ['./view-config.component.scss']
+  styleUrls: ['./view-config.component.scss'],
 })
 export class ViewConfigComponent {
-
   difficulty: Difficulty;
   language: string;
 
-  constructor(private gameService: GameService,
-              private translateService: TranslateService) {
+  constructor(
+    private gameService: GameService,
+    private translateService: TranslateService,
+  ) {
     this.difficulty = this.gameService.difficulty;
     this.language = this.gameService.language;
   }
@@ -26,5 +27,4 @@ export class ViewConfigComponent {
     this.gameService.language = this.language;
     this.translateService.use(this.gameService.language);
   }
-
 }

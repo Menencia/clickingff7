@@ -5,7 +5,6 @@ import { ZoneSave } from './save';
 export const MAX_FIGHTS = 15;
 
 export abstract class Zone {
-
   abstract ref: ZoneRef;
   nbFights: number;
   completed: boolean;
@@ -37,8 +36,7 @@ export abstract class Zone {
    * Save zone data
    */
   export(): ZoneSave {
-    const {ref, nbFights, completed} = this;
-    return {ref, nbFights, completed};
+    const { ref, nbFights, completed } = this;
+    return { ref, nbFights, completed };
   }
-
 }

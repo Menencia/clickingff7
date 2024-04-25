@@ -8,7 +8,7 @@ describe('GameService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [ TranslateModule.forRoot() ]
+      imports: [TranslateModule.forRoot()],
     });
     service = TestBed.inject(GameService);
   });

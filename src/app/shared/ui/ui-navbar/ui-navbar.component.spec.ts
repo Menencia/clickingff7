@@ -9,10 +9,9 @@ describe('UiNavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiNavbarComponent ],
-      imports: [ TranslateModule.forRoot() ]
-    })
-    .compileComponents();
+      declarations: [UiNavbarComponent],
+      imports: [TranslateModule.forRoot()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UiNavbarComponent);
     component = fixture.componentInstance;

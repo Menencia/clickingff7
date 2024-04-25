@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class Grunt extends Enemy {
-
   name = 'Grunt';
   image = '/assets/images/enemies/zone1/grunt.png';
   baseHpMax = 4;
@@ -10,5 +9,4 @@ export class Grunt extends Enemy {
   baseAp = 1;
   baseGils = 4;
   override weakness = ['ice'];
-
 }

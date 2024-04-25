@@ -2,7 +2,6 @@ import { Item } from './item';
 import { ItemSave } from './save';
 
 export class Items {
-
   list: Item[];
   equipped: boolean;
 
@@ -18,7 +17,7 @@ export class Items {
    * Add an item
    */
   add(item: Item, equipped = false): void {
-    const i = this.list.find(e => e.name === item.name);
+    const i = this.list.find((e) => e.name === item.name);
     if (i) {
       i.nbr++;
     } else {
@@ -31,14 +30,14 @@ export class Items {
    * Returns equipped items
    */
   getEquipped(): Item[] {
-    return this.list.filter(e => e.equipped);
+    return this.list.filter((e) => e.equipped);
   }
 
   /**
    * Get unequipped items
    */
   getUnequipped(): Item[] {
-    return this.list.filter(e => !e.equipped);
+    return this.list.filter((e) => !e.equipped);
   }
 
   /**
@@ -51,5 +50,4 @@ export class Items {
     }
     return json;
   }
-
 }

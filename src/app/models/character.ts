@@ -4,7 +4,6 @@ import { CharacterRef } from './refs/characters';
 import { WeaponLoader } from './loaders/weapon-loader';
 
 export abstract class Character {
-
   abstract ref: CharacterRef;
   level: number;
   xp: number;
@@ -65,21 +64,21 @@ export abstract class Character {
    *
    */
   getHpMax(): number {
-    return Math.ceil(((this.hpBase - 3) * 10 / 100 + 1) * 20 * this.level);
+    return Math.ceil((((this.hpBase - 3) * 10) / 100 + 1) * 20 * this.level);
   }
 
   /**
    *
    */
   getMpMax(): number {
-    return Math.ceil(((this.mpBase - 3) * 10 / 100 + 1) * 3 * this.level);
+    return Math.ceil((((this.mpBase - 3) * 10) / 100 + 1) * 3 * this.level);
   }
 
   /**
    *
    */
   getXpMax(): number {
-    return Math.ceil(((3 - this.xpBase) * 10 / 100 + 1) * 100 * this.level);
+    return Math.ceil((((3 - this.xpBase) * 10) / 100 + 1) * 100 * this.level);
   }
 
   /**
@@ -87,7 +86,7 @@ export abstract class Character {
    */
   getHits(): number {
     if (this.weapon) {
-      return this.level * this.weapon.hits / 10;
+      return (this.level * this.weapon.hits) / 10;
     }
     return 0;
   }
@@ -96,7 +95,7 @@ export abstract class Character {
    *
    */
   xpProgress(pixelsMax: number): number {
-    return (this.xp === 0 ? 0 : this.xp / this.getXpMax() * pixelsMax);
+    return this.xp === 0 ? 0 : (this.xp / this.getXpMax()) * pixelsMax;
   }
 
   /**
@@ -118,9 +117,8 @@ export abstract class Character {
    *
    */
   export(): CharacterSave {
-    const {ref, inTeam, level, xp, image, weapon} = this;
+    const { ref, inTeam, level, xp, image, weapon } = this;
     const weaponRef = weapon.ref;
-    return {ref, inTeam, level, xp, image, weaponRef};
+    return { ref, inTeam, level, xp, image, weaponRef };
   }
-
 }

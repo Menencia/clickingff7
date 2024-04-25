@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class Bottomswell extends Enemy {
-
   name = 'Bottomswell';
   image = '/assets/images/enemies/zone9/bottomswell.png';
   baseHpMax = 5;
@@ -11,5 +10,4 @@ export class Bottomswell extends Enemy {
   baseGils = 5;
   override weakness = ['bolt', 'wind'];
   override boss = true;
-
 }

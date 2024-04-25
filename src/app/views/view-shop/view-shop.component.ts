@@ -13,10 +13,9 @@ import { Weapon } from 'src/app/models/weapon';
 @Component({
   selector: 'app-shop',
   templateUrl: './view-shop.component.html',
-  styleUrls: ['./view-shop.component.scss']
+  styleUrls: ['./view-shop.component.scss'],
 })
 export class ViewShopComponent {
-
   section = 'buy';
   type = 'weapons';
 
@@ -49,7 +48,10 @@ export class ViewShopComponent {
   }
 
   canBuyWeapon(weapon: Weapon): boolean {
-    return this.inStockWeapon(weapon) === 0 && this.gameService.gils >= weapon.getPrice();
+    return (
+      this.inStockWeapon(weapon) === 0 &&
+      this.gameService.gils >= weapon.getPrice()
+    );
   }
 
   buyWeapon(weapon: Weapon): void {
@@ -67,7 +69,9 @@ export class ViewShopComponent {
     if (weapon.nbr > 1) {
       weapon.nbr--;
     } else {
-      this.gameService.weapons.list = this.gameService.weapons.list.filter(e => e !== weapon);
+      this.gameService.weapons.list = this.gameService.weapons.list.filter(
+        (e) => e !== weapon,
+      );
       this.refreshPlayerWeapons();
     }
   }
@@ -77,7 +81,10 @@ export class ViewShopComponent {
   }
 
   canBuyMateria(materia: Materia): boolean {
-    return !this.inStockMateria(materia) && this.gameService.gils >= materia.getPrice();
+    return (
+      !this.inStockMateria(materia) &&
+      this.gameService.gils >= materia.getPrice()
+    );
   }
 
   buyMateria(materia: Materia): void {
@@ -88,7 +95,9 @@ export class ViewShopComponent {
 
   sellMateria(materia: Materia): void {
     this.gameService.gils += materia.getSellPrice();
-    this.gameService.materias.list = this.gameService.materias.list.filter(e => e !== materia);
+    this.gameService.materias.list = this.gameService.materias.list.filter(
+      (e) => e !== materia,
+    );
     this.refreshPlayerMaterias();
   }
 
@@ -102,7 +111,7 @@ export class ViewShopComponent {
 
   buyItem(item: Item): void {
     this.gameService.gils -= item.getPrice();
-    const equipped = (this.gameService.items.getEquipped().length < MAX_ITEMS);
+    const equipped = this.gameService.items.getEquipped().length < MAX_ITEMS;
     this.gameService.items.add(item, equipped);
     this.refreshPlayerItems();
   }
@@ -112,7 +121,9 @@ export class ViewShopComponent {
     if (item.nbr > 1) {
       item.nbr--;
     } else {
-      this.gameService.items.list = this.gameService.items.list.filter(e => e !== item);
+      this.gameService.items.list = this.gameService.items.list.filter(
+        (e) => e !== item,
+      );
       this.refreshPlayerItems();
     }
   }
@@ -186,9 +197,9 @@ export class ViewShopComponent {
 
   private sortWeapons(weapons: Weapon[]): Weapon[] {
     const types: { [type: string]: number } = {
-      'broadsword': 1,
+      broadsword: 1,
       'gun-arm': 2,
-      'knuckle': 3
+      knuckle: 3,
     };
     return weapons
       .sort((a, b) => a.hits - b.hits)
@@ -200,8 +211,7 @@ export class ViewShopComponent {
   }
 
   private sortMaterias(materias: Materia[]): Materia[] {
-    return materias
-      .sort((a, b) => a.pwr - b.pwr);
+    return materias.sort((a, b) => a.pwr - b.pwr);
   }
 
   private refreshPlayerItems(): void {
@@ -209,7 +219,6 @@ export class ViewShopComponent {
   }
 
   private sortItems(items: Item[]): Item[] {
-    return items
-      .sort((a, b) => a.name.localeCompare(b.name));
+    return items.sort((a, b) => a.name.localeCompare(b.name));
   }
 }

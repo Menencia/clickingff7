@@ -4,7 +4,6 @@ import { Materia } from '../materia';
 import { ItAction } from 'src/app/core/interfaces/it-action';
 
 export abstract class CureMateria extends Materia {
-
   /**
    * MP cost
    */
@@ -23,8 +22,10 @@ export abstract class CureMateria extends Materia {
    * Can use the materia?
    */
   canUse(battleService: BattleService): boolean {
-    return (battleService.characters.mp >= this.getMpCost()
-      && battleService.characters.hp < battleService.characters.hpMax);
+    return (
+      battleService.characters.mp >= this.getMpCost() &&
+      battleService.characters.hp < battleService.characters.hpMax
+    );
   }
 
   /**
@@ -36,5 +37,4 @@ export abstract class CureMateria extends Materia {
     const cure = new Cure(hits, this.getPwr());
     return [cure];
   }
-
 }

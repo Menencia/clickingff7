@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class ArkDragon extends Enemy {
-
   name = 'Ark Dragon';
   image = '/assets/images/enemies/zone8/ark-dragon.png';
   baseHpMax = 4;
@@ -11,5 +10,4 @@ export class ArkDragon extends Enemy {
   baseGils = 1;
   override weakness = ['fire'];
   override resistance = ['earth'];
-
 }

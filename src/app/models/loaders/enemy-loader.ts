@@ -94,7 +94,6 @@ export enum EnemyRef {
 }
 
 export class EnemyLoader {
-
   /**
    *
    */
@@ -241,5 +240,4 @@ export class EnemyLoader {
     }
     return enemy;
   }
-
 }

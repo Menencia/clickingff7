@@ -2,7 +2,6 @@ import { WeaponSave } from '../models/save';
 import { WeaponRef } from './refs/weapons';
 
 export abstract class Weapon {
-
   abstract ref: WeaponRef;
   nbr: number;
   equipped: boolean;
@@ -49,7 +48,8 @@ export abstract class Weapon {
   /**
    * Returns the number of owned
    */
-  inStock(weapons: Weapon[]): number { // weapons.list
+  inStock(weapons: Weapon[]): number {
+    // weapons.list
     let sum = 0;
     for (const w of weapons) {
       if (w.name === this.name) {
@@ -67,11 +67,10 @@ export abstract class Weapon {
   }
 
   /*
-  * Save weapon
-  */
+   * Save weapon
+   */
   export(): WeaponSave {
-    const {ref, nbr, equipped} = this;
-    return {ref, nbr, equipped};
+    const { ref, nbr, equipped } = this;
+    return { ref, nbr, equipped };
   }
-
 }

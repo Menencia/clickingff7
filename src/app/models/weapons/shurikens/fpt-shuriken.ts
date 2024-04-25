@@ -2,7 +2,6 @@ import { WeaponRef } from '../../refs/weapons';
 import { Weapon } from '../../weapon';
 
 export class FPtShuriken extends Weapon {
-
   ref = WeaponRef.FPtShuriken;
   name = '4-point Shuriken';
   type = 'shuriken';
@@ -10,5 +9,4 @@ export class FPtShuriken extends Weapon {
   price = 180;
   maxMaterias = 2;
   zoneAvailable = 9;
-
 }

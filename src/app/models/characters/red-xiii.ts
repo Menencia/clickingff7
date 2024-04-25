@@ -3,7 +3,6 @@ import { CharacterRef } from '../refs/characters';
 import { MythrilClip } from '../weapons/headdresses/mythril-clip';
 
 export class RedXIII extends Character {
-
   ref = CharacterRef.RedXIII;
   name = 'Red XIII';
   image = '/assets/images/characters/redxiii.jpg';
@@ -13,5 +12,4 @@ export class RedXIII extends Character {
   mpBase = 4;
   xpBase = 4;
   notA = [];
-
 }

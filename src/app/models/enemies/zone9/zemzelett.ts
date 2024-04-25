@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class Zemzelett extends Enemy {
-
   name = 'Zemzelett';
   image = '/assets/images/enemies/zone9/zemzelett.png';
   baseHpMax = 3;
@@ -10,5 +9,4 @@ export class Zemzelett extends Enemy {
   baseAp = 4;
   baseGils = 1;
   override weakness = ['fire'];
-
 }

@@ -1,7 +1,6 @@
 import { Enemy } from '../../enemy';
 
 export class Deenglow extends Enemy {
-
   name = 'Deenglow';
   image = '/assets/images/enemies/zone4/deenglow.png';
   baseHpMax = 2;
@@ -10,5 +9,4 @@ export class Deenglow extends Enemy {
   baseAp = 2;
   baseGils = 0;
   override weakness = ['ice'];
-
 }

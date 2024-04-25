@@ -9,10 +9,9 @@ describe('UiActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ UiActionsComponent ],
-      imports: [ TranslateModule.forRoot() ]
-    })
-    .compileComponents();
+      declarations: [UiActionsComponent],
+      imports: [TranslateModule.forRoot()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(UiActionsComponent);
     component = fixture.componentInstance;

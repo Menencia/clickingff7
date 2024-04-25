@@ -4,10 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 @NgModule({
-  exports: [
-    CommonModule,
-    FormsModule,
-    RouterModule
-  ]
+  exports: [CommonModule, FormsModule, RouterModule],
 })
-export class NgInjectModule { }
+export class NgInjectModule {}

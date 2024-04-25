@@ -6,8 +6,8 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(_httpBackend: HttpBackend) {
   return new MultiTranslateHttpLoader(_httpBackend, [
-    {prefix: './assets/i18n/', suffix: '/main.json'},
-    {prefix: './assets/i18n/', suffix: '/help.json'}
+    { prefix: './assets/i18n/', suffix: '/main.json' },
+    { prefix: './assets/i18n/', suffix: '/help.json' },
   ]);
 }
 
@@ -19,12 +19,10 @@ export function HttpLoaderFactory(_httpBackend: HttpBackend) {
       loader: {
         provide: TranslateLoader,
         useFactory: HttpLoaderFactory,
-        deps: [HttpBackend]
-      }
-    })
+        deps: [HttpBackend],
+      },
+    }),
   ],
-  exports: [
-    TranslateModule
-  ]
+  exports: [TranslateModule],
 })
-export class I18nModule { }
+export class I18nModule {}

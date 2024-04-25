@@ -3,7 +3,6 @@ import { ZoneRef } from '../refs/zones';
 import { Zone } from '../zone';
 
 export class Zone7 extends Zone {
-
   ref = ZoneRef.Zone7;
   level = 7;
   image = '/assets/images/zones/Kalm.png';
@@ -11,10 +10,7 @@ export class Zone7 extends Zone {
     EnemyLoader.build(EnemyRef.KalmFang),
     EnemyLoader.build(EnemyRef.Mandragora),
     EnemyLoader.build(EnemyRef.Elfadunk),
-    EnemyLoader.build(EnemyRef.Levrikon)
+    EnemyLoader.build(EnemyRef.Levrikon),
   ];
-  override boss = [
-    EnemyLoader.build(EnemyRef.MidgarZolom)
-  ];
-
+  override boss = [EnemyLoader.build(EnemyRef.MidgarZolom)];
 }

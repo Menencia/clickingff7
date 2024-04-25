@@ -6,10 +6,9 @@ import { Weapon } from 'src/app/models/weapon';
 @Component({
   selector: 'app-view-equip',
   templateUrl: './view-equip.component.html',
-  styleUrls: ['./view-equip.component.scss']
+  styleUrls: ['./view-equip.component.scss'],
 })
 export class ViewEquipComponent {
-
   selected: Character;
   team: Character[];
   weapons: Weapon[] = [];
@@ -17,7 +16,7 @@ export class ViewEquipComponent {
   constructor(private gameService: GameService) {
     this.team = this.gameService.characters.getTeam();
     this.selected = this.gameService.characters.selected;
-    const found = this.team.find(character => character === this.selected);
+    const found = this.team.find((character) => character === this.selected);
     if (!found) {
       this.selected = this.team[0];
     }
@@ -30,9 +29,11 @@ export class ViewEquipComponent {
 
   equipWeapon(newWeapon: Weapon): void {
     // find current equipped weapon
-    const currentWeapon = this.gameService.weapons.list.find((weapon: Weapon) => {
-      return weapon.type === newWeapon.type && weapon.equipped;
-    });
+    const currentWeapon = this.gameService.weapons.list.find(
+      (weapon: Weapon) => {
+        return weapon.type === newWeapon.type && weapon.equipped;
+      },
+    );
 
     if (currentWeapon) {
       currentWeapon.equipped = false;
@@ -50,5 +51,4 @@ export class ViewEquipComponent {
     this.selected = character;
     this.weapons = this.gameService.weapons.getAllWeapons(character);
   }
-
 }
