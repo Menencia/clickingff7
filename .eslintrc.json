@@ -3,6 +3,9 @@
   "ignorePatterns": [
     "projects/**/*"
   ],
+  "parserOptions": {
+    "project": "./tsconfig.json"
+  },
   "overrides": [
     {
       "files": [
@@ -10,9 +13,13 @@
       ],
       "extends": [
         "eslint:recommended",
+        "airbnb-base",
+        "airbnb-typescript/base",
         "plugin:@typescript-eslint/recommended",
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "plugin:prettier/recommended",
+        "prettier"
       ],
       "rules": {
         "@angular-eslint/directive-selector": [
@@ -30,7 +37,33 @@
             "prefix": "app",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "class-methods-use-this": "off",
+        "import/prefer-default-export": "off",
+        "no-plusplus": ["error", { "allowForLoopAfterthoughts": true }],
+        "no-param-reassign": ["error", { "props": false }],
+        "prettier/prettier": ["error"],
+        // $$$$ remove progressively all rules above
+        "@typescript-eslint/lines-between-class-members": "off",
+        "@typescript-eslint/no-empty-function": "off",
+        "@typescript-eslint/no-shadow": "off",
+        "@typescript-eslint/no-useless-constructor": "off",
+        "default-case": "off",
+        "import/no-cycle": "off",
+        "import/no-useless-path-segments": "off",
+        "import/order": "off",
+        "no-alert": "off",
+        "no-console": "off",
+        "no-else-return": "off",
+        "no-param-reassign": "off",
+        "no-plusplus": "off",
+        "no-restricted-globals": "off",
+        "no-restricted-syntax": "off",
+        "no-unneeded-ternary": "off",
+        "prefer-destructuring": "off",
+        "prefer-template": "off",
+        "prettier/prettier": "off"
+
       }
     },
     {
