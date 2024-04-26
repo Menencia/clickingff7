@@ -2,36 +2,36 @@
 
   <table style="width: 100%">
 
-    <tr>
-      <th>{{'Name'|translate}}</th>
-      <th>{{'Evolution'|translate}}</th>
-      <th class="total">
-        {{getNbrEquipped()}} <span class="b">/ {{maxMaterias}}</span>
-      </th>
-    </tr>
+      <tr>
+        <th>{{'Name'|translate}}</th>
+        <th>{{'Evolution'|translate}}</th>
+        <th class="total">
+          {{getNbrEquipped()}} <span class="b">/ {{maxMaterias}}</span>
+        </th>
+      </tr>
 
     <tr *ngFor="let materia of list" class="materia">
-      <td>
-        <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.webp" alt="materia" />
-        {{'Mat. '+materia.name +' name'|translate}}
-        <strong>(LVL{{materia.level}})</strong> PWR: {{materia.pwr}}<br/>
-        <span class="desc">{{'Mat. '+materia.name +' desc'|translate}}</span>
-      </td>
-      <td>
-        <div class="progress materia_ap">
-          <div class="materia_ap_progress" [style.width]="materia.apProgress(200) + 'px'"></div>
-          <span class="bar-label">{{materia.ap}} / {{materia.getApMax()}} AP</span>
-        </div>
-      </td>
-      <td class="total">
-        <span (click)="unequip(materia)" (keypress)="unequip(materia)" tabindex="0" *ngIf="materia.equipped" class="hover">
-          <fa-icon [icon]="faXmark" class="text-red-600"></fa-icon>
-        </span>
-        <span (click)="equip(materia)" (keypress)="equip(materia)" tabindex="0" *ngIf="canEquip(materia)" class="hover">
-          <fa-icon [icon]="faPlus" class="text-green-600"></fa-icon>
-        </span>
-      </td>
-    </tr>
+        <td>
+          <app-materia-icon [color]="materia.color"></app-materia-icon>
+          {{'Mat. '+materia.name +' name'|translate}}
+          <strong>(LVL{{materia.level}})</strong> PWR: {{materia.pwr}}<br/>
+          <span class="text-xs italic">{{'Mat. '+materia.name +' desc'|translate}}</span>
+        </td>
+        <td>
+          <div class="progress materia_ap">
+            <div class="materia_ap_progress" [style.width]="materia.apProgress(200) + 'px'"></div>
+            <span class="bar-label">{{materia.ap}} / {{materia.getApMax()}} AP</span>
+          </div>
+        </td>
+        <td class="total">
+          <span (click)="unequip(materia)" (keypress)="unequip(materia)" tabindex="0" *ngIf="materia.equipped" class="cursor-pointer">
+            <fa-icon [icon]="faXmark" class="text-red-600"></fa-icon>
+          </span>
+          <span (click)="equip(materia)" (keypress)="equip(materia)" tabindex="0" *ngIf="canEquip(materia)" class="cursor-pointer">
+            <fa-icon [icon]="faPlus" class="text-green-600"></fa-icon>
+          </span>
+        </td>
+      </tr>
 
     <tr *ngIf="list.length === 0" class="nothing">
       <td colspan="4">{{"No materia"|translate}}</td>

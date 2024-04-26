@@ -1,12 +1,13 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
 
 @Component({
   selector: 'app-confirm-button',
   standalone: true,
   providers: [ConfirmationService],
-  imports: [ConfirmDialogModule],
+  imports: [ConfirmDialogModule, ButtonComponent],
   templateUrl: './confirm-button.component.html',
   styleUrl: './confirm-button.component.scss',
 })

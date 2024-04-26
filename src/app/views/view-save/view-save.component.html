@@ -4,9 +4,9 @@
 
     <div>
       <div class="flex flex-col gap-1">
-        <button class="button" (click)="saveGame()">
+        <app-button (trigger)="saveGame()">
           {{"Save"|translate}}
-        </button>
+        </app-button>
 
         <app-confirm-button
           [message]="msgImportSave"
@@ -17,15 +17,15 @@
       </div>
 
       <div class="flex flex-col gap-1 mt-5">
-        <button class="button" (click)="exportLastSave()" [class.disabled]="saves.length === 0">
+        <app-button (trigger)="exportLastSave()" [disabled]="saves.length === 0">
           {{"Export save"|translate}}
-        </button>
-        <button class="button" (click)="exportCurrentGame()">
+        </app-button>
+        <app-button (trigger)="exportCurrentGame()">
           {{"Export game"|translate}}
-        </button>
-        <button class="button" (click)="showImport()">
+        </app-button>
+        <app-button (trigger)="showImport()">
           {{"Import"|translate}}
-        </button>
+        </app-button>
       </div>
     </div>
 

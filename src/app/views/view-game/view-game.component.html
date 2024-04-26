@@ -32,7 +32,7 @@
       <div id="step1">
         <div *ngFor="let character of characters.getTeam()" class="flex gap-4 mt-5">
           <div class="relative">
-            <img src="{{character.image}}" alt="avatar" width="80" class="icon"/>
+            <img src="{{character.image}}" alt="avatar" width="80" class="inline-block"/>
             <div class="absolute bg-black h-5 bottom-0 right-0 left-0 opacity-75 text-center">
               <span class="text-white text-sm">
                 LVL{{character.level}}
@@ -72,7 +72,7 @@
         <!-- enemies list -->
         <div *ngFor="let enemy of enemies.list" class="flex gap-4 mt-5">
           <div class="relative">
-            <img [src]="enemy.image" alt="avatar" width="80" class="icon"/>
+            <img [src]="enemy.image" alt="avatar" width="80" class="inline-block"/>
             <div class="absolute bg-black h-5 bottom-0 right-0 left-0 opacity-75 text-center">
               <span class="text-white text-sm">
                 LVL{{enemy.level}}

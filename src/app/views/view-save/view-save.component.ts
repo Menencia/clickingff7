@@ -6,6 +6,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { BattleService } from 'src/app/core/services/battle.service';
 import { GameService } from 'src/app/core/services/game.service';
 import { Save } from 'src/app/models/save';
+import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
 import { PipeTimePipe } from 'src/app/shared/ui/pipes/pipe-time.pipe';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 
@@ -22,6 +23,7 @@ import { ConfirmButtonComponent } from './components/confirm-button/confirm-butt
     ConfirmButtonComponent,
     NgFor,
     NgIf,
+    ButtonComponent,
   ],
   templateUrl: './view-save.component.html',
   styleUrls: ['./view-save.component.scss'],

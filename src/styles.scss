@@ -2,9 +2,9 @@
 
 @import "tailwindcss/base" layer(tailwindcss);
 
-@import "primeicons/primeicons.css";
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
+// @import "primeicons/primeicons.css";
+// @import "primeng/resourcrimnes/themes/lara-light-blue/theme.css";
+// @import "primeng/resources/primeng.css";
 
 @import "tailwindcss/components" layer(tailwindcss);
 @import "tailwindcss/utilities" layer(tailwindcss);
@@ -13,68 +13,8 @@
   --cl-color-accent: rgb(329, 68, 68);
 }
 
-body {
-  @apply dark:bg-gray-800 bg-gray-200 dark:text-white;
-}
-
-nav {
-  a, a:visited {
-    @apply text-xl text-gray-400 uppercase;
-
-    &:hover {
-      @apply text-gray-700 dark:text-red-400;
-    }
-
-    &.active {
-      @apply text-black dark:text-white;
-    }
-  }
-}
-
-.button {
-  @apply bg-blue-100 px-4 py-2 text-lg font-semibold tracking-wider text-blue-600 rounded;
-  @apply hover:bg-blue-200;
-  @apply focus:outline-none focus:ring-0;
-  @apply dark:bg-gray-700 dark:text-gray-100;
-  @apply dark:hover:bg-gray-600;
-
-  &.current {
-    @apply bg-blue-200 cursor-default;
-    @apply dark:bg-gray-600;
-  }
-
-  &[disabled] {
-    @apply text-gray-400 cursor-default;
-    @apply hover:bg-blue-100;
-    @apply dark:hover:bg-gray-700;
-  }
-}
-
-.icon {
-  @apply inline-block;
-}
-.desc {
-  @apply text-xs italic;
-}
-.hover {
-  @apply cursor-pointer;
-}
-
-.materia-icon {
-  &.green {
-    @apply text-green-600;
-  }
-  &.red {
-    @apply text-red-600;
-  }
-}
-
 .introjs-tooltip div {
   @apply text-black;
-}
-
-select, textarea {
-  @apply dark:text-black;
 }
 
 /** TABLE */

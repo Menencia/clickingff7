@@ -7,10 +7,12 @@ import { Item } from 'src/app/models/item';
 import { Materia } from 'src/app/models/materia';
 import { MAX_FIGHTS } from 'src/app/models/zone';
 
+import { ButtonComponent } from '../button/button.component';
+
 @Component({
   selector: 'app-ui-actions',
   standalone: true,
-  imports: [TranslateModule, NgFor, NgIf],
+  imports: [TranslateModule, NgFor, NgIf, ButtonComponent],
   templateUrl: './ui-actions.component.html',
   styleUrls: ['./ui-actions.component.scss'],
 })

@@ -4,12 +4,11 @@
 
     <div>
       <div class="flex flex-col gap-1">
-        <button class="button"
-                *ngFor="let character of team"
-                (click)="selectCharacter(character)"
-                [class.current]="selected && selected.name === character.name">
+        <app-button *ngFor="let character of team"
+                (trigger)="selectCharacter(character)"
+                [class]="{current: selected && selected.name === character.name}">
           {{character.name}}
-        </button>
+        </app-button>
       </div>
     </div>
 
@@ -26,11 +25,11 @@
         </div>
 
         <p class="mt-3">
-          <img class="icon" src="/assets/images/icons/weapons/{{selected.weapon.type}}.png" alt="weapon" />
+          <app-weapon-icon [type]="selected.weapon.type"></app-weapon-icon>
           {{selected.weapon.name}}
         </p>
 
-        <p class="desc ml-4">
+        <p class="ml-4 text-xs italic">
           {{"Power"|translate}} {{selected.weapon.hits}}<br />
           {{"Nb materia"|translate}} +{{selected.weapon.maxMaterias}}
         </p>
@@ -40,16 +39,16 @@
 
     <div class="col-span-2" *ngIf="selected">
       <table style="width: 100%">
-        <tr>
-          <th>{{"Name"|translate}}</th>
-          <th></th>
-        </tr>
+          <tr>
+            <th>{{"Name"|translate}}</th>
+            <th></th>
+          </tr>
         <tr *ngFor="let weapon of weapons" class="weapon">
           <td>{{weapon.name}}</td>
           <td>
-            <button class="button" (click)="equipWeapon(weapon)" [disabled]="!canEquipWeapon(weapon)">
+            <app-button (trigger)="equipWeapon(weapon)" [disabled]="!canEquipWeapon(weapon)">
               {{"Equip"|translate}}
-            </button></td>
+            </app-button></td>
         </tr>
       </table>
     </div>

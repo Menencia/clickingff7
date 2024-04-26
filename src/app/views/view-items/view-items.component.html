@@ -2,35 +2,35 @@
 
   <table style="width: 100%">
 
-    <tr>
+      <tr>
         <th>{{'Name'|translate}}</th>
         <th>{{'In stock'|translate}}</th>
         <th class="total">
           {{getNbrItems()}} <span class="b">/ {{MAX_ITEMS}}</span>
         </th>
-    </tr>
+      </tr>
 
 
     <tr *ngFor="let item of list" class="item">
-      <td>
-        <img class="icon" src="/assets/images/icons/item.gif" alt="item" />
-        {{'It. '+item.name+' name'|translate}}<br />
-        <span class="desc">{{'It. '+item.name+' desc'|translate}}</span>
-      </td>
-      <td>{{item.nbr}}</td>
-      <td class="total">
+        <td>
+          <app-item-icon></app-item-icon>
+          {{'It. '+item.name+' name'|translate}}<br />
+          <span class="text-xs italic">{{'It. '+item.name+' desc'|translate}}</span>
+        </td>
+        <td>{{item.nbr}}</td>
+        <td class="total">
         <span (click)="unequipItem(item)" (keypress)="unequipItem(item)" tabindex="0" *ngIf="item.equipped" class="hover">
-          ❌
-        </span>
+            ❌
+          </span>
         <span (click)="equipItem(item)" (keypress)="equipItem(item)" tabindex="0" *ngIf="canEquipItem(item)" class="hover">
-          ➕
-        </span>
-      </td>
-    </tr>
+            ➕
+          </span>
+        </td>
+      </tr>
 
-    <tr *ngIf="list.length === 0" class="nothing">
-      <td colspan="4">{{"No items"|translate}}</td>
-    </tr>
+      <tr *ngIf="list.length === 0" class="nothing">
+        <td colspan="4">{{"No items"|translate}}</td>
+      </tr>
 
   </table>
 

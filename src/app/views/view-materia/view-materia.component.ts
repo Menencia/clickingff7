@@ -5,6 +5,7 @@ import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
 import { Materia } from 'src/app/models/materia';
+import { MateriaIconComponent } from 'src/app/shared/ui/materia-icon/materia-icon.component';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
@@ -16,6 +17,7 @@ import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui
     TranslateModule,
     NgFor,
     NgIf,
+    MateriaIconComponent,
   ],
   templateUrl: './view-materia.component.html',
   styleUrls: ['./view-materia.component.scss'],

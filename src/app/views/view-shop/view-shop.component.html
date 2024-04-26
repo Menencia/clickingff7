@@ -5,27 +5,27 @@
     <div>
 
       <div class="flex flex-col gap-1">
-        <button class="button" [class.current]="type === 'weapons'" (click)="changeType('weapons')">
+        <app-button [class]="{current: type === 'weapons'}" (trigger)="changeType('weapons')">
           {{"Weapons"|translate}}
-        </button>
-        <button class="button" [class.current]="type === 'materias'" (click)="changeType('materias')">
+        </app-button>
+        <app-button [class]="{current: type === 'materias'}" (trigger)="changeType('materias')">
           {{"Materia"|translate}}
-        </button>
-        <button class="button" [class.current]="type === 'items'" (click)="changeType('items')">
+        </app-button>
+        <app-button [class]="{current: type === 'items'}" (trigger)="changeType('items')">
           {{"Items"|translate}}
-        </button>
+        </app-button>
       </div>
 
       <div class="flex flex-col gap-1 mt-5">
-        <button class="button" [class.current]="section === 'buy'" (click)="changeSection('buy')">
+        <app-button [class]="{current: section === 'buy'}" (trigger)="changeSection('buy')">
           {{"Buy"|translate}}
-        </button>
-        <button class="button" [class.current]="section === 'sell'" (click)="changeSection('sell')">
+        </app-button>
+        <app-button [class]="{current: section === 'sell'}" (trigger)="changeSection('sell')">
           {{"Sell"|translate}}
-        </button>
+        </app-button>
       </div>
 
-      <div class="flex flex-col gap-1 mt-5 text-center italic">
+      <div class="flex flex-col gap-1 mt-5 italic text-center">
         <p>Gils: {{getGils()}}</p>
       </div>
 
@@ -47,16 +47,16 @@
           <ng-container *ngIf="type === 'weapons'">
             <tr *ngFor="let weapon of shopWeapons">
               <td>
-                <img class="icon" src="/assets/images/icons/weapons/{{weapon.type}}.png" alt="weapon" />
+                <app-weapon-icon [type]="weapon.type"></app-weapon-icon>
                 {{weapon.name}}<br />
-                <span class="desc">({{"Power"|translate}} {{weapon.hits}})</span>
+                <span class="text-xs italic">({{"Power"|translate}} {{weapon.hits}})</span>
               </td>
               <td>{{inStockWeapon(weapon)}}</td>
               <td>{{weapon.price}} {{"Gils"|translate}}</td>
               <td>
-                <button class="button" (click)="buyWeapon(weapon)" [disabled]="!canBuyWeapon(weapon)">
+                <app-button (trigger)="buyWeapon(weapon)" [disabled]="!canBuyWeapon(weapon)">
                   {{"Buy"|translate}}
-                </button>
+                </app-button>
               </td>
             </tr>
           </ng-container>
@@ -64,17 +64,17 @@
           <ng-container *ngIf="type === 'materias'">
             <tr *ngFor="let materia of shopMaterias" class="materia">
               <td>
-                <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.webp" alt="materia" />
+                <app-materia-icon [color]="materia.color"></app-materia-icon>
                 {{'Mat. '+materia.name+' name'|translate}}<br />
-                <span class="desc">{{'Mat. '+materia.name+' desc'|translate}}</span>
+                <span class="text-xs italic">{{'Mat. '+materia.name+' desc'|translate}}</span>
               </td>
               <td *ngIf="materia.inStock(playerMaterias)">🗸</td>
               <td *ngIf="!materia.inStock(playerMaterias)"></td>
               <td>{{materia.price}} {{"Gils"|translate}}</td>
               <td>
-                <button class="button" (click)="buyMateria(materia)" [disabled]="!canBuyMateria(materia)">
+                <app-button (trigger)="buyMateria(materia)" [disabled]="!canBuyMateria(materia)">
                   {{"Buy"|translate}}
-                </button>
+                </app-button>
               </td>
             </tr>
           </ng-container>
@@ -82,16 +82,16 @@
           <ng-container *ngIf="type === 'items'">
             <tr *ngFor="let item of shopItems" class="item">
               <td>
-                <img class="icon" src="/assets/images/icons/item.gif" alt="item" />
+                <app-item-icon></app-item-icon>
                 {{'It. '+item.name+' name'|translate}}<br />
-                <span class="desc">{{'It. '+item.name+' desc'|translate}}</span>
+                <span class="text-xs italic">{{'It. '+item.name+' desc'|translate}}</span>
               </td>
               <td>{{inStockItem(item)}}</td>
               <td>{{item.price}} {{"Gils"|translate}}</td>
               <td>
-                <button class="button" (click)="buyItem(item)" [disabled]="!canBuyItem(item)">
+                <app-button (trigger)="buyItem(item)" [disabled]="!canBuyItem(item)">
                   {{"Buy"|translate}}
-                </button>
+                </app-button>
               </td>
             </tr>
           </ng-container>
@@ -114,16 +114,16 @@
           <ng-container *ngIf="type === 'weapons'">
             <tr *ngFor="let weapon of playerWeapons">
               <td>
-                <img class="icon" src="/assets/images/icons/weapons/{{weapon.type}}.png" alt="weapon" />
+                <app-weapon-icon [type]="weapon.type"></app-weapon-icon>
                 {{weapon.name}}<br />
-                <span class="desc">({{"Power"|translate}} {{weapon.hits}})</span>
+                <span class="text-xs italic">({{"Power"|translate}} {{weapon.hits}})</span>
               </td>
               <td>{{inStockWeapon(weapon)}}</td>
               <td>{{weapon.getSellPrice()}} {{"Gils"|translate}}</td>
               <td>
-                <button class="button" (click)="sellWeapon(weapon)" [disabled]="!canSellWeapon(weapon)">
+                <app-button (trigger)="sellWeapon(weapon)" [disabled]="!canSellWeapon(weapon)">
                   {{"Sell"|translate}}
-                </button>
+                </app-button>
               </td>
             </tr>
           </ng-container>
@@ -131,17 +131,17 @@
           <ng-container *ngIf="type === 'materias'">
             <tr *ngFor="let materia of playerMaterias" class="materia">
               <td>
-                <img class="icon" src="/assets/images/icons/materias/{{materia.color}}.webp" alt="materia" />
+                <app-materia-icon [color]="materia.color"></app-materia-icon>
                 {{'Mat. '+materia.name+' name'|translate}}<br />
-                <span class="desc">{{'Mat. '+materia.name+' desc'|translate}}</span>
+                <span class="text-xs italic">{{'Mat. '+materia.name+' desc'|translate}}</span>
               </td>
               <td *ngIf="materia.inStock">🗸</td>
               <td *ngIf="!materia.inStock"></td>
               <td>{{materia.getSellPrice()}} {{"Gils"|translate}}</td>
               <td>
-                <button class="button" (click)="sellMateria(materia)">
+                <app-button (trigger)="sellMateria(materia)">
                   {{"Sell"|translate}}
-                </button>
+                </app-button>
               </td>
             </tr>
           </ng-container>
@@ -149,16 +149,16 @@
           <ng-container *ngIf="type === 'items'">
             <tr *ngFor="let item of playerItems" class="item">
               <td>
-                <img class="icon" src="/assets/images/icons/item.gif" alt="item" />
+                <app-item-icon></app-item-icon>
                 {{'It. '+item.name+' name'|translate}}<br />
-                <span class="desc">{{'It. '+item.name+' desc'|translate}}</span>
+                <span class="text-xs italic">{{'It. '+item.name+' desc'|translate}}</span>
               </td>
               <td>{{inStockItem(item)}}</td>
               <td>{{item.getSellPrice()}} {{"Gils"|translate}}</td>
               <td>
-                <button class="button" (click)="sellItem(item)">
+                <app-button (trigger)="sellItem(item)">
                   {{"Sell"|translate}}
-                </button>
+                </app-button>
               </td>
             </tr>
           </ng-container>
