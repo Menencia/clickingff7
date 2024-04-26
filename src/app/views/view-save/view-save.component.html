@@ -1,47 +1,55 @@
 <app-ui-layout-default>
-
   <div class="grid grid-cols-5 gap-x-4">
-
     <div>
       <div class="flex flex-col gap-1">
         <app-button (trigger)="saveGame()">
-          {{"Save"|translate}}
+          {{ "Save" | translate }}
         </app-button>
 
         <app-confirm-button
           [message]="msgImportSave"
           [disabled]="saves.length === 0"
-          (confirm)="resetGame($event)">
-            {{"Reset"|translate}}
+          (confirm)="resetGame($event)"
+        >
+          {{ "Reset" | translate }}
         </app-confirm-button>
       </div>
 
       <div class="flex flex-col gap-1 mt-5">
-        <app-button (trigger)="exportLastSave()" [disabled]="saves.length === 0">
-          {{"Export save"|translate}}
+        <app-button
+          (trigger)="exportLastSave()"
+          [disabled]="saves.length === 0"
+        >
+          {{ "Export save" | translate }}
         </app-button>
         <app-button (trigger)="exportCurrentGame()">
-          {{"Export game"|translate}}
+          {{ "Export game" | translate }}
         </app-button>
         <app-button (trigger)="showImport()">
-          {{"Import"|translate}}
+          {{ "Import" | translate }}
         </app-button>
       </div>
     </div>
 
     <div class="col-span-2">
       <div *ngIf="saves.length === 0" class="no-data">
-        {{"No saves"|translate}}
+        {{ "No saves" | translate }}
       </div>
 
       <div *ngIf="saves.length > 0">
         <ng-container *ngFor="let character of saves[0].characters.list">
-          <img *ngIf="character.inTeam" [src]="character.image" alt="" width="80" class="save_character"/>
+          <img
+            *ngIf="character.inTeam"
+            [src]="character.image"
+            alt=""
+            width="80"
+            class="save_character"
+          />
         </ng-container>
-        <br/>
-        {{"Time"|translate}}: {{saves[0].time|time}}
-        <br/>
-        {{"Gil"|translate}}: {{saves[0].gils}}
+        <br />
+        {{ "Time" | translate }}: {{ saves[0].time | time }}
+        <br />
+        {{ "Gil" | translate }}: {{ saves[0].gils }}
       </div>
     </div>
 
@@ -49,13 +57,15 @@
       <div *ngIf="showAreaExport">
         <textarea [(ngModel)]="areaExport"></textarea>
       </div>
-      <div  *ngIf="showAreaImport">
+      <div *ngIf="showAreaImport">
         <textarea [(ngModel)]="areaImport"></textarea>
 
-        <app-confirm-button [message]="msgImportSave" (confirm)="importSave($event)">IMPORT</app-confirm-button>
+        <app-confirm-button
+          [message]="msgImportSave"
+          (confirm)="importSave($event)"
+          >IMPORT</app-confirm-button
+        >
       </div>
     </div>
-
   </div>
-
 </app-ui-layout-default>

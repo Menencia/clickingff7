@@ -1,12 +1,14 @@
-<div class="relative mb-1" id="{{id}}" class="bar bar-{{name}}">
+<div class="relative mb-1" id="{{ id }}" class="bar bar-{{ name }}">
   <!-- <div class="overflow-hidden h-5 flex rounder" [class]="name"> -->
   <div [style.width]="progress + '%'" class="progress"></div>
   <div [style.width]="progressBg + '%'" class="progress-bg"></div>
-  <div class="label">{{text}}</div>
-  <div @animation
-       (@animation.done)="onAnimationEvent()"
-       *ngFor="let hits of arrHits"
-       class="hits absolute right-0 top-0 text-red-600 text-3xl">
+  <div class="label">{{ text }}</div>
+  <div
+    @animation
+    (@animation.done)="onAnimationEvent()"
+    *ngFor="let hits of arrHits"
+    class="hits absolute right-0 top-0 text-red-600 text-3xl"
+  >
     {{ hits.hits }}
   </div>
 </div>
