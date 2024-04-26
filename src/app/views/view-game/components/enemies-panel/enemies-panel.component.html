@@ -1,0 +1,38 @@
+<div class="col-span-2" id="step5">
+  <!-- enemies bars -->
+  <div *ngIf="enemies.list.length > 0">
+    <app-ui-bar
+      [progress]="round((enemies.hp / enemies.hpMax) * 100)"
+      [text]="'HP ' + enemies.hp"
+      [name]="'hp'"
+      [hits]="enemies.source.hp"
+    ></app-ui-bar>
+  </div>
+
+  <div
+    *ngIf="enemies.list.length === 0"
+    class="mt-10 text-center text-gray-300 uppercase"
+  >
+    {{ "No enemies" | translate }}
+  </div>
+
+  <!-- enemies list -->
+  <div *ngFor="let enemy of enemies.list" class="flex gap-4 mt-5">
+    <div class="relative">
+      <img [src]="enemy.image" alt="avatar" width="80" class="inline-block" />
+      <div
+        class="absolute bottom-0 left-0 right-0 h-5 text-center bg-black opacity-75"
+      >
+        <span class="text-sm text-white"> LVL{{ enemy.level }} </span>
+      </div>
+    </div>
+
+    <div class="flex-grow">
+      <div class="text-2xl">
+        {{ enemy.name }}
+        <span *ngIf="enemy.boss" class="boss">ZONE BOSS</span>
+        <span *ngIf="enemy.miboss" class="boss">BOSS</span>
+      </div>
+    </div>
+  </div>
+</div>
