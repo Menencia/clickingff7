@@ -5,11 +5,11 @@ import { Subject } from 'rxjs';
 import { ItDisplayHits } from 'src/app/core/interfaces/it-display-hits';
 
 @Component({
-  selector: 'app-ui-bar',
+  selector: 'app-progress-bar',
   standalone: true,
   imports: [NgFor],
-  templateUrl: './ui-bar.component.html',
-  styleUrls: ['./ui-bar.component.scss'],
+  templateUrl: './progress-bar.component.html',
+  styleUrls: ['./progress-bar.component.scss'],
   animations: [
     trigger('animation', [
       transition(':enter', [
@@ -19,7 +19,7 @@ import { ItDisplayHits } from 'src/app/core/interfaces/it-display-hits';
     ]),
   ],
 })
-export class UiBarComponent implements OnInit {
+export class ProgressBarComponent implements OnInit {
   Math = Math;
 
   @Input() id = '';

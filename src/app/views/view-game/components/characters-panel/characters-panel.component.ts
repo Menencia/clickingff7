@@ -4,12 +4,12 @@ import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
 import { Character } from 'src/app/models/character';
 import { Characters } from 'src/app/models/units/characters';
-import { UiBarComponent } from 'src/app/shared/ui/ui-bar/ui-bar.component';
+import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-bar.component';
 
 @Component({
   selector: 'app-characters-panel',
   standalone: true,
-  imports: [UiBarComponent, TranslateModule, NgFor],
+  imports: [ProgressBarComponent, TranslateModule, NgFor],
   templateUrl: './characters-panel.component.html',
   styleUrl: './characters-panel.component.scss',
 })

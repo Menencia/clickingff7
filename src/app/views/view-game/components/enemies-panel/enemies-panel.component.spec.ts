@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TranslateModule } from '@ngx-translate/core';
 
 import { EnemiesPanelComponent } from './enemies-panel.component';
 
@@ -8,10 +9,9 @@ describe('EnemiesPanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EnemiesPanelComponent]
-    })
-    .compileComponents();
-    
+      imports: [EnemiesPanelComponent, TranslateModule.forRoot()],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(EnemiesPanelComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

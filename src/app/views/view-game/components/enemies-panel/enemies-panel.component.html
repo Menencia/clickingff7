@@ -1,12 +1,12 @@
 <div class="col-span-2" id="step5">
   <!-- enemies bars -->
   <div *ngIf="enemies.list.length > 0">
-    <app-ui-bar
+    <app-progress-bar
       [progress]="round((enemies.hp / enemies.hpMax) * 100)"
       [text]="'HP ' + enemies.hp"
       [name]="'hp'"
       [hits]="enemies.source.hp"
-    ></app-ui-bar>
+    ></app-progress-bar>
   </div>
 
   <div

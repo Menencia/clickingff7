@@ -1,28 +1,28 @@
 <div class="col-span-2">
   <!-- characters bars -->
-  <app-ui-bar
+  <app-progress-bar
     [id]="'step2'"
     [progress]="round((characters.hp / characters.hpMax) * 100)"
     [text]="'HP ' + characters.hp"
     [name]="'hp'"
     [hits]="characters.source.hp"
-  ></app-ui-bar>
+  ></app-progress-bar>
 
-  <app-ui-bar
+  <app-progress-bar
     [id]="'step3'"
     [progress]="round((characters.mp / characters.mpMax) * 100)"
     [text]="'MP ' + characters.mp"
     [name]="'mp'"
-  ></app-ui-bar>
+  ></app-progress-bar>
 
-  <app-ui-bar
+  <app-progress-bar
     [id]="'step4'"
     [progress]="round((characters.limit / characters.limitMax) * 100)"
     [text]="
       'LIMIT ' + round((characters.limit / characters.limitMax) * 100) + '%'
     "
     [name]="'limit'"
-  ></app-ui-bar>
+  ></app-progress-bar>
 
   <!-- characters list -->
   <div id="step1">
@@ -42,11 +42,11 @@
       </div>
 
       <div class="flex-grow">
-        <app-ui-bar
+        <app-progress-bar
           [progress]="round((character.xp / character.getXpMax()) * 100)"
           [text]="character.xp + ' / ' + character.getXpMax() + 'EXP'"
           [name]="'exp'"
-        ></app-ui-bar>
+        ></app-progress-bar>
 
         <div class="text-2xl">{{ character.name }}</div>
         <div class="text-sm italic">"{{ getLine(character) | translate }}"</div>
