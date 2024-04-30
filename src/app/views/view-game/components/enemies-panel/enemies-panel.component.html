@@ -29,7 +29,8 @@
 
     <div class="flex-grow">
       <div class="text-2xl">
-        {{ enemy.name }}
+        <!-- $$$$ Translate enemies names -->
+        {{ enemy.ref }}
         <span *ngIf="enemy.boss" class="boss">ZONE BOSS</span>
         <span *ngIf="enemy.miboss" class="boss">BOSS</span>
       </div>

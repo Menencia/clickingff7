@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { TestModule } from 'src/app/shared/test/test.module';
 
 import { ViewItemsComponent } from './view-items.component';
 
@@ -9,7 +9,7 @@ describe('ViewItemsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewItemsComponent, TranslateModule.forRoot()],
+      imports: [ViewItemsComponent, TestModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewItemsComponent);

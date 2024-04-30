@@ -5,7 +5,6 @@ import { CharacterLoader } from 'src/app/models/loaders/character-loader';
 import { ItemLoader } from 'src/app/models/loaders/item-loader';
 import { MateriaLoader } from 'src/app/models/loaders/materia-loader';
 import { WeaponLoader } from 'src/app/models/loaders/weapon-loader';
-import { ZoneLoader } from 'src/app/models/loaders/zone-loader';
 import { Materias } from 'src/app/models/materias';
 import { CharacterRef } from 'src/app/models/refs/characters';
 import { ItemRef } from 'src/app/models/refs/items';
@@ -18,6 +17,8 @@ import { Zones } from 'src/app/models/zones';
 import { compareVersions } from 'src/app/shared/utils/version.utils';
 
 import packageJson from '../../../../package.json';
+
+import { StoreService } from './store.service';
 
 const SAVE_1 = 'save1';
 const CURRENT_VERSION = packageJson.version;
@@ -68,7 +69,10 @@ export class GameService {
   /**
    * init
    */
-  constructor(private translate: TranslateService) {
+  constructor(
+    private translate: TranslateService,
+    private store: StoreService,
+  ) {
     // timer
     this.timer = 0;
 
@@ -146,8 +150,7 @@ export class GameService {
    */
   buildLevel(level: number): void {
     // build zone
-    const z = ZoneLoader.buildByLevel(level);
-    this.zones.add(z);
+    this.zones.add(this.store.getZone(`zone${level}`));
 
     const zonelevelMax = this.zones.levelMax;
     this.characters.available(zonelevelMax);
@@ -280,7 +283,7 @@ export class GameService {
 
     // zones
     save.zones.list.forEach((z) => {
-      const zone = ZoneLoader.build(z.ref).load(z);
+      const zone = this.store.getZone(z.ref).load(z);
       this.zones.add(zone);
     });
 

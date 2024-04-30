@@ -1,11 +1,16 @@
 import { HttpBackend, HttpClientModule } from '@angular/common/http';
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import {
+  APP_INITIALIZER,
+  ApplicationConfig,
+  importProvidersFrom,
+} from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 
 import { routes } from './app.routes';
+import { DataService } from './core/services/data.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(_httpBackend: HttpBackend) {
@@ -30,5 +35,11 @@ export const appConfig: ApplicationConfig = {
         },
       }),
     ),
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (data: DataService) => () => data.preloadAll().toPromise(),
+      deps: [DataService],
+      multi: true,
+    },
   ],
 };

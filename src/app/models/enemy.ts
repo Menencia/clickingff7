@@ -1,29 +1,43 @@
-export abstract class Enemy {
-  level: number;
-
-  hpMax: number;
-
+export interface EnemyJson {
+  ref: string;
+  image: string;
+  hp: number;
   hits: number;
-
   xp: number;
-
   ap: number;
-
   gils: number;
+  weakness?: string[];
+  resistance?: string[];
+  boss?: boolean;
+  miboss?: boolean;
+}
 
-  abstract name: string;
+export class Enemy {
+  level = 1;
 
-  abstract image: string;
+  hpMax = 0;
 
-  abstract baseHpMax: number;
+  hits = 0;
 
-  abstract baseHits: number;
+  xp = 0;
 
-  abstract baseXp: number;
+  ap = 0;
 
-  abstract baseAp: number;
+  gils = 0;
 
-  abstract baseGils: number;
+  ref = 'no-name';
+
+  image = 'no-image';
+
+  baseHpMax = 0;
+
+  baseHits = 0;
+
+  baseXp: number;
+
+  baseAp: number;
+
+  baseGils: number;
 
   weakness: string[];
 
@@ -36,18 +50,19 @@ export abstract class Enemy {
   /**
    * Init
    */
-  constructor() {
-    this.level = 0;
-    this.hpMax = 0;
-    this.hits = 0;
-    this.xp = 0;
-    this.ap = 0;
-    this.gils = 0;
+  constructor(data: EnemyJson) {
+    this.ref = data.ref;
+    this.image = data.image;
+    this.baseHpMax = data.hp;
+    this.baseHits = data.hits;
+    this.baseXp = data.xp;
+    this.baseAp = data.ap;
+    this.baseGils = data.gils;
 
-    this.weakness = [];
-    this.resistance = [];
-    this.boss = false;
-    this.miboss = false;
+    this.weakness = data.weakness ?? [];
+    this.resistance = data.resistance ?? [];
+    this.boss = data.boss ?? false;
+    this.miboss = data.miboss ?? false;
   }
 
   /**

@@ -13,7 +13,7 @@
     "compodoc:build-and-serve": "compodoc -p tsconfig.doc.json -s",
     "compodoc:serve": "compodoc -s",
     "lint": "ng lint",
-    "check:all": "ng lint && npm run test:ci"
+    "check": "ng lint && npm run test:ci"
   },
   "private": true,
   "dependencies": {

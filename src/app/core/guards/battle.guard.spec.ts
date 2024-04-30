@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { TestModule } from 'src/app/shared/test/test.module';
 
 import { BattleGuard } from './battle.guard';
 
@@ -8,7 +8,7 @@ describe('BattleGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
+      imports: [TestModule],
     });
     guard = TestBed.inject(BattleGuard);
   });

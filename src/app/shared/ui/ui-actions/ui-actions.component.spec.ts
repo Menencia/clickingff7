@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+
+import { TestModule } from '../../test/test.module';
 
 import { UiActionsComponent } from './ui-actions.component';
 
@@ -9,7 +10,7 @@ describe('UiActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UiActionsComponent, TranslateModule.forRoot()],
+      imports: [UiActionsComponent, TestModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UiActionsComponent);

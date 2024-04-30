@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { TestModule } from 'src/app/shared/test/test.module';
 
 import { CharactersPanelComponent } from './characters-panel.component';
 
@@ -9,7 +9,7 @@ describe('CharactersPanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CharactersPanelComponent, TranslateModule.forRoot()],
+      imports: [CharactersPanelComponent, TestModule],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CharactersPanelComponent);

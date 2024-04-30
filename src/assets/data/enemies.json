@@ -1,0 +1,464 @@
+[
+  {
+    "ref": "first-ray",
+    "image": "/assets/images/enemies/zone1/1st-ray.png",
+    "hp": 2,
+    "hits": 1,
+    "xp": 1,
+    "ap": 1,
+    "gils": 5,
+    "weakness": ["bolt"]
+  },
+  {
+    "ref": "mp",
+    "image": "/assets/images/enemies/zone1/mp.png",
+    "hp": 2,
+    "hits": 2,
+    "xp": 2,
+    "ap": 1,
+    "gils": 3,
+    "weakness": ["ice"]
+  },
+  {
+    "ref": "grunt",
+    "image": "/assets/images/enemies/zone1/grunt.png",
+    "hp": 4,
+    "hits": 3,
+    "xp": 3,
+    "ap": 1,
+    "gils": 4,
+    "weakness": ["ice"]
+  },
+  {
+    "ref": "sweeper",
+    "image": "/assets/images/enemies/zone1/sweeper.png",
+    "hp": 3,
+    "hits": 4,
+    "xp": 4,
+    "ap": 1,
+    "gils": 5,
+    "weakness": ["bolt"]
+  },
+  {
+    "ref": "guard-scorpion",
+    "image": "/assets/images/enemies/zone1/guard-scorpion.png",
+    "hp": 4,
+    "hits": 3,
+    "xp": 3,
+    "ap": 3,
+    "gils": 3,
+    "weakness": ["bolt"],
+    "boss": true
+  },
+  {
+    "ref": "blood-taste",
+    "image": "/assets/images/enemies/zone2/blood-taste.png",
+    "hp": 2,
+    "hits": 3,
+    "xp": 3,
+    "ap": 1,
+    "gils": 4,
+    "weakness": ["fire"]
+  },
+  {
+    "ref": "proto-machinegun",
+    "image": "/assets/images/enemies/zone2/proto-machinegun.png",
+    "hp": 1,
+    "hits": 4,
+    "xp": 2,
+    "ap": 1,
+    "gils": 1,
+    "weakness": ["bolt"]
+  },
+  {
+    "ref": "smogger",
+    "image": "/assets/images/enemies/zone2/smogger.png",
+    "hp": 4,
+    "hits": 2,
+    "xp": 2,
+    "ap": 1,
+    "gils": 3,
+    "weakness": ["bolt"]
+  },
+  {
+    "ref": "special-combatant",
+    "image": "/assets/images/enemies/zone2/special-combatant.png",
+    "hp": 3,
+    "hits": 4,
+    "xp": 4,
+    "ap": 1,
+    "gils": 5,
+    "weakness": ["bolt"]
+  },
+  {
+    "ref": "air-buster",
+    "image": "/assets/images/enemies/zone2/air-buster.png",
+    "hp": 5,
+    "hits": 5,
+    "xp": 5,
+    "ap": 5,
+    "gils": 5,
+    "weakness": ["bolt"],
+    "boss": true
+  },
+  {
+    "ref": "vice",
+    "image": "/assets/images/enemies/zone3/vice.png",
+    "hp": 2,
+    "hits": 2,
+    "xp": 2,
+    "ap": 2,
+    "gils": 3,
+    "weakness": ["fire"]
+  },
+  {
+    "ref": "whole-eater",
+    "image": "/assets/images/enemies/zone3/whole-eater.png",
+    "hp": 2,
+    "hits": 3,
+    "xp": 2,
+    "ap": 2,
+    "gils": 2,
+    "weakness": ["fire"]
+  },
+  {
+    "ref": "hedgehog-pie",
+    "image": "/assets/images/enemies/zone3/hedgehog-pie.png",
+    "hp": 3,
+    "hits": 3,
+    "xp": 3,
+    "ap": 2,
+    "gils": 1,
+    "weakness": ["bolt"]
+  },
+  {
+    "ref": "hell-house",
+    "image": "/assets/images/enemies/zone3/hell-house.png",
+    "hp": 4,
+    "hits": 3,
+    "xp": 5,
+    "ap": 2,
+    "gils": 2,
+    "weakness": ["ice"]
+  },
+  {
+    "ref": "aps",
+    "image": "/assets/images/enemies/zone3/aps.png",
+    "hp": 5,
+    "hits": 5,
+    "xp": 5,
+    "ap": 5,
+    "gils": 5,
+    "weakness": ["fire"],
+    "boss": true
+  },
+  {
+    "ref": "aero-combatant",
+    "image": "/assets/images/enemies/zone4/aero-combatant.png",
+    "hp": 2,
+    "hits": 2,
+    "xp": 3,
+    "ap": 1,
+    "gils": 3,
+    "weakness": ["bolt"]
+  },
+  {
+    "ref": "deenglow",
+    "image": "/assets/images/enemies/zone4/deenglow.png",
+    "hp": 2,
+    "hits": 4,
+    "xp": 3,
+    "ap": 2,
+    "gils": 0,
+    "weakness": ["ice"]
+  },
+  {
+    "ref": "eligor",
+    "image": "/assets/images/enemies/zone4/eligor.png",
+    "hp": 4,
+    "hits": 3,
+    "xp": 4,
+    "ap": 1,
+    "gils": 1,
+    "weakness": ["bolt"]
+  },
+  {
+    "ref": "guard-hound",
+    "image": "/assets/images/enemies/zone4/guard-hound.png",
+    "hp": 2,
+    "hits": 2,
+    "xp": 2,
+    "ap": 4,
+    "gils": 1,
+    "weakness": ["fire"]
+  },
+  {
+    "ref": "reno",
+    "image": "/assets/images/enemies/zone4/reno.png",
+    "hp": 5,
+    "hits": 5,
+    "xp": 5,
+    "ap": 5,
+    "gils": 5,
+    "resistance": ["bolt", "fire", "ice"],
+    "boss": true
+  },
+  {
+    "ref": "mighty-grunt",
+    "image": "/assets/images/enemies/zone5/mighty-grunt.png",
+    "hp": 4,
+    "hits": 2,
+    "xp": 3,
+    "ap": 1,
+    "gils": 3,
+    "weakness": ["bolt"]
+  },
+  {
+    "ref": "soldier-3rd",
+    "image": "/assets/images/enemies/zone5/soldier-3rd.png",
+    "hp": 3,
+    "hits": 4,
+    "xp": 4,
+    "ap": 4,
+    "gils": 0,
+    "weakness": ["poison"]
+  },
+  {
+    "ref": "sword-dance",
+    "image": "/assets/images/enemies/zone5/sword-dance.png",
+    "hp": 1,
+    "hits": 3,
+    "xp": 1,
+    "ap": 1,
+    "gils": 0,
+    "weakness": ["bolt"]
+  },
+  {
+    "ref": "vargid-police",
+    "image": "/assets/images/enemies/zone5/vargid-police.png",
+    "hp": 2,
+    "hits": 1,
+    "xp": 3,
+    "ap": 3,
+    "gils": 0,
+    "weakness": ["fire", "poison"]
+  },
+  {
+    "ref": "sample-h0512",
+    "image": "/assets/images/enemies/zone5/sample-h0512.png",
+    "hp": 5,
+    "hits": 5,
+    "xp": 5,
+    "ap": 5,
+    "gils": 5,
+    "resistance": ["poison"],
+    "boss": true
+  },
+  {
+    "ref": "heli-gunner",
+    "image": "/assets/images/enemies/zone6/heli-gunner.png",
+    "hp": 2,
+    "hits": 1,
+    "xp": 3,
+    "ap": 3,
+    "gils": 0,
+    "weakness": ["bolt"],
+    "miboss": true
+  },
+  {
+    "ref": "hundred-gunner",
+    "image": "/assets/images/enemies/zone6/hundred-gunner.png",
+    "hp": 1,
+    "hits": 3,
+    "xp": 1,
+    "ap": 1,
+    "gils": 0,
+    "weakness": ["bolt"],
+    "miboss": true
+  },
+  {
+    "ref": "rufus",
+    "image": "/assets/images/enemies/zone6/rufus.png",
+    "hp": 3,
+    "hits": 4,
+    "xp": 4,
+    "ap": 4,
+    "gils": 0,
+    "weakness": ["bolt", "ice", "fire"],
+    "miboss": true
+  },
+  {
+    "ref": "zenene",
+    "image": "/assets/images/enemies/zone6/zenene.png",
+    "hp": 4,
+    "hits": 2,
+    "xp": 3,
+    "ap": 1,
+    "gils": 3,
+    "weakness": ["fire", "poison"]
+  },
+  {
+    "ref": "motor-ball",
+    "image": "/assets/images/enemies/zone6/motor-ball.png",
+    "hp": 5,
+    "hits": 5,
+    "xp": 5,
+    "ap": 5,
+    "gils": 5,
+    "weakness": ["bolt"],
+    "boss": true
+  },
+  {
+    "ref": "kalm-fang",
+    "image": "/assets/images/enemies/zone7/kalm-fang.png",
+    "hp": 2,
+    "hits": 2,
+    "xp": 1,
+    "ap": 1,
+    "gils": 2,
+    "weakness": ["fire", "earth"]
+  },
+  {
+    "ref": "mandragora",
+    "image": "/assets/images/enemies/zone7/mandragora.png",
+    "hp": 1,
+    "hits": 1,
+    "xp": 1,
+    "ap": 3,
+    "gils": 0,
+    "weakness": ["fire"]
+  },
+  {
+    "ref": "elfadunk",
+    "image": "/assets/images/enemies/zone7/elfadunk.png",
+    "hp": 4,
+    "hits": 2,
+    "xp": 1,
+    "ap": 2,
+    "gils": 1,
+    "weakness": ["earth"]
+  },
+  {
+    "ref": "levrikon",
+    "image": "/assets/images/enemies/zone7/levrikon.png",
+    "hp": 2,
+    "hits": 3,
+    "xp": 3,
+    "ap": 1,
+    "gils": 1,
+    "weakness": ["fire", "earth"]
+  },
+  {
+    "ref": "midgar-zolom",
+    "image": "/assets/images/enemies/zone7/midgar-zolom.png",
+    "hp": 5,
+    "hits": 5,
+    "xp": 5,
+    "ap": 5,
+    "gils": 5,
+    "weakness": ["bolt"],
+    "boss": true
+  },
+  {
+    "ref": "crawler",
+    "image": "/assets/images/enemies/zone8/crawler.png",
+    "hp": 1,
+    "hits": 2,
+    "xp": 1,
+    "ap": 1,
+    "gils": 2,
+    "weakness": ["fire"]
+  },
+  {
+    "ref": "castanets",
+    "image": "/assets/images/enemies/zone8/castanets.png",
+    "hp": 2,
+    "hits": 2,
+    "xp": 2,
+    "ap": 2,
+    "gils": 1,
+    "weakness": ["fire", "earth"]
+  },
+  {
+    "ref": "madouge",
+    "image": "/assets/images/enemies/zone8/madouge.png",
+    "hp": 4,
+    "hits": 3,
+    "xp": 3,
+    "ap": 1,
+    "gils": 3,
+    "weakness": ["fire"],
+    "resistance": ["earth"]
+  },
+  {
+    "ref": "ark-dragon",
+    "image": "/assets/images/enemies/zone8/ark-dragon.png",
+    "hp": 4,
+    "hits": 4,
+    "xp": 3,
+    "ap": 3,
+    "gils": 1,
+    "weakness": ["fire"],
+    "resistance": ["earth"]
+  },
+  {
+    "ref": "mystery-ninja",
+    "image": "/assets/images/enemies/zone8/mystery-ninja.png",
+    "hp": 5,
+    "hits": 5,
+    "xp": 5,
+    "ap": 5,
+    "gils": 5,
+    "boss": true
+  },
+  {
+    "ref": "capparwire",
+    "image": "/assets/images/enemies/zone9/capparwire.png",
+    "hp": 2,
+    "hits": 3,
+    "xp": 2,
+    "ap": 1,
+    "gils": 1,
+    "weakness": ["fire"]
+  },
+  {
+    "ref": "formula",
+    "image": "/assets/images/enemies/zone9/formula.png",
+    "hp": 3,
+    "hits": 2,
+    "xp": 3,
+    "ap": 2,
+    "gils": 3,
+    "weakness": ["wind"]
+  },
+  {
+    "ref": "zemzelett",
+    "image": "/assets/images/enemies/zone9/zemzelett.png",
+    "hp": 3,
+    "hits": 3,
+    "xp": 3,
+    "ap": 4,
+    "gils": 1,
+    "weakness": ["fire"]
+  },
+  {
+    "ref": "hell-rider",
+    "image": "/assets/images/enemies/zone9/hell-rider.png",
+    "hp": 4,
+    "hits": 4,
+    "xp": 4,
+    "ap": 2,
+    "gils": 2,
+    "weakness": ["poison"]
+  },
+  {
+    "ref": "bottomswell",
+    "image": "/assets/images/enemies/zone9/bottomswell.png",
+    "hp": 5,
+    "hits": 5,
+    "xp": 5,
+    "ap": 5,
+    "gils": 5,
+    "weakness": ["bolt", "wind"]
+  }
+]

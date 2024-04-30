@@ -1,0 +1,66 @@
+[
+  {
+    "ref": "zone1",
+    "level": 1,
+    "image": "/assets/images/zones/Sector_1_Reactor.png",
+    "enemies": ["first-ray", "mp", "grunt", "sweeper"],
+    "boss": ["guard-scorpion"]
+  },
+  {
+    "ref": "zone2",
+    "level": 2,
+    "image": "/assets/images/zones/Sector_5_Reactor.png",
+    "enemies": ["blood-taste", "proto-machinegun", "smogger", "special-combatant"],
+    "boss": ["air-buster"]
+  },
+  {
+    "ref": "zone3",
+    "level": 3,
+    "image": "/assets/images/zones/Sector_6.png",
+    "enemies": ["vice", "whole-eater", "hedgehog-pie", "hell-house"],
+    "boss": ["aps"]
+  },
+  {
+    "ref": "zone4",
+    "level": 4,
+    "image": "/assets/images/zones/Sector_7.png",
+    "enemies": ["aero-combatant", "deenglow", "eligor", "guard-hound"],
+    "boss": ["reno"]
+  },
+  {
+    "ref": "zone5",
+    "level": 5,
+    "image": "/assets/images/zones/Shinra_headquarters.png",
+    "enemies": ["mighty-grunt", "soldier-3rd", "sword-dance", "vargid-police"],
+    "boss": ["sample-h0512"]
+  },
+  {
+    "ref": "zone6",
+    "level": 6,
+    "image": "/assets/images/zones/Shinra_headquarters.png",
+    "enemies": ["heli-gunner", "hundred-gunner", "rufus", "zenene"],
+    "boss": ["motor-ball"]
+  },
+  {
+    "ref": "zone7",
+    "level": 7,
+    "image": "/assets/images/zones/Kalm.png",
+    "enemies": ["kalm-fang", "mandragora", "elfadunk", "levrikon"],
+    "boss": ["midgar-zolom"]
+  },
+  {
+    "ref": "zone8",
+    "level": 8,
+    "image": "/assets/images/zones/Mythril_mine.png",
+    "enemies": ["crawler", "castanets", "madouge", "ark-dragon"],
+    "boss": ["mystery-ninja"]
+  },
+  {
+    "ref": "zone9",
+    "level": 9,
+    "image": "/assets/images/zones/Junon.png",
+    "enemies": ["capparwire", "formula", "zemzelett", "hell-rider"],
+    "boss": ["bottomswell"]
+  }
+]
+
