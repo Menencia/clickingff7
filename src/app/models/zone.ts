@@ -1,26 +1,33 @@
 import { Enemy } from './enemy';
+import { ZoneRef } from './refs/zones';
 import { ZoneSave } from './save';
 
 export const MAX_FIGHTS = 15;
 
-export interface ZoneJson {
-  ref: string;
+interface ZoneBase {
+  ref: ZoneRef;
   level: number;
   image: string;
+}
+
+export interface ZoneJson extends ZoneBase {
   enemies: string[];
   boss: string[];
 }
 
-export interface ZoneData {
-  ref: string;
-  level: number;
-  image: string;
+export interface ZoneData extends ZoneBase {
   enemies: Enemy[];
   boss: Enemy[];
 }
 
 export class Zone {
-  ref: string;
+  /** Number of fights done in the zone */
+  nbFights = 0;
+
+  /** True if boss has been beaten */
+  completed = false;
+
+  ref: ZoneRef;
 
   level: number;
 
@@ -29,12 +36,6 @@ export class Zone {
   enemies: Enemy[];
 
   boss: Enemy[];
-
-  /** Number of fights done in the zone */
-  nbFights = 0;
-
-  /** True if boss has been beaten */
-  completed = false;
 
   constructor(data: ZoneData) {
     this.ref = data.ref;

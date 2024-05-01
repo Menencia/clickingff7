@@ -1,10 +1,8 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Items } from 'src/app/models/items';
-import { CharacterLoader } from 'src/app/models/loaders/character-loader';
 import { ItemLoader } from 'src/app/models/loaders/item-loader';
 import { MateriaLoader } from 'src/app/models/loaders/materia-loader';
-import { WeaponLoader } from 'src/app/models/loaders/weapon-loader';
 import { Materias } from 'src/app/models/materias';
 import { CharacterRef } from 'src/app/models/refs/characters';
 import { ItemRef } from 'src/app/models/refs/items';
@@ -162,17 +160,17 @@ export class GameService {
       case 1:
         // add cloud in the team
         this.characters.add(
-          CharacterLoader.build(CharacterRef.Cloud).setLevel(levelMax),
+          this.store.getCharacter(CharacterRef.Cloud).setLevel(levelMax),
           true,
         );
-        this.weapons.add(WeaponLoader.build(WeaponRef.BusterSword), true);
+        this.weapons.add(this.store.getWeapon(WeaponRef.BusterSword), true);
 
         // add barret in the team
         this.characters.add(
-          CharacterLoader.build(CharacterRef.Barret).setLevel(levelMax),
+          this.store.getCharacter(CharacterRef.Barret).setLevel(levelMax),
           true,
         );
-        this.weapons.add(WeaponLoader.build(WeaponRef.GatlingGun), true);
+        this.weapons.add(this.store.getWeapon(WeaponRef.GatlingGun), true);
 
         // add materias
         this.materias.add(MateriaLoader.build(MateriaRef.Restore), true);
@@ -186,18 +184,18 @@ export class GameService {
       case 2:
         // add tifa in the team
         this.characters.add(
-          CharacterLoader.build(CharacterRef.Tifa).setLevel(levelMax),
+          this.store.getCharacter(CharacterRef.Tifa).setLevel(levelMax),
           true,
         );
-        this.weapons.add(WeaponLoader.build(WeaponRef.LeatherGlove), true);
+        this.weapons.add(this.store.getWeapon(WeaponRef.LeatherGlove), true);
         break;
       case 3:
         // add aerith in the team
         this.characters.add(
-          CharacterLoader.build(CharacterRef.Aerith).setLevel(levelMax),
+          this.store.getCharacter(CharacterRef.Aerith).setLevel(levelMax),
           true,
         );
-        this.weapons.add(WeaponLoader.build(WeaponRef.GuardStick), true);
+        this.weapons.add(this.store.getWeapon(WeaponRef.GuardStick), true);
         break;
       case 4:
         // add barret & tifa in the team
@@ -210,18 +208,18 @@ export class GameService {
       case 5:
         // add redxiii in the team
         this.characters.add(
-          CharacterLoader.build(CharacterRef.RedXIII).setLevel(levelMax),
+          this.store.getCharacter(CharacterRef.RedXIII).setLevel(levelMax),
           false,
         );
-        this.weapons.add(WeaponLoader.build(WeaponRef.MythrilClip), true);
+        this.weapons.add(this.store.getWeapon(WeaponRef.MythrilClip), true);
         break;
       case 9:
         // add yuffie in the team
         this.characters.add(
-          CharacterLoader.build(CharacterRef.Yuffie).setLevel(levelMax),
+          this.store.getCharacter(CharacterRef.Yuffie).setLevel(levelMax),
           false,
         );
-        this.weapons.add(WeaponLoader.build(WeaponRef.FPtShuriken), true);
+        this.weapons.add(this.store.getWeapon(WeaponRef.FPtShuriken), true);
         break;
       default:
       // do nothing
@@ -273,7 +271,8 @@ export class GameService {
 
     // characters
     save.characters.list.forEach((c) => {
-      const character = CharacterLoader.build(c.ref).load(c);
+      const character = this.store.getCharacter(c.ref).load(c);
+      character.setWeapon(this.store.getWeapon(c.weaponRef));
       this.characters.add(character, c.inTeam);
     });
 
@@ -295,7 +294,7 @@ export class GameService {
 
     // weapons
     save.weapons.forEach((w) => {
-      const weapon = WeaponLoader.build(w.ref).load(w);
+      const weapon = this.store.getWeapon(w.ref).load(w);
       this.weapons.add(weapon, w.equipped);
     });
 

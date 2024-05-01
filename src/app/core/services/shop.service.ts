@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { Item } from 'src/app/models/item';
 import { ItemLoader } from 'src/app/models/loaders/item-loader';
 import { MateriaLoader } from 'src/app/models/loaders/materia-loader';
-import { WeaponLoader } from 'src/app/models/loaders/weapon-loader';
 import { Materia } from 'src/app/models/materia';
 import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
 import { WeaponRef } from 'src/app/models/refs/weapons';
 import { Weapon } from 'src/app/models/weapon';
+
+import { StoreService } from './store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -18,6 +19,8 @@ export class ShopService {
   materias: Materia[] = [];
 
   items: Item[] = [];
+
+  constructor(private store: StoreService) {}
 
   refresh(levelMax: number): void {
     this.weapons = [];
@@ -39,7 +42,7 @@ export class ShopService {
       // 'FPtShuriken'
     ];
     weapons.forEach((w) => {
-      const weapon = WeaponLoader.build(w);
+      const weapon = this.store.getWeapon(w);
       if (weapon.zoneAvailable <= levelMax) {
         this.weapons.push(weapon);
       }

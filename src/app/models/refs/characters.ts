@@ -1,8 +1,8 @@
 export enum CharacterRef {
-  Aerith = 'Aerith',
-  Barret = 'Barret',
-  Cloud = 'Cloud',
-  RedXIII = 'RedXIII',
-  Tifa = 'Tifa',
-  Yuffie = 'Yuffie',
+  Aerith = 'aerith',
+  Barret = 'barret',
+  Cloud = 'cloud',
+  RedXIII = 'redxiii',
+  Tifa = 'tifa',
+  Yuffie = 'yuffie',
 }

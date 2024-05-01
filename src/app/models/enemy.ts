@@ -1,5 +1,7 @@
+import { EnemyRef } from './refs/enemy';
+
 export interface EnemyJson {
-  ref: string;
+  ref: EnemyRef;
   image: string;
   hp: number;
   hits: number;
@@ -25,13 +27,13 @@ export class Enemy {
 
   gils = 0;
 
-  ref = 'no-name';
+  ref: EnemyRef;
 
-  image = 'no-image';
+  image: string;
 
-  baseHpMax = 0;
+  baseHpMax: number;
 
-  baseHits = 0;
+  baseHits: number;
 
   baseXp: number;
 
@@ -58,7 +60,6 @@ export class Enemy {
     this.baseXp = data.xp;
     this.baseAp = data.ap;
     this.baseGils = data.gils;
-
     this.weakness = data.weakness ?? [];
     this.resistance = data.resistance ?? [];
     this.boss = data.boss ?? false;

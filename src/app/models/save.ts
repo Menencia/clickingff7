@@ -2,6 +2,7 @@ import { CharacterRef } from './refs/characters';
 import { ItemRef } from './refs/items';
 import { MateriaRef } from './refs/materias';
 import { WeaponRef } from './refs/weapons';
+import { ZoneRef } from './refs/zones';
 
 export interface CharactersSave {
   list: CharacterSave[];
@@ -16,7 +17,7 @@ export interface CharacterSave {
   level: number;
   xp: number;
   image: string;
-  weaponRef: WeaponRef;
+  weaponRef: string;
 }
 
 export interface ZonesSave {
@@ -26,7 +27,7 @@ export interface ZonesSave {
 }
 
 export interface ZoneSave {
-  ref: string;
+  ref: ZoneRef;
   nbFights: number;
   completed: boolean;
 }

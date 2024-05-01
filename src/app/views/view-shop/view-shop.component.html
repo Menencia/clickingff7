@@ -56,7 +56,7 @@
             <tr *ngFor="let weapon of shopWeapons">
               <td>
                 <app-weapon-icon [type]="weapon.type"></app-weapon-icon>
-                {{ weapon.name }}<br />
+                {{ weapon.ref }}<br />
                 <span class="text-xs italic"
                   >({{ "Power" | translate }} {{ weapon.hits }})</span
                 >
@@ -134,7 +134,7 @@
             <tr *ngFor="let weapon of playerWeapons">
               <td>
                 <app-weapon-icon [type]="weapon.type"></app-weapon-icon>
-                {{ weapon.name }}<br />
+                {{ weapon.ref }}<br />
                 <span class="text-xs italic"
                   >({{ "Power" | translate }} {{ weapon.hits }})</span
                 >

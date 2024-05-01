@@ -1,94 +1,102 @@
-import { WeaponLoader } from './loaders/weapon-loader';
 import { CharacterRef } from './refs/characters';
 import { CharacterSave } from './save';
 import { Weapon } from './weapon';
 
-export abstract class Character {
-  abstract ref: CharacterRef;
-
-  level: number;
-
+interface CharacterBase {
+  ref: CharacterRef;
+  image: string;
+  weaponType: string;
+  hp: number;
+  mp: number;
   xp: number;
+  notA?: number[];
+}
 
-  isNotAvailable: boolean;
+export interface CharacterJson extends CharacterBase {
+  weapon: string;
+}
 
-  inTeam: boolean;
+export interface CharacterData extends CharacterBase {
+  weapon: Weapon;
+}
 
-  abstract name: string;
+export class Character {
+  level = 1;
 
-  abstract image: string;
+  xp = 0;
 
-  abstract weaponType: string;
+  isNotAvailable = false;
 
-  abstract weapon: Weapon;
+  inTeam = false;
 
-  abstract hpBase: number;
+  ref: CharacterRef;
 
-  abstract mpBase: number;
+  image: string;
 
-  abstract xpBase: number;
+  weaponType: string;
 
-  abstract notA: number[];
+  weapon: Weapon;
 
-  constructor() {
-    this.level = 1;
-    this.xp = 0;
-    this.isNotAvailable = false;
-    this.inTeam = false;
+  hpBase: number;
+
+  mpBase: number;
+
+  xpBase: number;
+
+  notA: number[];
+
+  constructor(data: CharacterData) {
+    this.ref = data.ref;
+    this.image = data.image;
+    this.weaponType = data.weaponType;
+    this.weapon = data.weapon;
+    this.hpBase = data.hp;
+    this.mpBase = data.mp;
+    this.xpBase = data.xp;
+    this.notA = data.notA ?? [];
   }
 
-  /**
-   * Extends
-   */
+  /** Updates all CharacterSave data except weapon */
   load(data: CharacterSave): Character {
-    this.ref = data.ref;
     this.level = data.level;
     this.xp = data.xp;
     this.inTeam = data.inTeam;
     this.image = data.image;
-    this.weapon = WeaponLoader.build(data.weaponRef);
     return this;
   }
 
-  /**
-   * Set current level
-   */
+  /** Updates only weapon */
+  setWeapon(weapon: Weapon) {
+    this.weapon = weapon;
+  }
+
+  /** Updates only level */
   setLevel(level: number): Character {
     this.level = level;
     return this;
   }
 
-  /**
-   * Returns true if the character is available in the levelMax
-   */
+  /* Returns true if the character is available in the {zonelevelMax} */
   notAvailable(zonelevelMax: number): boolean {
     return this.notA.includes(zonelevelMax);
   }
 
-  /**
-   *
-   */
+  /* Returns calculated HP MAX */
   getHpMax(): number {
     return Math.ceil((((this.hpBase - 3) * 10) / 100 + 1) * 20 * this.level);
   }
 
-  /**
-   *
-   */
+  /** Returns calculated MP MAX */
   getMpMax(): number {
     return Math.ceil((((this.mpBase - 3) * 10) / 100 + 1) * 3 * this.level);
   }
 
-  /**
-   *
-   */
+  /** Returns calculated XP MAX */
   getXpMax(): number {
     return Math.ceil((((3 - this.xpBase) * 10) / 100 + 1) * 100 * this.level);
   }
 
-  /**
-   *
-   */
+  /** Returns hits produced by current weapon */
   getHits(): number {
     if (this.weapon) {
       return (this.level * this.weapon.hits) / 10;
@@ -96,16 +104,12 @@ export abstract class Character {
     return 0;
   }
 
-  /**
-   *
-   */
+  /** Returns the percentage of XP progression */
   xpProgress(pixelsMax: number): number {
     return this.xp === 0 ? 0 : (this.xp / this.getXpMax()) * pixelsMax;
   }
 
-  /**
-   *
-   */
+  /** Updates xp and can trigger character level up */
   setXp(xp: number): void {
     if (this.level < 100) {
       this.xp += xp;
@@ -118,9 +122,7 @@ export abstract class Character {
     }
   }
 
-  /**
-   *
-   */
+  /** Returns Character data to be saved */
   export(): CharacterSave {
     const { ref, inTeam, level, xp, image, weapon } = this;
     const weaponRef = weapon.ref;

@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin, map } from 'rxjs';
+import { Character, CharacterJson } from 'src/app/models/character';
 import { Enemy, EnemyJson } from 'src/app/models/enemy';
+import { Weapon, WeaponJson } from 'src/app/models/weapon';
 import { Zone, ZoneJson } from 'src/app/models/zone';
 
 @Injectable({
@@ -12,13 +14,24 @@ export class DataService {
 
   enemies: Enemy[] = [];
 
+  weapons: Weapon[] = [];
+
+  characters: Character[] = [];
+
   constructor(private http: HttpClient) {}
 
   preloadAll(): Observable<void> {
-    return forkJoin([this.preloadEnemies(), this.preloadZones()]).pipe(
-      map(([enemies, zones]) => {
+    return forkJoin([
+      this.preloadEnemies(),
+      this.preloadZones(),
+      this.preloadWeapons(),
+      this.preloadCharacters(),
+    ]).pipe(
+      map(([enemies, zones, weapons, characters]) => {
         this.buildEnemies(enemies);
         this.buildZones(zones);
+        this.buildWeapons(weapons);
+        this.buildCharacters(characters);
       }),
     );
   }
@@ -42,11 +55,35 @@ export class DataService {
     });
   }
 
+  /** Depends: none */
+  private buildWeapons(weapons: WeaponJson[]) {
+    this.weapons = weapons.map((data) => new Weapon(data));
+  }
+
+  /** Depends: enemies */
+  private buildCharacters(characters: CharacterJson[]) {
+    this.characters = characters.map((data) => {
+      const characterData = {
+        ...data,
+        weapon: this.weapons.find((e) => e.ref === data.weapon)!,
+      };
+      return new Character(characterData);
+    });
+  }
+
   private preloadEnemies() {
     return this.http.get<EnemyJson[]>('assets/data/enemies.json');
   }
 
   private preloadZones() {
     return this.http.get<ZoneJson[]>('assets/data/zones.json');
+  }
+
+  private preloadWeapons() {
+    return this.http.get<WeaponJson[]>('assets/data/weapons.json');
+  }
+
+  private preloadCharacters() {
+    return this.http.get<CharacterJson[]>('assets/data/characters.json');
   }
 }

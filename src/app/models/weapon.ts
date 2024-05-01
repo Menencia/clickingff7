@@ -1,38 +1,45 @@
 import { WeaponRef } from './refs/weapons';
 import { WeaponSave } from './save';
 
-export abstract class Weapon {
-  abstract ref: WeaponRef;
+export interface WeaponJson {
+  ref: WeaponRef;
+  type: string;
+  hits: number;
+  price: number;
+  maxMaterias: number;
+  zoneAvailable: number;
+}
 
-  nbr: number;
+export class Weapon {
+  nbr = 1;
 
-  equipped: boolean;
+  equipped = false;
 
-  abstract name: string;
+  ref: WeaponRef;
 
-  abstract type: string;
+  type: string;
 
-  abstract hits: number;
+  hits: number;
 
-  abstract price: number;
+  price: number;
 
-  abstract maxMaterias: number;
+  maxMaterias: number;
 
-  abstract zoneAvailable: number;
+  zoneAvailable: number;
 
-  constructor() {
-    // nbr owned
-    this.nbr = 1;
-
-    // equipped
-    this.equipped = false;
+  constructor(data: WeaponJson) {
+    this.ref = data.ref;
+    this.type = data.type;
+    this.hits = data.hits;
+    this.price = data.price;
+    this.maxMaterias = data.maxMaterias;
+    this.zoneAvailable = data.zoneAvailable;
   }
 
   /**
    * Extends
    */
   load(data: WeaponSave): Weapon {
-    this.ref = data.ref;
     this.nbr = data.nbr;
     this.equipped = data.equipped;
     return this;
@@ -59,7 +66,7 @@ export abstract class Weapon {
     // weapons.list
     let sum = 0;
     weapons.forEach((w) => {
-      if (w.name === this.name) {
+      if (w.ref === this.ref) {
         sum += w.nbr;
       }
     });

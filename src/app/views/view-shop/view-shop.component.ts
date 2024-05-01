@@ -2,10 +2,10 @@ import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
+import { StoreService } from 'src/app/core/services/store.service';
 import { Item, MAX_ITEMS } from 'src/app/models/item';
 import { ItemLoader } from 'src/app/models/loaders/item-loader';
 import { MateriaLoader } from 'src/app/models/loaders/materia-loader';
-import { WeaponLoader } from 'src/app/models/loaders/weapon-loader';
 import { Materia } from 'src/app/models/materia';
 import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
@@ -50,7 +50,10 @@ export class ViewShopComponent {
 
   playerItems: Item[] = [];
 
-  constructor(private gameService: GameService) {
+  constructor(
+    private gameService: GameService,
+    private store: StoreService,
+  ) {
     this.refresh();
   }
 
@@ -172,7 +175,7 @@ export class ViewShopComponent {
       // 'FPtShuriken'
     ];
     weapons.forEach((w) => {
-      const weapon = WeaponLoader.build(w);
+      const weapon = this.store.getWeapon(w);
       if (weapon.zoneAvailable <= levelMax) {
         this.shopWeapons.push(weapon);
       }

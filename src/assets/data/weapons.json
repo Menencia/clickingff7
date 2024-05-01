@@ -1,0 +1,107 @@
+[
+  {
+    "ref": "buster-sword",
+    "type": "broadsword",
+    "hits": 18,
+    "price": 170,
+    "maxMaterias": 1,
+    "zoneAvailable": 1
+  },
+  {
+    "ref": "mythril-saber",
+    "type": "broadsword",
+    "hits": 23,
+    "price": 1000,
+    "maxMaterias": 1,
+    "zoneAvailable": 7
+  },
+  {
+    "ref": "gatling-gun",
+    "type": "gun-arm",
+    "hits": 14,
+    "price": 130,
+    "maxMaterias": 1,
+    "zoneAvailable": 1
+  },
+  {
+    "ref": "assault-gun",
+    "type": "gun-arm",
+    "hits": 17,
+    "price": 350,
+    "maxMaterias": 1,
+    "zoneAvailable": 2
+  },
+  {
+    "ref": "cannon-ball",
+    "type": "gun-arm",
+    "hits": 23,
+    "price": 900,
+    "maxMaterias": 1,
+    "zoneAvailable": 7
+  },
+  {
+    "ref": "mythril-clip",
+    "type": "headdresse",
+    "hits": 24,
+    "price": 800,
+    "maxMaterias": 1,
+    "zoneAvailable": 5
+  },
+  {
+    "ref": "leather-glove",
+    "type": "knuckle",
+    "hits": 13,
+    "price": 120,
+    "maxMaterias": 1,
+    "zoneAvailable": 2
+  },
+  {
+    "ref": "metal-knuckle",
+    "type": "knuckle",
+    "hits": 18,
+    "price": 320,
+    "maxMaterias": 1,
+    "zoneAvailable": 3
+  },
+  {
+    "ref": "mythril-claw",
+    "type": "knuckle",
+    "hits": 24,
+    "price": 1100,
+    "maxMaterias": 1,
+    "zoneAvailable": 7
+  },
+  {
+    "ref": "4-pt-shuriken",
+    "type": "shuriken",
+    "hits": 23,
+    "price": 180,
+    "maxMaterias": 2,
+    "zoneAvailable": 9
+  },
+  {
+    "ref": "guard-stick",
+    "type": "stave",
+    "hits": 12,
+    "price": 140,
+    "maxMaterias": 2,
+    "zoneAvailable": 3
+  },
+  {
+    "ref": "mythril-rod",
+    "type": "stave",
+    "hits": 16,
+    "price": 370,
+    "maxMaterias": 2,
+    "zoneAvailable": 3
+  },
+  {
+    "ref": "full-metal-staff",
+    "type": "stave",
+    "hits": 22,
+    "price": 850,
+    "maxMaterias": 2,
+    "zoneAvailable": 7
+  }
+]
+

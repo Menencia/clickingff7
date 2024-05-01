@@ -16,7 +16,7 @@ export class Weapons {
    * Add a weapon
    */
   add(weapon: Weapon, equipped = false): void {
-    const w = this.list.find((e) => e.name === weapon.name);
+    const w = this.list.find((e) => e.ref === weapon.ref);
     if (w) {
       w.nbr += 1;
     } else {
