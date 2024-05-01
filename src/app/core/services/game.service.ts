@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Items } from 'src/app/models/items';
-import { ItemLoader } from 'src/app/models/loaders/item-loader';
 import { MateriaLoader } from 'src/app/models/loaders/materia-loader';
 import { Materias } from 'src/app/models/materias';
 import { CharacterRef } from 'src/app/models/refs/characters';
 import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
 import { WeaponRef } from 'src/app/models/refs/weapons';
+import { ZoneRef } from 'src/app/models/refs/zones';
 import { Save } from 'src/app/models/save';
 import { Characters } from 'src/app/models/units/characters';
 import { Weapons } from 'src/app/models/weapons';
@@ -148,7 +148,7 @@ export class GameService {
    */
   buildLevel(level: number): void {
     // build zone
-    this.zones.add(this.store.getZone(`zone${level}`));
+    this.zones.add(this.store.getZone(`zone${level}` as ZoneRef));
 
     const zonelevelMax = this.zones.levelMax;
     this.characters.available(zonelevelMax);
@@ -177,8 +177,8 @@ export class GameService {
         this.materias.add(MateriaLoader.build(MateriaRef.Bolt), true);
 
         // add items
-        this.items.add(ItemLoader.build(ItemRef.Potion), true);
-        this.items.add(ItemLoader.build(ItemRef.Potion), true);
+        this.items.add(this.store.getItem(ItemRef.Potion), true);
+        this.items.add(this.store.getItem(ItemRef.Potion), true);
 
         break;
       case 2:
@@ -306,7 +306,7 @@ export class GameService {
 
     // items
     save.items.forEach((i) => {
-      const item = ItemLoader.build(i.ref).load(i);
+      const item = this.store.getItem(i.ref).load(i);
       this.items.add(item, i.equipped);
     });
 

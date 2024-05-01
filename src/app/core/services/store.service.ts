@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Character } from 'src/app/models/character';
+import { Item } from 'src/app/models/item';
+import { CharacterRef } from 'src/app/models/refs/characters';
+import { ItemRef } from 'src/app/models/refs/items';
+import { WeaponRef } from 'src/app/models/refs/weapons';
+import { ZoneRef } from 'src/app/models/refs/zones';
 import { Weapon } from 'src/app/models/weapon';
 import { Zone } from 'src/app/models/zone';
 
@@ -11,7 +16,7 @@ import { DataService } from './data.service';
 export class StoreService {
   constructor(private data: DataService) {}
 
-  getZone(ref: string): Zone {
+  getZone(ref: ZoneRef): Zone {
     const found = this.data.zones.find((zone) => zone.ref === ref);
     if (found) {
       return found;
@@ -19,7 +24,7 @@ export class StoreService {
     throw new Error(`Zone ${ref} not found`);
   }
 
-  getWeapon(ref: string): Weapon {
+  getWeapon(ref: WeaponRef): Weapon {
     const found = this.data.weapons.find((weapon) => weapon.ref === ref);
     if (found) {
       return found;
@@ -27,7 +32,7 @@ export class StoreService {
     throw new Error(`Weapon ${ref} not found`);
   }
 
-  getCharacter(ref: string): Character {
+  getCharacter(ref: CharacterRef): Character {
     const found = this.data.characters.find(
       (character) => character.ref === ref,
     );
@@ -35,5 +40,13 @@ export class StoreService {
       return found;
     }
     throw new Error(`Character ${ref} not found`);
+  }
+
+  getItem(ref: ItemRef): Item {
+    const found = this.data.items.find((item) => item.ref === ref);
+    if (found) {
+      return found;
+    }
+    throw new Error(`Item ${ref} not found`);
   }
 }

@@ -1,7 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { TranslateService } from '@ngx-translate/core';
 import { MockProvider } from 'ng-mocks';
-import { characterMock, weaponMock } from 'src/app/shared/test/game.mock';
+import {
+  characterMock,
+  itemMock,
+  weaponMock,
+} from 'src/app/shared/test/game.mock';
 
 import { GameService } from './game.service';
 import { StoreService } from './store.service';
@@ -16,6 +20,7 @@ describe('GameService', () => {
         MockProvider(StoreService, {
           getCharacter: () => characterMock,
           getWeapon: () => weaponMock,
+          getItem: () => itemMock,
         }),
       ],
     });

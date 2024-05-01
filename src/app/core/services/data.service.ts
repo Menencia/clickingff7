@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable, forkJoin, map } from 'rxjs';
 import { Character, CharacterJson } from 'src/app/models/character';
 import { Enemy, EnemyJson } from 'src/app/models/enemy';
+import { Item, ItemJson } from 'src/app/models/item';
+import { HpPotion } from 'src/app/models/items/hp-potion';
+import { MpPotion } from 'src/app/models/items/mp-potion';
 import { Weapon, WeaponJson } from 'src/app/models/weapon';
 import { Zone, ZoneJson } from 'src/app/models/zone';
 
@@ -18,6 +21,8 @@ export class DataService {
 
   characters: Character[] = [];
 
+  items: Item[] = [];
+
   constructor(private http: HttpClient) {}
 
   preloadAll(): Observable<void> {
@@ -26,12 +31,14 @@ export class DataService {
       this.preloadZones(),
       this.preloadWeapons(),
       this.preloadCharacters(),
+      this.preloadItems(),
     ]).pipe(
-      map(([enemies, zones, weapons, characters]) => {
+      map(([enemies, zones, weapons, characters, items]) => {
         this.buildEnemies(enemies);
         this.buildZones(zones);
         this.buildWeapons(weapons);
         this.buildCharacters(characters);
+        this.buildItems(items);
       }),
     );
   }
@@ -71,6 +78,20 @@ export class DataService {
     });
   }
 
+  /** Depends: none */
+  private buildItems(items: ItemJson[]) {
+    this.items = items.map((data) => {
+      switch (data.type) {
+        case 'hp-potion':
+          return new HpPotion(data);
+        case 'mp-potion':
+          return new MpPotion(data);
+        default:
+          throw new Error(`Item of type ${data.type} not found`);
+      }
+    });
+  }
+
   private preloadEnemies() {
     return this.http.get<EnemyJson[]>('assets/data/enemies.json');
   }
@@ -85,5 +106,9 @@ export class DataService {
 
   private preloadCharacters() {
     return this.http.get<CharacterJson[]>('assets/data/characters.json');
+  }
+
+  private preloadItems() {
+    return this.http.get<ItemJson[]>('assets/data/items.json');
   }
 }

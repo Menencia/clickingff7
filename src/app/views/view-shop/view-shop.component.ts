@@ -4,7 +4,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
 import { StoreService } from 'src/app/core/services/store.service';
 import { Item, MAX_ITEMS } from 'src/app/models/item';
-import { ItemLoader } from 'src/app/models/loaders/item-loader';
 import { MateriaLoader } from 'src/app/models/loaders/materia-loader';
 import { Materia } from 'src/app/models/materia';
 import { ItemRef } from 'src/app/models/refs/items';
@@ -208,7 +207,7 @@ export class ViewShopComponent {
       ItemRef.HiEther,
     ];
     items.forEach((i) => {
-      const item = ItemLoader.build(i);
+      const item = this.store.getItem(i);
       if (item.available(levelMax)) {
         this.shopItems.push(item);
       }
@@ -245,6 +244,6 @@ export class ViewShopComponent {
   }
 
   private sortItems(items: Item[]): Item[] {
-    return items.sort((a, b) => a.name.localeCompare(b.name));
+    return items.sort((a, b) => a.ref.localeCompare(b.ref));
   }
 }

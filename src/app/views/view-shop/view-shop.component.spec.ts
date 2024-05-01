@@ -9,6 +9,7 @@ import {
   MateriasMock,
   WeaponsMock,
   ZonesMock,
+  itemMock,
   weaponMock,
 } from 'src/app/shared/test/game.mock';
 
@@ -28,7 +29,10 @@ describe('ShopComponent', () => {
           ...MateriasMock,
           ...ItemsMock,
         }),
-        MockProvider(StoreService, { getWeapon: () => weaponMock }),
+        MockProvider(StoreService, {
+          getWeapon: () => weaponMock,
+          getItem: () => itemMock,
+        }),
       ],
     }).compileComponents();
 

@@ -18,7 +18,7 @@ export class Items {
    * Add an item
    */
   add(item: Item, equipped = false): void {
-    const i = this.list.find((e) => e.name === item.name);
+    const i = this.list.find((e) => e.ref === item.ref);
     if (i) {
       i.nbr += 1;
     } else {

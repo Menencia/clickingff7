@@ -1,0 +1,31 @@
+[
+  {
+    "ref": "potion",
+    "type": "hp-potion",
+    "price": 60,
+    "pwr": 0.33,
+    "zoneAvailable": 1
+  },
+  {
+    "ref": "hi-potion",
+    "type": "hp-potion",
+    "price": 100,
+    "pwr": 0.66,
+    "zoneAvailable": 7
+  },
+  {
+    "ref": "ether",
+    "type": "mp-potion",
+    "price": 70,
+    "pwr": 0.33,
+    "zoneAvailable": 1
+  },
+  {
+    "ref": "hi-ether",
+    "type": "mp-potion",
+    "price": 130,
+    "pwr": 0.66,
+    "zoneAvailable": 7
+  }
+]
+

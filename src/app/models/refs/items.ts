@@ -1,6 +1,6 @@
 export enum ItemRef {
-  Ether = 'Ether',
-  HiEther = 'HiEther',
-  HiPotion = 'HiPotion',
-  Potion = 'Potion',
+  Ether = 'ether',
+  HiEther = 'hi-ether',
+  HiPotion = 'hi-potion',
+  Potion = 'potion',
 }

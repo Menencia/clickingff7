@@ -101,9 +101,9 @@
             <tr *ngFor="let item of shopItems" class="item">
               <td>
                 <app-item-icon></app-item-icon>
-                {{ "It. " + item.name + " name" | translate }}<br />
+                {{ "It. " + item.ref + " name" | translate }}<br />
                 <span class="text-xs italic">{{
-                  "It. " + item.name + " desc" | translate
+                  "It. " + item.ref + " desc" | translate
                 }}</span>
               </td>
               <td>{{ inStockItem(item) }}</td>
@@ -176,9 +176,9 @@
             <tr *ngFor="let item of playerItems" class="item">
               <td>
                 <app-item-icon></app-item-icon>
-                {{ "It. " + item.name + " name" | translate }}<br />
+                {{ "It. " + item.ref + " name" | translate }}<br />
                 <span class="text-xs italic">{{
-                  "It. " + item.name + " desc" | translate
+                  "It. " + item.ref + " desc" | translate
                 }}</span>
               </td>
               <td>{{ inStockItem(item) }}</td>

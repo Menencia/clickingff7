@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Item } from 'src/app/models/item';
-import { ItemLoader } from 'src/app/models/loaders/item-loader';
 import { MateriaLoader } from 'src/app/models/loaders/materia-loader';
 import { Materia } from 'src/app/models/materia';
 import { ItemRef } from 'src/app/models/refs/items';
@@ -71,7 +70,7 @@ export class ShopService {
       ItemRef.HiEther,
     ];
     items.forEach((i) => {
-      const item = ItemLoader.build(i);
+      const item = this.store.getItem(i);
       if (item.available(levelMax)) {
         this.items.push(item);
       }

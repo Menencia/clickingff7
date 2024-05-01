@@ -11,9 +11,9 @@
     <tr *ngFor="let item of list" class="item">
       <td>
         <app-item-icon></app-item-icon>
-        {{ "It. " + item.name + " name" | translate }}<br />
+        {{ "It. " + item.ref + " name" | translate }}<br />
         <span class="text-xs italic">{{
-          "It. " + item.name + " desc" | translate
+          "It. " + item.ref + " desc" | translate
         }}</span>
       </td>
       <td>{{ item.nbr }}</td>
