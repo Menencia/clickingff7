@@ -6,6 +6,12 @@ import { Enemy, EnemyJson } from 'src/app/models/enemy';
 import { Item, ItemJson } from 'src/app/models/item';
 import { HpPotion } from 'src/app/models/items/hp-potion';
 import { MpPotion } from 'src/app/models/items/mp-potion';
+import { Materia, MateriaJson } from 'src/app/models/materia';
+import {
+  AttackMateria,
+  AttackMateriaJson,
+} from 'src/app/models/materias/attack-materia';
+import { CureMateria } from 'src/app/models/materias/cure-materia';
 import { Weapon, WeaponJson } from 'src/app/models/weapon';
 import { Zone, ZoneJson } from 'src/app/models/zone';
 
@@ -23,6 +29,8 @@ export class DataService {
 
   items: Item[] = [];
 
+  materias: Materia[] = [];
+
   constructor(private http: HttpClient) {}
 
   preloadAll(): Observable<void> {
@@ -32,13 +40,15 @@ export class DataService {
       this.preloadWeapons(),
       this.preloadCharacters(),
       this.preloadItems(),
+      this.preloadMaterias(),
     ]).pipe(
-      map(([enemies, zones, weapons, characters, items]) => {
+      map(([enemies, zones, weapons, characters, items, materias]) => {
         this.buildEnemies(enemies);
         this.buildZones(zones);
         this.buildWeapons(weapons);
         this.buildCharacters(characters);
         this.buildItems(items);
+        this.buildMaterias(materias);
       }),
     );
   }
@@ -92,6 +102,20 @@ export class DataService {
     });
   }
 
+  /** Depends: none */
+  private buildMaterias(materias: MateriaJson[]) {
+    this.materias = materias.map((data) => {
+      switch (data.type) {
+        case 'attack':
+          return new AttackMateria(data as AttackMateriaJson);
+        case 'cure':
+          return new CureMateria(data);
+        default:
+          throw new Error(`Materia of type ${data.type} not found`);
+      }
+    });
+  }
+
   private preloadEnemies() {
     return this.http.get<EnemyJson[]>('assets/data/enemies.json');
   }
@@ -110,5 +134,9 @@ export class DataService {
 
   private preloadItems() {
     return this.http.get<ItemJson[]>('assets/data/items.json');
+  }
+
+  private preloadMaterias() {
+    return this.http.get<MateriaJson[]>('assets/data/materias.json');
   }
 }

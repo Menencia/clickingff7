@@ -4,39 +4,48 @@ import { BattleService } from '../core/services/battle.service';
 import { MateriaRef } from './refs/materias';
 import { MateriaSave } from './save';
 
-export abstract class Materia {
-  abstract ref: MateriaRef;
-
-  level: number;
-
+export interface MateriaJson {
+  ref: MateriaRef;
+  type: string;
+  color: string;
+  price: number;
   ap: number;
+  pwr: number;
+  zoneAvailable: number;
+}
 
-  equipped: boolean;
+export abstract class Materia {
+  level = 1;
 
-  abstract name: string;
+  ap = 0;
 
-  abstract color: string;
+  equipped = false;
 
-  abstract price: number;
+  ref: MateriaRef;
 
-  abstract apBase: number;
+  type: string;
 
-  abstract pwr: number;
+  color: string;
 
-  abstract zoneAvailable: number;
+  price: number;
+
+  apBase: number;
+
+  pwr: number;
+
+  zoneAvailable: number;
 
   /**
    * Init
    */
-  constructor() {
-    // current level
-    this.level = 1;
-
-    // needed to upgrade
-    this.ap = 0;
-
-    // nbr equipped
-    this.equipped = false;
+  constructor(data: MateriaJson) {
+    this.ref = data.ref;
+    this.type = data.type;
+    this.color = data.color;
+    this.price = data.price;
+    this.apBase = data.ap;
+    this.pwr = data.pwr;
+    this.zoneAvailable = data.zoneAvailable;
   }
 
   /**
@@ -78,7 +87,7 @@ export abstract class Materia {
    * Returns the number of owned
    */
   inStock(materias: Materia[]): boolean {
-    const materia = materias.find((e) => e.name === this.name);
+    const materia = materias.find((e) => e.ref === this.ref);
     if (materia) {
       return true;
     }

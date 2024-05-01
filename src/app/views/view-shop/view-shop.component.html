@@ -78,9 +78,9 @@
             <tr *ngFor="let materia of shopMaterias" class="materia">
               <td>
                 <app-materia-icon [color]="materia.color"></app-materia-icon>
-                {{ "Mat. " + materia.name + " name" | translate }}<br />
+                {{ "Mat. " + materia.ref + " name" | translate }}<br />
                 <span class="text-xs italic">{{
-                  "Mat. " + materia.name + " desc" | translate
+                  "Mat. " + materia.ref + " desc" | translate
                 }}</span>
               </td>
               <td *ngIf="materia.inStock(playerMaterias)">🗸</td>
@@ -156,9 +156,9 @@
             <tr *ngFor="let materia of playerMaterias" class="materia">
               <td>
                 <app-materia-icon [color]="materia.color"></app-materia-icon>
-                {{ "Mat. " + materia.name + " name" | translate }}<br />
+                {{ "Mat. " + materia.ref + " name" | translate }}<br />
                 <span class="text-xs italic">{{
-                  "Mat. " + materia.name + " desc" | translate
+                  "Mat. " + materia.ref + " desc" | translate
                 }}</span>
               </td>
               <td *ngIf="materia.inStock">🗸</td>

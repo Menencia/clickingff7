@@ -1,9 +1,9 @@
 export enum MateriaRef {
-  Bolt = 'Bolt',
-  ChocoMog = 'ChocoMog',
-  Earth = 'Earth',
-  Fire = 'Fire',
-  Ice = 'Ice',
-  Poison = 'Poison',
-  Restore = 'Restore',
+  Bolt = 'bolt',
+  ChocoMog = 'choco-mog',
+  Earth = 'earth',
+  Fire = 'fire',
+  Ice = 'ice',
+  Poison = 'poison',
+  Restore = 'restore',
 }

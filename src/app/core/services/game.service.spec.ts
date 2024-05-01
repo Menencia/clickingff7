@@ -4,6 +4,7 @@ import { MockProvider } from 'ng-mocks';
 import {
   characterMock,
   itemMock,
+  materiaMock,
   weaponMock,
 } from 'src/app/shared/test/game.mock';
 
@@ -21,6 +22,7 @@ describe('GameService', () => {
           getCharacter: () => characterMock,
           getWeapon: () => weaponMock,
           getItem: () => itemMock,
+          getMateria: () => materiaMock,
         }),
       ],
     });

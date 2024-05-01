@@ -11,10 +11,10 @@
     <tr *ngFor="let materia of list" class="materia">
       <td>
         <app-materia-icon [color]="materia.color"></app-materia-icon>
-        {{ "Mat. " + materia.name + " name" | translate }}
+        {{ "Mat. " + materia.ref + " name" | translate }}
         <strong>(LVL{{ materia.level }})</strong> PWR: {{ materia.pwr }}<br />
         <span class="text-xs italic">{{
-          "Mat. " + materia.name + " desc" | translate
+          "Mat. " + materia.ref + " desc" | translate
         }}</span>
       </td>
       <td>

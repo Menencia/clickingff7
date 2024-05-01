@@ -2,10 +2,19 @@ import { ItAction } from 'src/app/core/interfaces/it-action';
 import { BattleService } from 'src/app/core/services/battle.service';
 
 import { Attack } from '../actions/attack';
-import { Materia } from '../materia';
+import { Materia, MateriaJson } from '../materia';
 
-export abstract class AttackMateria extends Materia {
-  abstract elements: string[];
+export interface AttackMateriaJson extends MateriaJson {
+  elements: string[];
+}
+
+export class AttackMateria extends Materia {
+  elements: string[];
+
+  constructor(data: AttackMateriaJson) {
+    super(data);
+    this.elements = data.elements;
+  }
 
   /**
    * MP cost

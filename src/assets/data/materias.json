@@ -1,0 +1,71 @@
+[
+  {
+    "ref": "restore",
+    "type": "cure",
+    "color": "green",
+    "price": 400,
+    "ap": 2,
+    "pwr": 20,
+    "zoneAvailable": 7
+  },
+  {
+    "ref": "bolt",
+    "type": "attack",
+    "color": "green",
+    "price": 300,
+    "ap": 3,
+    "pwr": 50,
+    "elements": ["bolt"],
+    "zoneAvailable": 1
+  },
+  {
+    "ref": "ice",
+    "type": "attack",
+    "color": "green",
+    "price": 300,
+    "ap": 3,
+    "pwr": 50,
+    "elements": ["ice"],
+    "zoneAvailable": 1
+  },
+  {
+    "ref": "fire",
+    "type": "attack",
+    "color": "green",
+    "price": 300,
+    "ap": 3,
+    "pwr": 50,
+    "elements": ["fire"],
+    "zoneAvailable": 2
+  },
+  {
+    "ref": "poison",
+    "type": "attack",
+    "color": "green",
+    "price": 300,
+    "ap": 3,
+    "pwr": 50,
+    "elements": ["poison"],
+    "zoneAvailable": 5
+  },
+  {
+    "ref": "earth",
+    "type": "attack",
+    "color": "green",
+    "price": 300,
+    "ap": 3,
+    "pwr": 50,
+    "elements": ["earth"],
+    "zoneAvailable": 7
+  },
+  {
+    "ref": "choco-mog",
+    "type": "attack",
+    "color": "green",
+    "price": 600,
+    "ap": 4,
+    "pwr": 400,
+    "elements": ["wind"],
+    "zoneAvailable": 7
+  }
+]

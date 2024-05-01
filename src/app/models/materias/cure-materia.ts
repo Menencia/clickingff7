@@ -4,7 +4,7 @@ import { BattleService } from 'src/app/core/services/battle.service';
 import { Cure } from '../actions/cure';
 import { Materia } from '../materia';
 
-export abstract class CureMateria extends Materia {
+export class CureMateria extends Materia {
   /**
    * MP cost
    */

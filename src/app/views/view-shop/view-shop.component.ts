@@ -4,7 +4,6 @@ import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
 import { StoreService } from 'src/app/core/services/store.service';
 import { Item, MAX_ITEMS } from 'src/app/models/item';
-import { MateriaLoader } from 'src/app/models/loaders/materia-loader';
 import { Materia } from 'src/app/models/materia';
 import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
@@ -192,7 +191,7 @@ export class ViewShopComponent {
       MateriaRef.ChocoMog,
     ];
     materias.forEach((m) => {
-      const materia = MateriaLoader.build(m);
+      const materia = this.store.getMateria(m);
       if (materia.zoneAvailable <= levelMax) {
         this.shopMaterias.push(materia);
       }

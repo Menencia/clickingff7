@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { Item } from 'src/app/models/item';
-import { MateriaLoader } from 'src/app/models/loaders/materia-loader';
 import { Materia } from 'src/app/models/materia';
 import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
@@ -57,7 +56,7 @@ export class ShopService {
       MateriaRef.ChocoMog,
     ];
     materias.forEach((m) => {
-      const materia = MateriaLoader.build(m);
+      const materia = this.store.getMateria(m);
       if (materia.zoneAvailable <= levelMax) {
         this.materias.push(materia);
       }

@@ -2,8 +2,10 @@ import { Character } from 'src/app/models/character';
 import { Items } from 'src/app/models/items';
 import { HpPotion } from 'src/app/models/items/hp-potion';
 import { Materias } from 'src/app/models/materias';
+import { AttackMateria } from 'src/app/models/materias/attack-materia';
 import { CharacterRef } from 'src/app/models/refs/characters';
 import { ItemRef } from 'src/app/models/refs/items';
+import { MateriaRef } from 'src/app/models/refs/materias';
 import { WeaponRef } from 'src/app/models/refs/weapons';
 import { ZoneRef } from 'src/app/models/refs/zones';
 import { Characters } from 'src/app/models/units/characters';
@@ -42,7 +44,19 @@ characters.add(character, true);
 const weapons = new Weapons();
 weapons.add(weapon, true);
 
+const materia = new AttackMateria({
+  ref: MateriaRef.Bolt,
+  type: 'attack',
+  color: 'green',
+  ap: 4,
+  price: 300,
+  pwr: 50,
+  elements: ['bolt'],
+  zoneAvailable: 1,
+});
+
 const materias = new Materias();
+materias.add(materia);
 
 const item = new HpPotion({
   ref: ItemRef.Potion,
@@ -60,6 +74,8 @@ export const weaponMock = weapon;
 export const characterMock = character;
 
 export const itemMock = item;
+
+export const materiaMock = materia;
 
 export const ZonesMock = { zones };
 

@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Items } from 'src/app/models/items';
-import { MateriaLoader } from 'src/app/models/loaders/materia-loader';
 import { Materias } from 'src/app/models/materias';
 import { CharacterRef } from 'src/app/models/refs/characters';
 import { ItemRef } from 'src/app/models/refs/items';
@@ -173,8 +172,8 @@ export class GameService {
         this.weapons.add(this.store.getWeapon(WeaponRef.GatlingGun), true);
 
         // add materias
-        this.materias.add(MateriaLoader.build(MateriaRef.Restore), true);
-        this.materias.add(MateriaLoader.build(MateriaRef.Bolt), true);
+        this.materias.add(this.store.getMateria(MateriaRef.Restore), true);
+        this.materias.add(this.store.getMateria(MateriaRef.Bolt), true);
 
         // add items
         this.items.add(this.store.getItem(ItemRef.Potion), true);
@@ -300,7 +299,7 @@ export class GameService {
 
     // materias
     save.materias.forEach((m) => {
-      const materia = MateriaLoader.build(m.ref).load(m);
+      const materia = this.store.getMateria(m.ref).load(m);
       this.materias.add(materia, m.equipped);
     });
 
