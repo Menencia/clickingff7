@@ -1,5 +1,16 @@
+/* eslint-disable max-classes-per-file */
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TestModule } from 'src/app/shared/test/test.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { MockProvider } from 'ng-mocks';
+import { GameService } from 'src/app/core/services/game.service';
+import { StoreService } from 'src/app/core/services/store.service';
+import {
+  ItemsMock,
+  MateriasMock,
+  WeaponsMock,
+  ZonesMock,
+  weaponMock,
+} from 'src/app/shared/test/game.mock';
 
 import { ViewShopComponent } from './view-shop.component';
 
@@ -9,7 +20,16 @@ describe('ShopComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TestModule],
+      imports: [TranslateModule.forRoot()],
+      providers: [
+        MockProvider(GameService, {
+          ...ZonesMock,
+          ...WeaponsMock,
+          ...MateriasMock,
+          ...ItemsMock,
+        }),
+        MockProvider(StoreService, { getWeapon: () => weaponMock }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewShopComponent);

@@ -1,5 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TestModule } from 'src/app/shared/test/test.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { MockProvider } from 'ng-mocks';
+import { GameService } from 'src/app/core/services/game.service';
+import { ItemsMock } from 'src/app/shared/test/game.mock';
 
 import { ViewItemsComponent } from './view-items.component';
 
@@ -9,7 +12,8 @@ describe('ViewItemsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewItemsComponent, TestModule],
+      imports: [ViewItemsComponent, TranslateModule.forRoot()],
+      providers: [MockProvider(GameService, { ...ItemsMock })],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewItemsComponent);

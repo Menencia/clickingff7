@@ -1,5 +1,8 @@
 import { TestBed } from '@angular/core/testing';
-import { TestModule } from 'src/app/shared/test/test.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { MockProvider } from 'ng-mocks';
+
+import { BattleService } from '../services/battle.service';
 
 import { BattleGuard } from './battle.guard';
 
@@ -8,7 +11,8 @@ describe('BattleGuard', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TestModule],
+      imports: [TranslateModule.forRoot()],
+      providers: [MockProvider(BattleService)],
     });
     guard = TestBed.inject(BattleGuard);
   });

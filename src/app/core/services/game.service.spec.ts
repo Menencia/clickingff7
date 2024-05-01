@@ -1,14 +1,23 @@
 import { TestBed } from '@angular/core/testing';
-import { TestModule } from 'src/app/shared/test/test.module';
+import { TranslateService } from '@ngx-translate/core';
+import { MockProvider } from 'ng-mocks';
+import { characterMock, weaponMock } from 'src/app/shared/test/game.mock';
 
 import { GameService } from './game.service';
+import { StoreService } from './store.service';
 
 describe('GameService', () => {
   let service: GameService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TestModule],
+      providers: [
+        MockProvider(TranslateService),
+        MockProvider(StoreService, {
+          getCharacter: () => characterMock,
+          getWeapon: () => weaponMock,
+        }),
+      ],
     });
     service = TestBed.inject(GameService);
   });

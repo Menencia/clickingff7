@@ -1,14 +1,17 @@
 import { TestBed } from '@angular/core/testing';
-import { TestModule } from 'src/app/shared/test/test.module';
+import { TranslateModule } from '@ngx-translate/core';
+import { MockProvider } from 'ng-mocks';
 
 import { BattleService } from './battle.service';
+import { GameService } from './game.service';
 
 describe('BattleService', () => {
   let service: BattleService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TestModule],
+      imports: [TranslateModule.forRoot()],
+      providers: [MockProvider(GameService)],
     });
     service = TestBed.inject(BattleService);
   });
