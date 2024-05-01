@@ -13,7 +13,8 @@
     "compodoc:build-and-serve": "compodoc -p tsconfig.doc.json -s",
     "compodoc:serve": "compodoc -s",
     "lint": "ng lint",
-    "check": "ng lint && npm run test:ci"
+    "check": "ng lint && npm run test:ci",
+    "i18n:download": "crowdin download --identity .crowdin.yml"
   },
   "private": true,
   "dependencies": {

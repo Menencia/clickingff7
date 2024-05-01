@@ -27,7 +27,7 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(
       TranslateModule.forRoot({
-        defaultLanguage: 'en',
+        defaultLanguage: 'fr',
         loader: {
           provide: TranslateLoader,
           useFactory: HttpLoaderFactory,

@@ -13,7 +13,7 @@ files: [
   # Source files filter
   # e.g. "/resources/en/*.json"
   #
-  "source" : "src/assets/i18n/en/*.json",
+  "source" : "src/assets/i18n/fr/*.json",
 
   #
   # Where translations will be placed
