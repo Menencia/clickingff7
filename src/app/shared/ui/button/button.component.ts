@@ -16,7 +16,7 @@ export class ButtonComponent {
 
   @Output() trigger = new EventEmitter();
 
-  click() {
-    this.trigger.emit();
+  click(event: Event) {
+    this.trigger.emit(event);
   }
 }
