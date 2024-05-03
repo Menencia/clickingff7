@@ -1,22 +1,22 @@
-<div>
-  <div class="flex flex-col gap-1">
-    <app-button (trigger)="fightRandom()" [disabled]="isBattle()" btnId="step6">
-      {{ "Fight random" | translate }}{{ remainingBattles() }}
-    </app-button>
-    <app-button (trigger)="fightBoss()" [disabled]="!canFightBoss()">
-      <div class="float-right text-red-700" *ngIf="canFightBoss()">NEW</div>
-      {{ "Fight boss" | translate }}
-    </app-button>
-    <app-button (trigger)="attack()" [disabled]="!isBattle()" id="step7">
-      <span *ngIf="!canLimit()">{{ "Attack" | translate }}</span>
-      <span *ngIf="canLimit()">{{ "Limit" | translate }}</span>
-    </app-button>
-    <app-button (trigger)="escape()" [disabled]="!isBattle()" id="step8">
-      {{ "Escape" | translate }}
-    </app-button>
-  </div>
+<div class="flex flex-row flex-wrap gap-1 sm:flex-col">
+  <app-button (trigger)="fightRandom()" [disabled]="isBattle()" [id]="'step6'">
+    {{ "Fight random" | translate }}{{ remainingBattles() }}
+  </app-button>
+  <app-button (trigger)="fightBoss()" [disabled]="!canFightBoss()">
+    <div class="float-right text-red-700" *ngIf="canFightBoss()">NEW</div>
+    {{ "Fight boss" | translate }}
+  </app-button>
+  <app-button (trigger)="attack()" [disabled]="!isBattle()" [id]="'step7'">
+    <span *ngIf="!canLimit()">{{ "Attack" | translate }}</span>
+    <span *ngIf="canLimit()">{{ "Limit" | translate }}</span>
+  </app-button>
+  <app-button (trigger)="escape()" [disabled]="!isBattle()" [id]="'step8'">
+    {{ "Escape" | translate }}
+  </app-button>
 
-  <div class="flex flex-col gap-1 mt-5" id="step9">
+  <div class="h-3"></div>
+
+  <div [id]="'step9'" class="contents">
     <app-button
       [class]="'flex flex-row items-center'"
       *ngFor="let materia of getMaterias()"
@@ -35,7 +35,9 @@
     </app-button>
   </div>
 
-  <div class="flex flex-col mt-5" *ngIf="getItems().length > 0" id="step10">
+  <div *ngIf="getItems().length > 0" [id]="'step10'" class="contents">
+    <div class="h-3"></div>
+
     <app-button
       class="flex flex-row items-center button"
       *ngFor="let item of getItems()"
@@ -49,12 +51,11 @@
     </app-button>
   </div>
 
-  <div class="flex flex-col mt-5 italic text-center">
-    <!-- <p>{{"Time"|translate}}: {{getGils()}}</p> -->
-    <p>{{ "Gil" | translate }}: {{ getGils() }}</p>
-    <div class="game-location" id="step11">
-      {{ "Zone " + getZoneLvl() + " name" | translate }}
-      <strong> (#{{ getZoneLvl() }}) </strong>
-    </div>
+  <div class="h-3"></div>
+
+  <div>{{ "Gil" | translate }}: {{ getGils() }}</div>
+  <div class="game-location" id="step11">
+    {{ "Zone " + getZoneLvl() + " name" | translate }}
+    <strong> (#{{ getZoneLvl() }}) </strong>
   </div>
 </div>

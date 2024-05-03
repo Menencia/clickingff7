@@ -1,7 +1,13 @@
 <app-ui-layout-default>
-  <div class="grid grid-cols-5 gap-x-4">
-    <app-ui-actions></app-ui-actions>
-    <app-characters-panel [characters]="characters"></app-characters-panel>
-    <app-enemies-panel [enemies]="enemies"></app-enemies-panel>
+  <div class="flex flex-col gap-5 sm:flex-row">
+    <app-ui-actions class="basis-1/5"></app-ui-actions>
+    <app-characters-panel
+      class="basis-2/5"
+      [characters]="characters"
+    ></app-characters-panel>
+    <app-enemies-panel
+      class="basis-2/5"
+      [enemies]="enemies"
+    ></app-enemies-panel>
   </div>
 </app-ui-layout-default>
