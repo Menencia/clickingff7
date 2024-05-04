@@ -2,35 +2,50 @@
   class="flex items-center gap-5 p-3 bg-gray-200 dark:bg-gray-800 dark:text-white"
   id="step10"
 >
-  <h1 class="tracking-wider text-2xl">ClickingFF7</h1>
-  <a routerLink="/game" routerLinkActive="active">
-    {{ "Game" | translate }}
-  </a>
-  <a routerLink="/map" routerLinkActive="active">
-    {{ "Map" | translate }}<span *ngIf="displayNextZone">*</span>
-  </a>
-  <a routerLink="/shop" routerLinkActive="active">
-    {{ "Shop" | translate }}
-  </a>
-  <a routerLink="/equip" routerLinkActive="active">
-    {{ "Equip" | translate }}
-  </a>
-  <a routerLink="/materia" routerLinkActive="active">
-    {{ "Materia" | translate }}
-  </a>
-  <a routerLink="/items" routerLinkActive="active">
-    {{ "Items" | translate }}
-  </a>
-  <a routerLink="/config" routerLinkActive="active">
-    {{ "Config" | translate }}
-  </a>
-  <a routerLink="/phs" routerLinkActive="active" *ngIf="displayPhs">
-    {{ "PHS" | translate }}
-  </a>
-  <a routerLink="/save" routerLinkActive="active">
-    {{ "Save" | translate }}
-  </a>
+  <h1 class="text-2xl tracking-wider">ClickingFF7</h1>
+
+  <div class="contents md:hidden">
+    <p-button
+      icon="pi pi-bars"
+      [rounded]="true"
+      [text]="true"
+      severity="secondary"
+      (onClick)="toggleMenu()"
+    ></p-button>
+  </div>
+
+  <div class="hidden md:contents">
+    <a routerLink="/game" routerLinkActive="active">
+      {{ "Game" | translate }}
+    </a>
+    <a routerLink="/map" routerLinkActive="active">
+      {{ "Map" | translate }}<span *ngIf="displayNextZone">*</span>
+    </a>
+    <a routerLink="/shop" routerLinkActive="active">
+      {{ "Shop" | translate }}
+    </a>
+    <a routerLink="/equip" routerLinkActive="active">
+      {{ "Equip" | translate }}
+    </a>
+    <a routerLink="/materia" routerLinkActive="active">
+      {{ "Materia" | translate }}
+    </a>
+    <a routerLink="/items" routerLinkActive="active">
+      {{ "Items" | translate }}
+    </a>
+    <a routerLink="/config" routerLinkActive="active">
+      {{ "Config" | translate }}
+    </a>
+    <a routerLink="/phs" routerLinkActive="active" *ngIf="displayPhs">
+      {{ "PHS" | translate }}
+    </a>
+    <a routerLink="/save" routerLinkActive="active">
+      {{ "Save" | translate }}
+    </a>
+  </div>
+
   <div class="flex-grow"></div>
+
   <div>
     <div
       class="cursor-pointer"

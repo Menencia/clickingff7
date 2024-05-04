@@ -1,7 +1,8 @@
 import { DOCUMENT, NgIf } from '@angular/common';
-import { Component, Inject, Input } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { ButtonModule } from 'primeng/button';
 import { helpData } from 'src/app/models/help';
 
 // declare this to by pass typescript error
@@ -19,7 +20,7 @@ enum Theme {
 @Component({
   selector: 'app-ui-navbar',
   standalone: true,
-  imports: [TranslateModule, NgIf, RouterModule],
+  imports: [TranslateModule, NgIf, RouterModule, ButtonModule],
   templateUrl: './ui-navbar.component.html',
   styleUrls: ['./ui-navbar.component.scss'],
 })
@@ -29,6 +30,8 @@ export class UiNavbarComponent {
   @Input() displayPhs = false;
 
   @Input() isBattle = false;
+
+  @Output() sidebarVisibleChange = new EventEmitter();
 
   theme: string;
 
@@ -60,6 +63,10 @@ export class UiNavbarComponent {
       intro.setOptions(helpData);
       intro.start();
     }
+  }
+
+  toggleMenu() {
+    this.sidebarVisibleChange.emit(true);
   }
 
   private applyTheme(): void {
