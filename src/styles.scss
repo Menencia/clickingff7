@@ -1,13 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import "tailwindcss/base" layer(tailwindcss);
+/* You can add global styles to this file, and also import other style files */
+@layer tw-base, primeng, tw-components, tw-utilities;
 
-@import "primeicons/primeicons.css";
-@import "primeng/resources/themes/lara-light-blue/theme.css";
-@import "primeng/resources/primeng.css";
-
-@import "tailwindcss/components" layer(tailwindcss);
-@import "tailwindcss/utilities" layer(tailwindcss);
+// Please take note of the order in which these are imported
+@import "tailwindcss/base.css" layer(tw-base);
+@import "primeng/resources/primeng.min.css";
+@import "primeng/resources/themes/tailwind-light/theme.css";
+@import "primeicons/primeicons";
+@import "tailwindcss/components.css" layer(tw-components);
+@import "tailwindcss/utilities.css" layer(tw-utilities);
 
 :root {
   --cl-color-accent: rgb(329, 68, 68);
