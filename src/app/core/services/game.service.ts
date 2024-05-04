@@ -92,7 +92,7 @@ export class GameService {
     if (s) {
       save = JSON.parse(atob(s));
       if (save) {
-        if (compareVersions(save.version, '1.1.0')) {
+        if (compareVersions(save.version, '1.4.0')) {
           this.saves.push(save);
         } else {
           save = null;
