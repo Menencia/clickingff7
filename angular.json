@@ -34,6 +34,7 @@
             ],
             "styles": [
               "node_modules/intro.js/introjs.css",
+              "node_modules/intro.js/themes/introjs-modern.css",
               "src/styles.scss"
             ],
             "scripts": [
