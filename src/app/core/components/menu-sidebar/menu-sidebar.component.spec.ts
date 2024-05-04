@@ -1,4 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
+import { TranslateModule } from '@ngx-translate/core';
+import { MockProvider } from 'ng-mocks';
+import { ZonesMock } from 'src/app/shared/test/game.mock';
+
+import { GameService } from '../../services/game.service';
 
 import { MenuSidebarComponent } from './menu-sidebar.component';
 
@@ -8,7 +14,11 @@ describe('MenuSidebarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MenuSidebarComponent],
+      imports: [MenuSidebarComponent, TranslateModule.forRoot()],
+      providers: [
+        MockProvider(GameService, { ...ZonesMock }),
+        provideRouter([]),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MenuSidebarComponent);
