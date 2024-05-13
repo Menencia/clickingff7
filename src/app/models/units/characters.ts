@@ -15,8 +15,6 @@ export class Characters extends Units {
 
   arrHits: number[];
 
-  selected: Character;
-
   hits: number;
 
   hp: number;
@@ -51,10 +49,6 @@ export class Characters extends Units {
 
     // Array of recent hits
     this.arrHits = [];
-
-    // current selected character in menus
-    const [first] = this.list;
-    this.selected = first;
 
     // Init
     this.hits = 0;
@@ -171,13 +165,6 @@ export class Characters extends Units {
         c.isNotAvailable = false;
       }
     });
-  }
-
-  /**
-   * Select a character in menus
-   */
-  select(character: null | Character = null): void {
-    this.selected = character || this.getTeam()[0];
   }
 
   /**

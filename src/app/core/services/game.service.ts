@@ -137,7 +137,6 @@ export class GameService {
     this.translate.use(this.language);
 
     this.characters.refresh();
-    this.characters.select();
 
     this.autoTimer();
   }

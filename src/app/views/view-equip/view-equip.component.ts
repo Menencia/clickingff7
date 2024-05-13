@@ -31,12 +31,8 @@ export class ViewEquipComponent {
 
   constructor(private gameService: GameService) {
     this.team = this.gameService.characters.getTeam();
-    this.selected = this.gameService.characters.selected;
-    const found = this.team.find((character) => character === this.selected);
-    if (!found) {
-      const [first] = this.team;
-      this.selected = first;
-    }
+    const [first] = this.team;
+    this.selected = first;
     this.weapons = this.gameService.weapons.getAllWeapons(this.selected);
   }
 
@@ -64,7 +60,6 @@ export class ViewEquipComponent {
   }
 
   selectCharacter(character: Character): void {
-    this.gameService.characters.select(character);
     this.selected = character;
     this.weapons = this.gameService.weapons.getAllWeapons(character);
   }
