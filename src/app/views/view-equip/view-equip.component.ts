@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
 import { Character } from 'src/app/models/character';
+import { Team } from 'src/app/models/team';
 import { Weapon } from 'src/app/models/weapon';
 import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
@@ -25,13 +26,13 @@ import { WeaponIconComponent } from 'src/app/shared/ui/weapon-icon/weapon-icon.c
 export class ViewEquipComponent {
   selected: Character;
 
-  team: Character[];
+  team: Team;
 
   weapons: Weapon[] = [];
 
   constructor(private gameService: GameService) {
-    this.team = this.gameService.characters.getTeam();
-    const [first] = this.team;
+    this.team = this.gameService.team;
+    const [first] = this.team.list;
     this.selected = first;
     this.weapons = this.gameService.weapons.getAllWeapons(this.selected);
   }
@@ -56,7 +57,7 @@ export class ViewEquipComponent {
     newWeapon.equipped = true;
     this.selected.weapon = newWeapon;
 
-    this.gameService.characters.refresh();
+    this.gameService.team.refresh();
   }
 
   selectCharacter(character: Character): void {

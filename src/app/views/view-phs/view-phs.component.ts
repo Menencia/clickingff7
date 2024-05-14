@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
 import { Character } from 'src/app/models/character';
+import { Team } from 'src/app/models/team';
 import { MAX_TEAM } from 'src/app/models/units/characters';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 
@@ -14,45 +15,47 @@ import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui
   styleUrls: ['./view-phs.component.scss'],
 })
 export class ViewPhsComponent {
-  team: Character[];
+  team: Team;
 
-  backup: Character[];
+  characters: Character[];
 
   constructor(private gameService: GameService) {
-    this.team = this.gameService.characters.getTeam();
-    this.backup = this.gameService.characters.getBackup();
+    this.team = this.gameService.team;
+    this.characters = this.gameService.characters.list;
+  }
+
+  inTeam(character: Character): boolean {
+    return !!this.team.list.find((c) => c.ref === character.ref);
   }
 
   canJoinTeam(): boolean {
-    return this.gameService.characters.getTeam().length < MAX_TEAM;
+    return this.team.list.length < MAX_TEAM;
   }
 
   /**
    * Character joins the team
    */
   joinTeam(character: Character): void {
-    character.inTeam = true;
-    this.refresh();
+    if (this.canJoinTeam()) {
+      this.team.join(character);
+      this.team.refresh();
+    }
   }
 
   /**
    * Returns true if the character can leave the team
    */
   canLeaveTeam(): boolean {
-    return this.gameService.characters.getTeam().length > 1;
+    return this.team.list.length > 1;
   }
 
   /**
    * Character leaves the team
    */
   leaveTeam(character: Character): void {
-    character.inTeam = false;
-    this.refresh();
-  }
-
-  private refresh(): void {
-    this.gameService.characters.refresh();
-    this.team = this.gameService.characters.getTeam();
-    this.backup = this.gameService.characters.getBackup();
+    if (this.canLeaveTeam()) {
+      this.team.leave(character);
+      this.team.refresh();
+    }
   }
 }

@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
 import { Character } from 'src/app/models/character';
-import { Characters } from 'src/app/models/units/characters';
+import { Team } from 'src/app/models/team';
 import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-bar.component';
 
 @Component({
@@ -14,7 +14,7 @@ import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-ba
   styleUrl: './characters-panel.component.scss',
 })
 export class CharactersPanelComponent {
-  @Input() characters: Characters = new Characters();
+  @Input() team: Team = new Team();
 
   constructor(private gameService: GameService) {}
 

@@ -5,14 +5,14 @@ import { Item } from '../item';
 
 export class MpPotion extends Item {
   canUse(battleService: BattleService): boolean {
-    return battleService.characters.mp < battleService.characters.mpMax;
+    return battleService.team.mp < battleService.team.mpMax;
   }
 
   getSkill(battleService: BattleService): ItAction[] {
     const action: ItAction = {
       use: () => {
-        battleService.characters.addMp(
-          Math.ceil(this.pwr * battleService.characters.mpMax),
+        battleService.team.addMp(
+          Math.ceil(this.pwr * battleService.team.mpMax),
         );
       },
     };

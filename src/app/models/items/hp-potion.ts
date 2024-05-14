@@ -5,14 +5,14 @@ import { Item } from '../item';
 
 export class HpPotion extends Item {
   canUse(battleService: BattleService): boolean {
-    return battleService.characters.hp < battleService.characters.hpMax;
+    return battleService.team.hp < battleService.team.hpMax;
   }
 
   getSkill(battleService: BattleService): ItAction[] {
     const action: ItAction = {
       use: () => {
-        battleService.characters.addHp(
-          Math.ceil(this.pwr * battleService.characters.hpMax),
+        battleService.team.addHp(
+          Math.ceil(this.pwr * battleService.team.hpMax),
         );
       },
     };

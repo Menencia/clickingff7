@@ -9,9 +9,9 @@ import { Units } from '../units';
 import { MAX_FIGHTS, Zone } from '../zone';
 
 export class Enemies extends Units {
-  list: Enemy[];
+  list: Enemy[] = [];
 
-  arrHits: number[];
+  arrHits: number[] = [];
 
   timer: number;
 
@@ -21,9 +21,9 @@ export class Enemies extends Units {
 
   hpMax: number;
 
-  resistance: string[];
+  resistance: string[] = [];
 
-  weakness: string[];
+  weakness: string[] = [];
 
   source = {
     hp: new Subject<ItDisplayHits>(), // health points
@@ -34,15 +34,12 @@ export class Enemies extends Units {
    */
   constructor() {
     super();
-    this.list = [];
-    this.arrHits = [];
+
     this.timer = 0;
 
     this.hits = 0;
     this.hp = 0;
     this.hpMax = 0;
-    this.resistance = [];
-    this.weakness = [];
   }
 
   /**
@@ -117,7 +114,7 @@ export class Enemies extends Units {
     return {
       type: [],
       use(battleService: BattleService) {
-        battleService.characters.getAttacked(hits, this);
+        battleService.team.getAttacked(hits, this);
       },
     };
   }

@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BattleService } from 'src/app/core/services/battle.service';
 import { GameService } from 'src/app/core/services/game.service';
-import { Save } from 'src/app/models/save';
+import { CharacterSave, Save } from 'src/app/models/save';
 import { PipeTimePipe } from 'src/app/shared/pipes/pipe-time.pipe';
 import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
@@ -55,6 +55,10 @@ export class ViewSaveComponent {
     this.showAreaImport = false;
   }
 
+  inTeam(character: CharacterSave): boolean {
+    return this.gameService.team.inTeam(character.ref);
+  }
+
   /**
    * Save the game
    */
@@ -71,7 +75,7 @@ export class ViewSaveComponent {
       this.gameService.reset();
       this.gameService.buildLevel(1);
       this.gameService.postload();
-      this.battleService.characters = this.gameService.characters;
+      this.battleService.team = this.gameService.team;
       this.router.navigateByUrl('game');
     }
   }
@@ -114,7 +118,7 @@ export class ViewSaveComponent {
       this.gameService.preload();
       this.gameService.load(save);
       this.gameService.postload();
-      this.battleService.characters = this.gameService.characters;
+      this.battleService.team = this.gameService.team;
       this.router.navigateByUrl('game');
     }
   }

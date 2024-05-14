@@ -8,6 +8,7 @@ import { MateriaRef } from 'src/app/models/refs/materias';
 import { WeaponRef } from 'src/app/models/refs/weapons';
 import { ZoneRef } from 'src/app/models/refs/zones';
 import { Save } from 'src/app/models/save';
+import { Team } from 'src/app/models/team';
 import { Characters } from 'src/app/models/units/characters';
 import { Weapons } from 'src/app/models/weapons';
 import { Zones } from 'src/app/models/zones';
@@ -44,6 +45,8 @@ export class GameService {
    * Save settings
    */
   characters = new Characters();
+
+  team = new Team();
 
   zones = new Zones();
 
@@ -119,6 +122,7 @@ export class GameService {
    */
   preload(): void {
     this.characters = new Characters();
+    this.team = new Team();
     this.zones = new Zones();
     this.weapons = new Weapons();
     this.materias = new Materias();
@@ -136,7 +140,7 @@ export class GameService {
   postload(): void {
     this.translate.use(this.language);
 
-    this.characters.refresh();
+    this.team.refresh();
 
     this.autoTimer();
   }
@@ -148,27 +152,38 @@ export class GameService {
     // build zone
     this.zones.add(this.store.getZone(`zone${level}` as ZoneRef));
 
-    const zonelevelMax = this.zones.levelMax;
-    this.characters.available(zonelevelMax);
-
     // data to load characters
-    const levelMax = this.characters.levelMax ? this.characters.levelMax : 1;
+    const levelMax = this.team.levelMax ? this.team.levelMax : 1;
+
+    const cloud = this.store
+      .getCharacter(CharacterRef.Cloud)
+      .setLevel(levelMax);
+    const barret = this.store
+      .getCharacter(CharacterRef.Barret)
+      .setLevel(levelMax);
+    const tifa = this.store.getCharacter(CharacterRef.Tifa).setLevel(levelMax);
+    const aerith = this.store
+      .getCharacter(CharacterRef.Aerith)
+      .setLevel(levelMax);
+    const redxiii = this.store
+      .getCharacter(CharacterRef.RedXIII)
+      .setLevel(levelMax);
+    const yuffie = this.store
+      .getCharacter(CharacterRef.Yuffie)
+      .setLevel(levelMax);
 
     switch (level) {
       case 1:
         // add cloud in the team
-        this.characters.add(
-          this.store.getCharacter(CharacterRef.Cloud).setLevel(levelMax),
-          true,
-        );
+        this.characters.add(cloud);
         this.weapons.add(this.store.getWeapon(WeaponRef.BusterSword), true);
 
         // add barret in the team
-        this.characters.add(
-          this.store.getCharacter(CharacterRef.Barret).setLevel(levelMax),
-          true,
-        );
+        this.characters.add(barret);
         this.weapons.add(this.store.getWeapon(WeaponRef.GatlingGun), true);
+
+        // team
+        this.team.setCharacters([cloud, barret]);
 
         // add materias
         this.materias.add(this.store.getMateria(MateriaRef.Restore), true);
@@ -181,42 +196,28 @@ export class GameService {
         break;
       case 2:
         // add tifa in the team
-        this.characters.add(
-          this.store.getCharacter(CharacterRef.Tifa).setLevel(levelMax),
-          true,
-        );
+        this.characters.add(tifa);
+        this.team.join(tifa);
         this.weapons.add(this.store.getWeapon(WeaponRef.LeatherGlove), true);
         break;
       case 3:
         // add aerith in the team
-        this.characters.add(
-          this.store.getCharacter(CharacterRef.Aerith).setLevel(levelMax),
-          true,
-        );
+        this.characters.add(aerith);
+        this.team.setCharacters([cloud, aerith]);
         this.weapons.add(this.store.getWeapon(WeaponRef.GuardStick), true);
         break;
       case 4:
         // add barret & tifa in the team
-        this.characters.list.forEach((c) => {
-          if (c.ref === CharacterRef.Barret || c.ref === CharacterRef.Tifa) {
-            c.inTeam = true;
-          }
-        });
+        this.team.setCharacters([cloud, barret, tifa]);
         break;
       case 5:
-        // add redxiii in the team
-        this.characters.add(
-          this.store.getCharacter(CharacterRef.RedXIII).setLevel(levelMax),
-          false,
-        );
+        // add redxiii to characters
+        this.characters.add(redxiii);
         this.weapons.add(this.store.getWeapon(WeaponRef.MythrilClip), true);
         break;
       case 9:
-        // add yuffie in the team
-        this.characters.add(
-          this.store.getCharacter(CharacterRef.Yuffie).setLevel(levelMax),
-          false,
-        );
+        // add yuffie to characters
+        this.characters.add(yuffie);
         this.weapons.add(this.store.getWeapon(WeaponRef.FPtShuriken), true);
         break;
       default:
@@ -224,10 +225,10 @@ export class GameService {
     }
 
     // restore hp & mp
-    this.characters.refresh();
-    this.characters.hp = this.characters.hpMax;
-    this.characters.mp = this.characters.mpMax;
-    this.characters.limit = 0;
+    this.team.refresh();
+    this.team.hp = this.team.hpMax;
+    this.team.mp = this.team.mpMax;
+    this.team.limit = 0;
   }
 
   /**
@@ -247,6 +248,7 @@ export class GameService {
   export(): Save {
     return {
       characters: this.characters.export(),
+      team: this.team.export(),
       zones: this.zones.export(),
       weapons: this.weapons.export(),
       materias: this.materias.export(),
@@ -271,12 +273,19 @@ export class GameService {
     save.characters.list.forEach((c) => {
       const character = this.store.getCharacter(c.ref).load(c);
       character.setWeapon(this.store.getWeapon(c.weaponRef));
-      this.characters.add(character, c.inTeam);
+      this.characters.add(character);
     });
 
-    this.characters.hp = save.characters.hp;
-    this.characters.mp = save.characters.mp;
-    this.characters.limit = save.characters.limit;
+    // team
+    this.team.setCharacters(
+      save.team.list.map((c) => {
+        return this.characters.list.find((c2) => c2.ref === c.ref)!;
+      }),
+    );
+
+    this.team.hp = save.team.hp;
+    this.team.mp = save.team.mp;
+    this.team.limit = save.team.limit;
 
     // zones
     save.zones.list.forEach((z) => {
@@ -286,9 +295,6 @@ export class GameService {
 
     this.zones.level = save.zones.level;
     this.zones.levelMax = save.zones.levelMax;
-
-    const zonelevelMax = this.zones.levelMax;
-    this.characters.available(zonelevelMax);
 
     // weapons
     save.weapons.forEach((w) => {

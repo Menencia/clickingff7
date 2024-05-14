@@ -61,7 +61,7 @@ export class UiActionsComponent {
 
   public attack(): void {
     if (this.battleService.isBattle) {
-      this.gameService.characters.getAttackSkill().use(this.battleService);
+      this.gameService.team.getAttackSkill().use(this.battleService);
 
       if (!this.battleService.enemies.isAlive()) {
         this.battleService.end(true);
@@ -85,7 +85,7 @@ export class UiActionsComponent {
   public useMateria(materia: Materia): void {
     // cost
     if (this.canUseMateria(materia)) {
-      this.gameService.characters.mp -= materia.getMpCost();
+      this.gameService.team.mp -= materia.getMpCost();
     } else {
       throw new Error('CANNOT USE');
     }
@@ -121,7 +121,7 @@ export class UiActionsComponent {
   }
 
   public canLimit(): boolean {
-    return this.gameService.characters.canLimit();
+    return this.gameService.team.canLimit();
   }
 
   public getZoneLvl(): number {

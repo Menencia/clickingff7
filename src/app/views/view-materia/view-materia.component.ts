@@ -33,7 +33,7 @@ export class ViewMateriaComponent {
 
   constructor(private gameService: GameService) {
     this.list = this.gameService.materias.list;
-    this.maxMaterias = this.gameService.characters.getMaxMaterias();
+    this.maxMaterias = this.gameService.team.getMaxMaterias();
   }
 
   getNbrEquipped(): number {
@@ -47,12 +47,12 @@ export class ViewMateriaComponent {
   equip(materia: Materia): void {
     materia.equipped = true;
 
-    this.gameService.characters.refresh();
+    this.gameService.team.refresh();
   }
 
   unequip(materia: Materia): void {
     materia.equipped = false;
 
-    this.gameService.characters.refresh();
+    this.gameService.team.refresh();
   }
 }

@@ -37,9 +37,8 @@
       </div>
 
       <div *ngIf="saves.length > 0">
-        <ng-container *ngFor="let character of saves[0].characters.list">
+        <ng-container *ngFor="let character of saves[0].team.list">
           <img
-            *ngIf="character.inTeam"
             [src]="character.image"
             alt=""
             width="80"

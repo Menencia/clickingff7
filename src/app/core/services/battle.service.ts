@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Characters } from 'src/app/models/units/characters';
+import { Team } from 'src/app/models/team';
 import { Enemies } from 'src/app/models/units/enemies';
 import { MAX_FIGHTS } from 'src/app/models/zone';
 
@@ -9,7 +9,7 @@ import { GameService } from './game.service';
   providedIn: 'root',
 })
 export class BattleService {
-  public characters: Characters;
+  public team: Team;
 
   public enemies: Enemies;
 
@@ -18,7 +18,7 @@ export class BattleService {
   public timer!: ReturnType<typeof setTimeout>;
 
   constructor(private gameService: GameService) {
-    this.characters = this.gameService.characters;
+    this.team = this.gameService.team;
     this.enemies = new Enemies();
   }
 
@@ -29,7 +29,7 @@ export class BattleService {
     if (!this.isBattle) {
       this.isBattle = true;
 
-      const { levelSum } = this.gameService.characters;
+      const { levelSum } = this.gameService.team;
       const zone = this.gameService.zones.current();
       this.enemies.fightRandom(levelSum, zone, this.gameService.difficulty);
       this.enemies.refresh();
@@ -53,7 +53,7 @@ export class BattleService {
       this.isBattle = true;
 
       const zone = this.gameService.zones.current();
-      const nbCharacters = this.gameService.characters.getTeam().length;
+      const nbCharacters = this.gameService.team.list.length;
       this.enemies.fightBoss(zone, nbCharacters, this.gameService.difficulty);
       this.enemies.refresh();
       this.startFighting();
@@ -64,7 +64,7 @@ export class BattleService {
     this.timer = setTimeout(() => {
       this.enemies.getAttackSkill().use(this);
 
-      if (this.characters.isAlive()) {
+      if (this.team.isAlive()) {
         this.startFighting();
       } else {
         this.end(false);
@@ -88,7 +88,7 @@ export class BattleService {
     this.stopFighting();
 
     const enemies = this.enemies.list;
-    const characters = this.gameService.characters.getTeam();
+    const characters = this.gameService.team.list;
     const materias = this.gameService.materias.getEquipped();
 
     enemies.forEach((enemy) => {
@@ -122,6 +122,6 @@ export class BattleService {
 
     this.enemies.remove();
     this.enemies.refresh();
-    this.gameService.characters.refresh();
+    this.gameService.team.refresh();
   }
 }

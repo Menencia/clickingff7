@@ -2,31 +2,29 @@
   <!-- characters bars -->
   <app-progress-bar
     [id]="'step2'"
-    [progress]="round((characters.hp / characters.hpMax) * 100)"
-    [text]="'HP ' + characters.hp"
+    [progress]="round((team.hp / team.hpMax) * 100)"
+    [text]="'HP ' + team.hp"
     [name]="'hp'"
-    [hits]="characters.source.hp"
+    [hits]="team.source.hp"
   ></app-progress-bar>
 
   <app-progress-bar
     [id]="'step3'"
-    [progress]="round((characters.mp / characters.mpMax) * 100)"
-    [text]="'MP ' + characters.mp"
+    [progress]="round((team.mp / team.mpMax) * 100)"
+    [text]="'MP ' + team.mp"
     [name]="'mp'"
   ></app-progress-bar>
 
   <app-progress-bar
     [id]="'step4'"
-    [progress]="round((characters.limit / characters.limitMax) * 100)"
-    [text]="
-      'LIMIT ' + round((characters.limit / characters.limitMax) * 100) + '%'
-    "
+    [progress]="round((team.limit / team.limitMax) * 100)"
+    [text]="'LIMIT ' + round((team.limit / team.limitMax) * 100) + '%'"
     [name]="'limit'"
   ></app-progress-bar>
 
   <!-- characters list -->
   <div id="step1">
-    <div *ngFor="let character of characters.getTeam()" class="flex gap-4 mt-5">
+    <div *ngFor="let character of team.list" class="flex gap-4 mt-5">
       <div
         [style]="{ 'background-image': 'url(' + character.image + ')' }"
         class="relative flex-none w-20 h-20 bg-center bg-cover border border-black"

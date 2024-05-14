@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { BattleService } from 'src/app/core/services/battle.service';
 import { GameService } from 'src/app/core/services/game.service';
-import { Characters } from 'src/app/models/units/characters';
+import { Team } from 'src/app/models/team';
 import { Enemies } from 'src/app/models/units/enemies';
 import { UiActionsComponent } from 'src/app/shared/ui/ui-actions/ui-actions.component';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
@@ -22,7 +22,7 @@ import { EnemiesPanelComponent } from './components/enemies-panel/enemies-panel.
   styleUrls: ['./view-game.component.scss'],
 })
 export class ViewGameComponent {
-  public characters: Characters;
+  public team: Team;
 
   public enemies: Enemies;
 
@@ -30,7 +30,7 @@ export class ViewGameComponent {
     private gameService: GameService,
     private battleService: BattleService,
   ) {
-    this.characters = this.gameService.characters;
+    this.team = this.gameService.team;
     this.enemies = this.battleService.enemies;
   }
 }

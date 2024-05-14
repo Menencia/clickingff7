@@ -25,10 +25,6 @@ export class Character {
 
   xp = 0;
 
-  isNotAvailable = false;
-
-  inTeam = false;
-
   ref: CharacterRef;
 
   image: string;
@@ -60,7 +56,6 @@ export class Character {
   load(data: CharacterSave): Character {
     this.level = data.level;
     this.xp = data.xp;
-    this.inTeam = data.inTeam;
     this.image = data.image;
     return this;
   }
@@ -124,8 +119,8 @@ export class Character {
 
   /** Returns Character data to be saved */
   export(): CharacterSave {
-    const { ref, inTeam, level, xp, image, weapon } = this;
+    const { ref, level, xp, image, weapon } = this;
     const weaponRef = weapon.ref;
-    return { ref, inTeam, level, xp, image, weaponRef };
+    return { ref, level, xp, image, weaponRef };
   }
 }

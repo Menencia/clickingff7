@@ -6,6 +6,10 @@ import { ZoneRef } from './refs/zones';
 
 export interface CharactersSave {
   list: CharacterSave[];
+}
+
+export interface TeamSave {
+  list: CharacterSave[];
   hp: number;
   mp: number;
   limit: number;
@@ -13,7 +17,6 @@ export interface CharactersSave {
 
 export interface CharacterSave {
   ref: CharacterRef;
-  inTeam: boolean;
   level: number;
   xp: number;
   image: string;
@@ -53,6 +56,7 @@ export interface ItemSave {
 
 export interface Save {
   characters: CharactersSave;
+  team: TeamSave;
   zones: ZonesSave;
   weapons: WeaponSave[];
   materias: MateriaSave[];

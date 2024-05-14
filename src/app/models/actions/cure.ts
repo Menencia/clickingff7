@@ -19,6 +19,6 @@ export class Cure implements ItAction {
   }
 
   use(battleService: BattleService): void {
-    battleService.characters.addHp(this.calculateHits());
+    battleService.team.addHp(this.calculateHits());
   }
 }

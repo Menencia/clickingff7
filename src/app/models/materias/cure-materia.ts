@@ -24,8 +24,8 @@ export class CureMateria extends Materia {
    */
   canUse(battleService: BattleService): boolean {
     return (
-      battleService.characters.mp >= this.getMpCost() &&
-      battleService.characters.hp < battleService.characters.hpMax
+      battleService.team.mp >= this.getMpCost() &&
+      battleService.team.hp < battleService.team.hpMax
     );
   }
 
@@ -34,7 +34,7 @@ export class CureMateria extends Materia {
    * Add to HP : +30% to +60%
    */
   getSkill(battleService: BattleService): ItAction[] {
-    const hits = battleService.characters.hpMax;
+    const hits = battleService.team.hpMax;
     const cure = new Cure(hits, this.getPwr());
     return [cure];
   }

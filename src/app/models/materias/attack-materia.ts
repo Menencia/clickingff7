@@ -34,16 +34,14 @@ export class AttackMateria extends Materia {
    * Can use the materia?
    */
   canUse(battleService: BattleService): boolean {
-    return (
-      battleService.isBattle && battleService.characters.mp >= this.getMpCost()
-    );
+    return battleService.isBattle && battleService.team.mp >= this.getMpCost();
   }
 
   /**
    * Get skill containing battle actions
    */
   getSkill(battleService: BattleService): ItAction[] {
-    const { hits } = battleService.characters;
+    const { hits } = battleService.team;
     const attack = new Attack(hits, this.getPwr(), this.elements);
     return [attack];
   }
