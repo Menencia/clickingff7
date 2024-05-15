@@ -15,8 +15,6 @@ export interface EnemyJson {
 }
 
 export class Enemy {
-  level = 1;
-
   hpMax = 0;
 
   hits = 0;
@@ -55,38 +53,15 @@ export class Enemy {
   constructor(data: EnemyJson) {
     this.ref = data.ref;
     this.image = data.image;
-    this.baseHpMax = data.hp;
-    this.baseHits = data.hits;
-    this.baseXp = data.xp;
-    this.baseAp = data.ap;
-    this.baseGils = data.gils;
+    this.baseHpMax = data.hp ?? 0;
+    this.baseHits = data.hits ?? 0;
+    this.baseXp = data.xp ?? 0;
+    this.baseAp = data.ap ?? 0;
+    this.baseGils = data.gils ?? 0;
     this.weakness = data.weakness ?? [];
     this.resistance = data.resistance ?? [];
     this.boss = data.boss ?? false;
     this.miboss = data.miboss ?? false;
-  }
-
-  /**
-   * Get the enemy to the given level
-   */
-  toLevel(levelSumBase: number, difficulty: number): void {
-    let levelSum = levelSumBase;
-
-    // Difficulty
-    levelSum *= 1 + ((difficulty - 2) * 20) / 100;
-    levelSum = Math.ceil(levelSum);
-
-    this.level = Math.ceil(levelSum / 3);
-
-    this.hpMax = Math.ceil(
-      (((this.baseHpMax - 3) * 10) / 100 + 1) * 25 * levelSum,
-    );
-    this.hits = Math.ceil((((this.baseHits - 3) * 10) / 100 + 1) * levelSum);
-    this.xp = Math.ceil((((this.baseXp - 3) * 10) / 100 + 1) * 5 * levelSum);
-    this.ap = Math.ceil((((this.baseAp - 3) * 10) / 100 + 1) * 2 * levelSum);
-    this.gils = Math.ceil(
-      (((this.baseGils - 3) * 10) / 100 + 1) * (30 + levelSum),
-    );
   }
 
   /**

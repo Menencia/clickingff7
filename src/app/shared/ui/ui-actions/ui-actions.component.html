@@ -3,12 +3,19 @@
     {{ "Fight random" | translate }}{{ remainingBattles() }}
   </app-button>
   <app-button (trigger)="fightBoss()" [disabled]="!canFightBoss()">
-    <div class="float-right text-red-700" *ngIf="canFightBoss()">NEW</div>
+    @if (canFightBoss()) {
+      <div class="float-right text-red-700">*</div>
+    }
     {{ "Fight boss" | translate }}
   </app-button>
   <app-button (trigger)="attack()" [disabled]="!isBattle()" [id]="'step7'">
-    <span *ngIf="!canLimit()">{{ "Attack" | translate }}</span>
-    <span *ngIf="canLimit()">{{ "Limit" | translate }}</span>
+    <span>
+      @if (canLimit()) {
+        {{ "Limit" | translate }}
+      } @else {
+        {{ "Attack" | translate }}
+      }
+    </span>
   </app-button>
   <app-button (trigger)="escape()" [disabled]="!isBattle()" [id]="'step8'">
     {{ "Escape" | translate }}
@@ -17,38 +24,40 @@
   <div class="h-3"></div>
 
   <div [id]="'step9'" class="contents">
-    <app-button
-      [class]="'flex flex-row items-center'"
-      *ngFor="let materia of getMaterias()"
-      (trigger)="useMateria(materia)"
-      [disabled]="!canUseMateria(materia)"
-    >
-      <img
-        class="flex-none"
-        src="/assets/images/icons/materias/{{ materia.color }}.webp"
-        alt="materia"
-      />
-      <div class="flex-grow">
-        {{ "Mat. " + materia.ref + " name" | translate }}
-      </div>
-      <span class="flex-none">{{ materia.getMpCost() }}</span>
-    </app-button>
+    @for (materia of getMaterias(); track $index) {
+      <app-button
+        [class]="'flex flex-row items-center'"
+        (trigger)="useMateria(materia)"
+        [disabled]="!canUseMateria(materia)"
+      >
+        <img
+          class="flex-none"
+          src="/assets/images/icons/materias/{{ materia.color }}.webp"
+          alt="materia"
+        />
+        <div class="flex-grow">
+          {{ "Mat. " + materia.ref + " name" | translate }}
+        </div>
+        <span class="flex-none">{{ materia.getMpCost() }}</span>
+      </app-button>
+    }
   </div>
 
-  <div *ngIf="getItems().length > 0" [id]="'step10'" class="contents">
-    <div class="h-3"></div>
+  <div class="h-3"></div>
 
-    <app-button
-      class="flex flex-row items-center button"
-      *ngFor="let item of getItems()"
-      (trigger)="useItem(item)"
-      [disabled]="!canUseItem(item)"
-    >
-      <div class="flex-grow">
-        {{ "It. " + item.ref + " name" | translate }}
-      </div>
-      <div class="flex-none">{{ item.nbr }}</div>
-    </app-button>
+  <div [id]="'step10'" class="contents">
+    @for (item of getItems(); track $index) {
+      <app-button
+        class="flex flex-row items-center button"
+        (trigger)="useItem(item)"
+        [disabled]="!canUseItem(item)"
+      >
+        <div class="flex-grow">
+          {{ "It. " + item.ref + " name" | translate }}
+        </div>
+        <div class="flex-none">{{ item.nbr }}</div>
+      </app-button>
+    }
   </div>
 
   <div class="h-3"></div>

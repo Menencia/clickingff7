@@ -2,17 +2,18 @@
   <div class="grid grid-cols-5 gap-x-4">
     <div>
       <div class="flex flex-col gap-1">
-        <app-button
-          *ngFor="let character of team.list"
-          (trigger)="selectCharacter(character)"
-          [class]="{ current: selected && selected.ref === character.ref }"
-        >
-          {{ character.ref }}
-        </app-button>
+        @for (character of team.list; track $index) {
+          <app-button
+            (trigger)="selectCharacter(character)"
+            [class]="{ current: selected && selected.ref === character.ref }"
+          >
+            {{ character.ref }}
+          </app-button>
+        }
       </div>
     </div>
 
-    <div class="col-span-2" *ngIf="selected">
+    <div class="col-span-2">
       <img
         [src]="selected.image"
         width="80"
@@ -22,11 +23,11 @@
 
       <div class="ml-24">
         <div>
-          {{ selected.ref }} <strong>(LVL{{ selected.level }})</strong>
+          {{ selected.ref }}
         </div>
-        <div *ngIf="selected.level > 0">
-          <span class="label">hp</span> {{ selected.getHpMax() }}
-          <span class="label">mp</span> {{ selected.getMpMax() }}
+        <div>
+          <span class="label">hp</span> {{ selected.hpBase }}
+          <span class="label">mp</span> {{ selected.mpBase }}
           <span class="label">pwr</span> {{ selected.getHits() }}
         </div>
 
@@ -42,23 +43,25 @@
       </div>
     </div>
 
-    <div class="col-span-2" *ngIf="selected">
+    <div class="col-span-2">
       <table style="width: 100%">
         <tr>
           <th>{{ "Name" | translate }}</th>
           <th></th>
         </tr>
-        <tr *ngFor="let weapon of weapons" class="weapon">
-          <td>{{ weapon.ref }}</td>
-          <td>
-            <app-button
-              (trigger)="equipWeapon(weapon)"
-              [disabled]="!canEquipWeapon(weapon)"
-            >
-              {{ "Equip" | translate }}
-            </app-button>
-          </td>
-        </tr>
+        @for (weapon of weapons; track $index) {
+          <tr class="weapon">
+            <td>{{ weapon.ref }}</td>
+            <td>
+              <app-button
+                (trigger)="equipWeapon(weapon)"
+                [disabled]="!canEquipWeapon(weapon)"
+              >
+                {{ "Equip" | translate }}
+              </app-button>
+            </td>
+          </tr>
+        }
       </table>
     </div>
   </div>

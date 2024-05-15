@@ -29,10 +29,8 @@ export class BattleService {
     if (!this.isBattle) {
       this.isBattle = true;
 
-      const { levelSum } = this.gameService.team;
       const zone = this.gameService.zones.current();
-      this.enemies.fightRandom(levelSum, zone, this.gameService.difficulty);
-      this.enemies.refresh();
+      this.enemies.fightRandom(zone, this.gameService.difficulty);
       this.startFighting();
     }
   }
@@ -53,9 +51,7 @@ export class BattleService {
       this.isBattle = true;
 
       const zone = this.gameService.zones.current();
-      const nbCharacters = this.gameService.team.list.length;
-      this.enemies.fightBoss(zone, nbCharacters, this.gameService.difficulty);
-      this.enemies.refresh();
+      this.enemies.fightBoss(zone, this.gameService.difficulty);
       this.startFighting();
     }
   }
@@ -87,41 +83,32 @@ export class BattleService {
 
     this.stopFighting();
 
-    const enemies = this.enemies.list;
-    const characters = this.gameService.team.list;
-    const materias = this.gameService.materias.getEquipped();
+    // Rewards if victory
+    if (victory) {
+      this.gameService.gils += this.enemies.rewardGils;
 
-    enemies.forEach((enemy) => {
-      // Rewards if victory
-      if (victory) {
-        this.gameService.gils += enemy.gilsReward();
-
-        if (
-          enemy.boss &&
-          this.gameService.zones.level + 1 > this.gameService.zones.levelMax
-        ) {
-          // Complete zone
-          this.gameService.zones.complete();
-        }
-
-        // XP for characters
-        const xp = enemy.xpReward();
-        characters.forEach((character) => {
-          character.setXp(xp);
-        });
-
-        // AP for materias
-        const ap = enemy.apReward();
-        materias.forEach((materia) => {
-          materia.setAp(ap);
-        });
-
-        this.gameService.zones.current().nbFights += 1;
+      if (
+        this.enemies.boss &&
+        this.gameService.zones.level + 1 > this.gameService.zones.levelMax
+      ) {
+        // Complete zone
+        this.gameService.zones.complete();
       }
-    });
+
+      // XP for characters
+      this.team.setXp(this.enemies.rewardXp);
+
+      // AP for materias
+      const ap = this.enemies.rewardAp;
+      const materias = this.gameService.materias.getEquipped();
+      materias.forEach((materia) => {
+        materia.setAp(ap);
+      });
+
+      this.gameService.zones.current().nbFights += 1;
+    }
 
     this.enemies.remove();
-    this.enemies.refresh();
     this.gameService.team.refresh();
   }
 }

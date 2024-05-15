@@ -1,15 +1,18 @@
 import { Subject } from 'rxjs';
+import { Difficulty } from 'src/app/core/services/game.service';
 
 import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
 import { BattleService } from '../../core/services/battle.service';
-import { random } from '../../shared/utils/math.utils';
+import { addPercent, random } from '../../shared/utils/math.utils';
 import { Enemy } from '../enemy';
 import { Units } from '../units';
 import { MAX_FIGHTS, Zone } from '../zone';
 
 export class Enemies extends Units {
   list: Enemy[] = [];
+
+  level = 1;
 
   arrHits: number[] = [];
 
@@ -24,6 +27,14 @@ export class Enemies extends Units {
   resistance: string[] = [];
 
   weakness: string[] = [];
+
+  rewardXp = 0;
+
+  rewardAp = 0;
+
+  rewardGils = 0;
+
+  boss = false;
 
   source = {
     hp: new Subject<ItDisplayHits>(), // health points
@@ -43,58 +54,73 @@ export class Enemies extends Units {
   }
 
   /**
+   * Get the enemy to the given level
+   */
+  refresh() {
+    let bonusHpMax = 0;
+    let bonusHits = 0;
+    let bonusXp = 0;
+    let bonusAp = 0;
+    let bonusGils = 0;
+
+    this.list.forEach((enemy) => {
+      bonusHpMax += enemy.hpMax;
+      bonusHits += enemy.hits;
+      bonusXp += enemy.xp;
+      bonusAp += enemy.ap;
+      bonusGils += enemy.gils;
+    });
+
+    this.hpMax = addPercent(25 * this.level, bonusHpMax);
+    this.hp = this.hpMax;
+    this.hits = addPercent(3 * this.level, bonusHits);
+    this.rewardXp = addPercent(5 * this.level, bonusXp);
+    this.rewardAp = addPercent(2 * this.level, bonusAp);
+    this.rewardGils = addPercent(30 + this.level, bonusGils);
+    // $$$$ todo
+    // this.weakness = [...new Set([...this.weakness, ...enemy.weakness])];
+    // this.resistance = [...new Set([...this.resistance, ...enemy.resistance])];
+  }
+
+  /**
    * Fight against a random enemy
    */
-  fightRandom(levelSumBase: number, zone: Zone, difficulty: number): Enemy[] {
+  fightRandom(zone: Zone, difficulty: Difficulty) {
+    // pick enemy
     let range;
     range = Math.floor((zone.nbFights / MAX_FIGHTS) * 4);
     range = Math.min(range, 3);
-
     const enemy = zone.enemies[random(0, range)];
-
-    let levelSum = levelSumBase;
-    if (enemy.miboss) {
-      levelSum *= 1.2;
-    }
-
-    enemy.toLevel(levelSum, difficulty);
-
     this.list = [enemy];
 
-    return this.list;
+    // determine level
+    this.level = Math.max(
+      1,
+      (zone.level - 1) * 5 + (range + 1) + (difficulty - 2),
+    );
+
+    // update stats
+    this.refresh();
+
+    // random enemy
+    this.boss = false;
   }
 
   /**
    * Fight against the zone boss
    */
-  fightBoss(zone: Zone, nbCharacters: number, difficulty: number): void {
-    const enemies = zone.boss;
-    enemies.forEach((e) => {
-      e.toLevel(zone.level * (nbCharacters + 1) * 3 * 1.4, difficulty);
-    });
+  fightBoss(zone: Zone, difficulty: number): void {
+    // pick enemy
+    this.list = zone.boss;
 
-    this.list = enemies;
-  }
+    // determine level
+    this.level = zone.level * 5 + (difficulty - 2);
 
-  /**
-   * Refresh all the enemy
-   */
-  refresh(): void {
-    this.hpMax = 0;
-    this.hits = 0;
-    this.arrHits = [];
-    this.weakness = [];
-    this.resistance = [];
+    // update stats
+    this.refresh();
 
-    this.list.forEach((enemy) => {
-      // HP
-      this.hpMax += enemy.getHpMax();
-      this.hits += enemy.getHits();
-      this.weakness = [...new Set([...this.weakness, ...enemy.weakness])];
-      this.resistance = [...new Set([...this.resistance, ...enemy.resistance])];
-    });
-
-    this.hp = this.hpMax;
+    // the boss is real
+    this.boss = true;
   }
 
   /**
@@ -174,6 +200,5 @@ export class Enemies extends Units {
    */
   remove(): void {
     this.list = [];
-    this.refresh();
   }
 }

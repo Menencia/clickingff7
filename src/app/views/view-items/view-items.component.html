@@ -8,39 +8,43 @@
       </th>
     </tr>
 
-    <tr *ngFor="let item of list" class="item">
-      <td>
-        <app-item-icon></app-item-icon>
-        {{ "It. " + item.ref + " name" | translate }}<br />
-        <span class="text-xs italic">{{
-          "It. " + item.ref + " desc" | translate
-        }}</span>
-      </td>
-      <td>{{ item.nbr }}</td>
-      <td class="total">
-        <span
-          (click)="unequipItem(item)"
-          (keypress)="unequipItem(item)"
-          tabindex="0"
-          *ngIf="item.equipped"
-          class="hover"
-        >
-          ❌
-        </span>
-        <span
-          (click)="equipItem(item)"
-          (keypress)="equipItem(item)"
-          tabindex="0"
-          *ngIf="canEquipItem(item)"
-          class="hover"
-        >
-          ➕
-        </span>
-      </td>
-    </tr>
-
-    <tr *ngIf="list.length === 0" class="nothing">
-      <td colspan="4">{{ "No items" | translate }}</td>
-    </tr>
+    @for (item of list; track $index) {
+      <tr class="item">
+        <td>
+          <app-item-icon></app-item-icon>
+          {{ "It. " + item.ref + " name" | translate }}<br />
+          <span class="text-xs italic">{{
+            "It. " + item.ref + " desc" | translate
+          }}</span>
+        </td>
+        <td>{{ item.nbr }}</td>
+        <td class="total">
+          @if (item.equipped) {
+            <span
+              (click)="unequipItem(item)"
+              (keypress)="unequipItem(item)"
+              tabindex="0"
+              class="hover"
+            >
+              ❌
+            </span>
+          }
+          @if (canEquipItem(item)) {
+            <span
+              (click)="equipItem(item)"
+              (keypress)="equipItem(item)"
+              tabindex="0"
+              class="hover"
+            >
+              ➕
+            </span>
+          }
+        </td>
+      </tr>
+    } @empty {
+      <tr class="nothing">
+        <td colspan="4">{{ "No items" | translate }}</td>
+      </tr>
+    }
   </table>
 </app-ui-layout-default>

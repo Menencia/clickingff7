@@ -4,14 +4,14 @@
   styleClass="bg-gray-200 dark:bg-gray-800"
 >
   <div class="flex flex-col">
-    <a
-      *ngFor="let navLink of navLinks"
-      [routerLink]="navLink.link"
-      routerLinkActive="active"
-      class="py-2"
-    >
-      {{ navLink.ref | translate }}<span *ngIf="navLink.highlight">*</span>
-    </a>
+    @for (navLink of navLinks; track $index) {
+      <a [routerLink]="navLink.link" routerLinkActive="active" class="py-2">
+        {{ navLink.ref | translate }}
+        @if (navLink.highlight) {
+          <span>*</span>
+        }
+      </a>
+    }
   </div>
 
   <ng-template pTemplate="header">

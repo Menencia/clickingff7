@@ -1,4 +1,3 @@
-import { NgFor } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
@@ -9,7 +8,7 @@ import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-ba
 @Component({
   selector: 'app-characters-panel',
   standalone: true,
-  imports: [ProgressBarComponent, TranslateModule, NgFor],
+  imports: [ProgressBarComponent, TranslateModule],
   templateUrl: './characters-panel.component.html',
   styleUrl: './characters-panel.component.scss',
 })

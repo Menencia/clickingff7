@@ -19,7 +19,10 @@
       {{ "Game" | translate }}
     </a>
     <a routerLink="/map" routerLinkActive="active">
-      {{ "Map" | translate }}<span *ngIf="displayNextZone">*</span>
+      {{ "Map" | translate }}
+      @if (displayNextZone) {
+        <span>*</span>
+      }
     </a>
     <a routerLink="/shop" routerLinkActive="active">
       {{ "Shop" | translate }}
@@ -36,9 +39,11 @@
     <a routerLink="/config" routerLinkActive="active">
       {{ "Config" | translate }}
     </a>
-    <a routerLink="/phs" routerLinkActive="active" *ngIf="displayPhs">
-      {{ "PHS" | translate }}
-    </a>
+    @if (displayPhs) {
+      <a routerLink="/phs" routerLinkActive="active">
+        {{ "PHS" | translate }}
+      </a>
+    }
     <a routerLink="/save" routerLinkActive="active">
       {{ "Save" | translate }}
     </a>
@@ -63,11 +68,12 @@
       (keypress)="toggleDark()"
       tabindex="0"
     >
-      <span *ngIf="theme === 'light'" class="material-icons-outlined">
-        light_mode
-      </span>
-      <span *ngIf="theme === 'dark'" class="material-icons-outlined">
-        dark_mode
+      <span class="material-icons-outlined">
+        @if (theme === "light") {
+          light_mode
+        } @else {
+          dark_mode
+        }
       </span>
     </div>
   </div>

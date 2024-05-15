@@ -43,7 +43,7 @@
     </div>
 
     <div class="col-span-4">
-      <section *ngIf="section === 'buy'">
+      @if (section === "buy") {
         <table style="width: 100%">
           <tr>
             <th>{{ "Name" | translate }}</th>
@@ -52,76 +52,85 @@
             <th></th>
           </tr>
 
-          <ng-container *ngIf="type === 'weapons'">
-            <tr *ngFor="let weapon of shopWeapons">
-              <td>
-                <app-weapon-icon [type]="weapon.type"></app-weapon-icon>
-                {{ weapon.ref }}<br />
-                <span class="text-xs italic"
-                  >({{ "Power" | translate }} {{ weapon.hits }})</span
-                >
-              </td>
-              <td>{{ inStockWeapon(weapon) }}</td>
-              <td>{{ weapon.price }} {{ "Gils" | translate }}</td>
-              <td>
-                <app-button
-                  (trigger)="buyWeapon(weapon)"
-                  [disabled]="!canBuyWeapon(weapon)"
-                >
-                  {{ "Buy" | translate }}
-                </app-button>
-              </td>
-            </tr>
-          </ng-container>
+          @if (type === "weapons") {
+            @for (weapon of shopWeapons; track $index) {
+              <tr>
+                <td>
+                  <app-weapon-icon [type]="weapon.type"></app-weapon-icon>
+                  {{ weapon.ref }}<br />
+                  <span class="text-xs italic"
+                    >({{ "Power" | translate }} {{ weapon.hits }})</span
+                  >
+                </td>
+                <td>{{ inStockWeapon(weapon) }}</td>
+                <td>{{ weapon.price }} {{ "Gils" | translate }}</td>
+                <td>
+                  <app-button
+                    (trigger)="buyWeapon(weapon)"
+                    [disabled]="!canBuyWeapon(weapon)"
+                  >
+                    {{ "Buy" | translate }}
+                  </app-button>
+                </td>
+              </tr>
+            }
+          }
 
-          <ng-container *ngIf="type === 'materias'">
-            <tr *ngFor="let materia of shopMaterias" class="materia">
-              <td>
-                <app-materia-icon [color]="materia.color"></app-materia-icon>
-                {{ "Mat. " + materia.ref + " name" | translate }}<br />
-                <span class="text-xs italic">{{
-                  "Mat. " + materia.ref + " desc" | translate
-                }}</span>
-              </td>
-              <td *ngIf="materia.inStock(playerMaterias)">🗸</td>
-              <td *ngIf="!materia.inStock(playerMaterias)"></td>
-              <td>{{ materia.price }} {{ "Gils" | translate }}</td>
-              <td>
-                <app-button
-                  (trigger)="buyMateria(materia)"
-                  [disabled]="!canBuyMateria(materia)"
-                >
-                  {{ "Buy" | translate }}
-                </app-button>
-              </td>
-            </tr>
-          </ng-container>
+          @if (type === "materias") {
+            @for (materia of shopMaterias; track $index) {
+              <tr class="materia">
+                <td>
+                  <app-materia-icon [color]="materia.color"></app-materia-icon>
+                  {{ "Mat. " + materia.ref + " name" | translate }}<br />
+                  <span class="text-xs italic">{{
+                    "Mat. " + materia.ref + " desc" | translate
+                  }}</span>
+                </td>
+                <td>
+                  @if (materia.inStock(playerMaterias)) {
+                    🗸
+                  }
+                </td>
+                <td>{{ materia.price }} {{ "Gils" | translate }}</td>
+                <td>
+                  <app-button
+                    (trigger)="buyMateria(materia)"
+                    [disabled]="!canBuyMateria(materia)"
+                  >
+                    {{ "Buy" | translate }}
+                  </app-button>
+                </td>
+              </tr>
+            }
+          }
 
-          <ng-container *ngIf="type === 'items'">
-            <tr *ngFor="let item of shopItems" class="item">
-              <td>
-                <app-item-icon></app-item-icon>
-                {{ "It. " + item.ref + " name" | translate }}<br />
-                <span class="text-xs italic">{{
-                  "It. " + item.ref + " desc" | translate
-                }}</span>
-              </td>
-              <td>{{ inStockItem(item) }}</td>
-              <td>{{ item.price }} {{ "Gils" | translate }}</td>
-              <td>
-                <app-button
-                  (trigger)="buyItem(item)"
-                  [disabled]="!canBuyItem(item)"
-                >
-                  {{ "Buy" | translate }}
-                </app-button>
-              </td>
-            </tr>
-          </ng-container>
+          @if (type === "items") {
+            @for (item of shopItems; track $index) {
+              <tr class="item">
+                <td>
+                  <app-item-icon></app-item-icon>
+                  {{ "It. " + item.ref + " name" | translate }}<br />
+                  <span class="text-xs italic">{{
+                    "It. " + item.ref + " desc" | translate
+                  }}</span>
+                </td>
+                <td>{{ inStockItem(item) }}</td>
+                <td>{{ item.price }} {{ "Gils" | translate }}</td>
+                <td>
+                  <app-button
+                    (trigger)="buyItem(item)"
+                    [disabled]="!canBuyItem(item)"
+                  >
+                    {{ "Buy" | translate }}
+                  </app-button>
+                </td>
+              </tr>
+            }
+          }
         </table>
-      </section>
+      }
 
-      <section *ngIf="section === 'sell'">
+      @if (section === "sell") {
         <table style="width: 100%">
           <tr>
             <th>{{ "Name" | translate }}</th>
@@ -130,68 +139,73 @@
             <th></th>
           </tr>
 
-          <ng-container *ngIf="type === 'weapons'">
-            <tr *ngFor="let weapon of playerWeapons">
-              <td>
-                <app-weapon-icon [type]="weapon.type"></app-weapon-icon>
-                {{ weapon.ref }}<br />
-                <span class="text-xs italic"
-                  >({{ "Power" | translate }} {{ weapon.hits }})</span
-                >
-              </td>
-              <td>{{ inStockWeapon(weapon) }}</td>
-              <td>{{ weapon.getSellPrice() }} {{ "Gils" | translate }}</td>
-              <td>
-                <app-button
-                  (trigger)="sellWeapon(weapon)"
-                  [disabled]="!canSellWeapon(weapon)"
-                >
-                  {{ "Sell" | translate }}
-                </app-button>
-              </td>
-            </tr>
-          </ng-container>
+          @if (type === "weapons") {
+            @for (weapon of playerWeapons; track $index) {
+              <tr>
+                <td>
+                  <app-weapon-icon [type]="weapon.type"></app-weapon-icon>
+                  {{ weapon.ref }}<br />
+                  <span class="text-xs italic"
+                    >({{ "Power" | translate }} {{ weapon.hits }})</span
+                  >
+                </td>
+                <td>{{ inStockWeapon(weapon) }}</td>
+                <td>{{ weapon.getSellPrice() }} {{ "Gils" | translate }}</td>
+                <td>
+                  <app-button
+                    (trigger)="sellWeapon(weapon)"
+                    [disabled]="!canSellWeapon(weapon)"
+                  >
+                    {{ "Sell" | translate }}
+                  </app-button>
+                </td>
+              </tr>
+            }
+          }
 
-          <ng-container *ngIf="type === 'materias'">
-            <tr *ngFor="let materia of playerMaterias" class="materia">
-              <td>
-                <app-materia-icon [color]="materia.color"></app-materia-icon>
-                {{ "Mat. " + materia.ref + " name" | translate }}<br />
-                <span class="text-xs italic">{{
-                  "Mat. " + materia.ref + " desc" | translate
-                }}</span>
-              </td>
-              <td *ngIf="materia.inStock">🗸</td>
-              <td *ngIf="!materia.inStock"></td>
-              <td>{{ materia.getSellPrice() }} {{ "Gils" | translate }}</td>
-              <td>
-                <app-button (trigger)="sellMateria(materia)">
-                  {{ "Sell" | translate }}
-                </app-button>
-              </td>
-            </tr>
-          </ng-container>
+          @if (type === "materias") {
+            @for (materia of playerMaterias; track $index) {
+              <tr class="materia">
+                <td>
+                  <app-materia-icon [color]="materia.color"></app-materia-icon>
+                  {{ "Mat. " + materia.ref + " name" | translate }}<br />
+                  <span class="text-xs italic">{{
+                    "Mat. " + materia.ref + " desc" | translate
+                  }}</span>
+                </td>
+                <td>🗸</td>
+                <td>{{ materia.getSellPrice() }} {{ "Gils" | translate }}</td>
+                <td>
+                  <app-button (trigger)="sellMateria(materia)">
+                    {{ "Sell" | translate }}
+                  </app-button>
+                </td>
+              </tr>
+            }
+          }
 
-          <ng-container *ngIf="type === 'items'">
-            <tr *ngFor="let item of playerItems" class="item">
-              <td>
-                <app-item-icon></app-item-icon>
-                {{ "It. " + item.ref + " name" | translate }}<br />
-                <span class="text-xs italic">{{
-                  "It. " + item.ref + " desc" | translate
-                }}</span>
-              </td>
-              <td>{{ inStockItem(item) }}</td>
-              <td>{{ item.getSellPrice() }} {{ "Gils" | translate }}</td>
-              <td>
-                <app-button (trigger)="sellItem(item)">
-                  {{ "Sell" | translate }}
-                </app-button>
-              </td>
-            </tr>
-          </ng-container>
+          @if (type === "items") {
+            @for (item of playerItems; track $index) {
+              <tr class="item">
+                <td>
+                  <app-item-icon></app-item-icon>
+                  {{ "It. " + item.ref + " name" | translate }}<br />
+                  <span class="text-xs italic">{{
+                    "It. " + item.ref + " desc" | translate
+                  }}</span>
+                </td>
+                <td>{{ inStockItem(item) }}</td>
+                <td>{{ item.getSellPrice() }} {{ "Gils" | translate }}</td>
+                <td>
+                  <app-button (trigger)="sellItem(item)">
+                    {{ "Sell" | translate }}
+                  </app-button>
+                </td>
+              </tr>
+            }
+          }
         </table>
-      </section>
+      }
     </div>
   </div>
 </app-ui-layout-default>

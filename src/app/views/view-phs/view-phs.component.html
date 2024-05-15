@@ -3,56 +3,51 @@
     <div class="col-span-2">
       <h3>{{ "Team" | translate }}</h3>
 
-      <div *ngFor="let character of team.list" class="phs_character">
-        <img
-          [src]="character.image"
-          alt="character"
-          width="80"
-          class="float-left cursor-pointer"
-          (click)="leaveTeam(character)"
-          (keypress)="leaveTeam(character)"
-          tabindex="0"
-        />
+      @for (character of team.list; track $index) {
+        <div class="phs_character">
+          <img
+            [src]="character.image"
+            alt="character"
+            width="80"
+            class="float-left cursor-pointer"
+            (click)="leaveTeam(character)"
+            (keypress)="leaveTeam(character)"
+            tabindex="0"
+          />
 
-        <div class="main">
-          <div class="progress characters_xp">
-            <div
-              class="xp_progress"
-              [style.width]="character.xpProgress(200) + 'px'"
-            ></div>
-            <span class="bar-label"
-              >{{ character.xp }} / {{ character.getXpMax() }} EXP</span
-            >
+          <div class="main">
+            <div>
+              {{ character.ref }}
+            </div>
+            <div>
+              <span class="label">hp</span> {{ character.hpBase }}
+              <span class="label">mp</span> {{ character.mpBase }}
+              <span class="label">pwr</span> {{ character.getHits() }}
+            </div>
           </div>
-
-          <div>
-            {{ character.ref }} <strong>(LVL{{ character.level }})</strong>
-          </div>
-          <div *ngIf="character.level > 0">
-            <span class="label">hp</span> {{ character.getHpMax() }}
-            <span class="label">mp</span> {{ character.getMpMax() }}
-            <span class="label">pwr</span> {{ character.getHits() }}
-          </div>
+          <div style="clear: left"></div>
         </div>
-        <div style="clear: left"></div>
-      </div>
+      }
     </div>
 
     <div class="col-span-2">
       <h3>{{ "Backup" | translate }}</h3>
 
-      <span *ngFor="let character of characters" class="phs_character">
-        <img
-          *ngIf="!inTeam(character)"
-          [src]="character.image"
-          alt="character"
-          width="80"
-          class="float-left cursor-pointer"
-          (click)="joinTeam(character)"
-          (keypress)="joinTeam(character)"
-          tabindex="0"
-        />
-      </span>
+      @for (character of characters; track $index) {
+        @if (!inTeam(character)) {
+          <span class="phs_character">
+            <img
+              [src]="character.image"
+              alt="character"
+              width="80"
+              class="float-left cursor-pointer"
+              (click)="joinTeam(character)"
+              (keypress)="joinTeam(character)"
+              tabindex="0"
+            />
+          </span>
+        }
+      }
     </div>
   </div>
 </app-ui-layout-default>

@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { BattleService } from 'src/app/core/services/battle.service';
@@ -12,7 +11,7 @@ import { ButtonComponent } from '../button/button.component';
 @Component({
   selector: 'app-ui-actions',
   standalone: true,
-  imports: [TranslateModule, NgFor, NgIf, ButtonComponent],
+  imports: [TranslateModule, ButtonComponent],
   templateUrl: './ui-actions.component.html',
   styleUrls: ['./ui-actions.component.scss'],
 })

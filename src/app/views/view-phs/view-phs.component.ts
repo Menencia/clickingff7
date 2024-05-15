@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
@@ -10,7 +9,7 @@ import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui
 @Component({
   selector: 'app-view-phs',
   standalone: true,
-  imports: [UiLayoutDefaultComponent, TranslateModule, NgFor, NgIf],
+  imports: [UiLayoutDefaultComponent, TranslateModule],
   templateUrl: './view-phs.component.html',
   styleUrls: ['./view-phs.component.scss'],
 })

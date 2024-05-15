@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -21,8 +20,6 @@ import { ConfirmButtonComponent } from './components/confirm-button/confirm-butt
     PipeTimePipe,
     FormsModule,
     ConfirmButtonComponent,
-    NgFor,
-    NgIf,
     ButtonComponent,
   ],
   templateUrl: './view-save.component.html',

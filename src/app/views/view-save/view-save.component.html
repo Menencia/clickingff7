@@ -32,39 +32,47 @@
     </div>
 
     <div class="col-span-2">
-      <div *ngIf="saves.length === 0" class="no-data">
-        {{ "No saves" | translate }}
-      </div>
+      @if (saves.length === 0) {
+        <div class="no-data">
+          {{ "No saves" | translate }}
+        </div>
+      }
 
-      <div *ngIf="saves.length > 0">
-        <ng-container *ngFor="let character of saves[0].team.list">
-          <img
-            [src]="character.image"
-            alt=""
-            width="80"
-            class="save_character"
-          />
-        </ng-container>
-        <br />
-        {{ "Time" | translate }}: {{ saves[0].time | time }}
-        <br />
-        {{ "Gil" | translate }}: {{ saves[0].gils }}
-      </div>
+      @if (saves.length > 0) {
+        <div>
+          @for (character of saves[0].team.list; track $index) {
+            <img
+              [src]="character.image"
+              alt="{{ character.ref }}"
+              width="80"
+              class="save_character"
+            />
+          }
+          <br />
+          {{ "Time" | translate }}: {{ saves[0].time | time }}
+          <br />
+          {{ "Gil" | translate }}: {{ saves[0].gils }}
+        </div>
+      }
     </div>
 
     <div class="col-span-2">
-      <div *ngIf="showAreaExport">
-        <textarea [(ngModel)]="areaExport"></textarea>
-      </div>
-      <div *ngIf="showAreaImport">
-        <textarea [(ngModel)]="areaImport"></textarea>
+      @if (showAreaExport) {
+        <div>
+          <textarea [(ngModel)]="areaExport"></textarea>
+        </div>
+      }
+      @if (showAreaImport) {
+        <div>
+          <textarea [(ngModel)]="areaImport"></textarea>
 
-        <app-confirm-button
-          [message]="msgImportSave"
-          (confirm)="importSave($event)"
-          >IMPORT</app-confirm-button
-        >
-      </div>
+          <app-confirm-button
+            [message]="msgImportSave"
+            (confirm)="importSave($event)"
+            >IMPORT</app-confirm-button
+          >
+        </div>
+      }
     </div>
   </div>
 </app-ui-layout-default>

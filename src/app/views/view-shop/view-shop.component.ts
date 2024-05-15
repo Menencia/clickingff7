@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
@@ -21,8 +20,6 @@ import { WeaponIconComponent } from 'src/app/shared/ui/weapon-icon/weapon-icon.c
   imports: [
     TranslateModule,
     UiLayoutDefaultComponent,
-    NgFor,
-    NgIf,
     WeaponIconComponent,
     MateriaIconComponent,
     ItemIconComponent,

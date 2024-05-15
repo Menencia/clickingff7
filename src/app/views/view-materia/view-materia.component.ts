@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -15,8 +14,6 @@ import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui
     UiLayoutDefaultComponent,
     FontAwesomeModule,
     TranslateModule,
-    NgFor,
-    NgIf,
     MateriaIconComponent,
   ],
   templateUrl: './view-materia.component.html',

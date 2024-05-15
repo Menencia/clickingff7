@@ -1,4 +1,5 @@
 <div class="col-span-2">
+  <div>Equipe Nv{{ team.level }}</div>
   <!-- characters bars -->
   <app-progress-bar
     [id]="'step2'"
@@ -22,30 +23,28 @@
     [name]="'limit'"
   ></app-progress-bar>
 
+  <app-progress-bar
+    [progress]="round((team.xp / team.getXpMax()) * 100)"
+    [text]="'XP ' + team.xp"
+    [name]="'exp'"
+  ></app-progress-bar>
+
   <!-- characters list -->
   <div id="step1">
-    <div *ngFor="let character of team.list" class="flex gap-4 mt-5">
-      <div
-        [style]="{ 'background-image': 'url(' + character.image + ')' }"
-        class="relative flex-none w-20 h-20 bg-center bg-cover border border-black"
-      >
+    @for (character of team.list; track $index) {
+      <div class="flex gap-4 mt-5">
         <div
-          class="absolute bottom-0 left-0 right-0 h-5 text-center bg-black opacity-75"
-        >
-          <span class="text-sm text-white"> LVL{{ character.level }} </span>
+          [style]="{ 'background-image': 'url(' + character.image + ')' }"
+          class="relative flex-none w-20 h-20 bg-center bg-cover border border-black"
+        ></div>
+
+        <div class="grow">
+          <div class="text-2xl">{{ character.ref }}</div>
+          <div class="text-sm italic">
+            "{{ getLine(character) | translate }}"
+          </div>
         </div>
       </div>
-
-      <div class="grow">
-        <app-progress-bar
-          [progress]="round((character.xp / character.getXpMax()) * 100)"
-          [text]="character.xp + ' / ' + character.getXpMax() + 'EXP'"
-          [name]="'exp'"
-        ></app-progress-bar>
-
-        <div class="text-2xl">{{ character.ref }}</div>
-        <div class="text-sm italic">"{{ getLine(character) | translate }}"</div>
-      </div>
-    </div>
+    }
   </div>
 </div>

@@ -2,6 +2,7 @@ import { Subject } from 'rxjs';
 
 import { ItActionAttack } from '../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../core/interfaces/it-display-hits';
+import { addPercent } from '../shared/utils/math.utils';
 
 import { Attack } from './actions/attack';
 import { Character } from './character';
@@ -31,9 +32,9 @@ export class Team extends Units {
 
   limitMax: number;
 
-  levelMax = 0;
+  level = 1;
 
-  levelSum = 0;
+  xp = 0;
 
   weakness: string[] = [];
 
@@ -55,6 +56,16 @@ export class Team extends Units {
     this.mpMax = 0;
     this.limit = 0;
     this.limitMax = 0;
+  }
+
+  /** Updates team data */
+  load(data: TeamSave): Team {
+    this.level = data.level;
+    this.xp = data.xp;
+    this.hp = data.hp;
+    this.mp = data.mp;
+    this.limit = data.limit;
+    return this;
   }
 
   /** Adds a character to the team */
@@ -119,31 +130,26 @@ export class Team extends Units {
    * Refresh characters stats
    */
   refresh(): void {
-    this.hpMax = 0;
-    this.mpMax = 0;
+    let gainHpMax = 0;
+    let gainMpMax = 0;
+    let gainHits = 0;
     this.limitMax = 0;
     this.hits = 0;
     this.arrHits = [];
-    this.levelMax = 0;
-    this.levelSum = 0;
 
     this.list.forEach((character) => {
-      // Level
-      if (character.level > this.levelMax) {
-        this.levelMax = character.level;
-      }
-
-      // HP, MP
-      this.hpMax += character.getHpMax();
-      this.mpMax += character.getMpMax();
-
-      this.levelSum += character.level;
-
-      this.hits += character.getHits();
+      gainHpMax += character.hpBase;
+      gainMpMax += character.mpBase;
+      gainHits += character.getHits();
     });
 
+    this.hpMax = addPercent(25 * this.level, gainHpMax);
+    this.hp = this.hpMax;
+    this.mpMax = addPercent(this.level, gainMpMax);
+    this.hits = gainHits;
     this.limitMax = (2 * this.hpMax) / 3;
 
+    // controls
     if (this.hp > this.hpMax) {
       this.hp = this.hpMax;
     }
@@ -152,6 +158,34 @@ export class Team extends Units {
     }
     if (this.limit > this.limitMax) {
       this.limit = this.limitMax;
+    }
+  }
+
+  /** Updates only level */
+  setLevel(level: number) {
+    this.level = level;
+  }
+
+  /** Returns calculated XP MAX */
+  getXpMax(): number {
+    return 10 * (this.level + 1) ** 2;
+  }
+
+  /** Returns the percentage of XP progression */
+  xpProgress(pixelsMax: number): number {
+    return this.xp === 0 ? 0 : (this.xp / this.getXpMax()) * pixelsMax;
+  }
+
+  /** Updates xp and can trigger character level up */
+  setXp(xp: number): void {
+    if (this.level < 100) {
+      this.xp += xp;
+      while (this.xp >= this.getXpMax()) {
+        this.xp -= this.getXpMax();
+        this.level += 1;
+      }
+    } else {
+      this.xp = 0;
     }
   }
 
@@ -271,10 +305,12 @@ export class Team extends Units {
    */
   export(): TeamSave {
     const res: TeamSave = {
+      level: this.level,
+      xp: this.xp,
+      list: [],
       hp: this.hp,
       mp: this.mp,
       limit: this.limit,
-      list: [],
     };
 
     res.list = [];

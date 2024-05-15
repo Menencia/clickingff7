@@ -4,19 +4,17 @@
     "image": "/assets/images/characters/cloud.jpg",
     "weaponType": "broadsword",
     "weapon": "buster-sword",
-    "hp": 3,
-    "mp": 3,
-    "xp": 3
+    "zoneMin": 1,
+    "zoneOff": []
   },
   {
     "ref": "barret",
     "image": "/assets/images/characters/barret.jpg",
     "weaponType": "gun-arm",
     "weapon": "gatling-gun",
-    "hp": 5,
-    "mp": 1,
-    "xp": 2,
-    "notA": [3]
+    "hp": 20,
+    "zoneMin": 1,
+    "zoneOff": [3]
   },
   {
     "ref": "tifa",
@@ -25,8 +23,8 @@
     "weapon": "leather-glove",
     "hp": 2,
     "mp": 2,
-    "xp": 3,
-    "notA": [3]
+    "zoneMin": 1,
+    "zoneOff": [3]
   },
   {
     "ref": "aerith",
@@ -35,8 +33,8 @@
     "weapon": "guard-stick",
     "hp": 1,
     "mp": 5,
-    "xp": 2,
-    "notA": [4,5]
+    "zoneMin": 1,
+    "zoneOff": [4,5]
   },
   {
     "ref": "redxiii",
@@ -45,7 +43,8 @@
     "weapon": "mythril-clip",
     "hp": 2,
     "mp": 4,
-    "xp": 4
+    "zoneMin": 1,
+    "zoneOff": []
   },
   {
     "ref": "yuffie",
@@ -54,7 +53,8 @@
     "weapon": "4-pt-shuriken",
     "hp": 1,
     "mp": 4,
-    "xp": 4
+    "zoneMin": 1,
+    "zoneOff": []
   }
 ]
 

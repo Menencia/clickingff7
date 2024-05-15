@@ -152,25 +152,12 @@ export class GameService {
     // build zone
     this.zones.add(this.store.getZone(`zone${level}` as ZoneRef));
 
-    // data to load characters
-    const levelMax = this.team.levelMax ? this.team.levelMax : 1;
-
-    const cloud = this.store
-      .getCharacter(CharacterRef.Cloud)
-      .setLevel(levelMax);
-    const barret = this.store
-      .getCharacter(CharacterRef.Barret)
-      .setLevel(levelMax);
-    const tifa = this.store.getCharacter(CharacterRef.Tifa).setLevel(levelMax);
-    const aerith = this.store
-      .getCharacter(CharacterRef.Aerith)
-      .setLevel(levelMax);
-    const redxiii = this.store
-      .getCharacter(CharacterRef.RedXIII)
-      .setLevel(levelMax);
-    const yuffie = this.store
-      .getCharacter(CharacterRef.Yuffie)
-      .setLevel(levelMax);
+    const cloud = this.store.getCharacter(CharacterRef.Cloud);
+    const barret = this.store.getCharacter(CharacterRef.Barret);
+    const tifa = this.store.getCharacter(CharacterRef.Tifa);
+    const aerith = this.store.getCharacter(CharacterRef.Aerith);
+    const redxiii = this.store.getCharacter(CharacterRef.RedXIII);
+    const yuffie = this.store.getCharacter(CharacterRef.Yuffie);
 
     switch (level) {
       case 1:
@@ -282,10 +269,7 @@ export class GameService {
         return this.characters.list.find((c2) => c2.ref === c.ref)!;
       }),
     );
-
-    this.team.hp = save.team.hp;
-    this.team.mp = save.team.mp;
-    this.team.limit = save.team.limit;
+    this.team.load(save.team);
 
     // zones
     save.zones.list.forEach((z) => {

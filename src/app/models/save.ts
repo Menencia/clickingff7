@@ -9,6 +9,8 @@ export interface CharactersSave {
 }
 
 export interface TeamSave {
+  level: number;
+  xp: number;
   list: CharacterSave[];
   hp: number;
   mp: number;
@@ -17,8 +19,6 @@ export interface TeamSave {
 
 export interface CharacterSave {
   ref: CharacterRef;
-  level: number;
-  xp: number;
   image: string;
   weaponRef: WeaponRef;
 }

@@ -2,51 +2,33 @@
   {
     "ref": "first-ray",
     "image": "/assets/images/enemies/zone1/1st-ray.png",
-    "hp": 2,
-    "hits": 1,
-    "xp": 1,
-    "ap": 1,
-    "gils": 5,
+    "gils": 20,
     "weakness": ["bolt"]
   },
   {
     "ref": "mp",
     "image": "/assets/images/enemies/zone1/mp.png",
-    "hp": 2,
-    "hits": 2,
-    "xp": 2,
-    "ap": 1,
-    "gils": 3,
     "weakness": ["ice"]
   },
   {
     "ref": "grunt",
     "image": "/assets/images/enemies/zone1/grunt.png",
-    "hp": 4,
-    "hits": 3,
-    "xp": 3,
-    "ap": 1,
-    "gils": 4,
+    "hp": 10,
+    "gils": 10,
     "weakness": ["ice"]
   },
   {
     "ref": "sweeper",
     "image": "/assets/images/enemies/zone1/sweeper.png",
-    "hp": 3,
-    "hits": 4,
-    "xp": 4,
-    "ap": 1,
-    "gils": 5,
+    "hits": 10,
+    "xp": 10,
+    "gils": 20,
     "weakness": ["bolt"]
   },
   {
     "ref": "guard-scorpion",
     "image": "/assets/images/enemies/zone1/guard-scorpion.png",
-    "hp": 4,
-    "hits": 3,
-    "xp": 3,
-    "ap": 3,
-    "gils": 3,
+    "hp": 10,
     "weakness": ["bolt"],
     "boss": true
   },
