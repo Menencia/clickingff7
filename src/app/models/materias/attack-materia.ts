@@ -41,7 +41,7 @@ export class AttackMateria extends Materia {
    * Get skill containing battle actions
    */
   getSkill(battleService: BattleService): ItAction[] {
-    const { hits } = battleService.team;
+    const { attackFromEquipment: hits } = battleService.team;
     const attack = new Attack(hits, this.getPwr(), this.elements);
     return [attack];
   }

@@ -6,9 +6,17 @@ interface CharacterBase {
   ref: CharacterRef;
   image: string;
   weaponType: string;
+  stats: BonusStats;
+  zoneOff?: number[];
+}
+
+interface BonusStats {
   hp: number;
   mp: number;
-  zoneOff?: number[];
+  attack: number;
+  defense: number;
+  luck: number;
+  speed: number;
 }
 
 export interface CharacterJson extends CharacterBase {
@@ -28,9 +36,7 @@ export class Character {
 
   weapon: Weapon;
 
-  hpBase: number;
-
-  mpBase: number;
+  bonusStats: BonusStats;
 
   zoneOff: number[];
 
@@ -39,8 +45,7 @@ export class Character {
     this.image = data.image;
     this.weaponType = data.weaponType;
     this.weapon = data.weapon;
-    this.hpBase = data.hp ?? 0;
-    this.mpBase = data.mp ?? 0;
+    this.bonusStats = data.stats;
     this.zoneOff = data.zoneOff ?? [];
   }
 

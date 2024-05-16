@@ -25,11 +25,7 @@
         <div>
           {{ selected.ref }}
         </div>
-        <div>
-          <span class="label">hp</span> {{ selected.hpBase }}
-          <span class="label">mp</span> {{ selected.mpBase }}
-          <span class="label">pwr</span> {{ selected.getHits() }}
-        </div>
+        <div><span class="label">pwr</span> {{ selected.getHits() }}</div>
 
         <p class="mt-3">
           <app-weapon-icon [type]="selected.weapon.type"></app-weapon-icon>

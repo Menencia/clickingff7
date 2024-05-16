@@ -270,6 +270,7 @@ export class GameService {
       }),
     );
     this.team.load(save.team);
+    this.team.refresh();
 
     // zones
     save.zones.list.forEach((z) => {

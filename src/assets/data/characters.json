@@ -4,6 +4,7 @@
     "image": "/assets/images/characters/cloud.jpg",
     "weaponType": "broadsword",
     "weapon": "buster-sword",
+    "stats": {"attack": 20, "speed": 10},
     "zoneMin": 1,
     "zoneOff": []
   },
@@ -12,7 +13,7 @@
     "image": "/assets/images/characters/barret.jpg",
     "weaponType": "gun-arm",
     "weapon": "gatling-gun",
-    "hp": 20,
+    "stats": {"defense": 20, "hp": 10},
     "zoneMin": 1,
     "zoneOff": [3]
   },

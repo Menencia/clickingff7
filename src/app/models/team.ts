@@ -18,23 +18,45 @@ export class Team extends Units {
 
   arrHits: number[] = [];
 
-  hits: number;
+  hp = 0;
 
-  hp: number;
+  hpMax = 0;
 
-  hpMax: number;
+  mp = 0;
 
-  mp: number;
+  mpMax = 0;
 
-  mpMax: number;
+  limit = 0;
 
-  limit: number;
-
-  limitMax: number;
+  limitMax = 0;
 
   level = 1;
 
   xp = 0;
+
+  attack = 0;
+
+  attackFromEquipment = 0;
+
+  strengh = 0;
+
+  defense = 0;
+
+  defenseFromEquipment = 0;
+
+  vitality = 0;
+
+  luck = 0;
+
+  luckFromEquipment = 0;
+
+  speed = 0;
+
+  speedFromEquipment = 0;
+
+  critHitRate = 0;
+
+  critHitDamage = 0;
 
   weakness: string[] = [];
 
@@ -43,20 +65,6 @@ export class Team extends Units {
   source = {
     hp: new Subject<ItDisplayHits>(), // health points
   };
-
-  constructor() {
-    super();
-
-    // Init
-    this.hits = 0;
-    this.hp = 0;
-    this.hpMax = 0;
-
-    this.mp = 0;
-    this.mpMax = 0;
-    this.limit = 0;
-    this.limitMax = 0;
-  }
 
   /** Updates team data */
   load(data: TeamSave): Team {
@@ -130,35 +138,63 @@ export class Team extends Units {
    * Refresh characters stats
    */
   refresh(): void {
-    let gainHpMax = 0;
-    let gainMpMax = 0;
-    let gainHits = 0;
+    let bonusHpMax = 0;
+    let bonusMpMax = 0;
     this.limitMax = 0;
-    this.hits = 0;
     this.arrHits = [];
 
+    this.attack = 0;
+    let bonusAttack = 0;
+    this.attackFromEquipment = 0;
+    this.strengh = 0;
+
+    this.defense = 0;
+    let bonusDefense = 0;
+    this.defenseFromEquipment = 0;
+    this.vitality = 0;
+
+    this.luck = 0;
+    let bonusLuck = 0;
+    this.luckFromEquipment = 0;
+
+    this.speed = 0;
+    let bonusSpeed = 0;
+    this.speedFromEquipment = 0;
+
     this.list.forEach((character) => {
-      gainHpMax += character.hpBase;
-      gainMpMax += character.mpBase;
-      gainHits += character.getHits();
+      bonusHpMax += character.bonusStats.hp ?? 0;
+      bonusMpMax += character.bonusStats.mp ?? 0;
+      bonusAttack += character.bonusStats.attack ?? 0;
+      bonusDefense += character.bonusStats.defense ?? 0;
+      bonusLuck += character.bonusStats.luck ?? 0;
+      bonusSpeed += character.bonusStats.speed ?? 0;
+      this.attackFromEquipment += character.getHits();
     });
 
-    this.hpMax = addPercent(25 * this.level, gainHpMax);
-    this.hp = this.hpMax;
-    this.mpMax = addPercent(this.level, gainMpMax);
-    this.hits = gainHits;
-    this.limitMax = (2 * this.hpMax) / 3;
+    this.strengh = 6 * this.level;
+    this.attack = addPercent(
+      this.attackFromEquipment + this.strengh,
+      bonusAttack,
+    );
 
-    // controls
-    if (this.hp > this.hpMax) {
-      this.hp = this.hpMax;
-    }
-    if (this.mp > this.mpMax) {
-      this.mp = this.mpMax;
-    }
-    if (this.limit > this.limitMax) {
-      this.limit = this.limitMax;
-    }
+    this.vitality = 6 * this.level;
+    this.defense = addPercent(
+      this.defenseFromEquipment + this.vitality,
+      bonusDefense,
+    );
+
+    this.luck = addPercent(this.luckFromEquipment + 6 * this.level, bonusLuck);
+    this.speed = addPercent(
+      this.speedFromEquipment + 6 * this.level,
+      bonusSpeed,
+    );
+
+    this.critHitRate = 3 + (this.luck / 100) * 4.7;
+    this.critHitDamage = 100 + 4 * this.luck;
+
+    this.hpMax = addPercent(4 * this.vitality, bonusHpMax);
+    this.mpMax = addPercent(1 * this.vitality, bonusMpMax);
+    this.limitMax = (2 * this.hpMax) / 3;
   }
 
   /** Updates only level */
@@ -193,7 +229,7 @@ export class Team extends Units {
    * Get total characters hits
    */
   getAttackSkill(): ItActionAttack {
-    const { hits } = this;
+    const { attackFromEquipment: hits } = this;
     let pwr = 100;
 
     // limit
