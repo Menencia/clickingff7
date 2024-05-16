@@ -4,11 +4,11 @@ import { MockProvider } from 'ng-mocks';
 import { GameService } from 'src/app/core/services/game.service';
 import { CharactersMock } from 'src/app/shared/test/game.mock';
 
-import { ViewPhsComponent } from './view-phs.component';
+import { ViewTeamComponent } from './view-team.component';
 
-describe('ViewPhsComponent', () => {
-  let component: ViewPhsComponent;
-  let fixture: ComponentFixture<ViewPhsComponent>;
+describe('ViewTeamComponent', () => {
+  let component: ViewTeamComponent;
+  let fixture: ComponentFixture<ViewTeamComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -16,7 +16,7 @@ describe('ViewPhsComponent', () => {
       providers: [MockProvider(GameService, { ...CharactersMock })],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ViewPhsComponent);
+    fixture = TestBed.createComponent(ViewTeamComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

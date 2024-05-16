@@ -1,0 +1,87 @@
+<app-ui-layout-default>
+  <div class="flex flex-col gap-5 sm:flex-row">
+    <div class="basis-1/5">
+      <div>{{ "Team" | translate }}</div>
+      Niveau {{ team.level }}<br />
+      HP: {{ team.hpMax }}<br />
+      MP: {{ team.mpMax }}<br />
+      Attaque: {{ team.attack }}<br />
+      Défense: {{ team.defense }}<br />
+      Force: {{ team.strengh }}<br />
+      Vitalité: {{ team.vitality }}<br />
+      Chance: {{ team.luck }}<br />
+      Vitesse: {{ team.speed }}<br />
+    </div>
+    <div class="basis-2/5">
+      <h3>{{ "Team" | translate }}</h3>
+
+      @for (character of team.list; track $index) {
+        <div class="phs_character">
+          <img
+            [src]="character.image"
+            alt="character"
+            width="80"
+            class="float-left cursor-pointer"
+            (click)="leaveTeam(character)"
+            (keypress)="leaveTeam(character)"
+            tabindex="0"
+          />
+
+          <div class="main">
+            <div>
+              {{ character.ref }}
+            </div>
+            <div><span class="label">pwr</span> {{ character.getHits() }}</div>
+            @if (character.bonusStats.hp) {
+              <div>
+                <span class="label">HP</span> +{{ character.bonusStats.hp }}%
+              </div>
+            }
+            @if (character.bonusStats.attack) {
+              <div>
+                <span class="label">Attaque</span> +{{
+                  character.bonusStats.attack
+                }}%
+              </div>
+            }
+            @if (character.bonusStats.defense) {
+              <div>
+                <span class="label">Défense</span> +{{
+                  character.bonusStats.defense
+                }}%
+              </div>
+            }
+            @if (character.bonusStats.speed) {
+              <div>
+                <span class="label">Vitesse</span> +{{
+                  character.bonusStats.speed
+                }}%
+              </div>
+            }
+          </div>
+          <div style="clear: left"></div>
+        </div>
+      }
+    </div>
+
+    <div class="basis-2/5">
+      <h3>{{ "Backup" | translate }}</h3>
+
+      @for (character of characters; track $index) {
+        @if (!inTeam(character)) {
+          <span class="phs_character">
+            <img
+              [src]="character.image"
+              alt="character"
+              width="80"
+              class="float-left cursor-pointer"
+              (click)="joinTeam(character)"
+              (keypress)="joinTeam(character)"
+              tabindex="0"
+            />
+          </span>
+        }
+      }
+    </div>
+  </div>
+</app-ui-layout-default>

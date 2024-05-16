@@ -1,7 +1,6 @@
 import { Routes } from '@angular/router';
 
 import { BattleGuard } from './core/guards/battle.guard';
-import { ZoneGuard } from './core/guards/zone.guard';
 
 export const routes: Routes = [
   {
@@ -9,6 +8,14 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./views/view-game/view-game.component').then(
         (m) => m.ViewGameComponent,
+      ),
+  },
+  {
+    path: 'team',
+    canActivate: [BattleGuard],
+    loadComponent: () =>
+      import('./views/view-team/view-team.component').then(
+        (m) => m.ViewTeamComponent,
       ),
   },
   {
@@ -57,14 +64,6 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./views/view-config/view-config.component').then(
         (m) => m.ViewConfigComponent,
-      ),
-  },
-  {
-    path: 'phs',
-    canActivate: [BattleGuard, ZoneGuard],
-    loadComponent: () =>
-      import('./views/view-phs/view-phs.component').then(
-        (m) => m.ViewPhsComponent,
       ),
   },
   {

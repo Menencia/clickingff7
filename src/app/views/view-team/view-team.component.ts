@@ -7,13 +7,13 @@ import { MAX_TEAM } from 'src/app/models/units/characters';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
-  selector: 'app-view-phs',
+  selector: 'app-view-team',
   standalone: true,
   imports: [UiLayoutDefaultComponent, TranslateModule],
-  templateUrl: './view-phs.component.html',
-  styleUrls: ['./view-phs.component.scss'],
+  templateUrl: './view-team.component.html',
+  styleUrls: ['./view-team.component.scss'],
 })
-export class ViewPhsComponent {
+export class ViewTeamComponent {
   team: Team;
 
   characters: Character[];
@@ -28,7 +28,7 @@ export class ViewPhsComponent {
   }
 
   canJoinTeam(): boolean {
-    return this.team.list.length < MAX_TEAM;
+    return this.canEditTeam() && this.team.list.length < MAX_TEAM;
   }
 
   /**
@@ -45,7 +45,7 @@ export class ViewPhsComponent {
    * Returns true if the character can leave the team
    */
   canLeaveTeam(): boolean {
-    return this.team.list.length > 1;
+    return this.canEditTeam() && this.team.list.length > 1;
   }
 
   /**
@@ -56,5 +56,10 @@ export class ViewPhsComponent {
       this.team.leave(character);
       this.team.refresh();
     }
+  }
+
+  /** Returns true if team can be modified */
+  private canEditTeam(): boolean {
+    return this.gameService.zones.levelMax >= 5;
   }
 }

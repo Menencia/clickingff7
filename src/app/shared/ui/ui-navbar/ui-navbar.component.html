@@ -18,6 +18,9 @@
     <a routerLink="/game" routerLinkActive="active">
       {{ "Game" | translate }}
     </a>
+    <a routerLink="/team" routerLinkActive="active">
+      {{ "Team" | translate }}
+    </a>
     <a routerLink="/map" routerLinkActive="active">
       {{ "Map" | translate }}
       @if (displayNextZone) {
@@ -39,11 +42,6 @@
     <a routerLink="/config" routerLinkActive="active">
       {{ "Config" | translate }}
     </a>
-    @if (displayPhs) {
-      <a routerLink="/phs" routerLinkActive="active">
-        {{ "PHS" | translate }}
-      </a>
-    }
     <a routerLink="/save" routerLinkActive="active">
       {{ "Save" | translate }}
     </a>

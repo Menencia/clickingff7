@@ -43,13 +43,13 @@ export class MenuSidebarComponent implements OnInit, OnDestroy {
     this.displayPhs = this.gameService.zones.levelMax >= 5;
     this.navLinks = [
       new NavLink('Game'),
+      new NavLink('Team'),
       new NavLink('Map', true, this.displayNextZone),
       new NavLink('Shop'),
       new NavLink('Equip'),
       new NavLink('Materia'),
       new NavLink('Items'),
       new NavLink('Config'),
-      new NavLink('PHS', this.displayPhs),
       new NavLink('Save'),
     ].filter((navLink) => navLink.display === true);
   }
