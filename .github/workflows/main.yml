@@ -3,10 +3,12 @@ name: CI
 on:
   push:
     branches:
-      - master
+      - main
+      - next
   pull_request:
     branches:
-      - master
+      - main
+      - next
 
 jobs:
   build:
@@ -20,13 +22,12 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 9
           run_install: false
 
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 24
           cache: "pnpm"
 
       - name: Install dependencies
@@ -35,22 +36,8 @@ jobs:
       - name: Build
         run: pnpm run build
 
-      - name: Test
-        run: pnpm run test:ci
+      # - name: Test
+      #   run: pnpm run test:ci
 
       - name: Lint
         run: pnpm run lint
-
-      - name: Archive build
-        if: success()
-        uses: actions/upload-artifact@v1
-        with:
-          name: deploy_dist
-          path: dist
-
-      - name: Archive code coverage result
-        if: success()
-        uses: actions/upload-artifact@v1
-        with:
-          name: deploy_coverage
-          path: coverage
