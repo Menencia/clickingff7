@@ -6,7 +6,7 @@ interface CharacterBase {
   ref: CharacterRef;
   image: string;
   weaponType: string;
-  stats: BonusStats;
+  stats: Partial<BonusStats>;
   zoneOff?: number[];
 }
 
@@ -36,7 +36,7 @@ export class Character {
 
   weapon: Weapon;
 
-  bonusStats: BonusStats;
+  bonusStats: Partial<BonusStats>;
 
   zoneOff: number[];
 

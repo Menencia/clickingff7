@@ -8,6 +8,7 @@ import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
 import { WeaponRef } from 'src/app/models/refs/weapons';
 import { ZoneRef } from 'src/app/models/refs/zones';
+import { Team } from 'src/app/models/team';
 import { Characters } from 'src/app/models/units/characters';
 import { Weapon } from 'src/app/models/weapon';
 import { Weapons } from 'src/app/models/weapons';
@@ -31,15 +32,16 @@ const weapon = new Weapon({
 const character = new Character({
   ref: CharacterRef.Cloud,
   image: '',
-  hp: 100,
-  mp: 10,
   weapon,
   weaponType: 'broadsword',
-  xp: 0,
+  stats: {},
 });
 
 const characters = new Characters();
-characters.add(character, true);
+characters.add(character);
+
+const team = new Team();
+team.join(character);
 
 const weapons = new Weapons();
 weapons.add(weapon, true);
@@ -79,7 +81,7 @@ export const materiaMock = materia;
 
 export const ZonesMock = { zones };
 
-export const CharactersMock = { characters };
+export const CharactersMock = { team, characters };
 
 export const WeaponsMock = { weapons };
 
