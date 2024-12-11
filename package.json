@@ -8,12 +8,12 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --no-watch --code-coverage --no-progress --browsers=ChromeHeadless",
-    "deploy": "npm run build && firebase deploy",
+    "deploy": "pnpm run build && firebase deploy",
     "compodoc:build": "compodoc -p tsconfig.doc.json",
     "compodoc:build-and-serve": "compodoc -p tsconfig.doc.json -s",
     "compodoc:serve": "compodoc -s",
     "lint": "ng lint",
-    "check": "ng lint && npm run test:ci",
+    "check": "ng lint && pnpm run test:ci",
     "i18n:download": "crowdin download --identity .crowdin.yml"
   },
   "private": true,
@@ -71,5 +71,6 @@
     "prettier": "^3.2.5",
     "tailwindcss": "^3.4.3",
     "typescript": "~5.4.4"
-  }
+  },
+  "packageManager": "pnpm@9.14.4"
 }
