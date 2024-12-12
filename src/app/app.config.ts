@@ -1,4 +1,4 @@
-import { HttpBackend, HttpClientModule } from '@angular/common/http';
+import { HttpBackend, provideHttpClient } from '@angular/common/http';
 import {
   APP_INITIALIZER,
   ApplicationConfig,
@@ -23,7 +23,7 @@ export function HttpLoaderFactory(_httpBackend: HttpBackend) {
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
-    importProvidersFrom(HttpClientModule),
+    provideHttpClient(),
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(
       TranslateModule.forRoot({
