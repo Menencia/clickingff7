@@ -2,7 +2,7 @@ import { HttpBackend, provideHttpClient } from '@angular/common/http';
 import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
-import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 
 import { routes } from './app.routes';
@@ -21,16 +21,14 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     importProvidersFrom(BrowserAnimationsModule),
-    importProvidersFrom(
-      TranslateModule.forRoot({
-        defaultLanguage: 'fr',
-        loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpBackend],
-        },
-      }),
-    ),
+    provideTranslateService({
+      defaultLanguage: 'fr',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpBackend],
+      },
+    }),
     {
       provide: APP_INITIALIZER,
       useFactory: (data: DataService) => () => data.preloadAll().toPromise(),
