@@ -9,9 +9,6 @@
     "test": "ng test",
     "test:ci": "ng test --no-watch --code-coverage --no-progress --browsers=ChromeHeadless",
     "deploy": "pnpm run build && firebase deploy",
-    "compodoc:build": "compodoc -p tsconfig.doc.json",
-    "compodoc:build-and-serve": "compodoc -p tsconfig.doc.json -s",
-    "compodoc:serve": "compodoc -s",
     "lint": "ng lint",
     "check": "ng lint && pnpm run test:ci",
     "i18n:download": "crowdin download --identity .crowdin.yml"
@@ -26,7 +23,6 @@
     "@angular/platform-browser": "^18.2.13",
     "@angular/platform-browser-dynamic": "^18.2.13",
     "@angular/router": "^18.2.13",
-    "@compodoc/compodoc": "^1.1.23",
     "@fortawesome/angular-fontawesome": "^0.15.0",
     "@fortawesome/fontawesome-svg-core": "^6.5.2",
     "@fortawesome/free-solid-svg-icons": "^6.5.2",
