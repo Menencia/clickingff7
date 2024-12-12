@@ -94,10 +94,7 @@ export class Enemies extends Units {
     this.list = [enemy];
 
     // determine level
-    this.level = Math.max(
-      1,
-      (zone.level - 1) * 5 + (range + 1) + (difficulty - 2),
-    );
+    this.level = Math.max(1, (zone.level - 1) * 5 + (range + 1) + (difficulty - 2));
 
     // update stats
     this.refresh();

@@ -15,10 +15,7 @@ describe('MenuSidebarComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MenuSidebarComponent, TranslateModule.forRoot()],
-      providers: [
-        MockProvider(GameService, { ...ZonesMock }),
-        provideRouter([]),
-      ],
+      providers: [MockProvider(GameService, { ...ZonesMock }), provideRouter([])],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MenuSidebarComponent);

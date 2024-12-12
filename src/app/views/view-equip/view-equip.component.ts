@@ -11,12 +11,7 @@ import { WeaponIconComponent } from 'src/app/shared/ui/weapon-icon/weapon-icon.c
 @Component({
   selector: 'app-view-equip',
   standalone: true,
-  imports: [
-    UiLayoutDefaultComponent,
-    TranslateModule,
-    WeaponIconComponent,
-    ButtonComponent,
-  ],
+  imports: [UiLayoutDefaultComponent, TranslateModule, WeaponIconComponent, ButtonComponent],
   templateUrl: './view-equip.component.html',
   styleUrls: ['./view-equip.component.scss'],
 })
@@ -40,11 +35,9 @@ export class ViewEquipComponent {
 
   equipWeapon(newWeapon: Weapon): void {
     // find current equipped weapon
-    const currentWeapon = this.gameService.weapons.list.find(
-      (weapon: Weapon) => {
-        return weapon.type === newWeapon.type && weapon.equipped;
-      },
-    );
+    const currentWeapon = this.gameService.weapons.list.find((weapon: Weapon) => {
+      return weapon.type === newWeapon.type && weapon.equipped;
+    });
 
     if (currentWeapon) {
       currentWeapon.equipped = false;

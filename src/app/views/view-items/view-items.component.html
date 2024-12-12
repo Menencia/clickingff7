@@ -13,31 +13,15 @@
         <td>
           <app-item-icon></app-item-icon>
           {{ "It. " + item.ref + " name" | translate }}<br />
-          <span class="text-xs italic">{{
-            "It. " + item.ref + " desc" | translate
-          }}</span>
+          <span class="text-xs italic">{{ "It. " + item.ref + " desc" | translate }}</span>
         </td>
         <td>{{ item.nbr }}</td>
         <td class="total">
           @if (item.equipped) {
-            <span
-              (click)="unequipItem(item)"
-              (keypress)="unequipItem(item)"
-              tabindex="0"
-              class="hover"
-            >
-              ❌
-            </span>
+            <span (click)="unequipItem(item)" (keypress)="unequipItem(item)" tabindex="0" class="hover"> ❌ </span>
           }
           @if (canEquipItem(item)) {
-            <span
-              (click)="equipItem(item)"
-              (keypress)="equipItem(item)"
-              tabindex="0"
-              class="hover"
-            >
-              ➕
-            </span>
+            <span (click)="equipItem(item)" (keypress)="equipItem(item)" tabindex="0" class="hover"> ➕ </span>
           }
         </td>
       </tr>

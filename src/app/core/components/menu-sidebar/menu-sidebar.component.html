@@ -1,8 +1,4 @@
-<p-sidebar
-  [(visible)]="visible"
-  (visibleChange)="updateVisible()"
-  styleClass="bg-gray-200 dark:bg-gray-800"
->
+<p-sidebar [(visible)]="visible" (visibleChange)="updateVisible()" styleClass="bg-gray-200 dark:bg-gray-800">
   <div class="flex flex-col">
     @for (navLink of navLinks; track $index) {
       <a [routerLink]="navLink.link" routerLinkActive="active" class="py-2">

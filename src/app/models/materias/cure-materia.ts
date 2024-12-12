@@ -23,10 +23,7 @@ export class CureMateria extends Materia {
    * Can use the materia?
    */
   canUse(battleService: BattleService): boolean {
-    return (
-      battleService.team.mp >= this.getMpCost() &&
-      battleService.team.hp < battleService.team.hpMax
-    );
+    return battleService.team.mp >= this.getMpCost() && battleService.team.hp < battleService.team.hpMax;
   }
 
   /**

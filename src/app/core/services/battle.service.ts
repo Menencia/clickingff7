@@ -87,10 +87,7 @@ export class BattleService {
     if (victory) {
       this.gameService.gils += this.enemies.rewardGils;
 
-      if (
-        this.enemies.boss &&
-        this.gameService.zones.level + 1 > this.gameService.zones.levelMax
-      ) {
+      if (this.enemies.boss && this.gameService.zones.level + 1 > this.gameService.zones.levelMax) {
         // Complete zone
         this.gameService.zones.complete();
       }

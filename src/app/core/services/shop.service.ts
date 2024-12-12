@@ -62,12 +62,7 @@ export class ShopService {
       }
     });
 
-    const items = [
-      ItemRef.Potion,
-      ItemRef.Ether,
-      ItemRef.HiPotion,
-      ItemRef.HiEther,
-    ];
+    const items = [ItemRef.Potion, ItemRef.Ether, ItemRef.HiPotion, ItemRef.HiEther];
     items.forEach((i) => {
       const item = this.store.getItem(i);
       if (item.available(levelMax)) {

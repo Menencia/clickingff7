@@ -10,12 +10,7 @@ import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui
 @Component({
   selector: 'app-view-materia',
   standalone: true,
-  imports: [
-    UiLayoutDefaultComponent,
-    FontAwesomeModule,
-    TranslateModule,
-    MateriaIconComponent,
-  ],
+  imports: [UiLayoutDefaultComponent, FontAwesomeModule, TranslateModule, MateriaIconComponent],
   templateUrl: './view-materia.component.html',
   styleUrls: ['./view-materia.component.scss'],
 })

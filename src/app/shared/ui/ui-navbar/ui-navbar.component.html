@@ -1,17 +1,8 @@
-<nav
-  class="flex items-center gap-5 p-3 bg-gray-200 dark:bg-gray-800 dark:text-white"
-  id="step10"
->
+<nav class="flex items-center gap-5 p-3 bg-gray-200 dark:bg-gray-800 dark:text-white" id="step10">
   <h1 class="text-2xl tracking-wider">ClickingFF7</h1>
 
   <div class="contents md:hidden">
-    <p-button
-      icon="pi pi-bars"
-      [rounded]="true"
-      [text]="true"
-      severity="secondary"
-      (onClick)="toggleMenu()"
-    ></p-button>
+    <p-button icon="pi pi-bars" [rounded]="true" [text]="true" severity="secondary" (onClick)="toggleMenu()"></p-button>
   </div>
 
   <div class="hidden md:contents">
@@ -50,22 +41,12 @@
   <div class="flex-grow"></div>
 
   <div>
-    <div
-      class="cursor-pointer"
-      (click)="help()"
-      (keypress)="help()"
-      tabindex="0"
-    >
+    <div class="cursor-pointer" (click)="help()" (keypress)="help()" tabindex="0">
       <span class="material-icons-outlined"> help </span>
     </div>
   </div>
   <div>
-    <div
-      class="cursor-pointer"
-      (click)="toggleDark()"
-      (keypress)="toggleDark()"
-      tabindex="0"
-    >
+    <div class="cursor-pointer" (click)="toggleDark()" (keypress)="toggleDark()" tabindex="0">
       <span class="material-icons-outlined">
         @if (theme === "light") {
           light_mode

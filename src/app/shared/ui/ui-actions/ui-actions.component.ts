@@ -107,9 +107,7 @@ export class UiActionsComponent {
       if (item.nbr > 1) {
         item.nbr -= 1;
       } else {
-        this.gameService.items.list = this.gameService.items.list.filter(
-          (e) => e !== item,
-        );
+        this.gameService.items.list = this.gameService.items.list.filter((e) => e !== item);
       }
     } else {
       throw new Error('CANNOT USE');

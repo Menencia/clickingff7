@@ -7,10 +7,7 @@ import { Item, ItemJson } from 'src/app/models/item';
 import { HpPotion } from 'src/app/models/items/hp-potion';
 import { MpPotion } from 'src/app/models/items/mp-potion';
 import { Materia, MateriaJson } from 'src/app/models/materia';
-import {
-  AttackMateria,
-  AttackMateriaJson,
-} from 'src/app/models/materias/attack-materia';
+import { AttackMateria, AttackMateriaJson } from 'src/app/models/materias/attack-materia';
 import { CureMateria } from 'src/app/models/materias/cure-materia';
 import { Weapon, WeaponJson } from 'src/app/models/weapon';
 import { Zone, ZoneJson } from 'src/app/models/zone';
@@ -63,9 +60,7 @@ export class DataService {
     this.zones = zones.map((data) => {
       const zoneData = {
         ...data,
-        enemies: data.enemies.map(
-          (ref) => this.enemies.find((e) => e.ref === ref)!,
-        ),
+        enemies: data.enemies.map((ref) => this.enemies.find((e) => e.ref === ref)!),
         boss: data.boss.map((ref) => this.enemies.find((e) => e.ref === ref)!),
       };
       return new Zone(zoneData);

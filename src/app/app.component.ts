@@ -10,12 +10,7 @@ import { UiNavbarComponent } from './shared/ui/ui-navbar/ui-navbar.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [
-    UiFooterComponent,
-    UiNavbarComponent,
-    RouterOutlet,
-    MenuSidebarComponent,
-  ],
+  imports: [UiFooterComponent, UiNavbarComponent, RouterOutlet, MenuSidebarComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })

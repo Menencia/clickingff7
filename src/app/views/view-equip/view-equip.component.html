@@ -3,10 +3,7 @@
     <div>
       <div class="flex flex-col gap-1">
         @for (character of team.list; track $index) {
-          <app-button
-            (trigger)="selectCharacter(character)"
-            [class]="{ current: selected && selected.ref === character.ref }"
-          >
+          <app-button (trigger)="selectCharacter(character)" [class]="{ current: selected && selected.ref === character.ref }">
             {{ character.ref }}
           </app-button>
         }
@@ -14,12 +11,7 @@
     </div>
 
     <div class="col-span-2">
-      <img
-        [src]="selected.image"
-        width="80"
-        alt="current_character"
-        class="float-left"
-      />
+      <img [src]="selected.image" width="80" alt="current_character" class="float-left" />
 
       <div class="ml-24">
         <div>
@@ -49,10 +41,7 @@
           <tr class="weapon">
             <td>{{ weapon.ref }}</td>
             <td>
-              <app-button
-                (trigger)="equipWeapon(weapon)"
-                [disabled]="!canEquipWeapon(weapon)"
-              >
+              <app-button (trigger)="equipWeapon(weapon)" [disabled]="!canEquipWeapon(weapon)">
                 {{ "Equip" | translate }}
               </app-button>
             </td>

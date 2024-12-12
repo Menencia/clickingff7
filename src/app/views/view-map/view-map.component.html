@@ -2,10 +2,7 @@
   <div class="flex flex-col gap-5 sm:flex-row">
     <div class="flex flex-row flex-wrap gap-1 basis-1/5 sm:flex-col">
       @for (zone of list; track $index) {
-        <app-button
-          [class]="{ current: level === zone.level }"
-          (trigger)="goZone(zone.level)"
-        >
+        <app-button [class]="{ current: level === zone.level }" (trigger)="goZone(zone.level)">
           {{ "Zone" | translate }} {{ zone.level }}
         </app-button>
       }

@@ -23,11 +23,7 @@
     [name]="'limit'"
   ></app-progress-bar>
 
-  <app-progress-bar
-    [progress]="round((team.xp / team.getXpMax()) * 100)"
-    [text]="'XP ' + team.xp"
-    [name]="'exp'"
-  ></app-progress-bar>
+  <app-progress-bar [progress]="round((team.xp / team.getXpMax()) * 100)" [text]="'XP ' + team.xp" [name]="'exp'"></app-progress-bar>
 
   <!-- characters list -->
   <div id="step1">
@@ -40,9 +36,7 @@
 
         <div class="grow">
           <div class="text-2xl">{{ character.ref }}</div>
-          <div class="text-sm italic">
-            "{{ getLine(character) | translate }}"
-          </div>
+          <div class="text-sm italic">"{{ getLine(character) | translate }}"</div>
         </div>
       </div>
     }

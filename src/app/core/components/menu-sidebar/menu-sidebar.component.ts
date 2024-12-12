@@ -1,11 +1,4 @@
-import {
-  Component,
-  EventEmitter,
-  Input,
-  OnDestroy,
-  OnInit,
-  Output,
-} from '@angular/core';
+import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { SidebarModule } from 'primeng/sidebar';
@@ -56,14 +49,12 @@ export class MenuSidebarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     /** Close automatically the sidebar when a url change is detected */
-    this.sub.sink = this.router.events
-      .pipe(filter((event) => event instanceof NavigationEnd))
-      .subscribe((event) => {
-        if (event instanceof NavigationEnd) {
-          this.visible = false;
-          this.visibleChange.emit(this.visible);
-        }
-      });
+    this.sub.sink = this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event) => {
+      if (event instanceof NavigationEnd) {
+        this.visible = false;
+        this.visibleChange.emit(this.visible);
+      }
+    });
   }
 
   public ngOnDestroy(): void {

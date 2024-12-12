@@ -13,11 +13,7 @@ describe('ViewGameComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        ViewGameComponent,
-        ...MockComponents(UiActionsComponent, CharactersPanelComponent),
-        TranslateModule.forRoot(),
-      ],
+      imports: [ViewGameComponent, ...MockComponents(UiActionsComponent, CharactersPanelComponent), TranslateModule.forRoot()],
       providers: [MockProvider(GameService)],
     }).compileComponents();
 

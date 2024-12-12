@@ -10,12 +10,7 @@ import { ItDisplayHits } from 'src/app/core/interfaces/it-display-hits';
   templateUrl: './progress-bar.component.html',
   styleUrls: ['./progress-bar.component.scss'],
   animations: [
-    trigger('animation', [
-      transition(':enter', [
-        style({ opacity: 1, top: -20 }),
-        animate('1s', style({ opacity: 0, top: -40 })),
-      ]),
-    ]),
+    trigger('animation', [transition(':enter', [style({ opacity: 1, top: -20 }), animate('1s', style({ opacity: 0, top: -40 }))])]),
   ],
 })
 export class ProgressBarComponent implements OnInit {

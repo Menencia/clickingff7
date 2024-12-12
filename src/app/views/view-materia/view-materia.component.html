@@ -14,39 +14,22 @@
           <app-materia-icon [color]="materia.color"></app-materia-icon>
           {{ "Mat. " + materia.ref + " name" | translate }}
           <strong>(LVL{{ materia.level }})</strong> PWR: {{ materia.pwr }}<br />
-          <span class="text-xs italic">{{
-            "Mat. " + materia.ref + " desc" | translate
-          }}</span>
+          <span class="text-xs italic">{{ "Mat. " + materia.ref + " desc" | translate }}</span>
         </td>
         <td>
           <div class="progress materia_ap">
-            <div
-              class="materia_ap_progress"
-              [style.width]="materia.apProgress(200) + 'px'"
-            ></div>
-            <span class="bar-label"
-              >{{ materia.ap }} / {{ materia.getApMax() }} AP</span
-            >
+            <div class="materia_ap_progress" [style.width]="materia.apProgress(200) + 'px'"></div>
+            <span class="bar-label">{{ materia.ap }} / {{ materia.getApMax() }} AP</span>
           </div>
         </td>
         <td class="total">
           @if (materia.equipped) {
-            <span
-              (click)="unequip(materia)"
-              (keypress)="unequip(materia)"
-              tabindex="0"
-              class="cursor-pointer"
-            >
+            <span (click)="unequip(materia)" (keypress)="unequip(materia)" tabindex="0" class="cursor-pointer">
               <fa-icon [icon]="faXmark" class="text-red-600"></fa-icon>
             </span>
           }
           @if (canEquip(materia)) {
-            <span
-              (click)="equip(materia)"
-              (keypress)="equip(materia)"
-              tabindex="0"
-              class="cursor-pointer"
-            >
+            <span (click)="equip(materia)" (keypress)="equip(materia)" tabindex="0" class="cursor-pointer">
               <fa-icon [icon]="faPlus" class="text-green-600"></fa-icon>
             </span>
           }

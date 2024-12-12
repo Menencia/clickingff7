@@ -4,10 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-item-icon',
   standalone: true,
   imports: [],
-  template: `<img
-    class="inline-block"
-    src="/assets/images/icons/item.gif"
-    alt="item"
-  />`,
+  template: `<img class="inline-block" src="/assets/images/icons/item.gif" alt="item" />`,
 })
 export class ItemIconComponent {}

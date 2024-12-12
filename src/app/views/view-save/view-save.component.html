@@ -6,20 +6,13 @@
           {{ "Save" | translate }}
         </app-button>
 
-        <app-confirm-button
-          [message]="msgImportSave"
-          [disabled]="saves.length === 0"
-          (confirm)="resetGame($event)"
-        >
+        <app-confirm-button [message]="msgImportSave" [disabled]="saves.length === 0" (confirm)="resetGame($event)">
           {{ "Reset" | translate }}
         </app-confirm-button>
       </div>
 
       <div class="flex flex-col gap-1 mt-5">
-        <app-button
-          (trigger)="exportLastSave()"
-          [disabled]="saves.length === 0"
-        >
+        <app-button (trigger)="exportLastSave()" [disabled]="saves.length === 0">
           {{ "Export save" | translate }}
         </app-button>
         <app-button (trigger)="exportCurrentGame()">
@@ -41,12 +34,7 @@
       @if (saves.length > 0) {
         <div>
           @for (character of saves[0].team.list; track $index) {
-            <img
-              [src]="character.image"
-              alt="{{ character.ref }}"
-              width="80"
-              class="save_character"
-            />
+            <img [src]="character.image" alt="{{ character.ref }}" width="80" class="save_character" />
           }
           <br />
           {{ "Time" | translate }}: {{ saves[0].time | time }}
@@ -66,11 +54,7 @@
         <div>
           <textarea [(ngModel)]="areaImport"></textarea>
 
-          <app-confirm-button
-            [message]="msgImportSave"
-            (confirm)="importSave($event)"
-            >IMPORT</app-confirm-button
-          >
+          <app-confirm-button [message]="msgImportSave" (confirm)="importSave($event)">IMPORT</app-confirm-button>
         </div>
       }
     </div>

@@ -11,9 +11,7 @@ export class HpPotion extends Item {
   getSkill(battleService: BattleService): ItAction[] {
     const action: ItAction = {
       use: () => {
-        battleService.team.addHp(
-          Math.ceil(this.pwr * battleService.team.hpMax),
-        );
+        battleService.team.addHp(Math.ceil(this.pwr * battleService.team.hpMax));
       },
     };
     return [action];

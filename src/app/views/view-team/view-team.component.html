@@ -33,30 +33,16 @@
             </div>
             <div><span class="label">pwr</span> {{ character.getHits() }}</div>
             @if (character.bonusStats.hp) {
-              <div>
-                <span class="label">HP</span> +{{ character.bonusStats.hp }}%
-              </div>
+              <div><span class="label">HP</span> +{{ character.bonusStats.hp }}%</div>
             }
             @if (character.bonusStats.attack) {
-              <div>
-                <span class="label">Attaque</span> +{{
-                  character.bonusStats.attack
-                }}%
-              </div>
+              <div><span class="label">Attaque</span> +{{ character.bonusStats.attack }}%</div>
             }
             @if (character.bonusStats.defense) {
-              <div>
-                <span class="label">Défense</span> +{{
-                  character.bonusStats.defense
-                }}%
-              </div>
+              <div><span class="label">Défense</span> +{{ character.bonusStats.defense }}%</div>
             }
             @if (character.bonusStats.speed) {
-              <div>
-                <span class="label">Vitesse</span> +{{
-                  character.bonusStats.speed
-                }}%
-              </div>
+              <div><span class="label">Vitesse</span> +{{ character.bonusStats.speed }}%</div>
             }
           </div>
           <div style="clear: left"></div>

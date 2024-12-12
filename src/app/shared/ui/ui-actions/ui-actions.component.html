@@ -25,16 +25,8 @@
 
   <div [id]="'step9'" class="contents">
     @for (materia of getMaterias(); track $index) {
-      <app-button
-        [class]="'flex flex-row items-center'"
-        (trigger)="useMateria(materia)"
-        [disabled]="!canUseMateria(materia)"
-      >
-        <img
-          class="flex-none"
-          src="/assets/images/icons/materias/{{ materia.color }}.webp"
-          alt="materia"
-        />
+      <app-button [class]="'flex flex-row items-center'" (trigger)="useMateria(materia)" [disabled]="!canUseMateria(materia)">
+        <img class="flex-none" src="/assets/images/icons/materias/{{ materia.color }}.webp" alt="materia" />
         <div class="flex-grow">
           {{ "Mat. " + materia.ref + " name" | translate }}
         </div>
@@ -47,11 +39,7 @@
 
   <div [id]="'step10'" class="contents">
     @for (item of getItems(); track $index) {
-      <app-button
-        class="flex flex-row items-center button"
-        (trigger)="useItem(item)"
-        [disabled]="!canUseItem(item)"
-      >
+      <app-button class="flex flex-row items-center button" (trigger)="useItem(item)" [disabled]="!canUseItem(item)">
         <div class="flex-grow">
           {{ "It. " + item.ref + " name" | translate }}
         </div>

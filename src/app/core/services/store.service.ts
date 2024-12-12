@@ -35,9 +35,7 @@ export class StoreService {
   }
 
   getCharacter(ref: CharacterRef): Character {
-    const found = this.data.characters.find(
-      (character) => character.ref === ref,
-    );
+    const found = this.data.characters.find((character) => character.ref === ref);
     if (found) {
       return found;
     }
