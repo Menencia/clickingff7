@@ -1,6 +1,4 @@
 import { Component } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
 import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
 import { Materia } from 'src/app/models/materia';
@@ -10,15 +8,11 @@ import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui
 @Component({
   selector: 'app-view-materia',
   standalone: true,
-  imports: [UiLayoutDefaultComponent, FontAwesomeModule, TranslateModule, MateriaIconComponent],
+  imports: [UiLayoutDefaultComponent, TranslateModule, MateriaIconComponent],
   templateUrl: './view-materia.component.html',
   styleUrls: ['./view-materia.component.scss'],
 })
 export class ViewMateriaComponent {
-  faXmark = faXmark;
-
-  faPlus = faPlus;
-
   list: Materia[] = [];
 
   maxMaterias = 0;

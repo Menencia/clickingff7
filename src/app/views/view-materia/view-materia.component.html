@@ -25,12 +25,12 @@
         <td class="total">
           @if (materia.equipped) {
             <span (click)="unequip(materia)" (keypress)="unequip(materia)" tabindex="0" class="cursor-pointer">
-              <fa-icon [icon]="faXmark" class="text-red-600"></fa-icon>
+              <i class="text-red-600 pi pi-times"></i>
             </span>
           }
           @if (canEquip(materia)) {
             <span (click)="equip(materia)" (keypress)="equip(materia)" tabindex="0" class="cursor-pointer">
-              <fa-icon [icon]="faPlus" class="text-green-600"></fa-icon>
+              <i class="text-green-600 pi pi-plus"></i>
             </span>
           }
         </td>
