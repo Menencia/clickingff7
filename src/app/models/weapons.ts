@@ -27,7 +27,7 @@ export class Weapons {
 
   getAllWeapons(character: Character): Weapon[] {
     return this.list.filter((w: Weapon) => {
-      return w.data.type === character.weaponType;
+      return w.data.type === character.data.weaponType;
     });
   }
 

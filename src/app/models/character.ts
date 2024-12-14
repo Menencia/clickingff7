@@ -3,10 +3,11 @@ import { WeaponRef } from './refs/weapons';
 import { CharacterSave } from './save';
 import { Weapon } from './weapon';
 
-interface CharacterBase {
+export interface CharacterJson {
   ref: CharacterRef;
   image: string;
   weaponType: string;
+  weapon: WeaponRef;
   stats: Partial<BonusStats>;
   zoneOff?: number[];
 }
@@ -20,34 +21,18 @@ interface BonusStats {
   speed: number;
 }
 
-export interface CharacterJson extends CharacterBase {
-  weapon: WeaponRef;
-}
-
-export interface CharacterData extends CharacterBase {
+export interface CharacterData extends CharacterSave {
   weapon: Weapon;
 }
 
 export class Character {
-  ref: CharacterRef;
+  constructor(
+    public readonly data: Readonly<CharacterJson>,
+    public weapon: Weapon,
+  ) {}
 
-  image: string;
-
-  weaponType: string;
-
-  weapon: Weapon;
-
-  bonusStats: Partial<BonusStats>;
-
-  zoneOff: number[];
-
-  constructor(data: CharacterData) {
-    this.ref = data.ref;
-    this.image = data.image;
-    this.weaponType = data.weaponType;
-    this.weapon = data.weapon;
-    this.bonusStats = data.stats;
-    this.zoneOff = data.zoneOff ?? [];
+  load(save: CharacterData) {
+    this.weapon = save.weapon;
   }
 
   /** Updates only weapon */
@@ -57,7 +42,7 @@ export class Character {
 
   /* Returns true if the character is available in the {zonelevelMax} */
   notAvailable(zonelevelMax: number): boolean {
-    return this.zoneOff.includes(zonelevelMax);
+    return (this.data.zoneOff ?? []).includes(zonelevelMax);
   }
 
   /** Returns hits produced by current weapon */
@@ -70,8 +55,8 @@ export class Character {
 
   /** Returns Character data to be saved */
   export(): CharacterSave {
-    const { ref, weapon } = this;
+    const { weapon } = this;
     const weaponRef = weapon.data.ref;
-    return { ref, weaponRef };
+    return { ref: this.data.ref, weaponRef };
   }
 }

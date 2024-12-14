@@ -3,19 +3,19 @@
     <div>
       <div class="flex flex-col gap-1">
         @for (character of team.list; track $index) {
-          <app-button (trigger)="selectCharacter(character)" [class]="{ current: selected && selected.ref === character.ref }">
-            {{ character.ref }}
+          <app-button (trigger)="selectCharacter(character)" [class]="{ current: selected && selected.data.ref === character.data.ref }">
+            {{ character.data.ref }}
           </app-button>
         }
       </div>
     </div>
 
     <div class="col-span-2">
-      <img [src]="selected.image" width="80" alt="current_character" class="float-left" />
+      <img [src]="selected.data.image" width="80" alt="current_character" class="float-left" />
 
       <div class="ml-24">
         <div>
-          {{ selected.ref }}
+          {{ selected.data.ref }}
         </div>
         <div><span class="label">pwr</span> {{ selected.getHits() }}</div>
 

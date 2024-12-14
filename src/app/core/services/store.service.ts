@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Character } from 'src/app/models/character';
+import { Character, CharacterData } from 'src/app/models/character';
 import { Item } from 'src/app/models/item';
 import { Materia } from 'src/app/models/materia';
 import { CharacterRef } from 'src/app/models/refs/characters';
@@ -37,9 +37,12 @@ export class StoreService {
     throw new Error(`Weapon ${ref} not found`);
   }
 
-  getCharacter(ref: CharacterRef): Character {
-    const found = this.data.characters.find((character) => character.ref === ref);
+  getCharacter(ref: CharacterRef, save?: CharacterData): Character {
+    const found = this.data.characters.find((character) => character.data.ref === ref);
     if (found) {
+      if (save) {
+        found.load(save);
+      }
       return found;
     }
     throw new Error(`Character ${ref} not found`);

@@ -24,7 +24,7 @@ export class ViewTeamComponent {
   }
 
   inTeam(character: Character): boolean {
-    return !!this.team.list.find((c) => c.ref === character.ref);
+    return !!this.team.list.find((c) => c.data.ref === character.data.ref);
   }
 
   canJoinTeam(): boolean {

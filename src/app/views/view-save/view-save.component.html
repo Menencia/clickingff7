@@ -34,7 +34,7 @@
       @if (saves.length > 0) {
         <div>
           @for (character of getCharactersFromRefs(saves[0].team.list); track $index) {
-            <img [src]="character.image" alt="{{ character.ref }}" width="80" class="save_character" />
+            <img [src]="character.data.image" alt="{{ character.data.ref }}" width="80" class="save_character" />
           }
           <br />
           {{ "Time" | translate }}: {{ saves[0].time | time }}

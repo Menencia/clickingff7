@@ -72,11 +72,8 @@ export class DataService {
   /** Depends: enemies */
   private buildCharacters(characters: CharacterJson[]) {
     this.characters = characters.map((data) => {
-      const characterData = {
-        ...data,
-        weapon: this.weapons.find((e) => e.data.ref === data.weapon)!,
-      };
-      return new Character(characterData);
+      const weapon = this.weapons.find((e) => e.data.ref === data.weapon)!;
+      return new Character(data, weapon);
     });
   }
 

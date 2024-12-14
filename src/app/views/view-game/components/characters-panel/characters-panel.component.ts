@@ -19,7 +19,7 @@ export class CharactersPanelComponent {
 
   public getLine(character: Character): string {
     const { levelMax } = this.gameService.zones;
-    return `Line ${levelMax} ${character.ref}`;
+    return `Line ${levelMax} ${character.data.ref}`;
   }
 
   public round(value: number): number {

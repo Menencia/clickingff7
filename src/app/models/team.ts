@@ -88,12 +88,12 @@ export class Team extends Units {
 
   /** Adds a character to the team */
   leave(character: Character): void {
-    this.list = this.list.filter((c) => c.ref !== character.ref);
+    this.list = this.list.filter((c) => c.data.ref !== character.data.ref);
   }
 
   /** Returns true if given character is in team */
   inTeam(characterRef: string): boolean {
-    return !!this.list.find((c) => c.ref === characterRef);
+    return !!this.list.find((c) => c.data.ref === characterRef);
   }
 
   /**
@@ -162,12 +162,12 @@ export class Team extends Units {
     this.speedFromEquipment = 0;
 
     this.list.forEach((character) => {
-      bonusHpMax += character.bonusStats.hp ?? 0;
-      bonusMpMax += character.bonusStats.mp ?? 0;
-      bonusAttack += character.bonusStats.attack ?? 0;
-      bonusDefense += character.bonusStats.defense ?? 0;
-      bonusLuck += character.bonusStats.luck ?? 0;
-      bonusSpeed += character.bonusStats.speed ?? 0;
+      bonusHpMax += character.data.stats.hp ?? 0;
+      bonusMpMax += character.data.stats.mp ?? 0;
+      bonusAttack += character.data.stats.attack ?? 0;
+      bonusDefense += character.data.stats.defense ?? 0;
+      bonusLuck += character.data.stats.luck ?? 0;
+      bonusSpeed += character.data.stats.speed ?? 0;
       this.attackFromEquipment += character.getHits();
     });
 
@@ -342,7 +342,7 @@ export class Team extends Units {
 
     res.list = [];
     this.list.forEach((c) => {
-      res.list.push(c.ref);
+      res.list.push(c.data.ref);
     });
 
     return res;

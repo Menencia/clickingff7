@@ -18,7 +18,7 @@
       @for (character of team.list; track $index) {
         <div class="phs_character">
           <img
-            [src]="character.image"
+            [src]="character.data.image"
             alt="character"
             width="80"
             class="float-left cursor-pointer"
@@ -29,20 +29,20 @@
 
           <div class="main">
             <div>
-              {{ character.ref }}
+              {{ character.data.ref }}
             </div>
             <div><span class="label">pwr</span> {{ character.getHits() }}</div>
-            @if (character.bonusStats.hp) {
-              <div><span class="label">HP</span> +{{ character.bonusStats.hp }}%</div>
+            @if (character.data.stats.hp) {
+              <div><span class="label">HP</span> +{{ character.data.stats.hp }}%</div>
             }
-            @if (character.bonusStats.attack) {
-              <div><span class="label">Attaque</span> +{{ character.bonusStats.attack }}%</div>
+            @if (character.data.stats.attack) {
+              <div><span class="label">Attaque</span> +{{ character.data.stats.attack }}%</div>
             }
-            @if (character.bonusStats.defense) {
-              <div><span class="label">Défense</span> +{{ character.bonusStats.defense }}%</div>
+            @if (character.data.stats.defense) {
+              <div><span class="label">Défense</span> +{{ character.data.stats.defense }}%</div>
             }
-            @if (character.bonusStats.speed) {
-              <div><span class="label">Vitesse</span> +{{ character.bonusStats.speed }}%</div>
+            @if (character.data.stats.speed) {
+              <div><span class="label">Vitesse</span> +{{ character.data.stats.speed }}%</div>
             }
           </div>
           <div style="clear: left"></div>
@@ -57,7 +57,7 @@
         @if (!inTeam(character)) {
           <span class="phs_character">
             <img
-              [src]="character.image"
+              [src]="character.data.image"
               alt="character"
               width="80"
               class="float-left cursor-pointer"
