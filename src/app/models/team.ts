@@ -342,7 +342,7 @@ export class Team extends Units {
 
     res.list = [];
     this.list.forEach((c) => {
-      res.list.push(c.export());
+      res.list.push(c.ref);
     });
 
     return res;

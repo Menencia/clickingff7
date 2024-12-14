@@ -49,12 +49,6 @@ export class Character {
     this.zoneOff = data.zoneOff ?? [];
   }
 
-  /** Updates all CharacterSave data except weapon */
-  load(data: CharacterSave): Character {
-    this.image = data.image;
-    return this;
-  }
-
   /** Updates only weapon */
   setWeapon(weapon: Weapon) {
     this.weapon = weapon;
@@ -75,8 +69,8 @@ export class Character {
 
   /** Returns Character data to be saved */
   export(): CharacterSave {
-    const { ref, image, weapon } = this;
+    const { ref, weapon } = this;
     const weaponRef = weapon.ref;
-    return { ref, image, weaponRef };
+    return { ref, weaponRef };
   }
 }

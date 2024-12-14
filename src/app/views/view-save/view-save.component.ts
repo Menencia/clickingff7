@@ -4,7 +4,10 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BattleService } from 'src/app/core/services/battle.service';
 import { GameService } from 'src/app/core/services/game.service';
-import { CharacterSave, Save } from 'src/app/models/save';
+import { StoreService } from 'src/app/core/services/store.service';
+import { Character } from 'src/app/models/character';
+import { CharacterRef } from 'src/app/models/refs/characters';
+import { Save } from 'src/app/models/save';
 import { PipeTimePipe } from 'src/app/shared/pipes/pipe-time.pipe';
 import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
@@ -36,6 +39,7 @@ export class ViewSaveComponent {
   constructor(
     private gameService: GameService,
     private battleService: BattleService,
+    private store: StoreService,
     private router: Router,
   ) {
     this.saves = this.gameService.saves;
@@ -45,8 +49,8 @@ export class ViewSaveComponent {
     this.showAreaImport = false;
   }
 
-  inTeam(character: CharacterSave): boolean {
-    return this.gameService.team.inTeam(character.ref);
+  getCharactersFromRefs(characters: CharacterRef[]): Character[] {
+    return [...characters].map((c) => this.store.getCharacter(c));
   }
 
   /**

@@ -255,15 +255,15 @@ export class GameService {
 
     // characters
     save.characters.list.forEach((c) => {
-      const character = this.store.getCharacter(c.ref).load(c);
+      const character = this.store.getCharacter(c.ref);
       character.setWeapon(this.store.getWeapon(c.weaponRef));
       this.characters.add(character);
     });
 
     // team
     this.team.setCharacters(
-      save.team.list.map((c) => {
-        return this.characters.list.find((c2) => c2.ref === c.ref)!;
+      save.team.list.map((ref) => {
+        return this.characters.list.find((c2) => c2.ref === ref)!;
       }),
     );
     this.team.load(save.team);
