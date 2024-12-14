@@ -1,4 +1,9 @@
 {
   "files.trimTrailingWhitespace": true,
-  "editor.rulers": [140]
+  "editor.rulers": [140],
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
+  },
 }
