@@ -9,11 +9,8 @@ export interface AttackMateriaJson extends MateriaJson {
 }
 
 export class AttackMateria extends Materia {
-  elements: string[];
-
-  constructor(data: AttackMateriaJson) {
+  constructor(public override readonly data: Readonly<AttackMateriaJson>) {
     super(data);
-    this.elements = data.elements;
   }
 
   /**
@@ -27,7 +24,7 @@ export class AttackMateria extends Materia {
    * Return materia power
    */
   getPwr(): number {
-    return this.pwr + this.level - 1;
+    return this.data.pwr + this.level - 1;
   }
 
   /**
@@ -42,7 +39,7 @@ export class AttackMateria extends Materia {
    */
   getSkill(battleService: BattleService): ItAction[] {
     const { attackFromEquipment: hits } = battleService.team;
-    const attack = new Attack(hits, this.getPwr(), this.elements);
+    const attack = new Attack(hits, this.getPwr(), this.data.elements);
     return [attack];
   }
 }

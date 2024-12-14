@@ -16,7 +16,7 @@ export class CureMateria extends Materia {
    * Return materia power
    */
   getPwr(): number {
-    return this.pwr + this.level - 1;
+    return this.data.pwr + this.level - 1;
   }
 
   /**

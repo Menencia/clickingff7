@@ -170,7 +170,7 @@ export class ViewShopComponent {
     ];
     materias.forEach((m) => {
       const materia = this.store.getMateria(m);
-      if (materia.zoneAvailable <= levelMax) {
+      if (materia.data.zoneAvailable <= levelMax) {
         this.shopMaterias.push(materia);
       }
     });
@@ -206,7 +206,7 @@ export class ViewShopComponent {
   }
 
   private sortMaterias(materias: Materia[]): Materia[] {
-    return materias.sort((a, b) => a.pwr - b.pwr);
+    return materias.sort((a, b) => a.data.pwr - b.data.pwr);
   }
 
   private refreshPlayerItems(): void {

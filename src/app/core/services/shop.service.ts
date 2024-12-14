@@ -57,7 +57,7 @@ export class ShopService {
     ];
     materias.forEach((m) => {
       const materia = this.store.getMateria(m);
-      if (materia.zoneAvailable <= levelMax) {
+      if (materia.data.zoneAvailable <= levelMax) {
         this.materias.push(materia);
       }
     });

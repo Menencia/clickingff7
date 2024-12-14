@@ -286,7 +286,7 @@ export class GameService {
 
     // materias
     save.materias.forEach((m) => {
-      const materia = this.store.getMateria(m.ref).load(m);
+      const materia = this.store.getMateria(m.ref, m);
       this.materias.add(materia, m.equipped);
     });
 

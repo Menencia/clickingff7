@@ -11,10 +11,10 @@
     @for (materia of list; track $index) {
       <tr class="materia">
         <td>
-          <app-materia-icon [color]="materia.color"></app-materia-icon>
-          {{ "Mat. " + materia.ref + " name" | translate }}
-          <strong>(LVL{{ materia.level }})</strong> PWR: {{ materia.pwr }}<br />
-          <span class="text-xs italic">{{ "Mat. " + materia.ref + " desc" | translate }}</span>
+          <app-materia-icon [color]="materia.data.color"></app-materia-icon>
+          {{ "Mat. " + materia.data.ref + " name" | translate }}
+          <strong>(LVL{{ materia.level }})</strong> PWR: {{ materia.data.pwr }}<br />
+          <span class="text-xs italic">{{ "Mat. " + materia.data.ref + " desc" | translate }}</span>
         </td>
         <td>
           <div class="progress materia_ap">

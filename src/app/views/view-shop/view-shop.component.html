@@ -60,16 +60,16 @@
             @for (materia of shopMaterias; track $index) {
               <tr class="materia">
                 <td>
-                  <app-materia-icon [color]="materia.color"></app-materia-icon>
-                  {{ "Mat. " + materia.ref + " name" | translate }}<br />
-                  <span class="text-xs italic">{{ "Mat. " + materia.ref + " desc" | translate }}</span>
+                  <app-materia-icon [color]="materia.data.color"></app-materia-icon>
+                  {{ "Mat. " + materia.data.ref + " name" | translate }}<br />
+                  <span class="text-xs italic">{{ "Mat. " + materia.data.ref + " desc" | translate }}</span>
                 </td>
                 <td>
                   @if (materia.inStock(playerMaterias)) {
                     🗸
                   }
                 </td>
-                <td>{{ materia.price }} {{ "Gils" | translate }}</td>
+                <td>{{ materia.data.price }} {{ "Gils" | translate }}</td>
                 <td>
                   <app-button (trigger)="buyMateria(materia)" [disabled]="!canBuyMateria(materia)">
                     {{ "Buy" | translate }}
@@ -132,9 +132,9 @@
             @for (materia of playerMaterias; track $index) {
               <tr class="materia">
                 <td>
-                  <app-materia-icon [color]="materia.color"></app-materia-icon>
-                  {{ "Mat. " + materia.ref + " name" | translate }}<br />
-                  <span class="text-xs italic">{{ "Mat. " + materia.ref + " desc" | translate }}</span>
+                  <app-materia-icon [color]="materia.data.color"></app-materia-icon>
+                  {{ "Mat. " + materia.data.ref + " name" | translate }}<br />
+                  <span class="text-xs italic">{{ "Mat. " + materia.data.ref + " desc" | translate }}</span>
                 </td>
                 <td>🗸</td>
                 <td>{{ materia.getSellPrice() }} {{ "Gils" | translate }}</td>

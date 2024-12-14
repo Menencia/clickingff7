@@ -21,42 +21,12 @@ export abstract class Materia {
 
   equipped = false;
 
-  ref: MateriaRef;
+  constructor(public readonly data: Readonly<MateriaJson>) {}
 
-  type: string;
-
-  color: string;
-
-  price: number;
-
-  apBase: number;
-
-  pwr: number;
-
-  zoneAvailable: number;
-
-  /**
-   * Init
-   */
-  constructor(data: MateriaJson) {
-    this.ref = data.ref;
-    this.type = data.type;
-    this.color = data.color;
-    this.price = data.price;
-    this.apBase = data.ap;
-    this.pwr = data.pwr;
-    this.zoneAvailable = data.zoneAvailable;
-  }
-
-  /**
-   * Extends
-   */
-  load(data: MateriaSave): Materia {
-    this.ref = data.ref;
+  load(data: MateriaSave) {
     this.level = data.level;
     this.ap = data.ap;
     this.equipped = data.equipped;
-    return this;
   }
 
   abstract getMpCost(): number;
@@ -73,21 +43,21 @@ export abstract class Materia {
    * Returns the price of the materia
    */
   getPrice(): number {
-    return this.price;
+    return this.data.price;
   }
 
   /**
    * Returns the sell price of the materia
    */
   getSellPrice(): number {
-    return this.price / 2;
+    return this.data.price / 2;
   }
 
   /**
    * Returns the number of owned
    */
   inStock(materias: Materia[]): boolean {
-    const materia = materias.find((e) => e.ref === this.ref);
+    const materia = materias.find((e) => e.data.ref === this.data.ref);
     if (materia) {
       return true;
     }
@@ -98,7 +68,7 @@ export abstract class Materia {
    *
    */
   getApMax(): number {
-    return Math.ceil((((this.apBase - 3) * 10) / 100 + 1) * 60 * this.level);
+    return Math.ceil((((this.ap - 3) * 10) / 100 + 1) * 60 * this.level);
   }
 
   /**
@@ -125,7 +95,7 @@ export abstract class Materia {
    * Exports
    */
   export(): MateriaSave {
-    const { ref, ap, level, equipped } = this;
-    return { ref, ap, level, equipped };
+    const { ap, level, equipped } = this;
+    return { ref: this.data.ref, ap, level, equipped };
   }
 }
