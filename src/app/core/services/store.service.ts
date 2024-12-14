@@ -7,7 +7,7 @@ import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
 import { WeaponRef } from 'src/app/models/refs/weapons';
 import { ZoneRef } from 'src/app/models/refs/zones';
-import { ZoneSave } from 'src/app/models/save';
+import { WeaponSave, ZoneSave } from 'src/app/models/save';
 import { Weapon } from 'src/app/models/weapon';
 import { Zone } from 'src/app/models/zone';
 
@@ -28,9 +28,10 @@ export class StoreService {
     throw new Error(`Zone ${ref} not found`);
   }
 
-  getWeapon(ref: WeaponRef): Weapon {
-    const found = this.data.weapons.find((weapon) => weapon.ref === ref);
+  getWeapon(ref: WeaponRef, save?: WeaponSave): Weapon {
+    const found = this.data.weapons.find((weapon) => weapon.data.ref === ref);
     if (found) {
+      if (save) found.load(save);
       return found;
     }
     throw new Error(`Weapon ${ref} not found`);

@@ -1,4 +1,5 @@
 import { CharacterRef } from './refs/characters';
+import { WeaponRef } from './refs/weapons';
 import { CharacterSave } from './save';
 import { Weapon } from './weapon';
 
@@ -20,7 +21,7 @@ interface BonusStats {
 }
 
 export interface CharacterJson extends CharacterBase {
-  weapon: string;
+  weapon: WeaponRef;
 }
 
 export interface CharacterData extends CharacterBase {
@@ -62,7 +63,7 @@ export class Character {
   /** Returns hits produced by current weapon */
   getHits(): number {
     if (this.weapon) {
-      return this.weapon.hits;
+      return this.weapon.data.hits;
     }
     return 0;
   }
@@ -70,7 +71,7 @@ export class Character {
   /** Returns Character data to be saved */
   export(): CharacterSave {
     const { ref, weapon } = this;
-    const weaponRef = weapon.ref;
+    const weaponRef = weapon.data.ref;
     return { ref, weaponRef };
   }
 }

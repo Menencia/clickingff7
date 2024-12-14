@@ -16,7 +16,7 @@ export class Weapons {
    * Add a weapon
    */
   add(weapon: Weapon, equipped = false): void {
-    const w = this.list.find((e) => e.ref === weapon.ref);
+    const w = this.list.find((e) => e.data.ref === weapon.data.ref);
     if (w) {
       w.nbr += 1;
     } else {
@@ -27,7 +27,7 @@ export class Weapons {
 
   getAllWeapons(character: Character): Weapon[] {
     return this.list.filter((w: Weapon) => {
-      return w.type === character.weaponType;
+      return w.data.type === character.weaponType;
     });
   }
 

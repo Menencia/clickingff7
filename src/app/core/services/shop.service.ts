@@ -41,7 +41,7 @@ export class ShopService {
     ];
     weapons.forEach((w) => {
       const weapon = this.store.getWeapon(w);
-      if (weapon.zoneAvailable <= levelMax) {
+      if (weapon.data.zoneAvailable <= levelMax) {
         this.weapons.push(weapon);
       }
     });

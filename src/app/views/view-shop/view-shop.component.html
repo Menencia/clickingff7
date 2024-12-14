@@ -41,12 +41,12 @@
             @for (weapon of shopWeapons; track $index) {
               <tr>
                 <td>
-                  <app-weapon-icon [type]="weapon.type"></app-weapon-icon>
-                  {{ weapon.ref }}<br />
-                  <span class="text-xs italic">({{ "Power" | translate }} {{ weapon.hits }})</span>
+                  <app-weapon-icon [type]="weapon.data.type"></app-weapon-icon>
+                  {{ weapon.data.ref }}<br />
+                  <span class="text-xs italic">({{ "Power" | translate }} {{ weapon.data.hits }})</span>
                 </td>
                 <td>{{ inStockWeapon(weapon) }}</td>
-                <td>{{ weapon.price }} {{ "Gils" | translate }}</td>
+                <td>{{ weapon.data.price }} {{ "Gils" | translate }}</td>
                 <td>
                   <app-button (trigger)="buyWeapon(weapon)" [disabled]="!canBuyWeapon(weapon)">
                     {{ "Buy" | translate }}
@@ -113,9 +113,9 @@
             @for (weapon of playerWeapons; track $index) {
               <tr>
                 <td>
-                  <app-weapon-icon [type]="weapon.type"></app-weapon-icon>
-                  {{ weapon.ref }}<br />
-                  <span class="text-xs italic">({{ "Power" | translate }} {{ weapon.hits }})</span>
+                  <app-weapon-icon [type]="weapon.data.type"></app-weapon-icon>
+                  {{ weapon.data.ref }}<br />
+                  <span class="text-xs italic">({{ "Power" | translate }} {{ weapon.data.hits }})</span>
                 </td>
                 <td>{{ inStockWeapon(weapon) }}</td>
                 <td>{{ weapon.getSellPrice() }} {{ "Gils" | translate }}</td>

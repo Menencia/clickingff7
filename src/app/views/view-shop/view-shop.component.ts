@@ -152,7 +152,7 @@ export class ViewShopComponent {
     ];
     weapons.forEach((w) => {
       const weapon = this.store.getWeapon(w);
-      if (weapon.zoneAvailable <= levelMax) {
+      if (weapon.data.zoneAvailable <= levelMax) {
         this.shopWeapons.push(weapon);
       }
     });
@@ -198,7 +198,7 @@ export class ViewShopComponent {
       'gun-arm': 2,
       knuckle: 3,
     };
-    return weapons.sort((a, b) => a.hits - b.hits).sort((a, b) => types[a.type] - types[b.type]);
+    return weapons.sort((a, b) => a.data.hits - b.data.hits).sort((a, b) => types[a.data.type] - types[b.data.type]);
   }
 
   private refreshPlayerMaterias(): void {

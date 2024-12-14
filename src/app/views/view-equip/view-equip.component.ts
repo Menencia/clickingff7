@@ -36,7 +36,7 @@ export class ViewEquipComponent {
   equipWeapon(newWeapon: Weapon): void {
     // find current equipped weapon
     const currentWeapon = this.gameService.weapons.list.find((weapon: Weapon) => {
-      return weapon.type === newWeapon.type && weapon.equipped;
+      return weapon.data.type === newWeapon.data.type && weapon.equipped;
     });
 
     if (currentWeapon) {

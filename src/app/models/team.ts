@@ -128,7 +128,7 @@ export class Team extends Units {
     this.list.forEach((character) => {
       // max materias
       if (character.weapon) {
-        maxMaterias += character.weapon.maxMaterias;
+        maxMaterias += character.weapon.data.maxMaterias;
       }
     });
     return maxMaterias;

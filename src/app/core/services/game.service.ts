@@ -280,7 +280,7 @@ export class GameService {
 
     // weapons
     save.weapons.forEach((w) => {
-      const weapon = this.store.getWeapon(w.ref).load(w);
+      const weapon = this.store.getWeapon(w.ref, w);
       this.weapons.add(weapon, w.equipped);
     });
 
