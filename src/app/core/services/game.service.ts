@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
 import { Items } from 'src/app/models/items';
 import { Materias } from 'src/app/models/materias';
 import { CharacterRef } from 'src/app/models/refs/characters';
@@ -16,6 +15,7 @@ import { compareVersions } from 'src/app/shared/utils/version.utils';
 
 import packageJson from '../../../../package.json';
 
+import { LangService } from './lang.service';
 import { StoreService } from './store.service';
 
 const SAVE_1 = 'save1';
@@ -58,7 +58,7 @@ export class GameService {
 
   gils = BASE_GILS;
 
-  language = this.getLanguage(this.translate.getBrowserLang());
+  language: string;
 
   difficulty = Difficulty.Normal;
 
@@ -70,19 +70,16 @@ export class GameService {
    * init
    */
   constructor(
-    private translate: TranslateService,
+    private langService: LangService,
     private store: StoreService,
   ) {
+    this.language = this.langService.setDefaultLang();
+
     // timer
     this.timer = 0;
 
     // load all resources
     this.run();
-  }
-
-  getLanguage(language: string | undefined, defaultLanguage = 'en'): string {
-    const languages = ['en', 'fr', 'es'];
-    return languages.find((l) => l === language) || defaultLanguage;
   }
 
   run(): void {
@@ -128,7 +125,7 @@ export class GameService {
     this.materias = new Materias();
     this.items = new Items();
     this.gils = BASE_GILS;
-    this.language = this.getLanguage(this.translate.getBrowserLang());
+    this.language = this.langService.setDefaultLang();
     this.difficulty = Difficulty.Normal;
     this.time = 0;
     this.version = CURRENT_VERSION;
@@ -138,7 +135,7 @@ export class GameService {
    * Refresh the game with data loaded
    */
   postload(): void {
-    this.translate.use(this.language);
+    this.langService.useLang(this.language);
 
     this.team.refresh();
 

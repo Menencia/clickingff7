@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslateModule } from '@ngx-translate/core';
 import { Difficulty, GameService } from 'src/app/core/services/game.service';
+import { LangService } from 'src/app/core/services/lang.service';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
@@ -18,7 +19,7 @@ export class ViewConfigComponent {
 
   constructor(
     private gameService: GameService,
-    private translateService: TranslateService,
+    private langService: LangService,
   ) {
     this.difficulty = this.gameService.difficulty;
     this.language = this.gameService.language;
@@ -30,6 +31,6 @@ export class ViewConfigComponent {
 
   changeLanguage(): void {
     this.gameService.language = this.language;
-    this.translateService.use(this.gameService.language);
+    this.langService.useLang(this.gameService.language);
   }
 }
