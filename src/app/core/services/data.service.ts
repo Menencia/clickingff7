@@ -58,12 +58,9 @@ export class DataService {
   /** Depends: enemies */
   private buildZones(zones: ZoneJson[]) {
     this.zones = zones.map((data) => {
-      const zoneData = {
-        ...data,
-        enemies: data.enemies.map((ref) => this.enemies.find((e) => e.ref === ref)!),
-        boss: data.boss.map((ref) => this.enemies.find((e) => e.ref === ref)!),
-      };
-      return new Zone(zoneData);
+      const enemies = data.enemies.map((ref) => this.enemies.find((e) => e.ref === ref)!);
+      const boss = data.boss.map((ref) => this.enemies.find((e) => e.ref === ref)!);
+      return new Zone(data, enemies, boss);
     });
   }
 

@@ -271,7 +271,7 @@ export class GameService {
 
     // zones
     save.zones.list.forEach((z) => {
-      const zone = this.store.getZone(z.ref).load(z);
+      const zone = this.store.getZone(z.ref, z);
       this.zones.add(zone);
     });
 

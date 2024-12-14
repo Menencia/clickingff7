@@ -33,7 +33,7 @@ export class Zones {
    * Checks if all zones are complete and there is another
    */
   checkLastZone(): void {
-    const zone = this.list.find((e) => e.level === this.levelMax);
+    const zone = this.list.find((e) => e.data.level === this.levelMax);
     if (zone && zone.completed && this.level < MAX_ZONES) {
       this.nextZone = true;
     }
@@ -45,7 +45,7 @@ export class Zones {
   getAll(): Zone[] {
     const zoneLvlMax = this.levelMax;
     return this.list.filter((z: Zone) => {
-      return z.level <= zoneLvlMax;
+      return z.data.level <= zoneLvlMax;
     });
   }
 
@@ -55,7 +55,7 @@ export class Zones {
   getOthers(): Zone[] {
     const { level } = this;
     return this.list.filter((z) => {
-      return z.level !== level;
+      return z.data.level !== level;
     });
   }
 
@@ -79,7 +79,7 @@ export class Zones {
    * Get the current zone
    */
   current(): Zone {
-    const zone = this.list.find((e) => e.level === this.level);
+    const zone = this.list.find((e) => e.data.level === this.level);
 
     if (!zone) {
       throw new Error('Zone not found');
@@ -110,7 +110,7 @@ export class Zones {
     };
 
     this.list.forEach((z) => {
-      if (z.level <= this.levelMax) {
+      if (z.data.level <= this.levelMax) {
         json.list.push(z.export());
       }
     });

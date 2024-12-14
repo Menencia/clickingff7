@@ -2,23 +2,23 @@
   <div class="flex flex-col gap-5 sm:flex-row">
     <div class="flex flex-row flex-wrap gap-1 basis-1/5 sm:flex-col">
       @for (zone of list; track $index) {
-        <app-button [class]="{ current: level === zone.level }" (trigger)="goZone(zone.level)">
-          {{ "Zone" | translate }} {{ zone.level }}
+        <app-button [class]="{ current: level === zone.data.level }" (trigger)="goZone(zone.data.level)">
+          {{ "Zone" | translate }} {{ zone.data.level }}
         </app-button>
       }
     </div>
 
     <div class="flex flex-row gap-4 basis-4/5">
-      <img class="w-32" [src]="current.image" alt="current_zone" />
+      <img class="w-32" [src]="current.data.image" alt="current_zone" />
 
       <div>
         <div class="">
-          {{ "Zone " + current.level + " name" | translate }}
-          <strong>(#{{ current.level }})</strong>
+          {{ "Zone " + current.data.level + " name" | translate }}
+          <strong>(#{{ current.data.level }})</strong>
         </div>
 
         <div class="text-sm">
-          {{ "Zone " + current.level + " desc" | translate }}
+          {{ "Zone " + current.data.level + " desc" | translate }}
         </div>
       </div>
 

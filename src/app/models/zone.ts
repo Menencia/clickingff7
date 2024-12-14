@@ -27,35 +27,22 @@ export class Zone {
   /** True if boss has been beaten */
   completed = false;
 
-  ref: ZoneRef;
+  constructor(
+    public readonly data: Readonly<ZoneJson>,
+    public enemies: Enemy[],
+    public boss: Enemy[],
+  ) {}
 
-  level: number;
-
-  image: string;
-
-  enemies: Enemy[];
-
-  boss: Enemy[];
-
-  constructor(data: ZoneData) {
-    this.ref = data.ref;
-    this.level = data.level;
-    this.image = data.image;
-    this.enemies = data.enemies;
-    this.boss = data.boss;
-  }
-
-  load(zoneSave: ZoneSave): Zone {
-    this.completed = zoneSave.completed;
-    this.nbFights = zoneSave.nbFights;
-    return this;
+  load(save: ZoneSave) {
+    this.completed = save.completed;
+    this.nbFights = save.nbFights;
   }
 
   /**
    * Save zone data
    */
   export(): ZoneSave {
-    const { ref, nbFights, completed } = this;
-    return { ref, nbFights, completed };
+    const { nbFights, completed } = this;
+    return { ref: this.data.ref, nbFights, completed };
   }
 }
