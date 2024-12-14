@@ -19,38 +19,15 @@ export abstract class Item {
 
   equipped = false;
 
-  ref: ItemRef;
+  constructor(public readonly data: Readonly<ItemJson>) {}
 
-  type: string;
-
-  price: number;
-
-  pwr: number;
-
-  zoneAvailable: number;
-
-  /**
-   * Init
-   */
-  constructor(data: ItemJson) {
-    this.ref = data.ref;
-    this.type = data.type;
-    this.price = data.price;
-    this.pwr = data.pwr;
-    this.zoneAvailable = data.zoneAvailable;
-  }
-
-  /**
-   * Extends
-   */
-  load(data: ItemSave): Item {
+  load(data: ItemSave) {
     this.nbr = data.nbr;
     this.equipped = data.equipped;
-    return this;
   }
 
   available(zoneLlevelMax: number): boolean {
-    return zoneLlevelMax >= this.zoneAvailable;
+    return zoneLlevelMax >= this.data.zoneAvailable;
   }
 
   abstract canUse(battleService: BattleService): boolean;
@@ -65,14 +42,14 @@ export abstract class Item {
    * Returns the price of the item
    */
   getPrice(): number {
-    return this.price;
+    return this.data.price;
   }
 
   /**
    * Returns the sell price of the item
    */
   getSellPrice(): number {
-    return this.price / 2;
+    return this.data.price / 2;
   }
 
   /**
@@ -81,7 +58,7 @@ export abstract class Item {
   inStock(items: Item[]): number {
     let sum = 0;
     items.forEach((i) => {
-      if (i.ref === this.ref) {
+      if (i.data.ref === this.data.ref) {
         sum += i.nbr;
       }
     });
@@ -92,7 +69,7 @@ export abstract class Item {
    * Save materia data
    */
   export(): ItemSave {
-    const { ref, nbr, equipped } = this;
-    return { ref, nbr, equipped };
+    const { nbr, equipped } = this;
+    return { ref: this.data.ref, nbr, equipped };
   }
 }

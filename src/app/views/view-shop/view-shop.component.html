@@ -84,11 +84,11 @@
               <tr class="item">
                 <td>
                   <app-item-icon></app-item-icon>
-                  {{ "It. " + item.ref + " name" | translate }}<br />
-                  <span class="text-xs italic">{{ "It. " + item.ref + " desc" | translate }}</span>
+                  {{ "It. " + item.data.ref + " name" | translate }}<br />
+                  <span class="text-xs italic">{{ "It. " + item.data.ref + " desc" | translate }}</span>
                 </td>
                 <td>{{ inStockItem(item) }}</td>
-                <td>{{ item.price }} {{ "Gils" | translate }}</td>
+                <td>{{ item.data.price }} {{ "Gils" | translate }}</td>
                 <td>
                   <app-button (trigger)="buyItem(item)" [disabled]="!canBuyItem(item)">
                     {{ "Buy" | translate }}
@@ -152,8 +152,8 @@
               <tr class="item">
                 <td>
                   <app-item-icon></app-item-icon>
-                  {{ "It. " + item.ref + " name" | translate }}<br />
-                  <span class="text-xs italic">{{ "It. " + item.ref + " desc" | translate }}</span>
+                  {{ "It. " + item.data.ref + " name" | translate }}<br />
+                  <span class="text-xs italic">{{ "It. " + item.data.ref + " desc" | translate }}</span>
                 </td>
                 <td>{{ inStockItem(item) }}</td>
                 <td>{{ item.getSellPrice() }} {{ "Gils" | translate }}</td>

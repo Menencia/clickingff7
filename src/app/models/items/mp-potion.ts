@@ -11,7 +11,7 @@ export class MpPotion extends Item {
   getSkill(battleService: BattleService): ItAction[] {
     const action: ItAction = {
       use: () => {
-        battleService.team.addMp(Math.ceil(this.pwr * battleService.team.mpMax));
+        battleService.team.addMp(Math.ceil(this.data.pwr * battleService.team.mpMax));
       },
     };
     return [action];

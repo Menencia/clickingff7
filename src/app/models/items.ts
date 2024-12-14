@@ -6,9 +6,6 @@ export class Items {
 
   equipped: boolean;
 
-  /**
-   * Init
-   */
   constructor() {
     this.list = [];
     this.equipped = false;
@@ -18,7 +15,7 @@ export class Items {
    * Add an item
    */
   add(item: Item, equipped = false): void {
-    const i = this.list.find((e) => e.ref === item.ref);
+    const i = this.list.find((e) => e.data.ref === item.data.ref);
     if (i) {
       i.nbr += 1;
     } else {

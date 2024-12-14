@@ -292,7 +292,7 @@ export class GameService {
 
     // items
     save.items.forEach((i) => {
-      const item = this.store.getItem(i.ref).load(i);
+      const item = this.store.getItem(i.ref, i);
       this.items.add(item, i.equipped);
     });
 

@@ -214,6 +214,6 @@ export class ViewShopComponent {
   }
 
   private sortItems(items: Item[]): Item[] {
-    return items.sort((a, b) => a.ref.localeCompare(b.ref));
+    return items.sort((a, b) => a.data.ref.localeCompare(b.data.ref));
   }
 }
