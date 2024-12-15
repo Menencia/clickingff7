@@ -4,10 +4,6 @@ import { MateriaRef } from './refs/materias';
 import { WeaponRef } from './refs/weapons';
 import { ZoneRef } from './refs/zones';
 
-export interface CharactersSave {
-  list: CharacterSave[];
-}
-
 export interface TeamSave {
   level: number;
   xp: number;
@@ -52,7 +48,7 @@ export interface ItemSave {
 }
 
 export interface Save {
-  characters: CharactersSave;
+  characters: CharacterSave[];
   team: TeamSave;
   zones: ZonesSave;
   weapons: WeaponSave[];

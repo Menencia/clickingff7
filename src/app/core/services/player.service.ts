@@ -35,7 +35,7 @@ export class PlayerService {
 
   gils = BASE_GILS;
 
-  language: string;
+  language = this.langService.setDefaultLang();
 
   difficulty = Difficulty.Normal;
 
@@ -46,11 +46,9 @@ export class PlayerService {
   constructor(
     private langService: LangService,
     private storeService: StoreService,
-  ) {
-    this.language = this.langService.setDefaultLang();
-  }
+  ) {}
 
-  init() {
+  reset() {
     this.characters = new Characters();
     this.team = new Team();
     this.zones = new Zones();
@@ -146,7 +144,7 @@ export class PlayerService {
     }
 
     // characters
-    save.characters.list.forEach((c) => {
+    save.characters.forEach((c) => {
       const character = this.storeService.getCharacter(c.ref, c);
       this.characters.add(character);
     });

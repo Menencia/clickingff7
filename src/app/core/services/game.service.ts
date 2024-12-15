@@ -33,7 +33,7 @@ export class GameService {
 
   /** Loads the game with a save or not */
   load(save?: Save) {
-    this.playerService.init();
+    this.playerService.reset();
     if (save) {
       this.playerService.load(save);
       this.playerService.zones.checkLastZone();

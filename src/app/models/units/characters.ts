@@ -1,5 +1,5 @@
 import { Character } from '../character';
-import { CharactersSave } from '../save';
+import { CharacterSave } from '../save';
 import { Weapon } from '../weapon';
 
 // maximum characters in the team
@@ -23,15 +23,7 @@ export class Characters {
   /**
    * Returns data for export
    */
-  export(): CharactersSave {
-    const res: CharactersSave = {
-      list: [],
-    };
-
-    this.list.forEach((c) => {
-      res.list.push(c.export());
-    });
-
-    return res;
+  export(): CharacterSave[] {
+    return this.list.map((c) => c.export());
   }
 }
