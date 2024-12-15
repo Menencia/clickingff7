@@ -1,5 +1,5 @@
 import { Subject } from 'rxjs';
-import { Difficulty } from 'src/app/core/services/game.service';
+import { Difficulty } from 'src/app/shared/interfaces/difficulty';
 
 import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../../core/interfaces/it-display-hits';

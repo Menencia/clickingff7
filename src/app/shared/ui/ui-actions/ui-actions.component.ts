@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { BattleService } from 'src/app/core/services/battle.service';
-import { GameService } from 'src/app/core/services/game.service';
+import { PlayerService } from 'src/app/core/services/player.service';
 import { Item } from 'src/app/models/item';
 import { Materia } from 'src/app/models/materia';
 import { MAX_FIGHTS } from 'src/app/models/zone';
@@ -18,24 +18,24 @@ import { ButtonComponent } from '../button/button.component';
 export class UiActionsComponent {
   constructor(
     private battleService: BattleService,
-    private gameService: GameService,
+    private playerService: PlayerService,
   ) {}
 
   public remainingBattles() {
-    const remain = MAX_FIGHTS - this.gameService.zones.current().nbFights;
+    const remain = MAX_FIGHTS - this.playerService.zones.current().nbFights;
     return remain > 0 ? `(${remain})` : '';
   }
 
   public getMaterias(): Materia[] {
-    return this.gameService.materias.getEquipped();
+    return this.playerService.materias.getEquipped();
   }
 
   public getItems(): Item[] {
-    return this.gameService.items.getEquipped();
+    return this.playerService.items.getEquipped();
   }
 
   public getGils(): number {
-    return this.gameService.gils;
+    return this.playerService.gils;
   }
 
   public isBattle(): boolean {
@@ -60,7 +60,7 @@ export class UiActionsComponent {
 
   public attack(): void {
     if (this.battleService.isBattle) {
-      this.gameService.team.getAttackSkill().use(this.battleService);
+      this.playerService.team.getAttackSkill().use(this.battleService);
 
       if (!this.battleService.enemies.isAlive()) {
         this.battleService.end(true);
@@ -84,7 +84,7 @@ export class UiActionsComponent {
   public useMateria(materia: Materia): void {
     // cost
     if (this.canUseMateria(materia)) {
-      this.gameService.team.mp -= materia.getMpCost();
+      this.playerService.team.mp -= materia.getMpCost();
     } else {
       throw new Error('CANNOT USE');
     }
@@ -107,7 +107,7 @@ export class UiActionsComponent {
       if (item.nbr > 1) {
         item.nbr -= 1;
       } else {
-        this.gameService.items.list = this.gameService.items.list.filter((e) => e !== item);
+        this.playerService.items.list = this.playerService.items.list.filter((e) => e !== item);
       }
     } else {
       throw new Error('CANNOT USE');
@@ -118,10 +118,10 @@ export class UiActionsComponent {
   }
 
   public canLimit(): boolean {
-    return this.gameService.team.canLimit();
+    return this.playerService.team.canLimit();
   }
 
   public getZoneLvl(): number {
-    return this.gameService.zones.level;
+    return this.playerService.zones.level;
   }
 }

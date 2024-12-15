@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { GameService } from 'src/app/core/services/game.service';
+import { PlayerService } from 'src/app/core/services/player.service';
 import { ShopService } from 'src/app/core/services/shop.service';
 import { Zone } from 'src/app/models/zone';
 import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
@@ -21,41 +21,41 @@ export class ViewMapComponent {
   list: Zone[];
 
   constructor(
-    private gameService: GameService,
+    private playerService: PlayerService,
     private shopService: ShopService,
   ) {
-    this.current = this.gameService.zones.current();
-    this.level = this.gameService.zones.level;
-    this.list = this.gameService.zones.list;
+    this.current = this.playerService.zones.current();
+    this.level = this.playerService.zones.level;
+    this.list = this.playerService.zones.list;
   }
 
   goZone(zoneLevel: number): void {
-    this.gameService.zones.level = zoneLevel;
-    this.current = this.gameService.zones.current();
-    this.level = this.gameService.zones.level;
+    this.playerService.zones.level = zoneLevel;
+    this.current = this.playerService.zones.current();
+    this.level = this.playerService.zones.level;
   }
 
   canGoNextZone(): boolean {
-    return this.gameService.zones.isNextZone();
+    return this.playerService.zones.isNextZone();
   }
 
   goNextZone(): void {
-    this.gameService.zones.level += 1;
+    this.playerService.zones.level += 1;
 
     // Known level
-    if (this.gameService.zones.level <= this.gameService.zones.levelMax) {
-      this.goZone(this.gameService.zones.level);
+    if (this.playerService.zones.level <= this.playerService.zones.levelMax) {
+      this.goZone(this.playerService.zones.level);
     }
 
     // New level
     else {
-      this.gameService.zones.levelMax += 1;
-      this.gameService.zones.nextZone = false;
-      this.gameService.buildLevel(this.gameService.zones.level);
-      this.gameService.team.refresh();
-      const zoneLevelMax = this.gameService.zones.levelMax;
+      this.playerService.zones.levelMax += 1;
+      this.playerService.zones.nextZone = false;
+      this.playerService.buildLevel(this.playerService.zones.level);
+      this.playerService.team.refresh();
+      const zoneLevelMax = this.playerService.zones.levelMax;
       this.shopService.refresh(zoneLevelMax);
-      this.goZone(this.gameService.zones.level);
+      this.goZone(this.playerService.zones.level);
     }
   }
 }

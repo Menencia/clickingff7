@@ -1,12 +1,12 @@
 import { MockBuilder, MockRender } from 'ng-mocks';
-import { GameService } from 'src/app/core/services/game.service';
+import { PlayerService } from 'src/app/core/services/player.service';
 import { CharactersMock } from 'src/app/shared/test/game.mock';
 
 import { ViewTeamComponent } from './view-team.component';
 
 describe('ViewTeamComponent', () => {
   beforeEach(() => {
-    return MockBuilder(ViewTeamComponent).mock(GameService, {
+    return MockBuilder(ViewTeamComponent).mock(PlayerService, {
       ...CharactersMock,
     });
   });

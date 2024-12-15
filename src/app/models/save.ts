@@ -62,5 +62,4 @@ export interface Save {
   difficulty: number;
   time: number;
   gils: number;
-  version: string;
 }

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockComponents, MockProvider } from 'ng-mocks';
-import { GameService } from 'src/app/core/services/game.service';
+import { PlayerService } from 'src/app/core/services/player.service';
 import { UiActionsComponent } from 'src/app/shared/ui/ui-actions/ui-actions.component';
 
 import { CharactersPanelComponent } from './components/characters-panel/characters-panel.component';
@@ -14,7 +14,7 @@ describe('ViewGameComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ViewGameComponent, ...MockComponents(UiActionsComponent, CharactersPanelComponent), TranslateModule.forRoot()],
-      providers: [MockProvider(GameService)],
+      providers: [MockProvider(PlayerService)],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewGameComponent);

@@ -6,7 +6,7 @@ import { filter } from 'rxjs';
 import { NavLink } from 'src/app/shared/models/nav-link';
 import { SubSink } from 'subsink';
 
-import { GameService } from '../../services/game.service';
+import { PlayerService } from '../../services/player.service';
 
 @Component({
   selector: 'app-menu-sidebar',
@@ -30,10 +30,10 @@ export class MenuSidebarComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private gameService: GameService,
+    private playerService: PlayerService,
   ) {
-    this.displayNextZone = this.gameService.zones.isNextZone();
-    this.displayPhs = this.gameService.zones.levelMax >= 5;
+    this.displayNextZone = this.playerService.zones.isNextZone();
+    this.displayPhs = this.playerService.zones.levelMax >= 5;
     this.navLinks = [
       new NavLink('Game'),
       new NavLink('Team'),

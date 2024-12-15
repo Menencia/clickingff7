@@ -2,7 +2,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockProvider } from 'ng-mocks';
-import { GameService } from 'src/app/core/services/game.service';
+import { PlayerService } from 'src/app/core/services/player.service';
 import { StoreService } from 'src/app/core/services/store.service';
 import { ItemsMock, MateriasMock, WeaponsMock, ZonesMock, itemMock, materiaMock, weaponMock } from 'src/app/shared/test/game.mock';
 
@@ -16,7 +16,7 @@ describe('ShopComponent', () => {
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
       providers: [
-        MockProvider(GameService, {
+        MockProvider(PlayerService, {
           ...ZonesMock,
           ...WeaponsMock,
           ...MateriasMock,

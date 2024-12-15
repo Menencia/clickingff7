@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockProvider } from 'ng-mocks';
-import { GameService } from 'src/app/core/services/game.service';
+import { PlayerService } from 'src/app/core/services/player.service';
 import { ShopService } from 'src/app/core/services/shop.service';
 import { ZonesMock } from 'src/app/shared/test/game.mock';
 
@@ -14,7 +14,7 @@ describe('ViewMapComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ViewMapComponent, TranslateModule.forRoot()],
-      providers: [MockProvider(GameService, ZonesMock), MockProvider(ShopService)],
+      providers: [MockProvider(PlayerService, ZonesMock), MockProvider(ShopService)],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewMapComponent);

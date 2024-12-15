@@ -2,15 +2,15 @@ import { Injectable } from '@angular/core';
 import { UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
-import { GameService } from '../services/game.service';
+import { PlayerService } from '../services/player.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ZoneGuard {
-  constructor(public gameService: GameService) {}
+  constructor(public playerService: PlayerService) {}
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return this.gameService.zones.levelMax >= 5;
+    return this.playerService.zones.levelMax >= 5;
   }
 }

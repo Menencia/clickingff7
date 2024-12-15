@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockProvider } from 'ng-mocks';
 
-import { GameService } from '../services/game.service';
+import { PlayerService } from '../services/player.service';
 
 import { ZoneGuard } from './zone.guard';
 
@@ -12,7 +12,7 @@ describe('ZoneGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      providers: [MockProvider(GameService)],
+      providers: [MockProvider(PlayerService)],
     });
     guard = TestBed.inject(ZoneGuard);
   });

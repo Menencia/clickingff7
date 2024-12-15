@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockProvider } from 'ng-mocks';
-import { GameService } from 'src/app/core/services/game.service';
+import { PlayerService } from 'src/app/core/services/player.service';
 import { CharactersMock, ItemsMock, MateriasMock, ZonesMock } from 'src/app/shared/test/game.mock';
 
 import { UiActionsComponent } from './ui-actions.component';
@@ -14,7 +14,7 @@ describe('UiActionsComponent', () => {
     await TestBed.configureTestingModule({
       imports: [UiActionsComponent, TranslateModule.forRoot()],
       providers: [
-        MockProvider(GameService, {
+        MockProvider(PlayerService, {
           ...ZonesMock,
           ...CharactersMock,
           ...MateriasMock,

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { GameService } from 'src/app/core/services/game.service';
+import { PlayerService } from 'src/app/core/services/player.service';
 import { Character } from 'src/app/models/character';
 import { Team } from 'src/app/models/team';
 import { Weapon } from 'src/app/models/weapon';
@@ -22,24 +22,24 @@ export class ViewEquipComponent {
 
   weapons: Weapon[] = [];
 
-  constructor(private gameService: GameService) {
-    this.team = this.gameService.team;
+  constructor(private playerService: PlayerService) {
+    this.team = this.playerService.team;
     const [first] = this.team.list;
     this.selected = first;
-    this.weapons = this.gameService.weapons.getAllWeapons(this.selected);
+    this.weapons = this.playerService.weapons.getAllWeapons(this.selected);
   }
 
   canEquipWeapon(weapon: Weapon): boolean {
-    return !this.gameService.characters.isWeaponEquipped(weapon);
+    return !this.playerService.characters.isWeaponEquipped(weapon);
   }
 
   equipWeapon(newWeapon: Weapon): void {
     this.selected.weapon = newWeapon;
-    this.gameService.team.refresh();
+    this.playerService.team.refresh();
   }
 
   selectCharacter(character: Character): void {
     this.selected = character;
-    this.weapons = this.gameService.weapons.getAllWeapons(character);
+    this.weapons = this.playerService.weapons.getAllWeapons(character);
   }
 }

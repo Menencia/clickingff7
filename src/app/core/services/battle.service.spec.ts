@@ -3,7 +3,7 @@ import { TranslateModule } from '@ngx-translate/core';
 import { MockProvider } from 'ng-mocks';
 
 import { BattleService } from './battle.service';
-import { GameService } from './game.service';
+import { PlayerService } from './player.service';
 
 describe('BattleService', () => {
   let service: BattleService;
@@ -11,7 +11,7 @@ describe('BattleService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      providers: [MockProvider(GameService)],
+      providers: [MockProvider(PlayerService)],
     });
     service = TestBed.inject(BattleService);
   });

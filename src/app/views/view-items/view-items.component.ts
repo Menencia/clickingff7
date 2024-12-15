@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { GameService } from 'src/app/core/services/game.service';
+import { PlayerService } from 'src/app/core/services/player.service';
 import { Item, MAX_ITEMS } from 'src/app/models/item';
 import { ItemIconComponent } from 'src/app/shared/ui/item-icon/item-icon.component';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
@@ -17,16 +17,16 @@ export class ViewItemsComponent {
 
   list: Item[] = [];
 
-  constructor(private gameService: GameService) {
-    this.list = this.gameService.items.list;
+  constructor(private playerService: PlayerService) {
+    this.list = this.playerService.items.list;
   }
 
   getNbrItems(): number {
-    return this.gameService.items.getEquipped().length;
+    return this.playerService.items.getEquipped().length;
   }
 
   canEquipItem(item: Item): boolean {
-    return !item.equipped && this.gameService.items.getEquipped().length < MAX_ITEMS;
+    return !item.equipped && this.playerService.items.getEquipped().length < MAX_ITEMS;
   }
 
   equipItem(item: Item): void {

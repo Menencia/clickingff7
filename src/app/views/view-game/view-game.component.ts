@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { BattleService } from 'src/app/core/services/battle.service';
-import { GameService } from 'src/app/core/services/game.service';
+import { PlayerService } from 'src/app/core/services/player.service';
 import { Team } from 'src/app/models/team';
 import { Enemies } from 'src/app/models/units/enemies';
 import { UiActionsComponent } from 'src/app/shared/ui/ui-actions/ui-actions.component';
@@ -22,10 +22,10 @@ export class ViewGameComponent {
   public enemies: Enemies;
 
   constructor(
-    private gameService: GameService,
+    private playerService: PlayerService,
     private battleService: BattleService,
   ) {
-    this.team = this.gameService.team;
+    this.team = this.playerService.team;
     this.enemies = this.battleService.enemies;
   }
 }

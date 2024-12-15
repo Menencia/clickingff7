@@ -1,6 +1,6 @@
 <app-ui-navbar
-  [displayNextZone]="gameService.zones.nextZone"
-  [displayPhs]="gameService.zones.levelMax >= 5"
+  [displayNextZone]="playerService.zones.nextZone"
+  [displayPhs]="playerService.zones.levelMax >= 5"
   [isBattle]="battleService.isBattle"
   (sidebarVisibleChange)="sidebarVisible = true"
 ></app-ui-navbar>
@@ -9,4 +9,4 @@
 
 <app-menu-sidebar [(visible)]="sidebarVisible"></app-menu-sidebar>
 
-<app-ui-footer [version]="gameService.version"></app-ui-footer>
+<app-ui-footer [version]="version"></app-ui-footer>

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { GameService } from 'src/app/core/services/game.service';
+import { PlayerService } from 'src/app/core/services/player.service';
 import { StoreService } from 'src/app/core/services/store.service';
 import { Item, MAX_ITEMS } from 'src/app/models/item';
 import { Materia } from 'src/app/models/materia';
@@ -39,14 +39,14 @@ export class ViewShopComponent {
   playerItems: Item[] = [];
 
   constructor(
-    private gameService: GameService,
+    private playerService: PlayerService,
     private store: StoreService,
   ) {
     this.refresh();
   }
 
   getGils(): number {
-    return this.gameService.gils;
+    return this.playerService.gils;
   }
 
   changeSection(s: string): void {
@@ -58,77 +58,77 @@ export class ViewShopComponent {
   }
 
   inStockWeapon(weapon: Weapon): boolean {
-    return weapon.inStock(this.gameService.weapons.list);
+    return weapon.inStock(this.playerService.weapons.list);
   }
 
   canBuyWeapon(weapon: Weapon): boolean {
-    return !this.inStockWeapon(weapon) && this.gameService.gils >= weapon.getPrice();
+    return !this.inStockWeapon(weapon) && this.playerService.gils >= weapon.getPrice();
   }
 
   buyWeapon(weapon: Weapon): void {
-    this.gameService.gils -= weapon.getPrice();
-    this.gameService.weapons.add(weapon);
+    this.playerService.gils -= weapon.getPrice();
+    this.playerService.weapons.add(weapon);
     this.refreshPlayerWeapons();
   }
 
   /** Can sell if weapon is not equipped */
   canSellWeapon(weapon: Weapon): boolean {
-    return !this.gameService.characters.isWeaponEquipped(weapon);
+    return !this.playerService.characters.isWeaponEquipped(weapon);
   }
 
   sellWeapon(weapon: Weapon): void {
-    this.gameService.gils += weapon.getSellPrice();
-    this.gameService.weapons.list = this.gameService.weapons.list.filter((e) => e !== weapon);
+    this.playerService.gils += weapon.getSellPrice();
+    this.playerService.weapons.list = this.playerService.weapons.list.filter((e) => e !== weapon);
     this.refreshPlayerWeapons();
   }
 
   inStockMateria(materia: Materia): boolean {
-    return materia.inStock(this.gameService.materias.list);
+    return materia.inStock(this.playerService.materias.list);
   }
 
   canBuyMateria(materia: Materia): boolean {
-    return !this.inStockMateria(materia) && this.gameService.gils >= materia.getPrice();
+    return !this.inStockMateria(materia) && this.playerService.gils >= materia.getPrice();
   }
 
   buyMateria(materia: Materia): void {
-    this.gameService.gils -= materia.getPrice();
-    this.gameService.materias.add(materia);
+    this.playerService.gils -= materia.getPrice();
+    this.playerService.materias.add(materia);
     this.refreshPlayerMaterias();
   }
 
   sellMateria(materia: Materia): void {
-    this.gameService.gils += materia.getSellPrice();
-    this.gameService.materias.list = this.gameService.materias.list.filter((e) => e !== materia);
+    this.playerService.gils += materia.getSellPrice();
+    this.playerService.materias.list = this.playerService.materias.list.filter((e) => e !== materia);
     this.refreshPlayerMaterias();
   }
 
   inStockItem(item: Item): number {
-    return item.inStock(this.gameService.items.list);
+    return item.inStock(this.playerService.items.list);
   }
 
   canBuyItem(item: Item): boolean {
-    return this.gameService.gils >= item.getPrice();
+    return this.playerService.gils >= item.getPrice();
   }
 
   buyItem(item: Item): void {
-    this.gameService.gils -= item.getPrice();
-    const equipped = this.gameService.items.getEquipped().length < MAX_ITEMS;
-    this.gameService.items.add(item, equipped);
+    this.playerService.gils -= item.getPrice();
+    const equipped = this.playerService.items.getEquipped().length < MAX_ITEMS;
+    this.playerService.items.add(item, equipped);
     this.refreshPlayerItems();
   }
 
   sellItem(item: Item): void {
-    this.gameService.gils += item.getSellPrice();
+    this.playerService.gils += item.getSellPrice();
     if (item.nbr > 1) {
       item.nbr -= 1;
     } else {
-      this.gameService.items.list = this.gameService.items.list.filter((e) => e !== item);
+      this.playerService.items.list = this.playerService.items.list.filter((e) => e !== item);
       this.refreshPlayerItems();
     }
   }
 
   refresh(): void {
-    const { levelMax } = this.gameService.zones;
+    const { levelMax } = this.playerService.zones;
     this.shopWeapons = [];
     this.shopMaterias = [];
     this.shopItems = [];
@@ -186,7 +186,7 @@ export class ViewShopComponent {
   }
 
   private refreshPlayerWeapons(): void {
-    this.playerWeapons = this.sortWeapons(this.gameService.weapons.list);
+    this.playerWeapons = this.sortWeapons(this.playerService.weapons.list);
   }
 
   private sortWeapons(weapons: Weapon[]): Weapon[] {
@@ -199,7 +199,7 @@ export class ViewShopComponent {
   }
 
   private refreshPlayerMaterias(): void {
-    this.playerMaterias = this.gameService.materias.list;
+    this.playerMaterias = this.playerService.materias.list;
   }
 
   private sortMaterias(materias: Materia[]): Materia[] {
@@ -207,7 +207,7 @@ export class ViewShopComponent {
   }
 
   private refreshPlayerItems(): void {
-    this.playerItems = this.sortItems(this.gameService.items.list);
+    this.playerItems = this.sortItems(this.playerService.items.list);
   }
 
   private sortItems(items: Item[]): Item[] {

@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { GameService } from 'src/app/core/services/game.service';
+import { PlayerService } from 'src/app/core/services/player.service';
 import { Character } from 'src/app/models/character';
 import { Team } from 'src/app/models/team';
 import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-bar.component';
@@ -15,10 +15,10 @@ import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-ba
 export class CharactersPanelComponent {
   @Input() team: Team = new Team();
 
-  constructor(private gameService: GameService) {}
+  constructor(private playerService: PlayerService) {}
 
   public getLine(character: Character): string {
-    const { levelMax } = this.gameService.zones;
+    const { levelMax } = this.playerService.zones;
     return `Line ${levelMax} ${character.data.ref}`;
   }
 

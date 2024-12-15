@@ -3,7 +3,7 @@ import { Team } from 'src/app/models/team';
 import { Enemies } from 'src/app/models/units/enemies';
 import { MAX_FIGHTS } from 'src/app/models/zone';
 
-import { GameService } from './game.service';
+import { PlayerService } from './player.service';
 
 @Injectable({
   providedIn: 'root',
@@ -17,8 +17,8 @@ export class BattleService {
 
   public timer!: ReturnType<typeof setTimeout>;
 
-  constructor(private gameService: GameService) {
-    this.team = this.gameService.team;
+  constructor(private playerService: PlayerService) {
+    this.team = this.playerService.team;
     this.enemies = new Enemies();
   }
 
@@ -29,8 +29,8 @@ export class BattleService {
     if (!this.isBattle) {
       this.isBattle = true;
 
-      const zone = this.gameService.zones.current();
-      this.enemies.fightRandom(zone, this.gameService.difficulty);
+      const zone = this.playerService.zones.current();
+      this.enemies.fightRandom(zone, this.playerService.difficulty);
       this.startFighting();
     }
   }
@@ -39,7 +39,7 @@ export class BattleService {
    * Returns true if zone boss is available
    */
   canFightBoss(): boolean {
-    const zone = this.gameService.zones.current();
+    const zone = this.playerService.zones.current();
     return !this.isBattle && zone.nbFights >= MAX_FIGHTS && !zone.completed;
   }
 
@@ -50,8 +50,8 @@ export class BattleService {
     if (!this.isBattle) {
       this.isBattle = true;
 
-      const zone = this.gameService.zones.current();
-      this.enemies.fightBoss(zone, this.gameService.difficulty);
+      const zone = this.playerService.zones.current();
+      this.enemies.fightBoss(zone, this.playerService.difficulty);
       this.startFighting();
     }
   }
@@ -85,11 +85,11 @@ export class BattleService {
 
     // Rewards if victory
     if (victory) {
-      this.gameService.gils += this.enemies.rewardGils;
+      this.playerService.gils += this.enemies.rewardGils;
 
-      if (this.enemies.boss && this.gameService.zones.level + 1 > this.gameService.zones.levelMax) {
+      if (this.enemies.boss && this.playerService.zones.level + 1 > this.playerService.zones.levelMax) {
         // Complete zone
-        this.gameService.zones.complete();
+        this.playerService.zones.complete();
       }
 
       // XP for characters
@@ -97,15 +97,15 @@ export class BattleService {
 
       // AP for materias
       const ap = this.enemies.rewardAp;
-      const materias = this.gameService.materias.getEquipped();
+      const materias = this.playerService.materias.getEquipped();
       materias.forEach((materia) => {
         materia.setAp(ap);
       });
 
-      this.gameService.zones.current().nbFights += 1;
+      this.playerService.zones.current().nbFights += 1;
     }
 
     this.enemies.remove();
-    this.gameService.team.refresh();
+    this.playerService.team.refresh();
   }
 }

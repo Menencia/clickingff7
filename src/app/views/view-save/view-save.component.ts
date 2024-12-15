@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { BattleService } from 'src/app/core/services/battle.service';
 import { GameService } from 'src/app/core/services/game.service';
+import { PlayerService } from 'src/app/core/services/player.service';
 import { StoreService } from 'src/app/core/services/store.service';
 import { Character } from 'src/app/models/character';
 import { CharacterRef } from 'src/app/models/refs/characters';
@@ -38,6 +39,7 @@ export class ViewSaveComponent {
 
   constructor(
     private gameService: GameService,
+    private playerService: PlayerService,
     private battleService: BattleService,
     private store: StoreService,
     private router: Router,
@@ -67,9 +69,9 @@ export class ViewSaveComponent {
     if (this.gameService.saves[0] && confirm) {
       this.gameService.preload();
       this.gameService.reset();
-      this.gameService.buildLevel(1);
+      this.playerService.buildLevel(1);
       this.gameService.postload();
-      this.battleService.team = this.gameService.team;
+      this.battleService.team = this.playerService.team;
       this.router.navigateByUrl('game');
     }
   }
@@ -90,7 +92,7 @@ export class ViewSaveComponent {
    * Export the current game
    */
   exportCurrentGame(): void {
-    this.areaExport = btoa(JSON.stringify(this.gameService.export()));
+    this.areaExport = btoa(JSON.stringify(this.playerService.export()));
     this.showAreaImport = false;
     this.showAreaExport = true;
   }
@@ -110,9 +112,9 @@ export class ViewSaveComponent {
     if (this.areaImport && confirm) {
       const save = JSON.parse(atob(this.areaImport));
       this.gameService.preload();
-      this.gameService.load(save);
+      this.playerService.load(save);
       this.gameService.postload();
-      this.battleService.team = this.gameService.team;
+      this.battleService.team = this.playerService.team;
       this.router.navigateByUrl('game');
     }
   }

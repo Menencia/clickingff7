@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { GameService } from 'src/app/core/services/game.service';
+import { PlayerService } from 'src/app/core/services/player.service';
 import { Character } from 'src/app/models/character';
 import { Team } from 'src/app/models/team';
 import { MAX_TEAM } from 'src/app/models/units/characters';
@@ -18,9 +18,9 @@ export class ViewTeamComponent {
 
   characters: Character[];
 
-  constructor(private gameService: GameService) {
-    this.team = this.gameService.team;
-    this.characters = this.gameService.characters.list;
+  constructor(private playerService: PlayerService) {
+    this.team = this.playerService.team;
+    this.characters = this.playerService.characters.list;
   }
 
   inTeam(character: Character): boolean {
@@ -60,6 +60,6 @@ export class ViewTeamComponent {
 
   /** Returns true if team can be modified */
   private canEditTeam(): boolean {
-    return this.gameService.zones.levelMax >= 5;
+    return this.playerService.zones.levelMax >= 5;
   }
 }
