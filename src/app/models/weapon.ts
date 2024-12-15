@@ -11,11 +11,7 @@ export interface WeaponJson {
 }
 
 export class Weapon {
-  constructor(
-    public readonly data: Readonly<WeaponJson>,
-    public nbr = 1,
-    public equipped = false,
-  ) {}
+  constructor(public readonly data: Readonly<WeaponJson>) {}
 
   /**
    * Returns the price of the weapon
@@ -34,15 +30,8 @@ export class Weapon {
   /**
    * Returns the number of owned
    */
-  inStock(weapons: Weapon[]): number {
-    // weapons.list
-    let sum = 0;
-    weapons.forEach((w) => {
-      if (w.data.ref === this.data.ref) {
-        sum += w.nbr;
-      }
-    });
-    return sum;
+  inStock(weapons: Weapon[]): boolean {
+    return weapons.some((w) => w.data.ref === this.data.ref);
   }
 
   /**
@@ -56,7 +45,6 @@ export class Weapon {
    * Save weapon
    */
   export(): WeaponSave {
-    const { nbr, equipped } = this;
-    return { ref: this.data.ref, nbr, equipped };
+    return { ref: this.data.ref };
   }
 }

@@ -57,32 +57,29 @@ export class ViewShopComponent {
     this.type = t;
   }
 
-  inStockWeapon(weapon: Weapon): number {
+  inStockWeapon(weapon: Weapon): boolean {
     return weapon.inStock(this.gameService.weapons.list);
   }
 
   canBuyWeapon(weapon: Weapon): boolean {
-    return this.inStockWeapon(weapon) === 0 && this.gameService.gils >= weapon.getPrice();
+    return !this.inStockWeapon(weapon) && this.gameService.gils >= weapon.getPrice();
   }
 
   buyWeapon(weapon: Weapon): void {
     this.gameService.gils -= weapon.getPrice();
-    this.gameService.weapons.add(weapon, false);
+    this.gameService.weapons.add(weapon);
     this.refreshPlayerWeapons();
   }
 
+  /** Can sell if weapon is not equipped */
   canSellWeapon(weapon: Weapon): boolean {
-    return (weapon.equipped && weapon.nbr > 1) || !weapon.equipped;
+    return !this.gameService.characters.isWeaponEquipped(weapon);
   }
 
   sellWeapon(weapon: Weapon): void {
     this.gameService.gils += weapon.getSellPrice();
-    if (weapon.nbr > 1) {
-      weapon.nbr -= 1;
-    } else {
-      this.gameService.weapons.list = this.gameService.weapons.list.filter((e) => e !== weapon);
-      this.refreshPlayerWeapons();
-    }
+    this.gameService.weapons.list = this.gameService.weapons.list.filter((e) => e !== weapon);
+    this.refreshPlayerWeapons();
   }
 
   inStockMateria(materia: Materia): boolean {

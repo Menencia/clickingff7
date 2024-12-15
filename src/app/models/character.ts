@@ -27,11 +27,6 @@ export class Character {
     public weapon: Weapon,
   ) {}
 
-  /** Updates only weapon */
-  setWeapon(weapon: Weapon) {
-    this.weapon = weapon;
-  }
-
   /* Returns true if the character is available in the {zonelevelMax} */
   notAvailable(zonelevelMax: number): boolean {
     return (this.data.zoneOff ?? []).includes(zonelevelMax);

@@ -4,7 +4,7 @@
     "image": "/assets/images/characters/cloud.jpg",
     "weaponType": "broadsword",
     "weapon": "buster-sword",
-    "stats": {"attack": 20, "speed": 10},
+    "stats": { "attack": 20, "speed": 10 },
     "zoneMin": 1,
     "zoneOff": []
   },
@@ -13,7 +13,7 @@
     "image": "/assets/images/characters/barret.jpg",
     "weaponType": "gun-arm",
     "weapon": "gatling-gun",
-    "stats": {"defense": 20, "hp": 10},
+    "stats": { "defense": 20, "hp": 10 },
     "zoneMin": 1,
     "zoneOff": [3]
   },
@@ -22,6 +22,7 @@
     "image": "/assets/images/characters/tifa.jpg",
     "weaponType": "knuckle",
     "weapon": "leather-glove",
+    "stats": { "attack": 20, "hp": 10 },
     "hp": 2,
     "mp": 2,
     "zoneMin": 1,
@@ -35,7 +36,7 @@
     "hp": 1,
     "mp": 5,
     "zoneMin": 1,
-    "zoneOff": [4,5]
+    "zoneOff": [4, 5]
   },
   {
     "ref": "redxiii",
@@ -58,4 +59,3 @@
     "zoneOff": []
   }
 ]
-

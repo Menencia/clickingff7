@@ -13,7 +13,7 @@ import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
 import { WeaponRef } from 'src/app/models/refs/weapons';
 import { ZoneRef } from 'src/app/models/refs/zones';
-import { CharacterSave, ItemSave, MateriaSave, WeaponSave, ZoneSave } from 'src/app/models/save';
+import { CharacterSave, ItemSave, MateriaSave, ZoneSave } from 'src/app/models/save';
 import { Weapon } from 'src/app/models/weapon';
 import { Zone } from 'src/app/models/zone';
 
@@ -40,16 +40,16 @@ export class StoreService {
   }
 
   /** Returns a Weapon from given ref & filled with save */
-  getWeapon(ref: WeaponRef, save?: WeaponSave): Weapon {
+  getWeapon(ref: WeaponRef): Weapon {
     const data = this.data.getWeapon(ref);
-    return new Weapon(data, save?.nbr, save?.equipped);
+    return new Weapon(data);
   }
 
   /** Returns a Character from given ref & filled with save */
-  getCharacter(ref: CharacterRef, save?: CharacterSave): Character {
+  getCharacter(ref: CharacterRef, save?: Partial<CharacterSave>): Character {
     const data = this.data.getCharacter(ref);
-    const weapon = this.data.getWeapon(save?.weaponRef ?? data.weapon);
-    return new Character(data, new Weapon(weapon));
+    const weapon = this.getWeapon(save?.weaponRef ?? data.weapon);
+    return new Character(data, weapon);
   }
 
   /** Returns an Item from given ref & filled with save */

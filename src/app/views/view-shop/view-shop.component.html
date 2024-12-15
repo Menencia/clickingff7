@@ -45,7 +45,11 @@
                   {{ weapon.data.ref }}<br />
                   <span class="text-xs italic">({{ "Power" | translate }} {{ weapon.data.hits }})</span>
                 </td>
-                <td>{{ inStockWeapon(weapon) }}</td>
+                <td>
+                  @if (weapon.inStock(playerWeapons)) {
+                    🗸
+                  }
+                </td>
                 <td>{{ weapon.data.price }} {{ "Gils" | translate }}</td>
                 <td>
                   <app-button (trigger)="buyWeapon(weapon)" [disabled]="!canBuyWeapon(weapon)">

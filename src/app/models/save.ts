@@ -36,8 +36,6 @@ export interface ZoneSave {
 
 export interface WeaponSave {
   ref: WeaponRef;
-  nbr: number;
-  equipped: boolean;
 }
 
 export interface MateriaSave {

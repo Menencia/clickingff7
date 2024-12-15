@@ -4,7 +4,6 @@ import { Materias } from 'src/app/models/materias';
 import { CharacterRef } from 'src/app/models/refs/characters';
 import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
-import { WeaponRef } from 'src/app/models/refs/weapons';
 import { ZoneRef } from 'src/app/models/refs/zones';
 import { Save } from 'src/app/models/save';
 import { Team } from 'src/app/models/team';
@@ -160,11 +159,11 @@ export class GameService {
       case 1:
         // add cloud in the team
         this.characters.add(cloud);
-        this.weapons.add(this.store.getWeapon(WeaponRef.BusterSword), true);
+        this.weapons.add(cloud.weapon);
 
         // add barret in the team
         this.characters.add(barret);
-        this.weapons.add(this.store.getWeapon(WeaponRef.GatlingGun), true);
+        this.weapons.add(barret.weapon);
 
         // team
         this.team.setCharacters([cloud, barret]);
@@ -181,14 +180,14 @@ export class GameService {
       case 2:
         // add tifa in the team
         this.characters.add(tifa);
+        this.weapons.add(tifa.weapon);
         this.team.join(tifa);
-        this.weapons.add(this.store.getWeapon(WeaponRef.LeatherGlove), true);
         break;
       case 3:
         // add aerith in the team
         this.characters.add(aerith);
+        this.weapons.add(aerith.weapon);
         this.team.setCharacters([cloud, aerith]);
-        this.weapons.add(this.store.getWeapon(WeaponRef.GuardStick), true);
         break;
       case 4:
         // add barret & tifa in the team
@@ -197,12 +196,12 @@ export class GameService {
       case 5:
         // add redxiii to characters
         this.characters.add(redxiii);
-        this.weapons.add(this.store.getWeapon(WeaponRef.MythrilClip), true);
+        this.weapons.add(redxiii.weapon);
         break;
       case 9:
         // add yuffie to characters
         this.characters.add(yuffie);
-        this.weapons.add(this.store.getWeapon(WeaponRef.FPtShuriken), true);
+        this.weapons.add(yuffie.weapon);
         break;
       default:
       // do nothing
@@ -279,8 +278,8 @@ export class GameService {
 
     // weapons
     save.weapons.forEach((w) => {
-      const weapon = this.store.getWeapon(w.ref, w);
-      this.weapons.add(weapon, w.equipped);
+      const weapon = this.store.getWeapon(w.ref);
+      this.weapons.add(weapon);
     });
 
     // materias

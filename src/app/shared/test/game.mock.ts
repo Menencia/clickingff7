@@ -45,7 +45,7 @@ const team = new Team();
 team.join(character);
 
 const weapons = new Weapons();
-weapons.add(weapon, true);
+weapons.add(weapon);
 
 const materia = new AttackMateria({
   ref: MateriaRef.Bolt,
