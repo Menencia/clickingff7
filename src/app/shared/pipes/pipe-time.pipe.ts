@@ -6,10 +6,12 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class PipeTimePipe implements PipeTransform {
   transform(elapsed: number): string {
+    const time = Math.ceil(elapsed / 1000);
+
     let res = '';
-    const hours = Math.floor(elapsed / 3600);
+    const hours = Math.floor(time / 3600);
     res += hours;
-    const leftTime = elapsed - hours * 3600;
+    const leftTime = time - hours * 3600;
 
     const minutes = Math.floor(leftTime / 60);
     res += ':';

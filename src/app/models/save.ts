@@ -60,6 +60,7 @@ export interface Save {
   items: ItemSave[];
   language: string;
   difficulty: number;
-  time: number;
+  created: number;
+  updated: number;
   gils: number;
 }

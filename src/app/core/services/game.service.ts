@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Save } from 'src/app/models/save';
 
+import { BattleService } from './battle.service';
 import { LangService } from './lang.service';
 import { PlayerService } from './player.service';
 
@@ -10,26 +11,24 @@ const SAVE_1 = 'save1';
   providedIn: 'root',
 })
 export class GameService {
-  /** time counter */
-  timer = 0;
-
   /** List of saves */
   saves: Save[] = [];
 
   constructor(
     private langService: LangService,
     private playerService: PlayerService,
+    private battleService: BattleService,
   ) {}
 
-  /** Starts the game by searching a save & load the game */
-  run(): void {
+  /** Returns existing save if any */
+  searchSave(): Save | undefined {
     let save;
     const s = localStorage[SAVE_1];
     if (s) {
       save = JSON.parse(atob(s));
+      this.saves[0] = save;
     }
-
-    this.load(save);
+    return save;
   }
 
   /** Loads the game with a save or not */
@@ -44,24 +43,13 @@ export class GameService {
     }
     this.langService.useLang(this.playerService.language);
     this.playerService.team.refresh();
-    this.autoTimer();
-  }
-
-  /**
-   * Auto-chrono
-   */
-  autoTimer(): void {
-    clearTimeout(this.timer);
-    this.timer = window.setTimeout(() => {
-      this.playerService.time += 1;
-      this.autoTimer();
-    }, 1000);
+    this.battleService.team = this.playerService.team;
   }
 
   /** Saves current state of the game */
   save(): void {
     const save = this.playerService.export();
-    this.saves.push(save);
+    this.saves[0] = save;
     localStorage[SAVE_1] = btoa(JSON.stringify(save));
   }
 

@@ -37,7 +37,7 @@
             <img [src]="character.data.image" alt="{{ character.data.ref }}" width="80" class="save_character" />
           }
           <br />
-          {{ "Time" | translate }}: {{ saves[0].time | time }}
+          {{ "Time" | translate }}: {{ saves[0].updated - saves[0].created | time }}
           <br />
           {{ "Gil" | translate }}: {{ saves[0].gils }}
         </div>

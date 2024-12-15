@@ -68,7 +68,6 @@ export class ViewSaveComponent {
   resetGame(confirm: boolean): void {
     if (this.gameService.saves[0] && confirm) {
       this.gameService.load();
-      this.battleService.team = this.playerService.team;
       this.router.navigateByUrl('game');
     }
   }
@@ -109,7 +108,6 @@ export class ViewSaveComponent {
     if (this.areaImport && confirm) {
       const save = JSON.parse(atob(this.areaImport));
       this.gameService.load(save);
-      this.battleService.team = this.playerService.team;
       this.router.navigateByUrl('game');
     }
   }

@@ -27,6 +27,7 @@ export class AppComponent {
     public playerService: PlayerService,
     public battleService: BattleService,
   ) {
-    this.gameService.run();
+    const save = this.gameService.searchSave();
+    this.gameService.load(save);
   }
 }

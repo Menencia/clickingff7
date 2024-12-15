@@ -39,7 +39,9 @@ export class PlayerService {
 
   difficulty = Difficulty.Normal;
 
-  time = 0;
+  created = new Date().getTime();
+
+  updated = new Date().getTime();
 
   constructor(
     private langService: LangService,
@@ -58,7 +60,8 @@ export class PlayerService {
     this.gils = BASE_GILS;
     this.language = this.langService.setDefaultLang();
     this.difficulty = Difficulty.Normal;
-    this.time = 0;
+    this.created = new Date().getTime();
+    this.updated = new Date().getTime();
   }
 
   /*
@@ -187,7 +190,8 @@ export class PlayerService {
     this.language = save.language;
     this.difficulty = save.difficulty;
 
-    this.time = save.time;
+    this.created = save.created;
+    this.updated = save.updated;
     this.gils = save.gils;
   }
 
@@ -195,6 +199,7 @@ export class PlayerService {
    * Export the game
    */
   export(): Save {
+    this.updated = new Date().getTime();
     return {
       characters: this.characters.export(),
       team: this.team.export(),
@@ -205,7 +210,8 @@ export class PlayerService {
       gils: this.gils,
       language: this.language,
       difficulty: this.difficulty,
-      time: this.time,
+      created: this.created,
+      updated: this.updated,
     };
   }
 }
