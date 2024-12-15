@@ -67,10 +67,7 @@ export class ViewSaveComponent {
    */
   resetGame(confirm: boolean): void {
     if (this.gameService.saves[0] && confirm) {
-      this.gameService.preload();
-      this.gameService.reset();
-      this.playerService.buildLevel(1);
-      this.gameService.postload();
+      this.gameService.load();
       this.battleService.team = this.playerService.team;
       this.router.navigateByUrl('game');
     }
@@ -111,9 +108,7 @@ export class ViewSaveComponent {
   importSave(confirm: boolean): void {
     if (this.areaImport && confirm) {
       const save = JSON.parse(atob(this.areaImport));
-      this.gameService.preload();
-      this.playerService.load(save);
-      this.gameService.postload();
+      this.gameService.load(save);
       this.battleService.team = this.playerService.team;
       this.router.navigateByUrl('game');
     }

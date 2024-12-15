@@ -11,37 +11,30 @@ const SAVE_1 = 'save1';
 })
 export class GameService {
   /** time counter */
-  timer: number;
+  timer = 0;
 
   /** List of saves */
   saves: Save[] = [];
 
-  /** Last export */
-  lastExport = '';
-
-  /**
-   * init
-   */
   constructor(
     private langService: LangService,
     private playerService: PlayerService,
-  ) {
-    // timer
-    this.timer = 0;
-  }
+  ) {}
 
+  /** Starts the game by searching a save & load the game */
   run(): void {
-    // PRELOAD
-    this.preload();
-
-    // search for save
     let save;
     const s = localStorage[SAVE_1];
     if (s) {
       save = JSON.parse(atob(s));
     }
 
-    // load save
+    this.load(save);
+  }
+
+  /** Loads the game with a save or not */
+  load(save?: Save) {
+    this.playerService.init();
     if (save) {
       this.playerService.load(save);
       this.playerService.zones.checkLastZone();
@@ -49,26 +42,8 @@ export class GameService {
       this.reset();
       this.playerService.buildLevel(1);
     }
-
-    // POSTLOAD
-    this.postload();
-  }
-
-  /**
-   * Preload all savable variables
-   */
-  preload(): void {
-    this.playerService.init();
-  }
-
-  /**
-   * Refresh the game with data loaded
-   */
-  postload(): void {
     this.langService.useLang(this.playerService.language);
-
     this.playerService.team.refresh();
-
     this.autoTimer();
   }
 
@@ -83,24 +58,16 @@ export class GameService {
     }, 1000);
   }
 
-  /**
-   *
-   */
+  /** Saves current state of the game */
   save(): void {
-    const s = this.playerService.export();
-    this.saves[0] = s;
-
-    const ss = btoa(JSON.stringify(s));
-    localStorage[SAVE_1] = ss;
-    this.lastExport = ss;
+    const save = this.playerService.export();
+    this.saves.push(save);
+    localStorage[SAVE_1] = btoa(JSON.stringify(save));
   }
 
-  /**
-   * Remove the COOKIE & reset the game
-   */
+  /** Removes all saves */
   reset(): void {
     this.saves = [];
-
     localStorage.removeItem(SAVE_1);
   }
 }
