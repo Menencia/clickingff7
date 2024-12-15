@@ -15,19 +15,12 @@ export interface MateriaJson {
 }
 
 export abstract class Materia {
-  level = 1;
-
-  ap = 0;
-
-  equipped = false;
-
-  constructor(public readonly data: Readonly<MateriaJson>) {}
-
-  load(data: MateriaSave) {
-    this.level = data.level;
-    this.ap = data.ap;
-    this.equipped = data.equipped;
-  }
+  constructor(
+    public readonly data: Readonly<MateriaJson>,
+    public level = 1,
+    public ap = 0,
+    public equipped = false,
+  ) {}
 
   abstract getMpCost(): number;
 

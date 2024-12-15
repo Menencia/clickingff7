@@ -255,7 +255,7 @@ export class GameService {
 
     // characters
     save.characters.list.forEach((c) => {
-      const character = this.store.getCharacter(c.ref, { ...c, weapon: this.store.getWeapon(c.weaponRef) });
+      const character = this.store.getCharacter(c.ref, c);
       this.characters.add(character);
     });
 

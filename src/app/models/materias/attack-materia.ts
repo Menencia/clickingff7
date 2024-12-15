@@ -7,11 +7,8 @@ import { Materia, MateriaJson } from '../materia';
 export interface AttackMateriaJson extends MateriaJson {
   elements: string[];
 }
-
 export class AttackMateria extends Materia {
-  constructor(public override readonly data: Readonly<AttackMateriaJson>) {
-    super(data);
-  }
+  public override data!: Readonly<AttackMateriaJson>;
 
   /**
    * MP cost

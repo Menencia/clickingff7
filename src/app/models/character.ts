@@ -21,19 +21,11 @@ interface BonusStats {
   speed: number;
 }
 
-export interface CharacterData extends CharacterSave {
-  weapon: Weapon;
-}
-
 export class Character {
   constructor(
     public readonly data: Readonly<CharacterJson>,
     public weapon: Weapon,
   ) {}
-
-  load(save: CharacterData) {
-    this.weapon = save.weapon;
-  }
 
   /** Updates only weapon */
   setWeapon(weapon: Weapon) {

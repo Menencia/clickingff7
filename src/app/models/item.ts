@@ -15,16 +15,11 @@ export interface ItemJson {
 }
 
 export abstract class Item {
-  nbr = 1;
-
-  equipped = false;
-
-  constructor(public readonly data: Readonly<ItemJson>) {}
-
-  load(data: ItemSave) {
-    this.nbr = data.nbr;
-    this.equipped = data.equipped;
-  }
+  constructor(
+    public readonly data: Readonly<ItemJson>,
+    public nbr = 1,
+    public equipped = false,
+  ) {}
 
   available(zoneLlevelMax: number): boolean {
     return zoneLlevelMax >= this.data.zoneAvailable;

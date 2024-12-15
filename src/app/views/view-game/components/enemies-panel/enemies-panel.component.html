@@ -16,17 +16,17 @@
   @for (enemy of enemies.list; track $index) {
     <div class="flex gap-4 mt-5">
       <div
-        [style]="{ 'background-image': 'url(' + enemy.image + ')' }"
+        [style]="{ 'background-image': 'url(' + enemy.data.image + ')' }"
         class="relative flex-none w-20 h-20 bg-center bg-cover border border-black"
       ></div>
 
       <div>
         <div class="text-2xl">
-          {{ enemy.ref }}
-          @if (enemy.boss) {
+          {{ enemy.data.ref }}
+          @if (enemy.data.boss) {
             <span class="boss">ZONE BOSS</span>
           }
-          @if (enemy.miboss) {
+          @if (enemy.data.miboss) {
             <span class="boss">BOSS</span>
           }
         </div>

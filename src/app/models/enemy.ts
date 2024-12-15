@@ -25,44 +25,7 @@ export class Enemy {
 
   gils = 0;
 
-  ref: EnemyRef;
-
-  image: string;
-
-  baseHpMax: number;
-
-  baseHits: number;
-
-  baseXp: number;
-
-  baseAp: number;
-
-  baseGils: number;
-
-  weakness: string[];
-
-  resistance: string[];
-
-  boss: boolean;
-
-  miboss: boolean;
-
-  /**
-   * Init
-   */
-  constructor(data: EnemyJson) {
-    this.ref = data.ref;
-    this.image = data.image;
-    this.baseHpMax = data.hp ?? 0;
-    this.baseHits = data.hits ?? 0;
-    this.baseXp = data.xp ?? 0;
-    this.baseAp = data.ap ?? 0;
-    this.baseGils = data.gils ?? 0;
-    this.weakness = data.weakness ?? [];
-    this.resistance = data.resistance ?? [];
-    this.boss = data.boss ?? false;
-    this.miboss = data.miboss ?? false;
-  }
+  constructor(public readonly data: Readonly<EnemyJson>) {}
 
   /**
    * Returns enemy HP

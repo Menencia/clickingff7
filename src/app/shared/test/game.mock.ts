@@ -2,7 +2,7 @@ import { Character } from 'src/app/models/character';
 import { Items } from 'src/app/models/items';
 import { HpPotion } from 'src/app/models/items/hp-potion';
 import { Materias } from 'src/app/models/materias';
-import { AttackMateria } from 'src/app/models/materias/attack-materia';
+import { AttackMateria, AttackMateriaJson } from 'src/app/models/materias/attack-materia';
 import { CharacterRef } from 'src/app/models/refs/characters';
 import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
@@ -16,7 +16,7 @@ import { Zone } from 'src/app/models/zone';
 import { Zones } from 'src/app/models/zones';
 
 const zones = new Zones();
-zones.add(new Zone({ ref: ZoneRef.Zone1, image: '', level: 1, enemies: [], boss: [] }));
+zones.add(new Zone({ ref: ZoneRef.Zone1, image: '', level: 1, enemies: [], boss: [] }, [], []));
 
 const weapon = new Weapon({
   ref: WeaponRef.BusterSword,
@@ -27,13 +27,16 @@ const weapon = new Weapon({
   zoneAvailable: 1,
 });
 
-const character = new Character({
-  ref: CharacterRef.Cloud,
-  image: '',
+const character = new Character(
+  {
+    ref: CharacterRef.Cloud,
+    image: '',
+    weapon: WeaponRef.BusterSword,
+    weaponType: 'broadsword',
+    stats: {},
+  },
   weapon,
-  weaponType: 'broadsword',
-  stats: {},
-});
+);
 
 const characters = new Characters();
 characters.add(character);
@@ -53,7 +56,7 @@ const materia = new AttackMateria({
   pwr: 50,
   elements: ['bolt'],
   zoneAvailable: 1,
-});
+} as AttackMateriaJson);
 
 const materias = new Materias();
 materias.add(materia);

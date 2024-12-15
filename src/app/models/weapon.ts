@@ -11,19 +11,11 @@ export interface WeaponJson {
 }
 
 export class Weapon {
-  nbr = 1;
-
-  equipped = false;
-
-  constructor(public readonly data: Readonly<WeaponJson>) {}
-
-  /**
-   * Extends
-   */
-  load(data: WeaponSave) {
-    this.nbr = data.nbr;
-    this.equipped = data.equipped;
-  }
+  constructor(
+    public readonly data: Readonly<WeaponJson>,
+    public nbr = 1,
+    public equipped = false,
+  ) {}
 
   /**
    * Returns the price of the weapon

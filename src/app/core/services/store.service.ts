@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
-import { Character, CharacterData } from 'src/app/models/character';
+import { Character } from 'src/app/models/character';
+import { Enemy } from 'src/app/models/enemy';
 import { Item } from 'src/app/models/item';
+import { HpPotion } from 'src/app/models/items/hp-potion';
+import { MpPotion } from 'src/app/models/items/mp-potion';
 import { Materia } from 'src/app/models/materia';
+import { AttackMateria } from 'src/app/models/materias/attack-materia';
+import { CureMateria } from 'src/app/models/materias/cure-materia';
 import { CharacterRef } from 'src/app/models/refs/characters';
+import { EnemyRef } from 'src/app/models/refs/enemy';
 import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
 import { WeaponRef } from 'src/app/models/refs/weapons';
 import { ZoneRef } from 'src/app/models/refs/zones';
-import { ItemSave, MateriaSave, WeaponSave, ZoneSave } from 'src/app/models/save';
+import { CharacterSave, ItemSave, MateriaSave, WeaponSave, ZoneSave } from 'src/app/models/save';
 import { Weapon } from 'src/app/models/weapon';
 import { Zone } from 'src/app/models/zone';
 
@@ -20,49 +26,49 @@ export class StoreService {
   constructor(private data: DataService) {}
 
   getZone(ref: ZoneRef, save?: ZoneSave): Zone {
-    const found = this.data.zones.find((zone) => zone.data.ref === ref);
-    if (found) {
-      if (save) found.load(save);
-      return found;
-    }
-    throw new Error(`Zone ${ref} not found`);
+    const data = this.data.getZone(ref);
+    const enemies = data.enemies.map((e) => this.getEnemy(e));
+    const boss = data.boss.map((e) => this.getEnemy(e));
+    return new Zone(data, enemies, boss, save?.nbFights, save?.completed);
+  }
+
+  getEnemy(ref: EnemyRef): Enemy {
+    const data = this.data.getEnemy(ref);
+    return new Enemy(data);
   }
 
   getWeapon(ref: WeaponRef, save?: WeaponSave): Weapon {
-    const found = this.data.weapons.find((weapon) => weapon.data.ref === ref);
-    if (found) {
-      if (save) found.load(save);
-      return found;
-    }
-    throw new Error(`Weapon ${ref} not found`);
+    const data = this.data.getWeapon(ref);
+    return new Weapon(data, save?.nbr, save?.equipped);
   }
 
-  getCharacter(ref: CharacterRef, save?: CharacterData): Character {
-    const found = this.data.characters.find((character) => character.data.ref === ref);
-    if (found) {
-      if (save) {
-        found.load(save);
-      }
-      return found;
-    }
-    throw new Error(`Character ${ref} not found`);
+  getCharacter(ref: CharacterRef, save?: CharacterSave): Character {
+    const data = this.data.getCharacter(ref);
+    const weapon = this.data.getWeapon(save?.weaponRef ?? data.weapon);
+    return new Character(data, new Weapon(weapon));
   }
 
   getItem(ref: ItemRef, save?: ItemSave): Item {
-    const found = this.data.items.find((item) => item.data.ref === ref);
-    if (found) {
-      if (save) found.load(save);
-      return found;
+    const data = this.data.getItem(ref);
+    switch (data.type) {
+      case 'hp-potion':
+        return new HpPotion(data, save?.nbr, save?.equipped);
+      case 'mp-potion':
+        return new MpPotion(data, save?.nbr, save?.equipped);
+      default:
+        throw new Error(`Item of type ${data.type} not found`);
     }
-    throw new Error(`Item ${ref} not found`);
   }
 
   getMateria(ref: MateriaRef, save?: MateriaSave): Materia {
-    const found = this.data.materias.find((materia) => materia.data.ref === ref);
-    if (found) {
-      if (save) found.load(save);
-      return found;
+    const data = this.data.getMateria(ref);
+    switch (data.type) {
+      case 'attack':
+        return new AttackMateria(data, save?.level, save?.ap, save?.equipped);
+      case 'cure':
+        return new CureMateria(data, save?.level, save?.ap, save?.equipped);
+      default:
+        throw new Error(`Item of type ${data.type} not found`);
     }
-    throw new Error(`Materia ${ref} not found`);
   }
 }

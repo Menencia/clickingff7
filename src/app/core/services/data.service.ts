@@ -1,131 +1,86 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin, map } from 'rxjs';
-import { Character, CharacterJson } from 'src/app/models/character';
-import { Enemy, EnemyJson } from 'src/app/models/enemy';
-import { Item, ItemJson } from 'src/app/models/item';
-import { HpPotion } from 'src/app/models/items/hp-potion';
-import { MpPotion } from 'src/app/models/items/mp-potion';
-import { Materia, MateriaJson } from 'src/app/models/materia';
-import { AttackMateria, AttackMateriaJson } from 'src/app/models/materias/attack-materia';
-import { CureMateria } from 'src/app/models/materias/cure-materia';
-import { Weapon, WeaponJson } from 'src/app/models/weapon';
-import { Zone, ZoneJson } from 'src/app/models/zone';
+import { CharacterJson } from 'src/app/models/character';
+import { EnemyJson } from 'src/app/models/enemy';
+import { ItemJson } from 'src/app/models/item';
+import { MateriaJson } from 'src/app/models/materia';
+import { CharacterRef } from 'src/app/models/refs/characters';
+import { EnemyRef } from 'src/app/models/refs/enemy';
+import { ItemRef } from 'src/app/models/refs/items';
+import { MateriaRef } from 'src/app/models/refs/materias';
+import { WeaponRef } from 'src/app/models/refs/weapons';
+import { ZoneRef } from 'src/app/models/refs/zones';
+import { WeaponJson } from 'src/app/models/weapon';
+import { ZoneJson } from 'src/app/models/zone';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DataService {
-  zones: Zone[] = [];
+  zones: ZoneJson[] = [];
 
-  enemies: Enemy[] = [];
+  enemies: EnemyJson[] = [];
 
-  weapons: Weapon[] = [];
+  weapons: WeaponJson[] = [];
 
-  characters: Character[] = [];
+  characters: CharacterJson[] = [];
 
-  items: Item[] = [];
+  items: ItemJson[] = [];
 
-  materias: Materia[] = [];
+  materias: MateriaJson[] = [];
 
   constructor(private http: HttpClient) {}
 
   preloadAll(): Observable<void> {
-    return forkJoin([
-      this.preloadEnemies(),
-      this.preloadZones(),
-      this.preloadWeapons(),
-      this.preloadCharacters(),
-      this.preloadItems(),
-      this.preloadMaterias(),
-    ]).pipe(
-      map(([enemies, zones, weapons, characters, items, materias]) => {
-        this.buildEnemies(enemies);
-        this.buildZones(zones);
-        this.buildWeapons(weapons);
-        this.buildCharacters(characters);
-        this.buildItems(items);
-        this.buildMaterias(materias);
+    return forkJoin({
+      enemies: this.http.get<EnemyJson[]>('assets/data/enemies.json'),
+      zones: this.http.get<ZoneJson[]>('assets/data/zones.json'),
+      weapons: this.http.get<WeaponJson[]>('assets/data/weapons.json'),
+      characters: this.http.get<CharacterJson[]>('assets/data/characters.json'),
+      items: this.http.get<ItemJson[]>('assets/data/items.json'),
+      materias: this.http.get<MateriaJson[]>('assets/data/materias.json'),
+    }).pipe(
+      map((result) => {
+        this.enemies = result.enemies;
+        this.zones = result.zones;
+        this.weapons = result.weapons;
+        this.characters = result.characters;
+        this.items = result.items;
+        this.materias = result.materias;
       }),
     );
   }
 
-  /** Depends: none */
-  private buildEnemies(enemies: EnemyJson[]) {
-    this.enemies = enemies.map((data) => new Enemy(data));
+  getZone(ref: ZoneRef): ZoneJson {
+    return this.retrieve(this.zones, ref);
   }
 
-  /** Depends: enemies */
-  private buildZones(zones: ZoneJson[]) {
-    this.zones = zones.map((data) => {
-      const enemies = data.enemies.map((ref) => this.enemies.find((e) => e.ref === ref)!);
-      const boss = data.boss.map((ref) => this.enemies.find((e) => e.ref === ref)!);
-      return new Zone(data, enemies, boss);
-    });
+  getEnemy(ref: EnemyRef): EnemyJson {
+    return this.retrieve(this.enemies, ref);
   }
 
-  /** Depends: none */
-  private buildWeapons(weapons: WeaponJson[]) {
-    this.weapons = weapons.map((data) => new Weapon(data));
+  getWeapon(ref: WeaponRef): WeaponJson {
+    return this.retrieve(this.weapons, ref);
   }
 
-  /** Depends: enemies */
-  private buildCharacters(characters: CharacterJson[]) {
-    this.characters = characters.map((data) => {
-      const weapon = this.weapons.find((e) => e.data.ref === data.weapon)!;
-      return new Character(data, weapon);
-    });
+  getCharacter(ref: CharacterRef): CharacterJson {
+    return this.retrieve(this.characters, ref);
   }
 
-  /** Depends: none */
-  private buildItems(items: ItemJson[]) {
-    this.items = items.map((data) => {
-      switch (data.type) {
-        case 'hp-potion':
-          return new HpPotion(data);
-        case 'mp-potion':
-          return new MpPotion(data);
-        default:
-          throw new Error(`Item of type ${data.type} not found`);
-      }
-    });
+  getItem(ref: ItemRef): ItemJson {
+    return this.retrieve(this.items, ref);
   }
 
-  /** Depends: none */
-  private buildMaterias(materias: MateriaJson[]) {
-    this.materias = materias.map((data) => {
-      switch (data.type) {
-        case 'attack':
-          return new AttackMateria(data as AttackMateriaJson);
-        case 'cure':
-          return new CureMateria(data);
-        default:
-          throw new Error(`Materia of type ${data.type} not found`);
-      }
-    });
+  getMateria(ref: MateriaRef): MateriaJson {
+    return this.retrieve(this.materias, ref);
   }
 
-  private preloadEnemies() {
-    return this.http.get<EnemyJson[]>('assets/data/enemies.json');
-  }
-
-  private preloadZones() {
-    return this.http.get<ZoneJson[]>('assets/data/zones.json');
-  }
-
-  private preloadWeapons() {
-    return this.http.get<WeaponJson[]>('assets/data/weapons.json');
-  }
-
-  private preloadCharacters() {
-    return this.http.get<CharacterJson[]>('assets/data/characters.json');
-  }
-
-  private preloadItems() {
-    return this.http.get<ItemJson[]>('assets/data/items.json');
-  }
-
-  private preloadMaterias() {
-    return this.http.get<MateriaJson[]>('assets/data/materias.json');
+  private retrieve<T extends { ref: U }, U>(store: T[], ref: U) {
+    const found = store.find((e) => e.ref === ref);
+    if (found) {
+      return found;
+    }
+    throw new Error(`${ref} not found`);
   }
 }
