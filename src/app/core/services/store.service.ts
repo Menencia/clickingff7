@@ -25,6 +25,7 @@ import { DataService } from './data.service';
 export class StoreService {
   constructor(private data: DataService) {}
 
+  /** Returns a Zone from given ref & filled with save */
   getZone(ref: ZoneRef, save?: ZoneSave): Zone {
     const data = this.data.getZone(ref);
     const enemies = data.enemies.map((e) => this.getEnemy(e));
@@ -32,22 +33,26 @@ export class StoreService {
     return new Zone(data, enemies, boss, save?.nbFights, save?.completed);
   }
 
+  /** Returns an Enemy from given ref */
   getEnemy(ref: EnemyRef): Enemy {
     const data = this.data.getEnemy(ref);
     return new Enemy(data);
   }
 
+  /** Returns a Weapon from given ref & filled with save */
   getWeapon(ref: WeaponRef, save?: WeaponSave): Weapon {
     const data = this.data.getWeapon(ref);
     return new Weapon(data, save?.nbr, save?.equipped);
   }
 
+  /** Returns a Character from given ref & filled with save */
   getCharacter(ref: CharacterRef, save?: CharacterSave): Character {
     const data = this.data.getCharacter(ref);
     const weapon = this.data.getWeapon(save?.weaponRef ?? data.weapon);
     return new Character(data, new Weapon(weapon));
   }
 
+  /** Returns an Item from given ref & filled with save */
   getItem(ref: ItemRef, save?: ItemSave): Item {
     const data = this.data.getItem(ref);
     switch (data.type) {
@@ -60,6 +65,7 @@ export class StoreService {
     }
   }
 
+  /** Returns a Materia from given ref & filled with save */
   getMateria(ref: MateriaRef, save?: MateriaSave): Materia {
     const data = this.data.getMateria(ref);
     switch (data.type) {
@@ -68,7 +74,7 @@ export class StoreService {
       case 'cure':
         return new CureMateria(data, save?.level, save?.ap, save?.equipped);
       default:
-        throw new Error(`Item of type ${data.type} not found`);
+        throw new Error(`Materia of type ${data.type} not found`);
     }
   }
 }

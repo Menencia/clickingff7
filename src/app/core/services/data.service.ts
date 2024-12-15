@@ -32,6 +32,7 @@ export class DataService {
 
   constructor(private http: HttpClient) {}
 
+  /** Loads all stores from assets */
   preloadAll(): Observable<void> {
     return forkJoin({
       enemies: this.http.get<EnemyJson[]>('assets/data/enemies.json'),
@@ -52,31 +53,38 @@ export class DataService {
     );
   }
 
+  /** Return Zone data from given ref */
   getZone(ref: ZoneRef): ZoneJson {
     return this.retrieve(this.zones, ref);
   }
 
+  /** Return Enemy data from given ref */
   getEnemy(ref: EnemyRef): EnemyJson {
     return this.retrieve(this.enemies, ref);
   }
 
+  /** Return Weapon data from given ref */
   getWeapon(ref: WeaponRef): WeaponJson {
     return this.retrieve(this.weapons, ref);
   }
 
+  /** Return Character data from given ref */
   getCharacter(ref: CharacterRef): CharacterJson {
     return this.retrieve(this.characters, ref);
   }
 
+  /** Return Item data from given ref */
   getItem(ref: ItemRef): ItemJson {
     return this.retrieve(this.items, ref);
   }
 
+  /** Return Materia data from given ref */
   getMateria(ref: MateriaRef): MateriaJson {
     return this.retrieve(this.materias, ref);
   }
 
-  private retrieve<T extends { ref: U }, U>(store: T[], ref: U) {
+  /** Search in given store the given ref & returns it */
+  private retrieve<T extends { ref: U }, U>(store: T[], ref: U): T {
     const found = store.find((e) => e.ref === ref);
     if (found) {
       return found;
