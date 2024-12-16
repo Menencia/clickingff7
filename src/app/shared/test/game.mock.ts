@@ -1,6 +1,6 @@
 import { Character } from 'src/app/models/character';
+import { Item } from 'src/app/models/item';
 import { Items } from 'src/app/models/items';
-import { HpPotion } from 'src/app/models/items/hp-potion';
 import { Materias } from 'src/app/models/materias';
 import { AttackMateria, AttackMateriaJson } from 'src/app/models/materias/attack-materia';
 import { CharacterRef } from 'src/app/models/refs/characters';
@@ -61,11 +61,10 @@ const materia = new AttackMateria({
 const materias = new Materias();
 materias.add(materia);
 
-const item = new HpPotion({
+const item = new Item({
   ref: ItemRef.Potion,
+  effect: 'increase hp 33',
   price: 10,
-  pwr: 0.33,
-  type: 'hp-potion',
   zoneAvailable: 1,
 });
 

@@ -1,31 +1,26 @@
 [
   {
     "ref": "potion",
-    "type": "hp-potion",
+    "effect": "increase hp 33",
     "price": 60,
-    "pwr": 0.33,
     "zoneAvailable": 1
   },
   {
     "ref": "hi-potion",
-    "type": "hp-potion",
+    "effect": "increase hp 66",
     "price": 100,
-    "pwr": 0.66,
     "zoneAvailable": 7
   },
   {
     "ref": "ether",
-    "type": "mp-potion",
+    "effect": "increase mp 33",
     "price": 70,
-    "pwr": 0.33,
     "zoneAvailable": 1
   },
   {
     "ref": "hi-ether",
-    "type": "mp-potion",
+    "effect": "increase mp 66",
     "price": 130,
-    "pwr": 0.66,
     "zoneAvailable": 7
   }
 ]
-

@@ -2,8 +2,6 @@ import { Injectable } from '@angular/core';
 import { Character } from 'src/app/models/character';
 import { Enemy } from 'src/app/models/enemy';
 import { Item } from 'src/app/models/item';
-import { HpPotion } from 'src/app/models/items/hp-potion';
-import { MpPotion } from 'src/app/models/items/mp-potion';
 import { Materia } from 'src/app/models/materia';
 import { AttackMateria } from 'src/app/models/materias/attack-materia';
 import { CureMateria } from 'src/app/models/materias/cure-materia';
@@ -55,14 +53,7 @@ export class StoreService {
   /** Returns an Item from given ref & filled with save */
   getItem(ref: ItemRef, save?: ItemSave): Item {
     const data = this.data.getItem(ref);
-    switch (data.type) {
-      case 'hp-potion':
-        return new HpPotion(data, save?.nbr, save?.equipped);
-      case 'mp-potion':
-        return new MpPotion(data, save?.nbr, save?.equipped);
-      default:
-        throw new Error(`Item of type ${data.type} not found`);
-    }
+    return new Item(data, save?.nbr, save?.equipped);
   }
 
   /** Returns a Materia from given ref & filled with save */

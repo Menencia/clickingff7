@@ -8,13 +8,12 @@ export const MAX_ITEMS = 2;
 
 export interface ItemJson {
   ref: ItemRef;
-  type: string;
+  effect: string;
   price: number;
-  pwr: number;
   zoneAvailable: number;
 }
 
-export abstract class Item {
+export class Item {
   constructor(
     public readonly data: Readonly<ItemJson>,
     public nbr = 1,
@@ -25,9 +24,37 @@ export abstract class Item {
     return zoneLlevelMax >= this.data.zoneAvailable;
   }
 
-  abstract canUse(battleService: BattleService): boolean;
+  canUse(battleService: BattleService): boolean {
+    if (this.data.effect.startsWith('increase hp')) {
+      return battleService.team.hp < battleService.team.hpMax;
+    }
+    if (this.data.effect.startsWith('increase mp')) {
+      return battleService.team.mp < battleService.team.mpMax;
+    }
+    throw new Error(`Skill ${this.data.effect} unknown`);
+  }
 
-  abstract getSkill(battleService: BattleService): ItAction[];
+  getSkill(battleService: BattleService): ItAction[] {
+    if (this.data.effect.startsWith('increase hp')) {
+      const [, , percent] = this.data.effect.split(' ');
+      const action: ItAction = {
+        use: () => {
+          battleService.team.addHp(Math.ceil((+percent / 100) * battleService.team.hpMax));
+        },
+      };
+      return [action];
+    }
+    if (this.data.effect.startsWith('increase mp')) {
+      const [, , percent] = this.data.effect.split(' ');
+      const action: ItAction = {
+        use: () => {
+          battleService.team.addMp(Math.ceil((+percent / 100) * battleService.team.mpMax));
+        },
+      };
+      return [action];
+    }
+    throw new Error(`Skill ${this.data.effect} unknown`);
+  }
 
   use(battleService: BattleService) {
     this.getSkill(battleService).forEach((action) => action.use(battleService));
