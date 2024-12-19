@@ -58,7 +58,7 @@ export class BattleService {
 
   startFighting(): void {
     this.timer = setTimeout(() => {
-      this.enemies.getAttackSkill().use(this);
+      this.enemies.getAttackSkillTemp().use(this);
 
       if (this.team.isAlive()) {
         this.startFighting();

@@ -1,8 +1,8 @@
 import { Character } from 'src/app/models/character';
 import { Item } from 'src/app/models/item';
 import { Items } from 'src/app/models/items';
+import { Materia } from 'src/app/models/materia';
 import { Materias } from 'src/app/models/materias';
-import { AttackMateria, AttackMateriaJson } from 'src/app/models/materias/attack-materia';
 import { CharacterRef } from 'src/app/models/refs/characters';
 import { ItemRef } from 'src/app/models/refs/items';
 import { MateriaRef } from 'src/app/models/refs/materias';
@@ -47,23 +47,23 @@ team.join(character);
 const weapons = new Weapons();
 weapons.add(weapon);
 
-const materia = new AttackMateria({
+const materia = new Materia({
   ref: MateriaRef.Bolt,
   type: 'attack',
   color: 'green',
   ap: 4,
   price: 300,
-  pwr: 50,
-  elements: ['bolt'],
+  effect: 'damages magic bold 70',
+  mp: 2,
   zoneAvailable: 1,
-} as AttackMateriaJson);
+});
 
 const materias = new Materias();
 materias.add(materia);
 
 const item = new Item({
   ref: ItemRef.Potion,
-  effect: 'increase hp 33',
+  effect: 'heal 33',
   price: 10,
   zoneAvailable: 1,
 });

@@ -1,4 +1,5 @@
 import { Subject } from 'rxjs';
+import { Action } from 'src/app/core/interfaces/action';
 import { Difficulty } from 'src/app/shared/interfaces/difficulty';
 
 import { ItActionAttack } from '../../core/interfaces/it-action-attack';
@@ -130,9 +131,16 @@ export class Enemies extends Units {
   }
 
   /**
+   * $$$$ Get total enemies hits
+   */
+  async useAttackSkill(): Promise<void> {
+    // TODO
+  }
+
+  /**
    * Get total enemies hits
    */
-  getAttackSkill(): ItActionAttack {
+  getAttackSkillTemp(): ItActionAttack {
     const hits = this.getHits();
     return {
       type: [],
@@ -145,16 +153,16 @@ export class Enemies extends Units {
   /**
    * Enemies are under manual attack
    */
-  getAttacked(baseHits: number, context: ItActionAttack): void {
+  getAttacked(baseHits: number, context: Action): void {
     let hits = baseHits;
 
     // weakness
-    if (this.hasWeakness(context.type)) {
+    if (this.hasWeakness(context.elements)) {
       hits *= 3;
     }
 
     // resistance
-    if (this.hasResistance(context.type)) {
+    if (this.hasResistance(context.elements)) {
       hits = Math.floor(hits / 3);
     }
 

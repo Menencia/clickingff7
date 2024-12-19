@@ -1,6 +1,7 @@
-import { ItAction } from '../core/interfaces/it-action';
 import { BattleService } from '../core/services/battle.service';
 
+import { convertEffects } from './effect-converter';
+import { executeSkill } from './effect-executor';
 import { MateriaRef } from './refs/materias';
 import { MateriaSave } from './save';
 
@@ -10,11 +11,12 @@ export interface MateriaJson {
   color: string;
   price: number;
   ap: number;
-  pwr: number;
+  effect: string;
+  mp: number;
   zoneAvailable: number;
 }
 
-export abstract class Materia {
+export class Materia {
   constructor(
     public readonly data: Readonly<MateriaJson>,
     public level = 1,
@@ -22,14 +24,17 @@ export abstract class Materia {
     public equipped = false,
   ) {}
 
-  abstract getMpCost(): number;
+  getMpCost(): number {
+    return this.data.mp;
+  }
 
-  abstract canUse(battleService: BattleService): boolean;
+  canUse(battleService: BattleService): boolean {
+    return battleService.team.mp > this.data.mp;
+  }
 
-  abstract getSkill(battleService: BattleService): ItAction[];
-
-  use(battleService: BattleService) {
-    this.getSkill(battleService).forEach((action) => action.use(battleService));
+  async use(battleService: BattleService): Promise<void> {
+    const effects = convertEffects(this.data.effect.split(';'));
+    await executeSkill(battleService, effects);
   }
 
   /**

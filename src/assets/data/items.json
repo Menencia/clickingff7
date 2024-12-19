@@ -1,25 +1,25 @@
 [
   {
     "ref": "potion",
-    "effect": "increase hp 33",
+    "effect": "heal 33",
     "price": 60,
     "zoneAvailable": 1
   },
   {
     "ref": "hi-potion",
-    "effect": "increase hp 66",
+    "effect": "heal 66",
     "price": 100,
     "zoneAvailable": 7
   },
   {
     "ref": "ether",
-    "effect": "increase mp 33",
+    "effect": "increaseMp 33",
     "price": 70,
     "zoneAvailable": 1
   },
   {
     "ref": "hi-ether",
-    "effect": "increase mp 66",
+    "effect": "increaseMp 66",
     "price": 130,
     "zoneAvailable": 7
   }

@@ -203,7 +203,7 @@ export class ViewShopComponent {
   }
 
   private sortMaterias(materias: Materia[]): Materia[] {
-    return materias.sort((a, b) => a.data.pwr - b.data.pwr);
+    return materias.sort((a, b) => a.data.price - b.data.price);
   }
 
   private refreshPlayerItems(): void {

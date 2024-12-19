@@ -1,6 +1,8 @@
-import { ItActionAttack } from '../core/interfaces/it-action-attack';
+import { BattleService } from '../core/services/battle.service';
 
 export abstract class Units {
-  abstract getAttackSkill(): ItActionAttack;
+  abstract hp: number;
+
+  abstract useAttackSkill(battleService: BattleService): Promise<void>;
   abstract isAlive(): boolean;
 }

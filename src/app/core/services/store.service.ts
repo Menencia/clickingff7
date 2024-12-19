@@ -3,8 +3,6 @@ import { Character } from 'src/app/models/character';
 import { Enemy } from 'src/app/models/enemy';
 import { Item } from 'src/app/models/item';
 import { Materia } from 'src/app/models/materia';
-import { AttackMateria } from 'src/app/models/materias/attack-materia';
-import { CureMateria } from 'src/app/models/materias/cure-materia';
 import { CharacterRef } from 'src/app/models/refs/characters';
 import { EnemyRef } from 'src/app/models/refs/enemy';
 import { ItemRef } from 'src/app/models/refs/items';
@@ -59,13 +57,6 @@ export class StoreService {
   /** Returns a Materia from given ref & filled with save */
   getMateria(ref: MateriaRef, save?: MateriaSave): Materia {
     const data = this.data.getMateria(ref);
-    switch (data.type) {
-      case 'attack':
-        return new AttackMateria(data, save?.level, save?.ap, save?.equipped);
-      case 'cure':
-        return new CureMateria(data, save?.level, save?.ap, save?.equipped);
-      default:
-        throw new Error(`Materia of type ${data.type} not found`);
-    }
+    return new Materia(data, save?.level, save?.ap, save?.equipped);
   }
 }

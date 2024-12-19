@@ -25,18 +25,18 @@ export class Item {
   }
 
   canUse(battleService: BattleService): boolean {
-    if (this.data.effect.startsWith('increase hp')) {
+    if (this.data.effect.startsWith('heal')) {
       return battleService.team.hp < battleService.team.hpMax;
     }
-    if (this.data.effect.startsWith('increase mp')) {
+    if (this.data.effect.startsWith('increaseMp')) {
       return battleService.team.mp < battleService.team.mpMax;
     }
     throw new Error(`Skill ${this.data.effect} unknown`);
   }
 
   getSkill(battleService: BattleService): ItAction[] {
-    if (this.data.effect.startsWith('increase hp')) {
-      const [, , percent] = this.data.effect.split(' ');
+    if (this.data.effect.startsWith('heal')) {
+      const [, percent] = this.data.effect.split(' ');
       const action: ItAction = {
         use: () => {
           battleService.team.addHp(Math.ceil((+percent / 100) * battleService.team.hpMax));
@@ -44,8 +44,8 @@ export class Item {
       };
       return [action];
     }
-    if (this.data.effect.startsWith('increase mp')) {
-      const [, , percent] = this.data.effect.split(' ');
+    if (this.data.effect.startsWith('increaseMp')) {
+      const [, percent] = this.data.effect.split(' ');
       const action: ItAction = {
         use: () => {
           battleService.team.addMp(Math.ceil((+percent / 100) * battleService.team.mpMax));

@@ -52,15 +52,15 @@ export class UiActionsComponent {
     return this.battleService.canFightBoss();
   }
 
-  public fightBoss(): void {
+  public fightBoss() {
     if (this.battleService.canFightBoss()) {
       this.battleService.startBoss();
     }
   }
 
-  public attack(): void {
+  public async attack(): Promise<void> {
     if (this.battleService.isBattle) {
-      this.playerService.team.getAttackSkill().use(this.battleService);
+      await this.playerService.team.useAttackSkill(this.battleService);
 
       if (!this.battleService.enemies.isAlive()) {
         this.battleService.end(true);
@@ -71,14 +71,14 @@ export class UiActionsComponent {
   /**
    * Escape fight
    */
-  public escape(): void {
+  public escape() {
     if (this.battleService.isBattle) {
       this.battleService.end(false);
     }
   }
 
   public canUseMateria(materia: Materia): boolean {
-    return materia.canUse(this.battleService);
+    return this.battleService.isBattle && materia.canUse(this.battleService);
   }
 
   public useMateria(materia: Materia): void {

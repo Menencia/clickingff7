@@ -2,10 +2,13 @@ import { Subject } from 'rxjs';
 
 import { ItActionAttack } from '../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../core/interfaces/it-display-hits';
+import { BattleService } from '../core/services/battle.service';
+import { calculateHits } from '../shared/utils/battle.utils';
 import { addPercent } from '../shared/utils/math.utils';
 
-import { Attack } from './actions/attack';
 import { Character } from './character';
+import { executeSkill } from './effect-executor';
+import { DamagesEffect } from './effects/damages';
 import { TeamSave } from './save';
 import { Units } from './units';
 
@@ -219,7 +222,7 @@ export class Team extends Units {
   /**
    * Get total characters hits
    */
-  getAttackSkill(): ItActionAttack {
+  async useAttackSkill(battleService: BattleService): Promise<void> {
     const { attackFromEquipment: hits } = this;
     let pwr = 100;
 
@@ -229,7 +232,8 @@ export class Team extends Units {
       this.limit = 0;
     }
 
-    return new Attack(hits, pwr);
+    const effects = [new DamagesEffect(calculateHits(hits, pwr))];
+    await executeSkill(battleService, effects);
   }
 
   /**
@@ -251,10 +255,6 @@ export class Team extends Units {
    */
   limitProgress(pixelsMax: number): number {
     return (this.limit / this.limitMax) * pixelsMax;
-  }
-
-  autoFighting(): ItActionAttack {
-    return this.getAttackSkill();
   }
 
   /**
