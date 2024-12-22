@@ -1,7 +1,6 @@
 import { BehaviorSubject } from 'rxjs';
+import { Units } from 'src/app/models/units';
 import { ActionType } from 'src/app/shared/interfaces/action-type';
-
-import { Units } from './units';
 
 export class Action {
   elements: string[] = [];

@@ -55,6 +55,7 @@ const materia = new Materia({
   price: 300,
   effect: 'damages magic bold 70',
   mp: 2,
+  useOutsideBattle: false,
   zoneAvailable: 1,
 });
 
