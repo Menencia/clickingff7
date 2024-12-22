@@ -58,30 +58,23 @@ export class UiActionsComponent {
     }
   }
 
-  public async attack(): Promise<void> {
-    if (this.battleService.isBattle) {
-      await this.playerService.team.useAttackSkill(this.battleService);
-
-      if (!this.battleService.enemies.isAlive()) {
-        this.battleService.end(true);
-      }
-    }
+  public canPlay(): boolean {
+    return this.battleService.isPlayerTurn && !this.battleService.actionOngoing;
   }
 
-  /**
-   * Escape fight
-   */
+  public async attack(): Promise<void> {
+    await this.playerService.team.useAttackSkill(this.battleService);
+  }
+
   public escape() {
-    if (this.battleService.isBattle) {
-      this.battleService.end(false);
-    }
+    this.battleService.end(false);
   }
 
   public canUseMateria(materia: Materia): boolean {
-    return this.battleService.isBattle && materia.canUse(this.battleService);
+    return (this.battleService.isBattle || materia.data.useOutsideBattle) && materia.canUse(this.battleService);
   }
 
-  public useMateria(materia: Materia): void {
+  public async useMateria(materia: Materia): Promise<void> {
     // cost
     if (this.canUseMateria(materia)) {
       this.playerService.team.mp -= materia.getMpCost();
@@ -90,18 +83,14 @@ export class UiActionsComponent {
     }
 
     // do action
-    materia.use(this.battleService);
-
-    if (!this.battleService.enemies.isAlive()) {
-      this.battleService.end(true);
-    }
+    await materia.use(this.battleService);
   }
 
   public canUseItem(item: Item): boolean {
     return item.canUse(this.battleService);
   }
 
-  public useItem(item: Item): void {
+  public async useItem(item: Item): Promise<void> {
     // cost
     if (this.canUseItem(item)) {
       if (item.nbr > 1) {
@@ -114,7 +103,7 @@ export class UiActionsComponent {
     }
 
     // do action
-    item.use(this.battleService);
+    await item.use(this.battleService);
   }
 
   public canLimit(): boolean {

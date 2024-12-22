@@ -4,12 +4,17 @@ import { Effect } from './effect';
 import { DamagesEffect } from './effects/damages';
 import { ElementEffect } from './effects/element';
 import { HealEffect } from './effects/heals';
+import { TargetEffect } from './effects/target';
 import { TypeEffect } from './effects/type';
 
 export const convertEffects = (effects: string[]): Effect[] => {
   return effects
     .map((effect) => effect.trim())
     .map((effect) => {
+      if (effect.startsWith('target')) {
+        const [, target] = effect.split(' ');
+        return new TargetEffect(target as 'self' | 'opponent');
+      }
       if (effect.startsWith('heal')) {
         const [, pwr] = effect.split(' ');
         return new HealEffect(+pwr);

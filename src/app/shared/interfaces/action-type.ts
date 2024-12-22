@@ -1,1 +1,5 @@
-export type ActionType = 'magic' | 'physic';
+export enum ActionType {
+  MAGIC = 'magic',
+  PHYSIC = 'physic',
+  HEAL = 'heal',
+}

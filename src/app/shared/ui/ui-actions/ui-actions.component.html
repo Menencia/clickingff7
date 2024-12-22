@@ -1,25 +1,28 @@
 <div class="flex flex-row flex-wrap gap-1 sm:flex-col">
-  <app-button (trigger)="fightRandom()" [disabled]="isBattle()" [id]="'step6'">
-    {{ "Fight random" | translate }}{{ remainingBattles() }}
-  </app-button>
-  <app-button (trigger)="fightBoss()" [disabled]="!canFightBoss()">
-    @if (canFightBoss()) {
-      <div class="float-right text-red-700">*</div>
-    }
-    {{ "Fight boss" | translate }}
-  </app-button>
-  <app-button (trigger)="attack()" [disabled]="!isBattle()" [id]="'step7'">
-    <span>
-      @if (canLimit()) {
-        {{ "Limit" | translate }}
-      } @else {
-        {{ "Attack" | translate }}
+  @if (!isBattle()) {
+    <app-button (trigger)="fightRandom()" [disabled]="isBattle()" [id]="'step6'">
+      {{ "Fight random" | translate }}{{ remainingBattles() }}
+    </app-button>
+    <app-button (trigger)="fightBoss()" [disabled]="!canFightBoss()">
+      @if (canFightBoss()) {
+        <div class="float-right text-red-700">*</div>
       }
-    </span>
-  </app-button>
-  <app-button (trigger)="escape()" [disabled]="!isBattle()" [id]="'step8'">
-    {{ "Escape" | translate }}
-  </app-button>
+      {{ "Fight boss" | translate }}
+    </app-button>
+  } @else {
+    <app-button (trigger)="attack()" [disabled]="!canPlay()" [id]="'step7'">
+      <span>
+        @if (canLimit()) {
+          {{ "Limit" | translate }}
+        } @else {
+          {{ "Attack" | translate }}
+        }
+      </span>
+    </app-button>
+    <app-button (trigger)="escape()" [disabled]="!canPlay()" [id]="'step8'">
+      {{ "Escape" | translate }}
+    </app-button>
+  }
 
   <div class="h-3"></div>
 

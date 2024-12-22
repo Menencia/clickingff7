@@ -1,25 +1,25 @@
 [
   {
     "ref": "potion",
-    "effect": "heal 33",
+    "effect": "target self; heal 33",
     "price": 60,
     "zoneAvailable": 1
   },
   {
     "ref": "hi-potion",
-    "effect": "heal 66",
+    "effect": "target self; heal 66",
     "price": 100,
     "zoneAvailable": 7
   },
   {
     "ref": "ether",
-    "effect": "increaseMp 33",
+    "effect": "target self; increaseMp 33",
     "price": 70,
     "zoneAvailable": 1
   },
   {
     "ref": "hi-ether",
-    "effect": "increaseMp 66",
+    "effect": "target self; increaseMp 66",
     "price": 130,
     "zoneAvailable": 7
   }

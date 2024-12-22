@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Team } from 'src/app/models/team';
+import { Units } from 'src/app/models/units';
 import { Enemies } from 'src/app/models/units/enemies';
 import { MAX_FIGHTS } from 'src/app/models/zone';
 
@@ -15,23 +16,35 @@ export class BattleService {
 
   public isBattle = false;
 
-  public timer!: ReturnType<typeof setTimeout>;
+  public isPlayerTurn = false;
+
+  public actionOngoing = false;
 
   constructor(private playerService: PlayerService) {
     this.team = this.playerService.team;
     this.enemies = new Enemies();
   }
 
-  /**
-   * Characters start auto-attacking
-   */
+  getPlayer(): Units {
+    if (this.isBattle) {
+      return this.isPlayerTurn ? this.team : this.enemies;
+    }
+    return this.team;
+  }
+
+  getOpponent(): Units {
+    return this.isPlayerTurn ? this.enemies : this.team;
+  }
+
+  /** Starts a basic battle */
   startRandom(): void {
     if (!this.isBattle) {
       this.isBattle = true;
+      // TODO: determine randomly? who's the forst to move
+      this.isPlayerTurn = true;
 
       const zone = this.playerService.zones.current();
       this.enemies.fightRandom(zone, this.playerService.difficulty);
-      this.startFighting();
     }
   }
 
@@ -43,36 +56,34 @@ export class BattleService {
     return !this.isBattle && zone.nbFights >= MAX_FIGHTS && !zone.completed;
   }
 
-  /**
-   * Characters start auto-attacking
-   */
+  /** Starts a boss battle */
   startBoss(): void {
     if (!this.isBattle) {
       this.isBattle = true;
 
       const zone = this.playerService.zones.current();
       this.enemies.fightBoss(zone, this.playerService.difficulty);
-      this.startFighting();
     }
   }
 
-  startFighting(): void {
-    this.timer = setTimeout(() => {
-      this.enemies.getAttackSkillTemp().use(this);
-
-      if (this.team.isAlive()) {
-        this.startFighting();
-      } else {
-        this.end(false);
-      }
-    }, 1000);
+  /** Executes an enemy attack */
+  private async attackWithEnemy(): Promise<void> {
+    // TODO: choose randomly an enemy skill
+    await this.enemies.useAttackSkill(this);
   }
 
-  /**
-   * Stop fighting
-   */
-  stopFighting(): void {
-    clearTimeout(this.timer);
+  /** Finish the current turn and launch the next one */
+  public async nextTurn(): Promise<void> {
+    if (!this.enemies.isAlive()) {
+      this.end(true);
+    } else if (!this.team.isAlive()) {
+      this.end(false);
+    } else {
+      this.isPlayerTurn = !this.isPlayerTurn;
+      if (!this.isPlayerTurn) {
+        await this.attackWithEnemy();
+      }
+    }
   }
 
   /**
@@ -80,8 +91,7 @@ export class BattleService {
    */
   end(victory: boolean): void {
     this.isBattle = false;
-
-    this.stopFighting();
+    this.isPlayerTurn = false;
 
     // Rewards if victory
     if (victory) {

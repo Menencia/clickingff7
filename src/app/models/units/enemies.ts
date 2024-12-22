@@ -1,11 +1,12 @@
 import { Subject } from 'rxjs';
-import { Action } from 'src/app/core/interfaces/action';
+import { Action } from 'src/app/models/action';
 import { Difficulty } from 'src/app/shared/interfaces/difficulty';
 
-import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
 import { BattleService } from '../../core/services/battle.service';
 import { addPercent, random } from '../../shared/utils/math.utils';
+import { convertEffects } from '../effect-converter';
+import { executeSkill } from '../effect-executor';
 import { Enemy } from '../enemy';
 import { Units } from '../units';
 import { MAX_FIGHTS, Zone } from '../zone';
@@ -133,21 +134,10 @@ export class Enemies extends Units {
   /**
    * $$$$ Get total enemies hits
    */
-  async useAttackSkill(): Promise<void> {
-    // TODO
-  }
-
-  /**
-   * Get total enemies hits
-   */
-  getAttackSkillTemp(): ItActionAttack {
-    const hits = this.getHits();
-    return {
-      type: [],
-      use(battleService: BattleService) {
-        battleService.team.getAttacked(hits, this);
-      },
-    };
+  async useAttackSkill(battleService: BattleService) {
+    const effects = convertEffects(['damages 1']);
+    await executeSkill(battleService, effects);
+    battleService.nextTurn();
   }
 
   /**
@@ -167,7 +157,11 @@ export class Enemies extends Units {
     }
 
     this.hp = Math.max(this.hp - hits, 0);
-    this.source.hp.next({ hits } as ItDisplayHits);
+    this.source.hp.next({ hits, context } as ItDisplayHits);
+  }
+
+  addHp(hp: number, context: Action) {
+    this.source.hp.next({ hits: hp, context } as ItDisplayHits);
   }
 
   isAlive(): boolean {

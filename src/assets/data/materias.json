@@ -7,6 +7,7 @@
     "ap": 2,
     "effect": "heal 40",
     "mp": "3",
+    "useOutsideBattle": true,
     "zoneAvailable": 7
   },
   {

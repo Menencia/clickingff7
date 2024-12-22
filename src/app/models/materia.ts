@@ -13,6 +13,7 @@ export interface MateriaJson {
   ap: number;
   effect: string;
   mp: number;
+  useOutsideBattle: boolean;
   zoneAvailable: number;
 }
 
@@ -29,12 +30,22 @@ export class Materia {
   }
 
   canUse(battleService: BattleService): boolean {
-    return battleService.team.mp > this.data.mp;
+    const hasMP = battleService.team.mp > this.data.mp;
+
+    const effects = this.data.effect.split(';').map((effect) => effect.trim());
+    const lastEffect = effects.at(-1) ?? '';
+    if (lastEffect.startsWith('heal')) {
+      return hasMP && battleService.team.hp < battleService.team.hpMax;
+    }
+    return hasMP;
   }
 
   async use(battleService: BattleService): Promise<void> {
     const effects = convertEffects(this.data.effect.split(';'));
     await executeSkill(battleService, effects);
+    if (battleService.isBattle) {
+      battleService.nextTurn();
+    }
   }
 
   /**

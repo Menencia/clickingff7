@@ -1,0 +1,8 @@
+<div
+  *ngFor="let damage of damages"
+  class="damage"
+  [ngStyle]="{ left: damage.x + 'px', top: damage.y + 'px' }"
+  (animationend)="removeDamage(damage.id)"
+>
+  {{ damage.value }}
+</div>

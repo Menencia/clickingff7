@@ -1,0 +1,18 @@
+.damage {
+  position: absolute;
+  color: red;
+  font-size: 20px;
+  font-weight: bold;
+  animation: floatUp 1s ease-out forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+}

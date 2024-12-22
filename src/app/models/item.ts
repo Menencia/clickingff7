@@ -1,6 +1,7 @@
-import { ItAction } from '../core/interfaces/it-action';
 import { BattleService } from '../core/services/battle.service';
 
+import { convertEffects } from './effect-converter';
+import { executeSkill } from './effect-executor';
 import { ItemRef } from './refs/items';
 import { ItemSave } from './save';
 
@@ -25,39 +26,23 @@ export class Item {
   }
 
   canUse(battleService: BattleService): boolean {
-    if (this.data.effect.startsWith('heal')) {
+    const effects = this.data.effect.split(';').map((effect) => effect.trim());
+    const lastEffect = effects.at(-1) ?? '';
+    if (lastEffect.startsWith('heal')) {
       return battleService.team.hp < battleService.team.hpMax;
     }
-    if (this.data.effect.startsWith('increaseMp')) {
+    if (lastEffect.startsWith('increaseMp')) {
       return battleService.team.mp < battleService.team.mpMax;
     }
-    throw new Error(`Skill ${this.data.effect} unknown`);
+    throw new Error(`Skill unknown: ${this.data.effect}`);
   }
 
-  getSkill(battleService: BattleService): ItAction[] {
-    if (this.data.effect.startsWith('heal')) {
-      const [, percent] = this.data.effect.split(' ');
-      const action: ItAction = {
-        use: () => {
-          battleService.team.addHp(Math.ceil((+percent / 100) * battleService.team.hpMax));
-        },
-      };
-      return [action];
+  async use(battleService: BattleService) {
+    const effects = convertEffects(this.data.effect.split(';'));
+    await executeSkill(battleService, effects);
+    if (battleService.isBattle) {
+      battleService.nextTurn();
     }
-    if (this.data.effect.startsWith('increaseMp')) {
-      const [, percent] = this.data.effect.split(' ');
-      const action: ItAction = {
-        use: () => {
-          battleService.team.addMp(Math.ceil((+percent / 100) * battleService.team.mpMax));
-        },
-      };
-      return [action];
-    }
-    throw new Error(`Skill ${this.data.effect} unknown`);
-  }
-
-  use(battleService: BattleService) {
-    this.getSkill(battleService).forEach((action) => action.use(battleService));
   }
 
   /**

@@ -1,11 +1,11 @@
 import { Subject } from 'rxjs';
 
-import { ItActionAttack } from '../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../core/interfaces/it-display-hits';
 import { BattleService } from '../core/services/battle.service';
 import { calculateHits } from '../shared/utils/battle.utils';
-import { addPercent } from '../shared/utils/math.utils';
+import { addPercent, uuid } from '../shared/utils/math.utils';
 
+import { Action } from './action';
 import { Character } from './character';
 import { executeSkill } from './effect-executor';
 import { DamagesEffect } from './effects/damages';
@@ -113,14 +113,6 @@ export class Team extends Units {
   /**
    *
    */
-  addHp(value: number): void {
-    this.hp = Math.min(this.hp + value, this.hpMax);
-    this.source.hp.next({ hits: value } as ItDisplayHits);
-  }
-
-  /**
-   *
-   */
   addMp(value: number): void {
     this.mp = Math.min(this.mp + value, this.mpMax);
   }
@@ -213,6 +205,9 @@ export class Team extends Units {
       while (this.xp >= this.getXpMax()) {
         this.xp -= this.getXpMax();
         this.level += 1;
+        this.refresh();
+        this.hp = this.hpMax;
+        this.mp = this.mpMax;
       }
     } else {
       this.xp = 0;
@@ -234,6 +229,7 @@ export class Team extends Units {
 
     const effects = [new DamagesEffect(calculateHits(hits, pwr))];
     await executeSkill(battleService, effects);
+    battleService.nextTurn();
   }
 
   /**
@@ -260,23 +256,29 @@ export class Team extends Units {
   /**
    * Characters are under attack
    */
-  getAttacked(baseHits: number, context: ItActionAttack): void {
+  getAttacked(baseHits: number, context: Action): void {
     let hits = baseHits;
 
     // weakness
-    if (this.hasWeakness(context.type)) {
+    if (this.hasWeakness(context.elements)) {
       hits *= 3;
     }
 
     // resistance
-    if (this.hasResistance(context.type)) {
+    if (this.hasResistance(context.elements)) {
       hits = Math.floor(hits / 10);
     }
 
     this.hp = Math.max(this.hp - hits, 0);
-    this.source.hp.next({ hits } as ItDisplayHits);
+    this.source.hp.next({ id: uuid(), hits, context } as ItDisplayHits);
 
     this.limit = Math.min(this.limit + hits, this.limitMax);
+  }
+
+  addHp(value: number, context: Action): void {
+    const hits = value;
+    this.hp = Math.min(this.hp + hits, this.hpMax);
+    this.source.hp.next({ id: uuid(), hits, context } as ItDisplayHits);
   }
 
   isAlive(): boolean {

@@ -4,7 +4,7 @@
   <div [style.width]="progressBg + '%'" class="progress-bg"></div>
   <div class="label">{{ text }}</div>
   @for (hits of arrHits; track $index) {
-    <div @animation (@animation.done)="onAnimationEvent()" class="absolute top-0 right-0 text-3xl text-red-600 hits">
+    <div @fadeIn (@fadeIn.done)="doneAnimation(hits.id)" class="absolute top-0 right-0 text-3xl text-red-600 hits">
       {{ hits.hits }}
     </div>
   }
