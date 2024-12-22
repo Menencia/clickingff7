@@ -3,6 +3,7 @@ import { Team } from 'src/app/models/team';
 import { Units } from 'src/app/models/units';
 import { Enemies } from 'src/app/models/units/enemies';
 import { MAX_FIGHTS } from 'src/app/models/zone';
+import { ActionTarget } from 'src/app/shared/interfaces/action-target';
 
 import { PlayerService } from './player.service';
 
@@ -25,15 +26,19 @@ export class BattleService {
     this.enemies = new Enemies();
   }
 
-  getPlayer(): Units {
-    if (this.isBattle) {
-      return this.isPlayerTurn ? this.team : this.enemies;
+  /** Returns target for action */
+  getTarget(target: ActionTarget): Units {
+    switch (target) {
+      case ActionTarget.SELF:
+        if (this.isBattle) {
+          return this.isPlayerTurn ? this.team : this.enemies;
+        }
+        return this.team;
+      case ActionTarget.OPPONENT:
+        return this.isPlayerTurn ? this.enemies : this.team;
+      default:
+        throw new Error(`Unknown target: ${target}`);
     }
-    return this.team;
-  }
-
-  getOpponent(): Units {
-    return this.isPlayerTurn ? this.enemies : this.team;
   }
 
   /** Starts a basic battle */

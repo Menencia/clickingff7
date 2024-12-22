@@ -1,15 +1,16 @@
 import { BehaviorSubject } from 'rxjs';
-import { Units } from 'src/app/models/units';
-import { ActionType } from 'src/app/shared/interfaces/action-type';
+
+import { ActionTarget } from '../shared/interfaces/action-target';
+import { ActionType } from '../shared/interfaces/action-type';
 
 export class Action {
-  elements: string[] = [];
+  target = ActionTarget.OPPONENT;
 
   type = ActionType.PHYSIC;
 
-  completed = new BehaviorSubject(false);
+  elements: string[] = [];
 
-  constructor(public target: Units) {}
+  completed = new BehaviorSubject(false);
 
   complete() {
     this.completed.next(true);

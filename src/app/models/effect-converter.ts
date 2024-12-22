@@ -1,3 +1,4 @@
+import { ActionTarget } from '../shared/interfaces/action-target';
 import { ActionType } from '../shared/interfaces/action-type';
 
 import { Effect } from './effect';
@@ -13,7 +14,7 @@ export const convertEffects = (effects: string[]): Effect[] => {
     .map((effect) => {
       if (effect.startsWith('target')) {
         const [, target] = effect.split(' ');
-        return new TargetEffect(target as 'self' | 'opponent');
+        return new TargetEffect(target as ActionTarget);
       }
       if (effect.startsWith('heal')) {
         const [, pwr] = effect.split(' ');

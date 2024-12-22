@@ -5,7 +5,7 @@ import { Effect } from './effect';
 
 export const executeSkill = async (battleService: BattleService, effects: Effect[]): Promise<void> => {
   battleService.actionOngoing = true;
-  const action = new Action(battleService.getOpponent());
+  const action = new Action();
   effects.forEach(async (e) => {
     await e.executeEffect(action, battleService);
   });
