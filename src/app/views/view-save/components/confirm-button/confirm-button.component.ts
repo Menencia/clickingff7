@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { ButtonComponent } from '@shared/components/button/button.component';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
 
 @Component({
   selector: 'app-confirm-button',

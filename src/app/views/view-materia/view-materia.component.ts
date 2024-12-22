@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { MateriaIconComponent } from '@shared/components/materia-icon/materia-icon.component';
+import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Materia } from '@shared/models/materia';
 import { PlayerService } from '@shared/services/player.service';
-import { MateriaIconComponent } from 'src/app/shared/ui/materia-icon/materia-icon.component';
-import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
   selector: 'app-view-materia',

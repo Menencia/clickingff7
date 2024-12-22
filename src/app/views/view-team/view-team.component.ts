@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Character } from '@shared/models/character';
 import { Team } from '@shared/models/team';
 import { MAX_TEAM } from '@shared/models/units/characters';
 import { PlayerService } from '@shared/services/player.service';
-import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
   selector: 'app-view-team',

@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { PlayerService } from '@shared/services/player.service';
+import { ProgressBarComponent } from '@shared/components/progress-bar/progress-bar.component';
 import { Character } from '@shared/models/character';
 import { Team } from '@shared/models/team';
-import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-bar.component';
+import { PlayerService } from '@shared/services/player.service';
 
 @Component({
   selector: 'app-characters-panel',

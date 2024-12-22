@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { MockComponents, MockProvider } from 'ng-mocks';
+import { UiActionsComponent } from '@shared/components/ui-actions/ui-actions.component';
 import { PlayerService } from '@shared/services/player.service';
-import { UiActionsComponent } from 'src/app/shared/ui/ui-actions/ui-actions.component';
+import { MockComponents, MockProvider } from 'ng-mocks';
 
 import { CharactersPanelComponent } from './components/characters-panel/characters-panel.component';
 import { ViewGameComponent } from './view-game.component';

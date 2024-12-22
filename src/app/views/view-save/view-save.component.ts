@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Character } from '@shared/models/character';
 import { CharacterRef } from '@shared/models/refs/characters';
 import { Save } from '@shared/models/save';
@@ -10,8 +12,6 @@ import { GameService } from '@shared/services/game.service';
 import { PlayerService } from '@shared/services/player.service';
 import { StoreService } from '@shared/services/store.service';
 import { PipeTimePipe } from 'src/app/shared/pipes/pipe-time.pipe';
-import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
-import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 
 import { ConfirmButtonComponent } from './components/confirm-button/confirm-button.component';
 

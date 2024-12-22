@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin, map } from 'rxjs';
 import { CharacterJson } from '@shared/models/character';
 import { EnemyJson } from '@shared/models/enemy';
 import { ItemJson } from '@shared/models/item';
@@ -13,6 +12,7 @@ import { WeaponRef } from '@shared/models/refs/weapons';
 import { ZoneRef } from '@shared/models/refs/zones';
 import { WeaponJson } from '@shared/models/weapon';
 import { ZoneJson } from '@shared/models/zone';
+import { Observable, forkJoin, map } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

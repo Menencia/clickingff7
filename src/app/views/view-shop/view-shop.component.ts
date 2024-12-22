@@ -1,5 +1,10 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { ItemIconComponent } from '@shared/components/item-icon/item-icon.component';
+import { MateriaIconComponent } from '@shared/components/materia-icon/materia-icon.component';
+import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
+import { WeaponIconComponent } from '@shared/components/weapon-icon/weapon-icon.component';
 import { Item, MAX_ITEMS } from '@shared/models/item';
 import { Materia } from '@shared/models/materia';
 import { ItemRef } from '@shared/models/refs/items';
@@ -8,11 +13,6 @@ import { WeaponRef } from '@shared/models/refs/weapons';
 import { Weapon } from '@shared/models/weapon';
 import { PlayerService } from '@shared/services/player.service';
 import { StoreService } from '@shared/services/store.service';
-import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
-import { ItemIconComponent } from 'src/app/shared/ui/item-icon/item-icon.component';
-import { MateriaIconComponent } from 'src/app/shared/ui/materia-icon/materia-icon.component';
-import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
-import { WeaponIconComponent } from 'src/app/shared/ui/weapon-icon/weapon-icon.component';
 
 @Component({
   selector: 'app-shop',

@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { ProgressBarComponent } from '@shared/components/progress-bar/progress-bar.component';
 import { Enemies } from '@shared/models/units/enemies';
-import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-bar.component';
 
 @Component({
   selector: 'app-enemies-panel',

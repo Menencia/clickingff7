@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Zone } from '@shared/models/zone';
 import { PlayerService } from '@shared/services/player.service';
 import { ShopService } from '@shared/services/shop.service';
-import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
-import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
   selector: 'app-view-map',

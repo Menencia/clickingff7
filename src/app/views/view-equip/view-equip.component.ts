@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { PlayerService } from '@shared/services/player.service';
+import { ButtonComponent } from '@shared/components/button/button.component';
+import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
+import { WeaponIconComponent } from '@shared/components/weapon-icon/weapon-icon.component';
 import { Character } from '@shared/models/character';
 import { Team } from '@shared/models/team';
 import { Weapon } from '@shared/models/weapon';
-import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
-import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
-import { WeaponIconComponent } from 'src/app/shared/ui/weapon-icon/weapon-icon.component';
+import { PlayerService } from '@shared/services/player.service';
 
 @Component({
   selector: 'app-view-equip',

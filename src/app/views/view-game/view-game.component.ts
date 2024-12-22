@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { BattleService } from '@shared/services/battle.service';
-import { PlayerService } from '@shared/services/player.service';
+import { UiActionsComponent } from '@shared/components/ui-actions/ui-actions.component';
+import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Team } from '@shared/models/team';
 import { Enemies } from '@shared/models/units/enemies';
-import { UiActionsComponent } from 'src/app/shared/ui/ui-actions/ui-actions.component';
-import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
+import { BattleService } from '@shared/services/battle.service';
+import { PlayerService } from '@shared/services/player.service';
 
 import { CharactersPanelComponent } from './components/characters-panel/characters-panel.component';
 import { EnemiesPanelComponent } from './components/enemies-panel/enemies-panel.component';

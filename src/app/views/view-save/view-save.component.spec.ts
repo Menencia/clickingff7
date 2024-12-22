@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { MockProvider } from 'ng-mocks';
 import { GameService } from '@shared/services/game.service';
 import { StoreService } from '@shared/services/store.service';
+import { MockProvider } from 'ng-mocks';
 
 import { ViewSaveComponent } from './view-save.component';
 

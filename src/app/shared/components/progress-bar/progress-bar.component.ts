@@ -2,8 +2,8 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { Subject, Subscription } from 'rxjs';
 import { ItDisplayHits } from '@shared/interfaces/it-display-hits';
+import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-progress-bar',
