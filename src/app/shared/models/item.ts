@@ -1,4 +1,4 @@
-import { BattleService } from '../core/services/battle.service';
+import { BattleService } from '@shared/services/battle.service';
 
 import { convertEffects } from './effect-converter';
 import { executeSkill } from './effect-executor';

@@ -1,6 +1,5 @@
 import { Routes } from '@angular/router';
-
-import { BattleGuard } from './core/guards/battle.guard';
+import { BattleGuard } from '@shared/guards/battle.guard';
 
 export const routes: Routes = [
   {

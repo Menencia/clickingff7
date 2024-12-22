@@ -1,9 +1,8 @@
+import { ItDisplayHits } from '@shared/interfaces/it-display-hits';
+import { BattleService } from '@shared/services/battle.service';
+import { calculateHits } from '@shared/utils/battle.utils';
+import { addPercent, uuid } from '@shared/utils/math.utils';
 import { Subject } from 'rxjs';
-
-import { ItDisplayHits } from '../core/interfaces/it-display-hits';
-import { BattleService } from '../core/services/battle.service';
-import { calculateHits } from '../shared/utils/battle.utils';
-import { addPercent, uuid } from '../shared/utils/math.utils';
 
 import { Action } from './action';
 import { Character } from './character';

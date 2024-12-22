@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { PlayerService } from 'src/app/core/services/player.service';
-import { Character } from 'src/app/models/character';
-import { Team } from 'src/app/models/team';
-import { Weapon } from 'src/app/models/weapon';
+import { PlayerService } from '@shared/services/player.service';
+import { Character } from '@shared/models/character';
+import { Team } from '@shared/models/team';
+import { Weapon } from '@shared/models/weapon';
 import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 import { WeaponIconComponent } from 'src/app/shared/ui/weapon-icon/weapon-icon.component';

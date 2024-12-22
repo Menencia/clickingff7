@@ -3,7 +3,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { Subject, Subscription } from 'rxjs';
-import { ItDisplayHits } from 'src/app/core/interfaces/it-display-hits';
+import { ItDisplayHits } from '@shared/interfaces/it-display-hits';
 
 @Component({
   selector: 'app-progress-bar',

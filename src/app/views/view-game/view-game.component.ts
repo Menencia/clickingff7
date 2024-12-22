@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { BattleService } from 'src/app/core/services/battle.service';
-import { PlayerService } from 'src/app/core/services/player.service';
-import { Team } from 'src/app/models/team';
-import { Enemies } from 'src/app/models/units/enemies';
+import { BattleService } from '@shared/services/battle.service';
+import { PlayerService } from '@shared/services/player.service';
+import { Team } from '@shared/models/team';
+import { Enemies } from '@shared/models/units/enemies';
 import { UiActionsComponent } from 'src/app/shared/ui/ui-actions/ui-actions.component';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 

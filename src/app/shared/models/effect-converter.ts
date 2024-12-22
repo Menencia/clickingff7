@@ -1,5 +1,5 @@
-import { ActionTarget } from '../shared/interfaces/action-target';
-import { ActionType } from '../shared/interfaces/action-type';
+import { ActionTarget } from '@shared/interfaces/action-target';
+import { ActionType } from '@shared/interfaces/action-type';
 
 import { Effect } from './effect';
 import { DamagesEffect } from './effects/damages';

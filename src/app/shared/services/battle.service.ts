@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { Team } from 'src/app/models/team';
-import { Units } from 'src/app/models/units';
-import { Enemies } from 'src/app/models/units/enemies';
-import { MAX_FIGHTS } from 'src/app/models/zone';
+import { Team } from '@shared/models/team';
+import { Units } from '@shared/models/units';
+import { Enemies } from '@shared/models/units/enemies';
+import { MAX_FIGHTS } from '@shared/models/zone';
 import { ActionTarget } from 'src/app/shared/interfaces/action-target';
 
 import { PlayerService } from './player.service';

@@ -1,10 +1,10 @@
+import { Difficulty } from '@shared/interfaces/difficulty';
+import { Action } from '@shared/models/action';
 import { Subject } from 'rxjs';
-import { Action } from 'src/app/models/action';
-import { Difficulty } from 'src/app/shared/interfaces/difficulty';
 
-import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
-import { BattleService } from '../../core/services/battle.service';
-import { addPercent, random } from '../../shared/utils/math.utils';
+import { ItDisplayHits } from '../../interfaces/it-display-hits';
+import { BattleService } from '../../services/battle.service';
+import { addPercent, random } from '../../utils/math.utils';
 import { convertEffects } from '../effect-converter';
 import { executeSkill } from '../effect-executor';
 import { Enemy } from '../enemy';

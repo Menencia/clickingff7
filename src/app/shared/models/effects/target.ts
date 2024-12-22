@@ -1,4 +1,4 @@
-import { Action } from 'src/app/models/action';
+import { Action } from '@shared/models/action';
 import { ActionTarget } from 'src/app/shared/interfaces/action-target';
 
 import { Effect } from '../effect';

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { PlayerService } from 'src/app/core/services/player.service';
-import { Materia } from 'src/app/models/materia';
+import { Materia } from '@shared/models/materia';
+import { PlayerService } from '@shared/services/player.service';
 import { MateriaIconComponent } from 'src/app/shared/ui/materia-icon/materia-icon.component';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 

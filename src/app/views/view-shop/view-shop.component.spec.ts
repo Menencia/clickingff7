@@ -2,8 +2,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockProvider } from 'ng-mocks';
-import { PlayerService } from 'src/app/core/services/player.service';
-import { StoreService } from 'src/app/core/services/store.service';
+import { PlayerService } from '@shared/services/player.service';
+import { StoreService } from '@shared/services/store.service';
 import { ItemsMock, MateriasMock, WeaponsMock, ZonesMock, itemMock, materiaMock, weaponMock } from 'src/app/shared/test/game.mock';
 
 import { ViewShopComponent } from './view-shop.component';

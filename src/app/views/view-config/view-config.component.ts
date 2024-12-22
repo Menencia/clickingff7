@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
-import { LangService } from 'src/app/core/services/lang.service';
-import { PlayerService } from 'src/app/core/services/player.service';
+import { LangService } from '@shared/services/lang.service';
+import { PlayerService } from '@shared/services/player.service';
 import { Difficulty } from 'src/app/shared/interfaces/difficulty';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 

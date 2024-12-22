@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Enemies } from 'src/app/models/units/enemies';
+import { Enemies } from '@shared/models/units/enemies';
 import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-bar.component';
 
 @Component({

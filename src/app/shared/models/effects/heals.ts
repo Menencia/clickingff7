@@ -1,5 +1,5 @@
-import { BattleService } from 'src/app/core/services/battle.service';
-import { Action } from 'src/app/models/action';
+import { BattleService } from '@shared/services/battle.service';
+import { Action } from '@shared/models/action';
 
 import { Effect } from '../effect';
 

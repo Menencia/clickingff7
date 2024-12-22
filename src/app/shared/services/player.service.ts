@@ -1,15 +1,15 @@
 import { Injectable } from '@angular/core';
-import { Items } from 'src/app/models/items';
-import { Materias } from 'src/app/models/materias';
-import { CharacterRef } from 'src/app/models/refs/characters';
-import { ItemRef } from 'src/app/models/refs/items';
-import { MateriaRef } from 'src/app/models/refs/materias';
-import { ZoneRef } from 'src/app/models/refs/zones';
-import { Save } from 'src/app/models/save';
-import { Team } from 'src/app/models/team';
-import { Characters } from 'src/app/models/units/characters';
-import { Weapons } from 'src/app/models/weapons';
-import { Zones } from 'src/app/models/zones';
+import { Items } from '@shared/models/items';
+import { Materias } from '@shared/models/materias';
+import { CharacterRef } from '@shared/models/refs/characters';
+import { ItemRef } from '@shared/models/refs/items';
+import { MateriaRef } from '@shared/models/refs/materias';
+import { ZoneRef } from '@shared/models/refs/zones';
+import { Save } from '@shared/models/save';
+import { Team } from '@shared/models/team';
+import { Characters } from '@shared/models/units/characters';
+import { Weapons } from '@shared/models/weapons';
+import { Zones } from '@shared/models/zones';
 import { Difficulty } from 'src/app/shared/interfaces/difficulty';
 
 import { LangService } from './lang.service';

@@ -1,18 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, forkJoin, map } from 'rxjs';
-import { CharacterJson } from 'src/app/models/character';
-import { EnemyJson } from 'src/app/models/enemy';
-import { ItemJson } from 'src/app/models/item';
-import { MateriaJson } from 'src/app/models/materia';
-import { CharacterRef } from 'src/app/models/refs/characters';
-import { EnemyRef } from 'src/app/models/refs/enemy';
-import { ItemRef } from 'src/app/models/refs/items';
-import { MateriaRef } from 'src/app/models/refs/materias';
-import { WeaponRef } from 'src/app/models/refs/weapons';
-import { ZoneRef } from 'src/app/models/refs/zones';
-import { WeaponJson } from 'src/app/models/weapon';
-import { ZoneJson } from 'src/app/models/zone';
+import { CharacterJson } from '@shared/models/character';
+import { EnemyJson } from '@shared/models/enemy';
+import { ItemJson } from '@shared/models/item';
+import { MateriaJson } from '@shared/models/materia';
+import { CharacterRef } from '@shared/models/refs/characters';
+import { EnemyRef } from '@shared/models/refs/enemy';
+import { ItemRef } from '@shared/models/refs/items';
+import { MateriaRef } from '@shared/models/refs/materias';
+import { WeaponRef } from '@shared/models/refs/weapons';
+import { ZoneRef } from '@shared/models/refs/zones';
+import { WeaponJson } from '@shared/models/weapon';
+import { ZoneJson } from '@shared/models/zone';
 
 @Injectable({
   providedIn: 'root',

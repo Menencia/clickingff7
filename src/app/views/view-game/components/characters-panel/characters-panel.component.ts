@@ -1,8 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { PlayerService } from 'src/app/core/services/player.service';
-import { Character } from 'src/app/models/character';
-import { Team } from 'src/app/models/team';
+import { PlayerService } from '@shared/services/player.service';
+import { Character } from '@shared/models/character';
+import { Team } from '@shared/models/team';
 import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-bar.component';
 
 @Component({

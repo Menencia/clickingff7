@@ -3,7 +3,7 @@ import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
-import { helpData } from 'src/app/models/help';
+import { helpData } from '@shared/models/help';
 
 // declare this to by pass typescript error
 // can put this in index.d.ts file

@@ -1,7 +1,6 @@
+import { ActionTarget } from '@shared/interfaces/action-target';
+import { ActionType } from '@shared/interfaces/action-type';
 import { BehaviorSubject } from 'rxjs';
-
-import { ActionTarget } from '../shared/interfaces/action-target';
-import { ActionType } from '../shared/interfaces/action-type';
 
 export class Action {
   target = ActionTarget.OPPONENT;

@@ -1,7 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockProvider } from 'ng-mocks';
-import { PlayerService } from 'src/app/core/services/player.service';
+import { PlayerService } from '@shared/services/player.service';
 
 import { ViewConfigComponent } from './view-config.component';
 

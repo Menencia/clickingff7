@@ -1,4 +1,4 @@
-import { Action } from 'src/app/models/action';
+import { Action } from '@shared/models/action';
 
 export interface ItDisplayHits {
   id: string;

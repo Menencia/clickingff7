@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { StoreService } from 'src/app/core/services/store.service';
+import { StoreService } from '@shared/services/store.service';
 
 import { StoreServiceMock } from './store.mock';
 

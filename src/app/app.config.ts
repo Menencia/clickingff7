@@ -6,7 +6,7 @@ import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 
 import { routes } from './app.routes';
-import { DataService } from './core/services/data.service';
+import { DataService } from './shared/services/data.service';
 
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(_httpBackend: HttpBackend) {

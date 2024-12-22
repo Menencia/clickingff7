@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Save } from 'src/app/models/save';
+import { Save } from '@shared/models/save';
 
 import { BattleService } from './battle.service';
 import { LangService } from './lang.service';

@@ -1,17 +1,17 @@
 import { Injectable } from '@angular/core';
-import { Character } from 'src/app/models/character';
-import { Enemy } from 'src/app/models/enemy';
-import { Item } from 'src/app/models/item';
-import { Materia } from 'src/app/models/materia';
-import { CharacterRef } from 'src/app/models/refs/characters';
-import { EnemyRef } from 'src/app/models/refs/enemy';
-import { ItemRef } from 'src/app/models/refs/items';
-import { MateriaRef } from 'src/app/models/refs/materias';
-import { WeaponRef } from 'src/app/models/refs/weapons';
-import { ZoneRef } from 'src/app/models/refs/zones';
-import { CharacterSave, ItemSave, MateriaSave, ZoneSave } from 'src/app/models/save';
-import { Weapon } from 'src/app/models/weapon';
-import { Zone } from 'src/app/models/zone';
+import { Character } from '@shared/models/character';
+import { Enemy } from '@shared/models/enemy';
+import { Item } from '@shared/models/item';
+import { Materia } from '@shared/models/materia';
+import { CharacterRef } from '@shared/models/refs/characters';
+import { EnemyRef } from '@shared/models/refs/enemy';
+import { ItemRef } from '@shared/models/refs/items';
+import { MateriaRef } from '@shared/models/refs/materias';
+import { WeaponRef } from '@shared/models/refs/weapons';
+import { ZoneRef } from '@shared/models/refs/zones';
+import { CharacterSave, ItemSave, MateriaSave, ZoneSave } from '@shared/models/save';
+import { Weapon } from '@shared/models/weapon';
+import { Zone } from '@shared/models/zone';
 
 import { DataService } from './data.service';
 

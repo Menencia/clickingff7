@@ -4,9 +4,9 @@ import { RouterOutlet } from '@angular/router';
 import packageJson from '../../package.json';
 
 import { MenuSidebarComponent } from './core/components/menu-sidebar/menu-sidebar.component';
-import { BattleService } from './core/services/battle.service';
-import { GameService } from './core/services/game.service';
-import { PlayerService } from './core/services/player.service';
+import { BattleService } from './shared/services/battle.service';
+import { GameService } from './shared/services/game.service';
+import { PlayerService } from './shared/services/player.service';
 import { UiFooterComponent } from './shared/ui/ui-footer/ui-footer.component';
 import { UiNavbarComponent } from './shared/ui/ui-navbar/ui-navbar.component';
 

@@ -1,12 +1,11 @@
 import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
+import { NavLink } from '@shared/models/nav-link';
+import { PlayerService } from '@shared/services/player.service';
 import { SidebarModule } from 'primeng/sidebar';
 import { filter } from 'rxjs';
-import { NavLink } from 'src/app/shared/models/nav-link';
 import { SubSink } from 'subsink';
-
-import { PlayerService } from '../../services/player.service';
 
 @Component({
   selector: 'app-menu-sidebar',

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { BattleService } from 'src/app/core/services/battle.service';
-import { PlayerService } from 'src/app/core/services/player.service';
-import { Item } from 'src/app/models/item';
-import { Materia } from 'src/app/models/materia';
-import { MAX_FIGHTS } from 'src/app/models/zone';
+import { BattleService } from '@shared/services/battle.service';
+import { PlayerService } from '@shared/services/player.service';
+import { Item } from '@shared/models/item';
+import { Materia } from '@shared/models/materia';
+import { MAX_FIGHTS } from '@shared/models/zone';
 
 import { ButtonComponent } from '../button/button.component';
 

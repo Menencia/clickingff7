@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { PlayerService } from 'src/app/core/services/player.service';
-import { Item, MAX_ITEMS } from 'src/app/models/item';
+import { Item, MAX_ITEMS } from '@shared/models/item';
+import { PlayerService } from '@shared/services/player.service';
 import { ItemIconComponent } from 'src/app/shared/ui/item-icon/item-icon.component';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 

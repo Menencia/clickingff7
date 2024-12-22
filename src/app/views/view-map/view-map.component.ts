@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { PlayerService } from 'src/app/core/services/player.service';
-import { ShopService } from 'src/app/core/services/shop.service';
-import { Zone } from 'src/app/models/zone';
+import { Zone } from '@shared/models/zone';
+import { PlayerService } from '@shared/services/player.service';
+import { ShopService } from '@shared/services/shop.service';
 import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
 import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
 
