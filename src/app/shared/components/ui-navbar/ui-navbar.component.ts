@@ -3,6 +3,7 @@ import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { helpData } from '@shared/models/help';
+import { BattleService } from '@shared/services/battle.service';
 import { ButtonModule } from 'primeng/button';
 
 // declare this to by pass typescript error
@@ -29,14 +30,13 @@ export class UiNavbarComponent {
 
   @Input() displayPhs = false;
 
-  @Input() isBattle = false;
-
   @Output() sidebarVisibleChange = new EventEmitter();
 
   theme: string;
 
   constructor(
     @Inject(DOCUMENT) private document: Document,
+    public battleService: BattleService,
     public translateService: TranslateService,
     public router: Router,
   ) {
@@ -53,7 +53,7 @@ export class UiNavbarComponent {
 
   // Show help
   help(): void {
-    if (!this.isBattle) {
+    if (!this.battleService.battle()) {
       this.router.navigateByUrl('game');
 
       helpData.steps.forEach((step, index) => {

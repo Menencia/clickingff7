@@ -1,8 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { UiActionsComponent } from '@shared/components/ui-actions/ui-actions.component';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Team } from '@shared/models/team';
-import { Enemies } from '@shared/models/units/enemies';
 import { BattleService } from '@shared/services/battle.service';
 import { PlayerService } from '@shared/services/player.service';
 
@@ -17,15 +16,17 @@ import { EnemiesPanelComponent } from './components/enemies-panel/enemies-panel.
   styleUrls: ['./view-game.component.scss'],
 })
 export class ViewGameComponent {
-  public team: Team;
+  team: Team;
 
-  public enemies: Enemies;
+  enemies = computed(() => {
+    const battle = this.battleService.battle();
+    return battle?.enemies;
+  });
 
   constructor(
     private playerService: PlayerService,
     private battleService: BattleService,
   ) {
     this.team = this.playerService.team;
-    this.enemies = this.battleService.enemies;
   }
 }

@@ -1,5 +1,4 @@
-import { BattleService } from '@shared/services/battle.service';
-
+import { Battle } from './battle';
 import { convertEffects } from './effect-converter';
 import { executeSkill } from './effect-executor';
 import { ItemRef } from './refs/items';
@@ -25,24 +24,22 @@ export class Item {
     return zoneLlevelMax >= this.data.zoneAvailable;
   }
 
-  canUse(battleService: BattleService): boolean {
+  canUse(battle: Battle): boolean {
     const effects = this.data.effect.split(';').map((effect) => effect.trim());
     const lastEffect = effects.at(-1) ?? '';
     if (lastEffect.startsWith('heal')) {
-      return battleService.team.hp < battleService.team.hpMax;
+      return battle.team.hp < battle.team.hpMax;
     }
     if (lastEffect.startsWith('increaseMp')) {
-      return battleService.team.mp < battleService.team.mpMax;
+      return battle.team.mp < battle.team.mpMax;
     }
     throw new Error(`Skill unknown: ${this.data.effect}`);
   }
 
-  async use(battleService: BattleService) {
+  async use(battle: Battle) {
     const effects = convertEffects(this.data.effect.split(';'));
-    await executeSkill(battleService, effects);
-    if (battleService.isBattle) {
-      battleService.nextTurn();
-    }
+    await executeSkill(battle, effects);
+    battle.nextTurn();
   }
 
   /**

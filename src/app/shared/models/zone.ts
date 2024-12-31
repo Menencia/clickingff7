@@ -1,3 +1,5 @@
+import { randomFromArray } from '@shared/utils/math.utils';
+
 import { Enemy } from './enemy';
 import { EnemyRef } from './refs/enemy';
 import { ZoneRef } from './refs/zones';
@@ -24,17 +26,16 @@ export interface ZoneData extends ZoneBase {
 export class Zone {
   constructor(
     public readonly data: Readonly<ZoneJson>,
-    public enemies: Enemy[],
-    public boss: Enemy[],
     /** Number of fights done in the zone */
     public nbFights = 0,
     /** True if boss has been beaten */
     public completed = false,
   ) {}
 
-  /**
-   * Save zone data
-   */
+  getRandomEnemyRef(): EnemyRef {
+    return randomFromArray(this.data.enemies);
+  }
+
   export(): ZoneSave {
     const { nbFights, completed } = this;
     return { ref: this.data.ref, nbFights, completed };

@@ -1,18 +1,17 @@
-import { BattleService } from '@shared/services/battle.service';
-
 import { Action } from './action';
+import { Battle } from './battle';
 import { Effect } from './effect';
 
-export const executeSkill = async (battleService: BattleService, effects: Effect[]): Promise<void> => {
-  battleService.actionOngoing = true;
+export const executeSkill = async (battle: Battle, effects: Effect[]): Promise<void> => {
+  battle.actionOngoing = true;
   const action = new Action();
   effects.forEach(async (e) => {
-    await e.executeEffect(action, battleService);
+    await e.executeEffect(action, battle);
   });
   return new Promise((resolve) => {
     action.completed.subscribe((completed) => {
       if (completed) {
-        battleService.actionOngoing = false;
+        battle.actionOngoing = false;
         resolve();
       }
     });

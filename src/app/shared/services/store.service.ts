@@ -24,9 +24,7 @@ export class StoreService {
   /** Returns a Zone from given ref & filled with save */
   getZone(ref: ZoneRef, save?: ZoneSave): Zone {
     const data = this.data.getZone(ref);
-    const enemies = data.enemies.map((e) => this.getEnemy(e));
-    const boss = data.boss.map((e) => this.getEnemy(e));
-    return new Zone(data, enemies, boss, save?.nbFights, save?.completed);
+    return new Zone(data, save?.nbFights, save?.completed);
   }
 
   /** Returns an Enemy from given ref */

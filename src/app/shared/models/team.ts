@@ -1,13 +1,10 @@
 import { ItDisplayHits } from '@shared/interfaces/it-display-hits';
-import { BattleService } from '@shared/services/battle.service';
 import { calculateHits } from '@shared/utils/battle.utils';
 import { addPercent, uuid } from '@shared/utils/math.utils';
 import { Subject } from 'rxjs';
 
 import { Action } from './action';
 import { Character } from './character';
-import { executeSkill } from './effect-executor';
-import { DamagesEffect } from './effects/damages';
 import { TeamSave } from './save';
 import { Units } from './units';
 
@@ -213,10 +210,7 @@ export class Team extends Units {
     }
   }
 
-  /**
-   * Get total characters hits
-   */
-  async useAttackSkill(battleService: BattleService): Promise<void> {
+  getAttackRawEffects(): string[] {
     const { attackFromEquipment: hits } = this;
     let pwr = 100;
 
@@ -226,9 +220,7 @@ export class Team extends Units {
       this.limit = 0;
     }
 
-    const effects = [new DamagesEffect(calculateHits(hits, pwr))];
-    await executeSkill(battleService, effects);
-    battleService.nextTurn();
+    return [`damages ${calculateHits(hits, pwr)}`];
   }
 
   /**

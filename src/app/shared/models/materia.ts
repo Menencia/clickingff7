@@ -1,5 +1,4 @@
-import { BattleService } from '@shared/services/battle.service';
-
+import { Battle } from './battle';
 import { convertEffects } from './effect-converter';
 import { executeSkill } from './effect-executor';
 import { MateriaRef } from './refs/materias';
@@ -29,23 +28,21 @@ export class Materia {
     return this.data.mp;
   }
 
-  canUse(battleService: BattleService): boolean {
-    const hasMP = battleService.team.mp > this.data.mp;
+  canUse(battle: Battle): boolean {
+    const hasMP = battle.team.mp > this.data.mp;
 
     const effects = this.data.effect.split(';').map((effect) => effect.trim());
     const lastEffect = effects.at(-1) ?? '';
     if (lastEffect.startsWith('heal')) {
-      return hasMP && battleService.team.hp < battleService.team.hpMax;
+      return hasMP && battle.team.hp < battle.team.hpMax;
     }
     return hasMP;
   }
 
-  async use(battleService: BattleService): Promise<void> {
+  async use(battle: Battle): Promise<void> {
     const effects = convertEffects(this.data.effect.split(';'));
-    await executeSkill(battleService, effects);
-    if (battleService.isBattle) {
-      battleService.nextTurn();
-    }
+    await executeSkill(battle, effects);
+    battle.nextTurn();
   }
 
   /**

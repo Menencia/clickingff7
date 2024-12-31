@@ -1,7 +1,6 @@
-import { BattleService } from '@shared/services/battle.service';
-
 import { Action } from './action';
+import { Battle } from './battle';
 
 export abstract class Effect {
-  abstract executeEffect(action: Action, battleService: BattleService): Promise<void>;
+  abstract executeEffect(action: Action, battle: Battle): Promise<void>;
 }

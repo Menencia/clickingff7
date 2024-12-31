@@ -1,19 +1,20 @@
 <div class="col-span-2" id="step5">
   <!-- enemies bars -->
-  @if (enemies.list.length > 0) {
+  @let e = enemies();
+  @if (e) {
     <div>
-      Niveau {{ enemies.level }}
+      Niveau {{ e.level }}
       <app-progress-bar
-        [progress]="round((enemies.hp / enemies.hpMax) * 100)"
-        [text]="'HP ' + enemies.hp"
+        [progress]="round((e.hp / e.hpMax) * 100)"
+        [text]="'HP ' + e.hp"
         [name]="'hp'"
-        [hits]="enemies.source.hp"
+        [hits]="e.source.hp"
       ></app-progress-bar>
     </div>
   }
 
   <!-- enemies list -->
-  @for (enemy of enemies.list; track $index) {
+  @for (enemy of e?.list; track $index) {
     <div class="flex gap-4 mt-5">
       <div
         [style]="{ 'background-image': 'url(' + enemy.data.image + ')' }"

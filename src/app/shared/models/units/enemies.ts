@@ -1,19 +1,12 @@
-import { Difficulty } from '@shared/interfaces/difficulty';
 import { Action } from '@shared/models/action';
 import { Subject } from 'rxjs';
 
 import { ItDisplayHits } from '../../interfaces/it-display-hits';
-import { BattleService } from '../../services/battle.service';
 import { addPercent, random } from '../../utils/math.utils';
-import { convertEffects } from '../effect-converter';
-import { executeSkill } from '../effect-executor';
 import { Enemy } from '../enemy';
 import { Units } from '../units';
-import { MAX_FIGHTS, Zone } from '../zone';
 
 export class Enemies extends Units {
-  list: Enemy[] = [];
-
   level = 1;
 
   arrHits: number[] = [];
@@ -45,7 +38,7 @@ export class Enemies extends Units {
   /**
    * Init
    */
-  constructor() {
+  constructor(public list: Enemy[]) {
     super();
 
     this.timer = 0;
@@ -85,44 +78,6 @@ export class Enemies extends Units {
   }
 
   /**
-   * Fight against a random enemy
-   */
-  fightRandom(zone: Zone, difficulty: Difficulty) {
-    // pick enemy
-    let range;
-    range = Math.floor((zone.nbFights / MAX_FIGHTS) * 4);
-    range = Math.min(range, 3);
-    const enemy = zone.enemies[random(0, range)];
-    this.list = [enemy];
-
-    // determine level
-    this.level = Math.max(1, (zone.data.level - 1) * 5 + (range + 1) + (difficulty - 2));
-
-    // update stats
-    this.refresh();
-
-    // random enemy
-    this.boss = false;
-  }
-
-  /**
-   * Fight against the zone boss
-   */
-  fightBoss(zone: Zone, difficulty: number): void {
-    // pick enemy
-    this.list = zone.boss;
-
-    // determine level
-    this.level = zone.data.level * 5 + (difficulty - 2);
-
-    // update stats
-    this.refresh();
-
-    // the boss is real
-    this.boss = true;
-  }
-
-  /**
    * Get *random* total characters hits
    */
   getHits(): number {
@@ -134,10 +89,8 @@ export class Enemies extends Units {
   /**
    * $$$$ Get total enemies hits
    */
-  async useAttackSkill(battleService: BattleService) {
-    const effects = convertEffects(['damages 1']);
-    await executeSkill(battleService, effects);
-    battleService.nextTurn();
+  getAttackRawEffects(): string[] {
+    return ['damages 1'];
   }
 
   /**
@@ -192,12 +145,5 @@ export class Enemies extends Units {
    */
   hpProgress(pixelsMax: number): number {
     return (this.hp / this.hpMax) * pixelsMax;
-  }
-
-  /**
-   * Remove all the enemy
-   */
-  remove(): void {
-    this.list = [];
   }
 }

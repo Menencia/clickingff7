@@ -10,6 +10,6 @@ export class BattleGuard {
   constructor(public battleService: BattleService) {}
 
   canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return !this.battleService.isBattle;
+    return !this.battleService.battle();
   }
 }

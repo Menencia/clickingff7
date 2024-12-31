@@ -1,11 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
+import { Battle, BattleState } from '@shared/models/battle';
+import { convertEffects } from '@shared/models/effect-converter';
+import { executeSkill } from '@shared/models/effect-executor';
 import { Team } from '@shared/models/team';
-import { Units } from '@shared/models/units';
 import { Enemies } from '@shared/models/units/enemies';
 import { MAX_FIGHTS } from '@shared/models/zone';
-import { ActionTarget } from 'src/app/shared/interfaces/action-target';
 
 import { PlayerService } from './player.service';
+import { StoreService } from './store.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,44 +15,83 @@ import { PlayerService } from './player.service';
 export class BattleService {
   public team: Team;
 
-  public enemies: Enemies;
+  public battle = signal<Battle | undefined>(undefined);
 
-  public isBattle = false;
-
-  public isPlayerTurn = false;
-
-  public actionOngoing = false;
-
-  constructor(private playerService: PlayerService) {
+  constructor(
+    private playerService: PlayerService,
+    private store: StoreService,
+  ) {
     this.team = this.playerService.team;
-    this.enemies = new Enemies();
-  }
-
-  /** Returns target for action */
-  getTarget(target: ActionTarget): Units {
-    switch (target) {
-      case ActionTarget.SELF:
-        if (this.isBattle) {
-          return this.isPlayerTurn ? this.team : this.enemies;
-        }
-        return this.team;
-      case ActionTarget.OPPONENT:
-        return this.isPlayerTurn ? this.enemies : this.team;
-      default:
-        throw new Error(`Unknown target: ${target}`);
-    }
   }
 
   /** Starts a basic battle */
   startRandom(): void {
-    if (!this.isBattle) {
-      this.isBattle = true;
-      // TODO: determine randomly? who's the forst to move
-      this.isPlayerTurn = true;
-
-      const zone = this.playerService.zones.current();
-      this.enemies.fightRandom(zone, this.playerService.difficulty);
+    if (this.battle()) {
+      throw new Error('Battle is already ongoing');
     }
+
+    // get random enemy
+    const zone = this.playerService.zones.current();
+    const enemyRef = zone.getRandomEnemyRef();
+    const enemies = new Enemies([this.store.getEnemy(enemyRef)]);
+
+    // set level of enemy
+    const zoneLevel = zone.data.level;
+    const teamLevel = this.playerService.team.level;
+    enemies.level = Math.min(teamLevel, 5 * (zoneLevel - 1) + 3);
+    enemies.refresh();
+
+    // new battle
+    const battle = new Battle(this.playerService.team, enemies);
+
+    // watch battle state
+    battle.state.subscribe(async (state) => {
+      if (state === BattleState.NextTurn) {
+        // enemies turn
+        if (!battle.isPlayerTurn()) {
+          const effects = convertEffects(enemies.getAttackRawEffects());
+          await executeSkill(battle, effects);
+          battle.nextTurn();
+        }
+      }
+      if (state === BattleState.Ended) {
+        // rewards on victory
+        if (battle.victory) {
+          this.onTeamVictory(battle);
+        }
+        // clean battle
+        this.battle.set(undefined);
+      }
+    });
+
+    this.battle.set(battle);
+  }
+
+  /** team gains exp
+   * materias gain ap
+   * player gains gils
+   * zone can be completed */
+  private onTeamVictory(battle: Battle) {
+    this.playerService.gils += battle.enemies.rewardGils;
+
+    if (battle.enemies.boss && this.playerService.zones.level + 1 > this.playerService.zones.levelMax) {
+      // Complete zone
+      this.playerService.zones.complete();
+    }
+
+    // XP for characters
+    this.team.setXp(battle.enemies.rewardXp);
+
+    // AP for materias
+    const ap = battle.enemies.rewardAp;
+    const materias = this.playerService.materias.getEquipped();
+    materias.forEach((materia) => {
+      materia.setAp(ap);
+    });
+
+    this.playerService.zones.current().nbFights += 1;
+
+    this.playerService.team.refresh();
   }
 
   /**
@@ -58,69 +99,20 @@ export class BattleService {
    */
   canFightBoss(): boolean {
     const zone = this.playerService.zones.current();
-    return !this.isBattle && zone.nbFights >= MAX_FIGHTS && !zone.completed;
+    return !this.battle() && zone.nbFights >= MAX_FIGHTS && !zone.completed;
   }
 
   /** Starts a boss battle */
   startBoss(): void {
-    if (!this.isBattle) {
-      this.isBattle = true;
-
-      const zone = this.playerService.zones.current();
-      this.enemies.fightBoss(zone, this.playerService.difficulty);
-    }
+    // if (!this.isBattle) {
+    //   this.isBattle = true;
+    //   const zone = this.playerService.zones.current();
+    //   this.enemies.fightBoss(zone, this.playerService.difficulty);
+    // }
   }
 
-  /** Executes an enemy attack */
-  private async attackWithEnemy(): Promise<void> {
-    // TODO: choose randomly an enemy skill
-    await this.enemies.useAttackSkill(this);
-  }
-
-  /** Finish the current turn and launch the next one */
-  public async nextTurn(): Promise<void> {
-    if (!this.enemies.isAlive()) {
-      this.end(true);
-    } else if (!this.team.isAlive()) {
-      this.end(false);
-    } else {
-      this.isPlayerTurn = !this.isPlayerTurn;
-      if (!this.isPlayerTurn) {
-        await this.attackWithEnemy();
-      }
-    }
-  }
-
-  /**
-   * Characters stop attacking and wait for next fight
-   */
-  end(victory: boolean): void {
-    this.isBattle = false;
-    this.isPlayerTurn = false;
-
-    // Rewards if victory
-    if (victory) {
-      this.playerService.gils += this.enemies.rewardGils;
-
-      if (this.enemies.boss && this.playerService.zones.level + 1 > this.playerService.zones.levelMax) {
-        // Complete zone
-        this.playerService.zones.complete();
-      }
-
-      // XP for characters
-      this.team.setXp(this.enemies.rewardXp);
-
-      // AP for materias
-      const ap = this.enemies.rewardAp;
-      const materias = this.playerService.materias.getEquipped();
-      materias.forEach((materia) => {
-        materia.setAp(ap);
-      });
-
-      this.playerService.zones.current().nbFights += 1;
-    }
-
-    this.enemies.remove();
-    this.playerService.team.refresh();
+  canPlay(): boolean {
+    const battle = this.battle();
+    return !!battle && battle.isPlayerTurn() && !battle.actionOngoing;
   }
 }

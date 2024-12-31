@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
+import { convertEffects } from '@shared/models/effect-converter';
+import { executeSkill } from '@shared/models/effect-executor';
 import { Item } from '@shared/models/item';
 import { Materia } from '@shared/models/materia';
 import { MAX_FIGHTS } from '@shared/models/zone';
@@ -16,6 +18,8 @@ import { ButtonComponent } from '../button/button.component';
   styleUrls: ['./ui-actions.component.scss'],
 })
 export class UiActionsComponent {
+  battle = computed(() => this.battleService.battle());
+
   constructor(
     private battleService: BattleService,
     private playerService: PlayerService,
@@ -38,12 +42,8 @@ export class UiActionsComponent {
     return this.playerService.gils;
   }
 
-  public isBattle(): boolean {
-    return this.battleService.isBattle;
-  }
-
   public fightRandom(): void {
-    if (!this.battleService.isBattle) {
+    if (!this.battleService.battle()) {
       this.battleService.startRandom();
     }
   }
@@ -59,22 +59,37 @@ export class UiActionsComponent {
   }
 
   public canPlay(): boolean {
-    return this.battleService.isPlayerTurn && !this.battleService.actionOngoing;
+    return this.battleService.canPlay();
   }
 
   public async attack(): Promise<void> {
-    await this.playerService.team.useAttackSkill(this.battleService);
+    const battle = this.battleService.battle();
+    if (!battle) {
+      throw new Error('CANNOT USE');
+    }
+    const effects = convertEffects(this.playerService.team.getAttackRawEffects());
+    await executeSkill(battle, effects);
+    battle.nextTurn();
   }
 
   public escape() {
-    this.battleService.end(false);
+    const battle = this.battleService.battle();
+    if (!battle) {
+      throw new Error('CANNOT USE');
+    }
+    battle.end(false);
   }
 
   public canUseMateria(materia: Materia): boolean {
-    return (this.battleService.isBattle || materia.data.useOutsideBattle) && materia.canUse(this.battleService);
+    const battle = this.battleService.battle();
+    return !!battle && materia.canUse(battle) && !battle.actionOngoing;
   }
 
   public async useMateria(materia: Materia): Promise<void> {
+    const battle = this.battleService.battle();
+    if (!battle) {
+      throw new Error('CANNOT USE');
+    }
     // cost
     if (this.canUseMateria(materia)) {
       this.playerService.team.mp -= materia.getMpCost();
@@ -83,14 +98,20 @@ export class UiActionsComponent {
     }
 
     // do action
-    await materia.use(this.battleService);
+    await materia.use(battle);
   }
 
   public canUseItem(item: Item): boolean {
-    return item.canUse(this.battleService);
+    const battle = this.battleService.battle();
+    return !!battle && item.canUse(battle) && !battle.actionOngoing;
   }
 
   public async useItem(item: Item): Promise<void> {
+    const battle = this.battleService.battle();
+    if (!battle) {
+      throw new Error('CANNOT USE');
+    }
+
     // cost
     if (this.canUseItem(item)) {
       if (item.nbr > 1) {
@@ -103,7 +124,7 @@ export class UiActionsComponent {
     }
 
     // do action
-    await item.use(this.battleService);
+    await item.use(battle);
   }
 
   public canLimit(): boolean {
