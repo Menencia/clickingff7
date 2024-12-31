@@ -1,3 +1,4 @@
+import { provideHttpClient } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiActionsComponent } from '@shared/components/ui-actions/ui-actions.component';
@@ -14,7 +15,7 @@ describe('ViewGameComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ViewGameComponent, ...MockComponents(UiActionsComponent, CharactersPanelComponent), TranslateModule.forRoot()],
-      providers: [MockProvider(PlayerService)],
+      providers: [MockProvider(PlayerService), provideHttpClient()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewGameComponent);
