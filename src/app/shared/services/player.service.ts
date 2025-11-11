@@ -155,7 +155,11 @@ export class PlayerService {
     // team
     this.team.setCharacters(
       save.team.list.map((ref) => {
-        return this.characters.list.find((c) => c.data.ref === ref);
+        const found = this.characters.list.find((c) => c.data.ref === ref);
+        if (!found) {
+          throw new Error(`Character ref not found: ${ref}`);
+        }
+        return found;
       }),
     );
     this.team.load(save.team);

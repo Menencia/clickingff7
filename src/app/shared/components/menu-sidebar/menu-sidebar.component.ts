@@ -10,13 +10,13 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NavLink } from '@shared/models/nav-link';
 import { PlayerService } from '@shared/services/player.service';
-import { SidebarModule } from 'primeng/sidebar';
+import { DrawerModule } from 'primeng/drawer';
 import { filter } from 'rxjs';
 import { SubSink } from 'subsink';
 
 @Component({
   selector: 'app-menu-sidebar',
-  imports: [SidebarModule, TranslateModule, RouterModule],
+  imports: [DrawerModule, TranslateModule, RouterModule],
   templateUrl: './menu-sidebar.component.html',
   styleUrl: './menu-sidebar.component.scss',
 })
