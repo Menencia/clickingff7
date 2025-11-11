@@ -3,7 +3,8 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
-    "types": ["jasmine"]
+    "types": ["vitest/globals"],
+    "lib": ["esnext", "dom", "esnext.disposable"]
   },
-  "include": ["src/**/*.spec.ts", "src/**/*.d.ts"]
+  "include": ["src/**/*.spec.ts", "src/**/*.d.ts", "src/app/setup.ts"]
 }
