@@ -1,13 +1,12 @@
 /* eslint-disable prettier/prettier */
 import { animate, style, transition, trigger } from '@angular/animations';
-import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ItDisplayHits } from '@shared/interfaces/it-display-hits';
 import { Subject, Subscription } from 'rxjs';
 
 @Component({
     selector: 'app-progress-bar',
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './progress-bar.component.html',
     styleUrls: ['./progress-bar.component.scss'],
     animations: [

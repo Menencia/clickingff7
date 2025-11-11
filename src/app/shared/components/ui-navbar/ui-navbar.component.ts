@@ -1,5 +1,4 @@
-import { DOCUMENT } from '@angular/common';
-import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Inject, Input, Output, DOCUMENT } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { helpData } from '@shared/models/help';
