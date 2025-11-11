@@ -14,7 +14,10 @@ describe('ViewMapComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ViewMapComponent, TranslateModule.forRoot()],
-      providers: [MockProvider(PlayerService, ZonesMock), MockProvider(ShopService)],
+      providers: [
+        MockProvider(PlayerService, ZonesMock),
+        MockProvider(ShopService),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewMapComponent);

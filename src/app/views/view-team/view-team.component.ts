@@ -7,10 +7,10 @@ import { MAX_TEAM } from '@shared/models/units/characters';
 import { PlayerService } from '@shared/services/player.service';
 
 @Component({
-    selector: 'app-view-team',
-    imports: [UiLayoutDefaultComponent, TranslateModule],
-    templateUrl: './view-team.component.html',
-    styleUrls: ['./view-team.component.scss']
+  selector: 'app-view-team',
+  imports: [UiLayoutDefaultComponent, TranslateModule],
+  templateUrl: './view-team.component.html',
+  styleUrls: ['./view-team.component.scss'],
 })
 export class ViewTeamComponent {
   team: Team;

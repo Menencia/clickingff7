@@ -6,10 +6,10 @@ import { Item, MAX_ITEMS } from '@shared/models/item';
 import { PlayerService } from '@shared/services/player.service';
 
 @Component({
-    selector: 'app-view-items',
-    imports: [UiLayoutDefaultComponent, TranslateModule, ItemIconComponent],
-    templateUrl: './view-items.component.html',
-    styleUrls: ['./view-items.component.scss']
+  selector: 'app-view-items',
+  imports: [UiLayoutDefaultComponent, TranslateModule, ItemIconComponent],
+  templateUrl: './view-items.component.html',
+  styleUrls: ['./view-items.component.scss'],
 })
 export class ViewItemsComponent {
   MAX_ITEMS = MAX_ITEMS;
@@ -25,7 +25,10 @@ export class ViewItemsComponent {
   }
 
   canEquipItem(item: Item): boolean {
-    return !item.equipped && this.playerService.items.getEquipped().length < MAX_ITEMS;
+    return (
+      !item.equipped &&
+      this.playerService.items.getEquipped().length < MAX_ITEMS
+    );
   }
 
   equipItem(item: Item): void {

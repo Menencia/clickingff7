@@ -10,10 +10,15 @@ import { PlayerService } from '@shared/services/player.service';
 import packageJson from '../../package.json';
 
 @Component({
-    selector: 'app-root',
-    imports: [UiFooterComponent, UiNavbarComponent, RouterOutlet, MenuSidebarComponent],
-    templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss']
+  selector: 'app-root',
+  imports: [
+    UiFooterComponent,
+    UiNavbarComponent,
+    RouterOutlet,
+    MenuSidebarComponent,
+  ],
+  templateUrl: './app.component.html',
+  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
   sidebarVisible = false;

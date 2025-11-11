@@ -13,7 +13,9 @@ describe('ViewMateriaComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ViewMateriaComponent, TranslateModule.forRoot()],
-      providers: [MockProvider(PlayerService, { ...MateriasMock, ...CharactersMock })],
+      providers: [
+        MockProvider(PlayerService, { ...MateriasMock, ...CharactersMock }),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewMateriaComponent);

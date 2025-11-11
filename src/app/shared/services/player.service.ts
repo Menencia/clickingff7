@@ -39,9 +39,9 @@ export class PlayerService {
 
   difficulty = Difficulty.Normal;
 
-  created = new Date().getTime();
+  created = Date.now();
 
-  updated = new Date().getTime();
+  updated = Date.now();
 
   constructor(
     private langService: LangService,
@@ -58,8 +58,8 @@ export class PlayerService {
     this.gils = BASE_GILS;
     this.language = this.langService.setDefaultLang();
     this.difficulty = Difficulty.Normal;
-    this.created = new Date().getTime();
-    this.updated = new Date().getTime();
+    this.created = Date.now();
+    this.updated = Date.now();
   }
 
   /*
@@ -90,7 +90,10 @@ export class PlayerService {
         this.team.setCharacters([cloud, barret]);
 
         // add materias
-        this.materias.add(this.storeService.getMateria(MateriaRef.Restore), true);
+        this.materias.add(
+          this.storeService.getMateria(MateriaRef.Restore),
+          true,
+        );
         this.materias.add(this.storeService.getMateria(MateriaRef.Bolt), true);
 
         // add items
@@ -152,7 +155,7 @@ export class PlayerService {
     // team
     this.team.setCharacters(
       save.team.list.map((ref) => {
-        return this.characters.list.find((c) => c.data.ref === ref)!;
+        return this.characters.list.find((c) => c.data.ref === ref);
       }),
     );
     this.team.load(save.team);
@@ -197,7 +200,7 @@ export class PlayerService {
    * Export the game
    */
   export(): Save {
-    this.updated = new Date().getTime();
+    this.updated = Date.now();
     return {
       characters: this.characters.export(),
       team: this.team.export(),

@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Inject, Input, Output, DOCUMENT } from '@angular/core';
+import {
+  Component,
+  DOCUMENT,
+  EventEmitter,
+  Inject,
+  Input,
+  Output,
+} from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { helpData } from '@shared/models/help';
@@ -18,10 +25,10 @@ enum Theme {
 }
 
 @Component({
-    selector: 'app-ui-navbar',
-    imports: [TranslateModule, RouterModule, ButtonModule],
-    templateUrl: './ui-navbar.component.html',
-    styleUrls: ['./ui-navbar.component.scss']
+  selector: 'app-ui-navbar',
+  imports: [TranslateModule, RouterModule, ButtonModule],
+  templateUrl: './ui-navbar.component.html',
+  styleUrls: ['./ui-navbar.component.scss'],
 })
 export class UiNavbarComponent {
   @Input() displayNextZone = false;

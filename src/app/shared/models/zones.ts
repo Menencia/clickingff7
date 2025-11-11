@@ -34,7 +34,7 @@ export class Zones {
    */
   checkLastZone(): void {
     const zone = this.list.find((e) => e.data.level === this.levelMax);
-    if (zone && zone.completed && this.level < MAX_ZONES) {
+    if (zone?.completed && this.level < MAX_ZONES) {
       this.nextZone = true;
     }
   }

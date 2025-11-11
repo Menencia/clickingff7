@@ -74,7 +74,10 @@ export class BattleService {
   private onTeamVictory(battle: Battle) {
     this.playerService.gils += battle.enemies.rewardGils;
 
-    if (battle.enemies.boss && this.playerService.zones.level + 1 > this.playerService.zones.levelMax) {
+    if (
+      battle.enemies.boss &&
+      this.playerService.zones.level + 1 > this.playerService.zones.levelMax
+    ) {
       // Complete zone
       this.playerService.zones.complete();
     }

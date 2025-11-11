@@ -9,7 +9,11 @@ import { Observable } from 'rxjs';
 export class ZoneGuard {
   constructor(public playerService: PlayerService) {}
 
-  canActivate(): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+  canActivate():
+    | Observable<boolean | UrlTree>
+    | Promise<boolean | UrlTree>
+    | boolean
+    | UrlTree {
     return this.playerService.zones.levelMax >= 5;
   }
 }

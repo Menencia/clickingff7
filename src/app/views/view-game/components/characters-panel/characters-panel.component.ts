@@ -6,10 +6,10 @@ import { Team } from '@shared/models/team';
 import { PlayerService } from '@shared/services/player.service';
 
 @Component({
-    selector: 'app-characters-panel',
-    imports: [ProgressBarComponent, TranslateModule],
-    templateUrl: './characters-panel.component.html',
-    styleUrl: './characters-panel.component.scss'
+  selector: 'app-characters-panel',
+  imports: [ProgressBarComponent, TranslateModule],
+  templateUrl: './characters-panel.component.html',
+  styleUrl: './characters-panel.component.scss',
 })
 export class CharactersPanelComponent {
   @Input() team: Team = new Team();

@@ -4,11 +4,11 @@ import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
 @Component({
-    selector: 'app-confirm-button',
-    providers: [ConfirmationService],
-    imports: [ConfirmDialogModule, ButtonComponent],
-    templateUrl: './confirm-button.component.html',
-    styleUrl: './confirm-button.component.scss'
+  selector: 'app-confirm-button',
+  providers: [ConfirmationService],
+  imports: [ConfirmDialogModule, ButtonComponent],
+  templateUrl: './confirm-button.component.html',
+  styleUrl: './confirm-button.component.scss',
 })
 export class ConfirmButtonComponent {
   @Input() message = '';

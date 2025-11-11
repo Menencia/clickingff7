@@ -11,10 +11,10 @@ import { PlayerService } from '@shared/services/player.service';
 import { ButtonComponent } from '../button/button.component';
 
 @Component({
-    selector: 'app-ui-actions',
-    imports: [TranslateModule, ButtonComponent],
-    templateUrl: './ui-actions.component.html',
-    styleUrls: ['./ui-actions.component.scss']
+  selector: 'app-ui-actions',
+  imports: [TranslateModule, ButtonComponent],
+  templateUrl: './ui-actions.component.html',
+  styleUrls: ['./ui-actions.component.scss'],
 })
 export class UiActionsComponent {
   battle = computed(() => this.battleService.battle());
@@ -66,7 +66,9 @@ export class UiActionsComponent {
     if (!battle) {
       throw new Error('CANNOT USE');
     }
-    const effects = convertEffects(this.playerService.team.getAttackRawEffects());
+    const effects = convertEffects(
+      this.playerService.team.getAttackRawEffects(),
+    );
     await executeSkill(battle, effects);
     battle.nextTurn();
   }
@@ -116,7 +118,9 @@ export class UiActionsComponent {
       if (item.nbr > 1) {
         item.nbr -= 1;
       } else {
-        this.playerService.items.list = this.playerService.items.list.filter((e) => e !== item);
+        this.playerService.items.list = this.playerService.items.list.filter(
+          (e) => e !== item,
+        );
       }
     } else {
       throw new Error('CANNOT USE');

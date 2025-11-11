@@ -1,4 +1,11 @@
-import { Component, EventEmitter, Input, OnDestroy, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { NavLink } from '@shared/models/nav-link';
@@ -8,10 +15,10 @@ import { filter } from 'rxjs';
 import { SubSink } from 'subsink';
 
 @Component({
-    selector: 'app-menu-sidebar',
-    imports: [SidebarModule, TranslateModule, RouterModule],
-    templateUrl: './menu-sidebar.component.html',
-    styleUrl: './menu-sidebar.component.scss'
+  selector: 'app-menu-sidebar',
+  imports: [SidebarModule, TranslateModule, RouterModule],
+  templateUrl: './menu-sidebar.component.html',
+  styleUrl: './menu-sidebar.component.scss',
 })
 export class MenuSidebarComponent implements OnInit, OnDestroy {
   @Input() visible = false;
@@ -47,12 +54,14 @@ export class MenuSidebarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     /** Close automatically the sidebar when a url change is detected */
-    this.sub.sink = this.router.events.pipe(filter((event) => event instanceof NavigationEnd)).subscribe((event) => {
-      if (event instanceof NavigationEnd) {
-        this.visible = false;
-        this.visibleChange.emit(this.visible);
-      }
-    });
+    this.sub.sink = this.router.events
+      .pipe(filter((event) => event instanceof NavigationEnd))
+      .subscribe((event) => {
+        if (event instanceof NavigationEnd) {
+          this.visible = false;
+          this.visibleChange.emit(this.visible);
+        }
+      });
   }
 
   public ngOnDestroy(): void {

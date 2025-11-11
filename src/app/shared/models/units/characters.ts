@@ -17,7 +17,9 @@ export class Characters {
 
   /** True if weapon is equipped by at least one character */
   isWeaponEquipped(weapon: Weapon): boolean {
-    return this.list.some((character) => character.weapon.data.ref === weapon.data.ref);
+    return this.list.some(
+      (character) => character.weapon.data.ref === weapon.data.ref,
+    );
   }
 
   /**

@@ -163,13 +163,22 @@ export class Team extends Units {
     });
 
     this.strengh = 6 * this.level;
-    this.attack = addPercent(this.attackFromEquipment + this.strengh, bonusAttack);
+    this.attack = addPercent(
+      this.attackFromEquipment + this.strengh,
+      bonusAttack,
+    );
 
     this.vitality = 6 * this.level;
-    this.defense = addPercent(this.defenseFromEquipment + this.vitality, bonusDefense);
+    this.defense = addPercent(
+      this.defenseFromEquipment + this.vitality,
+      bonusDefense,
+    );
 
     this.luck = addPercent(this.luckFromEquipment + 6 * this.level, bonusLuck);
-    this.speed = addPercent(this.speedFromEquipment + 6 * this.level, bonusSpeed);
+    this.speed = addPercent(
+      this.speedFromEquipment + 6 * this.level,
+      bonusSpeed,
+    );
 
     this.critHitRate = 3 + (this.luck / 100) * 4.7;
     this.critHitDamage = 100 + 4 * this.luck;

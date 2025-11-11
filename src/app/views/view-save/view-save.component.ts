@@ -7,7 +7,6 @@ import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/u
 import { Character } from '@shared/models/character';
 import { CharacterRef } from '@shared/models/refs/characters';
 import { Save } from '@shared/models/save';
-import { BattleService } from '@shared/services/battle.service';
 import { GameService } from '@shared/services/game.service';
 import { PlayerService } from '@shared/services/player.service';
 import { StoreService } from '@shared/services/store.service';
@@ -16,10 +15,17 @@ import { PipeTimePipe } from 'src/app/shared/pipes/pipe-time.pipe';
 import { ConfirmButtonComponent } from './components/confirm-button/confirm-button.component';
 
 @Component({
-    selector: 'app-view-save',
-    imports: [UiLayoutDefaultComponent, TranslateModule, PipeTimePipe, FormsModule, ConfirmButtonComponent, ButtonComponent],
-    templateUrl: './view-save.component.html',
-    styleUrls: ['./view-save.component.scss']
+  selector: 'app-view-save',
+  imports: [
+    UiLayoutDefaultComponent,
+    TranslateModule,
+    PipeTimePipe,
+    FormsModule,
+    ConfirmButtonComponent,
+    ButtonComponent,
+  ],
+  templateUrl: './view-save.component.html',
+  styleUrls: ['./view-save.component.scss'],
 })
 export class ViewSaveComponent {
   saves: Save[];
@@ -39,7 +45,6 @@ export class ViewSaveComponent {
   constructor(
     private gameService: GameService,
     private playerService: PlayerService,
-    private battleService: BattleService,
     private store: StoreService,
     private router: Router,
   ) {

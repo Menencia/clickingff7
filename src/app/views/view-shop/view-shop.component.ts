@@ -15,10 +15,17 @@ import { PlayerService } from '@shared/services/player.service';
 import { StoreService } from '@shared/services/store.service';
 
 @Component({
-    selector: 'app-shop',
-    imports: [TranslateModule, UiLayoutDefaultComponent, WeaponIconComponent, MateriaIconComponent, ItemIconComponent, ButtonComponent],
-    templateUrl: './view-shop.component.html',
-    styleUrls: ['./view-shop.component.scss']
+  selector: 'app-shop',
+  imports: [
+    TranslateModule,
+    UiLayoutDefaultComponent,
+    WeaponIconComponent,
+    MateriaIconComponent,
+    ItemIconComponent,
+    ButtonComponent,
+  ],
+  templateUrl: './view-shop.component.html',
+  styleUrls: ['./view-shop.component.scss'],
 })
 export class ViewShopComponent {
   section = 'buy';
@@ -61,7 +68,10 @@ export class ViewShopComponent {
   }
 
   canBuyWeapon(weapon: Weapon): boolean {
-    return !this.inStockWeapon(weapon) && this.playerService.gils >= weapon.getPrice();
+    return (
+      !this.inStockWeapon(weapon) &&
+      this.playerService.gils >= weapon.getPrice()
+    );
   }
 
   buyWeapon(weapon: Weapon): void {
@@ -77,7 +87,9 @@ export class ViewShopComponent {
 
   sellWeapon(weapon: Weapon): void {
     this.playerService.gils += weapon.getSellPrice();
-    this.playerService.weapons.list = this.playerService.weapons.list.filter((e) => e !== weapon);
+    this.playerService.weapons.list = this.playerService.weapons.list.filter(
+      (e) => e !== weapon,
+    );
     this.refreshPlayerWeapons();
   }
 
@@ -86,7 +98,10 @@ export class ViewShopComponent {
   }
 
   canBuyMateria(materia: Materia): boolean {
-    return !this.inStockMateria(materia) && this.playerService.gils >= materia.getPrice();
+    return (
+      !this.inStockMateria(materia) &&
+      this.playerService.gils >= materia.getPrice()
+    );
   }
 
   buyMateria(materia: Materia): void {
@@ -97,7 +112,9 @@ export class ViewShopComponent {
 
   sellMateria(materia: Materia): void {
     this.playerService.gils += materia.getSellPrice();
-    this.playerService.materias.list = this.playerService.materias.list.filter((e) => e !== materia);
+    this.playerService.materias.list = this.playerService.materias.list.filter(
+      (e) => e !== materia,
+    );
     this.refreshPlayerMaterias();
   }
 
@@ -121,7 +138,9 @@ export class ViewShopComponent {
     if (item.nbr > 1) {
       item.nbr -= 1;
     } else {
-      this.playerService.items.list = this.playerService.items.list.filter((e) => e !== item);
+      this.playerService.items.list = this.playerService.items.list.filter(
+        (e) => e !== item,
+      );
       this.refreshPlayerItems();
     }
   }
@@ -173,7 +192,12 @@ export class ViewShopComponent {
     this.shopMaterias = this.sortMaterias(this.shopMaterias);
     this.refreshPlayerMaterias();
 
-    const items = [ItemRef.Potion, ItemRef.Ether, ItemRef.HiPotion, ItemRef.HiEther];
+    const items = [
+      ItemRef.Potion,
+      ItemRef.Ether,
+      ItemRef.HiPotion,
+      ItemRef.HiEther,
+    ];
     items.forEach((i) => {
       const item = this.store.getItem(i);
       if (item.available(levelMax)) {
@@ -194,7 +218,9 @@ export class ViewShopComponent {
       'gun-arm': 2,
       knuckle: 3,
     };
-    return weapons.sort((a, b) => a.data.hits - b.data.hits).sort((a, b) => types[a.data.type] - types[b.data.type]);
+    return weapons
+      .sort((a, b) => a.data.hits - b.data.hits)
+      .sort((a, b) => types[a.data.type] - types[b.data.type]);
   }
 
   private refreshPlayerMaterias(): void {

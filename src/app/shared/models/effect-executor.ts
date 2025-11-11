@@ -2,7 +2,10 @@ import { Action } from './action';
 import { Battle } from './battle';
 import { Effect } from './effect';
 
-export const executeSkill = async (battle: Battle, effects: Effect[]): Promise<void> => {
+export const executeSkill = async (
+  battle: Battle,
+  effects: Effect[],
+): Promise<void> => {
   battle.actionOngoing = true;
   const action = new Action();
   effects.forEach(async (e) => {

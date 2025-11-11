@@ -12,7 +12,7 @@ import { WeaponRef } from '@shared/models/refs/weapons';
 import { ZoneRef } from '@shared/models/refs/zones';
 import { WeaponJson } from '@shared/models/weapon';
 import { ZoneJson } from '@shared/models/zone';
-import { Observable, forkJoin, map } from 'rxjs';
+import { forkJoin, map, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

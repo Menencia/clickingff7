@@ -4,7 +4,15 @@ import { TranslateModule } from '@ngx-translate/core';
 import { PlayerService } from '@shared/services/player.service';
 import { StoreService } from '@shared/services/store.service';
 import { MockProvider } from 'ng-mocks';
-import { ItemsMock, MateriasMock, WeaponsMock, ZonesMock, itemMock, materiaMock, weaponMock } from 'src/app/shared/test/game.mock';
+import {
+  ItemsMock,
+  itemMock,
+  MateriasMock,
+  materiaMock,
+  WeaponsMock,
+  weaponMock,
+  ZonesMock,
+} from 'src/app/shared/test/game.mock';
 
 import { ViewShopComponent } from './view-shop.component';
 

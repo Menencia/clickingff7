@@ -6,10 +6,10 @@ import { Materia } from '@shared/models/materia';
 import { PlayerService } from '@shared/services/player.service';
 
 @Component({
-    selector: 'app-view-materia',
-    imports: [UiLayoutDefaultComponent, TranslateModule, MateriaIconComponent],
-    templateUrl: './view-materia.component.html',
-    styleUrls: ['./view-materia.component.scss']
+  selector: 'app-view-materia',
+  imports: [UiLayoutDefaultComponent, TranslateModule, MateriaIconComponent],
+  templateUrl: './view-materia.component.html',
+  styleUrls: ['./view-materia.component.scss'],
 })
 export class ViewMateriaComponent {
   list: Materia[] = [];

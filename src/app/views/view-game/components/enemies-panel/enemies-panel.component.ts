@@ -4,10 +4,10 @@ import { ProgressBarComponent } from '@shared/components/progress-bar/progress-b
 import { Enemies } from '@shared/models/units/enemies';
 
 @Component({
-    selector: 'app-enemies-panel',
-    imports: [ProgressBarComponent, TranslateModule],
-    templateUrl: './enemies-panel.component.html',
-    styleUrl: './enemies-panel.component.scss'
+  selector: 'app-enemies-panel',
+  imports: [ProgressBarComponent, TranslateModule],
+  templateUrl: './enemies-panel.component.html',
+  styleUrl: './enemies-panel.component.scss',
 })
 export class EnemiesPanelComponent {
   enemies = input<Enemies | undefined>(undefined);

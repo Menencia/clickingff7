@@ -9,7 +9,12 @@ import { ItemRef } from '@shared/models/refs/items';
 import { MateriaRef } from '@shared/models/refs/materias';
 import { WeaponRef } from '@shared/models/refs/weapons';
 import { ZoneRef } from '@shared/models/refs/zones';
-import { CharacterSave, ItemSave, MateriaSave, ZoneSave } from '@shared/models/save';
+import {
+  CharacterSave,
+  ItemSave,
+  MateriaSave,
+  ZoneSave,
+} from '@shared/models/save';
 import { Weapon } from '@shared/models/weapon';
 import { Zone } from '@shared/models/zone';
 

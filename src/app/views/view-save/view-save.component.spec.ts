@@ -13,7 +13,10 @@ describe('ViewSaveComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      providers: [MockProvider(GameService, { saves: [] }), MockProvider(StoreService)],
+      providers: [
+        MockProvider(GameService, { saves: [] }),
+        MockProvider(StoreService),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewSaveComponent);

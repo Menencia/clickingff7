@@ -22,11 +22,13 @@ export class GameService {
 
   /** Returns existing save if any */
   searchSave(): Save | undefined {
-    let save;
+    let save: Save | undefined;
     const s = localStorage[SAVE_1];
     if (s) {
       save = JSON.parse(atob(s));
-      this.saves[0] = save;
+      if (save) {
+        this.saves[0] = save;
+      }
     }
     return save;
   }

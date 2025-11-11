@@ -16,7 +16,12 @@ import { Zone } from '@shared/models/zone';
 import { Zones } from '@shared/models/zones';
 
 const zones = new Zones();
-zones.add(new Zone({ ref: ZoneRef.Zone1, image: '', level: 1, enemies: [], boss: [] }, 0));
+zones.add(
+  new Zone(
+    { ref: ZoneRef.Zone1, image: '', level: 1, enemies: [], boss: [] },
+    0,
+  ),
+);
 
 const weapon = new Weapon({
   ref: WeaponRef.BusterSword,
