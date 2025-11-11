@@ -9,11 +9,10 @@ import { CharactersPanelComponent } from './components/characters-panel/characte
 import { EnemiesPanelComponent } from './components/enemies-panel/enemies-panel.component';
 
 @Component({
-  selector: 'app-view-game',
-  standalone: true,
-  imports: [UiLayoutDefaultComponent, UiActionsComponent, CharactersPanelComponent, EnemiesPanelComponent],
-  templateUrl: './view-game.component.html',
-  styleUrls: ['./view-game.component.scss'],
+    selector: 'app-view-game',
+    imports: [UiLayoutDefaultComponent, UiActionsComponent, CharactersPanelComponent, EnemiesPanelComponent],
+    templateUrl: './view-game.component.html',
+    styleUrls: ['./view-game.component.scss']
 })
 export class ViewGameComponent {
   team: Team;

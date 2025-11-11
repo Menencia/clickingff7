@@ -6,14 +6,13 @@ import { ItDisplayHits } from '@shared/interfaces/it-display-hits';
 import { Subject, Subscription } from 'rxjs';
 
 @Component({
-  selector: 'app-progress-bar',
-  standalone: true,
-  imports: [CommonModule],
-  templateUrl: './progress-bar.component.html',
-  styleUrls: ['./progress-bar.component.scss'],
-  animations: [
-    trigger('fadeIn', [transition(':enter', [style({ opacity: 1, top: -20 }), animate('1s', style({ opacity: 0, top: -40 }))])]),
-  ],
+    selector: 'app-progress-bar',
+    imports: [CommonModule],
+    templateUrl: './progress-bar.component.html',
+    styleUrls: ['./progress-bar.component.scss'],
+    animations: [
+        trigger('fadeIn', [transition(':enter', [style({ opacity: 1, top: -20 }), animate('1s', style({ opacity: 0, top: -40 }))])]),
+    ]
 })
 export class ProgressBarComponent implements OnInit, OnDestroy {
   Math = Math;

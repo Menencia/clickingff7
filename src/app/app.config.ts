@@ -1,5 +1,5 @@
 import { HttpBackend, provideHttpClient } from '@angular/common/http';
-import { APP_INITIALIZER, ApplicationConfig, importProvidersFrom } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, inject, provideAppInitializer } from '@angular/core';
 import { BrowserAnimationsModule, provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
@@ -30,11 +30,9 @@ export const appConfig: ApplicationConfig = {
         deps: [HttpBackend],
       },
     }),
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (data: DataService) => () => data.preloadAll().toPromise(),
-      deps: [DataService],
-      multi: true,
-    },
+    provideAppInitializer(() => {
+        const initializerFn = ((data: DataService) => () => data.preloadAll().toPromise())(inject(DataService));
+        return initializerFn();
+      }),
   ],
 };

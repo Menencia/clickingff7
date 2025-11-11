@@ -19,11 +19,10 @@ enum Theme {
 }
 
 @Component({
-  selector: 'app-ui-navbar',
-  standalone: true,
-  imports: [TranslateModule, RouterModule, ButtonModule],
-  templateUrl: './ui-navbar.component.html',
-  styleUrls: ['./ui-navbar.component.scss'],
+    selector: 'app-ui-navbar',
+    imports: [TranslateModule, RouterModule, ButtonModule],
+    templateUrl: './ui-navbar.component.html',
+    styleUrls: ['./ui-navbar.component.scss']
 })
 export class UiNavbarComponent {
   @Input() displayNextZone = false;

@@ -6,11 +6,10 @@ import { Item, MAX_ITEMS } from '@shared/models/item';
 import { PlayerService } from '@shared/services/player.service';
 
 @Component({
-  selector: 'app-view-items',
-  standalone: true,
-  imports: [UiLayoutDefaultComponent, TranslateModule, ItemIconComponent],
-  templateUrl: './view-items.component.html',
-  styleUrls: ['./view-items.component.scss'],
+    selector: 'app-view-items',
+    imports: [UiLayoutDefaultComponent, TranslateModule, ItemIconComponent],
+    templateUrl: './view-items.component.html',
+    styleUrls: ['./view-items.component.scss']
 })
 export class ViewItemsComponent {
   MAX_ITEMS = MAX_ITEMS;

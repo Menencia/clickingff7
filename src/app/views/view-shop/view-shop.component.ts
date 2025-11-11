@@ -15,11 +15,10 @@ import { PlayerService } from '@shared/services/player.service';
 import { StoreService } from '@shared/services/store.service';
 
 @Component({
-  selector: 'app-shop',
-  standalone: true,
-  imports: [TranslateModule, UiLayoutDefaultComponent, WeaponIconComponent, MateriaIconComponent, ItemIconComponent, ButtonComponent],
-  templateUrl: './view-shop.component.html',
-  styleUrls: ['./view-shop.component.scss'],
+    selector: 'app-shop',
+    imports: [TranslateModule, UiLayoutDefaultComponent, WeaponIconComponent, MateriaIconComponent, ItemIconComponent, ButtonComponent],
+    templateUrl: './view-shop.component.html',
+    styleUrls: ['./view-shop.component.scss']
 })
 export class ViewShopComponent {
   section = 'buy';

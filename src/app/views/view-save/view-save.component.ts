@@ -16,11 +16,10 @@ import { PipeTimePipe } from 'src/app/shared/pipes/pipe-time.pipe';
 import { ConfirmButtonComponent } from './components/confirm-button/confirm-button.component';
 
 @Component({
-  selector: 'app-view-save',
-  standalone: true,
-  imports: [UiLayoutDefaultComponent, TranslateModule, PipeTimePipe, FormsModule, ConfirmButtonComponent, ButtonComponent],
-  templateUrl: './view-save.component.html',
-  styleUrls: ['./view-save.component.scss'],
+    selector: 'app-view-save',
+    imports: [UiLayoutDefaultComponent, TranslateModule, PipeTimePipe, FormsModule, ConfirmButtonComponent, ButtonComponent],
+    templateUrl: './view-save.component.html',
+    styleUrls: ['./view-save.component.scss']
 })
 export class ViewSaveComponent {
   saves: Save[];

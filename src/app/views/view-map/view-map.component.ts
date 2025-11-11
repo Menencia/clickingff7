@@ -7,11 +7,10 @@ import { PlayerService } from '@shared/services/player.service';
 import { ShopService } from '@shared/services/shop.service';
 
 @Component({
-  selector: 'app-view-map',
-  standalone: true,
-  imports: [UiLayoutDefaultComponent, TranslateModule, ButtonComponent],
-  templateUrl: './view-map.component.html',
-  styleUrls: ['./view-map.component.scss'],
+    selector: 'app-view-map',
+    imports: [UiLayoutDefaultComponent, TranslateModule, ButtonComponent],
+    templateUrl: './view-map.component.html',
+    styleUrls: ['./view-map.component.scss']
 })
 export class ViewMapComponent {
   current: Zone;

@@ -11,11 +11,10 @@ import { PlayerService } from '@shared/services/player.service';
 import { ButtonComponent } from '../button/button.component';
 
 @Component({
-  selector: 'app-ui-actions',
-  standalone: true,
-  imports: [TranslateModule, ButtonComponent],
-  templateUrl: './ui-actions.component.html',
-  styleUrls: ['./ui-actions.component.scss'],
+    selector: 'app-ui-actions',
+    imports: [TranslateModule, ButtonComponent],
+    templateUrl: './ui-actions.component.html',
+    styleUrls: ['./ui-actions.component.scss']
 })
 export class UiActionsComponent {
   battle = computed(() => this.battleService.battle());

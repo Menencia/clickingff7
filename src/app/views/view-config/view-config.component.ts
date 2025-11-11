@@ -7,11 +7,10 @@ import { PlayerService } from '@shared/services/player.service';
 import { Difficulty } from 'src/app/shared/interfaces/difficulty';
 
 @Component({
-  selector: 'app-view-config',
-  standalone: true,
-  imports: [UiLayoutDefaultComponent, TranslateModule, FormsModule],
-  templateUrl: './view-config.component.html',
-  styleUrls: ['./view-config.component.scss'],
+    selector: 'app-view-config',
+    imports: [UiLayoutDefaultComponent, TranslateModule, FormsModule],
+    templateUrl: './view-config.component.html',
+    styleUrls: ['./view-config.component.scss']
 })
 export class ViewConfigComponent {
   difficulty: Difficulty;

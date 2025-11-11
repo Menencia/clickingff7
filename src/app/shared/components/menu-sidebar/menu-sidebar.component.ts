@@ -8,11 +8,10 @@ import { filter } from 'rxjs';
 import { SubSink } from 'subsink';
 
 @Component({
-  selector: 'app-menu-sidebar',
-  standalone: true,
-  imports: [SidebarModule, TranslateModule, RouterModule],
-  templateUrl: './menu-sidebar.component.html',
-  styleUrl: './menu-sidebar.component.scss',
+    selector: 'app-menu-sidebar',
+    imports: [SidebarModule, TranslateModule, RouterModule],
+    templateUrl: './menu-sidebar.component.html',
+    styleUrl: './menu-sidebar.component.scss'
 })
 export class MenuSidebarComponent implements OnInit, OnDestroy {
   @Input() visible = false;

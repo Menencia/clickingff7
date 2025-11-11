@@ -9,11 +9,10 @@ import { Weapon } from '@shared/models/weapon';
 import { PlayerService } from '@shared/services/player.service';
 
 @Component({
-  selector: 'app-view-equip',
-  standalone: true,
-  imports: [UiLayoutDefaultComponent, TranslateModule, WeaponIconComponent, ButtonComponent],
-  templateUrl: './view-equip.component.html',
-  styleUrls: ['./view-equip.component.scss'],
+    selector: 'app-view-equip',
+    imports: [UiLayoutDefaultComponent, TranslateModule, WeaponIconComponent, ButtonComponent],
+    templateUrl: './view-equip.component.html',
+    styleUrls: ['./view-equip.component.scss']
 })
 export class ViewEquipComponent {
   selected: Character;
