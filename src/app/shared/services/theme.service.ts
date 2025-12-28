@@ -6,7 +6,9 @@ import { DOCUMENT, Inject, Injectable } from '@angular/core';
 export class ThemeService {
   theme?: string;
 
-  constructor(@Inject(DOCUMENT) private document: Document) {
+  constructor(@Inject(DOCUMENT) private document: Document) {}
+
+  setupTheme() {
     const theme = localStorage.getItem('theme');
     if (theme) {
       this.applyTheme(theme);

@@ -1,11 +1,11 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { UiFooterComponent } from '@shared/components/ui-footer/ui-footer.component';
 import { UiNavbarComponent } from '@shared/components/ui-navbar/ui-navbar.component';
 import { BattleService } from '@shared/services/battle.service';
 import { GameService } from '@shared/services/game.service';
 import { PlayerService } from '@shared/services/player.service';
-
+import { ThemeService } from '@shared/services/theme.service';
 import packageJson from '../../package.json';
 
 @Component({
@@ -14,17 +14,18 @@ import packageJson from '../../package.json';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   @ViewChild('drawerToggle') drawerToggle?: ElementRef;
 
   version = packageJson.version;
 
   constructor(
     private gameService: GameService,
-    public playerService: PlayerService,
-    public battleService: BattleService,
+    private themeService: ThemeService,
     private router: Router,
-  ) {
+  ) {}
+
+  ngOnInit() {
     const save = this.gameService.searchSave();
     this.gameService.load(save);
 
@@ -34,5 +35,7 @@ export class AppComponent {
         if (drawer) drawer.checked = false;
       }
     });
+
+    this.themeService.setupTheme();
   }
 }
