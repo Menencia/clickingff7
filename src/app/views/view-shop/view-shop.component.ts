@@ -12,6 +12,7 @@ import { WeaponRef } from '@shared/models/refs/weapons';
 import { Weapon } from '@shared/models/weapon';
 import { PlayerService } from '@shared/services/player.service';
 import { StoreService } from '@shared/services/store.service';
+import { CheckIcon, LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-shop',
@@ -21,9 +22,9 @@ import { StoreService } from '@shared/services/store.service';
     WeaponIconComponent,
     MateriaIconComponent,
     ItemIconComponent,
+    LucideAngularModule,
   ],
   templateUrl: './view-shop.component.html',
-  styleUrls: ['./view-shop.component.scss'],
 })
 export class ViewShopComponent {
   section = 'buy';
@@ -41,6 +42,8 @@ export class ViewShopComponent {
   playerMaterias: Materia[] = [];
 
   playerItems: Item[] = [];
+
+  readonly CheckIcon = CheckIcon;
 
   constructor(
     private playerService: PlayerService,

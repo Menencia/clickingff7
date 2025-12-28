@@ -2,22 +2,22 @@
   <div class="grid grid-cols-5 gap-x-4">
     <div>
       <div class="flex flex-col gap-1">
-        <button class="btn" [class]="{ current: type === 'weapons' }" (click)="changeType('weapons')">
+        <button class="btn" [class]="{ 'btn-primary': type === 'weapons' }" (click)="changeType('weapons')">
           {{ "Weapons" | translate }}
         </button>
-        <button class="btn" [class]="{ current: type === 'materias' }" (click)="changeType('materias')">
+        <button class="btn" [class]="{ 'btn-primary': type === 'materias' }" (click)="changeType('materias')">
           {{ "Materia" | translate }}
         </button>
-        <button class="btn" [class]="{ current: type === 'items' }" (click)="changeType('items')">
+        <button class="btn" [class]="{ 'btn-primary': type === 'items' }" (click)="changeType('items')">
           {{ "Items" | translate }}
         </button>
       </div>
 
       <div class="flex flex-col gap-1 mt-5">
-        <button class="btn" [class]="{ current: section === 'buy' }" (click)="changeSection('buy')">
+        <button class="btn" [class]="{ 'btn-primary': section === 'buy' }" (click)="changeSection('buy')">
           {{ "Buy" | translate }}
         </button>
-        <button class="btn" [class]="{ current: section === 'sell' }" (click)="changeSection('sell')">
+        <button class="btn" [class]="{ 'btn-primary': section === 'sell' }" (click)="changeSection('sell')">
           {{ "Sell" | translate }}
         </button>
       </div>
@@ -29,146 +29,158 @@
 
     <div class="col-span-4">
       @if (section === "buy") {
-        <table style="width: 100%">
-          <tr>
-            <th>{{ "Name" | translate }}</th>
-            <th>{{ "In stock" | translate }}</th>
-            <th>{{ "Price" | translate }}</th>
-            <th></th>
-          </tr>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>{{ "Name" | translate }}</th>
+              <th>{{ "In stock" | translate }}</th>
+              <th>{{ "Price" | translate }}</th>
+              <th></th>
+            </tr>
+          </thead>
 
-          @if (type === "weapons") {
-            @for (weapon of shopWeapons; track $index) {
-              <tr>
-                <td>
-                  <app-weapon-icon [type]="weapon.data.type"></app-weapon-icon>
-                  {{ weapon.data.ref }}<br />
-                  <span class="text-xs italic">({{ "Power" | translate }} {{ weapon.data.hits }})</span>
-                </td>
-                <td>
-                  @if (weapon.inStock(playerWeapons)) {
-                    🗸
-                  }
-                </td>
-                <td>{{ weapon.data.price }} {{ "Gils" | translate }}</td>
-                <td>
-                  <button class="btn" (click)="buyWeapon(weapon)" [disabled]="!canBuyWeapon(weapon)">
-                    {{ "Buy" | translate }}
-                  </button>
-                </td>
-              </tr>
+          <tbody>
+            @if (type === "weapons") {
+              @for (weapon of shopWeapons; track $index) {
+                <tr>
+                  <td>
+                    <app-weapon-icon [type]="weapon.data.type"></app-weapon-icon>
+                    {{ weapon.data.ref }}<br />
+                    <span class="text-xs italic">({{ "Power" | translate }} {{ weapon.data.hits }})</span>
+                  </td>
+                  <td>
+                    @if (weapon.inStock(playerWeapons)) {
+                      <i-lucide [img]="CheckIcon"></i-lucide>
+                    }
+                  </td>
+                  <td>{{ weapon.data.price }} {{ "Gils" | translate }}</td>
+                  <td>
+                    <button class="btn" (click)="buyWeapon(weapon)" [disabled]="!canBuyWeapon(weapon)">
+                      {{ "Buy" | translate }}
+                    </button>
+                  </td>
+                </tr>
+              }
             }
-          }
 
-          @if (type === "materias") {
-            @for (materia of shopMaterias; track $index) {
-              <tr class="materia">
-                <td>
-                  <app-materia-icon [color]="materia.data.color"></app-materia-icon>
-                  {{ "Mat. " + materia.data.ref + " name" | translate }}<br />
-                  <span class="text-xs italic">{{ "Mat. " + materia.data.ref + " desc" | translate }}</span>
-                </td>
-                <td>
-                  @if (materia.inStock(playerMaterias)) {
-                    🗸
-                  }
-                </td>
-                <td>{{ materia.data.price }} {{ "Gils" | translate }}</td>
-                <td>
-                  <button class="btn" (click)="buyMateria(materia)" [disabled]="!canBuyMateria(materia)">
-                    {{ "Buy" | translate }}
-                  </button>
-                </td>
-              </tr>
+            @if (type === "materias") {
+              @for (materia of shopMaterias; track $index) {
+                <tr class="materia">
+                  <td>
+                    <app-materia-icon [color]="materia.data.color"></app-materia-icon>
+                    {{ "Mat. " + materia.data.ref + " name" | translate }}<br />
+                    <span class="text-xs italic">{{ "Mat. " + materia.data.ref + " desc" | translate }}</span>
+                  </td>
+                  <td>
+                    @if (materia.inStock(playerMaterias)) {
+                      <i-lucide [img]="CheckIcon"></i-lucide>
+                    }
+                  </td>
+                  <td>{{ materia.data.price }} {{ "Gils" | translate }}</td>
+                  <td>
+                    <button class="btn" (click)="buyMateria(materia)" [disabled]="!canBuyMateria(materia)">
+                      {{ "Buy" | translate }}
+                    </button>
+                  </td>
+                </tr>
+              }
             }
-          }
 
-          @if (type === "items") {
-            @for (item of shopItems; track $index) {
-              <tr class="item">
-                <td>
-                  <app-item-icon></app-item-icon>
-                  {{ "It. " + item.data.ref + " name" | translate }}<br />
-                  <span class="text-xs italic">{{ "It. " + item.data.ref + " desc" | translate }}</span>
-                </td>
-                <td>{{ inStockItem(item) }}</td>
-                <td>{{ item.data.price }} {{ "Gils" | translate }}</td>
-                <td>
-                  <button class="btn" (click)="buyItem(item)" [disabled]="!canBuyItem(item)">
-                    {{ "Buy" | translate }}
-                  </button>
-                </td>
-              </tr>
+            @if (type === "items") {
+              @for (item of shopItems; track $index) {
+                <tr class="item">
+                  <td>
+                    <app-item-icon></app-item-icon>
+                    {{ "It. " + item.data.ref + " name" | translate }}<br />
+                    <span class="text-xs italic">{{ "It. " + item.data.ref + " desc" | translate }}</span>
+                  </td>
+                  <td>{{ inStockItem(item) }}</td>
+                  <td>{{ item.data.price }} {{ "Gils" | translate }}</td>
+                  <td>
+                    <button class="btn" (click)="buyItem(item)" [disabled]="!canBuyItem(item)">
+                      {{ "Buy" | translate }}
+                    </button>
+                  </td>
+                </tr>
+              }
             }
-          }
+          </tbody>
         </table>
       }
 
       @if (section === "sell") {
-        <table style="width: 100%">
-          <tr>
-            <th>{{ "Name" | translate }}</th>
-            <th>{{ "In stock" | translate }}</th>
-            <th>{{ "Price" | translate }}</th>
-            <th></th>
-          </tr>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>{{ "Name" | translate }}</th>
+              <th>{{ "In stock" | translate }}</th>
+              <th>{{ "Price" | translate }}</th>
+              <th></th>
+            </tr>
+          </thead>
 
-          @if (type === "weapons") {
-            @for (weapon of playerWeapons; track $index) {
-              <tr>
-                <td>
-                  <app-weapon-icon [type]="weapon.data.type"></app-weapon-icon>
-                  {{ weapon.data.ref }}<br />
-                  <span class="text-xs italic">({{ "Power" | translate }} {{ weapon.data.hits }})</span>
-                </td>
-                <td>{{ inStockWeapon(weapon) }}</td>
-                <td>{{ weapon.getSellPrice() }} {{ "Gils" | translate }}</td>
-                <td>
-                  <button class="btn" (click)="sellWeapon(weapon)" [disabled]="!canSellWeapon(weapon)">
-                    {{ "Sell" | translate }}
-                  </button>
-                </td>
-              </tr>
+          <tbody>
+            @if (type === "weapons") {
+              @for (weapon of playerWeapons; track $index) {
+                <tr>
+                  <td>
+                    <app-weapon-icon [type]="weapon.data.type"></app-weapon-icon>
+                    {{ weapon.data.ref }}<br />
+                    <span class="text-xs italic">({{ "Power" | translate }} {{ weapon.data.hits }})</span>
+                  </td>
+                  <td>
+                    @if (inStockWeapon(weapon)) {
+                      <i-lucide [img]="CheckIcon"></i-lucide>
+                    }
+                  </td>
+                  <td>{{ weapon.getSellPrice() }} {{ "Gils" | translate }}</td>
+                  <td>
+                    <button class="btn" (click)="sellWeapon(weapon)" [disabled]="!canSellWeapon(weapon)">
+                      {{ "Sell" | translate }}
+                    </button>
+                  </td>
+                </tr>
+              }
             }
-          }
 
-          @if (type === "materias") {
-            @for (materia of playerMaterias; track $index) {
-              <tr class="materia">
-                <td>
-                  <app-materia-icon [color]="materia.data.color"></app-materia-icon>
-                  {{ "Mat. " + materia.data.ref + " name" | translate }}<br />
-                  <span class="text-xs italic">{{ "Mat. " + materia.data.ref + " desc" | translate }}</span>
-                </td>
-                <td>🗸</td>
-                <td>{{ materia.getSellPrice() }} {{ "Gils" | translate }}</td>
-                <td>
-                  <button class="btn" (click)="sellMateria(materia)">
-                    {{ "Sell" | translate }}
-                  </button>
-                </td>
-              </tr>
+            @if (type === "materias") {
+              @for (materia of playerMaterias; track $index) {
+                <tr class="materia">
+                  <td>
+                    <app-materia-icon [color]="materia.data.color"></app-materia-icon>
+                    {{ "Mat. " + materia.data.ref + " name" | translate }}<br />
+                    <span class="text-xs italic">{{ "Mat. " + materia.data.ref + " desc" | translate }}</span>
+                  </td>
+                  <td><i-lucide [img]="CheckIcon"></i-lucide></td>
+                  <td>{{ materia.getSellPrice() }} {{ "Gils" | translate }}</td>
+                  <td>
+                    <button class="btn" (click)="sellMateria(materia)">
+                      {{ "Sell" | translate }}
+                    </button>
+                  </td>
+                </tr>
+              }
             }
-          }
 
-          @if (type === "items") {
-            @for (item of playerItems; track $index) {
-              <tr class="item">
-                <td>
-                  <app-item-icon></app-item-icon>
-                  {{ "It. " + item.data.ref + " name" | translate }}<br />
-                  <span class="text-xs italic">{{ "It. " + item.data.ref + " desc" | translate }}</span>
-                </td>
-                <td>{{ inStockItem(item) }}</td>
-                <td>{{ item.getSellPrice() }} {{ "Gils" | translate }}</td>
-                <td>
-                  <button class="btn" (click)="sellItem(item)">
-                    {{ "Sell" | translate }}
-                  </button>
-                </td>
-              </tr>
+            @if (type === "items") {
+              @for (item of playerItems; track $index) {
+                <tr class="item">
+                  <td>
+                    <app-item-icon></app-item-icon>
+                    {{ "It. " + item.data.ref + " name" | translate }}<br />
+                    <span class="text-xs italic">{{ "It. " + item.data.ref + " desc" | translate }}</span>
+                  </td>
+                  <td>{{ inStockItem(item) }}</td>
+                  <td>{{ item.getSellPrice() }} {{ "Gils" | translate }}</td>
+                  <td>
+                    <button class="btn" (click)="sellItem(item)">
+                      {{ "Sell" | translate }}
+                    </button>
+                  </td>
+                </tr>
+              }
             }
-          }
+          </tbody>
         </table>
       }
     </div>
