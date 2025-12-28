@@ -51,8 +51,8 @@ importers:
         specifier: ^1.0.2
         version: 1.0.2
       tailwindcss:
-        specifier: ^4.1.17
-        version: 4.1.17
+        specifier: 4.1.14
+        version: 4.1.14
       tslib:
         specifier: ^2.8.1
         version: 2.8.1
@@ -62,7 +62,7 @@ importers:
     devDependencies:
       '@angular/build':
         specifier: ^20.3.9
-        version: 20.3.9(@angular/compiler-cli@20.3.10(@angular/compiler@20.3.10)(typescript@5.8.3))(@angular/compiler@20.3.10)(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))(@angular/platform-browser@20.3.10(@angular/animations@20.3.10(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1)))(@angular/common@20.3.10(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))(rxjs@7.8.1))(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1)))(chokidar@4.0.1)(jiti@2.6.1)(karma@6.4.4)(less@4.4.0)(lightningcss@1.30.2)(postcss@8.5.6)(tailwindcss@4.1.17)(terser@5.43.1)(tslib@2.8.1)(typescript@5.8.3)(vitest@3.2.4(jiti@2.6.1)(jsdom@27.1.0)(less@4.4.0)(lightningcss@1.30.2)(sass@1.90.0)(terser@5.43.1))
+        version: 20.3.9(@angular/compiler-cli@20.3.10(@angular/compiler@20.3.10)(typescript@5.8.3))(@angular/compiler@20.3.10)(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))(@angular/platform-browser@20.3.10(@angular/animations@20.3.10(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1)))(@angular/common@20.3.10(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))(rxjs@7.8.1))(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1)))(chokidar@4.0.1)(jiti@2.6.1)(karma@6.4.4)(less@4.4.0)(lightningcss@1.30.2)(postcss@8.5.6)(tailwindcss@4.1.14)(terser@5.43.1)(tslib@2.8.1)(typescript@5.8.3)(vitest@3.2.4(jiti@2.6.1)(jsdom@27.1.0)(less@4.4.0)(lightningcss@1.30.2)(sass@1.90.0)(terser@5.43.1))
       '@angular/cli':
         specifier: ^20.3.9
         version: 20.3.9(chokidar@4.0.1)
@@ -73,8 +73,8 @@ importers:
         specifier: 2.3.5
         version: 2.3.5
       daisyui:
-        specifier: ^5.5.0
-        version: 5.5.0
+        specifier: 5.5.14
+        version: 5.5.14
       jasmine-core:
         specifier: ~5.5.0
         version: 5.5.0
@@ -1809,8 +1809,8 @@ packages:
   custom-event@1.0.1:
     resolution: {integrity: sha512-GAj5FOq0Hd+RsCGVJxZuKaIDXDf3h6GQoNEjFgbLLI/trgtavwUbSnZ5pVfg27DVCaWjIohryS0JFwIJyT2cMg==}
 
-  daisyui@5.5.0:
-    resolution: {integrity: sha512-lfeimNM3U1FzjfBotV3iTrxNfBEncHs7kMP62lTLghmO99v7HVZ/lbcOLr/y0Q3JB6Lx7XEi2yC5RQ8BBxdKPA==}
+  daisyui@5.5.14:
+    resolution: {integrity: sha512-L47rvw7I7hK68TA97VB8Ee0woHew+/ohR6Lx6Ah/krfISOqcG4My7poNpX5Mo5/ytMxiR40fEaz6njzDi7cuSg==}
 
   data-urls@6.0.0:
     resolution: {integrity: sha512-BnBS08aLUM+DKamupXs3w2tJJoqU+AkaE/+6vQxi/G/DPmIZFJJp9Dkb1kM03AZx8ADehDUZgsNxju3mPXZYIA==}
@@ -3193,6 +3193,9 @@ packages:
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
 
+  tailwindcss@4.1.14:
+    resolution: {integrity: sha512-b7pCxjGO98LnxVkKjaZSDeNuljC4ueKUddjENJOADtubtdo8llTaJy7HwBMeLNSSo2N5QIAgklslK1+Ir8r6CA==}
+
   tailwindcss@4.1.17:
     resolution: {integrity: sha512-j9Ee2YjuQqYT9bbRTfTZht9W/ytp5H+jJpZKiYdP/bpnXARAuELt9ofP0lPnmHjbga7SNQIxdTAXCmtKVYjN+Q==}
 
@@ -3675,7 +3678,7 @@ snapshots:
       tslib: 2.8.1
     optional: true
 
-  '@angular/build@20.3.9(@angular/compiler-cli@20.3.10(@angular/compiler@20.3.10)(typescript@5.8.3))(@angular/compiler@20.3.10)(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))(@angular/platform-browser@20.3.10(@angular/animations@20.3.10(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1)))(@angular/common@20.3.10(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))(rxjs@7.8.1))(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1)))(chokidar@4.0.1)(jiti@2.6.1)(karma@6.4.4)(less@4.4.0)(lightningcss@1.30.2)(postcss@8.5.6)(tailwindcss@4.1.17)(terser@5.43.1)(tslib@2.8.1)(typescript@5.8.3)(vitest@3.2.4(jiti@2.6.1)(jsdom@27.1.0)(less@4.4.0)(lightningcss@1.30.2)(sass@1.90.0)(terser@5.43.1))':
+  '@angular/build@20.3.9(@angular/compiler-cli@20.3.10(@angular/compiler@20.3.10)(typescript@5.8.3))(@angular/compiler@20.3.10)(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))(@angular/platform-browser@20.3.10(@angular/animations@20.3.10(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1)))(@angular/common@20.3.10(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))(rxjs@7.8.1))(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1)))(chokidar@4.0.1)(jiti@2.6.1)(karma@6.4.4)(less@4.4.0)(lightningcss@1.30.2)(postcss@8.5.6)(tailwindcss@4.1.14)(terser@5.43.1)(tslib@2.8.1)(typescript@5.8.3)(vitest@3.2.4(jiti@2.6.1)(jsdom@27.1.0)(less@4.4.0)(lightningcss@1.30.2)(sass@1.90.0)(terser@5.43.1))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2003.9(chokidar@4.0.1)
@@ -3714,7 +3717,7 @@ snapshots:
       less: 4.4.0
       lmdb: 3.4.2
       postcss: 8.5.6
-      tailwindcss: 4.1.17
+      tailwindcss: 4.1.14
       vitest: 3.2.4(jiti@2.6.1)(jsdom@27.1.0)(less@4.4.0)(lightningcss@1.30.2)(sass@1.90.0)(terser@5.43.1)
     transitivePeerDependencies:
       - '@types/node'
@@ -5157,7 +5160,7 @@ snapshots:
   custom-event@1.0.1:
     optional: true
 
-  daisyui@5.5.0: {}
+  daisyui@5.5.14: {}
 
   data-urls@6.0.0:
     dependencies:
@@ -6752,6 +6755,8 @@ snapshots:
   supports-preserve-symlinks-flag@1.0.0: {}
 
   symbol-tree@3.2.4: {}
+
+  tailwindcss@4.1.14: {}
 
   tailwindcss@4.1.17: {}
 

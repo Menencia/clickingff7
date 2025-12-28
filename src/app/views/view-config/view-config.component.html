@@ -1,19 +1,33 @@
 <app-ui-layout-default>
-  <p>
-    {{ "Difficulty" | translate }} :
-    <select [(ngModel)]="difficulty" (change)="changeDifficulty()">
-      <option value="1">{{ "Easy" | translate }}</option>
-      <option value="2">{{ "Normal" | translate }}</option>
-      <option value="3">{{ "Hard" | translate }}</option>
-    </select>
-  </p>
+  <ul class="list">
+    <li class="list-row items-center">
+      <label>{{ "Difficulty" | translate }}</label>
+      <div class="grow"></div>
+      <select class="select" [(ngModel)]="difficulty" (change)="changeDifficulty()">
+        <option value="1">{{ "Easy" | translate }}</option>
+        <option value="2">{{ "Normal" | translate }}</option>
+        <option value="3">{{ "Hard" | translate }}</option>
+      </select>
+    </li>
 
-  <p>
-    {{ "Language" | translate }} :
-    <select [(ngModel)]="language" (change)="changeLanguage()">
-      <option value="fr">Français</option>
-      <option value="en">English</option>
-      <option value="es">Español</option>
-    </select>
-  </p>
+    <li class="list-row items-center">
+      <label>{{ "Language" | translate }}</label>
+      <div class="grow"></div>
+      <select class="select" [(ngModel)]="language" (change)="changeLanguage()">
+        <option value="fr">Français</option>
+        <option value="en">English</option>
+        <option value="es">Español</option>
+      </select>
+    </li>
+
+    <li class="list-row items-center">
+      <label>Thème</label>
+      <div class="grow"></div>
+      <select class="select" [(ngModel)]="theme" (change)="changeTheme()">
+        <option value="browser">Browser</option>
+        <option value="cupcake">Cupcake</option>
+        <option value="dark">Dark</option>
+      </select>
+    </li>
+  </ul>
 </app-ui-layout-default>
