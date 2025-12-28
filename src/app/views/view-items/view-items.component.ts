@@ -4,17 +4,25 @@ import { ItemIconComponent } from '@shared/components/item-icon/item-icon.compon
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Item, MAX_ITEMS } from '@shared/models/item';
 import { PlayerService } from '@shared/services/player.service';
+import { LucideAngularModule, MinusIcon, PlusIcon } from 'lucide-angular';
 
 @Component({
   selector: 'app-view-items',
-  imports: [UiLayoutDefaultComponent, TranslateModule, ItemIconComponent],
+  imports: [
+    UiLayoutDefaultComponent,
+    TranslateModule,
+    ItemIconComponent,
+    LucideAngularModule,
+  ],
   templateUrl: './view-items.component.html',
-  styleUrls: ['./view-items.component.scss'],
 })
 export class ViewItemsComponent {
   MAX_ITEMS = MAX_ITEMS;
 
   list: Item[] = [];
+
+  readonly PlusIcon = PlusIcon;
+  readonly MinusIcon = MinusIcon;
 
   constructor(private playerService: PlayerService) {
     this.list = this.playerService.items.list;

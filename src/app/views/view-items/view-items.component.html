@@ -1,34 +1,42 @@
 <app-ui-layout-default>
-  <table style="width: 100%">
-    <tr>
-      <th>{{ "Name" | translate }}</th>
-      <th>{{ "In stock" | translate }}</th>
-      <th class="total">
-        {{ getNbrItems() }} <span class="b">/ {{ MAX_ITEMS }}</span>
-      </th>
-    </tr>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>{{ "Name" | translate }}</th>
+        <th>{{ "In stock" | translate }}</th>
+        <th class="total">
+          {{ getNbrItems() }} <span class="b">/ {{ MAX_ITEMS }}</span>
+        </th>
+      </tr>
+    </thead>
 
-    @for (item of list; track $index) {
-      <tr class="item">
-        <td>
-          <app-item-icon></app-item-icon>
-          {{ "It. " + item.data.ref + " name" | translate }}<br />
-          <span class="text-xs italic">{{ "It. " + item.data.ref + " desc" | translate }}</span>
-        </td>
-        <td>{{ item.nbr }}</td>
-        <td class="total">
-          @if (item.equipped) {
-            <span (click)="unequipItem(item)" (keypress)="unequipItem(item)" tabindex="0" class="hover"> ❌ </span>
-          }
-          @if (canEquipItem(item)) {
-            <span (click)="equipItem(item)" (keypress)="equipItem(item)" tabindex="0" class="hover"> ➕ </span>
-          }
-        </td>
-      </tr>
-    } @empty {
-      <tr class="nothing">
-        <td colspan="4">{{ "No items" | translate }}</td>
-      </tr>
-    }
+    <tbody>
+      @for (item of list; track $index) {
+        <tr>
+          <td>
+            <app-item-icon></app-item-icon>
+            {{ "It. " + item.data.ref + " name" | translate }}<br />
+            <span class="text-xs italic">{{ "It. " + item.data.ref + " desc" | translate }}</span>
+          </td>
+          <td>{{ item.nbr }}</td>
+          <td>
+            @if (item.equipped) {
+              <button class="btn btn-circle" (click)="unequipItem(item)">
+                <i-lucide [img]="MinusIcon"></i-lucide>
+              </button>
+            }
+            @if (canEquipItem(item)) {
+              <button class="btn btn-circle" (click)="equipItem(item)">
+                <i-lucide [img]="PlusIcon"></i-lucide>
+              </button>
+            }
+          </td>
+        </tr>
+      } @empty {
+        <tr class="nothing">
+          <td colspan="4">{{ "No items" | translate }}</td>
+        </tr>
+      }
+    </tbody>
   </table>
 </app-ui-layout-default>

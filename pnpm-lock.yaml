@@ -38,6 +38,9 @@ importers:
       intro.js:
         specifier: ^7.2.0
         version: 7.2.0
+      lucide-angular:
+        specifier: ^0.562.0
+        version: 0.562.0(@angular/common@20.3.10(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))(rxjs@7.8.1))(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))
       ngx-translate-multi-http-loader:
         specifier: ^18.2.0
         version: 18.2.0(@angular/common@20.3.10(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))(rxjs@7.8.1))(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))(@ngx-translate/core@16.0.3(@angular/common@20.3.10(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))(rxjs@7.8.1))(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1)))(rxjs@7.8.1)
@@ -2498,6 +2501,12 @@ packages:
 
   lru-cache@5.1.1:
     resolution: {integrity: sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==}
+
+  lucide-angular@0.562.0:
+    resolution: {integrity: sha512-nMt4Mq7lkB6ZF5+C3EszsaYZeB6jkxiIlzo0xnS4t6dnxa3cFumcJNYE/Vx950o7owxBhg/LybdfRxGHDsMA3w==}
+    peerDependencies:
+      '@angular/common': 13.x - 21.x
+      '@angular/core': 13.x - 21.x
 
   magic-string@0.30.17:
     resolution: {integrity: sha512-sNPKHvyjVf7gyjwS4xGTaW/mCnF8wnjtifKBEhxfZ7E/S8tQ0rssrwGNn6q8JH/ohItJfSQp9mBtQYuTlH5QnA==}
@@ -5926,6 +5935,12 @@ snapshots:
   lru-cache@5.1.1:
     dependencies:
       yallist: 3.1.1
+
+  lucide-angular@0.562.0(@angular/common@20.3.10(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))(rxjs@7.8.1))(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1)):
+    dependencies:
+      '@angular/common': 20.3.10(@angular/core@20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1))(rxjs@7.8.1)
+      '@angular/core': 20.3.10(@angular/compiler@20.3.10)(rxjs@7.8.1)(zone.js@0.15.1)
+      tslib: 2.8.1
 
   magic-string@0.30.17:
     dependencies:

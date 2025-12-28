@@ -1,44 +1,46 @@
 <app-ui-layout-default>
-  <table style="width: 100%">
-    <tr>
-      <th>{{ "Name" | translate }}</th>
-      <th>{{ "Evolution" | translate }}</th>
-      <th class="total">
-        {{ getNbrEquipped() }} <span class="b">/ {{ maxMaterias }}</span>
-      </th>
-    </tr>
+  <table class="table" style="width: 100%">
+    <thead>
+      <tr>
+        <th>{{ "Name" | translate }}</th>
+        <th>{{ "Evolution" | translate }}</th>
+        <th class="total">
+          {{ getNbrEquipped() }} <span class="b">/ {{ maxMaterias }}</span>
+        </th>
+      </tr>
+    </thead>
 
-    @for (materia of list; track $index) {
-      <tr class="materia">
-        <td>
-          <app-materia-icon [color]="materia.data.color"></app-materia-icon>
-          {{ "Mat. " + materia.data.ref + " name" | translate }}
-          <strong>(LVL{{ materia.level }})</strong><br />
-          <span class="text-xs italic">{{ "Mat. " + materia.data.ref + " desc" | translate }}</span>
-        </td>
-        <td>
-          <div class="progress materia_ap">
-            <div class="materia_ap_progress" [style.width]="materia.apProgress(200) + 'px'"></div>
+    <tbody>
+      @for (materia of list; track $index) {
+        <tr>
+          <td>
+            <app-materia-icon [color]="materia.data.color"></app-materia-icon>
+            {{ "Mat. " + materia.data.ref + " name" | translate }}
+            <strong>(LVL{{ materia.level }})</strong><br />
+            <span class="text-xs italic">{{ "Mat. " + materia.data.ref + " desc" | translate }}</span>
+          </td>
+          <td>
+            <progress class="progress w-20" value="0" [max]="materia.apProgress(100)"></progress><br />
             <span class="bar-label">{{ materia.ap }} / {{ materia.getApMax() }} AP</span>
-          </div>
-        </td>
-        <td class="total">
-          @if (materia.equipped) {
-            <span (click)="unequip(materia)" (keypress)="unequip(materia)" tabindex="0" class="cursor-pointer">
-              <!-- <i class="text-red-600 pi pi-times"></i> -->
-            </span>
-          }
-          @if (canEquip(materia)) {
-            <span (click)="equip(materia)" (keypress)="equip(materia)" tabindex="0" class="cursor-pointer">
-              <!-- <i class="text-green-600 pi pi-plus"></i> -->
-            </span>
-          }
-        </td>
-      </tr>
-    } @empty {
-      <tr class="nothing">
-        <td colspan="4">{{ "No materia" | translate }}</td>
-      </tr>
-    }
+          </td>
+          <td>
+            @if (materia.equipped) {
+              <button class="btn btn-circle" (click)="unequip(materia)">
+                <i-lucide [img]="MinusIcon"></i-lucide>
+              </button>
+            }
+            @if (canEquip(materia)) {
+              <button class="btn btn-circle" (click)="equip(materia)">
+                <i-lucide [img]="PlusIcon"></i-lucide>
+              </button>
+            }
+          </td>
+        </tr>
+      } @empty {
+        <tr class="nothing">
+          <td colspan="4">{{ "No materia" | translate }}</td>
+        </tr>
+      }
+    </tbody>
   </table>
 </app-ui-layout-default>

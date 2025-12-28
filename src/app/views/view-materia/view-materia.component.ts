@@ -4,17 +4,25 @@ import { MateriaIconComponent } from '@shared/components/materia-icon/materia-ic
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Materia } from '@shared/models/materia';
 import { PlayerService } from '@shared/services/player.service';
+import { LucideAngularModule, MinusIcon, PlusIcon } from 'lucide-angular';
 
 @Component({
   selector: 'app-view-materia',
-  imports: [UiLayoutDefaultComponent, TranslateModule, MateriaIconComponent],
+  imports: [
+    UiLayoutDefaultComponent,
+    TranslateModule,
+    MateriaIconComponent,
+    LucideAngularModule,
+  ],
   templateUrl: './view-materia.component.html',
-  styleUrls: ['./view-materia.component.scss'],
 })
 export class ViewMateriaComponent {
   list: Materia[] = [];
 
   maxMaterias = 0;
+
+  readonly PlusIcon = PlusIcon;
+  readonly MinusIcon = MinusIcon;
 
   constructor(private playerService: PlayerService) {
     this.list = this.playerService.materias.list;
@@ -29,13 +37,13 @@ export class ViewMateriaComponent {
     return !materia.equipped && this.getNbrEquipped() < this.maxMaterias;
   }
 
-  equip(materia: Materia): void {
+  equip(materia: Materia) {
     materia.equipped = true;
 
     this.playerService.team.refresh();
   }
 
-  unequip(materia: Materia): void {
+  unequip(materia: Materia) {
     materia.equipped = false;
 
     this.playerService.team.refresh();
