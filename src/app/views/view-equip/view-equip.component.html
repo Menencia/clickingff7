@@ -3,9 +3,9 @@
     <div>
       <div class="flex flex-col gap-1">
         @for (character of team.list; track $index) {
-          <app-button (trigger)="selectCharacter(character)" [class]="{ current: selected && selected.data.ref === character.data.ref }">
+          <button class="btn" (click)="selectCharacter(character)" [class]="{ current: selected && selected.data.ref === character.data.ref }">
             {{ character.data.ref }}
-          </app-button>
+          </button>
         }
       </div>
     </div>
@@ -41,9 +41,9 @@
           <tr class="weapon">
             <td>{{ weapon.data.ref }}</td>
             <td>
-              <app-button (trigger)="equipWeapon(weapon)" [disabled]="!canEquipWeapon(weapon)">
+              <button class="btn" (click)="equipWeapon(weapon)" [disabled]="!canEquipWeapon(weapon)">
                 {{ "Equip" | translate }}
-              </app-button>
+              </button>
             </td>
           </tr>
         }

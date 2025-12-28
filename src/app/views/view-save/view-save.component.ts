@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { ButtonComponent } from '@shared/components/button/button.component';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Character } from '@shared/models/character';
 import { CharacterRef } from '@shared/models/refs/characters';
@@ -12,8 +11,6 @@ import { PlayerService } from '@shared/services/player.service';
 import { StoreService } from '@shared/services/store.service';
 import { PipeTimePipe } from 'src/app/shared/pipes/pipe-time.pipe';
 
-import { ConfirmButtonComponent } from './components/confirm-button/confirm-button.component';
-
 @Component({
   selector: 'app-view-save',
   imports: [
@@ -21,8 +18,6 @@ import { ConfirmButtonComponent } from './components/confirm-button/confirm-butt
     TranslateModule,
     PipeTimePipe,
     FormsModule,
-    ConfirmButtonComponent,
-    ButtonComponent,
   ],
   templateUrl: './view-save.component.html',
   styleUrls: ['./view-save.component.scss'],

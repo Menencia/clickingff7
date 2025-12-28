@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ButtonComponent } from '@shared/components/button/button.component';
 import { ItemIconComponent } from '@shared/components/item-icon/item-icon.component';
 import { MateriaIconComponent } from '@shared/components/materia-icon/materia-icon.component';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
@@ -22,7 +21,6 @@ import { StoreService } from '@shared/services/store.service';
     WeaponIconComponent,
     MateriaIconComponent,
     ItemIconComponent,
-    ButtonComponent,
   ],
   templateUrl: './view-shop.component.html',
   styleUrls: ['./view-shop.component.scss'],

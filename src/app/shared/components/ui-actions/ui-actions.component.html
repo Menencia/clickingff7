@@ -1,16 +1,16 @@
 <div class="flex flex-row flex-wrap gap-1 sm:flex-col">
   @let currentBattle = battle();
   @if (!currentBattle) {
-    <app-button (trigger)="fightRandom()" [id]="'step6'"> {{ "Fight random" | translate }}{{ remainingBattles() }} </app-button>
-    <app-button (trigger)="fightBoss()" [disabled]="!canFightBoss()">
+    <button class="btn" (click)="fightRandom()" id="step6"> {{ "Fight random" | translate }}{{ remainingBattles() }} </button>
+    <button class="btn" (click)="fightBoss()" [disabled]="!canFightBoss()">
       @if (canFightBoss()) {
         <div class="float-right text-red-700">*</div>
       }
       {{ "Fight boss" | translate }}
-    </app-button>
+    </button>
   } @else {
     <div class="battle">{{ "Battle" | translate }} - {{ "Turn" | translate }} {{ currentBattle.getCurrentTurn() }}</div>
-    <app-button (trigger)="attack()" [disabled]="!canPlay()" [id]="'step7'">
+    <button class="btn" (click)="attack()" [disabled]="!canPlay()" id="step7">
       <span>
         @if (canLimit()) {
           {{ "Limit" | translate }}
@@ -18,22 +18,22 @@
           {{ "Attack" | translate }}
         }
       </span>
-    </app-button>
-    <app-button (trigger)="escape()" [disabled]="!canPlay()" [id]="'step8'">
+    </button>
+    <button class="btn" (click)="escape()" [disabled]="!canPlay()" id="step8">
       {{ "Escape" | translate }}
-    </app-button>
+    </button>
 
     <div class="h-3"></div>
 
     <div [id]="'step9'" class="contents">
       @for (materia of getMaterias(); track $index) {
-        <app-button [class]="'flex flex-row items-center'" (trigger)="useMateria(materia)" [disabled]="!canUseMateria(materia)">
+        <button class="btn flex flex-row items-center" (click)="useMateria(materia)" [disabled]="!canUseMateria(materia)">
           <img class="flex-none" src="/assets/images/icons/materias/{{ materia.data.color }}.webp" alt="materia" />
-          <div class="flex-grow">
+          <div class="grow">
             {{ "Mat. " + materia.data.ref + " name" | translate }}
           </div>
           <span class="flex-none">{{ materia.getMpCost() }}</span>
-        </app-button>
+        </button>
       }
     </div>
 
@@ -41,12 +41,12 @@
 
     <div [id]="'step10'" class="contents">
       @for (item of getItems(); track $index) {
-        <app-button class="flex flex-row items-center button" (trigger)="useItem(item)" [disabled]="!canUseItem(item)">
-          <div class="flex-grow">
+        <button class=" btn flex flex-row items-center button" (click)="useItem(item)" [disabled]="!canUseItem(item)">
+          <div class="grow">
             {{ "It. " + item.data.ref + " name" | translate }}
           </div>
           <div class="flex-none">{{ item.nbr }}</div>
-        </app-button>
+        </button>
       }
     </div>
   }

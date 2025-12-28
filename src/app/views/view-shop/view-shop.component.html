@@ -2,24 +2,24 @@
   <div class="grid grid-cols-5 gap-x-4">
     <div>
       <div class="flex flex-col gap-1">
-        <app-button [class]="{ current: type === 'weapons' }" (trigger)="changeType('weapons')">
+        <button class="btn" [class]="{ current: type === 'weapons' }" (click)="changeType('weapons')">
           {{ "Weapons" | translate }}
-        </app-button>
-        <app-button [class]="{ current: type === 'materias' }" (trigger)="changeType('materias')">
+        </button>
+        <button class="btn" [class]="{ current: type === 'materias' }" (click)="changeType('materias')">
           {{ "Materia" | translate }}
-        </app-button>
-        <app-button [class]="{ current: type === 'items' }" (trigger)="changeType('items')">
+        </button>
+        <button class="btn" [class]="{ current: type === 'items' }" (click)="changeType('items')">
           {{ "Items" | translate }}
-        </app-button>
+        </button>
       </div>
 
       <div class="flex flex-col gap-1 mt-5">
-        <app-button [class]="{ current: section === 'buy' }" (trigger)="changeSection('buy')">
+        <button class="btn" [class]="{ current: section === 'buy' }" (click)="changeSection('buy')">
           {{ "Buy" | translate }}
-        </app-button>
-        <app-button [class]="{ current: section === 'sell' }" (trigger)="changeSection('sell')">
+        </button>
+        <button class="btn" [class]="{ current: section === 'sell' }" (click)="changeSection('sell')">
           {{ "Sell" | translate }}
-        </app-button>
+        </button>
       </div>
 
       <div class="flex flex-col gap-1 mt-5 italic text-center">
@@ -52,9 +52,9 @@
                 </td>
                 <td>{{ weapon.data.price }} {{ "Gils" | translate }}</td>
                 <td>
-                  <app-button (trigger)="buyWeapon(weapon)" [disabled]="!canBuyWeapon(weapon)">
+                  <button class="btn" (click)="buyWeapon(weapon)" [disabled]="!canBuyWeapon(weapon)">
                     {{ "Buy" | translate }}
-                  </app-button>
+                  </button>
                 </td>
               </tr>
             }
@@ -75,9 +75,9 @@
                 </td>
                 <td>{{ materia.data.price }} {{ "Gils" | translate }}</td>
                 <td>
-                  <app-button (trigger)="buyMateria(materia)" [disabled]="!canBuyMateria(materia)">
+                  <button class="btn" (click)="buyMateria(materia)" [disabled]="!canBuyMateria(materia)">
                     {{ "Buy" | translate }}
-                  </app-button>
+                  </button>
                 </td>
               </tr>
             }
@@ -94,9 +94,9 @@
                 <td>{{ inStockItem(item) }}</td>
                 <td>{{ item.data.price }} {{ "Gils" | translate }}</td>
                 <td>
-                  <app-button (trigger)="buyItem(item)" [disabled]="!canBuyItem(item)">
+                  <button class="btn" (click)="buyItem(item)" [disabled]="!canBuyItem(item)">
                     {{ "Buy" | translate }}
-                  </app-button>
+                  </button>
                 </td>
               </tr>
             }
@@ -124,9 +124,9 @@
                 <td>{{ inStockWeapon(weapon) }}</td>
                 <td>{{ weapon.getSellPrice() }} {{ "Gils" | translate }}</td>
                 <td>
-                  <app-button (trigger)="sellWeapon(weapon)" [disabled]="!canSellWeapon(weapon)">
+                  <button class="btn" (click)="sellWeapon(weapon)" [disabled]="!canSellWeapon(weapon)">
                     {{ "Sell" | translate }}
-                  </app-button>
+                  </button>
                 </td>
               </tr>
             }
@@ -143,9 +143,9 @@
                 <td>🗸</td>
                 <td>{{ materia.getSellPrice() }} {{ "Gils" | translate }}</td>
                 <td>
-                  <app-button (trigger)="sellMateria(materia)">
+                  <button class="btn" (click)="sellMateria(materia)">
                     {{ "Sell" | translate }}
-                  </app-button>
+                  </button>
                 </td>
               </tr>
             }
@@ -162,9 +162,9 @@
                 <td>{{ inStockItem(item) }}</td>
                 <td>{{ item.getSellPrice() }} {{ "Gils" | translate }}</td>
                 <td>
-                  <app-button (trigger)="sellItem(item)">
+                  <button class="btn" (click)="sellItem(item)">
                     {{ "Sell" | translate }}
-                  </app-button>
+                  </button>
                 </td>
               </tr>
             }

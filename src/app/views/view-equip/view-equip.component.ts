@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { ButtonComponent } from '@shared/components/button/button.component';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { WeaponIconComponent } from '@shared/components/weapon-icon/weapon-icon.component';
 import { Character } from '@shared/models/character';
@@ -10,12 +9,7 @@ import { PlayerService } from '@shared/services/player.service';
 
 @Component({
   selector: 'app-view-equip',
-  imports: [
-    UiLayoutDefaultComponent,
-    TranslateModule,
-    WeaponIconComponent,
-    ButtonComponent,
-  ],
+  imports: [UiLayoutDefaultComponent, TranslateModule, WeaponIconComponent],
   templateUrl: './view-equip.component.html',
   styleUrls: ['./view-equip.component.scss'],
 })

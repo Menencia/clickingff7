@@ -2,25 +2,25 @@
   <div class="grid grid-cols-5 gap-x-4">
     <div>
       <div class="flex flex-col gap-1">
-        <app-button (trigger)="saveGame()">
+        <button class="btn" (click)="saveGame()">
           {{ "Save" | translate }}
-        </app-button>
+        </button>
 
-        <app-confirm-button [message]="msgImportSave" [disabled]="saves.length === 0" (confirm)="resetGame($event)">
+        <button class="btn" (click)="resetModal.showModal()" [disabled]="saves.length === 0">
           {{ "Reset" | translate }}
-        </app-confirm-button>
+        </button>
       </div>
 
       <div class="flex flex-col gap-1 mt-5">
-        <app-button (trigger)="exportLastSave()" [disabled]="saves.length === 0">
+        <button class="btn" (click)="exportLastSave()" [disabled]="saves.length === 0">
           {{ "Export save" | translate }}
-        </app-button>
-        <app-button (trigger)="exportCurrentGame()">
+        </button>
+        <button class="btn" (click)="exportCurrentGame()">
           {{ "Export game" | translate }}
-        </app-button>
-        <app-button (trigger)="showImport()">
+        </button>
+        <button class="btn" (click)="showImport()">
           {{ "Import" | translate }}
-        </app-button>
+        </button>
       </div>
     </div>
 
@@ -54,9 +54,35 @@
         <div>
           <textarea [(ngModel)]="areaImport"></textarea>
 
-          <app-confirm-button [message]="msgImportSave" (confirm)="importSave($event)">IMPORT</app-confirm-button>
+          <button clss="btn" (click)="importModal.showModal()">IMPORT</button>
         </div>
       }
     </div>
   </div>
 </app-ui-layout-default>
+
+<dialog #resetModal class="modal">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">{{ "Reset" | translate }}</h3>
+    <p class="py-4">Are you sure ? You'll lose everything !</p>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Close</button>
+        <button class="btn" (click)="resetGame(true)">Valider</button>
+      </form>
+    </div>
+  </div>
+</dialog>
+
+<dialog #importModal class="modal">
+  <div class="modal-box">
+    <h3 class="text-lg font-bold">IMPORT</h3>
+    <p class="py-4">Are you sure ? You'll lose your current save !</p>
+    <div class="modal-action">
+      <form method="dialog">
+        <button class="btn">Close</button>
+        <button class="btn" (click)="importSave(true)">Valider</button>
+      </form>
+    </div>
+  </div>
+</dialog>

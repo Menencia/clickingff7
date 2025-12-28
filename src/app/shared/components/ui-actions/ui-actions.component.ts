@@ -8,11 +8,9 @@ import { MAX_FIGHTS } from '@shared/models/zone';
 import { BattleService } from '@shared/services/battle.service';
 import { PlayerService } from '@shared/services/player.service';
 
-import { ButtonComponent } from '../button/button.component';
-
 @Component({
   selector: 'app-ui-actions',
-  imports: [TranslateModule, ButtonComponent],
+  imports: [TranslateModule],
   templateUrl: './ui-actions.component.html',
   styleUrls: ['./ui-actions.component.scss'],
 })
