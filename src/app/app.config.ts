@@ -1,20 +1,14 @@
 import { HttpBackend, provideHttpClient } from '@angular/common/http';
 import {
   ApplicationConfig,
-  importProvidersFrom,
   inject,
   provideAppInitializer,
+  provideBrowserGlobalErrorListeners,
+  provideZoneChangeDetection,
 } from '@angular/core';
-import {
-  BrowserAnimationsModule,
-  provideAnimations,
-} from '@angular/platform-browser/animations';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
-import Aura from '@primeuix/themes/aura';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
-import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { DataService } from './shared/services/data.service';
 
@@ -28,16 +22,10 @@ export function HttpLoaderFactory(_httpBackend: HttpBackend) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideAnimations(),
     provideHttpClient(),
-    importProvidersFrom(BrowserAnimationsModule),
-    provideAnimationsAsync(),
-    providePrimeNG({
-      theme: {
-        preset: Aura,
-      },
-    }),
     provideTranslateService({
       defaultLanguage: 'fr',
       loader: {

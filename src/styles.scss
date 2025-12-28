@@ -1,23 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
 
 @use "tailwindcss";
-@plugin "tailwindcss-primeui";
-
-@custom-variant dark (&:where(.dark, .dark *));
-
-:root {
-  --cl-color-accent: rgb(329, 68, 68);
-}
-
-/** TABLE */
-
-table {
-  th {
-    @apply bg-gray-200 text-left;
-    @apply dark:bg-gray-600;
-  }
-  tr:hover {
-    @apply bg-gray-100;
-    @apply dark:bg-gray-700;
-  }
+@plugin "daisyui" {
+  themes:
+    cupcake --default,
+    dark --prefersdark;
 }
