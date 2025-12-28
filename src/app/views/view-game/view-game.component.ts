@@ -17,7 +17,6 @@ import { EnemiesPanelComponent } from './components/enemies-panel/enemies-panel.
     EnemiesPanelComponent,
   ],
   templateUrl: './view-game.component.html',
-  styleUrls: ['./view-game.component.scss'],
 })
 export class ViewGameComponent {
   team: Team;

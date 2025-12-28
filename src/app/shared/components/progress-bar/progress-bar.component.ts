@@ -40,15 +40,12 @@ export class ProgressBarComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.progressBg = this.progress;
     this.sub = this.hits.subscribe((hits) => {
+      this.arrHits.unshift(hits);
       setTimeout(() => {
-        this.arrHits.unshift(hits);
+        hits.context.complete();
+        this.arrHits = [];
         this.cdr.detectChanges();
-      }, 0);
-
-      clearTimeout(this.time);
-      this.time = setTimeout(() => {
-        this.progressBg = this.progress;
-      }, 300);
+      }, 1000);
     });
   }
 
