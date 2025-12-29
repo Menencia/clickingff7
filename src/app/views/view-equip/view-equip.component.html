@@ -3,7 +3,11 @@
     <div>
       <div class="flex flex-col gap-1">
         @for (character of team.list; track $index) {
-          <button class="btn" (click)="selectCharacter(character)" [class]="{ current: selected && selected.data.ref === character.data.ref }">
+          <button
+            class="btn"
+            (click)="selectCharacter(character)"
+            [class]="{ 'btn-primary': selected && selected.data.ref === character.data.ref }"
+          >
             {{ character.data.ref }}
           </button>
         }

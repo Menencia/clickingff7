@@ -11,7 +11,6 @@ import { PlayerService } from '@shared/services/player.service';
   selector: 'app-view-equip',
   imports: [UiLayoutDefaultComponent, TranslateModule, WeaponIconComponent],
   templateUrl: './view-equip.component.html',
-  styleUrls: ['./view-equip.component.scss'],
 })
 export class ViewEquipComponent {
   selected: Character;
