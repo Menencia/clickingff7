@@ -1,4 +1,4 @@
-import { Component, Input, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { helpData } from '@shared/models/help';
@@ -16,7 +16,6 @@ declare const introJs: () => {
   selector: 'app-ui-navbar',
   imports: [TranslateModule, RouterModule],
   templateUrl: './ui-navbar.component.html',
-  styleUrls: ['./ui-navbar.component.scss'],
 })
 export class UiNavbarComponent {
   horizontal = input(false);

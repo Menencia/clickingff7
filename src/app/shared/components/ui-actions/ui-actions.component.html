@@ -9,7 +9,7 @@
       {{ "Fight boss" | translate }}
     </button>
   } @else {
-    <div class="battle">{{ "Battle" | translate }} - {{ "Turn" | translate }} {{ currentBattle.getCurrentTurn() }}</div>
+    <div class="bg-secondary text-center">{{ "Battle" | translate }} - {{ "Turn" | translate }} {{ currentBattle.getCurrentTurn() }}</div>
     <button class="btn" (click)="attack()" [disabled]="!canPlay()" id="step7">
       <span>
         @if (canLimit()) {

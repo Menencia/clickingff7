@@ -2,9 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { UiFooterComponent } from '@shared/components/ui-footer/ui-footer.component';
 import { UiNavbarComponent } from '@shared/components/ui-navbar/ui-navbar.component';
-import { BattleService } from '@shared/services/battle.service';
 import { GameService } from '@shared/services/game.service';
-import { PlayerService } from '@shared/services/player.service';
 import { ThemeService } from '@shared/services/theme.service';
 import packageJson from '../../package.json';
 
@@ -12,7 +10,6 @@ import packageJson from '../../package.json';
   selector: 'app-root',
   imports: [UiFooterComponent, UiNavbarComponent, RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {
   @ViewChild('drawerToggle') drawerToggle?: ElementRef;

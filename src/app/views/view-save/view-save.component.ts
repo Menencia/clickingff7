@@ -20,7 +20,6 @@ import { PipeTimePipe } from 'src/app/shared/pipes/pipe-time.pipe';
     FormsModule,
   ],
   templateUrl: './view-save.component.html',
-  styleUrls: ['./view-save.component.scss'],
 })
 export class ViewSaveComponent {
   saves: Save[];

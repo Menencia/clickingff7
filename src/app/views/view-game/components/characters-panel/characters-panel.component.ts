@@ -9,7 +9,6 @@ import { PlayerService } from '@shared/services/player.service';
   selector: 'app-characters-panel',
   imports: [ProgressBarComponent, TranslateModule],
   templateUrl: './characters-panel.component.html',
-  styleUrl: './characters-panel.component.scss',
 })
 export class CharactersPanelComponent {
   @Input() team: Team = new Team();

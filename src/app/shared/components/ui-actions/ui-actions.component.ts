@@ -12,7 +12,6 @@ import { PlayerService } from '@shared/services/player.service';
   selector: 'app-ui-actions',
   imports: [TranslateModule],
   templateUrl: './ui-actions.component.html',
-  styleUrls: ['./ui-actions.component.scss'],
 })
 export class UiActionsComponent {
   battle = computed(() => this.battleService.battle());

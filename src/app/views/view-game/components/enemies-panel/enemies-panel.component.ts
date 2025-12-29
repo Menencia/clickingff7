@@ -7,7 +7,6 @@ import { Enemies } from '@shared/models/units/enemies';
   selector: 'app-enemies-panel',
   imports: [ProgressBarComponent, TranslateModule],
   templateUrl: './enemies-panel.component.html',
-  styleUrl: './enemies-panel.component.scss',
 })
 export class EnemiesPanelComponent {
   enemies = input<Enemies | undefined>(undefined);

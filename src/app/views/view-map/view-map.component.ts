@@ -9,7 +9,6 @@ import { ShopService } from '@shared/services/shop.service';
   selector: 'app-view-map',
   imports: [UiLayoutDefaultComponent, TranslateModule],
   templateUrl: './view-map.component.html',
-  styleUrls: ['./view-map.component.scss'],
 })
 export class ViewMapComponent {
   current: Zone;
