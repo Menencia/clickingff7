@@ -1,7 +1,5 @@
-<div class="relative mb-1" id="{{ id }}" class="bar bar-{{ name }}">
-  <!-- <div class="flex h-5 overflow-hidden rounder" [class]="name"> -->
-  <div [style.width]="progress + '%'" class="progress"></div>
-  <div [style.width]="progressBg + '%'" class="progress-bg"></div>
+<div class=" relative mb-1" [id]="id">
+  <progress class="progress w-35" [value]="progress" max="100"></progress>
   <div class="label">{{ text }}</div>
   @for (hits of arrHits; track $index) {
     <div class="absolute top-0 right-0 text-3xl text-red-600 hits">

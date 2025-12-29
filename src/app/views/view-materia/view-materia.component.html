@@ -20,8 +20,8 @@
             <span class="text-xs italic">{{ "Mat. " + materia.data.ref + " desc" | translate }}</span>
           </td>
           <td>
-            <progress class="progress w-20" value="0" [max]="materia.apProgress(100)"></progress><br />
-            <span class="bar-label">{{ materia.ap }} / {{ materia.getApMax() }} AP</span>
+            <progress class="progress w-20" [value]="materia.apProgress(100)" max="100"></progress>
+            <span class="bar-label">AP {{ materia.ap }}/{{ materia.getApMax() }}</span>
           </td>
           <td>
             @if (materia.equipped) {
