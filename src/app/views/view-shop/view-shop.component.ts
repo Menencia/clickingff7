@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LucideCheck } from '@lucide/angular';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ItemIconComponent } from '@shared/components/item-icon/item-icon.component';
 import { MateriaIconComponent } from '@shared/components/materia-icon/materia-icon.component';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
@@ -17,7 +17,7 @@ import { StoreService } from '@shared/services/store.service';
 @Component({
   selector: 'app-shop',
   imports: [
-    TranslateModule,
+    TranslatePipe,
     UiLayoutDefaultComponent,
     WeaponIconComponent,
     MateriaIconComponent,

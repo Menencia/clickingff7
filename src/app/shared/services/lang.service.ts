@@ -5,11 +5,9 @@ import { TranslateService } from '@ngx-translate/core';
   providedIn: 'root',
 })
 export class LangService {
-  constructor(private translateService: TranslateService) {
-    this.translateService.defaultLang = 'en';
-  }
+  constructor(private translateService: TranslateService) {}
 
-  getLanguage(lang: string | undefined): string {
+  private getLanguage(lang: string | undefined): string {
     return ['en', 'fr', 'es'].find((l) => l === lang) ?? 'en';
   }
 

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Difficulty } from '@shared/interfaces/difficulty';
 import { LangService } from '@shared/services/lang.service';
@@ -9,7 +9,7 @@ import { ThemeService } from '@shared/services/theme.service';
 
 @Component({
   selector: 'app-view-config',
-  imports: [UiLayoutDefaultComponent, TranslateModule, FormsModule],
+  imports: [UiLayoutDefaultComponent, TranslatePipe, FormsModule],
   templateUrl: './view-config.component.html',
 })
 export class ViewConfigComponent {

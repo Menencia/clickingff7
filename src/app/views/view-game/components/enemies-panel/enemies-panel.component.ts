@@ -1,11 +1,11 @@
 import { Component, input } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ProgressBarComponent } from '@shared/components/progress-bar/progress-bar.component';
 import { Enemies } from '@shared/models/units/enemies';
 
 @Component({
   selector: 'app-enemies-panel',
-  imports: [ProgressBarComponent, TranslateModule],
+  imports: [ProgressBarComponent, TranslatePipe],
   templateUrl: './enemies-panel.component.html',
 })
 export class EnemiesPanelComponent {

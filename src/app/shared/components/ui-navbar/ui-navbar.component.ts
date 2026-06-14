@@ -1,6 +1,6 @@
 import { Component, input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { helpData } from '@shared/models/help';
 import { BattleService } from '@shared/services/battle.service';
 import { PlayerService } from '@shared/services/player.service';
@@ -14,7 +14,7 @@ declare const introJs: () => {
 
 @Component({
   selector: 'app-ui-navbar',
-  imports: [TranslateModule, RouterModule],
+  imports: [TranslatePipe, RouterModule],
   templateUrl: './ui-navbar.component.html',
 })
 export class UiNavbarComponent {

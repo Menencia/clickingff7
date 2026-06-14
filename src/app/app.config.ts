@@ -1,4 +1,4 @@
-import { HttpBackend, provideHttpClient } from '@angular/common/http';
+import { provideHttpClient } from '@angular/common/http';
 import {
   ApplicationConfig,
   inject,
@@ -7,18 +7,10 @@ import {
   provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
-import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
-import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
+import { provideTranslateService } from '@ngx-translate/core';
+import { provideTranslateHttpLoader } from '@ngx-translate/http-loader';
 import { routes } from './app.routes';
 import { DataService } from './shared/services/data.service';
-
-// AoT requires an exported function for factories
-export function HttpLoaderFactory(_httpBackend: HttpBackend) {
-  return new MultiTranslateHttpLoader(_httpBackend, [
-    { prefix: './i18n/', suffix: '/main.json' },
-    { prefix: './i18n/', suffix: '/help.json' },
-  ]);
-}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -27,12 +19,13 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideHttpClient(),
     provideTranslateService({
-      defaultLanguage: 'fr',
-      loader: {
-        provide: TranslateLoader,
-        useFactory: HttpLoaderFactory,
-        deps: [HttpBackend],
-      },
+      fallbackLang: 'fr',
+      loader: provideTranslateHttpLoader({
+        resources: [
+          { prefix: './i18n/', suffix: '/main.json' },
+          { prefix: './i18n/', suffix: '/help.json' },
+        ],
+      }),
     }),
     provideAppInitializer(() => {
       const initializerFn = (

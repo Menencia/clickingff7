@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Character } from '@shared/models/character';
 import { Team } from '@shared/models/team';
@@ -8,7 +8,7 @@ import { PlayerService } from '@shared/services/player.service';
 
 @Component({
   selector: 'app-view-team',
-  imports: [UiLayoutDefaultComponent, TranslateModule],
+  imports: [UiLayoutDefaultComponent, TranslatePipe],
   templateUrl: './view-team.component.html',
 })
 export class ViewTeamComponent {

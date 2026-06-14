@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ProgressBarComponent } from '@shared/components/progress-bar/progress-bar.component';
 import { Character } from '@shared/models/character';
 import { Team } from '@shared/models/team';
@@ -7,7 +7,7 @@ import { PlayerService } from '@shared/services/player.service';
 
 @Component({
   selector: 'app-characters-panel',
-  imports: [ProgressBarComponent, TranslateModule],
+  imports: [ProgressBarComponent, TranslatePipe],
   templateUrl: './characters-panel.component.html',
 })
 export class CharactersPanelComponent {

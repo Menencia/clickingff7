@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LucideMinus, LucidePlus } from '@lucide/angular';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { ItemIconComponent } from '@shared/components/item-icon/item-icon.component';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Item, MAX_ITEMS } from '@shared/models/item';
@@ -10,7 +10,7 @@ import { PlayerService } from '@shared/services/player.service';
   selector: 'app-view-items',
   imports: [
     UiLayoutDefaultComponent,
-    TranslateModule,
+    TranslatePipe,
     ItemIconComponent,
     LucideMinus,
     LucidePlus,

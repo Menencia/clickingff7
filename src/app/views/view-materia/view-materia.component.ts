@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { LucideMinus, LucidePlus } from '@lucide/angular';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { MateriaIconComponent } from '@shared/components/materia-icon/materia-icon.component';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Materia } from '@shared/models/materia';
@@ -10,7 +10,7 @@ import { PlayerService } from '@shared/services/player.service';
   selector: 'app-view-materia',
   imports: [
     UiLayoutDefaultComponent,
-    TranslateModule,
+    TranslatePipe,
     MateriaIconComponent,
     LucideMinus,
     LucidePlus,

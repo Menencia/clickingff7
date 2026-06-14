@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Character } from '@shared/models/character';
 import { CharacterRef } from '@shared/models/refs/characters';
@@ -13,12 +13,7 @@ import { StoreService } from '@shared/services/store.service';
 
 @Component({
   selector: 'app-view-save',
-  imports: [
-    UiLayoutDefaultComponent,
-    TranslateModule,
-    PipeTimePipe,
-    FormsModule,
-  ],
+  imports: [UiLayoutDefaultComponent, TranslatePipe, PipeTimePipe, FormsModule],
   templateUrl: './view-save.component.html',
 })
 export class ViewSaveComponent {

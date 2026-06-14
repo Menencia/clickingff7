@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Zone } from '@shared/models/zone';
 import { PlayerService } from '@shared/services/player.service';
@@ -7,7 +7,7 @@ import { ShopService } from '@shared/services/shop.service';
 
 @Component({
   selector: 'app-view-map',
-  imports: [UiLayoutDefaultComponent, TranslateModule],
+  imports: [UiLayoutDefaultComponent, TranslatePipe],
   templateUrl: './view-map.component.html',
 })
 export class ViewMapComponent {

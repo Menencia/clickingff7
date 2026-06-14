@@ -1,5 +1,5 @@
 import { Component, computed } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { convertEffects } from '@shared/models/effect-converter';
 import { executeSkill } from '@shared/models/effect-executor';
 import { Item } from '@shared/models/item';
@@ -10,7 +10,7 @@ import { PlayerService } from '@shared/services/player.service';
 
 @Component({
   selector: 'app-ui-actions',
-  imports: [TranslateModule],
+  imports: [TranslatePipe],
   templateUrl: './ui-actions.component.html',
 })
 export class UiActionsComponent {
