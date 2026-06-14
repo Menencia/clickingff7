@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Difficulty } from '@shared/interfaces/difficulty';
 import { Items } from '@shared/models/items';
 import { Materias } from '@shared/models/materias';
 import { CharacterRef } from '@shared/models/refs/characters';
@@ -10,7 +11,6 @@ import { Team } from '@shared/models/team';
 import { Characters } from '@shared/models/units/characters';
 import { Weapons } from '@shared/models/weapons';
 import { Zones } from '@shared/models/zones';
-import { Difficulty } from 'src/app/shared/interfaces/difficulty';
 
 import { LangService } from './lang.service';
 import { StoreService } from './store.service';
@@ -35,7 +35,7 @@ export class PlayerService {
 
   gils = BASE_GILS;
 
-  language = this.langService.setDefaultLang();
+  language: string;
 
   difficulty = Difficulty.Normal;
 
@@ -46,7 +46,9 @@ export class PlayerService {
   constructor(
     private langService: LangService,
     private storeService: StoreService,
-  ) {}
+  ) {
+    this.language = this.langService.setDefaultLang();
+  }
 
   reset() {
     this.characters = new Characters();

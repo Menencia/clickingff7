@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ItemIconComponent } from '@shared/components/item-icon/item-icon.component';
 import { MateriaIconComponent } from '@shared/components/materia-icon/materia-icon.component';
@@ -24,6 +24,7 @@ import { CheckIcon, LucideAngularModule } from 'lucide-angular';
     ItemIconComponent,
     LucideAngularModule,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './view-shop.component.html',
 })
 export class ViewShopComponent {

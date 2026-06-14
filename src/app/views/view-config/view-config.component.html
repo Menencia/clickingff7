@@ -3,7 +3,11 @@
     <li class="list-row items-center">
       <label>{{ "Difficulty" | translate }}</label>
       <div class="grow"></div>
-      <select class="select" [(ngModel)]="difficulty" (change)="changeDifficulty()">
+      <select
+        class="select"
+        [(ngModel)]="difficulty"
+        (change)="changeDifficulty()"
+      >
         <option value="1">{{ "Easy" | translate }}</option>
         <option value="2">{{ "Normal" | translate }}</option>
         <option value="3">{{ "Hard" | translate }}</option>

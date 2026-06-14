@@ -12,30 +12,39 @@
 
     <tbody>
       @for (item of list; track $index) {
-        <tr>
-          <td>
-            <app-item-icon></app-item-icon>
-            {{ "It. " + item.data.ref + " name" | translate }}<br />
-            <span class="text-xs italic">{{ "It. " + item.data.ref + " desc" | translate }}</span>
-          </td>
-          <td>{{ item.nbr }}</td>
-          <td>
-            @if (item.equipped) {
-              <button class="btn btn-circle" (click)="unequipItem(item)">
-                <i-lucide [img]="MinusIcon"></i-lucide>
-              </button>
-            }
-            @if (canEquipItem(item)) {
-              <button class="btn btn-circle" (click)="equipItem(item)">
-                <i-lucide [img]="PlusIcon"></i-lucide>
-              </button>
-            }
-          </td>
-        </tr>
+      <tr>
+        <td>
+          <app-item-icon></app-item-icon>
+          {{ "It. " + item.data.ref + " name" | translate }}<br>
+          <span class="text-xs italic"
+            >{{ "It. " + item.data.ref + " desc" | translate }}</span
+          >
+        </td>
+        <td>{{ item.nbr }}</td>
+        <td>
+          @if (item.equipped) {
+          <button
+            type="button"
+            class="btn btn-circle"
+            (click)="unequipItem(item)"
+          >
+            <i-lucide [img]="MinusIcon"></i-lucide>
+          </button>
+          } @if (canEquipItem(item)) {
+          <button
+            type="button"
+            class="btn btn-circle"
+            (click)="equipItem(item)"
+          >
+            <i-lucide [img]="PlusIcon"></i-lucide>
+          </button>
+          }
+        </td>
+      </tr>
       } @empty {
-        <tr class="nothing">
-          <td colspan="4">{{ "No items" | translate }}</td>
-        </tr>
+      <tr class="nothing">
+        <td colspan="4">{{ "No items" | translate }}</td>
+      </tr>
       }
     </tbody>
   </table>

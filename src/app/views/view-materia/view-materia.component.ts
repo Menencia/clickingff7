@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { MateriaIconComponent } from '@shared/components/materia-icon/materia-icon.component';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
@@ -14,6 +14,7 @@ import { LucideAngularModule, MinusIcon, PlusIcon } from 'lucide-angular';
     MateriaIconComponent,
     LucideAngularModule,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './view-materia.component.html',
 })
 export class ViewMateriaComponent {

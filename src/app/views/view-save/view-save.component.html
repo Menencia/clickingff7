@@ -2,23 +2,33 @@
   <div class="grid grid-cols-5 gap-x-4">
     <div>
       <div class="flex flex-col gap-1">
-        <button class="btn" (click)="saveGame()">
+        <button type="button" class="btn" (click)="saveGame()">
           {{ "Save" | translate }}
         </button>
 
-        <button class="btn" (click)="resetModal.showModal()" [disabled]="saves.length === 0">
+        <button
+          type="button"
+          class="btn"
+          (click)="resetModal.showModal()"
+          [disabled]="saves.length === 0"
+        >
           {{ "Reset" | translate }}
         </button>
       </div>
 
       <div class="flex flex-col gap-1 mt-5">
-        <button class="btn" (click)="exportLastSave()" [disabled]="saves.length === 0">
+        <button
+          type="button"
+          class="btn"
+          (click)="exportLastSave()"
+          [disabled]="saves.length === 0"
+        >
           {{ "Export save" | translate }}
         </button>
-        <button class="btn" (click)="exportCurrentGame()">
+        <button type="button" class="btn" (click)="exportCurrentGame()">
           {{ "Export game" | translate }}
         </button>
-        <button class="btn" (click)="showImport()">
+        <button type="button" class="btn" (click)="showImport()">
           {{ "Import" | translate }}
         </button>
       </div>
@@ -26,36 +36,38 @@
 
     <div class="col-span-2">
       @if (saves.length === 0) {
-        <div class="no-data">
-          {{ "No saves" | translate }}
-        </div>
-      }
-
-      @if (saves.length > 0) {
-        <div>
-          @for (character of getCharactersFromRefs(saves[0].team.list); track $index) {
-            <img [src]="character.data.image" alt="{{ character.data.ref }}" width="80" class="save_character" />
-          }
-          <br />
-          {{ "Time" | translate }}: {{ saves[0].updated - saves[0].created | time }}
-          <br />
-          {{ "Gil" | translate }}: {{ saves[0].gils }}
-        </div>
+      <div class="no-data">{{ "No saves" | translate }}</div>
+      } @if (saves.length > 0) {
+      <div>
+        @for (character of getCharactersFromRefs(saves[0].team.list); track
+        $index) {
+        <img
+          [src]="character.data.image"
+          alt="{{ character.data.ref }}"
+          width="80"
+          class="save_character"
+        >
+        }
+        <br>
+        {{ "Time" | translate }}:
+        {{ saves[0].updated - saves[0].created | time }}
+        <br>
+        {{ "Gil" | translate }}: {{ saves[0].gils }}
+      </div>
       }
     </div>
 
     <div class="col-span-2">
       @if (showAreaExport) {
-        <div>
-          <textarea [(ngModel)]="areaExport"></textarea>
-        </div>
-      }
-      @if (showAreaImport) {
-        <div>
-          <textarea [(ngModel)]="areaImport"></textarea>
+      <div><textarea [(ngModel)]="areaExport"></textarea></div>
+      } @if (showAreaImport) {
+      <div>
+        <textarea [(ngModel)]="areaImport"></textarea>
 
-          <button clss="btn" (click)="importModal.showModal()">IMPORT</button>
-        </div>
+        <button type="button" clss="btn" (click)="importModal.showModal()">
+          IMPORT
+        </button>
+      </div>
       }
     </div>
   </div>
@@ -67,8 +79,10 @@
     <p class="py-4">Are you sure ? You'll lose everything !</p>
     <div class="modal-action">
       <form method="dialog">
-        <button class="btn">Close</button>
-        <button class="btn" (click)="resetGame(true)">Valider</button>
+        <button type="button" class="btn">Close</button>
+        <button type="button" class="btn" (click)="resetGame(true)">
+          Valider
+        </button>
       </form>
     </div>
   </div>
@@ -80,8 +94,10 @@
     <p class="py-4">Are you sure ? You'll lose your current save !</p>
     <div class="modal-action">
       <form method="dialog">
-        <button class="btn">Close</button>
-        <button class="btn" (click)="importSave(true)">Valider</button>
+        <button type="button" class="btn">Close</button>
+        <button type="button" class="btn" (click)="importSave(true)">
+          Valider
+        </button>
       </form>
     </div>
   </div>

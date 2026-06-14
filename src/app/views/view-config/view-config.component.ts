@@ -1,15 +1,16 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
+import { Difficulty } from '@shared/interfaces/difficulty';
 import { LangService } from '@shared/services/lang.service';
 import { PlayerService } from '@shared/services/player.service';
 import { ThemeService } from '@shared/services/theme.service';
-import { Difficulty } from 'src/app/shared/interfaces/difficulty';
 
 @Component({
   selector: 'app-view-config',
   imports: [UiLayoutDefaultComponent, TranslateModule, FormsModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './view-config.component.html',
 })
 export class ViewConfigComponent {

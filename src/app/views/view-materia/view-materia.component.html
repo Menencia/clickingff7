@@ -12,34 +12,45 @@
 
     <tbody>
       @for (materia of list; track $index) {
-        <tr>
-          <td>
-            <app-materia-icon [color]="materia.data.color"></app-materia-icon>
-            {{ "Mat. " + materia.data.ref + " name" | translate }}
-            <strong>(LVL{{ materia.level }})</strong><br />
-            <span class="text-xs italic">{{ "Mat. " + materia.data.ref + " desc" | translate }}</span>
-          </td>
-          <td>
-            <progress class="progress w-20" [value]="materia.apProgress(100)" max="100"></progress>
-            <span class="bar-label">AP {{ materia.ap }}/{{ materia.getApMax() }}</span>
-          </td>
-          <td>
-            @if (materia.equipped) {
-              <button class="btn btn-circle" (click)="unequip(materia)">
-                <i-lucide [img]="MinusIcon"></i-lucide>
-              </button>
-            }
-            @if (canEquip(materia)) {
-              <button class="btn btn-circle" (click)="equip(materia)">
-                <i-lucide [img]="PlusIcon"></i-lucide>
-              </button>
-            }
-          </td>
-        </tr>
+      <tr>
+        <td>
+          <app-materia-icon [color]="materia.data.color"></app-materia-icon>
+          {{ "Mat. " + materia.data.ref + " name" | translate }}
+          <strong>(LVL{{ materia.level }})</strong><br>
+          <span class="text-xs italic"
+            >{{ "Mat. " + materia.data.ref + " desc" | translate }}</span
+          >
+        </td>
+        <td>
+          <progress
+            class="progress w-20"
+            [value]="materia.apProgress(100)"
+            max="100"
+          ></progress>
+          <span class="bar-label"
+            >AP {{ materia.ap }}/{{ materia.getApMax() }}</span
+          >
+        </td>
+        <td>
+          @if (materia.equipped) {
+          <button
+            type="button"
+            class="btn btn-circle"
+            (click)="unequip(materia)"
+          >
+            <i-lucide [img]="MinusIcon"></i-lucide>
+          </button>
+          } @if (canEquip(materia)) {
+          <button type="button" class="btn btn-circle" (click)="equip(materia)">
+            <i-lucide [img]="PlusIcon"></i-lucide>
+          </button>
+          }
+        </td>
+      </tr>
       } @empty {
-        <tr class="nothing">
-          <td colspan="4">{{ "No materia" | translate }}</td>
-        </tr>
+      <tr class="nothing">
+        <td colspan="4">{{ "No materia" | translate }}</td>
+      </tr>
       }
     </tbody>
   </table>

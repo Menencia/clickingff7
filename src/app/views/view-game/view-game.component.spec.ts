@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiActionsComponent } from '@shared/components/ui-actions/ui-actions.component';
@@ -19,7 +19,7 @@ describe('ViewGameComponent', () => {
         ...MockComponents(UiActionsComponent, CharactersPanelComponent),
         TranslateModule.forRoot(),
       ],
-      providers: [MockProvider(PlayerService), provideHttpClient()],
+      providers: [MockProvider(PlayerService), provideHttpClient(withXhr())],
     }).compileComponents();
 
     fixture = TestBed.createComponent(ViewGameComponent);

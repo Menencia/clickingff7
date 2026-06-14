@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { ItemIconComponent } from '@shared/components/item-icon/item-icon.component';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
@@ -14,6 +14,7 @@ import { LucideAngularModule, MinusIcon, PlusIcon } from 'lucide-angular';
     ItemIconComponent,
     LucideAngularModule,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './view-items.component.html',
 })
 export class ViewItemsComponent {

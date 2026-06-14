@@ -2,14 +2,19 @@
   <div class="flex flex-col gap-5 sm:flex-row">
     <div class="flex flex-row flex-wrap gap-1 basis-1/5 sm:flex-col">
       @for (zone of list; track $index) {
-        <button class="btn" [class]="{ current: level === zone.data.level }" (click)="goZone(zone.data.level)">
-          {{ "Zone" | translate }} {{ zone.data.level }}
-        </button>
+      <button
+        type="button"
+        class="btn"
+        [class]="{ current: level === zone.data.level }"
+        (click)="goZone(zone.data.level)"
+      >
+        {{ "Zone" | translate }} {{ zone.data.level }}
+      </button>
       }
     </div>
 
     <div class="flex flex-row gap-4 basis-4/5">
-      <img class="w-32" [src]="current.data.image" alt="current_zone" />
+      <img class="w-32" [src]="current.data.image" alt="current_zone">
 
       <div>
         <div class="">
@@ -24,16 +29,15 @@
 
       <div class="text-center text-gray-400 uppercase">
         @if (current.completed) {
-          {{ "Completed" | translate }}
+        {{ "Completed" | translate }}
         } @else {
-          {{ "Not completed" | translate }}
+        {{ "Not completed" | translate }}
         }
       </div>
-
       @if (canGoNextZone()) {
-        <button class="btn" (click)="goNextZone()">
-          {{ "Go next zone" | translate }}
-        </button>
+      <button type="button" class="btn" (click)="goNextZone()">
+        {{ "Go next zone" | translate }}
+      </button>
       }
     </div>
   </div>

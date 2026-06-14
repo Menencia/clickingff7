@@ -1,41 +1,38 @@
 <div class="col-span-2" id="step5">
   <!-- enemies bars -->
-  @let e = enemies();
-  @if (e) {
-    <div>
-      Niveau {{ e.level }}
-      <app-progress-bar
-        [progress]="round((e.hp / e.hpMax) * 100)"
-        [text]="'HP ' + e.hp"
-        [name]="'hp'"
-        [hits]="e.source.hp"
-      ></app-progress-bar>
-    </div>
+  @let e = enemies(); @if (e) {
+  <div>
+    Niveau {{ e.level }}
+    <app-progress-bar
+      [progress]="round((e.hp / e.hpMax) * 100)"
+      [text]="'HP ' + e.hp"
+      [name]="'hp'"
+      [hits]="e.source.hp"
+    ></app-progress-bar>
+  </div>
   }
-
   <!-- enemies list -->
   @for (enemy of e?.list; track $index) {
-    <div class="flex gap-4 mt-5">
-      <div
-        [style]="{ 'background-image': 'url(' + enemy.data.image + ')' }"
-        class="relative flex-none w-20 h-20 bg-center bg-cover border border-black"
-      ></div>
+  <div class="flex gap-4 mt-5">
+    <div
+      [style]="{ 'background-image': 'url(' + enemy.data.image + ')' }"
+      class="relative flex-none w-20 h-20 bg-center bg-cover border border-black"
+    ></div>
 
-      <div>
-        <div class="text-2xl">
-          {{ enemy.data.ref }}
-          @if (enemy.data.boss) {
-            <span class="boss">ZONE BOSS</span>
-          }
-          @if (enemy.data.miboss) {
-            <span class="boss">BOSS</span>
-          }
-        </div>
+    <div>
+      <div class="text-2xl">
+        {{ enemy.data.ref }}
+        @if (enemy.data.boss) {
+        <span class="boss">ZONE BOSS</span>
+        } @if (enemy.data.miboss) {
+        <span class="boss">BOSS</span>
+        }
       </div>
     </div>
+  </div>
   } @empty {
-    <div class="mt-10 text-center text-gray-300 uppercase">
-      {{ "No enemies" | translate }}
-    </div>
+  <div class="mt-10 text-center text-gray-300 uppercase">
+    {{ "No enemies" | translate }}
+  </div>
   }
 </div>

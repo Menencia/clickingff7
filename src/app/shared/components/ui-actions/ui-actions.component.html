@@ -1,54 +1,87 @@
 <div class="flex flex-row flex-wrap gap-1 sm:flex-col">
-  @let currentBattle = battle();
-  @if (!currentBattle) {
-    <button class="btn" (click)="fightRandom()" id="step6"> {{ "Fight random" | translate }}{{ remainingBattles() }} </button>
-    <button class="btn" (click)="fightBoss()" [disabled]="!canFightBoss()">
-      @if (canFightBoss()) {
-        <div class="float-right text-red-700">*</div>
-      }
-      {{ "Fight boss" | translate }}
-    </button>
+  @let currentBattle = battle(); @if (!currentBattle) {
+  <button type="button" class="btn" (click)="fightRandom()" id="step6">
+    {{ "Fight random" | translate }}{{ remainingBattles() }}
+  </button>
+  <button
+    type="button"
+    class="btn"
+    (click)="fightBoss()"
+    [disabled]="!canFightBoss()"
+  >
+    @if (canFightBoss()) {
+    <div class="float-right text-red-700">*</div>
+    }
+    {{ "Fight boss" | translate }}
+  </button>
   } @else {
-    <div class="bg-secondary text-center">{{ "Battle" | translate }} - {{ "Turn" | translate }} {{ currentBattle.getCurrentTurn() }}</div>
-    <button class="btn" (click)="attack()" [disabled]="!canPlay()" id="step7">
-      <span>
-        @if (canLimit()) {
-          {{ "Limit" | translate }}
-        } @else {
-          {{ "Attack" | translate }}
-        }
-      </span>
-    </button>
-    <button class="btn" (click)="escape()" [disabled]="!canPlay()" id="step8">
-      {{ "Escape" | translate }}
-    </button>
-
-    <div class="h-3"></div>
-
-    <div [id]="'step9'" class="contents">
-      @for (materia of getMaterias(); track $index) {
-        <button class="btn flex flex-row items-center" (click)="useMateria(materia)" [disabled]="!canUseMateria(materia)">
-          <img class="flex-none" src="/assets/images/icons/materias/{{ materia.data.color }}.webp" alt="materia" />
-          <div class="grow">
-            {{ "Mat. " + materia.data.ref + " name" | translate }}
-          </div>
-          <span class="flex-none">{{ materia.getMpCost() }}</span>
-        </button>
+  <div class="bg-secondary text-center">
+    {{ "Battle" | translate }}
+    - {{ "Turn" | translate }} {{ currentBattle.getCurrentTurn() }}
+  </div>
+  <button
+    type="button"
+    class="btn"
+    (click)="attack()"
+    [disabled]="!canPlay()"
+    id="step7"
+  >
+    <span>
+      @if (canLimit()) {
+      {{ "Limit" | translate }}
+      } @else {
+      {{ "Attack" | translate }}
       }
-    </div>
+    </span>
+  </button>
+  <button
+    type="button"
+    class="btn"
+    (click)="escape()"
+    [disabled]="!canPlay()"
+    id="step8"
+  >
+    {{ "Escape" | translate }}
+  </button>
 
-    <div class="h-3"></div>
+  <div class="h-3"></div>
 
-    <div [id]="'step10'" class="contents">
-      @for (item of getItems(); track $index) {
-        <button class=" btn flex flex-row items-center button" (click)="useItem(item)" [disabled]="!canUseItem(item)">
-          <div class="grow">
-            {{ "It. " + item.data.ref + " name" | translate }}
-          </div>
-          <div class="flex-none">{{ item.nbr }}</div>
-        </button>
-      }
-    </div>
+  <div [id]="'step9'" class="contents">
+    @for (materia of getMaterias(); track $index) {
+    <button
+      type="button"
+      class="btn flex flex-row items-center"
+      (click)="useMateria(materia)"
+      [disabled]="!canUseMateria(materia)"
+    >
+      <img
+        class="flex-none"
+        src="/assets/images/icons/materias/{{ materia.data.color }}.webp"
+        alt="materia"
+      >
+      <div class="grow">
+        {{ "Mat. " + materia.data.ref + " name" | translate }}
+      </div>
+      <span class="flex-none">{{ materia.getMpCost() }}</span>
+    </button>
+    }
+  </div>
+
+  <div class="h-3"></div>
+
+  <div [id]="'step10'" class="contents">
+    @for (item of getItems(); track $index) {
+    <button
+      type="button"
+      class=" btn flex flex-row items-center button"
+      (click)="useItem(item)"
+      [disabled]="!canUseItem(item)"
+    >
+      <div class="grow">{{ "It. " + item.data.ref + " name" | translate }}</div>
+      <div class="flex-none">{{ item.nbr }}</div>
+    </button>
+    }
+  </div>
   }
 
   <div class="h-3"></div>

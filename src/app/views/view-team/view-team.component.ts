@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Character } from '@shared/models/character';
@@ -9,6 +9,7 @@ import { PlayerService } from '@shared/services/player.service';
 @Component({
   selector: 'app-view-team',
   imports: [UiLayoutDefaultComponent, TranslateModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './view-team.component.html',
 })
 export class ViewTeamComponent {

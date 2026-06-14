@@ -1,4 +1,10 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { UiFooterComponent } from '@shared/components/ui-footer/ui-footer.component';
 import { UiNavbarComponent } from '@shared/components/ui-navbar/ui-navbar.component';
@@ -9,6 +15,7 @@ import packageJson from '../../package.json';
 @Component({
   selector: 'app-root',
   imports: [UiFooterComponent, UiNavbarComponent, RouterOutlet],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {

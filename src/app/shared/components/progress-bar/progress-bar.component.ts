@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
 import {
+  ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   Input,
@@ -11,6 +12,7 @@ import { Subject, Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-progress-bar',
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './progress-bar.component.html',
 })
 export class ProgressBarComponent implements OnInit, OnDestroy {

@@ -2,7 +2,6 @@
   class="menu bg-base-200 rounded-box w-full"
   [class.menu-horizontal]="horizontal()"
 >
-
   <li>
     <a routerLink="/game" routerLinkActive="menu-active">
       {{ "Game" | translate }}
@@ -19,7 +18,7 @@
     <a routerLink="/map" routerLinkActive="menu-active">
       {{ "Map" | translate }}
       @if (displayNextZone()) {
-        <span>*</span>
+      <span>*</span>
       }
     </a>
   </li>

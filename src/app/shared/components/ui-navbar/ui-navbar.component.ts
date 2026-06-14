@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { helpData } from '@shared/models/help';
@@ -15,6 +15,7 @@ declare const introJs: () => {
 @Component({
   selector: 'app-ui-navbar',
   imports: [TranslateModule, RouterModule],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './ui-navbar.component.html',
 })
 export class UiNavbarComponent {

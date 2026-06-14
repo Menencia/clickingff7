@@ -1,4 +1,4 @@
-import { provideHttpClient } from '@angular/common/http';
+import { provideHttpClient, withXhr } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
 import { MockProvider } from 'ng-mocks';
@@ -12,7 +12,7 @@ describe('BattleService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      providers: [MockProvider(PlayerService), provideHttpClient()],
+      providers: [MockProvider(PlayerService), provideHttpClient(withXhr())],
     });
     service = TestBed.inject(BattleService);
   });

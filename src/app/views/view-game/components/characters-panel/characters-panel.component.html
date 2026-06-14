@@ -23,22 +23,26 @@
     [name]="'limit'"
   ></app-progress-bar>
 
-  <app-progress-bar [progress]="round((team.xp / team.getXpMax()) * 100)" [text]="'XP ' + team.xp" [name]="'exp'"></app-progress-bar>
+  <app-progress-bar
+    [progress]="round((team.xp / team.getXpMax()) * 100)"
+    [text]="'XP ' + team.xp"
+    [name]="'exp'"
+  ></app-progress-bar>
 
   <!-- characters list -->
   <div id="step1">
     @for (character of team.list; track $index) {
-      <div class="flex gap-4 mt-5">
-        <div
-          [style]="{ 'background-image': 'url(' + character.data.image + ')' }"
-          class="relative flex-none w-20 h-20 bg-center bg-cover border border-black"
-        ></div>
+    <div class="flex gap-4 mt-5">
+      <div
+        [style]="{ 'background-image': 'url(' + character.data.image + ')' }"
+        class="relative flex-none w-20 h-20 bg-center bg-cover border border-black"
+      ></div>
 
-        <div class="grow">
-          <div class="text-2xl">{{ character.data.ref }}</div>
-          <div class="text-sm italic">"{{ getLine(character) | translate }}"</div>
-        </div>
+      <div class="grow">
+        <div class="text-2xl">{{ character.data.ref }}</div>
+        <div class="text-sm italic">"{{ getLine(character) | translate }}"</div>
       </div>
+    </div>
     }
   </div>
 </div>

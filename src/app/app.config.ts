@@ -1,4 +1,4 @@
-import { HttpBackend, provideHttpClient } from '@angular/common/http';
+import { HttpBackend, provideHttpClient, withXhr } from '@angular/common/http';
 import {
   ApplicationConfig,
   inject,
@@ -25,7 +25,7 @@ export const appConfig: ApplicationConfig = {
     provideBrowserGlobalErrorListeners(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withXhr()),
     provideTranslateService({
       defaultLanguage: 'fr',
       loader: {

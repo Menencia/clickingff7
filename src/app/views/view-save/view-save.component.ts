@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -6,10 +6,10 @@ import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/u
 import { Character } from '@shared/models/character';
 import { CharacterRef } from '@shared/models/refs/characters';
 import { Save } from '@shared/models/save';
+import { PipeTimePipe } from '@shared/pipes/pipe-time.pipe';
 import { GameService } from '@shared/services/game.service';
 import { PlayerService } from '@shared/services/player.service';
 import { StoreService } from '@shared/services/store.service';
-import { PipeTimePipe } from 'src/app/shared/pipes/pipe-time.pipe';
 
 @Component({
   selector: 'app-view-save',
@@ -19,6 +19,7 @@ import { PipeTimePipe } from 'src/app/shared/pipes/pipe-time.pipe';
     PipeTimePipe,
     FormsModule,
   ],
+  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './view-save.component.html',
 })
 export class ViewSaveComponent {
