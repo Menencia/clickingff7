@@ -77,7 +77,7 @@
             </td>
             <td>
               @if (weapon.inStock(playerWeapons)) {
-              <i-lucide [img]="CheckIcon"></i-lucide>
+              <svg lucideCheck><title>Check</title></svg>
               }
             </td>
             <td>{{ weapon.data.price }} {{ "Gils" | translate }}</td>
@@ -104,7 +104,7 @@
             </td>
             <td>
               @if (materia.inStock(playerMaterias)) {
-              <i-lucide [img]="CheckIcon"></i-lucide>
+              <svg lucideCheck><title>Check</title></svg>
               }
             </td>
             <td>{{ materia.data.price }} {{ "Gils" | translate }}</td>
@@ -168,7 +168,7 @@
             </td>
             <td>
               @if (inStockWeapon(weapon)) {
-              <i-lucide [img]="CheckIcon"></i-lucide>
+              <svg lucideCheck><title>Check</title></svg>
               }
             </td>
             <td>{{ weapon.getSellPrice() }} {{ "Gils" | translate }}</td>
@@ -193,7 +193,9 @@
                 >{{ "Mat. " + materia.data.ref + " desc" | translate }}</span
               >
             </td>
-            <td><i-lucide [img]="CheckIcon"></i-lucide></td>
+            <td>
+              <svg lucideCheck><title>Check</title></svg>
+            </td>
             <td>{{ materia.getSellPrice() }} {{ "Gils" | translate }}</td>
             <td>
               <button type="button" class="btn" (click)="sellMateria(materia)">

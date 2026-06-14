@@ -28,7 +28,7 @@
             class="btn btn-circle"
             (click)="unequipItem(item)"
           >
-            <i-lucide [img]="MinusIcon"></i-lucide>
+            <svg lucideMinus><title>Minus</title></svg>
           </button>
           } @if (canEquipItem(item)) {
           <button
@@ -36,7 +36,7 @@
             class="btn btn-circle"
             (click)="equipItem(item)"
           >
-            <i-lucide [img]="PlusIcon"></i-lucide>
+            <svg lucidePlus><title>Plus</title></svg>
           </button>
           }
         </td>
