@@ -45,7 +45,6 @@
     "daisyui": "5.5.14",
     "jasmine-core": "~5.5.0",
     "jsdom": "^27.1.0",
-    "ng-mocks": "^14.14.0",
     "postcss": "^8.5.3",
     "prettier": "^3.4.2",
     "typescript": "~5.9.3",
