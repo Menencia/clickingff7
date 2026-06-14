@@ -32,9 +32,6 @@ importers:
       '@ngx-translate/http-loader':
         specifier: ^16.0.0
         version: 16.0.1(@angular/common@22.0.1(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))
-      '@tailwindcss/postcss':
-        specifier: ^4.1.17
-        version: 4.3.1
       intro.js:
         specifier: ^7.2.0
         version: 7.2.0
@@ -44,18 +41,12 @@ importers:
       ngx-translate-multi-http-loader:
         specifier: ^18.2.0
         version: 18.2.0(@angular/common@22.0.1(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))(@ngx-translate/core@16.0.4(@angular/common@22.0.1(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1)))(rxjs@7.8.2)
-      postcss:
-        specifier: ^8.5.6
-        version: 8.5.15
       rxjs:
         specifier: ~7.8.0
         version: 7.8.2
       subsink:
         specifier: ^1.0.2
         version: 1.0.2
-      tailwindcss:
-        specifier: 4.1.14
-        version: 4.1.14
       tslib:
         specifier: ^2.8.1
         version: 2.8.1
@@ -65,7 +56,7 @@ importers:
     devDependencies:
       '@angular/build':
         specifier: ^22.0.1
-        version: 22.0.1(@angular/compiler-cli@22.0.1(@angular/compiler@22.0.1)(typescript@6.0.3))(@angular/compiler@22.0.1)(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@22.0.1(@angular/common@22.0.1(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1)))(chokidar@5.0.0)(jiti@2.7.0)(lightningcss@1.32.0)(postcss@8.5.15)(tailwindcss@4.1.14)(tslib@2.8.1)(typescript@6.0.3)(vitest@4.1.8(jsdom@27.4.0)(vite@7.3.2(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.99.0)))
+        version: 22.0.1(@angular/compiler-cli@22.0.1(@angular/compiler@22.0.1)(typescript@6.0.3))(@angular/compiler@22.0.1)(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@22.0.1(@angular/common@22.0.1(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1)))(chokidar@5.0.0)(jiti@2.7.0)(lightningcss@1.32.0)(postcss@8.5.15)(tailwindcss@4.3.1)(tslib@2.8.1)(typescript@6.0.3)(vitest@4.1.8(jsdom@27.4.0)(vite@7.3.2(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.99.0)))
       '@angular/cli':
         specifier: ^22.0.1
         version: 22.0.1(chokidar@5.0.0)
@@ -75,21 +66,21 @@ importers:
       '@biomejs/biome':
         specifier: 2.4.10
         version: 2.4.10
-      baseline-browser-mapping:
-        specifier: ^2.10.27
-        version: 2.10.37
+      '@tailwindcss/postcss':
+        specifier: ^4.1.17
+        version: 4.3.1
       daisyui:
         specifier: 5.5.14
         version: 5.5.14
-      jasmine-core:
-        specifier: ~5.5.0
-        version: 5.5.0
       jsdom:
         specifier: ^27.1.0
         version: 27.4.0
-      prettier:
-        specifier: ^3.4.2
-        version: 3.8.4
+      postcss:
+        specifier: ^8.5.3
+        version: 8.5.15
+      tailwindcss:
+        specifier: ^4.1.14
+        version: 4.3.1
       typescript:
         specifier: ~6.0.3
         version: 6.0.3
@@ -2154,9 +2145,6 @@ packages:
     resolution: {integrity: sha512-FFUtZMpoZ8RqHS3XeXEmHWLA4thH+ZxCv2lOiPIn1Xc7CxrqhWzNSDzD+/chS/zbYezmiwWLdQC09JdQKmthOw==}
     engines: {node: '>=20'}
 
-  jasmine-core@5.5.0:
-    resolution: {integrity: sha512-NHOvoPO6o9gVR6pwqEACTEpbgcH+JJ6QDypyymGbSUIFIFsMMbBJ/xsFNud8MSClfnWclXd7RQlAZBz7yVo5TQ==}
-
   jiti@2.7.0:
     resolution: {integrity: sha512-AC/7JofJvZGrrneWNaEnJeOLUx+JlGt7tNa0wZiRPT4MY1wmfKjt2+6O2p2uz2+skll8OZZmJMNqeke7kKbNgQ==}
     hasBin: true
@@ -2562,11 +2550,6 @@ packages:
     resolution: {integrity: sha512-FfR8sjd4em2T6fb3I2MwAJU7HWVMr9zba+enmQeeWFfCbm+UOC/0X4DS8XtpUTMwWMGbjKYP7xjfNekzyGmB3A==}
     engines: {node: ^10 || ^12 || >=14}
 
-  prettier@3.8.4:
-    resolution: {integrity: sha512-N2MylSdi48+5N/6S5j+maeHbUSIzzZ5uOcX5Hm4QpV8Dkb1HFjfAKTKX6yNPJQD9AhcT3ifHNB66tWTTJDi11Q==}
-    engines: {node: '>=14'}
-    hasBin: true
-
   proc-log@6.1.0:
     resolution: {integrity: sha512-iG+GYldRf2BQ0UDUAd6JQ/RwzaQy6mXmsk/IzlYyal4A4SNFw54MeH4/tLkF4I5WoWG9SQwuqWzS99jaFQHBuQ==}
     engines: {node: ^20.17.0 || >=22.9.0}
@@ -2776,9 +2759,6 @@ packages:
 
   symbol-tree@3.2.4:
     resolution: {integrity: sha512-9QNk5KwDF+Bvz+PyObkmSYjI5ksVUYtjW7AU22r2NKcfLJcXp96hkDWU3+XndOsUb+AQ9QhfzfCT2O+CNWT5Tw==}
-
-  tailwindcss@4.1.14:
-    resolution: {integrity: sha512-b7pCxjGO98LnxVkKjaZSDeNuljC4ueKUddjENJOADtubtdo8llTaJy7HwBMeLNSSo2N5QIAgklslK1+Ir8r6CA==}
 
   tailwindcss@4.3.1:
     resolution: {integrity: sha512-hk+TB1m+K8CYNrP6rjQaq/Y+4Zylwpa87mLYBKCunwnnQ9p+fHb7kmSfGqyEJoxF/O6CDyABWVFEafNSYKll+Q==}
@@ -3183,7 +3163,7 @@ snapshots:
     transitivePeerDependencies:
       - chokidar
 
-  '@angular/build@22.0.1(@angular/compiler-cli@22.0.1(@angular/compiler@22.0.1)(typescript@6.0.3))(@angular/compiler@22.0.1)(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@22.0.1(@angular/common@22.0.1(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1)))(chokidar@5.0.0)(jiti@2.7.0)(lightningcss@1.32.0)(postcss@8.5.15)(tailwindcss@4.1.14)(tslib@2.8.1)(typescript@6.0.3)(vitest@4.1.8(jsdom@27.4.0)(vite@7.3.2(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.99.0)))':
+  '@angular/build@22.0.1(@angular/compiler-cli@22.0.1(@angular/compiler@22.0.1)(typescript@6.0.3))(@angular/compiler@22.0.1)(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))(@angular/platform-browser@22.0.1(@angular/common@22.0.1(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1)))(chokidar@5.0.0)(jiti@2.7.0)(lightningcss@1.32.0)(postcss@8.5.15)(tailwindcss@4.3.1)(tslib@2.8.1)(typescript@6.0.3)(vitest@4.1.8(jsdom@27.4.0)(vite@7.3.2(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.99.0)))':
     dependencies:
       '@ampproject/remapping': 2.3.0
       '@angular-devkit/architect': 0.2200.1(chokidar@5.0.0)
@@ -3219,7 +3199,7 @@ snapshots:
       '@angular/platform-browser': 22.0.1(@angular/common@22.0.1(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.0.1(@angular/compiler@22.0.1)(rxjs@7.8.2)(zone.js@0.15.1))
       lmdb: 3.5.4
       postcss: 8.5.15
-      tailwindcss: 4.1.14
+      tailwindcss: 4.3.1
       vitest: 4.1.8(jsdom@27.4.0)(vite@7.3.2(jiti@2.7.0)(lightningcss@1.32.0)(sass@1.99.0))
     transitivePeerDependencies:
       - '@types/node'
@@ -4889,8 +4869,6 @@ snapshots:
 
   isexe@4.0.0: {}
 
-  jasmine-core@5.5.0: {}
-
   jiti@2.7.0: {}
 
   jose@6.2.3: {}
@@ -5330,8 +5308,6 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  prettier@3.8.4: {}
-
   proc-log@6.1.0: {}
 
   proxy-addr@2.0.7:
@@ -5585,8 +5561,6 @@ snapshots:
   subsink@1.0.2: {}
 
   symbol-tree@3.2.4: {}
-
-  tailwindcss@4.1.14: {}
 
   tailwindcss@4.3.1: {}
 
