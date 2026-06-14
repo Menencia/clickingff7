@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { UiFooterComponent } from '@shared/components/ui-footer/ui-footer.component';
 import { UiNavbarComponent } from '@shared/components/ui-navbar/ui-navbar.component';
