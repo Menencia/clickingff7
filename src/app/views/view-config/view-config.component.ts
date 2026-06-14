@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
@@ -10,7 +10,6 @@ import { ThemeService } from '@shared/services/theme.service';
 @Component({
   selector: 'app-view-config',
   imports: [UiLayoutDefaultComponent, TranslateModule, FormsModule],
-  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './view-config.component.html',
 })
 export class ViewConfigComponent {

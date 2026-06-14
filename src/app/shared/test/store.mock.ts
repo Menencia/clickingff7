@@ -10,7 +10,7 @@ export class StoreServiceMock {
     return new Zone({
       ref,
       level: 1,
-      image: '/assets/images/zones/Sector_1_Reactor.png',
+      image: '/images/zones/Sector_1_Reactor.png',
       enemies: [],
       boss: [],
     });

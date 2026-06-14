@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { WeaponIconComponent } from '@shared/components/weapon-icon/weapon-icon.component';
@@ -10,7 +10,6 @@ import { PlayerService } from '@shared/services/player.service';
 @Component({
   selector: 'app-view-equip',
   imports: [UiLayoutDefaultComponent, TranslateModule, WeaponIconComponent],
-  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './view-equip.component.html',
 })
 export class ViewEquipComponent {

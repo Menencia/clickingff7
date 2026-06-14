@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { UiActionsComponent } from '@shared/components/ui-actions/ui-actions.component';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Team } from '@shared/models/team';
@@ -16,7 +16,6 @@ import { EnemiesPanelComponent } from './components/enemies-panel/enemies-panel.
     CharactersPanelComponent,
     EnemiesPanelComponent,
   ],
-  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './view-game.component.html',
 })
 export class ViewGameComponent {

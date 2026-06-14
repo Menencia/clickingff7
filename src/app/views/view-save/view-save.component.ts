@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
@@ -19,7 +19,6 @@ import { StoreService } from '@shared/services/store.service';
     PipeTimePipe,
     FormsModule,
   ],
-  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './view-save.component.html',
 })
 export class ViewSaveComponent {

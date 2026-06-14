@@ -8,9 +8,6 @@
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
-        },
-        "@schematics/angular:application": {
-          "strict": true
         }
       },
       "root": "",
@@ -20,34 +17,34 @@
         "build": {
           "builder": "@angular/build:application",
           "options": {
-            "outputPath": {
-              "base": "dist/clickingff7"
-            },
-            "index": "src/index.html",
-            "polyfills": ["zone.js"],
+            "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
             "inlineStyleLanguage": "scss",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              {
+                "glob": "**/*",
+                "input": "public"
+              }
+            ],
             "styles": [
               "node_modules/intro.js/introjs.css",
               "node_modules/intro.js/themes/introjs-modern.css",
               "src/styles.scss"
             ],
-            "scripts": ["node_modules/intro.js/intro.js"],
-            "browser": "src/main.ts"
+            "scripts": ["node_modules/intro.js/intro.js"]
           },
           "configurations": {
             "production": {
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "2kb",
-                  "maximumError": "4kb"
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
                 }
               ],
               "outputHashing": "all"
@@ -55,8 +52,7 @@
             "development": {
               "optimization": false,
               "extractLicenses": false,
-              "sourceMap": true,
-              "namedChunks": true
+              "sourceMap": true
             }
           },
           "defaultConfiguration": "production"
@@ -73,61 +69,10 @@
           },
           "defaultConfiguration": "development"
         },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n",
-          "options": {
-            "buildTarget": "clickingff7:build"
-          }
-        },
         "test": {
-          "builder": "@angular/build:unit-test",
-          "options": {
-            "tsConfig": "tsconfig.spec.json",
-            "buildTarget": "::development",
-            "runner": "vitest",
-            "providersFile": "src/app/setup.ts"
-          }
-        },
-        "lint": {
-          "builder": "@angular-eslint/builder:lint",
-          "options": {
-            "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
-          }
+          "builder": "@angular/build:unit-test"
         }
       }
-    }
-  },
-  "cli": {
-    "schematicCollections": [
-      "@angular-eslint/schematics",
-      "@angular-eslint/schematics"
-    ],
-    "analytics": false
-  },
-  "schematics": {
-    "@schematics/angular:component": {
-      "type": "component"
-    },
-    "@schematics/angular:directive": {
-      "type": "directive"
-    },
-    "@schematics/angular:service": {
-      "type": "service"
-    },
-    "@schematics/angular:guard": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:interceptor": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:module": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:pipe": {
-      "typeSeparator": "."
-    },
-    "@schematics/angular:resolver": {
-      "typeSeparator": "."
     }
   }
 }

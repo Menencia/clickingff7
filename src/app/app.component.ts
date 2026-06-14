@@ -15,7 +15,6 @@ import packageJson from '../../package.json';
 @Component({
   selector: 'app-root',
   imports: [UiFooterComponent, UiNavbarComponent, RouterOutlet],
-  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {

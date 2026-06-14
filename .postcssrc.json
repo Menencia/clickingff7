@@ -1,7 +1,5 @@
 {
   "plugins": {
-    "@tailwindcss/postcss": {
-      "optimize": true
-    }
+    "@tailwindcss/postcss": {}
   }
 }

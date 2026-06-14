@@ -1,10 +1,10 @@
-import { HttpBackend, provideHttpClient, withXhr } from '@angular/common/http';
+import { HttpBackend, provideHttpClient } from '@angular/common/http';
 import {
   ApplicationConfig,
   inject,
   provideAppInitializer,
   provideBrowserGlobalErrorListeners,
-  provideZoneChangeDetection,
+  provideZonelessChangeDetection,
 } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { provideTranslateService, TranslateLoader } from '@ngx-translate/core';
@@ -15,17 +15,17 @@ import { DataService } from './shared/services/data.service';
 // AoT requires an exported function for factories
 export function HttpLoaderFactory(_httpBackend: HttpBackend) {
   return new MultiTranslateHttpLoader(_httpBackend, [
-    { prefix: './assets/i18n/', suffix: '/main.json' },
-    { prefix: './assets/i18n/', suffix: '/help.json' },
+    { prefix: './i18n/', suffix: '/main.json' },
+    { prefix: './i18n/', suffix: '/help.json' },
   ]);
 }
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideZonelessChangeDetection(),
     provideRouter(routes),
-    provideHttpClient(withXhr()),
+    provideHttpClient(),
     provideTranslateService({
       defaultLanguage: 'fr',
       loader: {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/ui-layout-default.component';
 import { Zone } from '@shared/models/zone';
@@ -8,7 +8,6 @@ import { ShopService } from '@shared/services/shop.service';
 @Component({
   selector: 'app-view-map',
   imports: [UiLayoutDefaultComponent, TranslateModule],
-  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './view-map.component.html',
 })
 export class ViewMapComponent {

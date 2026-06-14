@@ -35,12 +35,12 @@ export class DataService {
   /** Loads all stores from assets */
   preloadAll(): Observable<void> {
     return forkJoin({
-      enemies: this.http.get<EnemyJson[]>('assets/data/enemies.json'),
-      zones: this.http.get<ZoneJson[]>('assets/data/zones.json'),
-      weapons: this.http.get<WeaponJson[]>('assets/data/weapons.json'),
-      characters: this.http.get<CharacterJson[]>('assets/data/characters.json'),
-      items: this.http.get<ItemJson[]>('assets/data/items.json'),
-      materias: this.http.get<MateriaJson[]>('assets/data/materias.json'),
+      enemies: this.http.get<EnemyJson[]>('/data/enemies.json'),
+      zones: this.http.get<ZoneJson[]>('/data/zones.json'),
+      weapons: this.http.get<WeaponJson[]>('/data/weapons.json'),
+      characters: this.http.get<CharacterJson[]>('/data/characters.json'),
+      items: this.http.get<ItemJson[]>('/data/items.json'),
+      materias: this.http.get<MateriaJson[]>('/data/materias.json'),
     }).pipe(
       map((result) => {
         this.enemies = result.enemies;

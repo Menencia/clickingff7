@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { convertEffects } from '@shared/models/effect-converter';
 import { executeSkill } from '@shared/models/effect-executor';
@@ -11,7 +11,6 @@ import { PlayerService } from '@shared/services/player.service';
 @Component({
   selector: 'app-ui-actions',
   imports: [TranslateModule],
-  changeDetection: ChangeDetectionStrategy.Eager,
   templateUrl: './ui-actions.component.html',
 })
 export class UiActionsComponent {

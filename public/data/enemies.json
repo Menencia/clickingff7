@@ -1,25 +1,25 @@
 [
   {
     "ref": "first-ray",
-    "image": "/assets/images/enemies/zone1/1st-ray.png",
+    "image": "/images/enemies/zone1/1st-ray.png",
     "gils": 20,
     "weakness": ["bolt"]
   },
   {
     "ref": "mp",
-    "image": "/assets/images/enemies/zone1/mp.png",
+    "image": "/images/enemies/zone1/mp.png",
     "weakness": ["ice"]
   },
   {
     "ref": "grunt",
-    "image": "/assets/images/enemies/zone1/grunt.png",
+    "image": "/images/enemies/zone1/grunt.png",
     "hp": 10,
     "gils": 10,
     "weakness": ["ice"]
   },
   {
     "ref": "sweeper",
-    "image": "/assets/images/enemies/zone1/sweeper.png",
+    "image": "/images/enemies/zone1/sweeper.png",
     "hits": 10,
     "xp": 10,
     "gils": 20,
@@ -27,14 +27,14 @@
   },
   {
     "ref": "guard-scorpion",
-    "image": "/assets/images/enemies/zone1/guard-scorpion.png",
+    "image": "/images/enemies/zone1/guard-scorpion.png",
     "hp": 10,
     "weakness": ["bolt"],
     "boss": true
   },
   {
     "ref": "blood-taste",
-    "image": "/assets/images/enemies/zone2/blood-taste.png",
+    "image": "/images/enemies/zone2/blood-taste.png",
     "hp": 2,
     "hits": 3,
     "xp": 3,
@@ -44,7 +44,7 @@
   },
   {
     "ref": "proto-machinegun",
-    "image": "/assets/images/enemies/zone2/proto-machinegun.png",
+    "image": "/images/enemies/zone2/proto-machinegun.png",
     "hp": 1,
     "hits": 4,
     "xp": 2,
@@ -54,7 +54,7 @@
   },
   {
     "ref": "smogger",
-    "image": "/assets/images/enemies/zone2/smogger.png",
+    "image": "/images/enemies/zone2/smogger.png",
     "hp": 4,
     "hits": 2,
     "xp": 2,
@@ -64,7 +64,7 @@
   },
   {
     "ref": "special-combatant",
-    "image": "/assets/images/enemies/zone2/special-combatant.png",
+    "image": "/images/enemies/zone2/special-combatant.png",
     "hp": 3,
     "hits": 4,
     "xp": 4,
@@ -74,7 +74,7 @@
   },
   {
     "ref": "air-buster",
-    "image": "/assets/images/enemies/zone2/air-buster.png",
+    "image": "/images/enemies/zone2/air-buster.png",
     "hp": 5,
     "hits": 5,
     "xp": 5,
@@ -85,7 +85,7 @@
   },
   {
     "ref": "vice",
-    "image": "/assets/images/enemies/zone3/vice.png",
+    "image": "/images/enemies/zone3/vice.png",
     "hp": 2,
     "hits": 2,
     "xp": 2,
@@ -95,7 +95,7 @@
   },
   {
     "ref": "whole-eater",
-    "image": "/assets/images/enemies/zone3/whole-eater.png",
+    "image": "/images/enemies/zone3/whole-eater.png",
     "hp": 2,
     "hits": 3,
     "xp": 2,
@@ -105,7 +105,7 @@
   },
   {
     "ref": "hedgehog-pie",
-    "image": "/assets/images/enemies/zone3/hedgehog-pie.png",
+    "image": "/images/enemies/zone3/hedgehog-pie.png",
     "hp": 3,
     "hits": 3,
     "xp": 3,
@@ -115,7 +115,7 @@
   },
   {
     "ref": "hell-house",
-    "image": "/assets/images/enemies/zone3/hell-house.png",
+    "image": "/images/enemies/zone3/hell-house.png",
     "hp": 4,
     "hits": 3,
     "xp": 5,
@@ -125,7 +125,7 @@
   },
   {
     "ref": "aps",
-    "image": "/assets/images/enemies/zone3/aps.png",
+    "image": "/images/enemies/zone3/aps.png",
     "hp": 5,
     "hits": 5,
     "xp": 5,
@@ -136,7 +136,7 @@
   },
   {
     "ref": "aero-combatant",
-    "image": "/assets/images/enemies/zone4/aero-combatant.png",
+    "image": "/images/enemies/zone4/aero-combatant.png",
     "hp": 2,
     "hits": 2,
     "xp": 3,
@@ -146,7 +146,7 @@
   },
   {
     "ref": "deenglow",
-    "image": "/assets/images/enemies/zone4/deenglow.png",
+    "image": "/images/enemies/zone4/deenglow.png",
     "hp": 2,
     "hits": 4,
     "xp": 3,
@@ -156,7 +156,7 @@
   },
   {
     "ref": "eligor",
-    "image": "/assets/images/enemies/zone4/eligor.png",
+    "image": "/images/enemies/zone4/eligor.png",
     "hp": 4,
     "hits": 3,
     "xp": 4,
@@ -166,7 +166,7 @@
   },
   {
     "ref": "guard-hound",
-    "image": "/assets/images/enemies/zone4/guard-hound.png",
+    "image": "/images/enemies/zone4/guard-hound.png",
     "hp": 2,
     "hits": 2,
     "xp": 2,
@@ -176,7 +176,7 @@
   },
   {
     "ref": "reno",
-    "image": "/assets/images/enemies/zone4/reno.png",
+    "image": "/images/enemies/zone4/reno.png",
     "hp": 5,
     "hits": 5,
     "xp": 5,
@@ -187,7 +187,7 @@
   },
   {
     "ref": "mighty-grunt",
-    "image": "/assets/images/enemies/zone5/mighty-grunt.png",
+    "image": "/images/enemies/zone5/mighty-grunt.png",
     "hp": 4,
     "hits": 2,
     "xp": 3,
@@ -197,7 +197,7 @@
   },
   {
     "ref": "soldier-3rd",
-    "image": "/assets/images/enemies/zone5/soldier-3rd.png",
+    "image": "/images/enemies/zone5/soldier-3rd.png",
     "hp": 3,
     "hits": 4,
     "xp": 4,
@@ -207,7 +207,7 @@
   },
   {
     "ref": "sword-dance",
-    "image": "/assets/images/enemies/zone5/sword-dance.png",
+    "image": "/images/enemies/zone5/sword-dance.png",
     "hp": 1,
     "hits": 3,
     "xp": 1,
@@ -217,7 +217,7 @@
   },
   {
     "ref": "vargid-police",
-    "image": "/assets/images/enemies/zone5/vargid-police.png",
+    "image": "/images/enemies/zone5/vargid-police.png",
     "hp": 2,
     "hits": 1,
     "xp": 3,
@@ -227,7 +227,7 @@
   },
   {
     "ref": "sample-h0512",
-    "image": "/assets/images/enemies/zone5/sample-h0512.png",
+    "image": "/images/enemies/zone5/sample-h0512.png",
     "hp": 5,
     "hits": 5,
     "xp": 5,
@@ -238,7 +238,7 @@
   },
   {
     "ref": "heli-gunner",
-    "image": "/assets/images/enemies/zone6/heli-gunner.png",
+    "image": "/images/enemies/zone6/heli-gunner.png",
     "hp": 2,
     "hits": 1,
     "xp": 3,
@@ -249,7 +249,7 @@
   },
   {
     "ref": "hundred-gunner",
-    "image": "/assets/images/enemies/zone6/hundred-gunner.png",
+    "image": "/images/enemies/zone6/hundred-gunner.png",
     "hp": 1,
     "hits": 3,
     "xp": 1,
@@ -260,7 +260,7 @@
   },
   {
     "ref": "rufus",
-    "image": "/assets/images/enemies/zone6/rufus.png",
+    "image": "/images/enemies/zone6/rufus.png",
     "hp": 3,
     "hits": 4,
     "xp": 4,
@@ -271,7 +271,7 @@
   },
   {
     "ref": "zenene",
-    "image": "/assets/images/enemies/zone6/zenene.png",
+    "image": "/images/enemies/zone6/zenene.png",
     "hp": 4,
     "hits": 2,
     "xp": 3,
@@ -281,7 +281,7 @@
   },
   {
     "ref": "motor-ball",
-    "image": "/assets/images/enemies/zone6/motor-ball.png",
+    "image": "/images/enemies/zone6/motor-ball.png",
     "hp": 5,
     "hits": 5,
     "xp": 5,
@@ -292,7 +292,7 @@
   },
   {
     "ref": "kalm-fang",
-    "image": "/assets/images/enemies/zone7/kalm-fang.png",
+    "image": "/images/enemies/zone7/kalm-fang.png",
     "hp": 2,
     "hits": 2,
     "xp": 1,
@@ -302,7 +302,7 @@
   },
   {
     "ref": "mandragora",
-    "image": "/assets/images/enemies/zone7/mandragora.png",
+    "image": "/images/enemies/zone7/mandragora.png",
     "hp": 1,
     "hits": 1,
     "xp": 1,
@@ -312,7 +312,7 @@
   },
   {
     "ref": "elfadunk",
-    "image": "/assets/images/enemies/zone7/elfadunk.png",
+    "image": "/images/enemies/zone7/elfadunk.png",
     "hp": 4,
     "hits": 2,
     "xp": 1,
@@ -322,7 +322,7 @@
   },
   {
     "ref": "levrikon",
-    "image": "/assets/images/enemies/zone7/levrikon.png",
+    "image": "/images/enemies/zone7/levrikon.png",
     "hp": 2,
     "hits": 3,
     "xp": 3,
@@ -332,7 +332,7 @@
   },
   {
     "ref": "midgar-zolom",
-    "image": "/assets/images/enemies/zone7/midgar-zolom.png",
+    "image": "/images/enemies/zone7/midgar-zolom.png",
     "hp": 5,
     "hits": 5,
     "xp": 5,
@@ -343,7 +343,7 @@
   },
   {
     "ref": "crawler",
-    "image": "/assets/images/enemies/zone8/crawler.png",
+    "image": "/images/enemies/zone8/crawler.png",
     "hp": 1,
     "hits": 2,
     "xp": 1,
@@ -353,7 +353,7 @@
   },
   {
     "ref": "castanets",
-    "image": "/assets/images/enemies/zone8/castanets.png",
+    "image": "/images/enemies/zone8/castanets.png",
     "hp": 2,
     "hits": 2,
     "xp": 2,
@@ -363,7 +363,7 @@
   },
   {
     "ref": "madouge",
-    "image": "/assets/images/enemies/zone8/madouge.png",
+    "image": "/images/enemies/zone8/madouge.png",
     "hp": 4,
     "hits": 3,
     "xp": 3,
@@ -374,7 +374,7 @@
   },
   {
     "ref": "ark-dragon",
-    "image": "/assets/images/enemies/zone8/ark-dragon.png",
+    "image": "/images/enemies/zone8/ark-dragon.png",
     "hp": 4,
     "hits": 4,
     "xp": 3,
@@ -385,7 +385,7 @@
   },
   {
     "ref": "mystery-ninja",
-    "image": "/assets/images/enemies/zone8/mystery-ninja.png",
+    "image": "/images/enemies/zone8/mystery-ninja.png",
     "hp": 5,
     "hits": 5,
     "xp": 5,
@@ -395,7 +395,7 @@
   },
   {
     "ref": "capparwire",
-    "image": "/assets/images/enemies/zone9/capparwire.png",
+    "image": "/images/enemies/zone9/capparwire.png",
     "hp": 2,
     "hits": 3,
     "xp": 2,
@@ -405,7 +405,7 @@
   },
   {
     "ref": "formula",
-    "image": "/assets/images/enemies/zone9/formula.png",
+    "image": "/images/enemies/zone9/formula.png",
     "hp": 3,
     "hits": 2,
     "xp": 3,
@@ -415,7 +415,7 @@
   },
   {
     "ref": "zemzelett",
-    "image": "/assets/images/enemies/zone9/zemzelett.png",
+    "image": "/images/enemies/zone9/zemzelett.png",
     "hp": 3,
     "hits": 3,
     "xp": 3,
@@ -425,7 +425,7 @@
   },
   {
     "ref": "hell-rider",
-    "image": "/assets/images/enemies/zone9/hell-rider.png",
+    "image": "/images/enemies/zone9/hell-rider.png",
     "hp": 4,
     "hits": 4,
     "xp": 4,
@@ -435,7 +435,7 @@
   },
   {
     "ref": "bottomswell",
-    "image": "/assets/images/enemies/zone9/bottomswell.png",
+    "image": "/images/enemies/zone9/bottomswell.png",
     "hp": 5,
     "hits": 5,
     "xp": 5,
