@@ -1,8 +1,6 @@
-import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
-
+import { provideTranslateService } from '@ngx-translate/core';
 import { UiNavbarComponent } from './ui-navbar.component';
 
 describe('UiNavbarComponent', () => {
@@ -11,8 +9,8 @@ describe('UiNavbarComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UiNavbarComponent, TranslateModule.forRoot()],
-      providers: [provideRouter([]), provideHttpClient(withXhr())],
+      imports: [UiNavbarComponent],
+      providers: [provideRouter([]), provideTranslateService()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(UiNavbarComponent);

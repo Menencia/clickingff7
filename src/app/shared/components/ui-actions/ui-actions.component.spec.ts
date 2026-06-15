@@ -1,15 +1,7 @@
-import { provideHttpClient, withXhr } from '@angular/common/http';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { PlayerService } from '@shared/services/player.service';
-import { MockProvider } from 'ng-mocks';
-import {
-  CharactersMock,
-  ItemsMock,
-  MateriasMock,
-  ZonesMock,
-} from 'src/app/shared/test/game.mock';
-
+import { playerServiceMock } from '@shared/test/player.mock';
 import { UiActionsComponent } from './ui-actions.component';
 
 describe('UiActionsComponent', () => {
@@ -18,15 +10,10 @@ describe('UiActionsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UiActionsComponent, TranslateModule.forRoot()],
+      imports: [UiActionsComponent],
       providers: [
-        MockProvider(PlayerService, {
-          ...ZonesMock,
-          ...CharactersMock,
-          ...MateriasMock,
-          ...ItemsMock,
-        }),
-        provideHttpClient(withXhr()),
+        provideTranslateService(),
+        { provide: PlayerService, useValue: playerServiceMock },
       ],
     }).compileComponents();
 

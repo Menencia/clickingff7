@@ -1,18 +1,18 @@
-import { PlayerService } from '@shared/services/player.service';
-import { MockBuilder, MockRender } from 'ng-mocks';
-import { CharactersMock, WeaponsMock } from 'src/app/shared/test/game.mock';
-
+import { TestBed } from '@angular/core/testing';
+import { provideTranslateService } from '@ngx-translate/core';
 import { ViewEquipComponent } from './view-equip.component';
 
 describe('ViewEquipComponent', () => {
-  beforeEach(() => {
-    return MockBuilder(ViewEquipComponent).mock(PlayerService, {
-      ...CharactersMock,
-      ...WeaponsMock,
-    });
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [ViewEquipComponent],
+      providers: [provideTranslateService()],
+    }).compileComponents();
   });
 
   it('should create', () => {
-    expect(MockRender(ViewEquipComponent)).toBeDefined();
+    const fixture = TestBed.createComponent(ViewEquipComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
   });
 });

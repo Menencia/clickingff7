@@ -30,9 +30,9 @@ export class ProgressBarComponent implements OnInit, OnDestroy {
 
   public progressBg = 0;
 
-  private time!: ReturnType<typeof setTimeout>;
+  private time?: ReturnType<typeof setTimeout>;
 
-  private sub!: Subscription;
+  private sub?: Subscription;
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -50,7 +50,7 @@ export class ProgressBarComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     clearTimeout(this.time);
-    this.sub.unsubscribe();
+    this.sub?.unsubscribe();
   }
 
   doneAnimation(id: string) {

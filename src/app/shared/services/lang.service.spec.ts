@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-
+import { provideTranslateService } from '@ngx-translate/core';
 import { LangService } from './lang.service';
 
 describe('LangService', () => {
@@ -8,7 +7,7 @@ describe('LangService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
+      providers: [provideTranslateService()],
     });
     service = TestBed.inject(LangService);
   });

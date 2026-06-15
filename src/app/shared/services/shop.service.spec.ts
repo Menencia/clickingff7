@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { MockProvider } from 'ng-mocks';
 
 import { ShopService } from './shop.service';
 import { StoreService } from './store.service';
@@ -9,7 +8,7 @@ describe('ShopService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [MockProvider(StoreService)],
+      providers: [StoreService],
     });
     service = TestBed.inject(ShopService);
   });

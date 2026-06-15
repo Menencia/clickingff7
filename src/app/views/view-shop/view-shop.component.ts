@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { LucideCheck } from '@lucide/angular';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ItemIconComponent } from '@shared/components/item-icon/item-icon.component';
@@ -26,7 +26,7 @@ import { StoreService } from '@shared/services/store.service';
   ],
   templateUrl: './view-shop.component.html',
 })
-export class ViewShopComponent {
+export class ViewShopComponent implements OnInit {
   section = 'buy';
 
   type = 'weapons';
@@ -46,7 +46,9 @@ export class ViewShopComponent {
   constructor(
     private playerService: PlayerService,
     private store: StoreService,
-  ) {
+  ) {}
+
+  ngOnInit(): void {
     this.refresh();
   }
 
