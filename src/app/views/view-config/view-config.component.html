@@ -1,7 +1,7 @@
 <app-ui-layout-default>
   <ul class="list">
     <li class="list-row items-center">
-      <label>{{ "Difficulty" | translate }}</label>
+      <div>{{ "Difficulty" | translate }}</div>
       <div class="grow"></div>
       <select
         class="select"
@@ -15,7 +15,7 @@
     </li>
 
     <li class="list-row items-center">
-      <label>{{ "Language" | translate }}</label>
+      <div>{{ "Language" | translate }}</div>
       <div class="grow"></div>
       <select class="select" [(ngModel)]="language" (change)="changeLanguage()">
         <option value="fr">Français</option>
@@ -25,7 +25,7 @@
     </li>
 
     <li class="list-row items-center">
-      <label>Thème</label>
+      <div>Thème</div>
       <div class="grow"></div>
       <select class="select" [(ngModel)]="theme" (change)="changeTheme()">
         <option value="browser">Browser</option>
