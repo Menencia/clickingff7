@@ -12,6 +12,7 @@
     "lint": "biome check",
     "lint:staged": "biome check --staged",
     "lint:ci": "biome ci",
+    "madge:ci": "madge --circular --ts-config ./tsconfig.json --extensions ts,tsx src",
     "check": "pnpm run lint:ci && pnpm run test:ci",
     "i18n:download": "crowdin download --identity .crowdin.yml"
   },

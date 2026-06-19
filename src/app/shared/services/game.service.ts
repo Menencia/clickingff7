@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Save } from '@shared/models/save';
 
-import { BattleService } from './battle.service';
 import { LangService } from './lang.service';
 import { PlayerService } from './player.service';
 
@@ -17,7 +16,6 @@ export class GameService {
   constructor(
     private langService: LangService,
     private playerService: PlayerService,
-    private battleService: BattleService,
   ) {}
 
   /** Returns existing save if any */
@@ -45,7 +43,6 @@ export class GameService {
     }
     this.langService.useLang(this.playerService.language);
     this.playerService.team.refresh();
-    this.battleService.team = this.playerService.team;
   }
 
   /** Saves current state of the game */

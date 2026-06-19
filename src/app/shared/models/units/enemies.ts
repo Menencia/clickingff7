@@ -1,6 +1,6 @@
+import { signal } from '@angular/core';
 import { Action } from '@shared/models/action';
 import { Subject } from 'rxjs';
-
 import { ItDisplayHits } from '../../interfaces/it-display-hits';
 import { addPercent, random } from '../../utils/math.utils';
 import { Enemy } from '../enemy';
@@ -15,7 +15,7 @@ export class Enemies extends Units {
 
   hits: number;
 
-  hp: number;
+  hp = signal(0);
 
   hpMax: number;
 
@@ -44,7 +44,6 @@ export class Enemies extends Units {
     this.timer = 0;
 
     this.hits = 0;
-    this.hp = 0;
     this.hpMax = 0;
   }
 
@@ -67,7 +66,7 @@ export class Enemies extends Units {
     });
 
     this.hpMax = addPercent(25 * this.level, bonusHpMax);
-    this.hp = this.hpMax;
+    this.hp.set(this.hpMax);
     this.hits = addPercent(3 * this.level, bonusHits);
     this.rewardXp = addPercent(5 * this.level, bonusXp);
     this.rewardAp = addPercent(2 * this.level, bonusAp);
@@ -109,7 +108,8 @@ export class Enemies extends Units {
       hits = Math.floor(hits / 3);
     }
 
-    this.hp = Math.max(this.hp - hits, 0);
+    this.hp.update((hp) => Math.max(hp - hits, 0));
+    console.log('new hp', this.hp);
     this.source.hp.next({ hits, context } as ItDisplayHits);
   }
 
@@ -118,8 +118,8 @@ export class Enemies extends Units {
   }
 
   isAlive(): boolean {
-    if (this.hp <= 0) {
-      this.hp = 0;
+    if (this.hp() <= 0) {
+      this.hp.set(0);
 
       return false;
     }
@@ -144,6 +144,6 @@ export class Enemies extends Units {
    * Returns in pixels enemy bar width
    */
   hpProgress(pixelsMax: number): number {
-    return (this.hp / this.hpMax) * pixelsMax;
+    return (this.hp() / this.hpMax) * pixelsMax;
   }
 }

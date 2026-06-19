@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { ProgressBarComponent } from '@shared/components/progress-bar/progress-bar.component';
 import { Character } from '@shared/models/character';
@@ -11,7 +11,7 @@ import { PlayerService } from '@shared/services/player.service';
   templateUrl: './characters-panel.component.html',
 })
 export class CharactersPanelComponent {
-  @Input() team: Team = new Team();
+  team = input(new Team());
 
   constructor(private playerService: PlayerService) {}
 

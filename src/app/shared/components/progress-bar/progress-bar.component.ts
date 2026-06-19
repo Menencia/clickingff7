@@ -1,11 +1,4 @@
-/* eslint-disable prettier/prettier */
-import {
-  ChangeDetectorRef,
-  Component,
-  Input,
-  OnDestroy,
-  OnInit,
-} from '@angular/core';
+import { Component, input, OnDestroy, OnInit, signal } from '@angular/core';
 import { ItDisplayHits } from '@shared/interfaces/it-display-hits';
 import { Subject, Subscription } from 'rxjs';
 
@@ -16,34 +9,31 @@ import { Subject, Subscription } from 'rxjs';
 export class ProgressBarComponent implements OnInit, OnDestroy {
   Math = Math;
 
-  @Input() id = '';
+  id = input('');
 
-  @Input() progress = 0;
+  progress = input(0);
 
-  @Input() text = '';
+  text = input('');
 
-  @Input() name = '';
+  name = input('');
 
-  @Input() hits = new Subject<ItDisplayHits>();
+  hits = input(new Subject<ItDisplayHits>());
 
-  public arrHits: ItDisplayHits[] = [];
-
-  public progressBg = 0;
+  public arrHits = signal<ItDisplayHits[]>([]);
 
   private time?: ReturnType<typeof setTimeout>;
 
   private sub?: Subscription;
 
-  constructor(private cdr: ChangeDetectorRef) {}
-
   ngOnInit() {
-    this.progressBg = this.progress;
-    this.sub = this.hits.subscribe((hits) => {
-      this.arrHits.unshift(hits);
+    this.sub = this.hits().subscribe((hits) => {
+      this.arrHits.update((arrHits) => {
+        arrHits.unshift(hits);
+        return arrHits;
+      });
       setTimeout(() => {
         hits.context.complete();
-        this.arrHits = [];
-        this.cdr.detectChanges();
+        this.arrHits.set([]);
       }, 1000);
     });
   }
@@ -51,13 +41,5 @@ export class ProgressBarComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     clearTimeout(this.time);
     this.sub?.unsubscribe();
-  }
-
-  doneAnimation(id: string) {
-    const found = this.arrHits.find((hits) => hits.id === id);
-    if (found) {
-      found.context.complete();
-      this.arrHits = this.arrHits.filter((hits) => hits !== found);
-    }
   }
 }

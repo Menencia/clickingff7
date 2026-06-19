@@ -1,9 +1,9 @@
-<div class=" relative mb-1" [id]="id">
-  <progress class="progress w-35" [value]="progress" max="100"></progress>
-  <div class="label">{{ text }}</div>
-  @for (hits of arrHits; track $index) {
-  <div class="absolute top-0 right-0 text-3xl text-red-600 hits">
-    {{ hits.hits }}
+<div class="flex items-center gap-2" [id]="id()">
+  <progress class="progress w-35" [value]="progress()" max="100"></progress>
+  <div class="label">{{ text() }}</div>
+  <div class="relative">
+    @for (hits of arrHits(); track $index) {
+    <div class="absolute -top-5 text-3xl text-red-600">{{ hits.hits }}</div>
+    }
   </div>
-  }
 </div>

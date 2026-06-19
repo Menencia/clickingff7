@@ -16,6 +16,8 @@ import { PlayerService } from '@shared/services/player.service';
 export class UiActionsComponent {
   battle = computed(() => this.battleService.battle());
 
+  canPlay = computed(() => this.battleService.canPlay());
+
   constructor(
     private battleService: BattleService,
     private playerService: PlayerService,
@@ -52,10 +54,6 @@ export class UiActionsComponent {
     if (this.battleService.canFightBoss()) {
       this.battleService.startBoss();
     }
-  }
-
-  public canPlay(): boolean {
-    return this.battleService.canPlay();
   }
 
   public async attack(): Promise<void> {

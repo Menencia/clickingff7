@@ -28,7 +28,7 @@ export class Item {
     const effects = this.data.effect.split(';').map((effect) => effect.trim());
     const lastEffect = effects.at(-1) ?? '';
     if (lastEffect.startsWith('heal')) {
-      return battle.team.hp < battle.team.hpMax;
+      return battle.team.hp() < battle.team.hpMax;
     }
     if (lastEffect.startsWith('increaseMp')) {
       return battle.team.mp < battle.team.mpMax;

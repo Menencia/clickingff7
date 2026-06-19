@@ -2,7 +2,6 @@ import { Injectable, signal } from '@angular/core';
 import { Battle, BattleState } from '@shared/models/battle';
 import { convertEffects } from '@shared/models/effect-converter';
 import { executeSkill } from '@shared/models/effect-executor';
-import { Team } from '@shared/models/team';
 import { Enemies } from '@shared/models/units/enemies';
 import { MAX_FIGHTS } from '@shared/models/zone';
 
@@ -13,16 +12,12 @@ import { StoreService } from './store.service';
   providedIn: 'root',
 })
 export class BattleService {
-  public team: Team;
-
-  public battle = signal<Battle | undefined>(undefined);
+  battle = signal<Battle | undefined>(undefined);
 
   constructor(
     private playerService: PlayerService,
     private store: StoreService,
-  ) {
-    this.team = this.playerService.team;
-  }
+  ) {}
 
   /** Starts a basic battle */
   startRandom(): void {
@@ -46,21 +41,22 @@ export class BattleService {
 
     // watch battle state
     battle.state.subscribe(async (state) => {
-      if (state === BattleState.NextTurn) {
-        // enemies turn
-        if (!battle.isPlayerTurn()) {
-          const effects = convertEffects(enemies.getAttackRawEffects());
-          await executeSkill(battle, effects);
-          battle.nextTurn();
-        }
-      }
-      if (state === BattleState.Ended) {
-        // rewards on victory
-        if (battle.victory) {
-          this.onTeamVictory(battle);
-        }
-        // clean battle
-        this.battle.set(undefined);
+      switch (state) {
+        case BattleState.NextTurn:
+          // enemies turn
+          if (!battle.isPlayerTurn()) {
+            const effects = convertEffects(enemies.getAttackRawEffects());
+            await executeSkill(battle, effects);
+            battle.nextTurn();
+          }
+          break;
+        case BattleState.Ended:
+          // rewards on victory
+          if (battle.victory) {
+            this.onTeamVictory(battle);
+          }
+          // clean battle
+          this.battle.set(undefined);
       }
     });
 
@@ -83,7 +79,7 @@ export class BattleService {
     }
 
     // XP for characters
-    this.team.setXp(battle.enemies.rewardXp);
+    this.playerService.team.setXp(battle.enemies.rewardXp);
 
     // AP for materias
     const ap = battle.enemies.rewardAp;

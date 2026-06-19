@@ -1,8 +1,8 @@
+import { signal } from '@angular/core';
 import { ItDisplayHits } from '@shared/interfaces/it-display-hits';
 import { calculateHits } from '@shared/utils/battle.utils';
 import { addPercent, uuid } from '@shared/utils/math.utils';
 import { Subject } from 'rxjs';
-
 import { Action } from './action';
 import { Character } from './character';
 import { TeamSave } from './save';
@@ -17,7 +17,7 @@ export class Team extends Units {
 
   arrHits: number[] = [];
 
-  hp = 0;
+  hp = signal(0);
 
   hpMax = 0;
 
@@ -69,7 +69,7 @@ export class Team extends Units {
   load(data: TeamSave): Team {
     this.level = data.level;
     this.xp = data.xp;
-    this.hp = data.hp;
+    this.hp.set(data.hp);
     this.mp = data.mp;
     this.limit = data.limit;
     return this;
@@ -211,7 +211,7 @@ export class Team extends Units {
         this.xp -= this.getXpMax();
         this.level += 1;
         this.refresh();
-        this.hp = this.hpMax;
+        this.hp.set(this.hpMax);
         this.mp = this.mpMax;
       }
     } else {
@@ -236,7 +236,7 @@ export class Team extends Units {
    * Returns in pixels characters hp bar width
    */
   hpProgress(pixelsMax: number): number {
-    return (this.hp / this.hpMax) * pixelsMax;
+    return (this.hp() / this.hpMax) * pixelsMax;
   }
 
   /**
@@ -269,7 +269,8 @@ export class Team extends Units {
       hits = Math.floor(hits / 10);
     }
 
-    this.hp = Math.max(this.hp - hits, 0);
+    this.hp.update((hp) => Math.max(hp - hits, 0));
+    console.log('hp:', this.hp);
     this.source.hp.next({ id: uuid(), hits, context } as ItDisplayHits);
 
     this.limit = Math.min(this.limit + hits, this.limitMax);
@@ -277,14 +278,14 @@ export class Team extends Units {
 
   addHp(value: number, context: Action): void {
     const hits = value;
-    this.hp = Math.min(this.hp + hits, this.hpMax);
+    this.hp.update((hp) => Math.min(hp + hits, this.hpMax));
     this.source.hp.next({ id: uuid(), hits, context } as ItDisplayHits);
   }
 
   isAlive(): boolean {
-    if (this.hp <= 0) {
+    if (this.hp() <= 0) {
       this.limit = 0;
-      this.hp = 0;
+      this.hp.set(0);
 
       return false;
     }
@@ -337,7 +338,7 @@ export class Team extends Units {
       level: this.level,
       xp: this.xp,
       list: [],
-      hp: this.hp,
+      hp: this.hp(),
       mp: this.mp,
       limit: this.limit,
     };

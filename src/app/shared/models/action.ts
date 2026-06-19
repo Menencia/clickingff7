@@ -1,6 +1,6 @@
 import { ActionTarget } from '@shared/interfaces/action-target';
 import { ActionType } from '@shared/interfaces/action-type';
-import { BehaviorSubject } from 'rxjs';
+import { Subject } from 'rxjs';
 
 export class Action {
   target = ActionTarget.OPPONENT;
@@ -9,7 +9,7 @@ export class Action {
 
   elements: string[] = [];
 
-  completed = new BehaviorSubject(false);
+  completed = new Subject<boolean>();
 
   complete() {
     this.completed.next(true);

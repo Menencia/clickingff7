@@ -4,8 +4,8 @@
   <div>
     Niveau {{ e.level }}
     <app-progress-bar
-      [progress]="round((e.hp / e.hpMax) * 100)"
-      [text]="'HP ' + e.hp"
+      [progress]="round((e.hp() / e.hpMax) * 100)"
+      [text]="'HP ' + e.hp()"
       [name]="'hp'"
       [hits]="e.source.hp"
     ></app-progress-bar>

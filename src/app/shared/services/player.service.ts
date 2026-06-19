@@ -135,7 +135,7 @@ export class PlayerService {
 
     // restore hp & mp
     this.team.refresh();
-    this.team.hp = this.team.hpMax;
+    this.team.hp.set(this.team.hpMax);
     this.team.mp = this.team.mpMax;
     this.team.limit = 0;
   }

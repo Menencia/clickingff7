@@ -34,7 +34,7 @@ export class Materia {
     const effects = this.data.effect.split(';').map((effect) => effect.trim());
     const lastEffect = effects.at(-1) ?? '';
     if (lastEffect.startsWith('heal')) {
-      return hasMP && battle.team.hp < battle.team.hpMax;
+      return hasMP && battle.team.hp() < battle.team.hpMax;
     }
     return hasMP;
   }
