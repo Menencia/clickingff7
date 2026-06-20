@@ -88,7 +88,7 @@ export class UiActionsComponent {
     }
     // cost
     if (this.canUseMateria(materia)) {
-      this.playerService.team.mp -= materia.getMpCost();
+      this.playerService.team.mp.update((mp) => mp - materia.getMpCost());
     } else {
       throw new Error('CANNOT USE');
     }

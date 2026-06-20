@@ -31,7 +31,7 @@ export class Item {
       return battle.team.hp() < battle.team.hpMax;
     }
     if (lastEffect.startsWith('increaseMp')) {
-      return battle.team.mp < battle.team.mpMax;
+      return battle.team.mp() < battle.team.mpMax;
     }
     throw new Error(`Skill unknown: ${this.data.effect}`);
   }

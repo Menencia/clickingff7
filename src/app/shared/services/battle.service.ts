@@ -32,7 +32,7 @@ export class BattleService {
 
     // set level of enemy
     const zoneLevel = zone.data.level;
-    const teamLevel = this.playerService.team.level;
+    const teamLevel = this.playerService.team.level();
     enemies.level = Math.min(teamLevel, 5 * (zoneLevel - 1) + 3);
     enemies.refresh();
 

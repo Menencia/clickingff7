@@ -21,17 +21,17 @@ export class Team extends Units {
 
   hpMax = 0;
 
-  mp = 0;
+  mp = signal(0);
 
   mpMax = 0;
 
-  limit = 0;
+  limit = signal(0);
 
   limitMax = 0;
 
-  level = 1;
+  level = signal(1);
 
-  xp = 0;
+  xp = signal(0);
 
   attack = 0;
 
@@ -67,11 +67,11 @@ export class Team extends Units {
 
   /** Updates team data */
   load(data: TeamSave): Team {
-    this.level = data.level;
-    this.xp = data.xp;
+    this.level.set(data.level);
+    this.xp.set(data.xp);
     this.hp.set(data.hp);
-    this.mp = data.mp;
-    this.limit = data.limit;
+    this.mp.set(data.mp);
+    this.limit.set(data.limit);
     return this;
   }
 
@@ -110,7 +110,7 @@ export class Team extends Units {
    *
    */
   addMp(value: number): void {
-    this.mp = Math.min(this.mp + value, this.mpMax);
+    this.mp.update((mp) => Math.min(mp + value, this.mpMax));
   }
 
   getMaxMaterias(): number {
@@ -162,21 +162,24 @@ export class Team extends Units {
       this.attackFromEquipment += character.getHits();
     });
 
-    this.strengh = 6 * this.level;
+    this.strengh = 6 * this.level();
     this.attack = addPercent(
       this.attackFromEquipment + this.strengh,
       bonusAttack,
     );
 
-    this.vitality = 6 * this.level;
+    this.vitality = 6 * this.level();
     this.defense = addPercent(
       this.defenseFromEquipment + this.vitality,
       bonusDefense,
     );
 
-    this.luck = addPercent(this.luckFromEquipment + 6 * this.level, bonusLuck);
+    this.luck = addPercent(
+      this.luckFromEquipment + 6 * this.level(),
+      bonusLuck,
+    );
     this.speed = addPercent(
-      this.speedFromEquipment + 6 * this.level,
+      this.speedFromEquipment + 6 * this.level(),
       bonusSpeed,
     );
 
@@ -190,32 +193,32 @@ export class Team extends Units {
 
   /** Updates only level */
   setLevel(level: number) {
-    this.level = level;
+    this.level.set(level);
   }
 
   /** Returns calculated XP MAX */
   getXpMax(): number {
-    return 10 * (this.level + 1) ** 2;
+    return 10 * (this.level() + 1) ** 2;
   }
 
   /** Returns the percentage of XP progression */
   xpProgress(pixelsMax: number): number {
-    return this.xp === 0 ? 0 : (this.xp / this.getXpMax()) * pixelsMax;
+    return this.xp() === 0 ? 0 : (this.xp() / this.getXpMax()) * pixelsMax;
   }
 
   /** Updates xp and can trigger character level up */
-  setXp(xp: number): void {
-    if (this.level < 100) {
-      this.xp += xp;
-      while (this.xp >= this.getXpMax()) {
-        this.xp -= this.getXpMax();
-        this.level += 1;
+  setXp(newXp: number): void {
+    if (this.level() < 100) {
+      this.xp.update((xp) => xp + newXp);
+      while (this.xp() >= this.getXpMax()) {
+        this.xp.update((xp) => xp - this.getXpMax());
+        this.level.update((level) => level + 1);
         this.refresh();
         this.hp.set(this.hpMax);
-        this.mp = this.mpMax;
+        this.mp.set(this.mpMax);
       }
     } else {
-      this.xp = 0;
+      this.xp.set(0);
     }
   }
 
@@ -226,7 +229,7 @@ export class Team extends Units {
     // limit
     if (this.canLimit()) {
       pwr = 500;
-      this.limit = 0;
+      this.limit.set(0);
     }
 
     return [`damages ${calculateHits(hits, pwr)}`];
@@ -243,14 +246,14 @@ export class Team extends Units {
    * Returns in pixels characters mp bar width
    */
   mpProgress(pixelsMax: number): number {
-    return (this.mp / this.mpMax) * pixelsMax;
+    return (this.mp() / this.mpMax) * pixelsMax;
   }
 
   /**
    * Returns in pixels characters hp bar width
    */
   limitProgress(pixelsMax: number): number {
-    return (this.limit / this.limitMax) * pixelsMax;
+    return (this.limit() / this.limitMax) * pixelsMax;
   }
 
   /**
@@ -272,7 +275,7 @@ export class Team extends Units {
     this.hp.update((hp) => Math.max(hp - hits, 0));
     this.source.hp.next({ id: uuid(), hits, context } as ItDisplayHits);
 
-    this.limit = Math.min(this.limit + hits, this.limitMax);
+    this.limit.update((limit) => Math.min(limit + hits, this.limitMax));
   }
 
   addHp(value: number, context: Action): void {
@@ -283,7 +286,7 @@ export class Team extends Units {
 
   isAlive(): boolean {
     if (this.hp() <= 0) {
-      this.limit = 0;
+      this.limit.set(0);
       this.hp.set(0);
 
       return false;
@@ -326,7 +329,7 @@ export class Team extends Units {
    * Returns if it is possible to execute a limit (powerful attack)
    */
   canLimit(): boolean {
-    return this.limit === this.limitMax;
+    return this.limit() === this.limitMax;
   }
 
   /**
@@ -334,12 +337,12 @@ export class Team extends Units {
    */
   export(): TeamSave {
     const res: TeamSave = {
-      level: this.level,
-      xp: this.xp,
+      level: this.level(),
+      xp: this.xp(),
       list: [],
       hp: this.hp(),
-      mp: this.mp,
-      limit: this.limit,
+      mp: this.mp(),
+      limit: this.limit(),
     };
 
     res.list = [];

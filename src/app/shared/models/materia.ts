@@ -29,7 +29,7 @@ export class Materia {
   }
 
   canUse(battle: Battle): boolean {
-    const hasMP = battle.team.mp > this.data.mp;
+    const hasMP = battle.team.mp() > this.data.mp;
 
     const effects = this.data.effect.split(';').map((effect) => effect.trim());
     const lastEffect = effects.at(-1) ?? '';
