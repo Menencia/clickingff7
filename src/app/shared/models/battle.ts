@@ -1,6 +1,6 @@
+import { computed, Signal, signal } from '@angular/core';
 import { ActionTarget } from '@shared/interfaces/action-target';
 import { BehaviorSubject } from 'rxjs';
-
 import { Team } from './team';
 import { Units } from './units';
 import { Enemies } from './units/enemies';
@@ -18,7 +18,7 @@ export class Battle {
 
   state = new BehaviorSubject(BattleState.Started);
 
-  actionOngoing = false;
+  actionOngoing = signal(false);
 
   victory = false;
 
@@ -38,8 +38,8 @@ export class Battle {
     return this.currentPlayer === this.team ? this.enemies : this.team;
   }
 
-  isPlayerTurn(): boolean {
-    return this.currentPlayer === this.team;
+  isPlayerTurn(): Signal<boolean> {
+    return computed(() => this.currentPlayer === this.team);
   }
 
   /** Returns target for action */

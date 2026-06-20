@@ -78,7 +78,7 @@ export class UiActionsComponent {
 
   public canUseMateria(materia: Materia): boolean {
     const battle = this.battleService.battle();
-    return !!battle && materia.canUse(battle) && !battle.actionOngoing;
+    return !!battle && materia.canUse(battle) && !battle.actionOngoing();
   }
 
   public async useMateria(materia: Materia): Promise<void> {
@@ -99,7 +99,7 @@ export class UiActionsComponent {
 
   public canUseItem(item: Item): boolean {
     const battle = this.battleService.battle();
-    return !!battle && item.canUse(battle) && !battle.actionOngoing;
+    return !!battle && item.canUse(battle) && !battle.actionOngoing();
   }
 
   public async useItem(item: Item): Promise<void> {

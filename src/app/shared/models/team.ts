@@ -270,7 +270,6 @@ export class Team extends Units {
     }
 
     this.hp.update((hp) => Math.max(hp - hits, 0));
-    console.log('hp:', this.hp);
     this.source.hp.next({ id: uuid(), hits, context } as ItDisplayHits);
 
     this.limit = Math.min(this.limit + hits, this.limitMax);

@@ -109,7 +109,6 @@ export class Enemies extends Units {
     }
 
     this.hp.update((hp) => Math.max(hp - hits, 0));
-    console.log('new hp', this.hp);
     this.source.hp.next({ hits, context } as ItDisplayHits);
   }
 

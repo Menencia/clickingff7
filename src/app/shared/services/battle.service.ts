@@ -112,6 +112,6 @@ export class BattleService {
 
   canPlay(): boolean {
     const battle = this.battle();
-    return !!battle && battle.isPlayerTurn() && !battle.actionOngoing;
+    return !!battle && battle.isPlayerTurn() && !battle.actionOngoing();
   }
 }
