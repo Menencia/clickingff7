@@ -3,3 +3,8 @@ allowBuilds:
   esbuild: false
   lmdb: false
   msgpackr-extract: false
+minimumReleaseAgeExclude:
+  - esbuild@0.28.1
+  - '@babel/core@7.29.1'
+  - piscina@5.1.5
+  - undici@6.27.0
