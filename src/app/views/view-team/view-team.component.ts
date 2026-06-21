@@ -22,7 +22,7 @@ export class ViewTeamComponent {
   }
 
   inTeam(character: Character): boolean {
-    return !!this.team.list.find((c) => c.data.ref === character.data.ref);
+    return !!this.team.list().find((c) => c.data.ref === character.data.ref);
   }
 
   canJoinTeam(): boolean {
@@ -43,7 +43,7 @@ export class ViewTeamComponent {
    * Returns true if the character can leave the team
    */
   canLeaveTeam(): boolean {
-    return this.canEditTeam() && this.team.list.length > 1;
+    return this.canEditTeam() && this.team.list().length > 1;
   }
 
   /**

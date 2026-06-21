@@ -13,43 +13,56 @@ export const MAX_TEAM = 3;
 
 /** Handles all player characters */
 export class Team extends Units {
-  list: Character[] = [];
+  list = signal<Character[]>([]);
 
   arrHits: number[] = [];
 
   hp = signal(0);
 
+  // based on defense
   hpMax = 0;
 
   mp = signal(0);
 
+  // based on spirit
   mpMax = 0;
 
   limit = signal(0);
 
+  // based on strengh+magic
   limitMax = 0;
 
   level = signal(1);
 
   xp = signal(0);
 
+  // used to physical attacks
+  strengh = 0;
+
+  // used by magic attacks
+  magic = 0;
+
+  // used to block physical power
+  defense = 0;
+
+  // used to block magic power
+  spirit = 0;
+
+  // evade, critial hits
+  luck = 0;
+
+  // plays more in battle
+  speed = 0;
+
   attack = 0;
 
   attackFromEquipment = 0;
-
-  strengh = 0;
-
-  defense = 0;
 
   defenseFromEquipment = 0;
 
   vitality = 0;
 
-  luck = 0;
-
   luckFromEquipment = 0;
-
-  speed = 0;
 
   speedFromEquipment = 0;
 
@@ -77,29 +90,31 @@ export class Team extends Units {
 
   /** Adds a character to the team */
   setCharacters(characters: Character[]) {
-    this.list = [...characters];
+    this.list.set([...characters]);
   }
 
   /** Adds a character to the team */
   join(character: Character) {
-    this.list.push(character);
+    this.list.update((list) => [...list, character]);
   }
 
   /** Adds a character to the team */
   leave(character: Character): void {
-    this.list = this.list.filter((c) => c.data.ref !== character.data.ref);
+    this.list.update((list) =>
+      list.filter((c) => c.data.ref !== character.data.ref),
+    );
   }
 
   /** Returns true if given character is in team */
   inTeam(characterRef: string): boolean {
-    return !!this.list.find((c) => c.data.ref === characterRef);
+    return !!this.list().find((c) => c.data.ref === characterRef);
   }
 
   /**
    * Remove characters from the team if not available
    */
   available(zonelevelMax: number): void {
-    this.list.forEach((c) => {
+    this.list().forEach((c) => {
       if (c.notAvailable(zonelevelMax)) {
         this.leave(c);
       }
@@ -116,7 +131,7 @@ export class Team extends Units {
   getMaxMaterias(): number {
     let maxMaterias = 0;
 
-    this.list.forEach((character) => {
+    this.list().forEach((character) => {
       // max materias
       if (character.weapon) {
         maxMaterias += character.weapon.data.maxMaterias;
@@ -152,7 +167,7 @@ export class Team extends Units {
     let bonusSpeed = 0;
     this.speedFromEquipment = 0;
 
-    this.list.forEach((character) => {
+    this.list().forEach((character) => {
       bonusHpMax += character.data.stats.hp ?? 0;
       bonusMpMax += character.data.stats.mp ?? 0;
       bonusAttack += character.data.stats.attack ?? 0;
@@ -223,7 +238,7 @@ export class Team extends Units {
   }
 
   getAttackRawEffects(): string[] {
-    const { attackFromEquipment: hits } = this;
+    const hits = this.strengh;
     let pwr = 100;
 
     // limit
@@ -346,7 +361,7 @@ export class Team extends Units {
     };
 
     res.list = [];
-    this.list.forEach((c) => {
+    this.list().forEach((c) => {
       res.list.push(c.data.ref);
     });
 

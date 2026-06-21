@@ -14,15 +14,16 @@
     </div>
     <div class="basis-2/5">
       <h3>{{ "Team" | translate }}</h3>
-      @for (character of team.list; track $index) {
+      @for (character of team.list(); track $index) {
       <div class="phs_character">
-        <img
-          [src]="character.data.image"
-          alt="character"
-          width="80"
-          class="float-left cursor-pointer"
+        <button
+          type="button"
           (click)="leaveTeam(character)"
+          [disabled]="!canLeaveTeam()"
+          class="float-left"
         >
+          <img [src]="character.data.image" alt="character" width="80">
+        </button>
 
         <div class="main">
           <div>{{ character.data.ref }}</div>

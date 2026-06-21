@@ -2,7 +2,7 @@
   <div class="grid grid-cols-5 gap-x-4">
     <div>
       <div class="flex flex-col gap-1">
-        @for (character of team.list; track $index) {
+        @for (character of team.list(); track $index) {
         <button
           type="button"
           class="btn"

@@ -21,7 +21,7 @@ export class ViewEquipComponent {
 
   constructor(private playerService: PlayerService) {
     this.team = this.playerService.team;
-    const [first] = this.team.list;
+    const [first] = this.team.list();
     this.selected = first;
     this.weapons = this.playerService.weapons.getAllWeapons(this.selected);
   }
