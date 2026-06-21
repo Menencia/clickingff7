@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { ThemePickerComponent } from '@shared/components/theme-picker/theme-picker.component';
 import { UiFooterComponent } from '@shared/components/ui-footer/ui-footer.component';
 import { UiNavbarComponent } from '@shared/components/ui-navbar/ui-navbar.component';
 import { GameService } from '@shared/services/game.service';
@@ -8,7 +9,12 @@ import packageJson from '../../package.json';
 
 @Component({
   selector: 'app-root',
-  imports: [UiFooterComponent, UiNavbarComponent, RouterOutlet],
+  imports: [
+    UiFooterComponent,
+    UiNavbarComponent,
+    RouterOutlet,
+    ThemePickerComponent,
+  ],
   templateUrl: './app.component.html',
 })
 export class AppComponent implements OnInit {

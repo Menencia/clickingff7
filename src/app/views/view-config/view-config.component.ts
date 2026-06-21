@@ -5,7 +5,6 @@ import { UiLayoutDefaultComponent } from '@shared/components/ui-layout-default/u
 import { Difficulty } from '@shared/interfaces/difficulty';
 import { LangService } from '@shared/services/lang.service';
 import { PlayerService } from '@shared/services/player.service';
-import { ThemeService } from '@shared/services/theme.service';
 
 @Component({
   selector: 'app-view-config',
@@ -15,16 +14,13 @@ import { ThemeService } from '@shared/services/theme.service';
 export class ViewConfigComponent {
   difficulty: Difficulty;
   language: string;
-  theme: string;
 
   constructor(
     private playerService: PlayerService,
     private langService: LangService,
-    private themeService: ThemeService,
   ) {
     this.difficulty = this.playerService.difficulty;
     this.language = this.playerService.language;
-    this.theme = this.themeService.theme ?? 'browser';
   }
 
   changeDifficulty() {
@@ -34,13 +30,5 @@ export class ViewConfigComponent {
   changeLanguage() {
     this.playerService.language = this.language;
     this.langService.useLang(this.playerService.language);
-  }
-
-  changeTheme() {
-    if (this.theme === 'browser') {
-      this.themeService.applyTheme(undefined);
-    } else {
-      this.themeService.applyTheme(this.theme);
-    }
   }
 }
