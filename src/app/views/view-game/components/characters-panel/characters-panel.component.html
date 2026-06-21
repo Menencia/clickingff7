@@ -31,7 +31,7 @@
 
   <!-- characters list -->
   <div id="step1">
-    @for (character of team().list; track $index) {
+    @for (character of team().list(); track $index) {
     <div class="flex gap-4 mt-5">
       <div
         [style]="{ 'background-image': 'url(' + character.data.image + ')' }"
