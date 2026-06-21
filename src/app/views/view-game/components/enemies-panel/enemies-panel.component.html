@@ -9,6 +9,12 @@
       [name]="'hp'"
       [hits]="e.source.hp"
     ></app-progress-bar>
+
+    <app-progress-bar
+      [progress]="round((e.stagger() / e.staggerMax) * 100)"
+      [text]="round((e.stagger() / e.staggerMax) * 100)+'%'"
+      [name]="'stagger'"
+    ></app-progress-bar>
   </div>
   }
   <!-- enemies list -->

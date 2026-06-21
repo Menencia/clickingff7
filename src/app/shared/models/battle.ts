@@ -1,4 +1,4 @@
-import { computed, Signal, signal } from '@angular/core';
+import { computed, signal, WritableSignal } from '@angular/core';
 import { ActionTarget } from '@shared/interfaces/action-target';
 import { BehaviorSubject } from 'rxjs';
 import { Team } from './team';
@@ -14,7 +14,11 @@ export enum BattleState {
 export class Battle {
   currentTurn = 1;
 
-  currentPlayer: Units;
+  currentPlayer: WritableSignal<Units>;
+
+  isPlayerTurn = computed(() => {
+    return this.currentPlayer() === this.team;
+  });
 
   state = new BehaviorSubject(BattleState.Started);
 
@@ -26,20 +30,15 @@ export class Battle {
     public readonly team: Team,
     public readonly enemies: Enemies,
   ) {
-    // TODO: determine randomly? who's the first to play
-    this.currentPlayer = this.team;
+    this.currentPlayer = signal(this.team);
   }
 
   getSelf(): Units {
-    return this.currentPlayer === this.team ? this.team : this.enemies;
+    return this.currentPlayer() === this.team ? this.team : this.enemies;
   }
 
   getOpponent(): Units {
-    return this.currentPlayer === this.team ? this.enemies : this.team;
-  }
-
-  isPlayerTurn(): Signal<boolean> {
-    return computed(() => this.currentPlayer === this.team);
+    return this.currentPlayer() === this.team ? this.enemies : this.team;
   }
 
   /** Returns target for action */
@@ -61,7 +60,7 @@ export class Battle {
     } else if (!this.team.isAlive()) {
       this.end(false);
     } else {
-      this.currentPlayer = this.getOpponent();
+      this.currentPlayer.set(this.getOpponent());
       this.currentTurn += 1;
       this.state.next(BattleState.NextTurn);
     }

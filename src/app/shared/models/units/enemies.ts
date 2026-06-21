@@ -19,6 +19,10 @@ export class Enemies extends Units {
 
   hpMax: number;
 
+  stagger = signal(0);
+
+  staggerMax: number;
+
   resistance: string[] = [];
 
   weakness: string[] = [];
@@ -45,6 +49,7 @@ export class Enemies extends Units {
 
     this.hits = 0;
     this.hpMax = 0;
+    this.staggerMax = 0;
   }
 
   /**
@@ -67,6 +72,7 @@ export class Enemies extends Units {
 
     this.hpMax = addPercent(25 * this.level, bonusHpMax);
     this.hp.set(this.hpMax);
+    this.staggerMax = this.hpMax * 2;
     this.hits = addPercent(3 * this.level, bonusHits);
     this.rewardXp = addPercent(5 * this.level, bonusXp);
     this.rewardAp = addPercent(2 * this.level, bonusAp);
@@ -110,6 +116,10 @@ export class Enemies extends Units {
 
     this.hp.update((hp) => Math.max(hp - hits, 0));
     this.source.hp.next({ hits, context } as ItDisplayHits);
+
+    this.stagger.update((stagger) =>
+      Math.min(this.staggerMax, stagger + hits * 2),
+    );
   }
 
   addHp(hp: number, context: Action) {
