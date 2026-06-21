@@ -2,7 +2,7 @@
   <div class="flex flex-col gap-5 sm:flex-row">
     <div class="basis-1/5">
       <div>{{ "Team" | translate }}</div>
-      Niveau {{ team.level }}<br>
+      Niveau {{ team.level() }}<br>
       HP: {{ team.hpMax }}<br>
       MP: {{ team.mpMax }}<br>
       Attaque: {{ team.attack }}<br>
