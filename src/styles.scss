@@ -2,9 +2,7 @@
 
 @use "tailwindcss";
 @plugin "daisyui" {
-  themes:
-    cupcake --default,
-    dark --prefersdark;
+  themes: cupcake --default, dark --prefersdark;
 }
 
 html {

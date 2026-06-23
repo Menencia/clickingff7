@@ -8,3 +8,12 @@ minimumReleaseAgeExclude:
   - '@babel/core@7.29.1'
   - piscina@5.1.5
   - undici@6.27.0
+  - '@biomejs/biome@2.5.1'
+  - '@biomejs/cli-darwin-arm64@2.5.1'
+  - '@biomejs/cli-darwin-x64@2.5.1'
+  - '@biomejs/cli-linux-arm64-musl@2.5.1'
+  - '@biomejs/cli-linux-arm64@2.5.1'
+  - '@biomejs/cli-linux-x64-musl@2.5.1'
+  - '@biomejs/cli-linux-x64@2.5.1'
+  - '@biomejs/cli-win32-arm64@2.5.1'
+  - '@biomejs/cli-win32-x64@2.5.1'

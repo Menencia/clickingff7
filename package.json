@@ -37,7 +37,7 @@
     "@angular/build": "^22.0.3",
     "@angular/cli": "^22.0.3",
     "@angular/compiler-cli": "^22.0.2",
-    "@biomejs/biome": "2.5.0",
+    "@biomejs/biome": "2.5.1",
     "@tailwindcss/postcss": "^4.3.1",
     "daisyui": "5.5.23",
     "jsdom": "^29.1.1",
