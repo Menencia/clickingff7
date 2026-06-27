@@ -1,8 +1,6 @@
-import { Battle } from './battle';
-import { convertEffects } from './effect-converter';
-import { executeSkill } from './effect-executor';
 import { MateriaRef } from './refs/materias';
 import { MateriaSave } from './save';
+import { Team } from './team';
 
 export interface MateriaJson {
   ref: MateriaRef;
@@ -28,21 +26,21 @@ export class Materia {
     return this.data.mp;
   }
 
-  canUse(battle: Battle): boolean {
-    const hasMP = battle.team.mp() > this.data.mp;
+  canUse(team: Team): boolean {
+    const hasMP = team.mp() > this.data.mp;
 
     const effects = this.data.effect.split(';').map((effect) => effect.trim());
     const lastEffect = effects.at(-1) ?? '';
     if (lastEffect.startsWith('heal')) {
-      return hasMP && battle.team.hp() < battle.team.hpMax;
+      return hasMP && team.hp() < team.hpMax;
     }
     return hasMP;
   }
 
-  async use(battle: Battle): Promise<void> {
-    const effects = convertEffects(this.data.effect.split(';'));
-    await executeSkill(battle, effects);
-    battle.nextTurn();
+  async use(): Promise<void> {
+    // const effects = convertEffects(this.data.effect.split(';'));
+    // await executeSkill(battle, effects);
+    // battle.nextTurn();
   }
 
   /**

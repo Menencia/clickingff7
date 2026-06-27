@@ -1,8 +1,9 @@
 import { ActionTarget } from '@shared/interfaces/action-target';
 import { ActionType } from '@shared/interfaces/action-type';
 import { Subject } from 'rxjs';
+import { Effect } from './effect';
 
-export class Action {
+export class Skill {
   target = ActionTarget.OPPONENT;
 
   type = ActionType.PHYSIC;
@@ -10,6 +11,15 @@ export class Action {
   elements: string[] = [];
 
   completed = new Subject<boolean>();
+
+  constructor(public effects: Effect[]) {}
+
+  async execute(): Promise<void> {
+    for (const effect of this.effects) {
+      // todo handle frame
+      await effect.execute();
+    }
+  }
 
   complete() {
     this.completed.next(true);

@@ -2,7 +2,7 @@
   <!-- enemies bars -->
   @let e = enemies(); @if (e) {
   <div>
-    Niveau {{ e.level }}
+    Niveau {{ e.level() }}
     <app-progress-bar
       [progress]="round((e.hp() / e.hpMax) * 100)"
       [text]="'HP ' + e.hp()"

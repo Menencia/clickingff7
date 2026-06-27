@@ -1,3 +1,5 @@
+import { Items } from '@shared/models/items';
+import { Materias } from '@shared/models/materias';
 import { ZoneRef } from '@shared/models/refs/zones';
 import { Zone } from '@shared/models/zone';
 import { Zones } from '@shared/models/zones';
@@ -15,6 +17,8 @@ const playerServiceMock = {
     levelMax: 1,
     nextZone: false,
   },
+  materias: new Materias(),
+  items: new Items(),
 };
 
 export { playerServiceMock };

@@ -1,7 +1,6 @@
-import { Action } from '@shared/models/action';
+import { Effect } from '@shared/models/effect';
 
 export interface ItDisplayHits {
-  id: string;
   hits: number;
-  context: Action;
+  context: Effect;
 }

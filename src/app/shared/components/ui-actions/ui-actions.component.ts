@@ -1,9 +1,9 @@
 import { Component, computed } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
-import { convertEffects } from '@shared/models/effect-converter';
-import { executeSkill } from '@shared/models/effect-executor';
+import { DamagesEffect } from '@shared/models/effects/damages.effect';
 import { Item } from '@shared/models/item';
 import { Materia } from '@shared/models/materia';
+import { Skill } from '@shared/models/skill';
 import { MAX_FIGHTS } from '@shared/models/zone';
 import { BattleService } from '@shared/services/battle.service';
 import { PlayerService } from '@shared/services/player.service';
@@ -61,10 +61,12 @@ export class UiActionsComponent {
     if (!battle) {
       throw new Error('CANNOT USE');
     }
-    const effects = convertEffects(
-      this.playerService.team.getAttackRawEffects(),
-    );
-    await executeSkill(battle, effects);
+    const skill = new Skill([
+      new DamagesEffect(this.playerService.team, battle.enemies),
+    ]);
+    battle.actionOngoing.set(true);
+    await skill.execute();
+    battle.actionOngoing.set(false);
     battle.nextTurn();
   }
 
@@ -78,7 +80,11 @@ export class UiActionsComponent {
 
   public canUseMateria(materia: Materia): boolean {
     const battle = this.battleService.battle();
-    return !!battle && materia.canUse(battle) && !battle.actionOngoing();
+    const team = this.playerService.team;
+    return (
+      ((!battle && materia.data.type === 'cure') || this.canPlay()) &&
+      materia.canUse(team)
+    );
   }
 
   public async useMateria(materia: Materia): Promise<void> {
@@ -94,12 +100,13 @@ export class UiActionsComponent {
     }
 
     // do action
-    await materia.use(battle);
+    await materia.use();
   }
 
   public canUseItem(item: Item): boolean {
     const battle = this.battleService.battle();
-    return !!battle && item.canUse(battle) && !battle.actionOngoing();
+    const team = this.playerService.team;
+    return (!battle || this.canPlay()) && item.canUse(team);
   }
 
   public async useItem(item: Item): Promise<void> {

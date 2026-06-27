@@ -1,10 +1,9 @@
 import { Injectable, signal } from '@angular/core';
 import { Battle, BattleState } from '@shared/models/battle';
-import { convertEffects } from '@shared/models/effect-converter';
-import { executeSkill } from '@shared/models/effect-executor';
+import { DamagesEffect } from '@shared/models/effects/damages.effect';
+import { Skill } from '@shared/models/skill';
 import { Enemies } from '@shared/models/units/enemies';
 import { MAX_FIGHTS } from '@shared/models/zone';
-
 import { PlayerService } from './player.service';
 import { StoreService } from './store.service';
 
@@ -33,7 +32,7 @@ export class BattleService {
     // set level of enemy
     const zoneLevel = zone.data.level;
     const teamLevel = this.playerService.team.level();
-    enemies.level = Math.min(teamLevel, 5 * (zoneLevel - 1) + 3);
+    enemies.level.set(Math.min(teamLevel, 5 * (zoneLevel - 1) + 3));
     enemies.refresh();
 
     // new battle
@@ -45,8 +44,10 @@ export class BattleService {
         case BattleState.NextTurn:
           // enemies turn
           if (!battle.isPlayerTurn()) {
-            const effects = convertEffects(enemies.getAttackRawEffects());
-            await executeSkill(battle, effects);
+            const skill = new Skill([
+              new DamagesEffect(enemies, this.playerService.team),
+            ]);
+            await skill.execute();
             battle.nextTurn();
           }
           break;

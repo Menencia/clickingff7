@@ -1,31 +1,17 @@
 import { signal } from '@angular/core';
-import { Action } from '@shared/models/action';
-import { Subject } from 'rxjs';
-import { ItDisplayHits } from '../../interfaces/it-display-hits';
+import { Skill } from '@shared/models/skill';
 import { addPercent, random } from '../../utils/math.utils';
 import { Enemy } from '../enemy';
 import { Units } from '../units';
 
 export class Enemies extends Units {
-  level = 1;
-
-  arrHits: number[] = [];
-
   timer: number;
 
   hits: number;
 
-  hp = signal(0);
-
-  hpMax: number;
-
   stagger = signal(0);
 
   staggerMax: number;
-
-  resistance: string[] = [];
-
-  weakness: string[] = [];
 
   rewardXp = 0;
 
@@ -34,10 +20,6 @@ export class Enemies extends Units {
   rewardGils = 0;
 
   boss = false;
-
-  source = {
-    hp: new Subject<ItDisplayHits>(), // health points
-  };
 
   /**
    * Init
@@ -70,13 +52,13 @@ export class Enemies extends Units {
       bonusGils += enemy.gils;
     });
 
-    this.hpMax = addPercent(25 * this.level, bonusHpMax);
+    this.hpMax = addPercent(25 * this.level(), bonusHpMax);
     this.hp.set(this.hpMax);
     this.staggerMax = this.hpMax * 2;
-    this.hits = addPercent(3 * this.level, bonusHits);
-    this.rewardXp = addPercent(5 * this.level, bonusXp);
-    this.rewardAp = addPercent(2 * this.level, bonusAp);
-    this.rewardGils = addPercent(30 + this.level, bonusGils);
+    this.hits = addPercent(3 * this.level(), bonusHits);
+    this.rewardXp = addPercent(5 * this.level(), bonusXp);
+    this.rewardAp = addPercent(2 * this.level(), bonusAp);
+    this.rewardGils = addPercent(30 + this.level(), bonusGils);
     // $$$$ todo
     // this.weakness = [...new Set([...this.weakness, ...enemy.weakness])];
     // this.resistance = [...new Set([...this.resistance, ...enemy.resistance])];
@@ -98,32 +80,8 @@ export class Enemies extends Units {
     return ['damages 1'];
   }
 
-  /**
-   * Enemies are under manual attack
-   */
-  getAttacked(baseHits: number, context: Action): void {
-    let hits = baseHits;
-
-    // weakness
-    if (this.hasWeakness(context.elements)) {
-      hits *= 3;
-    }
-
-    // resistance
-    if (this.hasResistance(context.elements)) {
-      hits = Math.floor(hits / 3);
-    }
-
-    this.hp.update((hp) => Math.max(hp - hits, 0));
-    this.source.hp.next({ hits, context } as ItDisplayHits);
-
-    this.stagger.update((stagger) =>
-      Math.min(this.staggerMax, stagger + hits * 2),
-    );
-  }
-
-  addHp(hp: number, context: Action) {
-    this.source.hp.next({ hits: hp, context } as ItDisplayHits);
+  addHp(_hp: number, _context: Skill) {
+    // this.source.hp.next({ hits: hp, context });
   }
 
   isAlive(): boolean {
@@ -133,20 +91,6 @@ export class Enemies extends Units {
       return false;
     }
     return true;
-  }
-
-  /**
-   * Returns true if the enemy has this type in weakness
-   */
-  hasWeakness(types: string[]): boolean {
-    return this.weakness.filter((x) => types.includes(x)).length > 0;
-  }
-
-  /**
-   * Returns true if the enemy has this type in weakness
-   */
-  hasResistance(types: string[]): boolean {
-    return this.resistance.filter((x) => types.includes(x)).length > 0;
   }
 
   /**

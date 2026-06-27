@@ -1,11 +1,9 @@
 import { signal } from '@angular/core';
-import { ItDisplayHits } from '@shared/interfaces/it-display-hits';
 import { calculateHits } from '@shared/utils/battle.utils';
-import { addPercent, uuid } from '@shared/utils/math.utils';
-import { Subject } from 'rxjs';
-import { Action } from './action';
+import { addPercent } from '@shared/utils/math.utils';
 import { Character } from './character';
 import { TeamSave } from './save';
+import { Skill } from './skill';
 import { Units } from './units';
 
 // maximum characters in the team
@@ -14,69 +12,6 @@ export const MAX_TEAM = 3;
 /** Handles all player characters */
 export class Team extends Units {
   list = signal<Character[]>([]);
-
-  arrHits: number[] = [];
-
-  hp = signal(0);
-
-  // based on defense
-  hpMax = 0;
-
-  mp = signal(0);
-
-  // based on spirit
-  mpMax = 0;
-
-  limit = signal(0);
-
-  // based on strengh+magic
-  limitMax = 0;
-
-  level = signal(1);
-
-  xp = signal(0);
-
-  // used to physical attacks
-  strengh = 0;
-
-  // used by magic attacks
-  magic = 0;
-
-  // used to block physical power
-  defense = 0;
-
-  // used to block magic power
-  spirit = 0;
-
-  // evade, critial hits
-  luck = 0;
-
-  // plays more in battle
-  speed = 0;
-
-  attack = 0;
-
-  attackFromEquipment = 0;
-
-  defenseFromEquipment = 0;
-
-  vitality = 0;
-
-  luckFromEquipment = 0;
-
-  speedFromEquipment = 0;
-
-  critHitRate = 0;
-
-  critHitDamage = 0;
-
-  weakness: string[] = [];
-
-  resistance: string[] = [];
-
-  source = {
-    hp: new Subject<ItDisplayHits>(), // health points
-  };
 
   /** Updates team data */
   load(data: TeamSave): Team {
@@ -271,32 +206,10 @@ export class Team extends Units {
     return (this.limit() / this.limitMax) * pixelsMax;
   }
 
-  /**
-   * Characters are under attack
-   */
-  getAttacked(baseHits: number, context: Action): void {
-    let hits = baseHits;
-
-    // weakness
-    if (this.hasWeakness(context.elements)) {
-      hits *= 3;
-    }
-
-    // resistance
-    if (this.hasResistance(context.elements)) {
-      hits = Math.floor(hits / 10);
-    }
-
-    this.hp.update((hp) => Math.max(hp - hits, 0));
-    this.source.hp.next({ id: uuid(), hits, context } as ItDisplayHits);
-
-    this.limit.update((limit) => Math.min(limit + hits, this.limitMax));
-  }
-
-  addHp(value: number, context: Action): void {
-    const hits = value;
-    this.hp.update((hp) => Math.min(hp + hits, this.hpMax));
-    this.source.hp.next({ id: uuid(), hits, context } as ItDisplayHits);
+  addHp(_value: number, _context: Skill): void {
+    // const hits = value;
+    // this.hp.update((hp) => Math.min(hp + hits, this.hpMax));
+    // this.source.hp.next({ hits, context });
   }
 
   isAlive(): boolean {
@@ -308,36 +221,6 @@ export class Team extends Units {
     }
 
     return true;
-  }
-
-  /**
-   * Returns true if the enemy has this type in weakness
-   */
-  hasWeakness(types: string[]): boolean {
-    let res = false;
-    let i = 0;
-    while (!res && i < types.length) {
-      if (this.weakness.includes(types[i])) {
-        res = true;
-      }
-      i += 1;
-    }
-    return res;
-  }
-
-  /**
-   * Returns true if the enemy has this type in weakness
-   */
-  hasResistance(types: string[]): boolean {
-    let res = false;
-    let i = 0;
-    while (!res && i < types.length) {
-      if (this.resistance.includes(types[i])) {
-        res = true;
-      }
-      i += 1;
-    }
-    return res;
   }
 
   /**
