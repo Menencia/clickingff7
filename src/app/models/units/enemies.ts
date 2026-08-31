@@ -49,7 +49,7 @@ export class Enemies extends Units {
    * Fight against a random enemy
    */
   fightRandom(levelSumBase: number, zone: Zone, difficulty: number): Enemy[] {
-    let range;
+    let range: number;
     range = Math.floor((zone.nbFights / MAX_FIGHTS) * 4);
     range = Math.min(range, 3);
 

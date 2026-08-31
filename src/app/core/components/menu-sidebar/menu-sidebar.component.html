@@ -2,6 +2,7 @@
   <div class="flex flex-col">
     <a
       *ngFor="let navLink of navLinks"
+      href="{{navLink.ref}}"
       [routerLink]="navLink.link"
       routerLinkActive="text-blue-700 border-blue-700"
       class="px-1 py-4 border-l border-gray-200 hover:border-blue-700"

@@ -8,7 +8,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './button.component.scss',
 })
 export class ButtonComponent {
-  @Input() id = `btn-id-${new Date().getTime()}`;
+  @Input() id = `btn-id-${Date.now()}`;
 
   @Input() disabled = false;
 

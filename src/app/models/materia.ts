@@ -66,7 +66,7 @@ export abstract class Materia {
   abstract getSkill(battleService: BattleService): ItAction[];
 
   use(battleService: BattleService) {
-    this.getSkill(battleService).forEach((action) => action.use(battleService));
+    this.getSkill(battleService).map((action) => action.use(battleService));
   }
 
   /**

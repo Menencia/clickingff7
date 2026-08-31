@@ -87,7 +87,7 @@ export class GameService {
     this.preload();
 
     // search for save
-    let save;
+    let save: Save | null = null;
     const s = localStorage[SAVE_1];
     if (s) {
       save = JSON.parse(atob(s));

@@ -10,7 +10,12 @@
     "ref": "zone2",
     "level": 2,
     "image": "/assets/images/zones/Sector_5_Reactor.png",
-    "enemies": ["blood-taste", "proto-machinegun", "smogger", "special-combatant"],
+    "enemies": [
+      "blood-taste",
+      "proto-machinegun",
+      "smogger",
+      "special-combatant"
+    ],
     "boss": ["air-buster"]
   },
   {
@@ -63,4 +68,3 @@
     "boss": ["bottomswell"]
   }
 ]
-

@@ -56,7 +56,7 @@
             <tr *ngFor="let weapon of shopWeapons">
               <td>
                 <app-weapon-icon [type]="weapon.type"></app-weapon-icon>
-                {{ weapon.ref }}<br />
+                {{ weapon.ref }}<br>
                 <span class="text-xs italic"
                   >({{ "Power" | translate }} {{ weapon.hits }})</span
                 >
@@ -78,7 +78,7 @@
             <tr *ngFor="let materia of shopMaterias" class="materia">
               <td>
                 <app-materia-icon [color]="materia.color"></app-materia-icon>
-                {{ "Mat. " + materia.ref + " name" | translate }}<br />
+                {{ "Mat. " + materia.ref + " name" | translate }}<br>
                 <span class="text-xs italic">{{
                   "Mat. " + materia.ref + " desc" | translate
                 }}</span>
@@ -101,7 +101,7 @@
             <tr *ngFor="let item of shopItems" class="item">
               <td>
                 <app-item-icon></app-item-icon>
-                {{ "It. " + item.ref + " name" | translate }}<br />
+                {{ "It. " + item.ref + " name" | translate }}<br>
                 <span class="text-xs italic">{{
                   "It. " + item.ref + " desc" | translate
                 }}</span>
@@ -134,7 +134,7 @@
             <tr *ngFor="let weapon of playerWeapons">
               <td>
                 <app-weapon-icon [type]="weapon.type"></app-weapon-icon>
-                {{ weapon.ref }}<br />
+                {{ weapon.ref }}<br>
                 <span class="text-xs italic"
                   >({{ "Power" | translate }} {{ weapon.hits }})</span
                 >
@@ -156,7 +156,7 @@
             <tr *ngFor="let materia of playerMaterias" class="materia">
               <td>
                 <app-materia-icon [color]="materia.color"></app-materia-icon>
-                {{ "Mat. " + materia.ref + " name" | translate }}<br />
+                {{ "Mat. " + materia.ref + " name" | translate }}<br>
                 <span class="text-xs italic">{{
                   "Mat. " + materia.ref + " desc" | translate
                 }}</span>
@@ -176,7 +176,7 @@
             <tr *ngFor="let item of playerItems" class="item">
               <td>
                 <app-item-icon></app-item-icon>
-                {{ "It. " + item.ref + " name" | translate }}<br />
+                {{ "It. " + item.ref + " name" | translate }}<br>
                 <span class="text-xs italic">{{
                   "It. " + item.ref + " desc" | translate
                 }}</span>

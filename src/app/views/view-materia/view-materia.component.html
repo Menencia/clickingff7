@@ -12,7 +12,8 @@
       <td>
         <app-materia-icon [color]="materia.color"></app-materia-icon>
         {{ "Mat. " + materia.ref + " name" | translate }}
-        <strong>(LVL{{ materia.level }})</strong> PWR: {{ materia.pwr }}<br />
+        <strong>(LVL{{ materia.level }})</strong>
+        PWR: {{ materia.pwr }}<br>
         <span class="text-xs italic">{{
           "Mat. " + materia.ref + " desc" | translate
         }}</span>
@@ -24,7 +25,8 @@
             [style.width]="materia.apProgress(200) + 'px'"
           ></div>
           <span class="bar-label"
-            >{{ materia.ap }} / {{ materia.getApMax() }} AP</span
+            >{{ materia.ap }}
+            / {{ materia.getApMax() }} AP</span
           >
         </div>
       </td>
@@ -32,7 +34,6 @@
         <span
           (click)="unequip(materia)"
           (keypress)="unequip(materia)"
-          tabindex="0"
           *ngIf="materia.equipped"
           class="cursor-pointer"
         >
@@ -41,7 +42,6 @@
         <span
           (click)="equip(materia)"
           (keypress)="equip(materia)"
-          tabindex="0"
           *ngIf="canEquip(materia)"
           class="cursor-pointer"
         >

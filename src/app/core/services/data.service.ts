@@ -1,6 +1,7 @@
+/** biome-ignore-all lint/style/noNonNullAssertion: will be removed later */
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, forkJoin, map } from 'rxjs';
+import { forkJoin, map, Observable } from 'rxjs';
 import { Character, CharacterJson } from 'src/app/models/character';
 import { Enemy, EnemyJson } from 'src/app/models/enemy';
 import { Item, ItemJson } from 'src/app/models/item';
