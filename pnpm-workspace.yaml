@@ -4,5 +4,7 @@ allowBuilds:
   '@fortawesome/fontawesome-svg-core': false
   '@fortawesome/free-solid-svg-icons': false
   esbuild: false
+  lmdb: false
+  msgpackr-extract: false
   nice-napi: false
   nx: false
