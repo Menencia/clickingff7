@@ -8,7 +8,7 @@ Please create an [issue](https://github.com/Menencia/clickingff7/issues/new) if 
 
 ## Development server
 
-Run `npm i` to install all deps.
+Run `pnpm i` to install all deps.
 
 Run `ng s` for a dev server.
 
