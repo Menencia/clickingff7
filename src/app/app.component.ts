@@ -9,7 +9,6 @@ import { UiNavbarComponent } from './shared/ui/ui-navbar/ui-navbar.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
   imports: [
     UiFooterComponent,
     UiNavbarComponent,

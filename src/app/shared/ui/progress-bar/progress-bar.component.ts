@@ -6,7 +6,6 @@ import { ItDisplayHits } from 'src/app/core/interfaces/it-display-hits';
 
 @Component({
   selector: 'app-progress-bar',
-  standalone: true,
   imports: [NgFor],
   templateUrl: './progress-bar.component.html',
   styleUrls: ['./progress-bar.component.scss'],

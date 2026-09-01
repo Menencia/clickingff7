@@ -17,7 +17,6 @@ import { WeaponIconComponent } from 'src/app/shared/ui/weapon-icon/weapon-icon.c
 
 @Component({
   selector: 'app-shop',
-  standalone: true,
   imports: [
     TranslateModule,
     UiLayoutDefaultComponent,

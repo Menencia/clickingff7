@@ -6,7 +6,6 @@ import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-ba
 
 @Component({
   selector: 'app-enemies-panel',
-  standalone: true,
   imports: [ProgressBarComponent, TranslateModule, NgFor, NgIf],
   templateUrl: './enemies-panel.component.html',
   styleUrl: './enemies-panel.component.scss',

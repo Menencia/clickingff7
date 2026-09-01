@@ -9,7 +9,6 @@ import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui
 
 @Component({
   selector: 'app-view-map',
-  standalone: true,
   imports: [
     UiLayoutDefaultComponent,
     TranslateModule,

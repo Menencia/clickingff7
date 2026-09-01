@@ -18,7 +18,6 @@ import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'app-menu-sidebar',
-  standalone: true,
   imports: [SidebarModule, TranslateModule, RouterModule, NgIf, NgFor],
   templateUrl: './menu-sidebar.component.html',
   styleUrl: './menu-sidebar.component.scss',

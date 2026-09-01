@@ -1,13 +1,17 @@
 import { HttpBackend, provideHttpClient } from '@angular/common/http';
 import {
-  APP_INITIALIZER,
   ApplicationConfig,
   importProvidersFrom,
+  inject,
+  provideAppInitializer,
 } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import Aura from '@primeng/themes/aura';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
+import { providePrimeNG } from 'primeng/config';
 
 import { routes } from './app.routes';
 import { DataService } from './core/services/data.service';
@@ -22,6 +26,12 @@ export function HttpLoaderFactory(_httpBackend: HttpBackend) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideAnimationsAsync(),
+    providePrimeNG({
+      theme: {
+        preset: Aura,
+      },
+    }),
     provideRouter(routes),
     provideHttpClient(),
     importProvidersFrom(BrowserAnimationsModule),
@@ -35,11 +45,12 @@ export const appConfig: ApplicationConfig = {
         },
       }),
     ),
-    {
-      provide: APP_INITIALIZER,
-      useFactory: (data: DataService) => () => data.preloadAll().toPromise(),
-      deps: [DataService],
-      multi: true,
-    },
+    provideAppInitializer(() => {
+      const initializerFn = (
+        (data: DataService) => () =>
+          data.preloadAll().toPromise()
+      )(inject(DataService));
+      return initializerFn();
+    }),
   ],
 };

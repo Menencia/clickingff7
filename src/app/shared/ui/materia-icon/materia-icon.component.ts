@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-materia-icon',
-  standalone: true,
   imports: [],
   template: `<img
     class="inline-block"

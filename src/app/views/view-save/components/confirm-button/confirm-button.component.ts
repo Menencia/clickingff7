@@ -5,7 +5,6 @@ import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
 
 @Component({
   selector: 'app-confirm-button',
-  standalone: true,
   providers: [ConfirmationService],
   imports: [ConfirmDialogModule, ButtonComponent],
   templateUrl: './confirm-button.component.html',

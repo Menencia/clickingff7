@@ -11,7 +11,6 @@ import { EnemiesPanelComponent } from './components/enemies-panel/enemies-panel.
 
 @Component({
   selector: 'app-view-game',
-  standalone: true,
   imports: [
     UiLayoutDefaultComponent,
     UiActionsComponent,

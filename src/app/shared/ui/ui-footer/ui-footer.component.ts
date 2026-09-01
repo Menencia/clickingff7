@@ -2,7 +2,6 @@ import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-ui-footer',
-  standalone: true,
   imports: [],
   templateUrl: './ui-footer.component.html',
   styleUrls: ['./ui-footer.component.scss'],

@@ -3,6 +3,7 @@ allowBuilds:
   '@fortawesome/fontawesome-common-types': false
   '@fortawesome/fontawesome-svg-core': false
   '@fortawesome/free-solid-svg-icons': false
+  '@parcel/watcher': true
   esbuild: false
   lmdb: false
   msgpackr-extract: false

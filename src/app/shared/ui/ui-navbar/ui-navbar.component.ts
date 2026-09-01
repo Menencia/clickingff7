@@ -19,7 +19,6 @@ enum Theme {
 
 @Component({
   selector: 'app-ui-navbar',
-  standalone: true,
   imports: [TranslateModule, NgIf, RouterModule, ButtonModule],
   templateUrl: './ui-navbar.component.html',
   styleUrls: ['./ui-navbar.component.scss'],

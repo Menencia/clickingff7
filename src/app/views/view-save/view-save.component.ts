@@ -14,7 +14,6 @@ import { ConfirmButtonComponent } from './components/confirm-button/confirm-butt
 
 @Component({
   selector: 'app-view-save',
-  standalone: true,
   imports: [
     UiLayoutDefaultComponent,
     TranslateModule,

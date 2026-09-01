@@ -8,7 +8,6 @@ import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui
 
 @Component({
   selector: 'app-view-phs',
-  standalone: true,
   imports: [UiLayoutDefaultComponent, TranslateModule, NgFor, NgIf],
   templateUrl: './view-phs.component.html',
   styleUrls: ['./view-phs.component.scss'],

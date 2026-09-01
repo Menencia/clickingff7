@@ -10,7 +10,6 @@ import { WeaponIconComponent } from 'src/app/shared/ui/weapon-icon/weapon-icon.c
 
 @Component({
   selector: 'app-view-equip',
-  standalone: true,
   imports: [
     UiLayoutDefaultComponent,
     TranslateModule,

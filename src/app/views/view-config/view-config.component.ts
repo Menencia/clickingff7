@@ -6,7 +6,6 @@ import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui
 
 @Component({
   selector: 'app-view-config',
-  standalone: true,
   imports: [UiLayoutDefaultComponent, TranslateModule, FormsModule],
   templateUrl: './view-config.component.html',
   styleUrls: ['./view-config.component.scss'],

@@ -11,7 +11,6 @@ import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-ui-actions',
-  standalone: true,
   imports: [TranslateModule, NgFor, NgIf, ButtonComponent],
   templateUrl: './ui-actions.component.html',
   styleUrls: ['./ui-actions.component.scss'],

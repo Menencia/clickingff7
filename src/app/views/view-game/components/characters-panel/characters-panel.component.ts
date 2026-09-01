@@ -8,7 +8,6 @@ import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-ba
 
 @Component({
   selector: 'app-characters-panel',
-  standalone: true,
   imports: [ProgressBarComponent, TranslateModule, NgFor],
   templateUrl: './characters-panel.component.html',
   styleUrl: './characters-panel.component.scss',
