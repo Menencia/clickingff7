@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { Enemies } from 'src/app/models/units/enemies';
@@ -6,7 +5,7 @@ import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-ba
 
 @Component({
   selector: 'app-enemies-panel',
-  imports: [ProgressBarComponent, TranslateModule, NgFor, NgIf],
+  imports: [ProgressBarComponent, TranslateModule],
   templateUrl: './enemies-panel.component.html',
   styleUrl: './enemies-panel.component.scss',
 })

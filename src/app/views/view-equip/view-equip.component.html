@@ -2,53 +2,55 @@
   <div class="grid grid-cols-5 gap-x-4">
     <div>
       <div class="flex flex-col gap-1">
+        @for (character of team; track character) {
         <app-button
-          *ngFor="let character of team"
           (trigger)="selectCharacter(character)"
           [class]="{ current: selected && selected.ref === character.ref }"
         >
           {{ character.ref }}
         </app-button>
+        }
       </div>
     </div>
 
-    <div class="col-span-2" *ngIf="selected">
+    @if (selected) {
+    <div class="col-span-2">
       <img
         [src]="selected.image"
         width="80"
         alt="current_character"
         class="float-left"
       >
-
       <div class="ml-24">
         <div>
           {{ selected.ref }} <strong>(LVL{{ selected.level }})</strong>
         </div>
-        <div *ngIf="selected.level > 0">
+        @if (selected.level > 0) {
+        <div>
           <span class="label">hp</span> {{ selected.getHpMax() }}
           <span class="label">mp</span> {{ selected.getMpMax() }}
           <span class="label">pwr</span> {{ selected.getHits() }}
         </div>
-
+        }
         <p class="mt-3">
           <app-weapon-icon [type]="selected.weapon.type"></app-weapon-icon>
           {{ selected.weapon.ref }}
         </p>
-
         <p class="ml-4 text-xs italic">
           {{ "Power" | translate }} {{ selected.weapon.hits }}<br>
           {{ "Nb materia" | translate }} +{{ selected.weapon.maxMaterias }}
         </p>
       </div>
     </div>
-
-    <div class="col-span-2" *ngIf="selected">
+    } @if (selected) {
+    <div class="col-span-2">
       <table style="width: 100%">
         <tr>
           <th>{{ "Name" | translate }}</th>
           <th></th>
         </tr>
-        <tr *ngFor="let weapon of weapons" class="weapon">
+        @for (weapon of weapons; track weapon) {
+        <tr class="weapon">
           <td>{{ weapon.ref }}</td>
           <td>
             <app-button
@@ -59,7 +61,9 @@
             </app-button>
           </td>
         </tr>
+        }
       </table>
     </div>
+    }
   </div>
 </app-ui-layout-default>

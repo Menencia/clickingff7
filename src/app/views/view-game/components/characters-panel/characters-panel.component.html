@@ -26,7 +26,8 @@
 
   <!-- characters list -->
   <div id="step1">
-    <div *ngFor="let character of characters.getTeam()" class="flex gap-4 mt-5">
+    @for (character of characters.getTeam(); track character) {
+    <div class="flex gap-4 mt-5">
       <div
         [style]="{ 'background-image': 'url(' + character.image + ')' }"
         class="relative flex-none w-20 h-20 bg-center bg-cover border border-black"
@@ -37,17 +38,16 @@
           <span class="text-sm text-white"> LVL{{ character.level }} </span>
         </div>
       </div>
-
       <div class="grow">
         <app-progress-bar
           [progress]="round((character.xp / character.getXpMax()) * 100)"
           [text]="character.xp + ' / ' + character.getXpMax() + 'EXP'"
           [name]="'exp'"
         ></app-progress-bar>
-
         <div class="text-2xl">{{ character.ref }}</div>
         <div class="text-sm italic">"{{ getLine(character) | translate }}"</div>
       </div>
     </div>
+    }
   </div>
 </div>

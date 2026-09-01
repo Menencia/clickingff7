@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import { Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from 'src/app/core/services/game.service';
@@ -8,13 +7,7 @@ import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui
 
 @Component({
   selector: 'app-view-items',
-  imports: [
-    UiLayoutDefaultComponent,
-    TranslateModule,
-    NgFor,
-    NgIf,
-    ItemIconComponent,
-  ],
+  imports: [UiLayoutDefaultComponent, TranslateModule, ItemIconComponent],
   templateUrl: './view-items.component.html',
   styleUrls: ['./view-items.component.scss'],
 })

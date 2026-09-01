@@ -8,7 +8,8 @@
       </th>
     </tr>
 
-    <tr *ngFor="let item of list" class="item">
+    @for (item of list; track item) {
+    <tr class="item">
       <td>
         <app-item-icon></app-item-icon>
         {{ "It. " + item.ref + " name" | translate }}<br>
@@ -18,27 +19,29 @@
       </td>
       <td>{{ item.nbr }}</td>
       <td class="total">
+        @if (item.equipped) {
         <span
           (click)="unequipItem(item)"
           (keypress)="unequipItem(item)"
-          *ngIf="item.equipped"
           class="hover"
         >
           ❌
         </span>
+        } @if (canEquipItem(item)) {
         <span
           (click)="equipItem(item)"
           (keypress)="equipItem(item)"
-          *ngIf="canEquipItem(item)"
           class="hover"
         >
           ➕
         </span>
+        }
       </td>
     </tr>
-
-    <tr *ngIf="list.length === 0" class="nothing">
+    } @if (list.length === 0) {
+    <tr class="nothing">
       <td colspan="4">{{ "No items" | translate }}</td>
     </tr>
+    }
   </table>
 </app-ui-layout-default>

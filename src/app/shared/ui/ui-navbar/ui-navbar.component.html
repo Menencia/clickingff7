@@ -19,7 +19,9 @@
       {{ "Game" | translate }}
     </a>
     <a href="map" routerLink="/map" routerLinkActive="active">
-      {{ "Map" | translate }}<span *ngIf="displayNextZone">*</span>
+      {{ "Map" | translate }}@if (displayNextZone) {
+      <span>*</span>
+      }
     </a>
     <a href="shop" routerLink="/shop" routerLinkActive="active">
       {{ "Shop" | translate }}
@@ -36,14 +38,11 @@
     <a href="config" routerLink="/config" routerLinkActive="active">
       {{ "Config" | translate }}
     </a>
-    <a
-      href="phs"
-      routerLink="/phs"
-      routerLinkActive="active"
-      *ngIf="displayPhs"
-    >
+    @if (displayPhs) {
+    <a href="phs" routerLink="/phs" routerLinkActive="active">
       {{ "PHS" | translate }}
     </a>
+    }
     <a href="save" routerLink="/save" routerLinkActive="active">
       {{ "Save" | translate }}
     </a>
@@ -62,12 +61,11 @@
       (click)="toggleDark()"
       (keypress)="toggleDark()"
     >
-      <span *ngIf="theme === 'light'" class="material-icons-outlined">
-        light_mode
-      </span>
-      <span *ngIf="theme === 'dark'" class="material-icons-outlined">
-        dark_mode
-      </span>
+      @if (theme === 'light') {
+      <span class="material-icons-outlined"> light_mode </span>
+      } @if (theme === 'dark') {
+      <span class="material-icons-outlined"> dark_mode </span>
+      }
     </div>
   </div>
 </nav>

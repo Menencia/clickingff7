@@ -3,12 +3,13 @@
   <div [style.width]="progress + '%'" class="progress"></div>
   <div [style.width]="progressBg + '%'" class="progress-bg"></div>
   <div class="label">{{ text }}</div>
+  @for (hits of arrHits; track hits) {
   <div
     @animation
     (@animation.done)="onAnimationEvent()"
-    *ngFor="let hits of arrHits"
     class="hits absolute right-0 top-0 text-red-600 text-3xl"
   >
     {{ hits.hits }}
   </div>
+  }
 </div>

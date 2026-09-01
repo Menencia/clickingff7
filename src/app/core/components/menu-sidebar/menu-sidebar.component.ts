@@ -1,4 +1,3 @@
-import { NgFor, NgIf } from '@angular/common';
 import {
   Component,
   EventEmitter,
@@ -18,7 +17,7 @@ import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'app-menu-sidebar',
-  imports: [SidebarModule, TranslateModule, RouterModule, NgIf, NgFor],
+  imports: [SidebarModule, TranslateModule, RouterModule],
   templateUrl: './menu-sidebar.component.html',
   styleUrl: './menu-sidebar.component.scss',
 })

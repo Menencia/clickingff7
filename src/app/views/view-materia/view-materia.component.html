@@ -8,7 +8,8 @@
       </th>
     </tr>
 
-    <tr *ngFor="let materia of list" class="materia">
+    @for (materia of list; track materia) {
+    <tr class="materia">
       <td>
         <app-materia-icon [color]="materia.color"></app-materia-icon>
         {{ "Mat. " + materia.ref + " name" | translate }}
@@ -31,27 +32,29 @@
         </div>
       </td>
       <td class="total">
+        @if (materia.equipped) {
         <span
           (click)="unequip(materia)"
           (keypress)="unequip(materia)"
-          *ngIf="materia.equipped"
           class="cursor-pointer"
         >
           <fa-icon [icon]="faXmark" class="text-red-600"></fa-icon>
         </span>
+        } @if (canEquip(materia)) {
         <span
           (click)="equip(materia)"
           (keypress)="equip(materia)"
-          *ngIf="canEquip(materia)"
           class="cursor-pointer"
         >
           <fa-icon [icon]="faPlus" class="text-green-600"></fa-icon>
         </span>
+        }
       </td>
     </tr>
-
-    <tr *ngIf="list.length === 0" class="nothing">
+    } @if (list.length === 0) {
+    <tr class="nothing">
       <td colspan="4">{{ "No materia" | translate }}</td>
     </tr>
+    }
   </table>
 </app-ui-layout-default>
