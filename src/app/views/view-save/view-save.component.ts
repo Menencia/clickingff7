@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { BattleService } from '../../core/services/battle.service';
 import { GameService } from '../../core/services/game.service';
 import { Save } from '../../models/save';
@@ -14,7 +14,7 @@ import { ConfirmButtonComponent } from './components/confirm-button/confirm-butt
   selector: 'app-view-save',
   imports: [
     UiLayoutDefaultComponent,
-    TranslateModule,
+    TranslatePipe,
     PipeTimePipe,
     FormsModule,
     ConfirmButtonComponent,

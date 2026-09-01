@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../../../core/services/game.service';
 import { Character } from '../../../../models/character';
 import { Characters } from '../../../../models/units/characters';
@@ -7,7 +7,7 @@ import { ProgressBarComponent } from '../../../../shared/ui/progress-bar/progres
 
 @Component({
   selector: 'app-characters-panel',
-  imports: [ProgressBarComponent, TranslateModule],
+  imports: [ProgressBarComponent, TranslatePipe],
   templateUrl: './characters-panel.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './characters-panel.component.scss',

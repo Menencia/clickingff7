@@ -1,13 +1,14 @@
 import { TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { GameService } from '../../../core/services/game.service';
 import { UiActionsComponent } from './ui-actions.component';
 
 describe('UiActionsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [UiActionsComponent, TranslateModule.forRoot()],
+      imports: [UiActionsComponent],
       providers: [
+        provideTranslateService({ fallbackLang: 'en' }),
         {
           provide: GameService,
           useValue: {

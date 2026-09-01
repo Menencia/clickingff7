@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { StoreService } from '../../core/services/store.service';
 import { Item, MAX_ITEMS } from '../../models/item';
@@ -16,7 +16,7 @@ import { WeaponIconComponent } from '../../shared/ui/weapon-icon/weapon-icon.com
 @Component({
   selector: 'app-shop',
   imports: [
-    TranslateModule,
+    TranslatePipe,
     UiLayoutDefaultComponent,
     WeaponIconComponent,
     MateriaIconComponent,

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { BattleService } from '../../../core/services/battle.service';
 import { GameService } from '../../../core/services/game.service';
 import { Item } from '../../../models/item';
@@ -9,7 +9,7 @@ import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-ui-actions',
-  imports: [TranslateModule, ButtonComponent],
+  imports: [TranslatePipe, ButtonComponent],
   templateUrl: './ui-actions.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./ui-actions.component.scss'],

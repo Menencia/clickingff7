@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { ShopService } from '../../core/services/shop.service';
 import { Zone } from '../../models/zone';
@@ -8,7 +8,7 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
 
 @Component({
   selector: 'app-view-map',
-  imports: [UiLayoutDefaultComponent, TranslateModule, ButtonComponent],
+  imports: [UiLayoutDefaultComponent, TranslatePipe, ButtonComponent],
   templateUrl: './view-map.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-map.component.scss'],

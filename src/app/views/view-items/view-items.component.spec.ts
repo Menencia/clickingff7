@@ -1,13 +1,14 @@
 import { TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { ViewItemsComponent } from './view-items.component';
 
 describe('ViewItemsComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewItemsComponent, TranslateModule.forRoot()],
+      imports: [ViewItemsComponent],
       providers: [
+        provideTranslateService({ fallbackLang: 'en' }),
         {
           provide: GameService,
           useValue: {

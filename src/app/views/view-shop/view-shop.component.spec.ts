@@ -1,5 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
+import { provideTranslateService } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { StoreService } from '../../core/services/store.service';
 import { ViewShopComponent } from './view-shop.component';
@@ -7,8 +7,9 @@ import { ViewShopComponent } from './view-shop.component';
 describe('ViewShopComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewShopComponent, TranslateModule.forRoot()],
+      imports: [ViewShopComponent],
       providers: [
+        provideTranslateService({ fallbackLang: 'en' }),
         {
           provide: GameService,
           useValue: {

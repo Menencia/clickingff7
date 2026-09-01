@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { BattleService } from './battle.service';
 import { GameService } from './game.service';
 
@@ -8,7 +7,7 @@ describe('BattleService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
+      imports: [],
       providers: [
         {
           provide: GameService,

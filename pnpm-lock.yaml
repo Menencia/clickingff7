@@ -30,11 +30,11 @@ importers:
         specifier: ^1.33.0
         version: 1.38.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))
       '@ngx-translate/core':
-        specifier: ^15.0.0
-        version: 15.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
+        specifier: ^18.0.0
+        version: 18.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
       '@ngx-translate/http-loader':
-        specifier: ^8.0.0
-        version: 8.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(@ngx-translate/core@15.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(rxjs@7.8.2)
+        specifier: ^18.0.0
+        version: 18.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(@ngx-translate/core@18.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))
       '@primeuix/themes':
         specifier: ^3.0.0
         version: 3.0.0
@@ -47,9 +47,6 @@ importers:
       intro.js:
         specifier: ^7.2.0
         version: 7.2.0
-      ngx-translate-multi-http-loader:
-        specifier: ^9.4.0
-        version: 9.4.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(@ngx-translate/core@15.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(deepmerge-ts@5.1.0)(rxjs@7.8.2)
       primeicons:
         specifier: ^7.0.0
         version: 7.0.0
@@ -1013,22 +1010,19 @@ packages:
       '@emnapi/core': ^1.7.1 || ^2.0.0-alpha.4
       '@emnapi/runtime': ^1.7.1 || ^2.0.0-alpha.4
 
-  '@ngx-translate/core@15.0.0':
-    resolution: {integrity: sha512-Am5uiuR0bOOxyoercDnAA3rJVizo4RRqJHo8N3RqJ+XfzVP/I845yEnMADykOHvM6HkVm4SZSnJBOiz0Anx5BA==}
-    engines: {node: ^16.13.0 || >=18.10.0}
+  '@ngx-translate/core@18.0.0':
+    resolution: {integrity: sha512-Z9u9AXaeuyeHHimivvJQvhal/LJNB+5tlH+FimSU4QQ61FrtRDqgyn6nfFbc6Cb+59NDZdsh4QeTJyPCldFUwA==}
     peerDependencies:
-      '@angular/common': '>=16.0.0'
-      '@angular/core': '>=16.0.0'
-      rxjs: ^6.5.5 || ^7.4.0
+      '@angular/common': '>=18'
+      '@angular/core': '>=18'
+      rxjs: '>=7'
 
-  '@ngx-translate/http-loader@8.0.0':
-    resolution: {integrity: sha512-SFMsdUcmHF5OdZkL1CHEoSAwbP5EbAOPTLLboOCRRoOg21P4GJx+51jxGdJeGve6LSKLf4Pay7BkTwmE6vxYlg==}
-    engines: {node: ^16.13.0 || >=18.10.0}
+  '@ngx-translate/http-loader@18.0.0':
+    resolution: {integrity: sha512-p6QpNcU3rkCYjHbKVIadcYtml/Njpr0aLp8neJ4uJWQ4Xm9f09bIePhOjdjAFHupTptKqKrG1J2gSi3RSwgYeA==}
     peerDependencies:
-      '@angular/common': '>=16.0.0'
-      '@angular/core': '>=16.0.0'
-      '@ngx-translate/core': '>=15.0.0'
-      rxjs: ^6.5.5 || ^7.4.0
+      '@angular/common': '>=18'
+      '@angular/core': '>=18'
+      '@ngx-translate/core': '>=18.0.0'
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -1860,10 +1854,6 @@ packages:
   decimal.js@10.6.0:
     resolution: {integrity: sha512-YpgQiITW3JXGntzdUmyUR1V812Hn8T1YVXhCu+wO3OpS4eU9l4YdD3qjyiKdV6mvV29zapkMeD390UVEf2lkUg==}
 
-  deepmerge-ts@5.1.0:
-    resolution: {integrity: sha512-eS8dRJOckyo9maw9Tu5O5RUi/4inFLrnoLkBe3cPfDMx3WZioXtmOew4TXQaxq7Rhl4xjDtR7c6x8nNTxOvbFw==}
-    engines: {node: '>=16.0.0'}
-
   depd@2.0.0:
     resolution: {integrity: sha512-g7nH6P6dyDioJogAAGprGpCtVImJhpPk/roCzdb3fIh61/s/nPsfR6onyMwkCAR/OlC3yBC0lESvUoQEAssIrw==}
     engines: {node: '>= 0.8'}
@@ -2478,16 +2468,6 @@ packages:
   negotiator@1.1.0:
     resolution: {integrity: sha512-NMPBRMJgiQHjbd8phG3Vebdx4kZ1H121rbl5IkMqeOsahptB9BKo/d7oJ3zTXqTgagn2bWlNSXkh0QUGM31RYg==}
     engines: {node: '>=18'}
-
-  ngx-translate-multi-http-loader@9.4.0:
-    resolution: {integrity: sha512-+GUs7kdrp354pnuOQIcf1FOM/kpGUDmBn8o6XyVFe/6yZHHnCAPoTaGX/qqewOKmrg0ZSvAsBorGG0cW4ftbsQ==}
-    deprecated: This library has been integrated inside the ngx-translate/core^18 library directly
-    peerDependencies:
-      '@angular/common': '>=13.0.0'
-      '@angular/core': '>=13.0.0'
-      '@ngx-translate/core': '>=14.0.0'
-      deepmerge-ts: ^5.1.0
-      rxjs: ^7.8.0
 
   node-addon-api@6.1.0:
     resolution: {integrity: sha512-+eawOlIgy680F0kBzPUNFhMZGtJ1YmqM6l4+Crf4IkImjYrO/mqPwRMh352g23uIaQKFItcQ64I7KMaJxHgAVA==}
@@ -3904,18 +3884,19 @@ snapshots:
       '@tybys/wasm-util': 0.10.3
     optional: true
 
-  '@ngx-translate/core@15.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)':
+  '@ngx-translate/core@18.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)':
     dependencies:
       '@angular/common': 22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
       '@angular/core': 22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1)
       rxjs: 7.8.2
+      tslib: 2.8.1
 
-  '@ngx-translate/http-loader@8.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(@ngx-translate/core@15.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(rxjs@7.8.2)':
+  '@ngx-translate/http-loader@18.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(@ngx-translate/core@18.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))':
     dependencies:
       '@angular/common': 22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
       '@angular/core': 22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1)
-      '@ngx-translate/core': 15.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
-      rxjs: 7.8.2
+      '@ngx-translate/core': 18.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
+      tslib: 2.8.1
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:
@@ -4551,8 +4532,6 @@ snapshots:
 
   decimal.js@10.6.0: {}
 
-  deepmerge-ts@5.1.0: {}
-
   depd@2.0.0: {}
 
   detect-libc@2.1.2: {}
@@ -5154,15 +5133,6 @@ snapshots:
   negotiator@1.1.0:
     dependencies:
       content-type: 2.1.0
-
-  ngx-translate-multi-http-loader@9.4.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(@ngx-translate/core@15.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(deepmerge-ts@5.1.0)(rxjs@7.8.2):
-    dependencies:
-      '@angular/common': 22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
-      '@angular/core': 22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1)
-      '@ngx-translate/core': 15.0.0(@angular/common@22.1.4(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@22.1.4(@angular/compiler@22.1.4)(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
-      deepmerge-ts: 5.1.0
-      rxjs: 7.8.2
-      tslib: 2.8.1
 
   node-addon-api@6.1.0:
     optional: true

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Character } from '../../models/character';
 import { Weapon } from '../../models/weapon';
@@ -11,7 +11,7 @@ import { WeaponIconComponent } from '../../shared/ui/weapon-icon/weapon-icon.com
   selector: 'app-view-equip',
   imports: [
     UiLayoutDefaultComponent,
-    TranslateModule,
+    TranslatePipe,
     WeaponIconComponent,
     ButtonComponent,
   ],

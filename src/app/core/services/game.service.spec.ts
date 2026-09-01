@@ -1,5 +1,4 @@
 import { TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from './game.service';
 
 describe('GameService', () => {
@@ -7,7 +6,7 @@ describe('GameService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
+      imports: [],
       providers: [
         {
           provide: GameService,

@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { TranslateModule } from '@ngx-translate/core';
-
+import { provideTranslateService } from '@ngx-translate/core';
 import { EnemiesPanelComponent } from './enemies-panel.component';
 
 describe('EnemiesPanelComponent', () => {
@@ -9,7 +8,8 @@ describe('EnemiesPanelComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [EnemiesPanelComponent, TranslateModule.forRoot()],
+      imports: [EnemiesPanelComponent],
+      providers: [provideTranslateService({ fallbackLang: 'en' })],
     }).compileComponents();
 
     fixture = TestBed.createComponent(EnemiesPanelComponent);

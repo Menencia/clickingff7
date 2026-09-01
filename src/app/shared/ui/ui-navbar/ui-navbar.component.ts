@@ -8,7 +8,7 @@ import {
   Output,
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
-import { TranslateModule, TranslateService } from '@ngx-translate/core';
+import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
 import { helpData } from '../../../models/help';
 
@@ -26,7 +26,7 @@ enum Theme {
 
 @Component({
   selector: 'app-ui-navbar',
-  imports: [TranslateModule, RouterModule, ButtonModule],
+  imports: [TranslatePipe, RouterModule, ButtonModule],
   templateUrl: './ui-navbar.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./ui-navbar.component.scss'],

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Character } from '../../models/character';
 import { MAX_TEAM } from '../../models/units/characters';
@@ -7,7 +7,7 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
 
 @Component({
   selector: 'app-view-phs',
-  imports: [UiLayoutDefaultComponent, TranslateModule],
+  imports: [UiLayoutDefaultComponent, TranslatePipe],
   templateUrl: './view-phs.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-phs.component.scss'],

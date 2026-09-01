@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { LucidePlus, LucideX } from '@lucide/angular';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Materia } from '../../models/materia';
 import { MateriaIconComponent } from '../../shared/ui/materia-icon/materia-icon.component';
@@ -10,7 +10,7 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
   selector: 'app-view-materia',
   imports: [
     UiLayoutDefaultComponent,
-    TranslateModule,
+    TranslatePipe,
     MateriaIconComponent,
     LucidePlus,
     LucideX,

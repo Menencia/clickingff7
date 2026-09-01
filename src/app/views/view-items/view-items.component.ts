@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TranslateModule } from '@ngx-translate/core';
+import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Item, MAX_ITEMS } from '../../models/item';
 import { ItemIconComponent } from '../../shared/ui/item-icon/item-icon.component';
@@ -7,7 +7,7 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
 
 @Component({
   selector: 'app-view-items',
-  imports: [UiLayoutDefaultComponent, TranslateModule, ItemIconComponent],
+  imports: [UiLayoutDefaultComponent, TranslatePipe, ItemIconComponent],
   templateUrl: './view-items.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-items.component.scss'],
