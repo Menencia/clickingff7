@@ -1,11 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { GameService } from 'src/app/core/services/game.service';
-import { Character } from 'src/app/models/character';
-import { Weapon } from 'src/app/models/weapon';
-import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
-import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
-import { WeaponIconComponent } from 'src/app/shared/ui/weapon-icon/weapon-icon.component';
+import { GameService } from '../../core/services/game.service';
+import { Character } from '../../models/character';
+import { Weapon } from '../../models/weapon';
+import { ButtonComponent } from '../../shared/ui/button/button.component';
+import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
+import { WeaponIconComponent } from '../../shared/ui/weapon-icon/weapon-icon.component';
 
 @Component({
   selector: 'app-view-equip',
@@ -16,6 +16,7 @@ import { WeaponIconComponent } from 'src/app/shared/ui/weapon-icon/weapon-icon.c
     ButtonComponent,
   ],
   templateUrl: './view-equip.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-equip.component.scss'],
 })
 export class ViewEquipComponent {

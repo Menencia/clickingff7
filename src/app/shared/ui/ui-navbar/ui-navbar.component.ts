@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   DOCUMENT,
   EventEmitter,
@@ -9,7 +10,7 @@ import {
 import { Router, RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { ButtonModule } from 'primeng/button';
-import { helpData } from 'src/app/models/help';
+import { helpData } from '../../../models/help';
 
 // declare this to by pass typescript error
 // can put this in index.d.ts file
@@ -27,6 +28,7 @@ enum Theme {
   selector: 'app-ui-navbar',
   imports: [TranslateModule, RouterModule, ButtonModule],
   templateUrl: './ui-navbar.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./ui-navbar.component.scss'],
 })
 export class UiNavbarComponent {

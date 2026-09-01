@@ -1,19 +1,18 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { GameService } from 'src/app/core/services/game.service';
-import { StoreService } from 'src/app/core/services/store.service';
-import { Item, MAX_ITEMS } from 'src/app/models/item';
-import { Materia } from 'src/app/models/materia';
-import { ItemRef } from 'src/app/models/refs/items';
-import { MateriaRef } from 'src/app/models/refs/materias';
-import { WeaponRef } from 'src/app/models/refs/weapons';
-import { Weapon } from 'src/app/models/weapon';
-import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
-import { ItemIconComponent } from 'src/app/shared/ui/item-icon/item-icon.component';
-import { MateriaIconComponent } from 'src/app/shared/ui/materia-icon/materia-icon.component';
-import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
-import { WeaponIconComponent } from 'src/app/shared/ui/weapon-icon/weapon-icon.component';
-
+import { GameService } from '../../core/services/game.service';
+import { StoreService } from '../../core/services/store.service';
+import { Item, MAX_ITEMS } from '../../models/item';
+import { Materia } from '../../models/materia';
+import { ItemRef } from '../../models/refs/items';
+import { MateriaRef } from '../../models/refs/materias';
+import { WeaponRef } from '../../models/refs/weapons';
+import { Weapon } from '../../models/weapon';
+import { ButtonComponent } from '../../shared/ui/button/button.component';
+import { ItemIconComponent } from '../../shared/ui/item-icon/item-icon.component';
+import { MateriaIconComponent } from '../../shared/ui/materia-icon/materia-icon.component';
+import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
+import { WeaponIconComponent } from '../../shared/ui/weapon-icon/weapon-icon.component';
 @Component({
   selector: 'app-shop',
   imports: [
@@ -25,6 +24,7 @@ import { WeaponIconComponent } from 'src/app/shared/ui/weapon-icon/weapon-icon.c
     ButtonComponent,
   ],
   templateUrl: './view-shop.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-shop.component.scss'],
 })
 export class ViewShopComponent {

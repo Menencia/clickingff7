@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { GameService } from 'src/app/core/services/game.service';
-import { Character } from 'src/app/models/character';
-import { MAX_TEAM } from 'src/app/models/units/characters';
-import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
+import { GameService } from '../../core/services/game.service';
+import { Character } from '../../models/character';
+import { MAX_TEAM } from '../../models/units/characters';
+import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
   selector: 'app-view-phs',
   imports: [UiLayoutDefaultComponent, TranslateModule],
   templateUrl: './view-phs.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-phs.component.scss'],
 })
 export class ViewPhsComponent {

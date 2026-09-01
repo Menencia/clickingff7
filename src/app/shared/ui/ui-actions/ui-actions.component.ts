@@ -1,17 +1,17 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { BattleService } from 'src/app/core/services/battle.service';
-import { GameService } from 'src/app/core/services/game.service';
-import { Item } from 'src/app/models/item';
-import { Materia } from 'src/app/models/materia';
-import { MAX_FIGHTS } from 'src/app/models/zone';
-
+import { BattleService } from '../../../core/services/battle.service';
+import { GameService } from '../../../core/services/game.service';
+import { Item } from '../../../models/item';
+import { Materia } from '../../../models/materia';
+import { MAX_FIGHTS } from '../../../models/zone';
 import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-ui-actions',
   imports: [TranslateModule, ButtonComponent],
   templateUrl: './ui-actions.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./ui-actions.component.scss'],
 })
 export class UiActionsComponent {

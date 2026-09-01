@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { MenuSidebarComponent } from './core/components/menu-sidebar/menu-sidebar.component';
@@ -16,6 +16,7 @@ import { UiNavbarComponent } from './shared/ui/ui-navbar/ui-navbar.component';
     MenuSidebarComponent,
   ],
   templateUrl: './app.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {

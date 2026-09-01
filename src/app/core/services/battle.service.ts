@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Characters } from 'src/app/models/units/characters';
-import { Enemies } from 'src/app/models/units/enemies';
-import { MAX_FIGHTS } from 'src/app/models/zone';
-
+import { Characters } from '../../models/units/characters';
+import { Enemies } from '../../models/units/enemies';
+import { MAX_FIGHTS } from '../../models/zone';
 import { GameService } from './game.service';
 
 @Injectable({

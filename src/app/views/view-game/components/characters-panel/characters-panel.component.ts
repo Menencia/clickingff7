@@ -1,14 +1,15 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { GameService } from 'src/app/core/services/game.service';
-import { Character } from 'src/app/models/character';
-import { Characters } from 'src/app/models/units/characters';
-import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-bar.component';
+import { GameService } from '../../../../core/services/game.service';
+import { Character } from '../../../../models/character';
+import { Characters } from '../../../../models/units/characters';
+import { ProgressBarComponent } from '../../../../shared/ui/progress-bar/progress-bar.component';
 
 @Component({
   selector: 'app-characters-panel',
   imports: [ProgressBarComponent, TranslateModule],
   templateUrl: './characters-panel.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './characters-panel.component.scss',
 })
 export class CharactersPanelComponent {

@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   Input,
@@ -10,15 +11,15 @@ import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { DrawerModule } from 'primeng/drawer';
 import { filter } from 'rxjs';
-import { NavLink } from 'src/app/shared/models/nav-link';
 import { SubSink } from 'subsink';
-
+import { NavLink } from '../../../shared/models/nav-link';
 import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'app-menu-sidebar',
   imports: [DrawerModule, TranslateModule, RouterModule],
   templateUrl: './menu-sidebar.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './menu-sidebar.component.scss',
 })
 export class MenuSidebarComponent implements OnInit, OnDestroy {

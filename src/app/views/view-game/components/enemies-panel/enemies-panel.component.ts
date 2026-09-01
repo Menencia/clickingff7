@@ -1,12 +1,13 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { Enemies } from 'src/app/models/units/enemies';
-import { ProgressBarComponent } from 'src/app/shared/ui/progress-bar/progress-bar.component';
+import { Enemies } from '../../../../models/units/enemies';
+import { ProgressBarComponent } from '../../../../shared/ui/progress-bar/progress-bar.component';
 
 @Component({
   selector: 'app-enemies-panel',
   imports: [ProgressBarComponent, TranslateModule],
   templateUrl: './enemies-panel.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './enemies-panel.component.scss',
 })
 export class EnemiesPanelComponent {

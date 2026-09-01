@@ -1,14 +1,20 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { Subject } from 'rxjs';
-import { ItDisplayHits } from 'src/app/core/interfaces/it-display-hits';
+import { ItDisplayHits } from '../../../core/interfaces/it-display-hits';
 
 @Component({
   selector: 'app-progress-bar',
   imports: [],
   templateUrl: './progress-bar.component.html',
   styleUrls: ['./progress-bar.component.scss'],
+  changeDetection: ChangeDetectionStrategy.Eager,
   animations: [
     trigger('animation', [
       transition(':enter', [

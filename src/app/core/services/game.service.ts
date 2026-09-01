@@ -1,20 +1,18 @@
 import { Injectable } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Items } from 'src/app/models/items';
-import { Materias } from 'src/app/models/materias';
-import { CharacterRef } from 'src/app/models/refs/characters';
-import { ItemRef } from 'src/app/models/refs/items';
-import { MateriaRef } from 'src/app/models/refs/materias';
-import { WeaponRef } from 'src/app/models/refs/weapons';
-import { ZoneRef } from 'src/app/models/refs/zones';
-import { Save } from 'src/app/models/save';
-import { Characters } from 'src/app/models/units/characters';
-import { Weapons } from 'src/app/models/weapons';
-import { Zones } from 'src/app/models/zones';
-import { compareVersions } from 'src/app/shared/utils/version.utils';
-
 import packageJson from '../../../../package.json';
-
+import { Items } from '../../models/items';
+import { Materias } from '../../models/materias';
+import { CharacterRef } from '../../models/refs/characters';
+import { ItemRef } from '../../models/refs/items';
+import { MateriaRef } from '../../models/refs/materias';
+import { WeaponRef } from '../../models/refs/weapons';
+import { ZoneRef } from '../../models/refs/zones';
+import { Save } from '../../models/save';
+import { Characters } from '../../models/units/characters';
+import { Weapons } from '../../models/weapons';
+import { Zones } from '../../models/zones';
+import { compareVersions } from '../../shared/utils/version.utils';
 import { StoreService } from './store.service';
 
 const SAVE_1 = 'save1';

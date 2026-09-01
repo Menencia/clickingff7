@@ -1,14 +1,13 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { BattleService } from 'src/app/core/services/battle.service';
-import { GameService } from 'src/app/core/services/game.service';
-import { Save } from 'src/app/models/save';
-import { PipeTimePipe } from 'src/app/shared/pipes/pipe-time.pipe';
-import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
-import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
-
+import { BattleService } from '../../core/services/battle.service';
+import { GameService } from '../../core/services/game.service';
+import { Save } from '../../models/save';
+import { PipeTimePipe } from '../../shared/pipes/pipe-time.pipe';
+import { ButtonComponent } from '../../shared/ui/button/button.component';
+import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
 import { ConfirmButtonComponent } from './components/confirm-button/confirm-button.component';
 
 @Component({
@@ -22,6 +21,7 @@ import { ConfirmButtonComponent } from './components/confirm-button/confirm-butt
     ButtonComponent,
   ],
   templateUrl: './view-save.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-save.component.scss'],
 })
 export class ViewSaveComponent {

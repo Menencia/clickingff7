@@ -1,6 +1,5 @@
-import { ItAction } from 'src/app/core/interfaces/it-action';
-import { BattleService } from 'src/app/core/services/battle.service';
-
+import { ItAction } from '../../core/interfaces/it-action';
+import { BattleService } from '../../core/services/battle.service';
 import { Cure } from '../actions/cure';
 import { Materia } from '../materia';
 

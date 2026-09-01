@@ -2,19 +2,19 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { forkJoin, map, Observable } from 'rxjs';
-import { Character, CharacterJson } from 'src/app/models/character';
-import { Enemy, EnemyJson } from 'src/app/models/enemy';
-import { Item, ItemJson } from 'src/app/models/item';
-import { HpPotion } from 'src/app/models/items/hp-potion';
-import { MpPotion } from 'src/app/models/items/mp-potion';
-import { Materia, MateriaJson } from 'src/app/models/materia';
+import { Character, CharacterJson } from '../../models/character';
+import { Enemy, EnemyJson } from '../../models/enemy';
+import { Item, ItemJson } from '../../models/item';
+import { HpPotion } from '../../models/items/hp-potion';
+import { MpPotion } from '../../models/items/mp-potion';
+import { Materia, MateriaJson } from '../../models/materia';
 import {
   AttackMateria,
   AttackMateriaJson,
-} from 'src/app/models/materias/attack-materia';
-import { CureMateria } from 'src/app/models/materias/cure-materia';
-import { Weapon, WeaponJson } from 'src/app/models/weapon';
-import { Zone, ZoneJson } from 'src/app/models/zone';
+} from '../../models/materias/attack-materia';
+import { CureMateria } from '../../models/materias/cure-materia';
+import { Weapon, WeaponJson } from '../../models/weapon';
+import { Zone, ZoneJson } from '../../models/zone';
 
 @Injectable({
   providedIn: 'root',

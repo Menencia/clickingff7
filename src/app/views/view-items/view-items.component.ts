@@ -1,14 +1,15 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { TranslateModule } from '@ngx-translate/core';
-import { GameService } from 'src/app/core/services/game.service';
-import { Item, MAX_ITEMS } from 'src/app/models/item';
-import { ItemIconComponent } from 'src/app/shared/ui/item-icon/item-icon.component';
-import { UiLayoutDefaultComponent } from 'src/app/shared/ui/ui-layout-default/ui-layout-default.component';
+import { GameService } from '../../core/services/game.service';
+import { Item, MAX_ITEMS } from '../../models/item';
+import { ItemIconComponent } from '../../shared/ui/item-icon/item-icon.component';
+import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
   selector: 'app-view-items',
   imports: [UiLayoutDefaultComponent, TranslateModule, ItemIconComponent],
   templateUrl: './view-items.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-items.component.scss'],
 })
 export class ViewItemsComponent {

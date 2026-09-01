@@ -1,4 +1,4 @@
-import { HttpBackend, provideHttpClient } from '@angular/common/http';
+import { HttpBackend, provideHttpClient, withXhr } from '@angular/common/http';
 import {
   ApplicationConfig,
   importProvidersFrom,
@@ -31,7 +31,7 @@ export const appConfig: ApplicationConfig = {
       },
     }),
     provideRouter(routes),
-    provideHttpClient(),
+    provideHttpClient(withXhr()),
     importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(
       TranslateModule.forRoot({

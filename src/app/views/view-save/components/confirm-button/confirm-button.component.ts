@@ -1,13 +1,20 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { ConfirmationService } from 'primeng/api';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ButtonComponent } from 'src/app/shared/ui/button/button.component';
+import { ButtonComponent } from '../../../../shared/ui/button/button.component';
 
 @Component({
   selector: 'app-confirm-button',
   providers: [ConfirmationService],
   imports: [ConfirmDialogModule, ButtonComponent],
   templateUrl: './confirm-button.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './confirm-button.component.scss',
 })
 export class ConfirmButtonComponent {

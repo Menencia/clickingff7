@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import { Item } from 'src/app/models/item';
-import { Materia } from 'src/app/models/materia';
-import { ItemRef } from 'src/app/models/refs/items';
-import { MateriaRef } from 'src/app/models/refs/materias';
-import { WeaponRef } from 'src/app/models/refs/weapons';
-import { Weapon } from 'src/app/models/weapon';
-
+import { Item } from '../../models/item';
+import { Materia } from '../../models/materia';
+import { ItemRef } from '../../models/refs/items';
+import { MateriaRef } from '../../models/refs/materias';
+import { WeaponRef } from '../../models/refs/weapons';
+import { Weapon } from '../../models/weapon';
 import { StoreService } from './store.service';
 
 @Injectable({

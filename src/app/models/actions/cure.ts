@@ -1,6 +1,6 @@
-import { ItAction } from 'src/app/core/interfaces/it-action';
-import { BattleService } from 'src/app/core/services/battle.service';
-import { random } from 'src/app/shared/utils/math.utils';
+import { ItAction } from '../../core/interfaces/it-action';
+import { BattleService } from '../../core/services/battle.service';
+import { random } from '../../shared/utils/math.utils';
 
 export class Cure implements ItAction {
   constructor(

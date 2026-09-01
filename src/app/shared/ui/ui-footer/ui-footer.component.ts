@@ -1,9 +1,10 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-ui-footer',
   imports: [],
   templateUrl: './ui-footer.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./ui-footer.component.scss'],
 })
 export class UiFooterComponent {
