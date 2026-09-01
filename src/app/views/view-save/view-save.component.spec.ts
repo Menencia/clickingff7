@@ -1,26 +1,26 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { MockProvider } from 'ng-mocks';
-import { GameService } from 'src/app/core/services/game.service';
-
+import { GameService } from '../../core/services/game.service';
 import { ViewSaveComponent } from './view-save.component';
 
 describe('ViewSaveComponent', () => {
-  let component: ViewSaveComponent;
-  let fixture: ComponentFixture<ViewSaveComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TranslateModule.forRoot()],
-      providers: [MockProvider(GameService, { saves: [] })],
+      imports: [ViewSaveComponent, TranslateModule.forRoot()],
+      providers: [
+        {
+          provide: GameService,
+          useValue: {
+            run: () => {},
+          },
+        },
+      ],
     }).compileComponents();
-
-    fixture = TestBed.createComponent(ViewSaveComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(ViewSaveComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
   });
 });

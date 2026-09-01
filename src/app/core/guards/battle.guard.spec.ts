@@ -1,9 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { MockProvider } from 'ng-mocks';
-
-import { BattleService } from '../services/battle.service';
-
+import { GameService } from '../services/game.service';
 import { BattleGuard } from './battle.guard';
 
 describe('BattleGuard', () => {
@@ -12,12 +9,19 @@ describe('BattleGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      providers: [MockProvider(BattleService)],
+      providers: [
+        {
+          provide: GameService,
+          useValue: {
+            run: () => {},
+          },
+        },
+      ],
     });
     guard = TestBed.inject(BattleGuard);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(guard).toBeTruthy();
   });
 });

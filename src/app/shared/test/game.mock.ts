@@ -1,18 +1,18 @@
-import { Character } from 'src/app/models/character';
-import { Items } from 'src/app/models/items';
-import { HpPotion } from 'src/app/models/items/hp-potion';
-import { Materias } from 'src/app/models/materias';
-import { AttackMateria } from 'src/app/models/materias/attack-materia';
-import { CharacterRef } from 'src/app/models/refs/characters';
-import { ItemRef } from 'src/app/models/refs/items';
-import { MateriaRef } from 'src/app/models/refs/materias';
-import { WeaponRef } from 'src/app/models/refs/weapons';
-import { ZoneRef } from 'src/app/models/refs/zones';
-import { Characters } from 'src/app/models/units/characters';
-import { Weapon } from 'src/app/models/weapon';
-import { Weapons } from 'src/app/models/weapons';
-import { Zone } from 'src/app/models/zone';
-import { Zones } from 'src/app/models/zones';
+import { Character } from '../../models/character';
+import { Items } from '../../models/items';
+import { HpPotion } from '../../models/items/hp-potion';
+import { Materias } from '../../models/materias';
+import { AttackMateria } from '../../models/materias/attack-materia';
+import { CharacterRef } from '../../models/refs/characters';
+import { ItemRef } from '../../models/refs/items';
+import { MateriaRef } from '../../models/refs/materias';
+import { WeaponRef } from '../../models/refs/weapons';
+import { ZoneRef } from '../../models/refs/zones';
+import { Characters } from '../../models/units/characters';
+import { Weapon } from '../../models/weapon';
+import { Weapons } from '../../models/weapons';
+import { Zone } from '../../models/zone';
+import { Zones } from '../../models/zones';
 
 const zones = new Zones();
 zones.add(

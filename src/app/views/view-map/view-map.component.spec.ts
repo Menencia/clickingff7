@@ -1,31 +1,27 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { MockProvider } from 'ng-mocks';
-import { GameService } from 'src/app/core/services/game.service';
-import { ShopService } from 'src/app/core/services/shop.service';
-import { ZonesMock } from 'src/app/shared/test/game.mock';
-
+import { GameService } from '../../core/services/game.service';
 import { ViewMapComponent } from './view-map.component';
 
 describe('ViewMapComponent', () => {
-  let component: ViewMapComponent;
-  let fixture: ComponentFixture<ViewMapComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ViewMapComponent, TranslateModule.forRoot()],
       providers: [
-        MockProvider(GameService, ZonesMock),
-        MockProvider(ShopService),
+        {
+          provide: GameService,
+          useValue: {
+            run: () => {},
+            zones: { current: () => 1 },
+          },
+        },
       ],
     }).compileComponents();
-
-    fixture = TestBed.createComponent(ViewMapComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(ViewMapComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
   });
 });

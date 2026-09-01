@@ -4,8 +4,9 @@ import {
   importProvidersFrom,
   inject,
   provideAppInitializer,
+  provideBrowserGlobalErrorListeners,
+  provideZoneChangeDetection,
 } from '@angular/core';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
 import Aura from '@primeuix/themes/aura';
@@ -25,14 +26,15 @@ export function HttpLoaderFactory(_httpBackend: HttpBackend) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideBrowserGlobalErrorListeners(),
+    provideZoneChangeDetection(),
+    provideRouter(routes),
+    provideHttpClient(withXhr()),
     providePrimeNG({
       theme: {
         preset: Aura,
       },
     }),
-    provideRouter(routes),
-    provideHttpClient(withXhr()),
-    importProvidersFrom(BrowserAnimationsModule),
     importProvidersFrom(
       TranslateModule.forRoot({
         defaultLanguage: 'fr',

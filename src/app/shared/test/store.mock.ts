@@ -1,7 +1,7 @@
-import { WeaponRef } from 'src/app/models/refs/weapons';
-import { ZoneRef } from 'src/app/models/refs/zones';
-import { Weapon } from 'src/app/models/weapon';
-import { Zone } from 'src/app/models/zone';
+import { WeaponRef } from '../../models/refs/weapons';
+import { ZoneRef } from '../../models/refs/zones';
+import { Weapon } from '../../models/weapon';
+import { Zone } from '../../models/zone';
 
 export class StoreServiceMock {
   zones: Zone[] = [];

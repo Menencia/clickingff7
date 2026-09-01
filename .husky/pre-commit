@@ -1,1 +1,1 @@
-pn run lint
+pn run lint:staged

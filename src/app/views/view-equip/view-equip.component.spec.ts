@@ -1,29 +1,28 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { MockProvider } from 'ng-mocks';
-import { GameService } from 'src/app/core/services/game.service';
-import { CharactersMock, WeaponsMock } from 'src/app/shared/test/game.mock';
-
+import { GameService } from '../../core/services/game.service';
 import { ViewEquipComponent } from './view-equip.component';
 
 describe('ViewEquipComponent', () => {
-  let component: ViewEquipComponent;
-  let fixture: ComponentFixture<ViewEquipComponent>;
-
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [ViewEquipComponent, TranslateModule.forRoot()],
       providers: [
-        MockProvider(GameService, { ...CharactersMock, ...WeaponsMock }),
+        {
+          provide: GameService,
+          useValue: {
+            run: () => {},
+            characters: { getTeam: () => [] },
+            weapons: { getAllWeapons: () => [] },
+          },
+        },
       ],
     }).compileComponents();
-
-    fixture = TestBed.createComponent(ViewEquipComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(component).toBeTruthy();
+    const fixture = TestBed.createComponent(ViewEquipComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
   });
 });

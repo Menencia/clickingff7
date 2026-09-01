@@ -1,9 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { TranslateModule } from '@ngx-translate/core';
-import { MockProvider } from 'ng-mocks';
-
 import { GameService } from '../services/game.service';
-
 import { ZoneGuard } from './zone.guard';
 
 describe('ZoneGuard', () => {
@@ -12,12 +9,19 @@ describe('ZoneGuard', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [TranslateModule.forRoot()],
-      providers: [MockProvider(GameService)],
+      providers: [
+        {
+          provide: GameService,
+          useValue: {
+            run: () => {},
+          },
+        },
+      ],
     });
     guard = TestBed.inject(ZoneGuard);
   });
 
-  it('should be created', () => {
+  it('should create', () => {
     expect(guard).toBeTruthy();
   });
 });
