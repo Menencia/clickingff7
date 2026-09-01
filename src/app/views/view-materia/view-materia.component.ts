@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { faPlus, faXmark } from '@fortawesome/free-solid-svg-icons';
+import { LucidePlus, LucideX } from '@lucide/angular';
 import { TranslateModule } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Materia } from '../../models/materia';
@@ -11,19 +10,16 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
   selector: 'app-view-materia',
   imports: [
     UiLayoutDefaultComponent,
-    FontAwesomeModule,
     TranslateModule,
     MateriaIconComponent,
+    LucidePlus,
+    LucideX,
   ],
   templateUrl: './view-materia.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-materia.component.scss'],
 })
 export class ViewMateriaComponent {
-  faXmark = faXmark;
-
-  faPlus = faPlus;
-
   list: Materia[] = [];
 
   maxMaterias = 0;

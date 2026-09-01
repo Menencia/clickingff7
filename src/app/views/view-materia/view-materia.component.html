@@ -38,7 +38,7 @@
           (keypress)="unequip(materia)"
           class="cursor-pointer"
         >
-          <fa-icon [icon]="faXmark" class="text-red-600"></fa-icon>
+          <svg lucideX class="text-red-600"><title>X</title></svg>
         </span>
         } @if (canEquip(materia)) {
         <span
@@ -46,7 +46,7 @@
           (keypress)="equip(materia)"
           class="cursor-pointer"
         >
-          <fa-icon [icon]="faPlus" class="text-green-600"></fa-icon>
+          <svg lucidePlus class="text-green-600"><title>Plus</title></svg>
         </span>
         }
       </td>
