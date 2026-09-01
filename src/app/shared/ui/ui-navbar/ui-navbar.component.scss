@@ -1,12 +1,12 @@
 a, a:visited {
-  @apply text-xl text-gray-400 uppercase;
+  // @apply text-xl text-gray-400 uppercase;
 
   &:hover {
-    @apply text-gray-700 dark:text-red-400;
+    // @apply text-gray-700 dark:text-red-400;
   }
 
   &.active {
-    @apply text-black dark:text-white;
+    // @apply text-black dark:text-white;
   }
 }
 

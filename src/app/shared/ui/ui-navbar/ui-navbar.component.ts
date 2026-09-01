@@ -9,7 +9,6 @@ import {
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { ButtonModule } from 'primeng/button';
 import { helpData } from '../../../models/help';
 
 // declare this to by pass typescript error
@@ -26,7 +25,7 @@ enum Theme {
 
 @Component({
   selector: 'app-ui-navbar',
-  imports: [TranslatePipe, RouterModule, ButtonModule],
+  imports: [TranslatePipe, RouterModule],
   templateUrl: './ui-navbar.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./ui-navbar.component.scss'],

@@ -9,14 +9,13 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { DrawerModule } from 'primeng/drawer';
 import { filter, Subscription } from 'rxjs';
 import { NavLink } from '../../../shared/models/nav-link';
 import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'app-menu-sidebar',
-  imports: [DrawerModule, TranslatePipe, RouterModule],
+  imports: [TranslatePipe, RouterModule],
   templateUrl: './menu-sidebar.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './menu-sidebar.component.scss',

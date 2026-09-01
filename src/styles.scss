@@ -1,29 +1,29 @@
 /* You can add global styles to this file, and also import other style files */
 
-@tailwind base;
-
-@import "primeicons/primeicons.css";
-
-@tailwind components;
-@tailwind utilities;
+@use "tailwindcss";
+@plugin "daisyui" {
+  themes:
+    cupcake --default,
+    dark --prefersdark;
+}
 
 :root {
   --cl-color-accent: rgb(329, 68, 68);
 }
 
 .introjs-tooltip div {
-  @apply text-black;
+  // @apply text-black;
 }
 
 /** TABLE */
 
 table {
   th {
-    @apply bg-gray-200 text-left;
-    @apply dark:bg-gray-600;
+    // @apply bg-gray-200 text-left;
+    // @apply dark:bg-gray-600;
   }
   tr:hover {
-    @apply bg-gray-100;
-    @apply dark:bg-gray-700;
+    // @apply bg-gray-100;
+    // @apply dark:bg-gray-700;
   }
 }

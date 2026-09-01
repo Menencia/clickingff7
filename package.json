@@ -28,12 +28,7 @@
     "@lucide/angular": "^1.33.0",
     "@ngx-translate/core": "^18.0.0",
     "@ngx-translate/http-loader": "^18.0.0",
-    "@primeuix/themes": "^3.0.0",
-    "@tailwindcss/forms": "^0.5.7",
-    "@tailwindcss/typography": "^0.5.12",
     "intro.js": "^7.2.0",
-    "primeicons": "^7.0.0",
-    "primeng": "^22.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.5.0",
     "zone.js": "~0.15.1"
@@ -44,10 +39,11 @@
     "@angular/compiler-cli": "^22.1.4",
     "@biomejs/biome": "2.5.11",
     "@tailwindcss/postcss": "^4.3.3",
+    "daisyui": "^5.7.20",
     "husky": "^9.1.7",
     "jsdom": "^28.0.0",
     "postcss": "^8.5.26",
-    "tailwindcss": "^3.4.3",
+    "tailwindcss": "^4.3.3",
     "typescript": "~6.0.3",
     "vitest": "^4.0.8"
   }

@@ -9,8 +9,6 @@ import {
 import { provideRouter } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateMultiHttpLoader } from '@ngx-translate/http-loader';
-import Aura from '@primeuix/themes/aura';
-import { providePrimeNG } from 'primeng/config';
 import { routes } from './app.routes';
 import { DataService } from './core/services/data.service';
 
@@ -28,12 +26,7 @@ export const appConfig: ApplicationConfig = {
         ],
       }),
       fallbackLang: 'en',
-      lang: 'de',
-    }),
-    providePrimeNG({
-      theme: {
-        preset: Aura,
-      },
+      lang: 'fr',
     }),
     provideAppInitializer(() => {
       const initializerFn = (

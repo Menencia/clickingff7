@@ -48,9 +48,9 @@
 }
 
 .bar-hp {
-  @apply bg-green-50 dark:bg-gray-700;
+  // @apply bg-green-50 dark:bg-gray-700;
   .progress {
-    @apply bg-green-200 dark:bg-green-600;
+    // @apply bg-green-200 dark:bg-green-600;
   }
   .progress-bg {
     background-color: rgb(224, 136, 136);
@@ -58,22 +58,22 @@
 }
 
 .bar-mp {
-  @apply bg-blue-50 dark:bg-gray-700;
+  // @apply bg-blue-50 dark:bg-gray-700;
   .progress {
-    @apply bg-blue-200 dark:bg-blue-600;
+    // @apply bg-blue-200 dark:bg-blue-600;
   }
 }
 
 .bar-limit {
-  @apply bg-red-50 dark:bg-gray-700;
+  // @apply bg-red-50 dark:bg-gray-700;
   .progress {
-    @apply bg-red-200 dark:bg-red-700;
+    // @apply bg-red-200 dark:bg-red-700;
   }
 }
 
 .bar-exp {
-  @apply bg-purple-50 dark:bg-gray-700;
+  // @apply bg-purple-50 dark:bg-gray-700;
   .progress {
-    @apply bg-purple-200 dark:bg-purple-700;
+    // @apply bg-purple-200 dark:bg-purple-700;
   }
 }
