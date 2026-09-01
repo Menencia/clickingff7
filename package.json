@@ -19,7 +19,6 @@
   "private": true,
   "packageManager": "pnpm@11.24.0",
   "dependencies": {
-    "@angular/animations": "^22.1.4",
     "@angular/common": "^22.1.4",
     "@angular/compiler": "^22.1.4",
     "@angular/core": "^22.1.4",
@@ -37,7 +36,6 @@
     "primeicons": "^7.0.0",
     "primeng": "^22.1.0",
     "rxjs": "~7.8.0",
-    "subsink": "^1.0.2",
     "tslib": "^2.5.0",
     "zone.js": "~0.15.1"
   },

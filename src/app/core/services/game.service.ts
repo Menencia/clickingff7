@@ -53,7 +53,7 @@ export class GameService {
 
   gils = BASE_GILS;
 
-  language = this.getLanguage(this.translate.getBrowserLang());
+  language = 'en';
 
   difficulty = Difficulty.Normal;
 
@@ -70,6 +70,9 @@ export class GameService {
   ) {
     // timer
     this.timer = 0;
+
+    // language
+    this.language = this.getLanguage(this.translate.getBrowserLang());
 
     // load all resources
     this.run();

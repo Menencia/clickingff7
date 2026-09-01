@@ -10,8 +10,7 @@ import {
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
 import { DrawerModule } from 'primeng/drawer';
-import { filter } from 'rxjs';
-import { SubSink } from 'subsink';
+import { filter, Subscription } from 'rxjs';
 import { NavLink } from '../../../shared/models/nav-link';
 import { GameService } from '../../services/game.service';
 
@@ -27,13 +26,13 @@ export class MenuSidebarComponent implements OnInit, OnDestroy {
 
   @Output() public visibleChange = new EventEmitter();
 
-  private sub = new SubSink();
-
   displayNextZone: boolean;
 
   displayPhs: boolean;
 
   navLinks: NavLink[];
+
+  private subscription = new Subscription();
 
   constructor(
     private router: Router,
@@ -56,7 +55,7 @@ export class MenuSidebarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     /** Close automatically the sidebar when a url change is detected */
-    this.sub.sink = this.router.events
+    this.subscription = this.router.events
       .pipe(filter((event) => event instanceof NavigationEnd))
       .subscribe((event) => {
         if (event instanceof NavigationEnd) {
@@ -67,7 +66,7 @@ export class MenuSidebarComponent implements OnInit, OnDestroy {
   }
 
   public ngOnDestroy(): void {
-    this.sub.unsubscribe();
+    this.subscription.unsubscribe();
   }
 
   public updateVisible(): void {
