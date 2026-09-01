@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { NavigationEnd, Router, RouterModule } from '@angular/router';
 import { TranslateModule } from '@ngx-translate/core';
-import { SidebarModule } from 'primeng/sidebar';
+import { DrawerModule } from 'primeng/drawer';
 import { filter } from 'rxjs';
 import { NavLink } from 'src/app/shared/models/nav-link';
 import { SubSink } from 'subsink';
@@ -17,7 +17,7 @@ import { GameService } from '../../services/game.service';
 
 @Component({
   selector: 'app-menu-sidebar',
-  imports: [SidebarModule, TranslateModule, RouterModule],
+  imports: [DrawerModule, TranslateModule, RouterModule],
   templateUrl: './menu-sidebar.component.html',
   styleUrl: './menu-sidebar.component.scss',
 })

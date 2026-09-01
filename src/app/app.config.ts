@@ -6,10 +6,9 @@ import {
   provideAppInitializer,
 } from '@angular/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { provideRouter } from '@angular/router';
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
-import Aura from '@primeng/themes/aura';
+import Aura from '@primeuix/themes/aura';
 import { MultiTranslateHttpLoader } from 'ngx-translate-multi-http-loader';
 import { providePrimeNG } from 'primeng/config';
 
@@ -26,7 +25,6 @@ export function HttpLoaderFactory(_httpBackend: HttpBackend) {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideAnimationsAsync(),
     providePrimeNG({
       theme: {
         preset: Aura,
