@@ -2,12 +2,14 @@
   <div class="flex flex-col gap-5 sm:flex-row">
     <div class="flex flex-row flex-wrap gap-1 basis-1/5 sm:flex-col">
       @for (zone of list; track zone) {
-      <app-button
-        [class]="{ current: level === zone.level }"
-        (trigger)="goZone(zone.level)"
+      <button
+        type="button"
+        class="btn"
+        [class.btn-secondary]="level === zone.level"
+        (click)="goZone(zone.level)"
       >
         {{ "Zone" | translate }} {{ zone.level }}
-      </app-button>
+      </button>
       }
     </div>
 
@@ -33,9 +35,9 @@
       <div class="no-data">
         <div>{{ "Completed" | translate }}</div>
         @if (canGoNextZone()) {
-        <app-button (trigger)="goNextZone()">
+        <button type="button" class="btn" (click)="goNextZone()">
           {{ "Go next zone" | translate }}
-        </app-button>
+        </button>
         }
       </div>
       }

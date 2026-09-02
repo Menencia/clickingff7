@@ -6,20 +6,11 @@ import { BattleService } from '../../core/services/battle.service';
 import { GameService } from '../../core/services/game.service';
 import { Save } from '../../models/save';
 import { PipeTimePipe } from '../../shared/pipes/pipe-time.pipe';
-import { ButtonComponent } from '../../shared/ui/button/button.component';
 import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
-import { ConfirmButtonComponent } from './components/confirm-button/confirm-button.component';
 
 @Component({
   selector: 'app-view-save',
-  imports: [
-    UiLayoutDefaultComponent,
-    TranslatePipe,
-    PipeTimePipe,
-    FormsModule,
-    ConfirmButtonComponent,
-    ButtonComponent,
-  ],
+  imports: [UiLayoutDefaultComponent, TranslatePipe, PipeTimePipe, FormsModule],
   templateUrl: './view-save.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-save.component.scss'],

@@ -5,11 +5,10 @@ import { GameService } from '../../../core/services/game.service';
 import { Item } from '../../../models/item';
 import { Materia } from '../../../models/materia';
 import { MAX_FIGHTS } from '../../../models/zone';
-import { ButtonComponent } from '../button/button.component';
 
 @Component({
   selector: 'app-ui-actions',
-  imports: [TranslatePipe, ButtonComponent],
+  imports: [TranslatePipe],
   templateUrl: './ui-actions.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./ui-actions.component.scss'],

@@ -3,18 +3,12 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Character } from '../../models/character';
 import { Weapon } from '../../models/weapon';
-import { ButtonComponent } from '../../shared/ui/button/button.component';
 import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
 import { WeaponIconComponent } from '../../shared/ui/weapon-icon/weapon-icon.component';
 
 @Component({
   selector: 'app-view-equip',
-  imports: [
-    UiLayoutDefaultComponent,
-    TranslatePipe,
-    WeaponIconComponent,
-    ButtonComponent,
-  ],
+  imports: [UiLayoutDefaultComponent, TranslatePipe, WeaponIconComponent],
   templateUrl: './view-equip.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-equip.component.scss'],

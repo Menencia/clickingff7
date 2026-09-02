@@ -2,39 +2,49 @@
   <div class="grid grid-cols-5 gap-x-4">
     <div>
       <div class="flex flex-col gap-1">
-        <app-button
-          [class]="{ current: type === 'weapons' }"
-          (trigger)="changeType('weapons')"
+        <button
+          type="button"
+          class="btn"
+          [class.btn-secondary]="type === 'weapons'"
+          (click)="changeType('weapons')"
         >
           {{ "Weapons" | translate }}
-        </app-button>
-        <app-button
-          [class]="{ current: type === 'materias' }"
-          (trigger)="changeType('materias')"
+        </button>
+        <button
+          type="button"
+          class="btn"
+          [class.btn-secondary]="type === 'materias'"
+          (click)="changeType('materias')"
         >
           {{ "Materia" | translate }}
-        </app-button>
-        <app-button
-          [class]="{ current: type === 'items' }"
-          (trigger)="changeType('items')"
+        </button>
+        <button
+          type="button"
+          class="btn"
+          [class.btn-secondary]="type === 'items'"
+          (click)="changeType('items')"
         >
           {{ "Items" | translate }}
-        </app-button>
+        </button>
       </div>
 
       <div class="flex flex-col gap-1 mt-5">
-        <app-button
-          [class]="{ current: section === 'buy' }"
-          (trigger)="changeSection('buy')"
+        <button
+          type="button"
+          class="btn"
+          [class.btn-secondary]="section === 'buy'"
+          (click)="changeSection('buy')"
         >
           {{ "Buy" | translate }}
-        </app-button>
-        <app-button
-          [class]="{ current: section === 'sell' }"
-          (trigger)="changeSection('sell')"
+        </button>
+        <button
+          type="button"
+          class="btn"
+          [class.btn-secondary]="section === 'sell'"
+          (click)="changeSection('sell')"
         >
           {{ "Sell" | translate }}
-        </app-button>
+        </button>
       </div>
 
       <div class="flex flex-col gap-1 mt-5 italic text-center">
@@ -65,12 +75,14 @@
             <td>{{ inStockWeapon(weapon) }}</td>
             <td>{{ weapon.price }} {{ "Gils" | translate }}</td>
             <td>
-              <app-button
-                (trigger)="buyWeapon(weapon)"
+              <button
+                type="button"
+                class="btn"
+                (click)="buyWeapon(weapon)"
                 [disabled]="!canBuyWeapon(weapon)"
               >
                 {{ "Buy" | translate }}
-              </app-button>
+              </button>
             </td>
           </tr>
           } } @if (type === 'materias') { @for (materia of shopMaterias; track
@@ -90,12 +102,14 @@
             }
             <td>{{ materia.price }} {{ "Gils" | translate }}</td>
             <td>
-              <app-button
-                (trigger)="buyMateria(materia)"
+              <button
+                type="button"
+                class="btn"
+                (click)="buyMateria(materia)"
                 [disabled]="!canBuyMateria(materia)"
               >
                 {{ "Buy" | translate }}
-              </app-button>
+              </button>
             </td>
           </tr>
           } } @if (type === 'items') { @for (item of shopItems; track item) {
@@ -110,12 +124,14 @@
             <td>{{ inStockItem(item) }}</td>
             <td>{{ item.price }} {{ "Gils" | translate }}</td>
             <td>
-              <app-button
-                (trigger)="buyItem(item)"
+              <button
+                type="button"
+                class="btn"
+                (click)="buyItem(item)"
                 [disabled]="!canBuyItem(item)"
               >
                 {{ "Buy" | translate }}
-              </app-button>
+              </button>
             </td>
           </tr>
           } }
@@ -143,12 +159,14 @@
             <td>{{ inStockWeapon(weapon) }}</td>
             <td>{{ weapon.getSellPrice() }} {{ "Gils" | translate }}</td>
             <td>
-              <app-button
-                (trigger)="sellWeapon(weapon)"
+              <button
+                type="button"
+                class="btn"
+                (click)="sellWeapon(weapon)"
                 [disabled]="!canSellWeapon(weapon)"
               >
                 {{ "Sell" | translate }}
-              </app-button>
+              </button>
             </td>
           </tr>
           } } @if (type === 'materias') { @for (materia of playerMaterias; track
@@ -168,9 +186,9 @@
             }
             <td>{{ materia.getSellPrice() }} {{ "Gils" | translate }}</td>
             <td>
-              <app-button (trigger)="sellMateria(materia)">
+              <button type="button" class="btn" (click)="sellMateria(materia)">
                 {{ "Sell" | translate }}
-              </app-button>
+              </button>
             </td>
           </tr>
           } } @if (type === 'items') { @for (item of playerItems; track item) {
@@ -185,9 +203,9 @@
             <td>{{ inStockItem(item) }}</td>
             <td>{{ item.getSellPrice() }} {{ "Gils" | translate }}</td>
             <td>
-              <app-button (trigger)="sellItem(item)">
+              <button type="button" class="btn" (click)="sellItem(item)">
                 {{ "Sell" | translate }}
-              </app-button>
+              </button>
             </td>
           </tr>
           } }

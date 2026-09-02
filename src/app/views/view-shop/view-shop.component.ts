@@ -8,7 +8,6 @@ import { ItemRef } from '../../models/refs/items';
 import { MateriaRef } from '../../models/refs/materias';
 import { WeaponRef } from '../../models/refs/weapons';
 import { Weapon } from '../../models/weapon';
-import { ButtonComponent } from '../../shared/ui/button/button.component';
 import { ItemIconComponent } from '../../shared/ui/item-icon/item-icon.component';
 import { MateriaIconComponent } from '../../shared/ui/materia-icon/materia-icon.component';
 import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
@@ -21,7 +20,6 @@ import { WeaponIconComponent } from '../../shared/ui/weapon-icon/weapon-icon.com
     WeaponIconComponent,
     MateriaIconComponent,
     ItemIconComponent,
-    ButtonComponent,
   ],
   templateUrl: './view-shop.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,

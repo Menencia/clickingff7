@@ -1,31 +1,55 @@
 <div class="flex flex-row flex-wrap gap-1 sm:flex-col">
-  <app-button (trigger)="fightRandom()" [disabled]="isBattle()" [id]="'step6'">
+  <button
+    type="button"
+    class="btn"
+    (click)="fightRandom()"
+    [disabled]="isBattle()"
+    id="step6"
+  >
     {{ "Fight random" | translate }}{{ remainingBattles() }}
-  </app-button>
-  <app-button (trigger)="fightBoss()" [disabled]="!canFightBoss()">
+  </button>
+  <button
+    class="btn"
+    type="button"
+    (click)="fightBoss()"
+    [disabled]="!canFightBoss()"
+  >
     @if (canFightBoss()) {
     <div class="float-right text-red-700">NEW</div>
     }
     {{ "Fight boss" | translate }}
-  </app-button>
-  <app-button (trigger)="attack()" [disabled]="!isBattle()" [id]="'step7'">
+  </button>
+  <button
+    type="button"
+    class="btn"
+    (click)="attack()"
+    [disabled]="!isBattle()"
+    id="step7"
+  >
     @if (!canLimit()) {
     <span>{{ "Attack" | translate }}</span>
     } @if (canLimit()) {
     <span>{{ "Limit" | translate }}</span>
     }
-  </app-button>
-  <app-button (trigger)="escape()" [disabled]="!isBattle()" [id]="'step8'">
+  </button>
+  <button
+    type="button"
+    class="btn"
+    (click)="escape()"
+    [disabled]="!isBattle()"
+    id="step8"
+  >
     {{ "Escape" | translate }}
-  </app-button>
+  </button>
 
   <div class="h-3"></div>
 
   <div [id]="'step9'" class="contents">
     @for (materia of getMaterias(); track materia) {
-    <app-button
-      [class]="'flex flex-row items-center'"
-      (trigger)="useMateria(materia)"
+    <button
+      type="button"
+      class="btn flex flex-row items-center"
+      (click)="useMateria(materia)"
       [disabled]="!canUseMateria(materia)"
     >
       <img
@@ -33,11 +57,11 @@
         src="/assets/images/icons/materias/{{ materia.color }}.webp"
         alt="materia"
       >
-      <div class="flex-grow">
+      <div class="grow">
         {{ "Mat. " + materia.ref + " name" | translate }}
       </div>
       <span class="flex-none">{{ materia.getMpCost() }}</span>
-    </app-button>
+    </button>
     }
   </div>
 
@@ -45,16 +69,17 @@
   <div [id]="'step10'" class="contents">
     <div class="h-3"></div>
     @for (item of getItems(); track item) {
-    <app-button
-      class="flex flex-row items-center button"
-      (trigger)="useItem(item)"
+    <button
+      type="button"
+      class="btn flex flex-row items-center button"
+      (click)="useItem(item)"
       [disabled]="!canUseItem(item)"
     >
-      <div class="flex-grow">
+      <div class="grow">
         {{ "It. " + item.ref + " name" | translate }}
       </div>
       <div class="flex-none">{{ item.nbr }}</div>
-    </app-button>
+    </button>
     }
   </div>
   }

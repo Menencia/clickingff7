@@ -3,12 +3,14 @@
     <div>
       <div class="flex flex-col gap-1">
         @for (character of team; track character) {
-        <app-button
-          (trigger)="selectCharacter(character)"
-          [class]="{ current: selected && selected.ref === character.ref }"
+        <button
+          type="button"
+          class="btn"
+          [class.btn-secondary]="selected?.ref === character.ref"
+          (click)="selectCharacter(character)"
         >
           {{ character.ref }}
-        </app-button>
+        </button>
         }
       </div>
     </div>
@@ -53,12 +55,14 @@
         <tr class="weapon">
           <td>{{ weapon.ref }}</td>
           <td>
-            <app-button
-              (trigger)="equipWeapon(weapon)"
+            <button
+              type="button"
+              class="btn"
+              (click)="equipWeapon(weapon)"
               [disabled]="!canEquipWeapon(weapon)"
             >
               {{ "Equip" | translate }}
-            </app-button>
+            </button>
           </td>
         </tr>
         }

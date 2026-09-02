@@ -2,32 +2,35 @@
   <div class="grid grid-cols-5 gap-x-4">
     <div>
       <div class="flex flex-col gap-1">
-        <app-button (trigger)="saveGame()">
+        <button type="button" class="btn" (click)="saveGame()">
           {{ "Save" | translate }}
-        </app-button>
+        </button>
 
-        <app-confirm-button
+        <!-- <button
+          type="button"
           [message]="msgImportSave"
           [disabled]="saves.length === 0"
-          (confirm)="resetGame($event)"
+          (click)="resetGame($event)"
         >
           {{ "Reset" | translate }}
-        </app-confirm-button>
+        </button> -->
       </div>
 
       <div class="flex flex-col gap-1 mt-5">
-        <app-button
-          (trigger)="exportLastSave()"
+        <button
+          type="button"
+          class="btn"
+          (click)="exportLastSave()"
           [disabled]="saves.length === 0"
         >
           {{ "Export save" | translate }}
-        </app-button>
-        <app-button (trigger)="exportCurrentGame()">
+        </button>
+        <button type="button" class="btn" (click)="exportCurrentGame()">
           {{ "Export game" | translate }}
-        </app-button>
-        <app-button (trigger)="showImport()">
+        </button>
+        <button type="button" class="btn" (click)="showImport()">
           {{ "Import" | translate }}
-        </app-button>
+        </button>
       </div>
     </div>
 
@@ -58,11 +61,13 @@
       } @if (showAreaImport) {
       <div>
         <textarea [(ngModel)]="areaImport"></textarea>
-        <app-confirm-button
+        <!-- <button
+          type="button"
           [message]="msgImportSave"
           (confirm)="importSave($event)"
-          >IMPORT</app-confirm-button
         >
+          IMPORT
+        </button> -->
       </div>
       }
     </div>
