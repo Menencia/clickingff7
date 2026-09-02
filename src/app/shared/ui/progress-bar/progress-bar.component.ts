@@ -21,6 +21,8 @@ export class ProgressBarComponent implements OnInit {
 
   @Input() progress = 0;
 
+  @Input() style = 'progress-neutral';
+
   @Input() text = '';
 
   @Input() name = '';
