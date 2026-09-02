@@ -8,11 +8,17 @@ import {
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import packageJson from '../../package.json';
 import { SidemenuComponent } from './shared/components/sidemenu/sidemenu.component';
+import { ThemePickerComponent } from './shared/components/theme-picker/theme-picker.component';
 import { UiFooterComponent } from './shared/ui/ui-footer/ui-footer.component';
 
 @Component({
   selector: 'app-root',
-  imports: [UiFooterComponent, RouterOutlet, SidemenuComponent],
+  imports: [
+    UiFooterComponent,
+    RouterOutlet,
+    SidemenuComponent,
+    ThemePickerComponent,
+  ],
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./app.component.scss'],
