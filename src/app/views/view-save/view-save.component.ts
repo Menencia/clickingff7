@@ -1,8 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
-import { BattleService } from '../../core/services/battle.service';
 import { GameService } from '../../core/services/game.service';
 import { Save } from '../../models/save';
 import { PipeTimePipe } from '../../shared/pipes/pipe-time.pipe';
@@ -12,7 +11,6 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
   selector: 'app-view-save',
   imports: [UiLayoutDefaultComponent, TranslatePipe, PipeTimePipe, FormsModule],
   templateUrl: './view-save.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-save.component.scss'],
 })
 export class ViewSaveComponent {
@@ -32,7 +30,6 @@ export class ViewSaveComponent {
 
   constructor(
     private gameService: GameService,
-    private battleService: BattleService,
     private router: Router,
   ) {
     this.saves = this.gameService.saves;
@@ -58,7 +55,6 @@ export class ViewSaveComponent {
       this.gameService.reset();
       this.gameService.buildLevel(1);
       this.gameService.postload();
-      this.battleService.characters = this.gameService.characters;
       this.router.navigateByUrl('game');
     }
   }
@@ -101,7 +97,6 @@ export class ViewSaveComponent {
       this.gameService.preload();
       this.gameService.load(save);
       this.gameService.postload();
-      this.battleService.characters = this.gameService.characters;
       this.router.navigateByUrl('game');
     }
   }

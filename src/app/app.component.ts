@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  ElementRef,
-  OnInit,
-  ViewChild,
-} from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import packageJson from '../../package.json';
 import { SidemenuComponent } from './shared/components/sidemenu/sidemenu.component';
@@ -20,7 +14,6 @@ import { UiFooterComponent } from './shared/ui/ui-footer/ui-footer.component';
     ThemePickerComponent,
   ],
   templateUrl: './app.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit {

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { LucidePlus, LucideX } from '@lucide/angular';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
@@ -16,7 +16,6 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
     LucideX,
   ],
   templateUrl: './view-materia.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-materia.component.scss'],
 })
 export class ViewMateriaComponent {

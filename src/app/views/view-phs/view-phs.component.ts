@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Character } from '../../models/character';
@@ -9,7 +9,6 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
   selector: 'app-view-phs',
   imports: [UiLayoutDefaultComponent, TranslatePipe],
   templateUrl: './view-phs.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-phs.component.scss'],
 })
 export class ViewPhsComponent {

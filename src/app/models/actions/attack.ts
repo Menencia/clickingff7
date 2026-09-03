@@ -1,6 +1,6 @@
 import { ItAction } from '../../core/interfaces/it-action';
-import { BattleService } from '../../core/services/battle.service';
 import { random } from '../../shared/utils/math.utils';
+import { Battle } from '../battle';
 
 export class Attack implements ItAction {
   public critical = false;
@@ -28,7 +28,7 @@ export class Attack implements ItAction {
   }
 
   /** How to resolve an materia action attack */
-  use(battleService: BattleService): void {
-    battleService.enemies.getAttacked(this.calculateHits(), this);
+  use(battle: Battle): void {
+    battle.enemies.getAttacked(this.calculateHits(), this);
   }
 }

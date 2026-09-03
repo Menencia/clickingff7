@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  Input,
-  OnInit,
-} from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ItDisplayHits } from '../../../core/interfaces/it-display-hits';
 
@@ -12,7 +7,6 @@ import { ItDisplayHits } from '../../../core/interfaces/it-display-hits';
   imports: [],
   templateUrl: './progress-bar.component.html',
   styleUrls: ['./progress-bar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.Eager,
 })
 export class ProgressBarComponent implements OnInit {
   Math = Math;

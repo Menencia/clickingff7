@@ -15,6 +15,6 @@ export class BattleGuard {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return !this.battleService.isBattle;
+    return !this.battleService.battle();
   }
 }

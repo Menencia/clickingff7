@@ -1,6 +1,6 @@
 import { ItAction } from '../../core/interfaces/it-action';
-import { BattleService } from '../../core/services/battle.service';
 import { Cure } from '../actions/cure';
+import { Battle } from '../battle';
 import { Materia } from '../materia';
 
 export class CureMateria extends Materia {
@@ -21,10 +21,10 @@ export class CureMateria extends Materia {
   /**
    * Can use the materia?
    */
-  canUse(battleService: BattleService): boolean {
+  canUse(battle: Battle): boolean {
     return (
-      battleService.characters.mp >= this.getMpCost() &&
-      battleService.characters.hp < battleService.characters.hpMax
+      battle.characters.mp >= this.getMpCost() &&
+      battle.characters.hp() < battle.characters.hpMax
     );
   }
 
@@ -32,8 +32,8 @@ export class CureMateria extends Materia {
    * Do materia action
    * Add to HP : +30% to +60%
    */
-  getSkill(battleService: BattleService): ItAction[] {
-    const hits = battleService.characters.hpMax;
+  getSkill(battle: Battle): ItAction[] {
+    const hits = battle.characters.hpMax;
     const cure = new Cure(hits, this.getPwr());
     return [cure];
   }

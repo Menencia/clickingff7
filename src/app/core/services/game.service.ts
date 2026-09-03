@@ -227,7 +227,7 @@ export class GameService {
 
     // restore hp & mp
     this.characters.refresh();
-    this.characters.hp = this.characters.hpMax;
+    this.characters.hp.set(this.characters.hpMax);
     this.characters.mp = this.characters.mpMax;
     this.characters.limit = 0;
   }
@@ -276,7 +276,7 @@ export class GameService {
       this.characters.add(character, c.inTeam);
     });
 
-    this.characters.hp = save.characters.hp;
+    this.characters.hp.set(save.characters.hp);
     this.characters.mp = save.characters.mp;
     this.characters.limit = save.characters.limit;
 

@@ -3,9 +3,9 @@
   @if (enemies.list.length > 0) {
   <div>
     <app-progress-bar
-      [progress]="round((enemies.hp / enemies.hpMax) * 100)"
+      [progress]="round((enemies.hp() / enemies.hpMax) * 100)"
       [style]="'progress-error'"
-      [text]="'HP ' + enemies.hp"
+      [text]="'HP ' + enemies.hp()"
       [name]="'hp'"
       [hits]="enemies.source.hp"
     ></app-progress-bar>

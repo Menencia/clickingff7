@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { ShopService } from '../../core/services/shop.service';
@@ -9,7 +9,6 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
   selector: 'app-view-map',
   imports: [UiLayoutDefaultComponent, TranslatePipe],
   templateUrl: './view-map.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-map.component.scss'],
 })
 export class ViewMapComponent {

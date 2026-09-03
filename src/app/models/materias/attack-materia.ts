@@ -1,6 +1,6 @@
 import { ItAction } from '../../core/interfaces/it-action';
-import { BattleService } from '../../core/services/battle.service';
 import { Attack } from '../actions/attack';
+import { Battle } from '../battle';
 import { Materia, MateriaJson } from '../materia';
 
 export interface AttackMateriaJson extends MateriaJson {
@@ -32,17 +32,15 @@ export class AttackMateria extends Materia {
   /**
    * Can use the materia?
    */
-  canUse(battleService: BattleService): boolean {
-    return (
-      battleService.isBattle && battleService.characters.mp >= this.getMpCost()
-    );
+  canUse(battle: Battle): boolean {
+    return !!battle && battle.characters.mp >= this.getMpCost();
   }
 
   /**
    * Get skill containing battle actions
    */
-  getSkill(battleService: BattleService): ItAction[] {
-    const { hits } = battleService.characters;
+  getSkill(battle: Battle): ItAction[] {
+    const { hits } = battle.characters;
     const attack = new Attack(hits, this.getPwr(), this.elements);
     return [attack];
   }

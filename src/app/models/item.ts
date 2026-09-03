@@ -1,5 +1,5 @@
 import { ItAction } from '../core/interfaces/it-action';
-import { BattleService } from '../core/services/battle.service';
+import { Battle } from './battle';
 
 import { ItemRef } from './refs/items';
 import { ItemSave } from './save';
@@ -53,12 +53,12 @@ export abstract class Item {
     return zoneLlevelMax >= this.zoneAvailable;
   }
 
-  abstract canUse(battleService: BattleService): boolean;
+  abstract canUse(battle: Battle): boolean;
 
-  abstract getSkill(battleService: BattleService): ItAction[];
+  abstract getSkill(battle: Battle): ItAction[];
 
-  use(battleService: BattleService) {
-    this.getSkill(battleService).map((action) => action.use(battleService));
+  use(battle: Battle) {
+    this.getSkill(battle).map((action) => action.use(battle));
   }
 
   /**

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Item, MAX_ITEMS } from '../../models/item';
@@ -9,7 +9,6 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
   selector: 'app-view-items',
   imports: [UiLayoutDefaultComponent, TranslatePipe, ItemIconComponent],
   templateUrl: './view-items.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-items.component.scss'],
 })
 export class ViewItemsComponent {

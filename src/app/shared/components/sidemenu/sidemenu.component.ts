@@ -36,7 +36,7 @@ export class SidemenuComponent {
   }
 
   help(): void {
-    if (!this.battleService.isBattle) {
+    if (!this.battleService.battle()) {
       this.router.navigateByUrl('game');
 
       helpData.steps.forEach((step, index) => {

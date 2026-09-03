@@ -1,5 +1,3 @@
-import { Subject } from 'rxjs';
-
 import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
 import { Attack } from '../actions/attack';
@@ -13,15 +11,9 @@ export const MAX_TEAM = 3;
 export class Characters extends Units {
   list: Character[];
 
-  arrHits: number[];
-
   selected: Character;
 
   hits: number;
-
-  hp: number;
-
-  hpMax: number;
 
   mp: number;
 
@@ -34,14 +26,6 @@ export class Characters extends Units {
   levelMax: number;
 
   levelSum: number;
-
-  weakness: string[];
-
-  resistance: string[];
-
-  source = {
-    hp: new Subject<ItDisplayHits>(), // health points
-  };
 
   constructor() {
     super();
@@ -58,7 +42,6 @@ export class Characters extends Units {
 
     // Init
     this.hits = 0;
-    this.hp = 0;
     this.hpMax = 0;
     this.mp = 0;
     this.mpMax = 0;
@@ -74,7 +57,7 @@ export class Characters extends Units {
    *
    */
   addHp(value: number): void {
-    this.hp = Math.min(this.hp + value, this.hpMax);
+    this.hp.update((hp) => Math.min(hp + value, this.hpMax));
     this.source.hp.next({ hits: value } as ItDisplayHits);
   }
 
@@ -148,8 +131,8 @@ export class Characters extends Units {
 
     this.limitMax = (2 * this.hpMax) / 3;
 
-    if (this.hp > this.hpMax) {
-      this.hp = this.hpMax;
+    if (this.hp() > this.hpMax) {
+      this.hp.set(this.hpMax);
     }
     if (this.mp > this.mpMax) {
       this.mp = this.mpMax;
@@ -200,7 +183,7 @@ export class Characters extends Units {
    * Returns in pixels characters hp bar width
    */
   hpProgress(pixelsMax: number): number {
-    return (this.hp / this.hpMax) * pixelsMax;
+    return (this.hp() / this.hpMax) * pixelsMax;
   }
 
   /**
@@ -237,16 +220,16 @@ export class Characters extends Units {
       hits = Math.floor(hits / 10);
     }
 
-    this.hp = Math.max(this.hp - hits, 0);
+    this.hp.update((hp) => Math.max(hp - hits, 0));
     this.source.hp.next({ hits } as ItDisplayHits);
 
     this.limit = Math.min(this.limit + hits, this.limitMax);
   }
 
   isAlive(): boolean {
-    if (this.hp <= 0) {
+    if (this.hp() <= 0) {
       this.limit = 0;
-      this.hp = 0;
+      this.hp.set(0);
 
       return false;
     }
@@ -254,35 +237,35 @@ export class Characters extends Units {
     return true;
   }
 
-  /**
-   * Returns true if the enemy has this type in weakness
-   */
-  hasWeakness(types: string[]): boolean {
-    let res = false;
-    let i = 0;
-    while (!res && i < types.length) {
-      if (this.weakness.includes(types[i])) {
-        res = true;
-      }
-      i += 1;
-    }
-    return res;
-  }
+  // /**
+  //  * Returns true if the enemy has this type in weakness
+  //  */
+  // hasWeakness(types: string[]): boolean {
+  //   let res = false;
+  //   let i = 0;
+  //   while (!res && i < types.length) {
+  //     if (this.weakness.includes(types[i])) {
+  //       res = true;
+  //     }
+  //     i += 1;
+  //   }
+  //   return res;
+  // }
 
-  /**
-   * Returns true if the enemy has this type in weakness
-   */
-  hasResistance(types: string[]): boolean {
-    let res = false;
-    let i = 0;
-    while (!res && i < types.length) {
-      if (this.resistance.includes(types[i])) {
-        res = true;
-      }
-      i += 1;
-    }
-    return res;
-  }
+  // /**
+  //  * Returns true if the enemy has this type in weakness
+  //  */
+  // hasResistance(types: string[]): boolean {
+  //   let res = false;
+  //   let i = 0;
+  //   while (!res && i < types.length) {
+  //     if (this.resistance.includes(types[i])) {
+  //       res = true;
+  //     }
+  //     i += 1;
+  //   }
+  //   return res;
+  // }
 
   /**
    * Returns if it is possible to execute a limit (powerful attack)
@@ -296,7 +279,7 @@ export class Characters extends Units {
    */
   export(): CharactersSave {
     const res: CharactersSave = {
-      hp: this.hp,
+      hp: this.hp(),
       mp: this.mp,
       limit: this.limit,
       list: [],

@@ -1,9 +1,8 @@
-import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-materia-icon',
   imports: [],
-  changeDetection: ChangeDetectionStrategy.Eager,
   template: `<img
     class="inline-block"
     src="/assets/images/icons/materias/{{ color }}.webp"

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component, computed, Signal } from '@angular/core';
 import { BattleService } from '../../core/services/battle.service';
 import { GameService } from '../../core/services/game.service';
 import { Characters } from '../../models/units/characters';
@@ -17,19 +17,21 @@ import { EnemiesPanelComponent } from './components/enemies-panel/enemies-panel.
     EnemiesPanelComponent,
   ],
   templateUrl: './view-game.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-game.component.scss'],
 })
 export class ViewGameComponent {
   public characters: Characters;
 
-  public enemies: Enemies;
+  public enemies: Signal<Enemies | undefined>;
 
   constructor(
     private gameService: GameService,
     private battleService: BattleService,
   ) {
     this.characters = this.gameService.characters;
-    this.enemies = this.battleService.enemies;
+    this.enemies = computed(() => {
+      const battle = this.battleService.battle();
+      return battle?.enemies;
+    });
   }
 }

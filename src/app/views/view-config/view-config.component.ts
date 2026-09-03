@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Difficulty, GameService } from '../../core/services/game.service';
@@ -8,7 +8,6 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
   selector: 'app-view-config',
   imports: [UiLayoutDefaultComponent, TranslatePipe, FormsModule],
   templateUrl: './view-config.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-config.component.scss'],
 })
 export class ViewConfigComponent {

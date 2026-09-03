@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { StoreService } from '../../core/services/store.service';
@@ -22,7 +22,6 @@ import { WeaponIconComponent } from '../../shared/ui/weapon-icon/weapon-icon.com
     ItemIconComponent,
   ],
   templateUrl: './view-shop.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./view-shop.component.scss'],
 })
 export class ViewShopComponent {

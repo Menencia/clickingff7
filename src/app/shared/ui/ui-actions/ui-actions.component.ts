@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { BattleService } from '../../../core/services/battle.service';
 import { GameService } from '../../../core/services/game.service';
@@ -10,7 +10,6 @@ import { MAX_FIGHTS } from '../../../models/zone';
   selector: 'app-ui-actions',
   imports: [TranslatePipe],
   templateUrl: './ui-actions.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./ui-actions.component.scss'],
 })
 export class UiActionsComponent {
@@ -37,11 +36,11 @@ export class UiActionsComponent {
   }
 
   public isBattle(): boolean {
-    return this.battleService.isBattle;
+    return !!this.battleService.battle();
   }
 
   public fightRandom(): void {
-    if (!this.battleService.isBattle) {
+    if (!this.isBattle()) {
       this.battleService.startRandom();
     }
   }
@@ -57,11 +56,12 @@ export class UiActionsComponent {
   }
 
   public attack(): void {
-    if (this.battleService.isBattle) {
-      this.gameService.characters.getAttackSkill().use(this.battleService);
+    const battle = this.battleService.battle();
+    if (battle) {
+      this.gameService.characters.getAttackSkill().use(battle);
 
-      if (!this.battleService.enemies.isAlive()) {
-        this.battleService.end(true);
+      if (!battle.enemies.isAlive()) {
+        battle.end(true);
       }
     }
   }
@@ -70,51 +70,60 @@ export class UiActionsComponent {
    * Escape fight
    */
   public escape(): void {
-    if (this.battleService.isBattle) {
-      this.battleService.end(false);
+    const battle = this.battleService.battle();
+    if (battle) {
+      battle.end(false);
     }
   }
 
   public canUseMateria(materia: Materia): boolean {
-    return materia.canUse(this.battleService);
+    const battle = this.battleService.battle();
+    return !!battle && materia.canUse(battle);
   }
 
   public useMateria(materia: Materia): void {
-    // cost
-    if (this.canUseMateria(materia)) {
-      this.gameService.characters.mp -= materia.getMpCost();
-    } else {
-      throw new Error('CANNOT USE');
-    }
+    const battle = this.battleService.battle();
+    if (battle) {
+      // cost
+      if (this.canUseMateria(materia)) {
+        this.gameService.characters.mp -= materia.getMpCost();
+      } else {
+        throw new Error('CANNOT USE');
+      }
 
-    // do action
-    materia.use(this.battleService);
+      // do action
+      materia.use(battle);
 
-    if (!this.battleService.enemies.isAlive()) {
-      this.battleService.end(true);
+      if (!battle.enemies.isAlive()) {
+        battle.end(true);
+      }
     }
   }
 
   public canUseItem(item: Item): boolean {
-    return item.canUse(this.battleService);
+    const battle = this.battleService.battle();
+    return !!battle && item.canUse(battle);
   }
 
   public useItem(item: Item): void {
-    // cost
-    if (this.canUseItem(item)) {
-      if (item.nbr > 1) {
-        item.nbr -= 1;
+    const battle = this.battleService.battle();
+    if (battle) {
+      // cost
+      if (this.canUseItem(item)) {
+        if (item.nbr > 1) {
+          item.nbr -= 1;
+        } else {
+          this.gameService.items.list = this.gameService.items.list.filter(
+            (e) => e !== item,
+          );
+        }
       } else {
-        this.gameService.items.list = this.gameService.items.list.filter(
-          (e) => e !== item,
-        );
+        throw new Error('CANNOT USE');
       }
-    } else {
-      throw new Error('CANNOT USE');
-    }
 
-    // do action
-    item.use(this.battleService);
+      // do action
+      item.use(battle);
+    }
   }
 
   public canLimit(): boolean {

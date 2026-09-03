@@ -1,9 +1,7 @@
-import { Subject } from 'rxjs';
-
 import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
-import { BattleService } from '../../core/services/battle.service';
 import { random } from '../../shared/utils/math.utils';
+import { Battle } from '../battle';
 import { Enemy } from '../enemy';
 import { Units } from '../units';
 import { MAX_FIGHTS, Zone } from '../zone';
@@ -11,23 +9,9 @@ import { MAX_FIGHTS, Zone } from '../zone';
 export class Enemies extends Units {
   list: Enemy[];
 
-  arrHits: number[];
-
   timer: number;
 
   hits: number;
-
-  hp: number;
-
-  hpMax: number;
-
-  resistance: string[];
-
-  weakness: string[];
-
-  source = {
-    hp: new Subject<ItDisplayHits>(), // health points
-  };
 
   /**
    * Init
@@ -39,7 +23,7 @@ export class Enemies extends Units {
     this.timer = 0;
 
     this.hits = 0;
-    this.hp = 0;
+    this.hp.set(0);
     this.hpMax = 0;
     this.resistance = [];
     this.weakness = [];
@@ -97,7 +81,7 @@ export class Enemies extends Units {
       this.resistance = [...new Set([...this.resistance, ...enemy.resistance])];
     });
 
-    this.hp = this.hpMax;
+    this.hp.set(this.hpMax);
   }
 
   /**
@@ -116,8 +100,8 @@ export class Enemies extends Units {
     const hits = this.getHits();
     return {
       type: [],
-      use(battleService: BattleService) {
-        battleService.characters.getAttacked(hits, this);
+      use(battle: Battle) {
+        battle.characters.getAttacked(hits, this);
       },
     };
   }
@@ -138,13 +122,13 @@ export class Enemies extends Units {
       hits = Math.floor(hits / 3);
     }
 
-    this.hp = Math.max(this.hp - hits, 0);
+    this.hp.update((hp) => Math.max(hp - hits, 0));
     this.source.hp.next({ hits } as ItDisplayHits);
   }
 
   isAlive(): boolean {
-    if (this.hp <= 0) {
-      this.hp = 0;
+    if (this.hp() <= 0) {
+      this.hp.set(0);
 
       return false;
     }
@@ -152,24 +136,10 @@ export class Enemies extends Units {
   }
 
   /**
-   * Returns true if the enemy has this type in weakness
-   */
-  hasWeakness(types: string[]): boolean {
-    return this.weakness.filter((x) => types.includes(x)).length > 0;
-  }
-
-  /**
-   * Returns true if the enemy has this type in weakness
-   */
-  hasResistance(types: string[]): boolean {
-    return this.resistance.filter((x) => types.includes(x)).length > 0;
-  }
-
-  /**
    * Returns in pixels enemy bar width
    */
   hpProgress(pixelsMax: number): number {
-    return (this.hp / this.hpMax) * pixelsMax;
+    return (this.hp() / this.hpMax) * pixelsMax;
   }
 
   /**
