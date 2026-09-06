@@ -1,16 +1,18 @@
 import { ItAction } from '../../core/interfaces/it-action';
-import { Battle } from '../battle';
+import { Context } from '../context';
 import { Item } from '../item';
 
 export class MpPotion extends Item {
-  canUse(battle: Battle): boolean {
-    return battle.characters.mp < battle.characters.mpMax;
+  canUse(context: Context): boolean {
+    return context.characters.mp < context.characters.mpMax;
   }
 
-  getSkill(battle: Battle): ItAction[] {
+  getSkill(context: Context): ItAction[] {
     const action: ItAction = {
       use: () => {
-        battle.characters.addMp(Math.ceil(this.pwr * battle.characters.mpMax));
+        context.characters.addMp(
+          Math.ceil(this.pwr * context.characters.mpMax),
+        );
       },
     };
     return [action];

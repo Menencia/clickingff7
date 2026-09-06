@@ -1,6 +1,6 @@
 import { ItAction } from '../../core/interfaces/it-action';
 import { Attack } from '../actions/attack';
-import { Battle } from '../battle';
+import { Context } from '../context';
 import { Materia, MateriaJson } from '../materia';
 
 export interface AttackMateriaJson extends MateriaJson {
@@ -32,15 +32,15 @@ export class AttackMateria extends Materia {
   /**
    * Can use the materia?
    */
-  canUse(battle: Battle): boolean {
-    return !!battle && battle.characters.mp >= this.getMpCost();
+  canUse(context: Context): boolean {
+    return !!context.battle && context.characters.mp >= this.getMpCost();
   }
 
   /**
    * Get skill containing battle actions
    */
-  getSkill(battle: Battle): ItAction[] {
-    const { hits } = battle.characters;
+  getSkill(context: Context): ItAction[] {
+    const { hits } = context.characters;
     const attack = new Attack(hits, this.getPwr(), this.elements);
     return [attack];
   }

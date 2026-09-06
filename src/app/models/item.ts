@@ -1,5 +1,5 @@
 import { ItAction } from '../core/interfaces/it-action';
-import { Battle } from './battle';
+import { Context } from './context';
 
 import { ItemRef } from './refs/items';
 import { ItemSave } from './save';
@@ -53,12 +53,12 @@ export abstract class Item {
     return zoneLlevelMax >= this.zoneAvailable;
   }
 
-  abstract canUse(battle: Battle): boolean;
+  abstract canUse(context: Context): boolean;
 
-  abstract getSkill(battle: Battle): ItAction[];
+  abstract getSkill(context: Context): ItAction[];
 
-  use(battle: Battle) {
-    this.getSkill(battle).map((action) => action.use(battle));
+  use(context: Context) {
+    this.getSkill(context).map((action) => action.use(context));
   }
 
   /**

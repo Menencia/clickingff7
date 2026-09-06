@@ -1,10 +1,9 @@
 import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
 import { random } from '../../shared/utils/math.utils';
-import { Battle } from '../battle';
+import { Context } from '../context';
 import { Enemy } from '../enemy';
 import { Units } from '../units';
-import { MAX_FIGHTS, Zone } from '../zone';
 
 export class Enemies extends Units {
   list: Enemy[];
@@ -27,40 +26,6 @@ export class Enemies extends Units {
     this.hpMax = 0;
     this.resistance = [];
     this.weakness = [];
-  }
-
-  /**
-   * Fight against a random enemy
-   */
-  fightRandom(levelSumBase: number, zone: Zone, difficulty: number): Enemy[] {
-    let range: number;
-    range = Math.floor((zone.nbFights / MAX_FIGHTS) * 4);
-    range = Math.min(range, 3);
-
-    const enemy = zone.enemies[random(0, range)];
-
-    let levelSum = levelSumBase;
-    if (enemy.miboss) {
-      levelSum *= 1.2;
-    }
-
-    enemy.toLevel(levelSum, difficulty);
-
-    this.list = [enemy];
-
-    return this.list;
-  }
-
-  /**
-   * Fight against the zone boss
-   */
-  fightBoss(zone: Zone, nbCharacters: number, difficulty: number): void {
-    const enemies = zone.boss;
-    enemies.forEach((e) => {
-      e.toLevel(zone.level * (nbCharacters + 1) * 3 * 1.4, difficulty);
-    });
-
-    this.list = enemies;
   }
 
   /**
@@ -100,8 +65,8 @@ export class Enemies extends Units {
     const hits = this.getHits();
     return {
       type: [],
-      use(battle: Battle) {
-        battle.characters.getAttacked(hits, this);
+      use(context: Context) {
+        context.characters.getAttacked(hits, this);
       },
     };
   }

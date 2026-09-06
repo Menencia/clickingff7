@@ -1,16 +1,18 @@
 import { ItAction } from '../../core/interfaces/it-action';
-import { Battle } from '../battle';
+import { Context } from '../context';
 import { Item } from '../item';
 
 export class HpPotion extends Item {
-  canUse(battle: Battle): boolean {
-    return battle.characters.hp() < battle.characters.hpMax;
+  canUse(context: Context): boolean {
+    return context.characters.hp() < context.characters.hpMax;
   }
 
-  getSkill(battle: Battle): ItAction[] {
+  getSkill(context: Context): ItAction[] {
     const action: ItAction = {
       use: () => {
-        battle.characters.addHp(Math.ceil(this.pwr * battle.characters.hpMax));
+        context.characters.addHp(
+          Math.ceil(this.pwr * context.characters.hpMax),
+        );
       },
     };
     return [action];

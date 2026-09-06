@@ -1,5 +1,5 @@
-import { Battle } from '../../models/battle';
+import { Context } from '../../models/context';
 
 export interface ItAction {
-  use: (battle: Battle) => void;
+  use: (context: Context) => void;
 }

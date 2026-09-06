@@ -1,5 +1,5 @@
 import { ItAction } from '../core/interfaces/it-action';
-import { Battle } from './battle';
+import { Context } from './context';
 
 import { MateriaRef } from './refs/materias';
 import { MateriaSave } from './save';
@@ -61,12 +61,12 @@ export abstract class Materia {
 
   abstract getMpCost(): number;
 
-  abstract canUse(battle: Battle): boolean;
+  abstract canUse(context: Context): boolean;
 
-  abstract getSkill(battle: Battle): ItAction[];
+  abstract getSkill(context: Context): ItAction[];
 
-  use(battle: Battle) {
-    this.getSkill(battle).map((action) => action.use(battle));
+  use(context: Context) {
+    this.getSkill(context).map((action) => action.use(context));
   }
 
   /**

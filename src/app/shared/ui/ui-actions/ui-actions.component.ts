@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { BattleService } from '../../../core/services/battle.service';
 import { GameService } from '../../../core/services/game.service';
+import { Context } from '../../../models/context';
 import { Item } from '../../../models/item';
 import { Materia } from '../../../models/materia';
 import { MAX_FIGHTS } from '../../../models/zone';
@@ -58,7 +59,7 @@ export class UiActionsComponent {
   public attack(): void {
     const battle = this.battleService.battle();
     if (battle) {
-      this.gameService.characters.getAttackSkill().use(battle);
+      this.gameService.characters.getAttackSkill().use(this.getContext());
 
       if (!battle.enemies.isAlive()) {
         battle.end(true);
@@ -77,53 +78,46 @@ export class UiActionsComponent {
   }
 
   public canUseMateria(materia: Materia): boolean {
-    const battle = this.battleService.battle();
-    return !!battle && materia.canUse(battle);
+    return materia.canUse(this.getContext());
   }
 
   public useMateria(materia: Materia): void {
-    const battle = this.battleService.battle();
-    if (battle) {
-      // cost
-      if (this.canUseMateria(materia)) {
-        this.gameService.characters.mp -= materia.getMpCost();
-      } else {
-        throw new Error('CANNOT USE');
-      }
+    // cost
+    if (this.canUseMateria(materia)) {
+      this.gameService.characters.mp -= materia.getMpCost();
+    } else {
+      throw new Error('CANNOT USE');
+    }
 
-      // do action
-      materia.use(battle);
+    // do action
+    materia.use(this.getContext());
 
-      if (!battle.enemies.isAlive()) {
-        battle.end(true);
-      }
+    const { battle } = this.getContext();
+    if (battle && !battle.enemies.isAlive()) {
+      battle.end(true);
     }
   }
 
   public canUseItem(item: Item): boolean {
-    const battle = this.battleService.battle();
-    return !!battle && item.canUse(battle);
+    return item.canUse(this.getContext());
   }
 
   public useItem(item: Item): void {
-    const battle = this.battleService.battle();
-    if (battle) {
-      // cost
-      if (this.canUseItem(item)) {
-        if (item.nbr > 1) {
-          item.nbr -= 1;
-        } else {
-          this.gameService.items.list = this.gameService.items.list.filter(
-            (e) => e !== item,
-          );
-        }
+    // cost
+    if (this.canUseItem(item)) {
+      if (item.nbr > 1) {
+        item.nbr -= 1;
       } else {
-        throw new Error('CANNOT USE');
+        this.gameService.items.list = this.gameService.items.list.filter(
+          (e) => e !== item,
+        );
       }
-
-      // do action
-      item.use(battle);
+    } else {
+      throw new Error('CANNOT USE');
     }
+
+    // do action
+    item.use(this.getContext());
   }
 
   public canLimit(): boolean {
@@ -132,5 +126,12 @@ export class UiActionsComponent {
 
   public getZoneLvl(): number {
     return this.gameService.zones.level;
+  }
+
+  private getContext(): Context {
+    return {
+      characters: this.gameService.characters,
+      battle: this.battleService.battle(),
+    };
   }
 }

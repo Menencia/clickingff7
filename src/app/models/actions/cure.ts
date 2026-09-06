@@ -1,6 +1,6 @@
 import { ItAction } from '../../core/interfaces/it-action';
 import { random } from '../../shared/utils/math.utils';
-import { Battle } from '../battle';
+import { Context } from '../context';
 
 export class Cure implements ItAction {
   constructor(
@@ -18,7 +18,7 @@ export class Cure implements ItAction {
     return hits;
   }
 
-  use(battle: Battle): void {
-    battle.characters.addHp(this.calculateHits());
+  use(context: Context): void {
+    context.characters.addHp(this.calculateHits());
   }
 }

@@ -31,23 +31,33 @@ export class BattleService {
     );
     enemies.refresh();
 
-    // new battle
-    const battle = new Battle(this.gameService.characters, enemies);
+    this.startBattle(enemies);
+  }
 
-    // watch battle state
-    battle.state.subscribe(async (state) => {
-      switch (state) {
-        case BattleState.Ended:
-          // rewards on victory
-          if (battle.victory) {
-            this.onTeamVictory(battle);
-          }
-          // clean battle
-          this.battle.set(undefined);
-      }
+  /**
+   * Characters start auto-attacking
+   */
+  startBoss(): void {
+    if (this.battle()) {
+      throw new Error('Battle is already ongoing');
+    }
+
+    // get random boss
+    const zone = this.gameService.zones.current();
+    const nbCharacters = this.gameService.characters.getTeam().length;
+
+    const enemies = zone.boss;
+    enemies.forEach((e) => {
+      e.toLevel(
+        zone.level * (nbCharacters + 1) * 3 * 1.4,
+        this.gameService.difficulty,
+      );
     });
+    const res = new Enemies();
+    res.list = enemies;
+    res.refresh();
 
-    this.battle.set(battle);
+    this.startBattle(res);
   }
 
   private getRandomEnemy(
@@ -72,26 +82,32 @@ export class BattleService {
     return res;
   }
 
+  private startBattle(enemies: Enemies) {
+    // new battle
+    const battle = new Battle(this.gameService.characters, enemies);
+
+    // watch battle state
+    battle.state.subscribe(async (state) => {
+      switch (state) {
+        case BattleState.Ended:
+          // rewards on victory
+          if (battle.victory) {
+            this.onTeamVictory(battle);
+          }
+          // clean battle
+          this.battle.set(undefined);
+      }
+    });
+
+    this.battle.set(battle);
+  }
+
   /**
    * Returns true if zone boss is available
    */
   canFightBoss(): boolean {
     const zone = this.gameService.zones.current();
     return !this.battle() && zone.nbFights >= MAX_FIGHTS && !zone.completed;
-  }
-
-  /**
-   * Characters start auto-attacking
-   */
-  startBoss(): void {
-    // if (!this.isBattle) {
-    //   this.isBattle = true;
-    //   const zone = this.gameService.zones.current();
-    //   const nbCharacters = this.gameService.characters.getTeam().length;
-    //   this.enemies().fightBoss(zone, nbCharacters, this.gameService.difficulty);
-    //   this.enemies().refresh();
-    //   this.startFighting();
-    // }
   }
 
   onTeamVictory(battle: Battle) {

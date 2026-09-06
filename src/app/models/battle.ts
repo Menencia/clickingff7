@@ -18,12 +18,14 @@ export class Battle {
     public readonly characters: Characters,
     public readonly enemies: Enemies,
   ) {
-    // this.start();
+    this.start();
   }
 
   start(): void {
     this.timer = setTimeout(() => {
-      this.enemies.getAttackSkill().use(this);
+      this.enemies
+        .getAttackSkill()
+        .use({ characters: this.characters, battle: this });
 
       if (this.characters.isAlive()) {
         this.start();
