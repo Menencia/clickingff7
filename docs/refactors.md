@@ -34,7 +34,7 @@ Changement : `ShopService.buy*()` / `sell*()` vérifient `canBuy*` / `canSell*`,
 
 **Risque** : faible. Les tests existants de `view-shop.component.spec.ts` (copie et non objet du catalogue, materia équipée invendable, empilement des objets) passent dans `shop.service.spec.ts`.
 
-### 3. `refactor(game): move team and equipment rules out of views` 🟠
+### 3. `refactor(game): move team and equipment rules out of views` 🟠 ✅ fait
 
 Ces règles sont écrites dans les vues, et leurs limites ne sont vérifiées que par le template :
 - `ViewPhsComponent.joinTeam` / `leaveTeam` modifient `character.inTeam` (limites `MAX_TEAM` et 1 personnage minimum)

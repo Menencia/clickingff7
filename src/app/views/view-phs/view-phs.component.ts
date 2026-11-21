@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Character } from '../../models/character';
-import { MAX_TEAM } from '../../models/units/characters';
 import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
@@ -24,34 +23,24 @@ export class ViewPhsComponent {
   }
 
   canJoinTeam(): boolean {
-    return this.gameService.characters.getTeam().length < MAX_TEAM;
+    return this.gameService.characters.canJoin();
   }
 
-  /**
-   * Character joins the team
-   */
   joinTeam(character: Character): void {
-    character.inTeam = true;
+    this.gameService.characters.join(character);
     this.refresh();
   }
 
-  /**
-   * Returns true if the character can leave the team
-   */
   canLeaveTeam(): boolean {
-    return this.gameService.characters.getTeam().length > 1;
+    return this.gameService.characters.canLeave();
   }
 
-  /**
-   * Character leaves the team
-   */
   leaveTeam(character: Character): void {
-    character.inTeam = false;
+    this.gameService.characters.leave(character);
     this.refresh();
   }
 
   private refresh(): void {
-    this.gameService.characters.refresh();
     this.team = this.gameService.characters.getTeam();
     this.backup = this.gameService.characters.getBackup();
   }

@@ -27,16 +27,14 @@ export class ViewItemsComponent {
   }
 
   canEquipItem(item: Item): boolean {
-    return (
-      !item.equipped && this.gameService.items.getEquipped().length < MAX_ITEMS
-    );
+    return this.gameService.items.canEquip(item);
   }
 
   equipItem(item: Item): void {
-    item.equipped = true;
+    this.gameService.items.equip(item);
   }
 
   unequipItem(item: Item): void {
-    item.equipped = false;
+    this.gameService.items.unequip(item);
   }
 }

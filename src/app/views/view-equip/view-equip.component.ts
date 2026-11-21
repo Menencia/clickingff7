@@ -33,26 +33,11 @@ export class ViewEquipComponent {
   }
 
   canEquipWeapon(weapon: Weapon): boolean {
-    return !weapon.equipped;
+    return this.gameService.canEquipWeapon(this.selected, weapon);
   }
 
-  equipWeapon(newWeapon: Weapon): void {
-    // find current equipped weapon
-    const currentWeapon = this.gameService.weapons.list.find(
-      (weapon: Weapon) => {
-        return weapon.type === newWeapon.type && weapon.equipped;
-      },
-    );
-
-    if (currentWeapon) {
-      currentWeapon.equipped = false;
-    }
-
-    // mark both weapon and character as equipped
-    newWeapon.equipped = true;
-    this.selected.weapon = newWeapon;
-
-    this.gameService.characters.refresh();
+  equipWeapon(weapon: Weapon): void {
+    this.gameService.equipWeapon(this.selected, weapon);
   }
 
   selectCharacter(character: Character): void {

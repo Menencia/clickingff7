@@ -61,14 +61,8 @@ export class UiActionsComponent {
     this.battleService.attack();
   }
 
-  /**
-   * Escape fight
-   */
   public escape(): void {
-    const battle = this.battleService.battle();
-    if (battle) {
-      battle.end(false);
-    }
+    this.battleService.escape();
   }
 
   public canUseMateria(materia: Materia): boolean {

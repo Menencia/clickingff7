@@ -1,4 +1,4 @@
-import { Item } from './item';
+import { Item, MAX_ITEMS } from './item';
 import { ItemSave } from './save';
 
 export class Items {
@@ -32,6 +32,29 @@ export class Items {
    */
   getEquipped(): Item[] {
     return this.list.filter((e) => e.equipped);
+  }
+
+  /**
+   * Returns true if the item can be equipped (at most MAX_ITEMS)
+   */
+  canEquip(item: Item): boolean {
+    return !item.equipped && this.getEquipped().length < MAX_ITEMS;
+  }
+
+  /**
+   * Equips the item. Does nothing if MAX_ITEMS items are already equipped.
+   */
+  equip(item: Item): void {
+    if (this.canEquip(item)) {
+      item.equipped = true;
+    }
+  }
+
+  /**
+   * Unequips the item
+   */
+  unequip(item: Item): void {
+    item.equipped = false;
   }
 
   /**

@@ -35,18 +35,14 @@ export class ViewMateriaComponent {
   }
 
   canEquip(materia: Materia): boolean {
-    return !materia.equipped && this.getNbrEquipped() < this.maxMaterias;
+    return this.gameService.materias.canEquip(materia, this.maxMaterias);
   }
 
   equip(materia: Materia): void {
-    materia.equipped = true;
-
-    this.gameService.characters.refresh();
+    this.gameService.materias.equip(materia, this.maxMaterias);
   }
 
   unequip(materia: Materia): void {
-    materia.equipped = false;
-
-    this.gameService.characters.refresh();
+    this.gameService.materias.unequip(materia);
   }
 }

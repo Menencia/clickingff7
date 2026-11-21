@@ -14,6 +14,7 @@ import {
   startGame as startGameFromCatalog,
 } from '../../testing/game-data.testing';
 import { Difficulty, GameService } from './game.service';
+import { StoreService } from './store.service';
 
 /** Fresh injector with the in-memory catalog. */
 function configure(): void {
@@ -471,6 +472,66 @@ describe('GameService', () => {
 
       vi.advanceTimersByTime(3000);
       expect(game.time()).toBe(save.time + 3);
+    });
+  });
+
+  describe('equipWeapon', () => {
+    const character = (ref: CharacterRef) => {
+      const found = game.characters.list.find((c) => c.ref === ref);
+      if (!found) throw new Error(`${ref} not found`);
+      return found;
+    };
+    const weapon = (ref: WeaponRef) => {
+      const found = game.weapons.list.find((w) => w.ref === ref);
+      if (!found) throw new Error(`${ref} not owned`);
+      return found;
+    };
+
+    beforeEach(async () => {
+      game = await startGame(); // zone 1: Cloud and Barret
+      game.weapons.add(
+        TestBed.inject(StoreService).getWeapon(WeaponRef.MythrilSaber),
+      );
+    });
+
+    it('unequips the previous weapon and recomputes the team stats', () => {
+      const cloud = character(CharacterRef.Cloud);
+      const busterSword = weapon(WeaponRef.BusterSword);
+      const saber = weapon(WeaponRef.MythrilSaber);
+      const hits = game.characters.hits();
+
+      expect(game.canEquipWeapon(cloud, saber)).toBe(true);
+      game.equipWeapon(cloud, saber);
+
+      expect(cloud.weapon).toBe(saber);
+      expect(saber.equipped).toBe(true);
+      expect(busterSword.equipped).toBe(false);
+      expect(game.characters.hits()).toBeGreaterThan(hits);
+      expect(game.canEquipWeapon(cloud, saber)).toBe(false);
+      expect(game.canEquipWeapon(cloud, busterSword)).toBe(true);
+    });
+
+    it('ignores a weapon of another type', () => {
+      const barret = character(CharacterRef.Barret);
+      const gatlingGun = weapon(WeaponRef.GatlingGun);
+      const saber = weapon(WeaponRef.MythrilSaber);
+
+      expect(game.canEquipWeapon(barret, saber)).toBe(false);
+      game.equipWeapon(barret, saber);
+
+      expect(barret.weapon).toBe(gatlingGun);
+      expect(gatlingGun.equipped).toBe(true);
+      expect(saber.equipped).toBe(false);
+    });
+
+    it('ignores a weapon that is already worn', () => {
+      const cloud = character(CharacterRef.Cloud);
+      const busterSword = weapon(WeaponRef.BusterSword);
+
+      game.equipWeapon(cloud, busterSword);
+
+      expect(cloud.weapon).toBe(busterSword);
+      expect(busterSword.equipped).toBe(true);
     });
   });
 });

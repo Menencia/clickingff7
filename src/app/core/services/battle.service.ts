@@ -140,6 +140,13 @@ export class BattleService {
   }
 
   /**
+   * Ends the battle as a defeat, without rewards. Does nothing outside a battle.
+   */
+  escape(): void {
+    this.battle()?.end(false);
+  }
+
+  /**
    * Returns true if the materia can be used now
    */
   canUseMateria(materia: Materia): boolean {

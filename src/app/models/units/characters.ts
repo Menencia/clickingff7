@@ -80,6 +80,43 @@ export class Characters extends Units {
     return this.list.filter((e) => !e.inTeam && !e.isNotAvailable);
   }
 
+  /**
+   * Returns true if the team has room for another character
+   */
+  canJoin(): boolean {
+    return this.getTeam().length < MAX_TEAM;
+  }
+
+  /**
+   * A backup character joins the team. Does nothing if the team is full or
+   * the character is unavailable.
+   */
+  join(character: Character): void {
+    if (character.inTeam || character.isNotAvailable || !this.canJoin()) {
+      return;
+    }
+    character.inTeam = true;
+    this.refresh();
+  }
+
+  /**
+   * Returns true if a character can leave the team (at least one stays)
+   */
+  canLeave(): boolean {
+    return this.getTeam().length > 1;
+  }
+
+  /**
+   * A character leaves the team. Does nothing if it is the last one.
+   */
+  leave(character: Character): void {
+    if (!character.inTeam || !this.canLeave()) {
+      return;
+    }
+    character.inTeam = false;
+    this.refresh();
+  }
+
   getMaxMaterias(): number {
     let maxMaterias = 0;
 

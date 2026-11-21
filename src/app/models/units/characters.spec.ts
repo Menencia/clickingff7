@@ -5,7 +5,7 @@ import { Character } from '../character';
 import { CharacterRef } from '../refs/characters';
 import { WeaponRef } from '../refs/weapons';
 import { Weapon } from '../weapon';
-import { Characters } from './characters';
+import { Characters, MAX_TEAM } from './characters';
 
 function makeCharacter(level: number, weaponHits = 10): Character {
   const weapon = new Weapon({
@@ -115,6 +115,64 @@ describe('Characters', () => {
       empty.add(makeCharacter(2), true);
       expect(empty.hpMax()).toBe(0);
       expect(empty.levelMax()).toBe(0);
+    });
+  });
+
+  describe('join / leave', () => {
+    it('a backup character joins the team and the stats are recomputed', () => {
+      const backup = characters.getBackup()[0];
+      expect(characters.canJoin()).toBe(true);
+
+      characters.join(backup);
+
+      expect(backup.inTeam).toBe(true);
+      expect(characters.team()).toContain(backup);
+      expect(characters.hpMax()).toBe(40 + 80 + backup.getHpMax());
+    });
+
+    it(`cannot join a team of ${MAX_TEAM}`, () => {
+      characters.join(characters.getBackup()[0]);
+      const extra = makeCharacter(1);
+      characters.add(extra, false);
+
+      expect(characters.canJoin()).toBe(false);
+      characters.join(extra);
+
+      expect(extra.inTeam).toBe(false);
+      expect(characters.team()).toHaveLength(MAX_TEAM);
+    });
+
+    it('an unavailable character cannot join', () => {
+      const backup = characters.getBackup()[0];
+      backup.isNotAvailable = true;
+
+      characters.join(backup);
+
+      expect(backup.inTeam).toBe(false);
+    });
+
+    it('a character leaves the team, clamping HP and MP', () => {
+      characters.hp.set(characters.hpMax());
+      characters.mp.set(characters.mpMax());
+      const [first, second] = characters.getTeam();
+
+      characters.leave(second);
+
+      expect(second.inTeam).toBe(false);
+      expect(characters.team()).toEqual([first]);
+      expect(characters.hp()).toBe(40);
+      expect(characters.mp()).toBe(6);
+    });
+
+    it('the last character cannot leave the team', () => {
+      const [first, second] = characters.getTeam();
+      characters.leave(second);
+
+      expect(characters.canLeave()).toBe(false);
+      characters.leave(first);
+
+      expect(first.inTeam).toBe(true);
+      expect(characters.team()).toEqual([first]);
     });
   });
 

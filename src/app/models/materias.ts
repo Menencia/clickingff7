@@ -27,6 +27,29 @@ export class Materias {
   }
 
   /**
+   * Returns true if the materia can be equipped in one of the {max} slots
+   */
+  canEquip(materia: Materia, max: number): boolean {
+    return !materia.equipped && this.getEquipped().length < max;
+  }
+
+  /**
+   * Equips the materia. Does nothing if no slot is free.
+   */
+  equip(materia: Materia, max: number): void {
+    if (this.canEquip(materia, max)) {
+      materia.equipped = true;
+    }
+  }
+
+  /**
+   * Unequips the materia
+   */
+  unequip(materia: Materia): void {
+    materia.equipped = false;
+  }
+
+  /**
    * Get unequipped materias
    */
   getUnequipped(): Materia[] {

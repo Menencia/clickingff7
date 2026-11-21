@@ -315,6 +315,28 @@ describe('BattleService', () => {
     });
   });
 
+  describe('escape', () => {
+    it('ends the battle as a defeat, without rewards', () => {
+      service.startRandom();
+      const battle = service.battle();
+      const gils = game.gils();
+      const xp = game.characters.list.map((c) => c.xp);
+
+      service.escape();
+
+      expect(service.battle()).toBeUndefined();
+      expect(battle?.victory).toBe(false);
+      expect(game.gils()).toBe(gils);
+      expect(game.characters.list.map((c) => c.xp)).toEqual(xp);
+      expect(game.zones.current().nbFights).toBe(0);
+    });
+
+    it('does nothing outside a battle', () => {
+      expect(() => service.escape()).not.toThrow();
+      expect(service.battle()).toBeUndefined();
+    });
+  });
+
   describe('useMateria', () => {
     it('pays the MP cost and damages the enemies', () => {
       const battle = startBattle();

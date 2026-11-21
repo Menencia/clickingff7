@@ -1,6 +1,7 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import packageJson from '../../../../package.json';
+import { Character } from '../../models/character';
 import { Items } from '../../models/items';
 import { Materias } from '../../models/materias';
 import { CharacterRef } from '../../models/refs/characters';
@@ -10,6 +11,7 @@ import { WeaponRef } from '../../models/refs/weapons';
 import { ZoneRef } from '../../models/refs/zones';
 import { Save } from '../../models/save';
 import { Characters } from '../../models/units/characters';
+import { Weapon } from '../../models/weapon';
 import { Weapons } from '../../models/weapons';
 import { Zones } from '../../models/zones';
 import { decodeSave, encodeSave } from '../../shared/utils/save.utils';
@@ -268,6 +270,32 @@ export class GameService {
         c.setWeapon(owned);
       }
     });
+  }
+
+  /**
+   * Returns true if the character can wield the weapon and it is not worn
+   */
+  canEquipWeapon(character: Character, weapon: Weapon): boolean {
+    return weapon.type === character.weaponType && !weapon.equipped;
+  }
+
+  /**
+   * The character wields the weapon, the previous weapon of the same type is
+   * unequipped and the team stats are recomputed. Does nothing if the weapon
+   * cannot be equipped.
+   */
+  equipWeapon(character: Character, weapon: Weapon): void {
+    if (!this.canEquipWeapon(character, weapon)) {
+      return;
+    }
+    this.weapons.list
+      .filter((w) => w.type === weapon.type && w.equipped)
+      .forEach((w) => {
+        w.equipped = false;
+      });
+    weapon.equipped = true;
+    character.setWeapon(weapon);
+    this.characters.refresh();
   }
 
   /**
