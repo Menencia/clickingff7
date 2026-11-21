@@ -80,7 +80,7 @@ Changement : parser les groupes en nombres, échapper le point et renommer la fo
 
 ## Lot 3 — Dé-duplication du domaine
 
-### 7. `fix(store): return fresh model instances instead of shared catalog objects` 🔴
+### 7. `fix(store): return fresh model instances instead of shared catalog objects` 🔴 ✅ fait
 
 `StoreService.getZone`, `getCharacter`, `getWeapon`, `getMateria` et `getItem` renvoient l'instance stockée dans `DataService`. La partie du joueur, la boutique et les sauvegardes successives partagent donc les mêmes objets.
 

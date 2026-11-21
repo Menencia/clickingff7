@@ -297,4 +297,99 @@ describe('GameService', () => {
       expect(game.saves).toEqual([]);
     });
   });
+
+  describe('model instances', () => {
+    beforeEach(async () => {
+      game = await startGame();
+    });
+
+    /** Same sequence as ViewSaveComponent.resetGame() */
+    function resetGame(): void {
+      game.preload();
+      game.reset();
+      game.buildLevel(1);
+      game.postload();
+    }
+
+    it('characters use the owned weapon instances', () => {
+      unlockNextZone(game);
+      for (const c of game.characters.list) {
+        expect(game.weapons.list).toContain(c.weapon);
+      }
+    });
+
+    it('characters use the owned weapon instances after a load', async () => {
+      unlockNextZone(game);
+      game.save();
+      clearTimeout(game.timer);
+
+      game = await startGame();
+
+      expect(game.characters.list.length).toBe(3);
+      for (const c of game.characters.list) {
+        expect(game.weapons.list).toContain(c.weapon);
+      }
+    });
+
+    it('a reset starts from clean instances', () => {
+      unlockNextZone(game);
+      unlockNextZone(game);
+      const zone1 = game.zones.list[0];
+      zone1.nbFights = 15;
+      zone1.completed = true;
+      game.characters.list[0].setXp(1000);
+      game.materias.list[0].setAp(1000);
+      game.weapons.list[0].nbr = 3;
+      game.items.list[0].nbr = 9;
+
+      resetGame();
+
+      expect(game.zones.list[0]).not.toBe(zone1);
+      expect(game.zones.list[0]).toMatchObject({
+        nbFights: 0,
+        completed: false,
+      });
+      expect(refs(game.characters.list)).toEqual([
+        CharacterRef.Cloud,
+        CharacterRef.Barret,
+      ]);
+      for (const c of game.characters.list) {
+        expect(c).toMatchObject({ level: 1, xp: 0, inTeam: true });
+      }
+      for (const m of game.materias.list) {
+        expect(m).toMatchObject({ level: 1, ap: 0 });
+      }
+      for (const w of game.weapons.list) {
+        expect(w.nbr).toBe(1);
+      }
+      expect(game.items.list[0].nbr).toBe(2);
+    });
+
+    it('an import does not reuse the previous game objects', () => {
+      const save = structuredClone(game.export());
+      const previous = {
+        zone: game.zones.list[0],
+        character: game.characters.list[0],
+        weapon: game.weapons.list[0],
+        materia: game.materias.list[0],
+        item: game.items.list[0],
+      };
+
+      game.preload();
+      game.load(save);
+      game.postload();
+      previous.zone.nbFights = 7;
+      previous.character.setXp(1000);
+      previous.weapon.nbr = 5;
+      previous.materia.setAp(1000);
+      previous.item.nbr = 5;
+
+      expect(game.zones.list[0]).not.toBe(previous.zone);
+      expect(game.characters.list[0]).not.toBe(previous.character);
+      expect(game.weapons.list[0]).not.toBe(previous.weapon);
+      expect(game.materias.list[0]).not.toBe(previous.materia);
+      expect(game.items.list[0]).not.toBe(previous.item);
+      expect(game.export()).toEqual(save);
+    });
+  });
 });

@@ -32,9 +32,9 @@ Biome is the only linter/formatter (no ESLint/Prettier). It uses single quotes a
 ## Architecture
 
 ### Bootstrapping and data loading
-`app.config.ts` registers an app initializer that runs `DataService.preloadAll()` **before** anything else. It fetches the static game definitions from `src/assets/data/*.json` (characters, enemies, items, materias, weapons, zones) and turns them into model instances. The build order matters: weapons are built before characters, enemies before zones, and so on (see the `/** Depends: ... */` comments).
+`app.config.ts` registers an app initializer that runs `DataService.preloadAll()` **before** anything else. It fetches the static game definitions from `src/assets/data/*.json` (characters, enemies, items, materias, weapons, zones) and keeps them as raw JSON.
 
-`StoreService` is a lookup layer over `DataService` by typed ref enums (`models/refs/*.ts`, e.g. `CharacterRef.Cloud`, `WeaponRef.BusterSword`). It throws if a ref is missing. Every ref enum value must match an entry in the corresponding JSON file.
+`StoreService` builds model instances from that JSON by typed ref enums (`models/refs/*.ts`, e.g. `CharacterRef.Cloud`, `WeaponRef.BusterSword`). **Every call returns a new instance** (a zone gets its own enemies, a character its own default weapon), so the player's stock, the shop catalog and successive games never share state. The `type` field picks the subclass for materias and items. It throws if a ref is missing. Every ref enum value must match an entry in the corresponding JSON file.
 
 ### Game state
 `GameService` (root singleton) holds the whole mutable player state: `characters`, `zones`, `weapons`, `materias`, `items`, `gils`, `language`, `difficulty`, `time`. On construction it:

@@ -73,7 +73,7 @@ export class ViewShopComponent {
 
   buyWeapon(weapon: Weapon): void {
     this.gameService.gils -= weapon.getPrice();
-    this.gameService.weapons.add(weapon, false);
+    this.gameService.weapons.add(this.store.getWeapon(weapon.ref), false);
     this.refreshPlayerWeapons();
   }
 
@@ -106,7 +106,7 @@ export class ViewShopComponent {
 
   buyMateria(materia: Materia): void {
     this.gameService.gils -= materia.getPrice();
-    this.gameService.materias.add(materia);
+    this.gameService.materias.add(this.store.getMateria(materia.ref));
     this.refreshPlayerMaterias();
   }
 
@@ -129,7 +129,7 @@ export class ViewShopComponent {
   buyItem(item: Item): void {
     this.gameService.gils -= item.getPrice();
     const equipped = this.gameService.items.getEquipped().length < MAX_ITEMS;
-    this.gameService.items.add(item, equipped);
+    this.gameService.items.add(this.store.getItem(item.ref), equipped);
     this.refreshPlayerItems();
   }
 

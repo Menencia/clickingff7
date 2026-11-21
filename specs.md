@@ -278,10 +278,9 @@ Ces écarts ont été constatés dans le code actuel. Ce sont probablement des b
 
 1. `compareVersions` compare les numéros de version **comme des chaînes de caractères**, si bien que « 10 » est considéré comme inférieur à « 9 ».
 2. Après une **défaite**, les HP restent à 0. Le combat suivant est perdu dès la première attaque ennemie, sauf si le joueur se soigne avant.
-3. `StoreService` renvoie les **instances du catalogue elles-mêmes**, sans copie. Le stock du joueur et la boutique partagent donc les mêmes objets, et modifier l'un (niveau, quantité, équipé) modifie l'autre.
-4. Le tri des armes en boutique ne connaît que 3 types. Les types stave, headdresse et shuriken obtiennent un rang indéfini.
-5. `ShopService.refresh()` est appelé depuis la Carte, mais l'écran Boutique n'utilise pas ses résultats : il recalcule son propre catalogue.
-6. Les personnages n'attaquent pas automatiquement : `autoFighting()` existe mais n'est jamais appelé.
-7. La vente d'une materia ne vérifie pas si elle est équipée.
-8. Les boutons **Réinitialiser** et **Importer** sont commentés dans `view-save.component.html`, depuis la disparition de la directive de confirmation PrimeNG. Ces deux fonctions ne sont donc plus accessibles au joueur.
-9. Le niveau maximum de 100 (personnages et materias) n'est vérifié qu'**avant** la boucle de montée de niveau dans `Character.setXp` et `Materia.setAp`. Un gros gain d'XP ou d'AP au niveau 99 fait donc dépasser le niveau 100.
+3. Le tri des armes en boutique ne connaît que 3 types. Les types stave, headdresse et shuriken obtiennent un rang indéfini.
+4. `ShopService.refresh()` est appelé depuis la Carte, mais l'écran Boutique n'utilise pas ses résultats : il recalcule son propre catalogue.
+5. Les personnages n'attaquent pas automatiquement : `autoFighting()` existe mais n'est jamais appelé.
+6. La vente d'une materia ne vérifie pas si elle est équipée.
+7. Les boutons **Réinitialiser** et **Importer** sont commentés dans `view-save.component.html`, depuis la disparition de la directive de confirmation PrimeNG. Ces deux fonctions ne sont donc plus accessibles au joueur.
+8. Le niveau maximum de 100 (personnages et materias) n'est vérifié qu'**avant** la boucle de montée de niveau dans `Character.setXp` et `Materia.setAp`. Un gros gain d'XP ou d'AP au niveau 99 fait donc dépasser le niveau 100.

@@ -228,11 +228,26 @@ export class GameService {
       // do nothing
     }
 
+    this.linkWeapons();
+
     // restore hp & mp
     this.characters.refresh();
     this.characters.hp.set(this.characters.hpMax);
     this.characters.mp = this.characters.mpMax;
     this.characters.limit = 0;
+  }
+
+  /**
+   * Points each character to the owned weapon of the same ref, so that
+   * equipping and selling act on the player's stock.
+   */
+  private linkWeapons(): void {
+    this.characters.list.forEach((c) => {
+      const owned = this.weapons.list.find((w) => w.ref === c.weapon.ref);
+      if (owned) {
+        c.setWeapon(owned);
+      }
+    });
   }
 
   /**
@@ -272,12 +287,19 @@ export class GameService {
       return;
     }
 
+    // weapons
+    save.weapons.forEach((w) => {
+      const weapon = this.store.getWeapon(w.ref).load(w);
+      this.weapons.add(weapon, w.equipped);
+    });
+
     // characters
     save.characters.list.forEach((c) => {
       const character = this.store.getCharacter(c.ref).load(c);
       character.setWeapon(this.store.getWeapon(c.weaponRef));
       this.characters.add(character, c.inTeam);
     });
+    this.linkWeapons();
 
     this.characters.hp.set(save.characters.hp);
     this.characters.mp = save.characters.mp;
@@ -294,12 +316,6 @@ export class GameService {
 
     const zonelevelMax = this.zones.levelMax;
     this.characters.available(zonelevelMax);
-
-    // weapons
-    save.weapons.forEach((w) => {
-      const weapon = this.store.getWeapon(w.ref).load(w);
-      this.weapons.add(weapon, w.equipped);
-    });
 
     // materias
     save.materias.forEach((m) => {
