@@ -1,7 +1,7 @@
 <div class="col-span-2">
   <!-- characters bars -->
   <app-progress-bar
-    [id]="'step2'"
+    id="step2"
     [progress]="round((characters().hp() / characters().hpMax()) * 100)"
     [style]="'progress-success'"
     [text]="'HP ' + characters().hp()"
@@ -10,7 +10,7 @@
   ></app-progress-bar>
 
   <app-progress-bar
-    [id]="'step3'"
+    id="step3"
     [progress]="round((characters().mp() / characters().mpMax()) * 100)"
     [style]="'progress-info'"
     [text]="'MP ' + characters().mp()"
@@ -18,7 +18,7 @@
   ></app-progress-bar>
 
   <app-progress-bar
-    [id]="'step4'"
+    id="step4"
     [progress]="round((characters().limit() / characters().limitMax()) * 100)"
     [style]="'progress-warning'"
     [text]="

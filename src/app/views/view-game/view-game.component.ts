@@ -25,13 +25,17 @@ export class ViewGameComponent {
 
   public characters: Characters;
 
-  public enemies: Signal<Enemies | undefined>;
+  public enemies: Signal<Enemies>;
+
+  // Without a battle, an empty group keeps the panel (and the tutorial's
+  // #step5 anchor) displayed with its "No enemies" state. Built outside the
+  // computed: the Enemies constructor writes to signals.
+  private readonly noEnemies = new Enemies();
 
   constructor() {
     this.characters = this.gameService.characters;
-    this.enemies = computed(() => {
-      const battle = this.battleService.battle();
-      return battle?.enemies;
-    });
+    this.enemies = computed(
+      () => this.battleService.battle()?.enemies ?? this.noEnemies,
+    );
   }
 }

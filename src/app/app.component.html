@@ -8,6 +8,7 @@
           for="my-drawer-2"
           aria-label="open sidebar"
           class="btn btn-square btn-ghost"
+          id="step10-burger"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -30,9 +31,10 @@
       >
         ClickingFF7
       </div>
-      <div class="hidden flex-none lg:block">
+      <div class="hidden flex-none lg:block" id="step10-menu">
         <app-sidemenu [horizontal]="true" />
       </div>
+      <div><app-help-button /></div>
       <div><app-theme-picker></app-theme-picker></div>
     </div>
     <div class="p-2 sm:p-10">

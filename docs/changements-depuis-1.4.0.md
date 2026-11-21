@@ -33,10 +33,11 @@ Bilan des 51 commits passés sur la branche `experiments` depuis le tag `v1.4.0`
 - **Thème** : le thème clair par défaut devient le thème sombre. Le thème clair s'appelle désormais « cupcake ». Une préférence enregistrée par la 1.4.0 (`light`) ne correspond plus à aucun thème connu.
 - **Astérisque sur « Carte »** : en 1.4.0, il apparaissait quand une nouvelle zone était débloquée et disparaissait après une visite de la Carte. Il reste maintenant affiché tant que la zone courante est terminée et qu'il existe une zone suivante.
 - **Pied de page** : il est plus grand et se trouve sur un fond sombre.
+- **Tutoriel** : il se lance avec l'icône d'aide (point d'interrogation dans un rond) de la barre du haut, désactivée pendant un combat. Chaque étape désigne de nouveau son élément. Sur mobile, l'étape du menu principal désigne le bouton du tiroir. La bulle et ses boutons suivent le thème, donc restent lisibles en mode sombre.
+- **Panneau ennemi** : il reste affiché hors combat, avec la mention « Aucun ennemi ».
 
 ## Disparitions
 
-- **Tutoriel** : le bouton d'aide (le « ? » dans la barre du haut) a disparu lors de la refonte du menu. Le code du tutoriel existe toujours mais ne peut plus être lancé. Plusieurs éléments qu'il ciblait (`#step2` à `#step4`, `#step9`, `#step10`) n'existent plus non plus (voir `docs/bugs.md`).
 - **Accessibilité clavier** : sur les écrans PHS, Materia et Objets, les icônes cliquables (rejoindre ou quitter l'équipe, équiper ou déséquiper) ont perdu leur `tabindex`. Elles ne peuvent plus être atteintes au clavier.
 - **Police Material Icons** : elle n'est plus chargée depuis Google Fonts. Ses icônes sont remplacées par des SVG (Lucide).
 
@@ -51,7 +52,6 @@ Bilan des 51 commits passés sur la branche `experiments` depuis le tag `v1.4.0`
 
 ## Avant de publier
 
-- Remettre un accès au tutoriel, ou le retirer pour de bon.
 - Convertir l'ancienne valeur de thème `light` en `cupcake`.
 - Rétablir le `tabindex` sur les icônes cliquables.
 - Mettre à jour la version dans `package.json`, qui vaut encore `1.4.0`.

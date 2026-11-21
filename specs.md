@@ -236,7 +236,7 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 
 | Écran | Route | Contenu |
 |---|---|---|
-| Jeu | `/game` | Barres HP / MP / Limite de l'équipe, liste des membres (portrait, niveau, barre d'XP, réplique), panneau ennemi, actions de combat, gils et zone courante. C'est l'écran par défaut. |
+| Jeu | `/game` | Barres HP / MP / Limite de l'équipe, liste des membres (portrait, niveau, barre d'XP, réplique), panneau ennemi (« Aucun ennemi » hors combat), actions de combat, gils et zone courante. C'est l'écran par défaut. |
 | Carte | `/map` | Choix de la zone parmi les zones débloquées ; passage à la zone suivante. |
 | Boutique | `/shop` | Onglets Acheter / Vendre × Armes / Materias / Objets (voir §10). |
 | Équipement | `/equip` | Sélection d'un membre de l'équipe et choix de son arme parmi les armes possédées de son type. |
@@ -246,7 +246,7 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 | PHS | `/phs` | Échange de personnages entre l'équipe et la réserve : 3 membres au maximum, 1 au minimum. |
 | Sauvegarde | `/save` | Voir §11. |
 
-**Tutoriel** : visite guidée avec intro.js, chargée à la demande (`SidemenuComponent.help()`). Elle n'est lancée que hors combat et renvoie d'abord à l'écran Jeu. Les étapes sont définies dans `models/help.ts` et ancrées sur les éléments `#step1` à `#step13`. Leurs textes sont les clés `step1`…`step15` de `help.json`. Aucun bouton ne lance actuellement le tutoriel (voir `docs/bugs.md`).
+**Tutoriel** : visite guidée avec intro.js, lancée par le bouton d'aide (point d'interrogation dans un rond) de la barre de navigation (`HelpButtonComponent`, désactivé pendant un combat) et chargée à la demande. Elle renvoie d'abord à l'écran Jeu. Les étapes sont définies dans `models/help.ts` et ancrées sur les éléments `#step1` à `#step13` : équipe, barres HP/MP/Limit, ennemis, boutons Combat aléa./Attaquer/Fuir, materias utilisables, menu principal (`#step10-menu` sur grand écran, bouton du tiroir `#step10-burger` sur mobile : le tutoriel retient le premier élément visible), zone, lien de version et lien « New Issue » du pied de page. Leurs textes sont les clés `step1`…`step15` de `help.json` (la première et la dernière étape n'ont pas d'élément cible).
 
 **Répliques** : chaque personnage affiche une réplique qui dépend de la zone max atteinte (clé i18n `Line {levelMax} {ref}`).
 

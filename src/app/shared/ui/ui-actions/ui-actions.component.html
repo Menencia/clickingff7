@@ -44,7 +44,7 @@
 
   <div class="h-3"></div>
 
-  <div [id]="'step9'" class="contents">
+  <div id="step9" class="flex w-full flex-row flex-wrap gap-1 sm:flex-col">
     @for (materia of getMaterias(); track materia) {
     <button
       type="button"
@@ -66,7 +66,7 @@
   </div>
 
   @if (getItems().length > 0) {
-  <div [id]="'step10'" class="contents">
+  <div class="contents">
     <div class="h-3"></div>
     @for (item of getItems(); track item) {
     <button

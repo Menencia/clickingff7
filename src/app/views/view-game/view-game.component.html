@@ -5,9 +5,7 @@
       <app-characters-panel [characters]="characters"></app-characters-panel>
     </div>
     <div class="basis-2/5">
-      @let e = enemies(); @if(e) {
-      <app-enemies-panel [enemies]="e"></app-enemies-panel>
-      }
+      <app-enemies-panel [enemies]="enemies()"></app-enemies-panel>
     </div>
   </div>
 </app-ui-layout-default>

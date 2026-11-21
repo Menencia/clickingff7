@@ -6,3 +6,66 @@
     cupcake --default,
     dark --prefersdark;
 }
+
+/* intro.js hardcodes a white tooltip while its text inherits the page color:
+   follow the active daisyUI theme instead (unreadable in dark mode otherwise). */
+.introjs-tooltip {
+  background-color: var(--color-base-100);
+  color: var(--color-base-content);
+}
+
+.introjs-tooltipbuttons {
+  border-top-color: var(--color-base-300);
+}
+
+.introjs-skipbutton,
+.introjs-skipbutton:hover,
+.introjs-skipbutton:focus {
+  color: var(--color-base-content);
+}
+
+.introjs-arrow.top,
+.introjs-arrow.top-right,
+.introjs-arrow.top-middle {
+  border-bottom-color: var(--color-base-100);
+}
+
+.introjs-arrow.bottom,
+.introjs-arrow.bottom-right,
+.introjs-arrow.bottom-middle {
+  border-top-color: var(--color-base-100);
+}
+
+.introjs-arrow.right,
+.introjs-arrow.right-bottom {
+  border-left-color: var(--color-base-100);
+}
+
+.introjs-arrow.left,
+.introjs-arrow.left-bottom {
+  border-right-color: var(--color-base-100);
+}
+
+.introjs-button {
+  background-color: var(--color-base-200);
+  border-color: var(--color-base-300);
+  color: var(--color-base-content);
+  text-shadow: none;
+}
+
+.introjs-button:hover,
+.introjs-button:focus,
+.introjs-button:active {
+  background-color: var(--color-base-300);
+  border-color: var(--color-base-content);
+  color: var(--color-base-content);
+}
+
+.introjs-button.introjs-disabled,
+.introjs-button.introjs-disabled:hover,
+.introjs-button.introjs-disabled:focus {
+  background-color: var(--color-base-200);
+  border-color: var(--color-base-300);
+  color: var(--color-base-content);
+  opacity: 0.4;
+}

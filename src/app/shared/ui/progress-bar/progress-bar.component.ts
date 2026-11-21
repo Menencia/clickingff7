@@ -8,13 +8,12 @@ import { ItDisplayHits } from '../../../core/interfaces/it-display-hits';
   imports: [],
   templateUrl: './progress-bar.component.html',
   styleUrls: ['./progress-bar.component.scss'],
+  host: { class: 'block' },
 })
 export class ProgressBarComponent implements OnInit {
   private readonly destroyRef = inject(DestroyRef);
 
   Math = Math;
-
-  readonly id = input('');
 
   readonly progress = input(0);
 

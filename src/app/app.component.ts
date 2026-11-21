@@ -3,6 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter } from 'rxjs';
 import packageJson from '../../package.json';
+import { HelpButtonComponent } from './shared/components/help-button/help-button.component';
 import { SidemenuComponent } from './shared/components/sidemenu/sidemenu.component';
 import { ThemePickerComponent } from './shared/components/theme-picker/theme-picker.component';
 import { UiFooterComponent } from './shared/ui/ui-footer/ui-footer.component';
@@ -11,6 +12,7 @@ import { UiFooterComponent } from './shared/ui/ui-footer/ui-footer.component';
   selector: 'app-root',
   imports: [
     UiFooterComponent,
+    HelpButtonComponent,
     RouterOutlet,
     SidemenuComponent,
     ThemePickerComponent,
