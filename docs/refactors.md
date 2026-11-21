@@ -154,7 +154,7 @@ Remplacer les classes `BattleGuard` et `ZoneGuard` (avec leur signature de retou
 
 **Risque** : très faible.
 
-### 15. `refactor(help): import intro.js as an ES module` 🟢
+### 15. `refactor(help): import intro.js as an ES module` 🟢 ✅ fait
 
 intro.js est chargé comme script global (`angular.json` → `scripts`) et typé à la main avec `declare const introJs` dans `SidemenuComponent`. Utiliser `import introJs from 'intro.js'` (la librairie fournit ses types) et un import dynamique au clic pour sortir la librairie du bundle initial.
 

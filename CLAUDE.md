@@ -60,4 +60,4 @@ The app is **zoneless** (`provideZonelessChangeDetection`), and components use O
 Translations are in `src/assets/i18n/{en,fr,es}/{main,help}.json`, loaded with `provideTranslateMultiHttpLoader`. **French is the source language** for Crowdin (`crowdin.yml`). `pnpm i18n:download` pulls translations. Supported languages are listed in `GameService.getLanguage`.
 
 ### Styling
-Global styles are in `src/styles.scss` (Tailwind + daisyUI with the `cupcake` default and `dark` themes). intro.js is loaded globally through `angular.json` for the in-game help tour.
+Global styles are in `src/styles.scss` (Tailwind + daisyUI with the `cupcake` default and `dark` themes). The in-game help tour uses intro.js: `SidemenuComponent` imports it dynamically on click (lazy chunk), and only its CSS is loaded globally through `angular.json` `styles`.

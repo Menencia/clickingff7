@@ -6,13 +6,6 @@ import { GameService } from '../../../core/services/game.service';
 import { helpData } from '../../../models/help';
 import { PHS_UNLOCK_ZONE } from '../../utils/game.utils';
 
-// declare this to by pass typescript error
-// can put this in index.d.ts file
-declare const introJs: () => {
-  setOptions: (data: unknown) => void;
-  start: () => void;
-};
-
 @Component({
   selector: 'app-sidemenu',
   imports: [RouterLink, RouterLinkActive, TranslatePipe],
@@ -34,16 +27,19 @@ export class SidemenuComponent {
     return this.gameService.zones.levelMax >= PHS_UNLOCK_ZONE;
   }
 
-  help(): void {
-    if (!this.battleService.battle()) {
-      this.router.navigateByUrl('game');
-
-      helpData.steps.forEach((step, index) => {
-        step.intro = this.translateService.instant(`step${index + 1}`);
-      });
-      const intro = introJs();
-      intro.setOptions(helpData);
-      intro.start();
+  async help(): Promise<void> {
+    if (this.battleService.battle()) {
+      return;
     }
+
+    this.router.navigateByUrl('game');
+
+    helpData.steps.forEach((step, index) => {
+      step.intro = this.translateService.instant(`step${index + 1}`);
+    });
+
+    // Loaded on demand to keep intro.js out of the initial bundle.
+    const { default: introJs } = await import('intro.js');
+    introJs().setOptions(helpData).start();
   }
 }

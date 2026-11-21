@@ -5,7 +5,7 @@ interface HelpData {
 interface Step {
   element?: string;
   intro?: string;
-  position?: string;
+  position?: 'top' | 'bottom' | 'left' | 'right';
 }
 
 export const helpData: HelpData = {
