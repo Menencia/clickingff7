@@ -6,7 +6,7 @@
 
 ## Hors refactor
 
-- **Emplacements de materia dépassés** 🟠 (bug n°1 de `docs/bugs.md`) : le nombre d'emplacements (`Characters.getMaxMaterias()`) dépend des armes de l'équipe, mais rien ne déséquipe les materias en trop quand il diminue. Exemple : Aerith (bâton, 2 emplacements) quitte l'équipe dans le PHS, et les materias équipées restent au-dessus de la limite. Plus simple à corriger après le commit 3, qui regroupe les règles d'équipement.
+- **Emplacements de materia dépassés** 🟠 ✅ fait (bug n°1 de `docs/bugs.md`) : le nombre d'emplacements (`Characters.getMaxMaterias()`) dépend des armes de l'équipe, mais rien ne déséquipe les materias en trop quand il diminue. Exemple : Aerith (bâton, 2 emplacements) quitte l'équipe dans le PHS, et les materias équipées restent au-dessus de la limite. Plus simple à corriger après le commit 3, qui regroupe les règles d'équipement.
 - **Sécurité** : rien à signaler. L'application tourne uniquement côté client, sans backend. Le joueur peut modifier sa sauvegarde en base64, ce qui est acceptable pour un jeu solo.
 
 ## Lot 1 — Filet de tests

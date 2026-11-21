@@ -54,4 +54,33 @@ describe('Materias', () => {
     expect(restore.equipped).toBe(false);
     expect(materias.canEquip(bolt, 1)).toBe(true);
   });
+
+  describe('fit', () => {
+    beforeEach(() => {
+      const fire = store.getMateria(MateriaRef.Fire);
+      materias.add(fire, true);
+      materias.list[1].equipped = true; // Restore, Bolt, Fire equipped
+    });
+
+    it('unequips the last equipped materias beyond the slots', () => {
+      materias.fit(1);
+
+      expect(materias.getEquipped().map((m) => m.ref)).toEqual([
+        MateriaRef.Restore,
+      ]);
+    });
+
+    it('keeps every materia when the slots are enough', () => {
+      materias.fit(3);
+      expect(materias.getEquipped()).toHaveLength(3);
+
+      materias.fit(5);
+      expect(materias.getEquipped()).toHaveLength(3);
+    });
+
+    it('unequips everything when there is no slot', () => {
+      materias.fit(0);
+      expect(materias.getEquipped()).toEqual([]);
+    });
+  });
 });

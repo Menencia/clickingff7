@@ -163,6 +163,7 @@ export class GameService {
     this.translate.use(this.language);
 
     this.characters.refresh();
+    this.fitMaterias();
     this.characters.select();
 
     this.autoTimer();
@@ -254,6 +255,7 @@ export class GameService {
 
     // restore hp & mp
     this.characters.refresh();
+    this.fitMaterias();
     this.characters.hp.set(this.characters.hpMax());
     this.characters.mp.set(this.characters.mpMax());
     this.characters.limit.set(0);
@@ -296,6 +298,23 @@ export class GameService {
     weapon.equipped = true;
     character.setWeapon(weapon);
     this.characters.refresh();
+    this.fitMaterias();
+  }
+
+  /**
+   * A character leaves the team, and the materias that no longer have a slot
+   * are unequipped. Does nothing if it is the last one.
+   */
+  leaveTeam(character: Character): void {
+    this.characters.leave(character);
+    this.fitMaterias();
+  }
+
+  /**
+   * Unequips the materias beyond the slots of the team's weapons
+   */
+  private fitMaterias(): void {
+    this.materias.fit(this.characters.getMaxMaterias());
   }
 
   /**

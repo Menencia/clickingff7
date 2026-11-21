@@ -534,4 +534,73 @@ describe('GameService', () => {
       expect(busterSword.equipped).toBe(true);
     });
   });
+
+  describe('materia slots', () => {
+    const character = (ref: CharacterRef) => {
+      const found = game.characters.list.find((c) => c.ref === ref);
+      if (!found) throw new Error(`${ref} not found`);
+      return found;
+    };
+    const equipped = () => refs(game.materias.getEquipped());
+
+    beforeEach(async () => {
+      game = await startGame();
+      unlockNextZone(game);
+      unlockNextZone(game); // zone 3: Cloud (1 slot) and Aerith (2 slots)
+      game.materias.add(
+        TestBed.inject(StoreService).getMateria(MateriaRef.Fire),
+        true,
+      );
+    });
+
+    it('all 3 slots are used in zone 3', () => {
+      expect(game.characters.getMaxMaterias()).toBe(3);
+      expect(equipped()).toEqual([
+        MateriaRef.Restore,
+        MateriaRef.Bolt,
+        MateriaRef.Fire,
+      ]);
+    });
+
+    it('a character leaving the team unequips the materias in excess', () => {
+      game.leaveTeam(character(CharacterRef.Aerith));
+
+      expect(game.characters.getMaxMaterias()).toBe(1);
+      expect(equipped()).toEqual([MateriaRef.Restore]);
+    });
+
+    it('the last character cannot leave, and keeps the materias', () => {
+      game.leaveTeam(character(CharacterRef.Aerith));
+      game.leaveTeam(character(CharacterRef.Cloud));
+
+      expect(character(CharacterRef.Cloud).inTeam).toBe(true);
+      expect(equipped()).toEqual([MateriaRef.Restore]);
+    });
+
+    it('a weapon with fewer slots unequips the materias in excess', () => {
+      const aerith = character(CharacterRef.Aerith);
+      const rod = TestBed.inject(StoreService).getWeapon(WeaponRef.MythrilRod);
+      rod.maxMaterias = 1;
+      game.weapons.add(rod);
+
+      game.equipWeapon(aerith, rod);
+
+      expect(game.characters.getMaxMaterias()).toBe(2);
+      expect(equipped()).toEqual([MateriaRef.Restore, MateriaRef.Bolt]);
+    });
+
+    it('a save with too many equipped materias is fixed on load', async () => {
+      const save = game.export();
+      save.characters.list.forEach((c) => {
+        c.inTeam = c.ref === CharacterRef.Cloud;
+      });
+      localStorage.setItem('save1', btoa(JSON.stringify(save)));
+      clearTimeout(game.timer);
+
+      game = await startGame();
+
+      expect(game.characters.getMaxMaterias()).toBe(1);
+      expect(equipped()).toEqual([MateriaRef.Restore]);
+    });
+  });
 });

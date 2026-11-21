@@ -1,7 +1,9 @@
 import { TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
+import { StoreService } from '../../core/services/store.service';
 import { CharacterRef } from '../../models/refs/characters';
+import { MateriaRef } from '../../models/refs/materias';
 import { MAX_TEAM } from '../../models/units/characters';
 import {
   MemoryStorage,
@@ -116,5 +118,21 @@ describe('ViewPhsComponent (real data)', () => {
 
     phs.joinTeam(tifa);
     expect(game.characters.hpMax()).toBe(hpMax);
+  });
+
+  it('unequips the materias that no longer have a slot', () => {
+    // Restore, Bolt + Fire: 3 slots with Cloud, Barret and Tifa
+    game.materias.add(
+      TestBed.inject(StoreService).getMateria(MateriaRef.Fire),
+      true,
+    );
+
+    phs.leaveTeam(character(CharacterRef.Tifa));
+
+    expect(game.characters.getMaxMaterias()).toBe(2);
+    expect(game.materias.getEquipped().map((m) => m.ref)).toEqual([
+      MateriaRef.Restore,
+      MateriaRef.Bolt,
+    ]);
   });
 });

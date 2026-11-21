@@ -36,7 +36,7 @@ export class ViewPhsComponent {
   }
 
   leaveTeam(character: Character): void {
-    this.gameService.characters.leave(character);
+    this.gameService.leaveTeam(character);
     this.refresh();
   }
 

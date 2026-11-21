@@ -50,6 +50,17 @@ export class Materias {
   }
 
   /**
+   * Unequips the last equipped materias until at most {max} remain
+   */
+  fit(max: number): void {
+    this.getEquipped()
+      .slice(Math.max(max, 0))
+      .forEach((m) => {
+        m.equipped = false;
+      });
+  }
+
+  /**
    * Get unequipped materias
    */
   getUnequipped(): Materia[] {

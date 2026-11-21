@@ -182,6 +182,7 @@ Ensuite, `nbFights` de la zone courante augmente de 1 (une victoire contre un bo
 
 - Les materias forment un **stock commun** à l'équipe. Elles ne sont pas attachées à un personnage.
 - Nombre d'emplacements = somme des `maxMaterias` des armes portées par l'équipe.
+- Quand le nombre d'emplacements diminue (un personnage quitte l'équipe ou devient indisponible, arme avec moins d'emplacements, sauvegarde incohérente au chargement), les materias en trop sont déséquipées : les premières materias équipées de la liste sont conservées.
 - AP requis pour le niveau suivant = ⌈F(ap) × 60 × niveau⌉. Le gain de niveau s'arrête au niveau 100.
 - Puissance effective = puissance de base + niveau − 1
 - **Materia d'attaque** : coûte ⌈(puissance + 1) / 50⌉ − 1 MP. Utilisable seulement en combat, si l'équipe a assez de MP. Elle inflige une attaque de puissance d'équipe × puissance effective / 100, avec l'élément de la materia (variation et critique comme une attaque normale).
