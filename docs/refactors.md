@@ -54,7 +54,7 @@ Changement : extraire `encodeSave()` / `decodeSave()` dans `shared/utils/save.ut
 
 **Risque** : faible. Vérifier qu'une sauvegarde existante se recharge toujours (test d'aller-retour du commit 2). C'est un prérequis pour rebrancher l'import.
 
-### 4. `fix(progress-bar): unsubscribe from hits stream on destroy` 🟠
+### 4. `fix(progress-bar): unsubscribe from hits stream on destroy` 🟠 ✅ fait
 
 Dans `ProgressBarComponent.ngOnInit`, `this.hits.subscribe(...)` n'est jamais désabonné, et le `setTimeout` n'est pas annulé. Or `Characters.source.hp` vit dans `GameService` pendant toute la partie. Chaque passage sur l'écran Jeu ajoute donc un abonnement, qui continue de modifier un composant détruit.
 

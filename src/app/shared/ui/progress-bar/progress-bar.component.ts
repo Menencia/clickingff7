@@ -1,4 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, DestroyRef, Input, inject, OnInit } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject } from 'rxjs';
 import { ItDisplayHits } from '../../../core/interfaces/it-display-hits';
 
@@ -9,6 +10,8 @@ import { ItDisplayHits } from '../../../core/interfaces/it-display-hits';
   styleUrls: ['./progress-bar.component.scss'],
 })
 export class ProgressBarComponent implements OnInit {
+  private readonly destroyRef = inject(DestroyRef);
+
   Math = Math;
 
   @Input() id = '';
@@ -31,7 +34,8 @@ export class ProgressBarComponent implements OnInit {
 
   ngOnInit() {
     this.progressBg = this.progress;
-    this.hits.subscribe((hits) => {
+    this.destroyRef.onDestroy(() => clearTimeout(this.time));
+    this.hits.pipe(takeUntilDestroyed(this.destroyRef)).subscribe((hits) => {
       this.arrHits.unshift(hits);
 
       clearTimeout(this.time);
