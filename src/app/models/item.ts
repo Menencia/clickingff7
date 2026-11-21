@@ -49,8 +49,8 @@ export abstract class Item {
     return this;
   }
 
-  available(zoneLlevelMax: number): boolean {
-    return zoneLlevelMax >= this.zoneAvailable;
+  available(zoneLevelMax: number): boolean {
+    return zoneLevelMax >= this.zoneAvailable;
   }
 
   abstract canUse(context: Context): boolean;

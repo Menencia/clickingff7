@@ -183,7 +183,7 @@ Dans `view-config.component.html`, `<option value="1">` avec `ngModel` enregistr
 
 **Risque** : faible. Les anciennes sauvegardes contenant « 2 » : convertir avec `Number()` dans `load()`.
 
-### 18. `refactor(models): fix misleading names and comments` 🟢
+### 18. `refactor(models): fix misleading names and comments` 🟢 ✅ fait
 
 - `Materia.inStock` renvoie un booléen alors que son commentaire parle d'un nombre ; le renommer en `isOwned`.
 - `Character.notAvailable` est commenté « Returns true if the character is available ».

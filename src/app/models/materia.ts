@@ -85,9 +85,9 @@ export abstract class Materia {
   }
 
   /**
-   * Returns the number of owned
+   * Returns true if a materia with the same ref is in {materias}
    */
-  inStock(materias: Materia[]): boolean {
+  isOwned(materias: Materia[]): boolean {
     const materia = materias.find((e) => e.ref === this.ref);
     if (materia) {
       return true;

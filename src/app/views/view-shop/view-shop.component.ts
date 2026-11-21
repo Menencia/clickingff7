@@ -92,13 +92,13 @@ export class ViewShopComponent {
     }
   }
 
-  inStockMateria(materia: Materia): boolean {
-    return materia.inStock(this.gameService.materias.list);
+  isOwnedMateria(materia: Materia): boolean {
+    return materia.isOwned(this.gameService.materias.list);
   }
 
   canBuyMateria(materia: Materia): boolean {
     return (
-      !this.inStockMateria(materia) &&
+      !this.isOwnedMateria(materia) &&
       this.gameService.gils() >= materia.getPrice()
     );
   }

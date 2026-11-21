@@ -81,7 +81,7 @@ export class Character {
     return this;
   }
 
-  /* Returns true if the character is available in the {zonelevelMax} */
+  /** Returns true if the character is not available in the {zonelevelMax} */
   notAvailable(zonelevelMax: number): boolean {
     return this.notA.includes(zonelevelMax);
   }

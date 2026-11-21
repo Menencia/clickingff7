@@ -95,9 +95,9 @@
                 "Mat. " + materia.ref + " desc" | translate
               }}</span>
             </td>
-            @if (materia.inStock(playerMaterias)) {
+            @if (materia.isOwned(playerMaterias)) {
             <td>🗸</td>
-            } @if (!materia.inStock(playerMaterias)) {
+            } @if (!materia.isOwned(playerMaterias)) {
             <td></td>
             }
             <td>{{ materia.price }} {{ "Gils" | translate }}</td>
@@ -179,9 +179,9 @@
                 "Mat. " + materia.ref + " desc" | translate
               }}</span>
             </td>
-            @if (materia.inStock([])) {
+            @if (materia.isOwned([])) {
             <td>🗸</td>
-            } @if (!materia.inStock([])) {
+            } @if (!materia.isOwned([])) {
             <td></td>
             }
             <td>{{ materia.getSellPrice() }} {{ "Gils" | translate }}</td>

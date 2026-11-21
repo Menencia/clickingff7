@@ -19,14 +19,14 @@ export abstract class Units {
   abstract isAlive(): boolean;
 
   /**
-   * Returns true if the enemy has this type in weakness
+   * Returns true if the unit is weak to one of these types
    */
   hasWeakness(types: string[]): boolean {
     return this.weakness.filter((x) => types.includes(x)).length > 0;
   }
 
   /**
-   * Returns true if the enemy has this type in weakness
+   * Returns true if the unit resists one of these types
    */
   hasResistance(types: string[]): boolean {
     return this.resistance.filter((x) => types.includes(x)).length > 0;
