@@ -53,3 +53,28 @@ Bilan des 51 commits passés sur la branche `experiments` depuis le tag `v1.4.0`
 ## Avant de publier
 
 - Mettre à jour la version dans `package.json`, qui vaut encore `1.4.0`.
+
+## Texte de la release 1.5.0
+
+```
+- New design and new title font
+- Horizontal menu on large screens, side drawer on small screens
+- Dark theme is now the default (the light theme is now called "cupcake")
+- Colored HP, MP, Limit and enemy HP bars
+- Highlight the selected zone in Map section and the selected character in Equip section
+- Enemy panel stays visible outside of battles
+- The tutorial can be started from the help button in the top bar and is readable in dark mode
+- Confirmation popups before resetting or importing a game, and invalid saves are now detected
+- Equipped materias are flagged in Shop section and can no longer be sold
+- Keyboard navigation for the buttons in PHS, Materia and Items sections
+- Fix Yuffie not being able to change her weapon
+- Fix 4-pt Shuriken missing from Shop section
+- Fix zone 9 that could never be completed (Bottomswell)
+- Fix losing the next battle right away after a defeat
+- Fix character and materia levels going above 100
+- Fix a corrupted save blocking the game at startup
+- Fix progress from the previous game being kept after a reset or an import
+- Fix weapon sorting in Shop section
+
+Note: Project has been updated to Angular 22 and the PrimeNG library has been replaced by daisyUI
+```
