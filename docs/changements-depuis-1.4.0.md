@@ -30,7 +30,7 @@ Bilan des 51 commits passés sur la branche `experiments` depuis le tag `v1.4.0`
 
 ## Changements
 
-- **Thème** : le thème clair par défaut devient le thème sombre. Le thème clair s'appelle désormais « cupcake ». Une préférence enregistrée par la 1.4.0 (`light`) ne correspond plus à aucun thème connu.
+- **Thème** : le thème clair par défaut devient le thème sombre. Le thème clair s'appelle désormais « cupcake ». Une préférence enregistrée par la 1.4.0 (`light`) est convertie en « cupcake ».
 - **Astérisque sur « Carte »** : en 1.4.0, il apparaissait quand une nouvelle zone était débloquée et disparaissait après une visite de la Carte. Il reste maintenant affiché tant que la zone courante est terminée et qu'il existe une zone suivante.
 - **Pied de page** : il est plus grand et se trouve sur un fond sombre.
 - **Tutoriel** : il se lance avec l'icône d'aide (point d'interrogation dans un rond) de la barre du haut, désactivée pendant un combat. Chaque étape désigne de nouveau son élément. Sur mobile, l'étape du menu principal désigne le bouton du tiroir. La bulle et ses boutons suivent le thème, donc restent lisibles en mode sombre.
@@ -52,5 +52,4 @@ Bilan des 51 commits passés sur la branche `experiments` depuis le tag `v1.4.0`
 
 ## Avant de publier
 
-- Convertir l'ancienne valeur de thème `light` en `cupcake`.
 - Mettre à jour la version dans `package.json`, qui vaut encore `1.4.0`.
