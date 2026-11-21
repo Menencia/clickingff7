@@ -23,7 +23,9 @@ CI (`.github/workflows/main.yml`, on `main`/`next`) runs build, `test:ci`, then 
 
 ## Functional specs
 
-`specs.md` (in French) documents every game rule, formula, data table and screen as currently implemented, plus a list of known anomalies. **Keep it in sync**: any change to game logic, balancing formulas, `src/assets/data/*.json`, unlocks, screens or save format must update the matching section of `specs.md` in the same change. When fixing an issue listed under "Anomalies connues", remove it from that list.
+`specs.md` (in French) documents every game rule, formula, data table and screen as currently implemented. **Keep it in sync**: any change to game logic, balancing formulas, `src/assets/data/*.json`, unlocks, screens or save format must update the matching section of `specs.md` in the same change.
+
+`docs/bugs.md` (in French) lists known bugs and unfinished features. Add any bug you find there. When fixing one, remove it from the list and renumber the following entries.
 
 ## Code style
 

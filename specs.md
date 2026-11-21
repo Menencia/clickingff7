@@ -1,6 +1,6 @@
 # Spécifications fonctionnelles — Clickingff7
 
-Ce document décrit le comportement **actuellement implémenté** du jeu. Il doit être mis à jour à chaque évolution du code qui change une règle, une formule, une donnée de jeu ou un écran.
+Ce document décrit le comportement **actuellement implémenté** du jeu. Il doit être mis à jour à chaque évolution du code qui change une règle, une formule, une donnée de jeu ou un écran. Les bugs et fonctionnalités inachevées sont listés dans `docs/bugs.md`.
 
 Les valeurs entre parenthèses renvoient aux constantes ou fichiers du code.
 
@@ -244,7 +244,7 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 | PHS | `/phs` | Échange de personnages entre l'équipe et la réserve : 3 membres au maximum, 1 au minimum. |
 | Sauvegarde | `/save` | Voir §11. |
 
-**Tutoriel** : le bouton d'aide lance une visite guidée avec intro.js. Les étapes sont ancrées sur les éléments `#step1` à `#step13`, et leurs textes sont les clés `step1`…`step15` de `help.json`.
+**Tutoriel** : visite guidée avec intro.js, chargée à la demande (`SidemenuComponent.help()`). Elle n'est lancée que hors combat et renvoie d'abord à l'écran Jeu. Les étapes sont définies dans `models/help.ts` et ancrées sur les éléments `#step1` à `#step13`. Leurs textes sont les clés `step1`…`step15` de `help.json`. Aucun bouton ne lance actuellement le tutoriel (voir `docs/bugs.md`).
 
 **Répliques** : chaque personnage affiche une réplique qui dépend de la zone max atteinte (clé i18n `Line {levelMax} {ref}`).
 
@@ -273,12 +273,3 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 - **Langue** : par défaut, celle du navigateur si elle vaut en, fr ou es, sinon en. Elle est enregistrée dans la sauvegarde. Le français est la langue source des traductions (Crowdin).
 - **Difficulté** : Normal par défaut. Elle s'applique aux ennemis générés ensuite (§5.2).
 - **Argent de départ** : 200 gils.
-
-## 12. Anomalies connues
-
-Ces écarts ont été constatés dans le code actuel. Ce sont probablement des bugs ou des fonctionnalités inachevées, à corriger ou à confirmer :
-
-1. Après une **défaite**, les HP restent à 0. Le combat suivant est perdu dès la première attaque ennemie, sauf si le joueur se soigne avant.
-2. Les personnages n'attaquent pas automatiquement : `autoFighting()` existe mais n'est jamais appelé.
-3. La vente d'une materia ne vérifie pas si elle est équipée.
-4. Le niveau maximum de 100 (personnages et materias) n'est vérifié qu'**avant** la boucle de montée de niveau dans `Character.setXp` et `Materia.setAp`. Un gros gain d'XP ou d'AP au niveau 99 fait donc dépasser le niveau 100.
