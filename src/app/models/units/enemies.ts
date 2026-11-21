@@ -88,11 +88,6 @@ export class Enemies extends Units {
   }
 
   isAlive(): boolean {
-    if (this.hp() <= 0) {
-      this.hp.set(0);
-
-      return false;
-    }
-    return true;
+    return this.hp() > 0;
   }
 }

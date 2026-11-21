@@ -77,7 +77,7 @@ Changement : une classe de base pour les objets achetables (prix et revente) et 
 
 ## Lot 3 — Lisibilité
 
-### 7. `refactor(units): separate queries from side effects and fix misleading names` 🟢
+### 7. `refactor(units): separate queries from side effects and fix misleading names` 🟢 ✅ fait
 
 - `Characters.isAlive()` remet `hp` et `limit` à 0, et `Enemies.isAlive()` remet `hp` à 0, alors que `getAttacked()` borne déjà les HP à 0.
 - `Characters.getAttackSkill()` vide la jauge de Limite : un simple « get » consomme une ressource.

@@ -177,6 +177,17 @@ describe('BattleService', () => {
       expect(service.battle()).toBeUndefined();
       expect(game.zones.current().nbFights).toBe(0);
     });
+
+    it('empties the limit gauge when the team is defeated', () => {
+      service.startRandom();
+      game.characters.hp.set(1);
+      game.characters.limit.set(10);
+
+      vi.advanceTimersByTime(1000);
+
+      expect(service.battle()).toBeUndefined();
+      expect(game.characters.limit()).toBe(0);
+    });
   });
 
   describe('canFightBoss', () => {
@@ -305,6 +316,35 @@ describe('BattleService', () => {
       expect(game.characters.limit()).toBe(0);
     });
 
+    it('deals about 5 times more damage with the Limit', () => {
+      vi.spyOn(Math, 'random').mockReturnValue(0.5); // no variance, no critical
+      const battle = startBattle();
+      const hpStart = battle.enemies.hpMax() * 1000;
+
+      battle.enemies.hp.set(hpStart);
+      service.attack();
+      const normal = hpStart - battle.enemies.hp();
+
+      battle.enemies.hp.set(hpStart);
+      game.characters.limit.set(game.characters.limitMax());
+      service.attack();
+      const limit = hpStart - battle.enemies.hp();
+
+      // exact ×5 is covered in characters.spec.ts; here hits are small and rounded
+      expect(limit).toBeGreaterThanOrEqual(normal * 4);
+      expect(limit).toBeLessThanOrEqual(normal * 6);
+    });
+
+    it('keeps the gauge when it is not full', () => {
+      const battle = startBattle();
+      battle.enemies.hp.set(battle.enemies.hpMax() * 1000);
+      game.characters.limit.set(1);
+
+      service.attack();
+
+      expect(game.characters.limit()).toBe(1);
+    });
+
     it('wins the battle when the enemies reach 0 HP', () => {
       const battle = startBattle();
       battle.enemies.hp.set(1);
@@ -331,6 +371,15 @@ describe('BattleService', () => {
       expect(game.gils()).toBe(gils);
       expect(game.characters.list.map((c) => c.xp)).toEqual(xp);
       expect(game.zones.current().nbFights).toBe(0);
+    });
+
+    it('keeps the limit gauge', () => {
+      service.startRandom();
+      game.characters.limit.set(10);
+
+      service.escape();
+
+      expect(game.characters.limit()).toBe(10);
     });
 
     it('does nothing outside a battle', () => {

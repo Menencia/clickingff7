@@ -30,7 +30,7 @@ export class CureMateria extends Materia {
 
   /**
    * Do materia action
-   * Add to HP : +30% to +60%
+   * Restores getPwr()% of max HP (±10%)
    */
   getSkill(context: Context): ItAction[] {
     const hits = context.characters.hpMax();

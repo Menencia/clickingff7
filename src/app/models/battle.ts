@@ -30,6 +30,8 @@ export class Battle {
       if (this.characters.isAlive()) {
         this.start();
       } else {
+        // the Limit gauge is lost when the team is defeated
+        this.characters.limit.set(0);
         this.end(false);
       }
     }, 1000);

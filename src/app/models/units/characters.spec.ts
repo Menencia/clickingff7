@@ -225,11 +225,11 @@ describe('Characters', () => {
   });
 
   describe('isAlive', () => {
-    it('resets the limit gauge when the team is dead', () => {
+    it('returns false at 0 HP without touching the limit gauge', () => {
       characters.limit.set(50);
       characters.hp.set(0);
       expect(characters.isAlive()).toBe(false);
-      expect(characters.limit()).toBe(0);
+      expect(characters.limit()).toBe(50);
     });
 
     it('returns true while HP is above 0', () => {
@@ -247,11 +247,11 @@ describe('Characters', () => {
       expect(characters.limit()).toBe(10);
     });
 
-    it('returns a limit (power 500) and empties the gauge when full', () => {
+    it('returns a limit (power 500) without emptying the gauge when full', () => {
       characters.limit.set(characters.limitMax());
       const attack = characters.getAttackSkill() as Attack;
       expect(attack.pwr).toBe(500);
-      expect(characters.limit()).toBe(0);
+      expect(characters.limit()).toBe(characters.limitMax());
     });
 
     it('deals 5 times the damage of a normal attack with a limit', () => {

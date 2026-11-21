@@ -1,23 +1,22 @@
 import { Component, effect, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
+const DARK_THEME = 'dark';
+const LIGHT_THEME = 'cupcake';
+
 @Component({
   selector: 'app-theme-picker',
   imports: [FormsModule],
   templateUrl: './theme-picker.component.html',
 })
 export class ThemePickerComponent {
-  readonly DEFAULT_THEME = 'dark';
+  readonly DEFAULT_THEME = DARK_THEME;
 
-  isDarkMode = signal(false);
+  isLightTheme = signal(false);
 
   constructor() {
     effect(() => {
-      if (this.isDarkMode()) {
-        this.setTheme('cupcake');
-      } else {
-        this.setTheme('dark');
-      }
+      this.setTheme(this.isLightTheme() ? LIGHT_THEME : DARK_THEME);
     });
   }
 
@@ -25,11 +24,11 @@ export class ThemePickerComponent {
     let savedTheme = localStorage.getItem('theme');
     // Older versions stored the light theme as 'light', which is no longer a configured daisyUI theme.
     if (savedTheme === 'light') {
-      savedTheme = 'cupcake';
+      savedTheme = LIGHT_THEME;
     }
     if (savedTheme) {
       this.setTheme(savedTheme);
-      this.isDarkMode.set(savedTheme !== 'dark');
+      this.isLightTheme.set(savedTheme !== DARK_THEME);
     } else {
       this.setTheme(this.DEFAULT_THEME);
     }

@@ -102,9 +102,6 @@ export class BattleService {
   }
 
   /**
-   * Returns true if zone boss is available
-   */
-  /**
    * A battle can start when none is ongoing and the team has HP left
    */
   canFightRandom(): boolean {
@@ -135,7 +132,12 @@ export class BattleService {
     if (!battle) {
       return;
     }
-    this.gameService.characters.getAttackSkill().use(this.getContext());
+    const { characters } = this.gameService;
+    const skill = characters.getAttackSkill();
+    if (characters.canLimit()) {
+      characters.limit.set(0);
+    }
+    skill.use(this.getContext());
     this.endIfEnemiesDefeated();
   }
 

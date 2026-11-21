@@ -162,17 +162,11 @@ export class Characters extends Units {
   }
 
   /**
-   * Get total characters hits
+   * Team attack: a Limit (power 500) when the gauge is full, otherwise a normal
+   * attack (power 100). Does not consume the gauge.
    */
   getAttackSkill(): ItActionAttack {
-    let pwr = 100;
-
-    // limit
-    if (this.canLimit()) {
-      pwr = 500;
-      this.limit.set(0);
-    }
-
+    const pwr = this.canLimit() ? 500 : 100;
     return new Attack(this.hits(), pwr);
   }
 
@@ -199,14 +193,7 @@ export class Characters extends Units {
   }
 
   isAlive(): boolean {
-    if (this.hp() <= 0) {
-      this.limit.set(0);
-      this.hp.set(0);
-
-      return false;
-    }
-
-    return true;
+    return this.hp() > 0;
   }
 
   /**
