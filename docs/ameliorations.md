@@ -6,3 +6,4 @@ Idées d'évolution du jeu, à discuter avant implémentation. Les bugs sont lis
    - régénérer lentement les HP (et éventuellement les MP) hors combat, par exemple avec le timer de `GameService` ;
    - remettre automatiquement un pourcentage des HP max après une défaite ;
    - ajouter une action « Se reposer », gratuite ou payante en gils, qui restaure l'équipe.
+2. **Attaque automatique des personnages.** En combat, seuls les ennemis ont une boucle d'attaque (`Battle.start`). Les personnages n'attaquent que sur action du joueur.
