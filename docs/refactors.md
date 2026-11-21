@@ -19,7 +19,7 @@ Ces problèmes ne relèvent pas du refactor, mais ils sont à traiter en priorit
 
 Les 26 fichiers `*.spec.ts` ne vérifient que la création des composants et services (`should create`). `core/services/game.service.spec.ts` remplace même `GameService` par un mock avant de l'injecter : il ne teste rien. Aucune règle métier n'est couverte, alors que les lots suivants vont déplacer cette logique.
 
-### 1. `test(models): cover stats, leveling and damage formulas` 🔴
+### 1. `test(models): cover stats, leveling and damage formulas` 🔴 ✅ fait
 
 Ajouter des tests unitaires purs, sans TestBed, sur :
 - `Character` (`getHpMax`, `getMpMax`, `getXpMax`, `setXp` avec plusieurs niveaux d'un coup et le plafond à 100)
@@ -32,7 +32,7 @@ Bouchonner `Math.random` pour rendre `random()` déterministe.
 
 **Risque** : nul pour le code de production. Les tests figent le comportement actuel, y compris le bug de `compareVersions` (commit 6) : écrire ce cas comme un test attendu en échec (`it.fails`) ou le documenter.
 
-### 2. `test(battle): cover battle loop, rewards and boss unlock` 🔴
+### 2. `test(battle): cover battle loop, rewards and boss unlock` 🔴 ✅ fait
 
 Tester :
 - `Battle` avec des faux timers Vitest (attaque ennemie toutes les secondes, défaite à 0 HP)
