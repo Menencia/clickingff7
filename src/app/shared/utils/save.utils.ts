@@ -42,7 +42,7 @@ const isBoolean = (v: unknown): v is boolean => typeof v === 'boolean';
 
 const isString = (v: unknown): v is string => typeof v === 'string';
 
-/** Saves written by the config screen store the difficulty as a string. */
+/** Older saves store the difficulty as a string ("2"); load() converts it. */
 const isNumeric = (v: unknown): boolean =>
   isNumber(v) || (isString(v) && v.trim() !== '' && isNumber(Number(v)));
 

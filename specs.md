@@ -271,5 +271,5 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 - **Réinitialiser** : possible seulement si une sauvegarde existe, après confirmation. Efface la sauvegarde, recommence en zone 1 et renvoie à l'écran Jeu.
 - **Temps de jeu** : compteur incrémenté chaque seconde, affiché au format `h:mm:ss`.
 - **Langue** : par défaut, celle du navigateur si elle vaut en, fr ou es, sinon en. Elle est enregistrée dans la sauvegarde. Le français est la langue source des traductions (Crowdin).
-- **Difficulté** : Normal par défaut. Elle s'applique aux ennemis générés ensuite (§5.2).
+- **Difficulté** : Normal par défaut. Elle s'applique aux ennemis générés ensuite (§5.2). Elle est enregistrée comme un nombre (1 Facile, 2 Normal, 3 Difficile). Une ancienne sauvegarde où elle est stockée en chaîne (« 2 ») reste valide et est convertie en nombre au chargement.
 - **Argent de départ** : 200 gils.

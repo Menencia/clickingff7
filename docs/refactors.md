@@ -177,7 +177,7 @@ intro.js est chargé comme script global (`angular.json` → `scripts`) et typé
 
 **Risque** : très faible. Le build et le lint détectent les références restantes.
 
-### 17. `fix(config): store difficulty as a number` 🟢
+### 17. `fix(config): store difficulty as a number` 🟢 ✅ fait
 
 Dans `view-config.component.html`, `<option value="1">` avec `ngModel` enregistre `difficulty` comme une chaîne (« 1 »), qui part ensuite dans la sauvegarde typée `number`. `Enemy.toLevel` ne fonctionne que grâce à la conversion implicite de JavaScript. Utiliser `[ngValue]="Difficulty.Easy"`, etc.
 

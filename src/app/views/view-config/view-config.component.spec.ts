@@ -1,20 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
-import { GameService } from '../../core/services/game.service';
+import { Difficulty, GameService } from '../../core/services/game.service';
 import { ViewConfigComponent } from './view-config.component';
 
 describe('ViewConfigComponent', () => {
+  let game: { difficulty: Difficulty; language: string };
+
   beforeEach(async () => {
+    game = { difficulty: Difficulty.Normal, language: 'en' };
     await TestBed.configureTestingModule({
       imports: [ViewConfigComponent],
       providers: [
         provideTranslateService({ fallbackLang: 'en' }),
-        {
-          provide: GameService,
-          useValue: {
-            run: () => {},
-          },
-        },
+        { provide: GameService, useValue: game },
       ],
     }).compileComponents();
   });
@@ -23,5 +21,32 @@ describe('ViewConfigComponent', () => {
     const fixture = TestBed.createComponent(ViewConfigComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
+  });
+
+  it.each([
+    [0, Difficulty.Easy],
+    [1, Difficulty.Normal],
+    [2, Difficulty.Hard],
+  ])('stores option %i as the number %i', async (index, expected) => {
+    const fixture = TestBed.createComponent(ViewConfigComponent);
+    await fixture.whenStable();
+    const select: HTMLSelectElement =
+      fixture.nativeElement.querySelector('select');
+
+    select.selectedIndex = index;
+    select.dispatchEvent(new Event('change'));
+
+    expect(game.difficulty).toBe(expected);
+    expect(typeof game.difficulty).toBe('number');
+  });
+
+  it('preselects the current difficulty', async () => {
+    game.difficulty = Difficulty.Hard;
+    const fixture = TestBed.createComponent(ViewConfigComponent);
+    await fixture.whenStable();
+    const select: HTMLSelectElement =
+      fixture.nativeElement.querySelector('select');
+
+    expect(select.selectedIndex).toBe(2);
   });
 });

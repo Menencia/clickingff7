@@ -14,6 +14,8 @@ export class ViewConfigComponent {
   private gameService = inject(GameService);
   private translateService = inject(TranslateService);
 
+  protected readonly Difficulty = Difficulty;
+
   difficulty: Difficulty;
 
   language: string;

@@ -2,9 +2,9 @@
   <p>
     {{ "Difficulty" | translate }} :
     <select [(ngModel)]="difficulty" (change)="changeDifficulty()">
-      <option value="1">{{ "Easy" | translate }}</option>
-      <option value="2">{{ "Normal" | translate }}</option>
-      <option value="3">{{ "Hard" | translate }}</option>
+      <option [ngValue]="Difficulty.Easy">{{ "Easy" | translate }}</option>
+      <option [ngValue]="Difficulty.Normal">{{ "Normal" | translate }}</option>
+      <option [ngValue]="Difficulty.Hard">{{ "Hard" | translate }}</option>
     </select>
   </p>
 

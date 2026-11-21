@@ -274,6 +274,18 @@ describe('GameService', () => {
       expect(localStorage.getItem('save1')).toBeNull();
     });
 
+    it('converts a difficulty stored as a string to a number', async () => {
+      game = await startGame();
+      const old = { ...game.export(), difficulty: '3' };
+      localStorage.setItem('save1', btoa(JSON.stringify(old)));
+      clearTimeout(game.timer);
+
+      game = await startGame();
+
+      expect(game.difficulty).toBe(Difficulty.Hard);
+      expect(game.export().difficulty).toBe(3);
+    });
+
     it('offers the next zone when the last zone is completed', async () => {
       game = await startGame();
       game.zones.list[0].completed = true;

@@ -350,7 +350,8 @@ export class GameService {
     });
 
     this.language = save.language;
-    this.difficulty = save.difficulty;
+    // Older saves store the difficulty as a string ("2").
+    this.difficulty = Number(save.difficulty);
 
     this.time.set(save.time);
     this.gils.set(save.gils);
