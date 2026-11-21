@@ -109,7 +109,7 @@ Changement : `computed` sur `characters.team()` pour l'équipe, la réserve et l
 
 ## Lot 5 — Nettoyage
 
-### 10. `chore: remove dead code and unused scripts` 🟢
+### 10. `chore: remove dead code and unused scripts` 🟢 ✅ fait
 
 À supprimer :
 - dans `ProgressBarComponent` : `progressBg`, `time`, son `setTimeout` et son `clearTimeout`, `Math` et l'input `name`, qui ne sont pas lus par le template (adapter le test « updates the background after 300 ms » et retirer `[name]` des appelants)

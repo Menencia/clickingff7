@@ -220,11 +220,6 @@ describe('GameService', () => {
       expect(game.saves[0]).toEqual(saved);
     });
 
-    it('does nothing when not confirmed', () => {
-      game.save(false);
-      expect(localStorage.getItem('save1')).toBeNull();
-    });
-
     it('reset removes the save', () => {
       game.save();
       game.reset();

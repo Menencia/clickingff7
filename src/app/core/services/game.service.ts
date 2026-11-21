@@ -365,11 +365,7 @@ export class GameService {
   /**
    * Load a save
    */
-  load(save: Save, confirm = true): void {
-    if (!confirm) {
-      return;
-    }
-
+  load(save: Save): void {
     // weapons
     save.weapons.forEach((w) => {
       const weapon = this.store.getWeapon(w.ref).load(w);
@@ -423,11 +419,7 @@ export class GameService {
   /**
    *
    */
-  save(confirm = true): void {
-    if (!confirm) {
-      return;
-    }
-
+  save(): void {
     const s = this.export();
     this.saves[0] = s;
 

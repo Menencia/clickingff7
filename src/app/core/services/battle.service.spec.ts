@@ -129,9 +129,11 @@ describe('BattleService', () => {
       materias.forEach((m) => {
         expect(m.ap).toBe(enemy.apReward());
       });
-      game.materias.getUnequipped().forEach((m) => {
-        expect(m.ap).toBe(0);
-      });
+      game.materias.list
+        .filter((m) => !m.equipped)
+        .forEach((m) => {
+          expect(m.ap).toBe(0);
+        });
       expect(game.zones.current().nbFights).toBe(1);
       expect(service.battle()).toBeUndefined();
     });

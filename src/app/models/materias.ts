@@ -61,13 +61,6 @@ export class Materias {
   }
 
   /**
-   * Get unequipped materias
-   */
-  getUnequipped(): Materia[] {
-    return this.list.filter((e) => !e.equipped);
-  }
-
-  /**
    * Export all materias
    */
   export(): MateriaSave[] {

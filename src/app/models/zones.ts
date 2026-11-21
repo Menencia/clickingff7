@@ -27,16 +27,6 @@ export class Zones {
   }
 
   /**
-   * Returns all the discovered zones
-   */
-  getAll(): Zone[] {
-    const zoneLvlMax = this.levelMax;
-    return this.list.filter((z: Zone) => {
-      return z.level <= zoneLvlMax;
-    });
-  }
-
-  /**
    * Moves to an unlocked zone. Does nothing if the zone is not unlocked.
    */
   goTo(level: number): void {

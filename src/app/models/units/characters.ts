@@ -177,27 +177,6 @@ export class Characters extends Units {
   }
 
   /**
-   * Returns in pixels characters hp bar width
-   */
-  hpProgress(pixelsMax: number): number {
-    return (this.hp() / this.hpMax()) * pixelsMax;
-  }
-
-  /**
-   * Returns in pixels characters mp bar width
-   */
-  mpProgress(pixelsMax: number): number {
-    return (this.mp() / this.mpMax()) * pixelsMax;
-  }
-
-  /**
-   * Returns in pixels characters hp bar width
-   */
-  limitProgress(pixelsMax: number): number {
-    return (this.limit() / this.limitMax()) * pixelsMax;
-  }
-
-  /**
    * Characters are under attack
    */
   getAttacked(baseHits: number, context: ItActionAttack): void {

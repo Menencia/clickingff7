@@ -11,8 +11,6 @@
     "deploy:hosting": "pnpm run build && firebase deploy --only hosting",
     "lint": "biome check",
     "lint:staged": "biome check --staged --no-errors-on-unmatched",
-    "lint:ci": "biome ci",
-    "check": "ng lint && pnpm run test:ci",
     "i18n:download": "crowdin download --identity .crowdin.yml",
     "prepare": "husky"
   },

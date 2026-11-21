@@ -9,8 +9,6 @@ describe('ProgressBarComponent', () => {
   let hits: Subject<ItDisplayHits>;
 
   beforeEach(async () => {
-    vi.useFakeTimers();
-
     await TestBed.configureTestingModule({
       imports: [ProgressBarComponent],
     }).compileComponents();
@@ -23,23 +21,23 @@ describe('ProgressBarComponent', () => {
     fixture.detectChanges();
   });
 
-  afterEach(() => {
-    vi.useRealTimers();
-  });
-
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('displays received hits and updates the background after 300 ms', () => {
-    fixture.componentRef.setInput('progress', 50);
+  it('displays received hits, newest first', () => {
     hits.next({ hits: 30 });
+    hits.next({ hits: 12 });
 
-    expect(component.arrHits.length).toBe(1);
-    expect(component.progressBg).toBe(80);
+    expect(component.arrHits).toEqual([{ hits: 12 }, { hits: 30 }]);
+  });
 
-    vi.advanceTimersByTime(300);
-    expect(component.progressBg).toBe(50);
+  it('removes the oldest hit when its animation ends', () => {
+    hits.next({ hits: 30 });
+    hits.next({ hits: 12 });
+    component.onAnimationEvent();
+
+    expect(component.arrHits).toEqual([{ hits: 12 }]);
   });
 
   it('unsubscribes from the hits stream on destroy', () => {
@@ -50,14 +48,11 @@ describe('ProgressBarComponent', () => {
     expect(component.arrHits.length).toBe(0);
   });
 
-  it('cancels the pending timeout on destroy', () => {
-    fixture.componentRef.setInput('progress', 50);
+  it('leaves no pending timer', () => {
+    vi.useFakeTimers();
     hits.next({ hits: 30 });
-    fixture.destroy();
-
-    vi.advanceTimersByTime(300);
-    expect(component.progressBg).toBe(80);
     expect(vi.getTimerCount()).toBe(0);
+    vi.useRealTimers();
   });
 
   it('renders the progress, style and text inputs', () => {

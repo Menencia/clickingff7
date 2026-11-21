@@ -95,11 +95,4 @@ export class Enemies extends Units {
     }
     return true;
   }
-
-  /**
-   * Returns in pixels enemy bar width
-   */
-  hpProgress(pixelsMax: number): number {
-    return (this.hp() / this.hpMax()) * pixelsMax;
-  }
 }

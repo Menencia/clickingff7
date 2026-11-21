@@ -5,7 +5,6 @@
     [progress]="round((characters().hp() / characters().hpMax()) * 100)"
     [style]="'progress-success'"
     [text]="'HP ' + characters().hp()"
-    [name]="'hp'"
     [hits]="characters().source.hp"
   ></app-progress-bar>
 
@@ -14,7 +13,6 @@
     [progress]="round((characters().mp() / characters().mpMax()) * 100)"
     [style]="'progress-info'"
     [text]="'MP ' + characters().mp()"
-    [name]="'mp'"
   ></app-progress-bar>
 
   <app-progress-bar
@@ -24,7 +22,6 @@
     [text]="
       'LIMIT ' + round((characters().limit() / characters().limitMax()) * 100) + '%'
     "
-    [name]="'limit'"
   ></app-progress-bar>
 
   <!-- characters list -->
@@ -45,7 +42,6 @@
         <app-progress-bar
           [progress]="round((character.xp / character.getXpMax()) * 100)"
           [text]="character.xp + ' / ' + character.getXpMax() + 'EXP'"
-          [name]="'exp'"
         ></app-progress-bar>
         <div class="text-2xl">{{ character.ref }}</div>
         <div class="text-sm italic">"{{ getLine(character) | translate }}"</div>

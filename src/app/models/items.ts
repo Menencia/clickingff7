@@ -4,14 +4,11 @@ import { ItemSave } from './save';
 export class Items {
   list: Item[];
 
-  equipped: boolean;
-
   /**
    * Init
    */
   constructor() {
     this.list = [];
-    this.equipped = false;
   }
 
   /**
@@ -55,13 +52,6 @@ export class Items {
    */
   unequip(item: Item): void {
     item.equipped = false;
-  }
-
-  /**
-   * Get unequipped items
-   */
-  getUnequipped(): Item[] {
-    return this.list.filter((e) => !e.equipped);
   }
 
   /**

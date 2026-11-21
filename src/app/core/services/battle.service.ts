@@ -86,7 +86,7 @@ export class BattleService {
     const battle = new Battle(this.gameService.characters, enemies);
 
     // watch battle state
-    battle.state.subscribe(async (state) => {
+    battle.state.subscribe((state) => {
       switch (state) {
         case BattleState.Ended:
           // rewards on victory
