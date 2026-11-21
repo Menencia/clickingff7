@@ -17,7 +17,7 @@ Package manager is **pnpm**.
 - `pnpm test:ci`: single run
 - Single test file: `ng test --watch=false --include src/app/core/services/battle.service.spec.ts`
 - `pnpm lint`: Biome check (lint + format). Use `pnpm biome check --write` to auto-fix.
-- `pnpm deploy`: build + `firebase deploy`
+- `pnpm deploy:hosting`: build + `firebase deploy --only hosting`
 
 CI (`.github/workflows/main.yml`, on `main`/`next`) runs build, `test:ci`, then `lint`. The Husky pre-commit hook runs `biome check --staged`.
 

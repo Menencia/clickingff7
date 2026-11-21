@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/clickingff7",
+    "public": "dist/clickingff7/browser",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {

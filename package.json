@@ -8,7 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "test:ci": "ng test --watch=false",
-    "deploy": "pnpm run build && firebase deploy",
+    "deploy:hosting": "pnpm run build && firebase deploy --only hosting",
     "lint": "biome check",
     "lint:staged": "biome check --staged --no-errors-on-unmatched",
     "lint:ci": "biome ci",
