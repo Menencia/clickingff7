@@ -62,7 +62,7 @@ Changement : `takeUntilDestroyed(this.destroyRef)`, plus `clearTimeout` dans un 
 
 **Risque** : faible. Vérifier que les dégâts flottants s'affichent toujours après plusieurs allers-retours Jeu → Carte → Jeu.
 
-### 5. `refactor(battle): move player actions from UiActionsComponent to BattleService` 🟠
+### 5. `refactor(battle): move player actions from UiActionsComponent to BattleService` 🟠 ✅ fait
 
 `UiActionsComponent.attack()`, `useMateria()` et `useItem()` contiennent de la logique métier : débit des MP, consommation des objets, et fin de combat quand les ennemis meurent (dupliquée entre `attack` et `useMateria`). En cas d'action impossible, ces méthodes lèvent `throw new Error('CANNOT USE')`.
 

@@ -1,5 +1,8 @@
 import { Injectable, signal } from '@angular/core';
 import { Battle, BattleState } from '../../models/battle';
+import { Context } from '../../models/context';
+import { Item } from '../../models/item';
+import { Materia } from '../../models/materia';
 import { Enemies } from '../../models/units/enemies';
 import { MAX_FIGHTS, Zone } from '../../models/zone';
 import { random } from '../../shared/utils/math.utils';
@@ -108,6 +111,79 @@ export class BattleService {
   canFightBoss(): boolean {
     const zone = this.gameService.zones.current();
     return !this.battle() && zone.nbFights >= MAX_FIGHTS && !zone.completed;
+  }
+
+  /**
+   * Team attacks the enemies (Limit when the gauge is full)
+   */
+  attack(): void {
+    const battle = this.battle();
+    if (!battle) {
+      return;
+    }
+    this.gameService.characters.getAttackSkill().use(this.getContext());
+    this.endIfEnemiesDefeated();
+  }
+
+  /**
+   * Returns true if the materia can be used now
+   */
+  canUseMateria(materia: Materia): boolean {
+    return materia.canUse(this.getContext());
+  }
+
+  /**
+   * Pays the MP cost and applies the materia effect.
+   * Does nothing if the materia cannot be used.
+   */
+  useMateria(materia: Materia): void {
+    const context = this.getContext();
+    if (!materia.canUse(context)) {
+      return;
+    }
+    this.gameService.characters.mp -= materia.getMpCost();
+    materia.use(context);
+    this.endIfEnemiesDefeated();
+  }
+
+  /**
+   * Returns true if the item can be used now
+   */
+  canUseItem(item: Item): boolean {
+    return item.canUse(this.getContext());
+  }
+
+  /**
+   * Consumes one item and applies its effect.
+   * Does nothing if the item cannot be used.
+   */
+  useItem(item: Item): void {
+    const context = this.getContext();
+    if (!item.canUse(context)) {
+      return;
+    }
+    const { items } = this.gameService;
+    if (item.nbr > 1) {
+      item.nbr -= 1;
+    } else {
+      items.list = items.list.filter((e) => e !== item);
+    }
+    item.use(context);
+    this.endIfEnemiesDefeated();
+  }
+
+  private getContext(): Context {
+    return {
+      characters: this.gameService.characters,
+      battle: this.battle(),
+    };
+  }
+
+  private endIfEnemiesDefeated(): void {
+    const battle = this.battle();
+    if (battle && !battle.enemies.isAlive()) {
+      battle.end(true);
+    }
   }
 
   onTeamVictory(battle: Battle) {

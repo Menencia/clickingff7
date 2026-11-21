@@ -1,5 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
+import { MateriaRef } from '../../models/refs/materias';
 import { MAX_FIGHTS } from '../../models/zone';
 import {
   loadGameData,
@@ -226,6 +227,168 @@ describe('BattleService', () => {
       service.battle()?.end(true);
 
       expect(zone.completed).toBe(false);
+    });
+  });
+  function startBattle() {
+    service.startRandom();
+    const battle = service.battle();
+    if (!battle) throw new Error('no battle');
+    return battle;
+  }
+
+  function materia(ref: MateriaRef) {
+    const m = game.materias.list.find((e) => e.ref === ref);
+    if (!m) throw new Error(`no materia ${ref}`);
+    return m;
+  }
+
+  describe('attack', () => {
+    it('does nothing outside a battle', () => {
+      expect(() => service.attack()).not.toThrow();
+      expect(service.battle()).toBeUndefined();
+    });
+
+    it('damages the enemies without ending the battle', () => {
+      const battle = startBattle();
+      battle.enemies.hp.set(battle.enemies.hpMax * 1000);
+      const hp = battle.enemies.hp();
+
+      service.attack();
+
+      expect(battle.enemies.hp()).toBeLessThan(hp);
+      expect(service.battle()).toBe(battle);
+    });
+
+    it('uses the Limit and resets the gauge when full', () => {
+      const battle = startBattle();
+      battle.enemies.hp.set(battle.enemies.hpMax * 1000);
+      game.characters.limit = game.characters.limitMax;
+
+      service.attack();
+
+      expect(game.characters.limit).toBe(0);
+    });
+
+    it('wins the battle when the enemies reach 0 HP', () => {
+      const battle = startBattle();
+      battle.enemies.hp.set(1);
+
+      service.attack();
+
+      expect(battle.victory).toBe(true);
+      expect(service.battle()).toBeUndefined();
+      expect(game.zones.current().nbFights).toBe(1);
+    });
+  });
+
+  describe('useMateria', () => {
+    it('pays the MP cost and damages the enemies', () => {
+      const battle = startBattle();
+      battle.enemies.hp.set(battle.enemies.hpMax * 1000);
+      const bolt = materia(MateriaRef.Bolt);
+      game.characters.mp = game.characters.mpMax;
+      const mp = game.characters.mp;
+      const hp = battle.enemies.hp();
+
+      expect(service.canUseMateria(bolt)).toBe(true);
+      service.useMateria(bolt);
+
+      expect(game.characters.mp).toBe(mp - bolt.getMpCost());
+      expect(battle.enemies.hp()).toBeLessThan(hp);
+      expect(service.battle()).toBe(battle);
+    });
+
+    it('wins the battle when the enemies reach 0 HP', () => {
+      const battle = startBattle();
+      battle.enemies.hp.set(1);
+      game.characters.mp = game.characters.mpMax;
+
+      service.useMateria(materia(MateriaRef.Bolt));
+
+      expect(battle.victory).toBe(true);
+      expect(service.battle()).toBeUndefined();
+    });
+
+    it('does nothing when the materia cannot be used', () => {
+      const bolt = materia(MateriaRef.Bolt);
+      game.characters.mp = game.characters.mpMax;
+      const mp = game.characters.mp;
+
+      // attack materia outside a battle
+      expect(service.canUseMateria(bolt)).toBe(false);
+      expect(() => service.useMateria(bolt)).not.toThrow();
+      expect(game.characters.mp).toBe(mp);
+    });
+
+    it('does nothing without enough MP', () => {
+      const battle = startBattle();
+      const hp = battle.enemies.hp();
+      const bolt = materia(MateriaRef.Bolt);
+      expect(bolt.getMpCost()).toBeGreaterThan(0);
+      game.characters.mp = bolt.getMpCost() - 1;
+
+      expect(service.canUseMateria(bolt)).toBe(false);
+      service.useMateria(bolt);
+
+      expect(game.characters.mp).toBe(bolt.getMpCost() - 1);
+      expect(battle.enemies.hp()).toBe(hp);
+    });
+
+    it('can cure outside a battle', () => {
+      const restore = materia(MateriaRef.Restore);
+      game.characters.mp = game.characters.mpMax;
+      game.characters.hp.set(1);
+
+      service.useMateria(restore);
+
+      expect(game.characters.hp()).toBeGreaterThan(1);
+      expect(game.characters.mp).toBe(
+        game.characters.mpMax - restore.getMpCost(),
+      );
+    });
+  });
+
+  describe('useItem', () => {
+    it('consumes one item and applies its effect', () => {
+      const [potion] = game.items.list;
+      expect(potion.nbr).toBe(2);
+      game.characters.hp.set(1);
+
+      expect(service.canUseItem(potion)).toBe(true);
+      service.useItem(potion);
+
+      expect(potion.nbr).toBe(1);
+      expect(game.items.list).toContain(potion);
+      expect(game.characters.hp()).toBeGreaterThan(1);
+    });
+
+    it('removes the item from the stock when the last one is used', () => {
+      const [potion] = game.items.list;
+      potion.nbr = 1;
+      game.characters.hp.set(1);
+
+      service.useItem(potion);
+
+      expect(game.items.list).not.toContain(potion);
+    });
+
+    it('does nothing when the item cannot be used', () => {
+      const [potion] = game.items.list;
+      game.characters.hp.set(game.characters.hpMax);
+
+      expect(service.canUseItem(potion)).toBe(false);
+      expect(() => service.useItem(potion)).not.toThrow();
+      expect(potion.nbr).toBe(2);
+    });
+
+    it('does not end the battle', () => {
+      const battle = startBattle();
+      const [potion] = game.items.list;
+      game.characters.hp.set(1);
+
+      service.useItem(potion);
+
+      expect(service.battle()).toBe(battle);
     });
   });
 });

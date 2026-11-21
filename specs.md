@@ -112,6 +112,8 @@ Actions disponibles :
 - **Fuite** : termine le combat sans récompense et sans pénalité. Le combat ne compte pas dans `nbFights`.
 - **Materias** équipées et **objets** équipés (voir §6 et §7).
 
+Ces actions du joueur sont appliquées par `BattleService` (`attack`, `useMateria`, `useItem`). Une materia ou un objet inutilisable (bouton désactivé) est ignoré, sans coût.
+
 Les ennemis attaquent toutes les **1 seconde**. Si les HP de l'équipe tombent à 0, le combat est perdu : la Limite est remise à 0, et les HP **restent à 0** jusqu'à ce qu'ils soient soignés. Il n'y a pas de régénération automatique. Si les HP ennemis tombent à 0 après une action du joueur, le combat est gagné.
 
 ### 5.2 Génération des ennemis
