@@ -258,8 +258,9 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 - **Catalogue** (`ShopService`) : armes, materias et objets dont la zone de disponibilité est inférieure ou égale à la zone max atteinte. Il est recalculé à chaque ouverture de l'écran.
 - **Achat d'arme** : possible seulement si le joueur n'en possède aucun exemplaire et a assez de gils. L'arme achetée n'est pas équipée.
 - **Achat de materia** : possible seulement si elle n'est pas déjà possédée et que le joueur a assez de gils. Elle n'est pas équipée.
-- **Achat d'objet** : sans limite de quantité. Un nouveau type d'objet est équipé automatiquement s'il reste une place (moins de 2 équipés).
+- **Achat d'objet** : possible dès que le joueur a assez de gils, sans limite de quantité. Un nouveau type d'objet est équipé automatiquement s'il reste une place (moins de 2 équipés).
 - **Revente** : au **prix d'achat / 2**. Impossible de vendre le dernier exemplaire d'une arme équipée, ni une materia équipée (signalée par un badge « Équipée » dans l'onglet Vente).
+- **Règles** : `ShopService` vérifie chaque achat et chaque revente (`canBuy*` / `canSell*`) et ne fait rien si l'opération est impossible, indépendamment des boutons désactivés de l'écran.
 - **Tri** : armes par type (broadsword, gun-arm, knuckle, stave, headdresse, shuriken) puis par dégâts ; materias par puissance ; objets par identifiant.
 
 ## 11. Sauvegarde et paramètres

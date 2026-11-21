@@ -1,10 +1,11 @@
 import { Injectable, inject } from '@angular/core';
-import { Item } from '../../models/item';
+import { Item, MAX_ITEMS } from '../../models/item';
 import { Materia } from '../../models/materia';
 import { ItemRef } from '../../models/refs/items';
 import { MateriaRef } from '../../models/refs/materias';
 import { WeaponRef } from '../../models/refs/weapons';
 import { Weapon } from '../../models/weapon';
+import { GameService } from './game.service';
 import { StoreService } from './store.service';
 
 const SHOP_WEAPONS: WeaponRef[] = [
@@ -52,14 +53,17 @@ const WEAPON_TYPE_ORDER: string[] = [
 ];
 
 /**
- * Single source for the shop catalog and the shop sort orders.
- * Every call returns fresh instances, never the player's stock.
+ * Single source for the shop catalog, the shop sort orders and the
+ * buy and sell rules. The catalog getters return fresh instances, never
+ * the player's stock. Each buy and sell checks its rule and does nothing
+ * (returns false) when the operation is not allowed.
  */
 @Injectable({
   providedIn: 'root',
 })
 export class ShopService {
   private store = inject(StoreService);
+  private game = inject(GameService);
 
   getWeapons(levelMax: number): Weapon[] {
     return this.sortWeapons(
@@ -83,6 +87,109 @@ export class ShopService {
         i.available(levelMax),
       ),
     );
+  }
+
+  canBuyWeapon(weapon: Weapon): boolean {
+    return (
+      weapon.inStock(this.game.weapons.list) === 0 &&
+      this.game.gils() >= weapon.getPrice()
+    );
+  }
+
+  /**
+   * Adds a new copy of the weapon, never the given (catalog) instance.
+   */
+  buyWeapon(weapon: Weapon): boolean {
+    if (!this.canBuyWeapon(weapon)) return false;
+    this.game.gils.update((gils) => gils - weapon.getPrice());
+    this.game.weapons.add(this.store.getWeapon(weapon.ref), false);
+    return true;
+  }
+
+  /**
+   * An owned weapon can be sold unless it is the last equipped copy.
+   */
+  canSellWeapon(weapon: Weapon): boolean {
+    return (
+      this.game.weapons.list.includes(weapon) &&
+      (!weapon.equipped || weapon.nbr > 1)
+    );
+  }
+
+  sellWeapon(weapon: Weapon): boolean {
+    if (!this.canSellWeapon(weapon)) return false;
+    this.game.gils.update((gils) => gils + weapon.getSellPrice());
+    if (weapon.nbr > 1) {
+      weapon.nbr -= 1;
+    } else {
+      this.game.weapons.list = this.game.weapons.list.filter(
+        (e) => e !== weapon,
+      );
+    }
+    return true;
+  }
+
+  canBuyMateria(materia: Materia): boolean {
+    return (
+      !materia.isOwned(this.game.materias.list) &&
+      this.game.gils() >= materia.getPrice()
+    );
+  }
+
+  /**
+   * Adds a new copy of the materia, never the given (catalog) instance.
+   */
+  buyMateria(materia: Materia): boolean {
+    if (!this.canBuyMateria(materia)) return false;
+    this.game.gils.update((gils) => gils - materia.getPrice());
+    this.game.materias.add(this.store.getMateria(materia.ref));
+    return true;
+  }
+
+  /**
+   * An owned materia can be sold unless it is equipped.
+   */
+  canSellMateria(materia: Materia): boolean {
+    return this.game.materias.list.includes(materia) && !materia.equipped;
+  }
+
+  sellMateria(materia: Materia): boolean {
+    if (!this.canSellMateria(materia)) return false;
+    this.game.gils.update((gils) => gils + materia.getSellPrice());
+    this.game.materias.list = this.game.materias.list.filter(
+      (e) => e !== materia,
+    );
+    return true;
+  }
+
+  canBuyItem(item: Item): boolean {
+    return this.game.gils() >= item.getPrice();
+  }
+
+  /**
+   * Stacks on the owned copy, or adds a new copy, equipped if a slot is free.
+   */
+  buyItem(item: Item): boolean {
+    if (!this.canBuyItem(item)) return false;
+    this.game.gils.update((gils) => gils - item.getPrice());
+    const equipped = this.game.items.getEquipped().length < MAX_ITEMS;
+    this.game.items.add(this.store.getItem(item.ref), equipped);
+    return true;
+  }
+
+  canSellItem(item: Item): boolean {
+    return this.game.items.list.includes(item);
+  }
+
+  sellItem(item: Item): boolean {
+    if (!this.canSellItem(item)) return false;
+    this.game.gils.update((gils) => gils + item.getSellPrice());
+    if (item.nbr > 1) {
+      item.nbr -= 1;
+    } else {
+      this.game.items.list = this.game.items.list.filter((e) => e !== item);
+    }
+    return true;
   }
 
   /**

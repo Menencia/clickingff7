@@ -2,8 +2,7 @@ import { Component, inject } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { ShopService } from '../../core/services/shop.service';
-import { StoreService } from '../../core/services/store.service';
-import { Item, MAX_ITEMS } from '../../models/item';
+import { Item } from '../../models/item';
 import { Materia } from '../../models/materia';
 import { Weapon } from '../../models/weapon';
 import { ItemIconComponent } from '../../shared/ui/item-icon/item-icon.component';
@@ -24,7 +23,6 @@ import { WeaponIconComponent } from '../../shared/ui/weapon-icon/weapon-icon.com
 })
 export class ViewShopComponent {
   private gameService = inject(GameService);
-  private store = inject(StoreService);
   private shop = inject(ShopService);
 
   section = 'buy';
@@ -64,32 +62,19 @@ export class ViewShopComponent {
   }
 
   canBuyWeapon(weapon: Weapon): boolean {
-    return (
-      this.inStockWeapon(weapon) === 0 &&
-      this.gameService.gils() >= weapon.getPrice()
-    );
+    return this.shop.canBuyWeapon(weapon);
   }
 
   buyWeapon(weapon: Weapon): void {
-    this.gameService.gils.update((gils) => gils - weapon.getPrice());
-    this.gameService.weapons.add(this.store.getWeapon(weapon.ref), false);
-    this.refreshPlayerWeapons();
+    if (this.shop.buyWeapon(weapon)) this.refreshPlayerWeapons();
   }
 
   canSellWeapon(weapon: Weapon): boolean {
-    return (weapon.equipped && weapon.nbr > 1) || !weapon.equipped;
+    return this.shop.canSellWeapon(weapon);
   }
 
   sellWeapon(weapon: Weapon): void {
-    this.gameService.gils.update((gils) => gils + weapon.getSellPrice());
-    if (weapon.nbr > 1) {
-      weapon.nbr -= 1;
-    } else {
-      this.gameService.weapons.list = this.gameService.weapons.list.filter(
-        (e) => e !== weapon,
-      );
-      this.refreshPlayerWeapons();
-    }
+    if (this.shop.sellWeapon(weapon)) this.refreshPlayerWeapons();
   }
 
   isOwnedMateria(materia: Materia): boolean {
@@ -97,29 +82,19 @@ export class ViewShopComponent {
   }
 
   canBuyMateria(materia: Materia): boolean {
-    return (
-      !this.isOwnedMateria(materia) &&
-      this.gameService.gils() >= materia.getPrice()
-    );
+    return this.shop.canBuyMateria(materia);
   }
 
   buyMateria(materia: Materia): void {
-    this.gameService.gils.update((gils) => gils - materia.getPrice());
-    this.gameService.materias.add(this.store.getMateria(materia.ref));
-    this.refreshPlayerMaterias();
+    if (this.shop.buyMateria(materia)) this.refreshPlayerMaterias();
   }
 
   canSellMateria(materia: Materia): boolean {
-    return !materia.equipped;
+    return this.shop.canSellMateria(materia);
   }
 
   sellMateria(materia: Materia): void {
-    if (!this.canSellMateria(materia)) return;
-    this.gameService.gils.update((gils) => gils + materia.getSellPrice());
-    this.gameService.materias.list = this.gameService.materias.list.filter(
-      (e) => e !== materia,
-    );
-    this.refreshPlayerMaterias();
+    if (this.shop.sellMateria(materia)) this.refreshPlayerMaterias();
   }
 
   inStockItem(item: Item): number {
@@ -127,26 +102,19 @@ export class ViewShopComponent {
   }
 
   canBuyItem(item: Item): boolean {
-    return this.gameService.gils() >= item.getPrice();
+    return this.shop.canBuyItem(item);
   }
 
   buyItem(item: Item): void {
-    this.gameService.gils.update((gils) => gils - item.getPrice());
-    const equipped = this.gameService.items.getEquipped().length < MAX_ITEMS;
-    this.gameService.items.add(this.store.getItem(item.ref), equipped);
-    this.refreshPlayerItems();
+    if (this.shop.buyItem(item)) this.refreshPlayerItems();
+  }
+
+  canSellItem(item: Item): boolean {
+    return this.shop.canSellItem(item);
   }
 
   sellItem(item: Item): void {
-    this.gameService.gils.update((gils) => gils + item.getSellPrice());
-    if (item.nbr > 1) {
-      item.nbr -= 1;
-    } else {
-      this.gameService.items.list = this.gameService.items.list.filter(
-        (e) => e !== item,
-      );
-      this.refreshPlayerItems();
-    }
+    if (this.shop.sellItem(item)) this.refreshPlayerItems();
   }
 
   refresh(): void {

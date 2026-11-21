@@ -26,7 +26,7 @@ Tester avec les données réelles (`testing/game-data.testing.ts`) :
 
 ## Lot 2 — Logique métier hors des vues
 
-### 2. `refactor(shop): move buy and sell rules to ShopService` 🟠
+### 2. `refactor(shop): move buy and sell rules to ShopService` 🟠 ✅ fait
 
 `ViewShopComponent` (`buyWeapon`, `sellWeapon`, `buyMateria`, `sellMateria`, `buyItem`, `sellItem`) débite et crédite les gils, ajoute au stock et retire de `gameService.*.list`. Les méthodes d'achat ne vérifient pas les gils : seul le `[disabled]` du template l'empêche. C'est le même problème que celui que le commit 5 de l'analyse précédente a réglé pour les actions de combat.
 

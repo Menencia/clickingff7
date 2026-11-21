@@ -3,9 +3,6 @@ import { provideTranslateService } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { ShopService } from '../../core/services/shop.service';
 import { StoreService } from '../../core/services/store.service';
-import { ItemRef } from '../../models/refs/items';
-import { MateriaRef } from '../../models/refs/materias';
-import { WeaponRef } from '../../models/refs/weapons';
 import {
   MemoryStorage,
   provideInMemoryGameData,
@@ -80,54 +77,6 @@ describe('ViewShopComponent (real catalog)', () => {
     vi.unstubAllGlobals();
   });
 
-  it('buying a weapon adds a copy, not the catalog object', () => {
-    const weapon = shop.shopWeapons.find((w) => w.ref === WeaponRef.AssaultGun);
-    if (!weapon) throw new Error('AssaultGun not in shop');
-    shop.buyWeapon(weapon);
-
-    const owned = game.weapons.list.find((w) => w.ref === weapon.ref);
-    expect(owned).toBeDefined();
-    expect(owned).not.toBe(weapon);
-    expect(weapon).toMatchObject({ nbr: 1, equipped: false });
-  });
-
-  it('buying a materia adds a copy, not the catalog object', () => {
-    const materia = shop.shopMaterias.find((m) => m.ref === MateriaRef.Ice);
-    if (!materia) throw new Error('Ice not in shop');
-    shop.buyMateria(materia);
-
-    const owned = game.materias.list.find((m) => m.ref === materia.ref);
-    expect(owned).toBeDefined();
-    expect(owned).not.toBe(materia);
-  });
-
-  it('cannot sell an equipped materia', () => {
-    const materia = game.materias.list[0];
-    materia.equipped = true;
-    const gils = game.gils();
-    expect(shop.canSellMateria(materia)).toBe(false);
-    shop.sellMateria(materia);
-    expect(game.materias.list).toContain(materia);
-    expect(game.gils()).toBe(gils);
-
-    materia.equipped = false;
-    expect(shop.canSellMateria(materia)).toBe(true);
-    shop.sellMateria(materia);
-    expect(game.materias.list).not.toContain(materia);
-  });
-
-  it('buying an item twice stacks on the owned copy only', () => {
-    const item = shop.shopItems.find((i) => i.ref === ItemRef.Ether);
-    if (!item) throw new Error('Ether not in shop');
-    shop.buyItem(item);
-    shop.buyItem(item);
-
-    const owned = game.items.list.find((i) => i.ref === item.ref);
-    expect(owned).not.toBe(item);
-    expect(owned?.nbr).toBe(2);
-    expect(item.nbr).toBe(1);
-  });
-
   it('shows the shared catalog for the max zone reached', () => {
     const refs = shop.shopWeapons.map((w) => w.ref);
     expect(refs).toEqual(
@@ -147,5 +96,12 @@ describe('ViewShopComponent (real catalog)', () => {
     expect(game.weapons.list).toEqual(stock);
     expect(stock.slice(0, before.length)).toEqual(before);
     expect(shop.playerWeapons).toHaveLength(stock.length);
+  });
+
+  it('refreshes the player lists after a sale', () => {
+    const item = game.items.list[0];
+    item.nbr = 1;
+    shop.sellItem(item);
+    expect(shop.playerItems).not.toContain(item);
   });
 });

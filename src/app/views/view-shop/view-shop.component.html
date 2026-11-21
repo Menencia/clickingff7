@@ -208,7 +208,12 @@
             <td>{{ inStockItem(item) }}</td>
             <td>{{ item.getSellPrice() }} {{ "Gils" | translate }}</td>
             <td>
-              <button type="button" class="btn" (click)="sellItem(item)">
+              <button
+                type="button"
+                class="btn"
+                (click)="sellItem(item)"
+                [disabled]="!canSellItem(item)"
+              >
                 {{ "Sell" | translate }}
               </button>
             </td>
