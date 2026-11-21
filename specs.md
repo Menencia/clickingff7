@@ -285,3 +285,4 @@ Ces écarts ont été constatés dans le code actuel. Ce sont probablement des b
 7. La vente d'une materia ne vérifie pas si elle est équipée.
 8. Les boutons **Réinitialiser** et **Importer** sont commentés dans `view-save.component.html`, depuis la disparition de la directive de confirmation PrimeNG. Ces deux fonctions ne sont donc plus accessibles au joueur.
 9. Une sauvegarde corrompue dans `localStorage` empêche le jeu de démarrer : `JSON.parse(atob(...))` n'est pas protégé par un `try/catch`.
+10. Le niveau maximum de 100 (personnages et materias) n'est vérifié qu'**avant** la boucle de montée de niveau dans `Character.setXp` et `Materia.setAp`. Un gros gain d'XP ou d'AP au niveau 99 fait donc dépasser le niveau 100.
