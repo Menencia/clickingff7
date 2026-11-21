@@ -116,13 +116,12 @@ export class Character {
 
   /** Updates xp and can trigger character level up */
   setXp(xp: number): void {
-    if (this.level < MAX_LEVEL) {
-      this.xp += xp;
-      while (this.xp >= this.getXpMax()) {
-        this.xp -= this.getXpMax();
-        this.level += 1;
-      }
-    } else {
+    this.xp += xp;
+    while (this.level < MAX_LEVEL && this.xp >= this.getXpMax()) {
+      this.xp -= this.getXpMax();
+      this.level += 1;
+    }
+    if (this.level >= MAX_LEVEL) {
       this.xp = 0;
     }
   }

@@ -39,7 +39,7 @@ Les tirages aléatoires utilisent `random(min, max)`, qui renvoie un entier entr
 - MP max = ⌈F(mp) × 3 × niveau⌉
 - XP requise pour le niveau suivant = ⌈(1 + 0,1 × (3 − xp)) × 100 × niveau⌉. La stat XP est inversée : plus elle est haute, plus le personnage progresse vite.
 - Puissance d'attaque = niveau × dégâts de l'arme / 10
-- Niveau maximum : 100. Au-delà, l'XP reçue est ignorée et remise à 0. Un gain d'XP peut faire passer plusieurs niveaux d'un coup.
+- Niveau maximum : 100. Un gain d'XP peut faire passer plusieurs niveaux d'un coup, sans dépasser 100. Au niveau 100, l'XP restante ou reçue est ignorée et remise à 0.
 
 ### 3.3 Statistiques d'équipe (`models/units/characters.ts`)
 

@@ -90,9 +90,7 @@ describe('Character', () => {
       expect(c.xp).toBe(0);
     });
 
-    // Known bug: the level cap is only checked before the loop, so a large
-    // gain at level 99 goes past 100.
-    it.fails('never goes past level 100', () => {
+    it('never goes past level 100', () => {
       const c = makeCharacter().setLevel(99);
       c.setXp(100_000);
       expect(c.level).toBe(100);

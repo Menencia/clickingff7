@@ -114,11 +114,9 @@ export abstract class Materia {
    */
   setAp(ap: number): void {
     this.ap += ap;
-    if (this.level < MAX_LEVEL) {
-      while (this.ap >= this.getApMax()) {
-        this.ap -= this.getApMax();
-        this.level += 1;
-      }
+    while (this.level < MAX_LEVEL && this.ap >= this.getApMax()) {
+      this.ap -= this.getApMax();
+      this.level += 1;
     }
   }
 

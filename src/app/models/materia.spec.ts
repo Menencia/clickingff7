@@ -59,9 +59,7 @@ describe('Materia', () => {
       expect(m.ap).toBe(1_000_000);
     });
 
-    // Known bug: the level cap is only checked before the loop, so a large
-    // gain at level 99 goes past 100.
-    it.fails('never goes past level 100', () => {
+    it('never goes past level 100', () => {
       const m = makeAttack();
       m.level = 99;
       m.setAp(1_000_000);
