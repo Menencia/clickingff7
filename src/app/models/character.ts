@@ -1,3 +1,8 @@
+import {
+  inverseStatFactor,
+  MAX_LEVEL,
+  statFactor,
+} from '../shared/utils/game.utils';
 import { CharacterRef } from './refs/characters';
 import { CharacterSave } from './save';
 import { Weapon } from './weapon';
@@ -83,17 +88,17 @@ export class Character {
 
   /* Returns calculated HP MAX */
   getHpMax(): number {
-    return Math.ceil((((this.hpBase - 3) * 10) / 100 + 1) * 20 * this.level);
+    return Math.ceil(statFactor(this.hpBase) * 20 * this.level);
   }
 
   /** Returns calculated MP MAX */
   getMpMax(): number {
-    return Math.ceil((((this.mpBase - 3) * 10) / 100 + 1) * 3 * this.level);
+    return Math.ceil(statFactor(this.mpBase) * 3 * this.level);
   }
 
   /** Returns calculated XP MAX */
   getXpMax(): number {
-    return Math.ceil((((3 - this.xpBase) * 10) / 100 + 1) * 100 * this.level);
+    return Math.ceil(inverseStatFactor(this.xpBase) * 100 * this.level);
   }
 
   /** Returns hits produced by current weapon */
@@ -111,7 +116,7 @@ export class Character {
 
   /** Updates xp and can trigger character level up */
   setXp(xp: number): void {
-    if (this.level < 100) {
+    if (this.level < MAX_LEVEL) {
       this.xp += xp;
       while (this.xp >= this.getXpMax()) {
         this.xp -= this.getXpMax();

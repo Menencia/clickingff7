@@ -1,4 +1,5 @@
 import { ItAction } from '../../core/interfaces/it-action';
+import { withVariance } from '../../shared/utils/game.utils';
 import { random } from '../../shared/utils/math.utils';
 import { Context } from '../context';
 
@@ -14,9 +15,7 @@ export class Attack implements ItAction {
   /** Calculate raw damages */
   calculateHits(): number {
     // base hits with variance (-+10%)
-    const a = this.baseHits * (this.pwr / 100) * (1 - 10 / 100);
-    const b = this.baseHits * (this.pwr / 100) * (1 + 10 / 100);
-    let hits = Math.round(random(a, b));
+    let hits = withVariance(this.baseHits * (this.pwr / 100));
 
     // critical hits (<10%)
     if (random(0, 100) <= 10) {

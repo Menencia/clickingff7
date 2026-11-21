@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
+import { PHS_UNLOCK_ZONE } from '../../shared/utils/game.utils';
 import { GameService } from '../services/game.service';
 
 @Injectable({
@@ -15,6 +16,6 @@ export class ZoneGuard {
     | Promise<boolean | UrlTree>
     | boolean
     | UrlTree {
-    return this.gameService.zones.levelMax >= 5;
+    return this.gameService.zones.levelMax >= PHS_UNLOCK_ZONE;
   }
 }

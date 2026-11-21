@@ -1,3 +1,4 @@
+import { statFactor } from '../shared/utils/game.utils';
 import { EnemyRef } from './refs/enemy';
 
 export interface EnemyJson {
@@ -78,15 +79,11 @@ export class Enemy {
 
     this.level = Math.ceil(levelSum / 3);
 
-    this.hpMax = Math.ceil(
-      (((this.baseHpMax - 3) * 10) / 100 + 1) * 25 * levelSum,
-    );
-    this.hits = Math.ceil((((this.baseHits - 3) * 10) / 100 + 1) * levelSum);
-    this.xp = Math.ceil((((this.baseXp - 3) * 10) / 100 + 1) * 5 * levelSum);
-    this.ap = Math.ceil((((this.baseAp - 3) * 10) / 100 + 1) * 2 * levelSum);
-    this.gils = Math.ceil(
-      (((this.baseGils - 3) * 10) / 100 + 1) * (30 + levelSum),
-    );
+    this.hpMax = Math.ceil(statFactor(this.baseHpMax) * 25 * levelSum);
+    this.hits = Math.ceil(statFactor(this.baseHits) * levelSum);
+    this.xp = Math.ceil(statFactor(this.baseXp) * 5 * levelSum);
+    this.ap = Math.ceil(statFactor(this.baseAp) * 2 * levelSum);
+    this.gils = Math.ceil(statFactor(this.baseGils) * (30 + levelSum));
   }
 
   /**

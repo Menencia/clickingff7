@@ -1,4 +1,5 @@
 import { ItAction } from '../core/interfaces/it-action';
+import { MAX_LEVEL, statFactor } from '../shared/utils/game.utils';
 import { Context } from './context';
 
 import { MateriaRef } from './refs/materias';
@@ -98,7 +99,7 @@ export abstract class Materia {
    *
    */
   getApMax(): number {
-    return Math.ceil((((this.apBase - 3) * 10) / 100 + 1) * 60 * this.level);
+    return Math.ceil(statFactor(this.apBase) * 60 * this.level);
   }
 
   /**
@@ -113,7 +114,7 @@ export abstract class Materia {
    */
   setAp(ap: number): void {
     this.ap += ap;
-    if (this.level < 100) {
+    if (this.level < MAX_LEVEL) {
       while (this.ap >= this.getApMax()) {
         this.ap -= this.getApMax();
         this.level += 1;

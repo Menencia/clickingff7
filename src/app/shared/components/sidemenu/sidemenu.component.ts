@@ -4,6 +4,7 @@ import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { BattleService } from '../../../core/services/battle.service';
 import { GameService } from '../../../core/services/game.service';
 import { helpData } from '../../../models/help';
+import { PHS_UNLOCK_ZONE } from '../../utils/game.utils';
 
 // declare this to by pass typescript error
 // can put this in index.d.ts file
@@ -32,7 +33,7 @@ export class SidemenuComponent {
   }
 
   displayPhs() {
-    return this.gameService.zones.levelMax >= 5;
+    return this.gameService.zones.levelMax >= PHS_UNLOCK_ZONE;
   }
 
   help(): void {

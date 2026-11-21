@@ -1,5 +1,5 @@
 import { ItAction } from '../../core/interfaces/it-action';
-import { random } from '../../shared/utils/math.utils';
+import { withVariance } from '../../shared/utils/game.utils';
 import { Context } from '../context';
 
 export class Cure implements ItAction {
@@ -11,11 +11,7 @@ export class Cure implements ItAction {
   /** Calcultae raw cure */
   calculateHits(): number {
     // base hits with variance (-+10%)
-    const a = this.baseHits * (this.pwr / 100) * (1 - 10 / 100);
-    const b = this.baseHits * (this.pwr / 100) * (1 + 10 / 100);
-    const hits = Math.round(random(a, b));
-
-    return hits;
+    return withVariance(this.baseHits * (this.pwr / 100));
   }
 
   use(context: Context): void {

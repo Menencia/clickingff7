@@ -1,6 +1,6 @@
 import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
-import { random } from '../../shared/utils/math.utils';
+import { withVariance } from '../../shared/utils/game.utils';
 import { Context } from '../context';
 import { Enemy } from '../enemy';
 import { Units } from '../units';
@@ -53,9 +53,7 @@ export class Enemies extends Units {
    * Get *random* total characters hits
    */
   getHits(): number {
-    const a = this.hits * (1 - 10 / 100);
-    const b = this.hits * (1 + 10 / 100);
-    return Math.round(random(a, b));
+    return withVariance(this.hits);
   }
 
   /**

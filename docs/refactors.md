@@ -98,7 +98,7 @@ Changement : `ShopService` expose des `computed` du catalogue trié à partir de
 
 **Risque** : faible. Vérifier visuellement la boutique en zone 1 et en zone 7 (achat et vente).
 
-### 9. `refactor(game): extract game constants and stat formulas` 🟢
+### 9. `refactor(game): extract game constants and stat formulas` 🟢 ✅ fait
 
 Plusieurs règles sont écrites en dur à plusieurs endroits :
 - le facteur de stat `((s - 3) * 10) / 100 + 1`, répété 9 fois dans `Character`, `Enemy` et `Materia`
