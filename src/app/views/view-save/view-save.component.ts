@@ -25,9 +25,8 @@ export class ViewSaveComponent {
 
   showAreaImport: boolean;
 
-  msgImportSave = "Are you sure ? You'll lose your current save !";
-
-  msgResetGame = "Are you sure ? You'll lose everything !";
+  /** True when the last import attempt was rejected */
+  importError = false;
 
   constructor(
     private gameService: GameService,
@@ -48,10 +47,10 @@ export class ViewSaveComponent {
   }
 
   /**
-   * Reset the game
+   * Reset the game (after confirmation)
    */
-  resetGame(confirm: boolean): void {
-    if (this.gameService.saves[0] && confirm) {
+  resetGame(): void {
+    if (this.gameService.saves[0]) {
       this.gameService.preload();
       this.gameService.reset();
       this.gameService.buildLevel(1);
@@ -87,22 +86,41 @@ export class ViewSaveComponent {
   showImport(): void {
     this.showAreaImport = true;
     this.showAreaExport = false;
+    this.importError = false;
   }
 
   /**
-   * Import a save
+   * Check the pasted save before asking for confirmation.
+   * Returns true if the save can be imported.
    */
-  importSave(confirm: boolean): void {
-    if (!this.areaImport || !confirm) {
+  checkImport(): boolean {
+    this.importError = decodeSave(this.areaImport) === null;
+    return !this.importError;
+  }
+
+  /**
+   * Import a save (after confirmation).
+   * If the save references unknown data, the current game is kept.
+   */
+  importSave(): void {
+    const save = decodeSave(this.areaImport);
+    if (!save) {
+      this.importError = true;
       return;
     }
 
-    const save = decodeSave(this.areaImport);
-    if (save) {
-      this.gameService.preload();
+    const current = this.gameService.export();
+    this.gameService.preload();
+    try {
       this.gameService.load(save);
+    } catch {
+      this.gameService.preload();
+      this.gameService.load(current);
       this.gameService.postload();
-      this.router.navigateByUrl('game');
+      this.importError = true;
+      return;
     }
+    this.gameService.postload();
+    this.router.navigateByUrl('game');
   }
 }

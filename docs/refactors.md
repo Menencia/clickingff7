@@ -12,7 +12,7 @@
 
 Ces problèmes ne relèvent pas du refactor, mais ils sont à traiter en priorité.
 
-- **Réinitialiser et Importer sont inaccessibles** 🔴 : dans `views/view-save/view-save.component.html`, les deux boutons sont commentés. Ils utilisaient une directive de confirmation `[message]` / `(confirm)` qui a disparu avec PrimeNG. `ViewSaveComponent.resetGame()` et `importSave()` ne sont donc plus appelables. Il faut les rebrancher avec une confirmation daisyUI (`<dialog class="modal">`), **après** le commit 7 : en l'état, une réinitialisation ou un import réutiliserait des instances déjà modifiées.
+- **Réinitialiser et Importer sont inaccessibles** 🔴 ✅ fait : dans `views/view-save/view-save.component.html`, les deux boutons sont commentés. Ils utilisaient une directive de confirmation `[message]` / `(confirm)` qui a disparu avec PrimeNG. `ViewSaveComponent.resetGame()` et `importSave()` ne sont donc plus appelables. Il faut les rebrancher avec une confirmation daisyUI (`<dialog class="modal">`), **après** le commit 7 : en l'état, une réinitialisation ou un import réutiliserait des instances déjà modifiées.
 - **Sécurité** : rien à signaler. L'application tourne uniquement côté client, sans backend. Le joueur peut modifier sa sauvegarde en base64, ce qui est acceptable pour un jeu solo.
 
 ## Lot 1 — Filet de tests

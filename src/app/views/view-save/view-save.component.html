@@ -6,14 +6,14 @@
           {{ "Save" | translate }}
         </button>
 
-        <!-- <button
+        <button
           type="button"
-          [message]="msgImportSave"
+          class="btn btn-error btn-outline"
           [disabled]="saves.length === 0"
-          (click)="resetGame($event)"
+          (click)="resetDialog.showModal()"
         >
           {{ "Reset" | translate }}
-        </button> -->
+        </button>
       </div>
 
       <div class="flex flex-col gap-1 mt-5">
@@ -61,15 +61,51 @@
       } @if (showAreaImport) {
       <div>
         <textarea [(ngModel)]="areaImport"></textarea>
-        <!-- <button
+        @if (importError) {
+        <div role="alert" class="text-error">
+          {{ "Invalid save" | translate }}
+        </div>
+        }
+        <button
           type="button"
-          [message]="msgImportSave"
-          (confirm)="importSave($event)"
+          class="btn btn-primary"
+          [disabled]="!areaImport"
+          (click)="checkImport() && importDialog.showModal()"
         >
-          IMPORT
-        </button> -->
+          {{ "Import" | translate }}
+        </button>
       </div>
       }
     </div>
   </div>
+
+  <dialog #resetDialog class="modal">
+    <div class="modal-box">
+      <p>{{ "Confirm reset" | translate }}</p>
+      <form method="dialog" class="modal-action">
+        <button type="submit" class="btn">{{ "Cancel" | translate }}</button>
+        <button type="submit" class="btn btn-error" (click)="resetGame()">
+          {{ "Reset" | translate }}
+        </button>
+      </form>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+      <button type="submit">{{ "Cancel" | translate }}</button>
+    </form>
+  </dialog>
+
+  <dialog #importDialog class="modal">
+    <div class="modal-box">
+      <p>{{ "Confirm import" | translate }}</p>
+      <form method="dialog" class="modal-action">
+        <button type="submit" class="btn">{{ "Cancel" | translate }}</button>
+        <button type="submit" class="btn btn-primary" (click)="importSave()">
+          {{ "Import" | translate }}
+        </button>
+      </form>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+      <button type="submit">{{ "Cancel" | translate }}</button>
+    </form>
+  </dialog>
 </app-ui-layout-default>
