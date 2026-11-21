@@ -147,7 +147,7 @@ Remplacer les classes `BattleGuard` et `ZoneGuard` (avec leur signature de retou
 
 **Risque** : très faible.
 
-### 14. `refactor(app): simplify initializer and router subscription` 🟢
+### 14. `refactor(app): simplify initializer and router subscription` 🟢 ✅ fait
 
 - `app.config.ts` : `provideAppInitializer` enveloppe une IIFE et appelle `toPromise()`, qui est déprécié. Remplacer par `provideAppInitializer(() => inject(DataService).preloadAll())`.
 - `AppComponent.ngOnInit` : l'abonnement à `router.events` n'est jamais libéré. Utiliser `takeUntilDestroyed()`, ou un `effect` sur `toSignal(router.events)`.

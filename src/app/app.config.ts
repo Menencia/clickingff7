@@ -9,6 +9,7 @@ import {
 import { provideRouter } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateMultiHttpLoader } from '@ngx-translate/http-loader';
+import { tap } from 'rxjs';
 import { routes } from './app.routes';
 import { DataService } from './core/services/data.service';
 import { GameService } from './core/services/game.service';
@@ -33,8 +34,7 @@ export const appConfig: ApplicationConfig = {
       const game = inject(GameService);
       return inject(DataService)
         .preloadAll()
-        .toPromise()
-        .then(() => game.run());
+        .pipe(tap(() => game.run()));
     }),
   ],
 };

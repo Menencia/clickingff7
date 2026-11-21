@@ -1,11 +1,7 @@
-import {
-  Component,
-  ElementRef,
-  inject,
-  OnInit,
-  viewChild,
-} from '@angular/core';
+import { Component, ElementRef, inject, viewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
+import { filter } from 'rxjs';
 import packageJson from '../../package.json';
 import { SidemenuComponent } from './shared/components/sidemenu/sidemenu.component';
 import { ThemePickerComponent } from './shared/components/theme-picker/theme-picker.component';
@@ -22,19 +18,23 @@ import { UiFooterComponent } from './shared/ui/ui-footer/ui-footer.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
 })
-export class AppComponent implements OnInit {
-  private router = inject(Router);
-
-  readonly drawerToggle = viewChild<ElementRef>('drawerToggle');
+export class AppComponent {
+  readonly drawerToggle =
+    viewChild<ElementRef<HTMLInputElement>>('drawerToggle');
 
   version = packageJson.version;
 
-  ngOnInit() {
-    this.router.events.subscribe((e) => {
-      if (e instanceof NavigationEnd) {
-        const drawer = this.drawerToggle()?.nativeElement;
-        if (drawer) drawer.checked = false;
-      }
-    });
+  constructor() {
+    inject(Router)
+      .events.pipe(
+        filter((e) => e instanceof NavigationEnd),
+        takeUntilDestroyed(),
+      )
+      .subscribe(() => this.closeDrawer());
+  }
+
+  private closeDrawer() {
+    const drawer = this.drawerToggle()?.nativeElement;
+    if (drawer) drawer.checked = false;
   }
 }
