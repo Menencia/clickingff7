@@ -89,7 +89,7 @@ Changement : `isAlive()` sans effet de bord, et remise à zéro de la Limite à 
 
 **Risque** : faible. `characters.spec.ts` et `battle.spec.ts` couvrent la Limite et la défaite. Vérifier en jeu que la Limite repart à 0 après une défaite.
 
-### 8. `refactor(models): type weapon types and enemy refs` 🟢
+### 8. `refactor(models): type weapon types and enemy refs` 🟢 ✅ fait
 
 Les types d'arme (`'broadsword'`, `'gun-arm'`…) sont des chaînes libres dans `WeaponJson.type`, `CharacterBase.weaponType` et `WEAPON_TYPE_ORDER` (`shop.service.ts`), ainsi que dans `WeaponIconComponent`. C'est une faute de frappe de ce genre (`yuffie` au lieu de `shuriken`) qui empêchait Yuffie de changer d'arme. De même, `ZoneJson.enemies` / `boss` sont des `string[]`, et `StoreService.getEnemy(ref: string)` n'utilise pas `EnemyRef`.
 

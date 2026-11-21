@@ -5,6 +5,7 @@ import { ItemRef } from '../../models/refs/items';
 import { MateriaRef } from '../../models/refs/materias';
 import { WeaponRef } from '../../models/refs/weapons';
 import { Weapon } from '../../models/weapon';
+import { WEAPON_TYPES } from '../../models/weapon-type';
 import { GameService } from './game.service';
 import { StoreService } from './store.service';
 
@@ -38,18 +39,6 @@ const SHOP_ITEMS: ItemRef[] = [
   ItemRef.Ether,
   ItemRef.HiPotion,
   ItemRef.HiEther,
-];
-
-/**
- * Display order of weapon types, following the characters' order.
- */
-const WEAPON_TYPE_ORDER: string[] = [
-  'broadsword',
-  'gun-arm',
-  'knuckle',
-  'stave',
-  'headdresse',
-  'shuriken',
 ];
 
 /**
@@ -199,7 +188,7 @@ export class ShopService {
   sortWeapons(weapons: Weapon[]): Weapon[] {
     return [...weapons].sort(
       (a, b) =>
-        WEAPON_TYPE_ORDER.indexOf(a.type) - WEAPON_TYPE_ORDER.indexOf(b.type) ||
+        WEAPON_TYPES.indexOf(a.type) - WEAPON_TYPES.indexOf(b.type) ||
         a.hits - b.hits,
     );
   }

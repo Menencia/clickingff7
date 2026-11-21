@@ -4,13 +4,15 @@ import {
   statFactor,
 } from '../shared/utils/game.utils';
 import { CharacterRef } from './refs/characters';
+import { WeaponRef } from './refs/weapons';
 import { CharacterSave } from './save';
 import { Weapon } from './weapon';
+import { WeaponType } from './weapon-type';
 
 interface CharacterBase {
   ref: CharacterRef;
   image: string;
-  weaponType: string;
+  weaponType: WeaponType;
   hp: number;
   mp: number;
   xp: number;
@@ -18,7 +20,7 @@ interface CharacterBase {
 }
 
 export interface CharacterJson extends CharacterBase {
-  weapon: string;
+  weapon: WeaponRef;
 }
 
 export interface CharacterData extends CharacterBase {
@@ -38,7 +40,7 @@ export class Character {
 
   image: string;
 
-  weaponType: string;
+  weaponType: WeaponType;
 
   weapon: Weapon;
 

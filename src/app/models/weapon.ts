@@ -1,10 +1,11 @@
 import { Purchasable } from './purchasable';
 import { WeaponRef } from './refs/weapons';
 import { WeaponSave } from './save';
+import { WeaponType } from './weapon-type';
 
 export interface WeaponJson {
   ref: WeaponRef;
-  type: string;
+  type: WeaponType;
   hits: number;
   price: number;
   maxMaterias: number;
@@ -16,7 +17,7 @@ export class Weapon extends Purchasable {
 
   ref: WeaponRef;
 
-  type: string;
+  type: WeaponType;
 
   hits: number;
 

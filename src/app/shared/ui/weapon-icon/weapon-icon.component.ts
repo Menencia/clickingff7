@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { WeaponType } from '../../../models/weapon-type';
 
 @Component({
   selector: 'app-weapon-icon',
@@ -10,5 +11,5 @@ import { Component, input } from '@angular/core';
   />`,
 })
 export class WeaponIconComponent {
-  readonly type = input('broadsword');
+  readonly type = input<WeaponType>('broadsword');
 }

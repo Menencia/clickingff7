@@ -11,6 +11,7 @@ import {
 } from '../../models/materias/attack-materia';
 import { CureMateria } from '../../models/materias/cure-materia';
 import { CharacterRef } from '../../models/refs/characters';
+import { EnemyRef } from '../../models/refs/enemy';
 import { ItemRef } from '../../models/refs/items';
 import { MateriaRef } from '../../models/refs/materias';
 import { WeaponRef } from '../../models/refs/weapons';
@@ -39,7 +40,7 @@ export class StoreService {
     });
   }
 
-  getEnemy(ref: string): Enemy {
+  getEnemy(ref: EnemyRef): Enemy {
     return new Enemy(this.find(this.data.enemies, ref, 'Enemy'));
   }
 
@@ -51,7 +52,7 @@ export class StoreService {
     const json = this.find(this.data.characters, ref, 'Character');
     return new Character({
       ...json,
-      weapon: this.getWeapon(json.weapon as WeaponRef),
+      weapon: this.getWeapon(json.weapon),
     });
   }
 

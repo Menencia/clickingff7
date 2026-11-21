@@ -1,4 +1,5 @@
 import { Enemy } from './enemy';
+import { EnemyRef } from './refs/enemy';
 import { ZoneRef } from './refs/zones';
 import { ZoneSave } from './save';
 
@@ -11,8 +12,8 @@ interface ZoneBase {
 }
 
 export interface ZoneJson extends ZoneBase {
-  enemies: string[];
-  boss: string[];
+  enemies: EnemyRef[];
+  boss: EnemyRef[];
 }
 
 export interface ZoneData extends ZoneBase {

@@ -4,14 +4,17 @@ import { MpPotion } from '../../models/items/mp-potion';
 import { AttackMateria } from '../../models/materias/attack-materia';
 import { CureMateria } from '../../models/materias/cure-materia';
 import { CharacterRef } from '../../models/refs/characters';
+import { EnemyRef } from '../../models/refs/enemy';
 import { ItemRef } from '../../models/refs/items';
 import { MateriaRef } from '../../models/refs/materias';
 import { WeaponRef } from '../../models/refs/weapons';
 import { ZoneRef } from '../../models/refs/zones';
+import { WEAPON_TYPES } from '../../models/weapon-type';
 import {
   loadGameData,
   provideInMemoryGameData,
 } from '../../testing/game-data.testing';
+import { DataService } from './data.service';
 import { StoreService } from './store.service';
 
 describe('StoreService', () => {
@@ -93,5 +96,36 @@ describe('StoreService', () => {
     expect(() => store.getCharacter('nope' as CharacterRef)).toThrow();
     expect(() => store.getMateria('nope' as MateriaRef)).toThrow();
     expect(() => store.getItem('nope' as ItemRef)).toThrow();
+    expect(() => store.getEnemy('nope' as EnemyRef)).toThrow();
+  });
+
+  it('only uses known weapon types', () => {
+    const data = TestBed.inject(DataService);
+    const known: readonly string[] = WEAPON_TYPES;
+    for (const weapon of data.weapons) {
+      expect(known, weapon.ref).toContain(weapon.type);
+    }
+    for (const character of data.characters) {
+      expect(known, character.ref).toContain(character.weaponType);
+      expect(store.getWeapon(character.weapon).type, character.ref).toBe(
+        character.weaponType,
+      );
+    }
+  });
+
+  it('gives every weapon type a weapon in the catalog', () => {
+    const types = new Set(
+      TestBed.inject(DataService).weapons.map((w) => w.type),
+    );
+    expect([...types].sort()).toEqual([...WEAPON_TYPES].sort());
+  });
+
+  it('only uses known enemy refs in zones', () => {
+    const known: string[] = Object.values(EnemyRef);
+    for (const zone of TestBed.inject(DataService).zones) {
+      for (const ref of [...zone.enemies, ...zone.boss]) {
+        expect(known, zone.ref).toContain(ref);
+      }
+    }
   });
 });
