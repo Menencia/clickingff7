@@ -69,6 +69,35 @@ describe('BattleService', () => {
       expect(() => service.startRandom()).toThrow();
       expect(() => service.startBoss()).toThrow();
     });
+
+    it('throws if the team has no HP left', () => {
+      game.characters.hp.set(0);
+      game.zones.current().nbFights = MAX_FIGHTS;
+      expect(() => service.startRandom()).toThrow();
+      expect(() => service.startBoss()).toThrow();
+      expect(service.battle()).toBeUndefined();
+    });
+  });
+
+  describe('canFightRandom', () => {
+    it('is true out of battle with HP left', () => {
+      expect(service.canFightRandom()).toBe(true);
+    });
+
+    it('is false during a battle', () => {
+      service.startRandom();
+      expect(service.canFightRandom()).toBe(false);
+    });
+
+    it('is false after a defeat, until the team is healed', () => {
+      service.startRandom();
+      game.characters.hp.set(1);
+      vi.advanceTimersByTime(1000);
+      expect(service.canFightRandom()).toBe(false);
+
+      game.characters.addHp(1);
+      expect(service.canFightRandom()).toBe(true);
+    });
   });
 
   describe('on victory', () => {
@@ -168,6 +197,12 @@ describe('BattleService', () => {
     it('is false once the zone is completed', () => {
       game.zones.current().nbFights = MAX_FIGHTS;
       game.zones.current().completed = true;
+      expect(service.canFightBoss()).toBe(false);
+    });
+
+    it('is false when the team has no HP left', () => {
+      game.zones.current().nbFights = MAX_FIGHTS;
+      game.characters.hp.set(0);
       expect(service.canFightBoss()).toBe(false);
     });
   });

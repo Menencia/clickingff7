@@ -108,13 +108,15 @@ Actions disponibles :
 
 - **Combat aléatoire** : lance un combat contre un ennemi de la zone courante (hors combat uniquement).
 - **Combat de boss** : lance un combat contre le boss, quand il est disponible.
+
+Ces deux boutons sont désactivés tant que les HP de l'équipe sont à 0 : le joueur doit d'abord se soigner (materia de soin ou objet, utilisables hors combat).
 - **Attaque** (ou **Limite** quand la jauge est pleine) : inflige des dégâts aux ennemis. Le joueur peut cliquer autant qu'il veut.
 - **Fuite** : termine le combat sans récompense et sans pénalité. Le combat ne compte pas dans `nbFights`.
 - **Materias** équipées et **objets** équipés (voir §6 et §7).
 
 Ces actions du joueur sont appliquées par `BattleService` (`attack`, `useMateria`, `useItem`). Une materia ou un objet inutilisable (bouton désactivé) est ignoré, sans coût.
 
-Les ennemis attaquent toutes les **1 seconde**. Si les HP de l'équipe tombent à 0, le combat est perdu : la Limite est remise à 0, et les HP **restent à 0** jusqu'à ce qu'ils soient soignés. Il n'y a pas de régénération automatique. Si les HP ennemis tombent à 0 après une action du joueur, le combat est gagné.
+Les ennemis attaquent toutes les **1 seconde**. Si les HP de l'équipe tombent à 0, le combat est perdu : la Limite est remise à 0, et les HP **restent à 0** jusqu'à ce qu'ils soient soignés. Aucun combat ne peut être lancé tant qu'ils sont à 0. Il n'y a pas de régénération automatique. Si les HP ennemis tombent à 0 après une action du joueur, le combat est gagné.
 
 ### 5.2 Génération des ennemis
 

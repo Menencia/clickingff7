@@ -3,7 +3,7 @@
     type="button"
     class="btn"
     (click)="fightRandom()"
-    [disabled]="isBattle()"
+    [disabled]="!canFightRandom()"
     id="step6"
   >
     {{ "Fight random" | translate }}{{ remainingBattles() }}

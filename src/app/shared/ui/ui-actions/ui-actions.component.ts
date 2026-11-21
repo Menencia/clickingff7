@@ -37,8 +37,12 @@ export class UiActionsComponent {
     return !!this.battleService.battle();
   }
 
+  public canFightRandom(): boolean {
+    return this.battleService.canFightRandom();
+  }
+
   public fightRandom(): void {
-    if (!this.isBattle()) {
+    if (this.canFightRandom()) {
       this.battleService.startRandom();
     }
   }

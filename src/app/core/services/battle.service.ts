@@ -20,9 +20,7 @@ export class BattleService {
    * Characters start auto-attacking
    */
   startRandom(): void {
-    if (this.battle()) {
-      throw new Error('Battle is already ongoing');
-    }
+    this.assertCanStart();
 
     // get random enemy
     const levelSum = this.gameService.characters.levelSum();
@@ -41,9 +39,7 @@ export class BattleService {
    * Characters start auto-attacking
    */
   startBoss(): void {
-    if (this.battle()) {
-      throw new Error('Battle is already ongoing');
-    }
+    this.assertCanStart();
 
     // get random boss
     const zone = this.gameService.zones.current();
@@ -108,9 +104,27 @@ export class BattleService {
   /**
    * Returns true if zone boss is available
    */
+  /**
+   * A battle can start when none is ongoing and the team has HP left
+   */
+  canFightRandom(): boolean {
+    return !this.battle() && this.gameService.characters.hp() > 0;
+  }
+
   canFightBoss(): boolean {
     const zone = this.gameService.zones.current();
-    return !this.battle() && zone.nbFights >= MAX_FIGHTS && !zone.completed;
+    return (
+      this.canFightRandom() && zone.nbFights >= MAX_FIGHTS && !zone.completed
+    );
+  }
+
+  private assertCanStart(): void {
+    if (this.battle()) {
+      throw new Error('Battle is already ongoing');
+    }
+    if (this.gameService.characters.hp() <= 0) {
+      throw new Error('Team has no HP left');
+    }
   }
 
   /**
