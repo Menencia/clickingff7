@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 
@@ -8,7 +8,7 @@ import { BattleService } from '../services/battle.service';
   providedIn: 'root',
 })
 export class BattleGuard {
-  constructor(public battleService: BattleService) {}
+  battleService = inject(BattleService);
 
   canActivate():
     | Observable<boolean | UrlTree>

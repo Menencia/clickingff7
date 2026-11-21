@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../../../core/services/game.service';
 import { Character } from '../../../../models/character';
@@ -12,9 +12,9 @@ import { ProgressBarComponent } from '../../../../shared/ui/progress-bar/progres
   styleUrl: './characters-panel.component.scss',
 })
 export class CharactersPanelComponent {
-  @Input() characters: Characters = new Characters();
+  private gameService = inject(GameService);
 
-  constructor(private gameService: GameService) {}
+  readonly characters = input<Characters>(new Characters());
 
   public getLine(character: Character): string {
     const { levelMax } = this.gameService.zones;

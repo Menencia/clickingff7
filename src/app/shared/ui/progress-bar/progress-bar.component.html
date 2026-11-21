@@ -1,6 +1,10 @@
 <div class="relative flex items-center gap-3 mb-3">
-  <progress class="progress {{style}}" [value]="progress" max="100"></progress>
-  <div class="label">{{ text }}</div>
+  <progress
+    class="progress {{style()}}"
+    [value]="progress()"
+    max="100"
+  ></progress>
+  <div class="label">{{ text() }}</div>
   @for (hits of arrHits; track hits) {
   <div
     class="hits absolute right-0 top-0 text-red-600 text-3xl"

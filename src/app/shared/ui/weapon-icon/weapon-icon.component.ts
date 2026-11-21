@@ -1,14 +1,14 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-weapon-icon',
   imports: [],
   template: `<img
     class="inline-block"
-    src="/assets/images/icons/weapons/{{ type }}.png"
+    src="/assets/images/icons/weapons/{{ type() }}.png"
     alt="weapon"
   />`,
 })
 export class WeaponIconComponent {
-  @Input() type = 'broadsword';
+  readonly type = input('broadsword');
 }

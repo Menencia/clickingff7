@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -15,6 +15,9 @@ import { decodeSave, encodeSave } from '../../shared/utils/save.utils';
   styleUrls: ['./view-save.component.scss'],
 })
 export class ViewSaveComponent {
+  private gameService = inject(GameService);
+  private router = inject(Router);
+
   saves: Save[];
 
   areaExport: string;
@@ -28,10 +31,7 @@ export class ViewSaveComponent {
   /** True when the last import attempt was rejected */
   importError = false;
 
-  constructor(
-    private gameService: GameService,
-    private router: Router,
-  ) {
+  constructor() {
     this.saves = this.gameService.saves;
     this.areaExport = '';
     this.areaImport = '';

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Character } from '../../models/character';
@@ -13,13 +13,15 @@ import { WeaponIconComponent } from '../../shared/ui/weapon-icon/weapon-icon.com
   styleUrls: ['./view-equip.component.scss'],
 })
 export class ViewEquipComponent {
+  private gameService = inject(GameService);
+
   selected: Character;
 
   team: Character[];
 
   weapons: Weapon[] = [];
 
-  constructor(private gameService: GameService) {
+  constructor() {
     this.team = this.gameService.characters.getTeam();
     this.selected = this.gameService.characters.selected;
     const found = this.team.find((character) => character === this.selected);

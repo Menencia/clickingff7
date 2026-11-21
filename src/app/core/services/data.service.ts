@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { forkJoin, map, Observable } from 'rxjs';
 import { CharacterJson } from '../../models/character';
 import { EnemyJson } from '../../models/enemy';
@@ -16,6 +16,8 @@ import { ZoneJson } from '../../models/zone';
   providedIn: 'root',
 })
 export class DataService {
+  private http = inject(HttpClient);
+
   zones: ZoneJson[] = [];
 
   enemies: EnemyJson[] = [];
@@ -27,8 +29,6 @@ export class DataService {
   items: ItemJson[] = [];
 
   materias: MateriaJson[] = [];
-
-  constructor(private http: HttpClient) {}
 
   preloadAll(): Observable<void> {
     return forkJoin([

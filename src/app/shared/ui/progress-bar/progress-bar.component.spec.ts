@@ -59,4 +59,29 @@ describe('ProgressBarComponent', () => {
     expect(component.progressBg).toBe(80);
     expect(vi.getTimerCount()).toBe(0);
   });
+
+  it('renders the progress, style and text inputs', () => {
+    fixture.componentRef.setInput('text', 'HP 42');
+    fixture.componentRef.setInput('style', 'progress-success');
+    fixture.detectChanges();
+
+    const el: HTMLElement = fixture.nativeElement;
+    const progress = el.querySelector('progress') as HTMLProgressElement;
+    expect(progress.value).toBe(80);
+    expect(progress.classList).toContain('progress-success');
+    expect(el.querySelector('.label')?.textContent).toContain('HP 42');
+  });
+});
+
+describe('ProgressBarComponent without hits input', () => {
+  it('renders without a hits stream', async () => {
+    await TestBed.configureTestingModule({
+      imports: [ProgressBarComponent],
+    }).compileComponents();
+
+    const fixture = TestBed.createComponent(ProgressBarComponent);
+    fixture.detectChanges();
+
+    expect(fixture.componentInstance.arrHits).toEqual([]);
+  });
 });

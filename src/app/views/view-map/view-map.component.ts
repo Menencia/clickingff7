@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Zone } from '../../models/zone';
@@ -11,13 +11,15 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
   styleUrls: ['./view-map.component.scss'],
 })
 export class ViewMapComponent {
+  private gameService = inject(GameService);
+
   current: Zone;
 
   level: number;
 
   list: Zone[];
 
-  constructor(private gameService: GameService) {
+  constructor() {
     this.current = this.gameService.zones.current();
     this.level = this.gameService.zones.level;
     this.list = this.gameService.zones.list;

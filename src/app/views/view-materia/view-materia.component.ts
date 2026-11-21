@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { LucidePlus, LucideX } from '@lucide/angular';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
@@ -19,11 +19,13 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
   styleUrls: ['./view-materia.component.scss'],
 })
 export class ViewMateriaComponent {
+  private gameService = inject(GameService);
+
   list: Materia[] = [];
 
   maxMaterias = 0;
 
-  constructor(private gameService: GameService) {
+  constructor() {
     this.list = this.gameService.materias.list;
     this.maxMaterias = this.gameService.characters.getMaxMaterias();
   }

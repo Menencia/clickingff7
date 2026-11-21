@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 @Component({
   selector: 'app-ui-footer',
@@ -7,5 +7,5 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./ui-footer.component.scss'],
 })
 export class UiFooterComponent {
-  @Input() version = '0.1.0';
+  readonly version = input('0.1.0');
 }

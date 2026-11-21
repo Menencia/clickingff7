@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Character } from '../../models/character';
@@ -12,11 +12,13 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
   styleUrls: ['./view-phs.component.scss'],
 })
 export class ViewPhsComponent {
+  private gameService = inject(GameService);
+
   team: Character[];
 
   backup: Character[];
 
-  constructor(private gameService: GameService) {
+  constructor() {
     this.team = this.gameService.characters.getTeam();
     this.backup = this.gameService.characters.getBackup();
   }

@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Item } from '../../models/item';
 import { Materia } from '../../models/materia';
 import { ItemRef } from '../../models/refs/items';
@@ -59,7 +59,7 @@ const WEAPON_TYPE_ORDER: string[] = [
   providedIn: 'root',
 })
 export class ShopService {
-  constructor(private store: StoreService) {}
+  private store = inject(StoreService);
 
   getWeapons(levelMax: number): Weapon[] {
     return this.sortWeapons(

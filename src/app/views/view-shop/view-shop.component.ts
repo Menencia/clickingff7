@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { ShopService } from '../../core/services/shop.service';
@@ -23,6 +23,10 @@ import { WeaponIconComponent } from '../../shared/ui/weapon-icon/weapon-icon.com
   styleUrls: ['./view-shop.component.scss'],
 })
 export class ViewShopComponent {
+  private gameService = inject(GameService);
+  private store = inject(StoreService);
+  private shop = inject(ShopService);
+
   section = 'buy';
 
   type = 'weapons';
@@ -39,11 +43,7 @@ export class ViewShopComponent {
 
   playerItems: Item[] = [];
 
-  constructor(
-    private gameService: GameService,
-    private store: StoreService,
-    private shop: ShopService,
-  ) {
+  constructor() {
     this.refresh();
   }
 

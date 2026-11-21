@@ -1,4 +1,4 @@
-import { Component, computed, Signal } from '@angular/core';
+import { Component, computed, inject, Signal } from '@angular/core';
 import { BattleService } from '../../core/services/battle.service';
 import { GameService } from '../../core/services/game.service';
 import { Characters } from '../../models/units/characters';
@@ -20,14 +20,14 @@ import { EnemiesPanelComponent } from './components/enemies-panel/enemies-panel.
   styleUrls: ['./view-game.component.scss'],
 })
 export class ViewGameComponent {
+  private gameService = inject(GameService);
+  private battleService = inject(BattleService);
+
   public characters: Characters;
 
   public enemies: Signal<Enemies | undefined>;
 
-  constructor(
-    private gameService: GameService,
-    private battleService: BattleService,
-  ) {
+  constructor() {
     this.characters = this.gameService.characters;
     this.enemies = computed(() => {
       const battle = this.battleService.battle();

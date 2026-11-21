@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import packageJson from '../../../../package.json';
 import { Items } from '../../models/items';
@@ -30,6 +30,9 @@ export enum Difficulty {
   providedIn: 'root',
 })
 export class GameService {
+  private translate = inject(TranslateService);
+  private store = inject(StoreService);
+
   /** time counter */
   timer: number;
 
@@ -65,10 +68,7 @@ export class GameService {
   /**
    * init
    */
-  constructor(
-    private translate: TranslateService,
-    private store: StoreService,
-  ) {
+  constructor() {
     // timer
     this.timer = 0;
 

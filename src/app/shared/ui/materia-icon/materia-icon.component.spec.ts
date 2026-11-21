@@ -19,4 +19,14 @@ describe('MateriaIconComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('uses the color input in the image path', () => {
+    fixture.componentRef.setInput('color', 'yellow');
+    fixture.detectChanges();
+
+    const img: HTMLImageElement = fixture.nativeElement.querySelector('img');
+    expect(img.getAttribute('src')).toBe(
+      '/assets/images/icons/materias/yellow.webp',
+    );
+  });
 });

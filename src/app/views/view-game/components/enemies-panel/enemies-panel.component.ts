@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Enemies } from '../../../../models/units/enemies';
 import { ProgressBarComponent } from '../../../../shared/ui/progress-bar/progress-bar.component';
@@ -10,7 +10,7 @@ import { ProgressBarComponent } from '../../../../shared/ui/progress-bar/progres
   styleUrl: './enemies-panel.component.scss',
 })
 export class EnemiesPanelComponent {
-  @Input() enemies: Enemies = new Enemies();
+  readonly enemies = input<Enemies>(new Enemies());
 
   public round(value: number): number {
     return Math.round(value);

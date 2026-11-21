@@ -1,23 +1,23 @@
 <div class="col-span-2" id="step5">
   <!-- enemies bars -->
-  @if (enemies.list.length > 0) {
+  @if (enemies().list.length > 0) {
   <div>
     <app-progress-bar
-      [progress]="round((enemies.hp() / enemies.hpMax()) * 100)"
+      [progress]="round((enemies().hp() / enemies().hpMax()) * 100)"
       [style]="'progress-error'"
-      [text]="'HP ' + enemies.hp()"
+      [text]="'HP ' + enemies().hp()"
       [name]="'hp'"
-      [hits]="enemies.source.hp"
+      [hits]="enemies().source.hp"
     ></app-progress-bar>
   </div>
-  } @if (enemies.list.length === 0) {
+  } @if (enemies().list.length === 0) {
   <div class="mt-10 text-center text-gray-300 uppercase">
     {{ "No enemies" | translate }}
   </div>
   }
 
   <!-- enemies list -->
-  @for (enemy of enemies.list; track enemy) {
+  @for (enemy of enemies().list; track enemy) {
   <div class="flex gap-4 mt-5">
     <div
       [style]="{ 'background-image': 'url(' + enemy.image + ')' }"

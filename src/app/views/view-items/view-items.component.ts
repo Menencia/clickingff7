@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Item, MAX_ITEMS } from '../../models/item';
@@ -12,11 +12,13 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
   styleUrls: ['./view-items.component.scss'],
 })
 export class ViewItemsComponent {
+  private gameService = inject(GameService);
+
   MAX_ITEMS = MAX_ITEMS;
 
   list: Item[] = [];
 
-  constructor(private gameService: GameService) {
+  constructor() {
     this.list = this.gameService.items.list;
   }
 

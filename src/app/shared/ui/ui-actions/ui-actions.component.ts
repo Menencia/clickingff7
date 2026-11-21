@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { BattleService } from '../../../core/services/battle.service';
 import { GameService } from '../../../core/services/game.service';
@@ -13,10 +13,8 @@ import { MAX_FIGHTS } from '../../../models/zone';
   styleUrls: ['./ui-actions.component.scss'],
 })
 export class UiActionsComponent {
-  constructor(
-    private battleService: BattleService,
-    private gameService: GameService,
-  ) {}
+  private battleService = inject(BattleService);
+  private gameService = inject(GameService);
 
   public remainingBattles() {
     const remain = MAX_FIGHTS - this.gameService.zones.current().nbFights;

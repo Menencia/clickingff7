@@ -1,4 +1,4 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { Battle, BattleState } from '../../models/battle';
 import { Context } from '../../models/context';
 import { Item } from '../../models/item';
@@ -12,9 +12,9 @@ import { Difficulty, GameService } from './game.service';
   providedIn: 'root',
 })
 export class BattleService {
-  public battle = signal<Battle | undefined>(undefined);
+  private gameService = inject(GameService);
 
-  constructor(private gameService: GameService) {}
+  public battle = signal<Battle | undefined>(undefined);
 
   /**
    * Characters start auto-attacking

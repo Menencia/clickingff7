@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Difficulty, GameService } from '../../core/services/game.service';
@@ -11,14 +11,14 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
   styleUrls: ['./view-config.component.scss'],
 })
 export class ViewConfigComponent {
+  private gameService = inject(GameService);
+  private translateService = inject(TranslateService);
+
   difficulty: Difficulty;
 
   language: string;
 
-  constructor(
-    private gameService: GameService,
-    private translateService: TranslateService,
-  ) {
+  constructor() {
     this.difficulty = this.gameService.difficulty;
     this.language = this.gameService.language;
   }

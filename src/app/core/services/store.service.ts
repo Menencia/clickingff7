@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Character } from '../../models/character';
 import { Enemy } from '../../models/enemy';
 import { Item } from '../../models/item';
@@ -28,7 +28,7 @@ import { DataService } from './data.service';
   providedIn: 'root',
 })
 export class StoreService {
-  constructor(private data: DataService) {}
+  private data = inject(DataService);
 
   getZone(ref: ZoneRef): Zone {
     const json = this.find(this.data.zones, ref, 'Zone');

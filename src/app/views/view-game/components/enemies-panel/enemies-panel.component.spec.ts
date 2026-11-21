@@ -1,5 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
+import { Enemies } from '../../../../models/units/enemies';
 import { EnemiesPanelComponent } from './enemies-panel.component';
 
 describe('EnemiesPanelComponent', () => {
@@ -19,5 +20,14 @@ describe('EnemiesPanelComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('shows the empty state when the enemies input has no enemy', () => {
+    fixture.componentRef.setInput('enemies', new Enemies());
+    fixture.detectChanges();
+
+    const el: HTMLElement = fixture.nativeElement;
+    expect(el.querySelector('app-progress-bar')).toBeNull();
+    expect(el.textContent).toContain('No enemies');
   });
 });

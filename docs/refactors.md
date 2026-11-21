@@ -130,7 +130,7 @@ Changement : passer ces champs en `signal` / `computed` (`hpMax`, `mpMax`, `limi
 
 **Risque** : élevé, car de nombreux fichiers sont touchés (modèles, vues, objets, materias). Découper si besoin : d'abord `mp` et `limit`, ensuite `gils` et `time`, enfin les max en `computed`. Tester en jeu : barres MP et Limite pendant un combat sans clic, compteur de gils et temps de jeu dans la sauvegarde.
 
-### 12. `refactor: use input(), viewChild() and inject()` 🟢
+### 12. `refactor: use input(), viewChild() and inject()` 🟢 ✅ fait
 
 À migrer :
 - les `@Input()` de `ProgressBarComponent`, `MateriaIconComponent`, `WeaponIconComponent`, `UiFooterComponent`, `CharactersPanelComponent` et `EnemiesPanelComponent`

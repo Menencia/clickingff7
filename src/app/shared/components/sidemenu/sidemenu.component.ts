@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { BattleService } from '../../../core/services/battle.service';
@@ -19,14 +19,12 @@ declare const introJs: () => {
   templateUrl: './sidemenu.component.html',
 })
 export class SidemenuComponent {
-  horizontal = input(false);
+  private battleService = inject(BattleService);
+  private translateService = inject(TranslateService);
+  private gameService = inject(GameService);
+  private router = inject(Router);
 
-  constructor(
-    private battleService: BattleService,
-    private translateService: TranslateService,
-    private gameService: GameService,
-    private router: Router,
-  ) {}
+  horizontal = input(false);
 
   displayNextZone() {
     return this.gameService.zones.isNextZone();
