@@ -68,7 +68,7 @@ describe('GameService', () => {
       expect(save.getItem).not.toHaveBeenCalled();
       expect(game.zones.list).toEqual([]);
       expect(game.characters.list).toEqual([]);
-      expect(game.time).toBe(0);
+      expect(game.time()).toBe(0);
     });
   });
 
@@ -105,21 +105,21 @@ describe('GameService', () => {
     });
 
     it('starts with default settings and full HP/MP', () => {
-      expect(game.gils).toBe(200);
+      expect(game.gils()).toBe(200);
       expect(game.difficulty).toBe(Difficulty.Normal);
-      expect(game.time).toBe(0);
+      expect(game.time()).toBe(0);
       expect(game.version).toBe(packageJson.version);
 
-      expect(game.characters.hpMax).toBeGreaterThan(0);
-      expect(game.characters.hp()).toBe(game.characters.hpMax);
-      expect(game.characters.mp).toBe(game.characters.mpMax);
-      expect(game.characters.limit).toBe(0);
+      expect(game.characters.hpMax()).toBeGreaterThan(0);
+      expect(game.characters.hp()).toBe(game.characters.hpMax());
+      expect(game.characters.mp()).toBe(game.characters.mpMax());
+      expect(game.characters.limit()).toBe(0);
       expect(game.characters.selected.ref).toBe(CharacterRef.Cloud);
     });
 
     it('counts play time every second', () => {
       vi.advanceTimersByTime(3000);
-      expect(game.time).toBe(3);
+      expect(game.time()).toBe(3);
     });
 
     it('does not write a save by itself', () => {
@@ -194,14 +194,14 @@ describe('GameService', () => {
 
     it('restores HP and MP and empties the limit gauge', () => {
       game.characters.hp.set(1);
-      game.characters.mp = 0;
-      game.characters.limit = 10;
+      game.characters.mp.set(0);
+      game.characters.limit.set(10);
 
       unlockNextZone(game);
 
-      expect(game.characters.hp()).toBe(game.characters.hpMax);
-      expect(game.characters.mp).toBe(game.characters.mpMax);
-      expect(game.characters.limit).toBe(0);
+      expect(game.characters.hp()).toBe(game.characters.hpMax());
+      expect(game.characters.mp()).toBe(game.characters.mpMax());
+      expect(game.characters.limit()).toBe(0);
     });
   });
 
@@ -211,7 +211,7 @@ describe('GameService', () => {
     });
 
     it('writes the export as base64 JSON in localStorage', () => {
-      game.gils = 1234;
+      game.gils.set(1234);
       game.save();
 
       const saved = JSON.parse(atob(localStorage.getItem('save1') ?? ''));
@@ -244,10 +244,10 @@ describe('GameService', () => {
       game.weapons.list[0].nbr = 2;
       game.items.list[0].nbr = 1;
       game.characters.hp.set(10);
-      game.characters.mp = 1;
-      game.characters.limit = 3;
-      game.gils = 4321;
-      game.time = 99;
+      game.characters.mp.set(1);
+      game.characters.limit.set(3);
+      game.gils.set(4321);
+      game.time.set(99);
       game.difficulty = Difficulty.Hard;
       game.language = 'fr';
       game.save();
@@ -262,14 +262,14 @@ describe('GameService', () => {
 
     it('discards a save older than 1.1.0 and starts a new game', async () => {
       game = await startGame();
-      game.gils = 9999;
+      game.gils.set(9999);
       const old: Save = { ...game.export(), version: '1.0.9' };
       localStorage.setItem('save1', btoa(JSON.stringify(old)));
       clearTimeout(game.timer);
 
       game = await startGame();
 
-      expect(game.gils).toBe(200);
+      expect(game.gils()).toBe(200);
       expect(game.saves).toEqual([]);
       expect(localStorage.getItem('save1')).toBeNull();
     });
@@ -293,7 +293,7 @@ describe('GameService', () => {
       localStorage.setItem('save1', s);
       game = await startGame();
 
-      expect(game.gils).toBe(200);
+      expect(game.gils()).toBe(200);
       expect(refs(game.zones.list)).toEqual([ZoneRef.Zone1]);
       expect(game.saves).toEqual([]);
       expect(localStorage.getItem('save1')).toBeNull();
@@ -302,7 +302,7 @@ describe('GameService', () => {
     it('starts a clean new game when the save references unknown data', async () => {
       game = await startGame();
       unlockNextZone(game);
-      game.gils = 9999;
+      game.gils.set(9999);
       const save = structuredClone(game.export());
       save.items.push({ ref: 'unknown' as ItemRef, nbr: 1, equipped: false });
       localStorage.setItem('save1', btoa(JSON.stringify(save)));
@@ -310,7 +310,7 @@ describe('GameService', () => {
 
       game = await startGame();
 
-      expect(game.gils).toBe(200);
+      expect(game.gils()).toBe(200);
       expect(refs(game.zones.list)).toEqual([ZoneRef.Zone1]);
       expect(refs(game.characters.list)).toEqual([
         CharacterRef.Cloud,
@@ -353,9 +353,9 @@ describe('GameService', () => {
 
       expect(localStorage.getItem('save1')).toBeNull();
       expect(game.saves).toEqual([]);
-      expect(game.time).toBe(0);
+      expect(game.time()).toBe(0);
       vi.advanceTimersByTime(2000);
-      expect(game.time).toBe(2);
+      expect(game.time()).toBe(2);
     });
 
     it('a reset starts from clean instances', () => {
@@ -425,7 +425,7 @@ describe('GameService', () => {
 
     it('replaces the current game without writing to storage', () => {
       unlockNextZone(game);
-      game.gils = 1234;
+      game.gils.set(1234);
       game.language = 'fr';
       const save = structuredClone(game.export());
       game.newGame();
@@ -438,7 +438,7 @@ describe('GameService', () => {
 
     it('keeps the current game when the save references unknown data', () => {
       unlockNextZone(game);
-      game.gils = 777;
+      game.gils.set(777);
       const before = structuredClone(game.export());
       const save = structuredClone(before);
       save.gils = 1;
@@ -458,7 +458,7 @@ describe('GameService', () => {
       game.importGame(save);
 
       vi.advanceTimersByTime(3000);
-      expect(game.time).toBe(save.time + 3);
+      expect(game.time()).toBe(save.time + 3);
     });
   });
 });

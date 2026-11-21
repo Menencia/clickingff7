@@ -31,7 +31,7 @@ function makeCharacters(): Characters {
     true,
   );
   characters.refresh();
-  characters.hp.set(characters.hpMax);
+  characters.hp.set(characters.hpMax());
   return characters;
 }
 
@@ -88,7 +88,7 @@ describe('Battle', () => {
 
   it('fills the limit gauge with damage taken', () => {
     vi.advanceTimersByTime(3000);
-    expect(characters.limit).toBe(30);
+    expect(characters.limit()).toBe(30);
   });
 
   it('ends in defeat when the team reaches 0 HP', () => {
@@ -102,7 +102,7 @@ describe('Battle', () => {
     expect(battle.victory).toBe(false);
     expect(states).toEqual([BattleState.Started, BattleState.Ended]);
     expect(battle.state.isStopped).toBe(true);
-    expect(characters.limit).toBe(0);
+    expect(characters.limit()).toBe(0);
   });
 
   it('stops attacking after a defeat', () => {

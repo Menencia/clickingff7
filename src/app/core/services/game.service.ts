@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import packageJson from '../../../../package.json';
 import { Items } from '../../models/items';
@@ -52,13 +52,13 @@ export class GameService {
 
   items = new Items();
 
-  gils = BASE_GILS;
+  readonly gils = signal(BASE_GILS);
 
   language = 'en';
 
   difficulty = Difficulty.Normal;
 
-  time = 0;
+  readonly time = signal(0);
 
   version = CURRENT_VERSION;
 
@@ -151,10 +151,10 @@ export class GameService {
     this.weapons = new Weapons();
     this.materias = new Materias();
     this.items = new Items();
-    this.gils = BASE_GILS;
+    this.gils.set(BASE_GILS);
     this.language = this.getLanguage(this.translate.getBrowserLang());
     this.difficulty = Difficulty.Normal;
-    this.time = 0;
+    this.time.set(0);
     this.version = CURRENT_VERSION;
   }
 
@@ -181,7 +181,7 @@ export class GameService {
     this.characters.available(zonelevelMax);
 
     // data to load characters
-    const levelMax = this.characters.levelMax ? this.characters.levelMax : 1;
+    const levelMax = this.characters.levelMax() || 1;
 
     switch (level) {
       case 1:
@@ -256,9 +256,9 @@ export class GameService {
 
     // restore hp & mp
     this.characters.refresh();
-    this.characters.hp.set(this.characters.hpMax);
-    this.characters.mp = this.characters.mpMax;
-    this.characters.limit = 0;
+    this.characters.hp.set(this.characters.hpMax());
+    this.characters.mp.set(this.characters.mpMax());
+    this.characters.limit.set(0);
   }
 
   /**
@@ -280,7 +280,7 @@ export class GameService {
   autoTimer(): void {
     clearTimeout(this.timer);
     this.timer = window.setTimeout(() => {
-      this.time += 1;
+      this.time.update((time) => time + 1);
       this.autoTimer();
     }, 1000);
   }
@@ -295,10 +295,10 @@ export class GameService {
       weapons: this.weapons.export(),
       materias: this.materias.export(),
       items: this.items.export(),
-      gils: this.gils,
+      gils: this.gils(),
       language: this.language,
       difficulty: this.difficulty,
-      time: this.time,
+      time: this.time(),
       version: this.version,
     };
   }
@@ -326,8 +326,8 @@ export class GameService {
     this.linkWeapons();
 
     this.characters.hp.set(save.characters.hp);
-    this.characters.mp = save.characters.mp;
-    this.characters.limit = save.characters.limit;
+    this.characters.mp.set(save.characters.mp);
+    this.characters.limit.set(save.characters.limit);
 
     // zones
     save.zones.list.forEach((z) => {
@@ -356,8 +356,8 @@ export class GameService {
     this.language = save.language;
     this.difficulty = save.difficulty;
 
-    this.time = save.time;
-    this.gils = save.gils;
+    this.time.set(save.time);
+    this.gils.set(save.gils);
   }
 
   /**

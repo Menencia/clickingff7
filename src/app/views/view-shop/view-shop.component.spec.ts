@@ -69,7 +69,7 @@ describe('ViewShopComponent (real catalog)', () => {
       ],
     });
     game = await startGame();
-    game.gils = 100000;
+    game.gils.set(100000);
     game.zones.levelMax = 2;
     shop = TestBed.createComponent(ViewShopComponent).componentInstance;
   });

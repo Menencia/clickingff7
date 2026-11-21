@@ -25,7 +25,7 @@ export class BattleService {
     }
 
     // get random enemy
-    const { levelSum } = this.gameService.characters;
+    const levelSum = this.gameService.characters.levelSum();
     const zone = this.gameService.zones.current();
     const enemies = this.getRandomEnemy(
       levelSum,
@@ -141,7 +141,7 @@ export class BattleService {
     if (!materia.canUse(context)) {
       return;
     }
-    this.gameService.characters.mp -= materia.getMpCost();
+    this.gameService.characters.mp.update((mp) => mp - materia.getMpCost());
     materia.use(context);
     this.endIfEnemiesDefeated();
   }
@@ -192,7 +192,7 @@ export class BattleService {
     const materias = this.gameService.materias.getEquipped();
 
     enemies.forEach((enemy) => {
-      this.gameService.gils += enemy.gilsReward();
+      this.gameService.gils.update((gils) => gils + enemy.gilsReward());
 
       if (
         enemy.boss &&

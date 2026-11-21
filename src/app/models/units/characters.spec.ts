@@ -27,6 +27,14 @@ function makeCharacter(level: number, weaponHits = 10): Character {
   }).setLevel(level);
 }
 
+// a team of one level-10 character whose total hits are {hits}
+function teamWithHits(hits: number): Characters {
+  const team = new Characters();
+  team.add(makeCharacter(10, hits), true);
+  team.refresh();
+  return team;
+}
+
 function attackOf(type: string[]): ItActionAttack {
   return { type, use: () => {} };
 }
@@ -48,39 +56,65 @@ describe('Characters', () => {
 
   describe('refresh', () => {
     it('sums team stats and ignores backup characters', () => {
-      expect(characters.hpMax).toBe(40 + 80);
-      expect(characters.mpMax).toBe(6 + 12);
-      expect(characters.hits).toBe(2 + 8);
-      expect(characters.levelMax).toBe(4);
-      expect(characters.levelSum).toBe(6);
-      expect(characters.limitMax).toBe(80);
+      expect(characters.hpMax()).toBe(40 + 80);
+      expect(characters.mpMax()).toBe(6 + 12);
+      expect(characters.hits()).toBe(2 + 8);
+      expect(characters.levelMax()).toBe(4);
+      expect(characters.levelSum()).toBe(6);
+      expect(characters.limitMax()).toBe(80);
     });
 
     it('ignores unavailable characters', () => {
       characters.list[1].isNotAvailable = true;
       characters.refresh();
-      expect(characters.hpMax).toBe(40);
-      expect(characters.levelMax).toBe(2);
+      expect(characters.hpMax()).toBe(40);
+      expect(characters.levelMax()).toBe(2);
     });
 
     it('caps current HP, MP and limit to their new max', () => {
       characters.hp.set(1000);
-      characters.mp = 1000;
-      characters.limit = 1000;
+      characters.mp.set(1000);
+      characters.limit.set(1000);
       characters.refresh();
       expect(characters.hp()).toBe(120);
-      expect(characters.mp).toBe(18);
-      expect(characters.limit).toBe(80);
+      expect(characters.mp()).toBe(18);
+      expect(characters.limit()).toBe(80);
     });
 
     it('does not raise current HP, MP and limit', () => {
       characters.hp.set(10);
-      characters.mp = 2;
-      characters.limit = 5;
+      characters.mp.set(2);
+      characters.limit.set(5);
       characters.refresh();
       expect(characters.hp()).toBe(10);
-      expect(characters.mp).toBe(2);
-      expect(characters.limit).toBe(5);
+      expect(characters.mp()).toBe(2);
+      expect(characters.limit()).toBe(5);
+    });
+
+    it('keeps team stats until the next refresh, then follows level ups', () => {
+      const [first] = characters.list;
+      first.setLevel(6);
+      expect(characters.hpMax()).toBe(40 + 80);
+      expect(characters.team().length).toBe(2);
+
+      characters.refresh();
+      expect(characters.hpMax()).toBe(120 + 80);
+      expect(characters.levelMax()).toBe(6);
+      expect(characters.limitMax()).toBe(((120 + 80) * 2) / 3);
+    });
+
+    it('publishes a new team on each refresh', () => {
+      const before = characters.team();
+      characters.refresh();
+      expect(characters.team()).not.toBe(before);
+      expect(characters.team()).toEqual(before);
+    });
+
+    it('has empty stats before the first refresh', () => {
+      const empty = new Characters();
+      empty.add(makeCharacter(2), true);
+      expect(empty.hpMax()).toBe(0);
+      expect(empty.levelMax()).toBe(0);
     });
   });
 
@@ -96,7 +130,7 @@ describe('Characters', () => {
       characters.getAttacked(30, attackOf([]));
 
       expect(characters.hp()).toBe(90);
-      expect(characters.limit).toBe(30);
+      expect(characters.limit()).toBe(30);
       expect(emitted).toEqual([{ hits: 30 }]);
     });
 
@@ -127,17 +161,17 @@ describe('Characters', () => {
 
     it('caps the limit gauge to its max', () => {
       characters.getAttacked(100, attackOf([]));
-      expect(characters.limit).toBe(80);
+      expect(characters.limit()).toBe(80);
       expect(characters.canLimit()).toBe(true);
     });
   });
 
   describe('isAlive', () => {
     it('resets the limit gauge when the team is dead', () => {
-      characters.limit = 50;
+      characters.limit.set(50);
       characters.hp.set(0);
       expect(characters.isAlive()).toBe(false);
-      expect(characters.limit).toBe(0);
+      expect(characters.limit()).toBe(0);
     });
 
     it('returns true while HP is above 0', () => {
@@ -148,28 +182,28 @@ describe('Characters', () => {
 
   describe('getAttackSkill', () => {
     it('returns a normal attack (power 100) when the limit is not full', () => {
-      characters.limit = 10;
+      characters.limit.set(10);
       const attack = characters.getAttackSkill() as Attack;
       expect(attack.baseHits).toBe(10);
       expect(attack.pwr).toBe(100);
-      expect(characters.limit).toBe(10);
+      expect(characters.limit()).toBe(10);
     });
 
     it('returns a limit (power 500) and empties the gauge when full', () => {
-      characters.limit = characters.limitMax;
+      characters.limit.set(characters.limitMax());
       const attack = characters.getAttackSkill() as Attack;
       expect(attack.pwr).toBe(500);
-      expect(characters.limit).toBe(0);
+      expect(characters.limit()).toBe(0);
     });
 
     it('deals 5 times the damage of a normal attack with a limit', () => {
       // random(a, b) = floor(0.5 * (b - a + 1) + a): middle of the range,
       // and random(0, 100) = 50, so no critical hit.
       vi.spyOn(Math, 'random').mockReturnValue(0.5);
-      characters.hits = 100;
+      characters = teamWithHits(100);
 
       const normal = characters.getAttackSkill() as Attack;
-      characters.limit = characters.limitMax;
+      characters.limit.set(characters.limitMax());
       const limit = characters.getAttackSkill() as Attack;
 
       expect(normal.calculateHits()).toBe(100);
@@ -180,7 +214,7 @@ describe('Characters', () => {
       vi.spyOn(Math, 'random')
         .mockReturnValueOnce(0.5) // damage roll
         .mockReturnValueOnce(0); // critical roll: random(0, 100) = 0 <= 10
-      characters.hits = 100;
+      characters = teamWithHits(100);
 
       const attack = characters.getAttackSkill() as Attack;
       expect(attack.calculateHits()).toBe(200);
@@ -188,7 +222,7 @@ describe('Characters', () => {
     });
 
     it('stays within ±10% of the base damage', () => {
-      characters.hits = 100;
+      characters = teamWithHits(100);
       const attack = characters.getAttackSkill() as Attack;
 
       vi.spyOn(Math, 'random').mockReturnValueOnce(0).mockReturnValueOnce(0.99);

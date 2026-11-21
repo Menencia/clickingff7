@@ -32,7 +32,7 @@ export class UiActionsComponent {
   }
 
   public getGils(): number {
-    return this.gameService.gils;
+    return this.gameService.gils();
   }
 
   public isBattle(): boolean {

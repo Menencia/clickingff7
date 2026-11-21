@@ -1,3 +1,4 @@
+import { computed, signal } from '@angular/core';
 import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
 import { Attack } from '../actions/attack';
@@ -9,55 +10,44 @@ import { Units } from '../units';
 export const MAX_TEAM = 3;
 
 export class Characters extends Units {
-  list: Character[];
+  list: Character[] = [];
 
-  selected: Character;
+  selected!: Character;
 
-  hits: number;
+  /** in-team characters, as of the last refresh() */
+  readonly team = signal<Character[]>([]);
 
-  mp: number;
+  readonly hpMax = computed(() =>
+    this.team().reduce((sum, c) => sum + c.getHpMax(), 0),
+  );
 
-  mpMax: number;
+  readonly mpMax = computed(() =>
+    this.team().reduce((sum, c) => sum + c.getMpMax(), 0),
+  );
 
-  limit: number;
+  readonly limitMax = computed(() => (2 * this.hpMax()) / 3);
 
-  limitMax: number;
+  readonly hits = computed(() =>
+    this.team().reduce((sum, c) => sum + c.getHits(), 0),
+  );
 
-  levelMax: number;
+  readonly levelMax = computed(() =>
+    this.team().reduce((max, c) => Math.max(max, c.level), 0),
+  );
 
-  levelSum: number;
+  readonly levelSum = computed(() =>
+    this.team().reduce((sum, c) => sum + c.level, 0),
+  );
 
-  constructor() {
-    super();
+  readonly mp = signal(0);
 
-    // list of characters
-    this.list = [];
-
-    // Array of recent hits
-    this.arrHits = [];
-
-    // current selected character in menus
-    const [first] = this.list;
-    this.selected = first;
-
-    // Init
-    this.hits = 0;
-    this.hpMax = 0;
-    this.mp = 0;
-    this.mpMax = 0;
-    this.limit = 0;
-    this.limitMax = 0;
-    this.levelMax = 0;
-    this.levelSum = 0;
-    this.weakness = [];
-    this.resistance = [];
-  }
+  readonly limit = signal(0);
 
   /**
    *
    */
   addHp(value: number): void {
-    this.hp.update((hp) => Math.min(hp + value, this.hpMax));
+    this.hp.update((hp) => Math.min(hp + value, this.hpMax()));
     this.source.hp.next({ hits: value } as ItDisplayHits);
   }
 
@@ -65,7 +55,7 @@ export class Characters extends Units {
    *
    */
   addMp(value: number): void {
-    this.mp = Math.min(this.mp + value, this.mpMax);
+    this.mp.update((mp) => Math.min(mp + value, this.mpMax()));
   }
 
   /**
@@ -103,43 +93,15 @@ export class Characters extends Units {
   }
 
   /*
-   * Refresh characters stats
+   * Refresh characters stats: recomputes the team and clamps HP, MP and limit
    */
   refresh(): void {
-    this.hpMax = 0;
-    this.mpMax = 0;
-    this.limitMax = 0;
-    this.hits = 0;
     this.arrHits = [];
-    this.levelMax = 0;
-    this.levelSum = 0;
+    this.team.set(this.getTeam());
 
-    this.getTeam().forEach((character) => {
-      // Level
-      if (character.level > this.levelMax) {
-        this.levelMax = character.level;
-      }
-
-      // HP, MP
-      this.hpMax += character.getHpMax();
-      this.mpMax += character.getMpMax();
-
-      this.levelSum += character.level;
-
-      this.hits += character.getHits();
-    });
-
-    this.limitMax = (2 * this.hpMax) / 3;
-
-    if (this.hp() > this.hpMax) {
-      this.hp.set(this.hpMax);
-    }
-    if (this.mp > this.mpMax) {
-      this.mp = this.mpMax;
-    }
-    if (this.limit > this.limitMax) {
-      this.limit = this.limitMax;
-    }
+    this.hp.update((hp) => Math.min(hp, this.hpMax()));
+    this.mp.update((mp) => Math.min(mp, this.mpMax()));
+    this.limit.update((limit) => Math.min(limit, this.limitMax()));
   }
 
   /**
@@ -167,37 +129,36 @@ export class Characters extends Units {
    * Get total characters hits
    */
   getAttackSkill(): ItActionAttack {
-    const { hits } = this;
     let pwr = 100;
 
     // limit
     if (this.canLimit()) {
       pwr = 500;
-      this.limit = 0;
+      this.limit.set(0);
     }
 
-    return new Attack(hits, pwr);
+    return new Attack(this.hits(), pwr);
   }
 
   /**
    * Returns in pixels characters hp bar width
    */
   hpProgress(pixelsMax: number): number {
-    return (this.hp() / this.hpMax) * pixelsMax;
+    return (this.hp() / this.hpMax()) * pixelsMax;
   }
 
   /**
    * Returns in pixels characters mp bar width
    */
   mpProgress(pixelsMax: number): number {
-    return (this.mp / this.mpMax) * pixelsMax;
+    return (this.mp() / this.mpMax()) * pixelsMax;
   }
 
   /**
    * Returns in pixels characters hp bar width
    */
   limitProgress(pixelsMax: number): number {
-    return (this.limit / this.limitMax) * pixelsMax;
+    return (this.limit() / this.limitMax()) * pixelsMax;
   }
 
   autoFighting(): ItActionAttack {
@@ -223,12 +184,12 @@ export class Characters extends Units {
     this.hp.update((hp) => Math.max(hp - hits, 0));
     this.source.hp.next({ hits } as ItDisplayHits);
 
-    this.limit = Math.min(this.limit + hits, this.limitMax);
+    this.limit.update((limit) => Math.min(limit + hits, this.limitMax()));
   }
 
   isAlive(): boolean {
     if (this.hp() <= 0) {
-      this.limit = 0;
+      this.limit.set(0);
       this.hp.set(0);
 
       return false;
@@ -271,7 +232,7 @@ export class Characters extends Units {
    * Returns if it is possible to execute a limit (powerful attack)
    */
   canLimit(): boolean {
-    return this.limit === this.limitMax;
+    return this.limit() === this.limitMax();
   }
 
   /**
@@ -280,8 +241,8 @@ export class Characters extends Units {
   export(): CharactersSave {
     const res: CharactersSave = {
       hp: this.hp(),
-      mp: this.mp,
-      limit: this.limit,
+      mp: this.mp(),
+      limit: this.limit(),
       list: [],
     };
 

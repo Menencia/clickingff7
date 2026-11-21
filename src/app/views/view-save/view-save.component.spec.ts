@@ -55,7 +55,7 @@ describe('ViewSaveComponent', () => {
   describe('reset', () => {
     it('erases the save and starts a new game in zone 1', () => {
       unlockNextZone();
-      game.gils = 5000;
+      game.gils.set(5000);
       game.save();
 
       component.resetGame();
@@ -67,7 +67,7 @@ describe('ViewSaveComponent', () => {
         CharacterRef.Cloud,
         CharacterRef.Barret,
       ]);
-      expect(game.gils).toBe(200);
+      expect(game.gils()).toBe(200);
       expect(navigate).toHaveBeenCalledWith('game');
     });
 
@@ -84,7 +84,7 @@ describe('ViewSaveComponent', () => {
   describe('import', () => {
     it('loads a valid save and goes to the game screen', () => {
       unlockNextZone();
-      game.gils = 1234;
+      game.gils.set(1234);
       const save = structuredClone(game.export());
       game.newGame();
 
@@ -129,7 +129,7 @@ describe('ViewSaveComponent', () => {
 
     it('keeps the current game if the save references unknown data', () => {
       unlockNextZone();
-      game.gils = 777;
+      game.gils.set(777);
       const before = structuredClone(game.export());
       const save = structuredClone(before);
       save.gils = 1;

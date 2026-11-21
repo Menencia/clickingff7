@@ -48,7 +48,7 @@ export class ViewShopComponent {
   }
 
   getGils(): number {
-    return this.gameService.gils;
+    return this.gameService.gils();
   }
 
   changeSection(s: string): void {
@@ -66,12 +66,12 @@ export class ViewShopComponent {
   canBuyWeapon(weapon: Weapon): boolean {
     return (
       this.inStockWeapon(weapon) === 0 &&
-      this.gameService.gils >= weapon.getPrice()
+      this.gameService.gils() >= weapon.getPrice()
     );
   }
 
   buyWeapon(weapon: Weapon): void {
-    this.gameService.gils -= weapon.getPrice();
+    this.gameService.gils.update((gils) => gils - weapon.getPrice());
     this.gameService.weapons.add(this.store.getWeapon(weapon.ref), false);
     this.refreshPlayerWeapons();
   }
@@ -81,7 +81,7 @@ export class ViewShopComponent {
   }
 
   sellWeapon(weapon: Weapon): void {
-    this.gameService.gils += weapon.getSellPrice();
+    this.gameService.gils.update((gils) => gils + weapon.getSellPrice());
     if (weapon.nbr > 1) {
       weapon.nbr -= 1;
     } else {
@@ -99,18 +99,18 @@ export class ViewShopComponent {
   canBuyMateria(materia: Materia): boolean {
     return (
       !this.inStockMateria(materia) &&
-      this.gameService.gils >= materia.getPrice()
+      this.gameService.gils() >= materia.getPrice()
     );
   }
 
   buyMateria(materia: Materia): void {
-    this.gameService.gils -= materia.getPrice();
+    this.gameService.gils.update((gils) => gils - materia.getPrice());
     this.gameService.materias.add(this.store.getMateria(materia.ref));
     this.refreshPlayerMaterias();
   }
 
   sellMateria(materia: Materia): void {
-    this.gameService.gils += materia.getSellPrice();
+    this.gameService.gils.update((gils) => gils + materia.getSellPrice());
     this.gameService.materias.list = this.gameService.materias.list.filter(
       (e) => e !== materia,
     );
@@ -122,18 +122,18 @@ export class ViewShopComponent {
   }
 
   canBuyItem(item: Item): boolean {
-    return this.gameService.gils >= item.getPrice();
+    return this.gameService.gils() >= item.getPrice();
   }
 
   buyItem(item: Item): void {
-    this.gameService.gils -= item.getPrice();
+    this.gameService.gils.update((gils) => gils - item.getPrice());
     const equipped = this.gameService.items.getEquipped().length < MAX_ITEMS;
     this.gameService.items.add(this.store.getItem(item.ref), equipped);
     this.refreshPlayerItems();
   }
 
   sellItem(item: Item): void {
-    this.gameService.gils += item.getSellPrice();
+    this.gameService.gils.update((gils) => gils + item.getSellPrice());
     if (item.nbr > 1) {
       item.nbr -= 1;
     } else {

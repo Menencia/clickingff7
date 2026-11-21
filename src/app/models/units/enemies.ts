@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
 import { withVariance } from '../../shared/utils/game.utils';
@@ -12,6 +13,8 @@ export class Enemies extends Units {
 
   hits: number;
 
+  readonly hpMax = signal(0);
+
   /**
    * Init
    */
@@ -23,7 +26,6 @@ export class Enemies extends Units {
 
     this.hits = 0;
     this.hp.set(0);
-    this.hpMax = 0;
     this.resistance = [];
     this.weakness = [];
   }
@@ -32,7 +34,7 @@ export class Enemies extends Units {
    * Refresh all the enemy
    */
   refresh(): void {
-    this.hpMax = 0;
+    let hpMax = 0;
     this.hits = 0;
     this.arrHits = [];
     this.weakness = [];
@@ -40,13 +42,14 @@ export class Enemies extends Units {
 
     this.list.forEach((enemy) => {
       // HP
-      this.hpMax += enemy.getHpMax();
+      hpMax += enemy.getHpMax();
       this.hits += enemy.getHits();
       this.weakness = [...new Set([...this.weakness, ...enemy.weakness])];
       this.resistance = [...new Set([...this.resistance, ...enemy.resistance])];
     });
 
-    this.hp.set(this.hpMax);
+    this.hpMax.set(hpMax);
+    this.hp.set(hpMax);
   }
 
   /**
@@ -102,7 +105,7 @@ export class Enemies extends Units {
    * Returns in pixels enemy bar width
    */
   hpProgress(pixelsMax: number): number {
-    return (this.hp() / this.hpMax) * pixelsMax;
+    return (this.hp() / this.hpMax()) * pixelsMax;
   }
 
   /**

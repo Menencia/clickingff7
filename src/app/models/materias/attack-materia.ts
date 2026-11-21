@@ -33,15 +33,18 @@ export class AttackMateria extends Materia {
    * Can use the materia?
    */
   canUse(context: Context): boolean {
-    return !!context.battle && context.characters.mp >= this.getMpCost();
+    return !!context.battle && context.characters.mp() >= this.getMpCost();
   }
 
   /**
    * Get skill containing battle actions
    */
   getSkill(context: Context): ItAction[] {
-    const { hits } = context.characters;
-    const attack = new Attack(hits, this.getPwr(), this.elements);
+    const attack = new Attack(
+      context.characters.hits(),
+      this.getPwr(),
+      this.elements,
+    );
     return [attack];
   }
 }

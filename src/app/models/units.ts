@@ -1,4 +1,4 @@
-import { signal } from '@angular/core';
+import { Signal, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ItActionAttack } from '../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../core/interfaces/it-display-hits';
@@ -8,7 +8,7 @@ export abstract class Units {
 
   hp = signal(0);
 
-  hpMax = 0;
+  abstract readonly hpMax: Signal<number>;
 
   source = {
     hp: new Subject<ItDisplayHits>(), // health points

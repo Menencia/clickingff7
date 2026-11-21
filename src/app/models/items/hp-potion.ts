@@ -4,14 +4,14 @@ import { Item } from '../item';
 
 export class HpPotion extends Item {
   canUse(context: Context): boolean {
-    return context.characters.hp() < context.characters.hpMax;
+    return context.characters.hp() < context.characters.hpMax();
   }
 
   getSkill(context: Context): ItAction[] {
     const action: ItAction = {
       use: () => {
         context.characters.addHp(
-          Math.ceil(this.pwr * context.characters.hpMax),
+          Math.ceil(this.pwr * context.characters.hpMax()),
         );
       },
     };

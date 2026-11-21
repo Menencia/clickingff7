@@ -44,7 +44,7 @@ describe('BattleService', () => {
       expect(battle?.characters).toBe(game.characters);
       expect(battle?.enemies.list).toHaveLength(1);
       expect(game.zones.current().enemies).toContain(battle?.enemies.list[0]);
-      expect(battle?.enemies.hp()).toBe(battle?.enemies.hpMax);
+      expect(battle?.enemies.hp()).toBe(battle?.enemies.hpMax());
     });
 
     it('only picks the first enemy of the zone at the start', () => {
@@ -78,7 +78,7 @@ describe('BattleService', () => {
       if (!battle) throw new Error('no battle');
       const [enemy] = battle.enemies.list;
 
-      const gils = game.gils;
+      const gils = game.gils();
       const team = game.characters.getTeam();
       const materias = game.materias.getEquipped();
       expect(team.length).toBeGreaterThan(0);
@@ -93,7 +93,7 @@ describe('BattleService', () => {
 
       battle.end(true);
 
-      expect(game.gils).toBe(gils + enemy.gilsReward());
+      expect(game.gils()).toBe(gils + enemy.gilsReward());
       team.forEach((c) => {
         expect(c.xp).toBe(enemy.xpReward());
       });
@@ -114,24 +114,24 @@ describe('BattleService', () => {
     });
 
     it('refreshes team stats after a level up', () => {
-      const hpMax = game.characters.hpMax;
+      const hpMax = game.characters.hpMax();
       service.startRandom();
       game.characters.getTeam().forEach((c) => {
         c.xp = c.getXpMax() - 1;
       });
       service.battle()?.end(true);
 
-      expect(game.characters.hpMax).toBeGreaterThan(hpMax);
+      expect(game.characters.hpMax()).toBeGreaterThan(hpMax);
     });
   });
 
   describe('on defeat', () => {
     it('gives no reward and does not count the fight', () => {
-      const gils = game.gils;
+      const gils = game.gils();
       service.startRandom();
       service.battle()?.end(false);
 
-      expect(game.gils).toBe(gils);
+      expect(game.gils()).toBe(gils);
       expect(game.zones.current().nbFights).toBe(0);
       expect(service.battle()).toBeUndefined();
     });
@@ -249,7 +249,7 @@ describe('BattleService', () => {
 
     it('damages the enemies without ending the battle', () => {
       const battle = startBattle();
-      battle.enemies.hp.set(battle.enemies.hpMax * 1000);
+      battle.enemies.hp.set(battle.enemies.hpMax() * 1000);
       const hp = battle.enemies.hp();
 
       service.attack();
@@ -260,12 +260,12 @@ describe('BattleService', () => {
 
     it('uses the Limit and resets the gauge when full', () => {
       const battle = startBattle();
-      battle.enemies.hp.set(battle.enemies.hpMax * 1000);
-      game.characters.limit = game.characters.limitMax;
+      battle.enemies.hp.set(battle.enemies.hpMax() * 1000);
+      game.characters.limit.set(game.characters.limitMax());
 
       service.attack();
 
-      expect(game.characters.limit).toBe(0);
+      expect(game.characters.limit()).toBe(0);
     });
 
     it('wins the battle when the enemies reach 0 HP', () => {
@@ -283,16 +283,16 @@ describe('BattleService', () => {
   describe('useMateria', () => {
     it('pays the MP cost and damages the enemies', () => {
       const battle = startBattle();
-      battle.enemies.hp.set(battle.enemies.hpMax * 1000);
+      battle.enemies.hp.set(battle.enemies.hpMax() * 1000);
       const bolt = materia(MateriaRef.Bolt);
-      game.characters.mp = game.characters.mpMax;
-      const mp = game.characters.mp;
+      game.characters.mp.set(game.characters.mpMax());
+      const mp = game.characters.mp();
       const hp = battle.enemies.hp();
 
       expect(service.canUseMateria(bolt)).toBe(true);
       service.useMateria(bolt);
 
-      expect(game.characters.mp).toBe(mp - bolt.getMpCost());
+      expect(game.characters.mp()).toBe(mp - bolt.getMpCost());
       expect(battle.enemies.hp()).toBeLessThan(hp);
       expect(service.battle()).toBe(battle);
     });
@@ -300,7 +300,7 @@ describe('BattleService', () => {
     it('wins the battle when the enemies reach 0 HP', () => {
       const battle = startBattle();
       battle.enemies.hp.set(1);
-      game.characters.mp = game.characters.mpMax;
+      game.characters.mp.set(game.characters.mpMax());
 
       service.useMateria(materia(MateriaRef.Bolt));
 
@@ -310,13 +310,13 @@ describe('BattleService', () => {
 
     it('does nothing when the materia cannot be used', () => {
       const bolt = materia(MateriaRef.Bolt);
-      game.characters.mp = game.characters.mpMax;
-      const mp = game.characters.mp;
+      game.characters.mp.set(game.characters.mpMax());
+      const mp = game.characters.mp();
 
       // attack materia outside a battle
       expect(service.canUseMateria(bolt)).toBe(false);
       expect(() => service.useMateria(bolt)).not.toThrow();
-      expect(game.characters.mp).toBe(mp);
+      expect(game.characters.mp()).toBe(mp);
     });
 
     it('does nothing without enough MP', () => {
@@ -324,25 +324,25 @@ describe('BattleService', () => {
       const hp = battle.enemies.hp();
       const bolt = materia(MateriaRef.Bolt);
       expect(bolt.getMpCost()).toBeGreaterThan(0);
-      game.characters.mp = bolt.getMpCost() - 1;
+      game.characters.mp.set(bolt.getMpCost() - 1);
 
       expect(service.canUseMateria(bolt)).toBe(false);
       service.useMateria(bolt);
 
-      expect(game.characters.mp).toBe(bolt.getMpCost() - 1);
+      expect(game.characters.mp()).toBe(bolt.getMpCost() - 1);
       expect(battle.enemies.hp()).toBe(hp);
     });
 
     it('can cure outside a battle', () => {
       const restore = materia(MateriaRef.Restore);
-      game.characters.mp = game.characters.mpMax;
+      game.characters.mp.set(game.characters.mpMax());
       game.characters.hp.set(1);
 
       service.useMateria(restore);
 
       expect(game.characters.hp()).toBeGreaterThan(1);
-      expect(game.characters.mp).toBe(
-        game.characters.mpMax - restore.getMpCost(),
+      expect(game.characters.mp()).toBe(
+        game.characters.mpMax() - restore.getMpCost(),
       );
     });
   });
@@ -373,7 +373,7 @@ describe('BattleService', () => {
 
     it('does nothing when the item cannot be used', () => {
       const [potion] = game.items.list;
-      game.characters.hp.set(game.characters.hpMax);
+      game.characters.hp.set(game.characters.hpMax());
 
       expect(service.canUseItem(potion)).toBe(false);
       expect(() => service.useItem(potion)).not.toThrow();

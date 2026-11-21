@@ -23,8 +23,8 @@ export class CureMateria extends Materia {
    */
   canUse(context: Context): boolean {
     return (
-      context.characters.mp >= this.getMpCost() &&
-      context.characters.hp() < context.characters.hpMax
+      context.characters.mp() >= this.getMpCost() &&
+      context.characters.hp() < context.characters.hpMax()
     );
   }
 
@@ -33,7 +33,7 @@ export class CureMateria extends Materia {
    * Add to HP : +30% to +60%
    */
   getSkill(context: Context): ItAction[] {
-    const hits = context.characters.hpMax;
+    const hits = context.characters.hpMax();
     const cure = new Cure(hits, this.getPwr());
     return [cure];
   }

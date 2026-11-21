@@ -122,7 +122,7 @@ Changement :
 
 ## Lot 4 — Modernisation (Angular 22, zoneless)
 
-### 11. `refactor(units): convert team and battle state to signals` 🔴
+### 11. `refactor(units): convert team and battle state to signals` 🔴 ✅ fait
 
 Avec le mode zoneless, seuls `Units.hp` et `BattleService.battle` sont des signaux. `Characters.mp`, `limit`, `hpMax`, `mpMax`, ainsi que `GameService.gils` et `time`, sont des champs simples que les timers modifient (`Battle.start`, `autoTimer`). Ces changements ne s'affichent que si un autre événement relance la détection de changements. C'est pour cela que `CharactersPanelComponent` est resté en `ChangeDetectionStrategy.Eager`.
 
