@@ -109,7 +109,12 @@ export class ViewShopComponent {
     this.refreshPlayerMaterias();
   }
 
+  canSellMateria(materia: Materia): boolean {
+    return !materia.equipped;
+  }
+
   sellMateria(materia: Materia): void {
+    if (!this.canSellMateria(materia)) return;
     this.gameService.gils.update((gils) => gils + materia.getSellPrice());
     this.gameService.materias.list = this.gameService.materias.list.filter(
       (e) => e !== materia,

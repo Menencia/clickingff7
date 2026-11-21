@@ -186,7 +186,12 @@
             }
             <td>{{ materia.getSellPrice() }} {{ "Gils" | translate }}</td>
             <td>
-              <button type="button" class="btn" (click)="sellMateria(materia)">
+              <button
+                type="button"
+                class="btn"
+                (click)="sellMateria(materia)"
+                [disabled]="!canSellMateria(materia)"
+              >
                 {{ "Sell" | translate }}
               </button>
             </td>

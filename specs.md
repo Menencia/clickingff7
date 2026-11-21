@@ -258,7 +258,7 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 - **Achat d'arme** : possible seulement si le joueur n'en possède aucun exemplaire et a assez de gils. L'arme achetée n'est pas équipée.
 - **Achat de materia** : possible seulement si elle n'est pas déjà possédée et que le joueur a assez de gils. Elle n'est pas équipée.
 - **Achat d'objet** : sans limite de quantité. Un nouveau type d'objet est équipé automatiquement s'il reste une place (moins de 2 équipés).
-- **Revente** : au **prix d'achat / 2**. Impossible de vendre le dernier exemplaire d'une arme équipée.
+- **Revente** : au **prix d'achat / 2**. Impossible de vendre le dernier exemplaire d'une arme équipée, ni une materia équipée.
 - **Tri** : armes par type (broadsword, gun-arm, knuckle, stave, headdresse, shuriken) puis par dégâts ; materias par puissance ; objets par identifiant.
 
 ## 11. Sauvegarde et paramètres

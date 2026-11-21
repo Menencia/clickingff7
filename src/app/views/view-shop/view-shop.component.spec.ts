@@ -101,6 +101,21 @@ describe('ViewShopComponent (real catalog)', () => {
     expect(owned).not.toBe(materia);
   });
 
+  it('cannot sell an equipped materia', () => {
+    const materia = game.materias.list[0];
+    materia.equipped = true;
+    const gils = game.gils();
+    expect(shop.canSellMateria(materia)).toBe(false);
+    shop.sellMateria(materia);
+    expect(game.materias.list).toContain(materia);
+    expect(game.gils()).toBe(gils);
+
+    materia.equipped = false;
+    expect(shop.canSellMateria(materia)).toBe(true);
+    shop.sellMateria(materia);
+    expect(game.materias.list).not.toContain(materia);
+  });
+
   it('buying an item twice stacks on the owned copy only', () => {
     const item = shop.shopItems.find((i) => i.ref === ItemRef.Ether);
     if (!item) throw new Error('Ether not in shop');
