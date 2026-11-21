@@ -1,0 +1,8 @@
+# Améliorations
+
+Idées d'évolution du jeu, à discuter avant implémentation. Les bugs sont listés dans `bugs.md`. Les règles de jeu actuelles sont décrites dans `specs.md`.
+
+1. **Restaurer un minimum de HP hors combat.** Depuis qu'aucun combat ne peut être lancé à 0 HP, le joueur doit se soigner pour rejouer. Le coût en MP de la materia de soin augmente avec son niveau, et les MP ne se régénèrent pas. Un joueur sans MP, sans potion et sans gils pour en acheter ne peut donc plus combattre. Pistes :
+   - régénérer lentement les HP (et éventuellement les MP) hors combat, par exemple avec le timer de `GameService` ;
+   - remettre automatiquement un pourcentage des HP max après une défaite ;
+   - ajouter une action « Se reposer », gratuite ou payante en gils, qui restaure l'équipe.
