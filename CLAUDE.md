@@ -27,6 +27,10 @@ CI (`.github/workflows/main.yml`, on `main`/`next`) runs build, `test:ci`, then 
 
 `docs/bugs.md` (in French) lists known bugs and unfinished features. Add any bug you find there. When fixing one, remove it from the list and renumber the following entries.
 
+`docs/changelog.md` (in French) records changes version by version. **Keep the « Prochaine version » section up to date**: any change a player can notice (new feature, bug fix, gameplay, UI or save change) must add an entry there in the same change. Don't put a version number on that section until asked.
+- « Notes de release (anglais) »: short English bullets for the GitHub release, in the style of the previous releases (`Fix …` for fixes, one optional `Note:` line at the end for notable technical changes). Nothing too technical.
+- « Détail des changements »: French details, under `#### Nouveautés`, `#### Corrections`, `#### Changements`, `#### Disparitions` or `#### Côté technique` (create a subsection when it gets its first entry). Pure refactors, tests and docs only go in « Côté technique », and only when significant.
+
 ## Code style
 
 Biome is the only linter/formatter (no ESLint/Prettier). It uses single quotes and space indentation, and formats HTML templates too. `noUnusedImports` is an error.
