@@ -22,7 +22,11 @@ export class ThemePickerComponent {
   }
 
   ngOnInit() {
-    const savedTheme = localStorage.getItem('theme');
+    let savedTheme = localStorage.getItem('theme');
+    // Older versions stored the light theme as 'light', which is no longer a configured daisyUI theme.
+    if (savedTheme === 'light') {
+      savedTheme = 'cupcake';
+    }
     if (savedTheme) {
       this.setTheme(savedTheme);
       this.isDarkMode.set(savedTheme !== 'dark');

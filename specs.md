@@ -250,7 +250,7 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 
 **Répliques** : chaque personnage affiche une réplique qui dépend de la zone max atteinte (clé i18n `Line {levelMax} {ref}`).
 
-**Thème** : clair (cupcake) ou sombre (dark). Le thème par défaut est sombre, et le choix est mémorisé dans `localStorage['theme']`.
+**Thème** : clair (cupcake) ou sombre (dark). Le thème par défaut est sombre, et le choix est mémorisé dans `localStorage['theme']`. Une ancienne valeur `light` est convertie en `cupcake` au chargement.
 
 ## 10. Boutique
 
