@@ -50,10 +50,6 @@ Bilan des 51 commits passés sur la branche `experiments` depuis le tag `v1.4.0`
 - Les tests unitaires passent de Karma/Jasmine à Vitest et tournent en CI. Les nouveaux tests couvrent la boucle de combat, les récompenses, le déblocage des boss et les formules de stats.
 - La documentation est complétée : `CLAUDE.md`, `specs.md` (spécifications fonctionnelles), `docs/bugs.md`, `docs/ameliorations.md` et `docs/refactors.md`.
 
-## Avant de publier
-
-- Mettre à jour la version dans `package.json`, qui vaut encore `1.4.0`.
-
 ## Texte de la release 1.5.0
 
 ```
