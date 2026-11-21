@@ -70,7 +70,7 @@ Changement : créer `BattleService.attack()`, `useMateria(m)` et `useItem(i)`. I
 
 **Risque** : moyen. C'est le chemin principal du jeu. Il est couvert par le commit 2 ; ajouter des tests sur ces trois méthodes.
 
-### 6. `fix(version): compare save versions numerically` 🟢
+### 6. `fix(version): compare save versions numerically` 🟢 ✅ fait
 
 Dans `shared/utils/version.utils.ts`, `compareVersions` compare les groupes de la regex comme des chaînes (« 10 » < « 9 »). Le point de la regex n'est pas échappé. De plus, le nom et le commentaire (« true if version 1 is older ») disent le contraire de ce que fait la fonction, qui renvoie `true` si v1 ≥ v2.
 

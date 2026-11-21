@@ -13,7 +13,7 @@ import { Characters } from '../../models/units/characters';
 import { Weapons } from '../../models/weapons';
 import { Zones } from '../../models/zones';
 import { decodeSave, encodeSave } from '../../shared/utils/save.utils';
-import { compareVersions } from '../../shared/utils/version.utils';
+import { isVersionAtLeast } from '../../shared/utils/version.utils';
 import { StoreService } from './store.service';
 
 const SAVE_1 = 'save1';
@@ -92,7 +92,7 @@ export class GameService {
     const s = localStorage[SAVE_1];
     const save = s ? decodeSave(s) : null;
 
-    if (save && compareVersions(save.version, '1.1.0') && this.tryLoad(save)) {
+    if (save && isVersionAtLeast(save.version, '1.1.0') && this.tryLoad(save)) {
       this.saves.push(save);
       this.zones.checkLastZone();
     } else {

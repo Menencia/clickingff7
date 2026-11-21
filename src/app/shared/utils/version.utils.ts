@@ -1,40 +1,28 @@
+const VERSION_REGEX = /^(\d+)\.(\d+)\.(\d+)/;
+
+function parseVersion(version: string): [number, number, number] | null {
+  const match = version.match(VERSION_REGEX);
+  if (!match) {
+    return null;
+  }
+  return [Number(match[1]), Number(match[2]), Number(match[3])];
+}
+
 /**
- * Return true if version 1 is older than version 2
+ * Return true if `version` is greater than or equal to `min`.
+ * Only the major.minor.patch numbers are compared, numerically; any suffix
+ * (e.g. `-beta`) is ignored. Returns false if either version is not parsable.
  */
-export function compareVersions(version1: string, version2: string): boolean {
-  const regex = /([0-9]+).([0-9]+).([0-9]+).*/;
-  const match1 = version1.match(regex);
-  const match2 = version2.match(regex);
-  enum Change {
-    Major = 1,
-    Minor = 2,
-    Fix = 3,
-  }
-
-  if (!match1 || !match2) {
+export function isVersionAtLeast(version: string, min: string): boolean {
+  const v = parseVersion(version);
+  const m = parseVersion(min);
+  if (!v || !m) {
     return false;
   }
-
-  if (match1[Change.Major] < match2[Change.Major]) {
-    return false;
+  for (let i = 0; i < 3; i++) {
+    if (v[i] !== m[i]) {
+      return v[i] > m[i];
+    }
   }
-  if (match1[Change.Major] > match2[Change.Major]) {
-    return true;
-  }
-
-  if (match1[Change.Minor] < match2[Change.Minor]) {
-    return false;
-  }
-  if (match1[Change.Minor] > match2[Change.Minor]) {
-    return true;
-  }
-
-  if (match1[Change.Fix] < match2[Change.Fix]) {
-    return false;
-  }
-  if (match1[Change.Fix] > match2[Change.Fix]) {
-    return true;
-  }
-
   return true;
 }
