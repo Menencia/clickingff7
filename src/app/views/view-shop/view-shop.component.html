@@ -179,11 +179,11 @@
                 "Mat. " + materia.ref + " desc" | translate
               }}</span>
             </td>
-            @if (materia.isOwned([])) {
-            <td>🗸</td>
-            } @if (!materia.isOwned([])) {
-            <td></td>
-            }
+            <td>
+              @if (materia.equipped) {
+              <span class="badge badge-sm">{{ "Equipped" | translate }}</span>
+              }
+            </td>
             <td>{{ materia.getSellPrice() }} {{ "Gils" | translate }}</td>
             <td>
               <button
