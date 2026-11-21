@@ -459,6 +459,7 @@
     "xp": 5,
     "ap": 5,
     "gils": 5,
-    "weakness": ["bolt", "wind"]
+    "weakness": ["bolt", "wind"],
+    "boss": true
   }
 ]

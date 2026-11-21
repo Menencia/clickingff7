@@ -50,7 +50,7 @@
   {
     "ref": "yuffie",
     "image": "/assets/images/characters/yuffie.jpg",
-    "weaponType": "yuffie",
+    "weaponType": "shuriken",
     "weapon": "4-pt-shuriken",
     "hp": 1,
     "mp": 4,

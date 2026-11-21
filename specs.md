@@ -31,7 +31,7 @@ Les tirages aléatoires utilisent `random(min, max)`, qui renvoie un entier entr
 | Tifa | knuckle | Leather Glove | 2 | 2 | 3 | 3 |
 | Aerith | stave | Guard Stick | 1 | 5 | 2 | 4, 5 |
 | Red XIII | headdresse | Mythril Clip | 2 | 4 | 4 | — |
-| Yuffie | yuffie | 4-pt Shuriken | 1 | 4 | 4 | — |
+| Yuffie | shuriken | 4-pt Shuriken | 1 | 4 | 4 | — |
 
 ### 3.2 Formules (`models/character.ts`)
 
@@ -250,7 +250,7 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 
 ## 10. Boutique
 
-- **Catalogue** : armes (sauf 4-pt Shuriken), materias et objets dont la zone de disponibilité est inférieure ou égale à la zone max atteinte.
+- **Catalogue** : armes, materias et objets dont la zone de disponibilité est inférieure ou égale à la zone max atteinte.
 - **Achat d'arme** : possible seulement si le joueur n'en possède aucun exemplaire et a assez de gils. L'arme achetée n'est pas équipée.
 - **Achat de materia** : possible seulement si elle n'est pas déjà possédée et que le joueur a assez de gils. Elle n'est pas équipée.
 - **Achat d'objet** : sans limite de quantité. Un nouveau type d'objet est équipé automatiquement s'il reste une place (moins de 2 équipés).
@@ -276,15 +276,12 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 
 Ces écarts ont été constatés dans le code actuel. Ce sont probablement des bugs ou des fonctionnalités inachevées, à corriger ou à confirmer :
 
-1. **Bottomswell** (boss de la zone 9) n'a pas `boss: true` dans `enemies.json`. La zone 9 ne peut donc jamais être marquée comme terminée, et son combat de boss reste toujours disponible.
-2. **Yuffie** a le type d'arme `yuffie`, alors que son arme 4-pt Shuriken est de type `shuriken`. Aucune arme ne lui est proposée dans l'écran Équipement.
-3. Le **4-pt Shuriken** est exclu de la boutique : la ligne est commentée.
-4. `compareVersions` compare les numéros de version **comme des chaînes de caractères**, si bien que « 10 » est considéré comme inférieur à « 9 ».
-5. Après une **défaite**, les HP restent à 0. Le combat suivant est perdu dès la première attaque ennemie, sauf si le joueur se soigne avant.
-6. `StoreService` renvoie les **instances du catalogue elles-mêmes**, sans copie. Le stock du joueur et la boutique partagent donc les mêmes objets, et modifier l'un (niveau, quantité, équipé) modifie l'autre.
-7. Le tri des armes en boutique ne connaît que 3 types. Les types stave, headdresse et shuriken obtiennent un rang indéfini.
-8. `ShopService.refresh()` est appelé depuis la Carte, mais l'écran Boutique n'utilise pas ses résultats : il recalcule son propre catalogue.
-9. Les personnages n'attaquent pas automatiquement : `autoFighting()` existe mais n'est jamais appelé.
-10. La vente d'une materia ne vérifie pas si elle est équipée.
-11. Les boutons **Réinitialiser** et **Importer** sont commentés dans `view-save.component.html`, depuis la disparition de la directive de confirmation PrimeNG. Ces deux fonctions ne sont donc plus accessibles au joueur.
-12. Une sauvegarde corrompue dans `localStorage` empêche le jeu de démarrer : `JSON.parse(atob(...))` n'est pas protégé par un `try/catch`.
+1. `compareVersions` compare les numéros de version **comme des chaînes de caractères**, si bien que « 10 » est considéré comme inférieur à « 9 ».
+2. Après une **défaite**, les HP restent à 0. Le combat suivant est perdu dès la première attaque ennemie, sauf si le joueur se soigne avant.
+3. `StoreService` renvoie les **instances du catalogue elles-mêmes**, sans copie. Le stock du joueur et la boutique partagent donc les mêmes objets, et modifier l'un (niveau, quantité, équipé) modifie l'autre.
+4. Le tri des armes en boutique ne connaît que 3 types. Les types stave, headdresse et shuriken obtiennent un rang indéfini.
+5. `ShopService.refresh()` est appelé depuis la Carte, mais l'écran Boutique n'utilise pas ses résultats : il recalcule son propre catalogue.
+6. Les personnages n'attaquent pas automatiquement : `autoFighting()` existe mais n'est jamais appelé.
+7. La vente d'une materia ne vérifie pas si elle est équipée.
+8. Les boutons **Réinitialiser** et **Importer** sont commentés dans `view-save.component.html`, depuis la disparition de la directive de confirmation PrimeNG. Ces deux fonctions ne sont donc plus accessibles au joueur.
+9. Une sauvegarde corrompue dans `localStorage` empêche le jeu de démarrer : `JSON.parse(atob(...))` n'est pas protégé par un `try/catch`.

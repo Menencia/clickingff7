@@ -36,7 +36,7 @@ export class ShopService {
       WeaponRef.CannonBall,
       WeaponRef.MythrilClaw,
       WeaponRef.FullMetalStaff,
-      // 'FPtShuriken'
+      WeaponRef.FPtShuriken,
     ];
     weapons.forEach((w) => {
       const weapon = this.store.getWeapon(w);

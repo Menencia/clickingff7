@@ -13,7 +13,6 @@
 Ces problèmes ne relèvent pas du refactor, mais ils sont à traiter en priorité.
 
 - **Réinitialiser et Importer sont inaccessibles** 🔴 : dans `views/view-save/view-save.component.html`, les deux boutons sont commentés. Ils utilisaient une directive de confirmation `[message]` / `(confirm)` qui a disparu avec PrimeNG. `ViewSaveComponent.resetGame()` et `importSave()` ne sont donc plus appelables. Il faut les rebrancher avec une confirmation daisyUI (`<dialog class="modal">`), **après** le commit 7 : en l'état, une réinitialisation ou un import réutiliserait des instances déjà modifiées.
-- **Données de jeu incohérentes** 🟠 (voir `specs.md` §12) : il manque `boss: true` sur `bottomswell` dans `enemies.json`, ce qui empêche de terminer la zone 9. Le `weaponType` de Yuffie (`yuffie`) ne correspond pas au type de son arme (`shuriken`). Le 4-pt Shuriken est absent de la boutique.
 - **Sécurité** : rien à signaler. L'application tourne uniquement côté client, sans backend. Le joueur peut modifier sa sauvegarde en base64, ce qui est acceptable pour un jeu solo.
 
 ## Lot 1 — Filet de tests
