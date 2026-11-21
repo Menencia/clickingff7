@@ -1,9 +1,5 @@
 # Refactors prioritaires
 
-- Date : 2026-11-21
-- Commit analysé : `e85f577` (branche `experiments`)
-- Périmètre : tout `src/app` (modèles, services, guards, vues, composants partagés), plus `src/assets/data`. Le projet est petit, tout a été lu.
-
 **Légende** : 🔴 haute · 🟠 moyenne · 🟢 basse
 
 **Vérifications après chaque commit** (identiques à la CI) : `pnpm build`, `pnpm test:ci`, `pnpm lint`. Chaque commit doit les laisser au vert. Si un commit change une règle de jeu, il met aussi à jour `specs.md` (voir CLAUDE.md).
