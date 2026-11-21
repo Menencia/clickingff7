@@ -33,21 +33,13 @@
       </td>
       <td class="total">
         @if (materia.equipped) {
-        <span
-          (click)="unequip(materia)"
-          (keypress)="unequip(materia)"
-          class="cursor-pointer"
-        >
+        <button type="button" class="cursor-pointer" (click)="unequip(materia)">
           <svg lucideX class="text-red-600"><title>X</title></svg>
-        </span>
+        </button>
         } @if (canEquip(materia)) {
-        <span
-          (click)="equip(materia)"
-          (keypress)="equip(materia)"
-          class="cursor-pointer"
-        >
+        <button type="button" class="cursor-pointer" (click)="equip(materia)">
           <svg lucidePlus class="text-green-600"><title>Plus</title></svg>
-        </span>
+        </button>
         }
       </td>
     </tr>

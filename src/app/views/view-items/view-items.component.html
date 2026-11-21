@@ -20,21 +20,17 @@
       <td>{{ item.nbr }}</td>
       <td class="total">
         @if (item.equipped) {
-        <span
+        <button
+          type="button"
+          class="cursor-pointer"
           (click)="unequipItem(item)"
-          (keypress)="unequipItem(item)"
-          class="hover"
         >
           ❌
-        </span>
+        </button>
         } @if (canEquipItem(item)) {
-        <span
-          (click)="equipItem(item)"
-          (keypress)="equipItem(item)"
-          class="hover"
-        >
+        <button type="button" class="cursor-pointer" (click)="equipItem(item)">
           ➕
-        </span>
+        </button>
         }
       </td>
     </tr>

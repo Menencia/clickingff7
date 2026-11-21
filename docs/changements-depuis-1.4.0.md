@@ -35,10 +35,10 @@ Bilan des 51 commits passés sur la branche `experiments` depuis le tag `v1.4.0`
 - **Pied de page** : il est plus grand et se trouve sur un fond sombre.
 - **Tutoriel** : il se lance avec l'icône d'aide (point d'interrogation dans un rond) de la barre du haut, désactivée pendant un combat. Chaque étape désigne de nouveau son élément. Sur mobile, l'étape du menu principal désigne le bouton du tiroir. La bulle et ses boutons suivent le thème, donc restent lisibles en mode sombre.
 - **Panneau ennemi** : il reste affiché hors combat, avec la mention « Aucun ennemi ».
+- **Accessibilité clavier** : sur les écrans PHS, Materia et Objets, les icônes cliquables (rejoindre ou quitter l'équipe, équiper ou déséquiper) sont de vrais boutons. On les atteint avec Tab et on les active avec Entrée ou Espace.
 
 ## Disparitions
 
-- **Accessibilité clavier** : sur les écrans PHS, Materia et Objets, les icônes cliquables (rejoindre ou quitter l'équipe, équiper ou déséquiper) ont perdu leur `tabindex`. Elles ne peuvent plus être atteintes au clavier.
 - **Police Material Icons** : elle n'est plus chargée depuis Google Fonts. Ses icônes sont remplacées par des SVG (Lucide).
 
 ## Côté technique
@@ -53,5 +53,4 @@ Bilan des 51 commits passés sur la branche `experiments` depuis le tag `v1.4.0`
 ## Avant de publier
 
 - Convertir l'ancienne valeur de thème `light` en `cupcake`.
-- Rétablir le `tabindex` sur les icônes cliquables.
 - Mettre à jour la version dans `package.json`, qui vaut encore `1.4.0`.
