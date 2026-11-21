@@ -265,8 +265,8 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 - **Au démarrage** : la sauvegarde est chargée si elle existe et que sa version est ≥ 1.1.0. Sinon, une nouvelle partie démarre en zone 1. La version enregistrée est celle de `package.json`.
 - **Exporter la sauvegarde** : affiche la dernière sauvegarde en base64.
 - **Exporter la partie** : affiche l'état courant en base64, même s'il n'est pas sauvegardé.
-- **Importer** : charge une chaîne base64 (sans contrôle de version) et renvoie à l'écran Jeu.
-- **Réinitialiser** : possible seulement si une sauvegarde existe. Efface la sauvegarde, recommence en zone 1 et renvoie à l'écran Jeu.
+- **Importer** : charge une chaîne base64 (sans contrôle de version) et renvoie à l'écran Jeu. *Actuellement inaccessible (voir §12).*
+- **Réinitialiser** : *actuellement inaccessible (voir §12).* Possible seulement si une sauvegarde existe. Efface la sauvegarde, recommence en zone 1 et renvoie à l'écran Jeu.
 - **Temps de jeu** : compteur incrémenté chaque seconde, affiché au format `h:mm:ss`.
 - **Langue** : par défaut, celle du navigateur si elle vaut en, fr ou es, sinon en. Elle est enregistrée dans la sauvegarde. Le français est la langue source des traductions (Crowdin).
 - **Difficulté** : Normal par défaut. Elle s'applique aux ennemis générés ensuite (§5.2).
@@ -286,3 +286,5 @@ Ces écarts ont été constatés dans le code actuel. Ce sont probablement des b
 8. `ShopService.refresh()` est appelé depuis la Carte, mais l'écran Boutique n'utilise pas ses résultats : il recalcule son propre catalogue.
 9. Les personnages n'attaquent pas automatiquement : `autoFighting()` existe mais n'est jamais appelé.
 10. La vente d'une materia ne vérifie pas si elle est équipée.
+11. Les boutons **Réinitialiser** et **Importer** sont commentés dans `view-save.component.html`, depuis la disparition de la directive de confirmation PrimeNG. Ces deux fonctions ne sont donc plus accessibles au joueur.
+12. Une sauvegarde corrompue dans `localStorage` empêche le jeu de démarrer : `JSON.parse(atob(...))` n'est pas protégé par un `try/catch`.
