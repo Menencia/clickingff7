@@ -11,7 +11,7 @@
 
 ## Lot 1 — Filet de tests
 
-### 1. `test(views): cover team, equipment and zone rules` 🟠
+### 1. `test(views): cover team, equipment and zone rules` 🟠 ✅ fait
 
 Les specs de `ViewEquipComponent`, `ViewPhsComponent`, `ViewMapComponent`, `ViewMateriaComponent`, `ViewItemsComponent` et `UiActionsComponent` ne contiennent que `should create`. Or ces vues portent des règles de jeu que les commits 2 à 4 vont déplacer.
 
