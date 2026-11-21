@@ -1,21 +1,9 @@
-import { Injectable, inject } from '@angular/core';
-import { UrlTree } from '@angular/router';
-import { Observable } from 'rxjs';
+import { inject } from '@angular/core';
+import type { CanActivateFn } from '@angular/router';
 
 import { PHS_UNLOCK_ZONE } from '../../shared/utils/game.utils';
 import { GameService } from '../services/game.service';
 
-@Injectable({
-  providedIn: 'root',
-})
-export class ZoneGuard {
-  gameService = inject(GameService);
-
-  canActivate():
-    | Observable<boolean | UrlTree>
-    | Promise<boolean | UrlTree>
-    | boolean
-    | UrlTree {
-    return this.gameService.zones.levelMax >= PHS_UNLOCK_ZONE;
-  }
-}
+/** Allows access once the PHS unlock zone has been reached. */
+export const zoneGuard: CanActivateFn = () =>
+  inject(GameService).zones.levelMax >= PHS_UNLOCK_ZONE;

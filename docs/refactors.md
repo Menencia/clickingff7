@@ -141,7 +141,7 @@ Changement : passer ces champs en `signal` / `computed` (`hpMax`, `mpMax`, `limi
 
 **Risque** : faible, la migration est mécanique (schématics `ng g @angular/core:signal-input-migration` et `inject-migration`). Les templates qui lisent ces inputs doivent les appeler (`progress()`).
 
-### 13. `refactor(guards): use functional guards` 🟢
+### 13. `refactor(guards): use functional guards` 🟢 ✅ fait
 
 Remplacer les classes `BattleGuard` et `ZoneGuard` (avec leur signature de retour verbeuse) par des `CanActivateFn` qui utilisent `inject()`. Mettre à jour `app.routes.ts` et les deux specs.
 

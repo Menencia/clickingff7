@@ -1,26 +1,35 @@
 import { TestBed } from '@angular/core/testing';
+import type {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
+import { PHS_UNLOCK_ZONE } from '../../shared/utils/game.utils';
 import { GameService } from '../services/game.service';
-import { ZoneGuard } from './zone.guard';
+import { zoneGuard } from './zone.guard';
 
-describe('ZoneGuard', () => {
-  let guard: ZoneGuard;
+describe('zoneGuard', () => {
+  const zones = { levelMax: 1 };
+
+  const run = () =>
+    TestBed.runInInjectionContext(() =>
+      zoneGuard({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot),
+    );
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [],
-      providers: [
-        {
-          provide: GameService,
-          useValue: {
-            run: () => {},
-          },
-        },
-      ],
+      providers: [{ provide: GameService, useValue: { zones } }],
     });
-    guard = TestBed.inject(ZoneGuard);
   });
 
-  it('should create', () => {
-    expect(guard).toBeTruthy();
+  it('blocks access before the PHS unlock zone', () => {
+    zones.levelMax = PHS_UNLOCK_ZONE - 1;
+    expect(run()).toBe(false);
+  });
+
+  it('allows access from the PHS unlock zone', () => {
+    zones.levelMax = PHS_UNLOCK_ZONE;
+    expect(run()).toBe(true);
+    zones.levelMax = PHS_UNLOCK_ZONE + 1;
+    expect(run()).toBe(true);
   });
 });

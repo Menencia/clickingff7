@@ -102,7 +102,7 @@ Un nouveau personnage arrive au niveau du membre le plus haut de l'équipe. À c
 
 ### 5.1 Déroulement (`models/battle.ts`, `core/services/battle.service.ts`, `shared/ui/ui-actions`)
 
-Un seul combat peut avoir lieu à la fois. Pendant un combat, tous les écrans sauf Jeu sont inaccessibles (`BattleGuard`), et le tutoriel ne peut pas être lancé.
+Un seul combat peut avoir lieu à la fois. Pendant un combat, tous les écrans sauf Jeu sont inaccessibles (`battleGuard`), et le tutoriel ne peut pas être lancé.
 
 Actions disponibles :
 

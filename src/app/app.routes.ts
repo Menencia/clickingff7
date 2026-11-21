@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
-import { BattleGuard } from './core/guards/battle.guard';
-import { ZoneGuard } from './core/guards/zone.guard';
+import { battleGuard } from './core/guards/battle.guard';
+import { zoneGuard } from './core/guards/zone.guard';
 
 export const routes: Routes = [
   {
@@ -13,7 +13,7 @@ export const routes: Routes = [
   },
   {
     path: 'map',
-    canActivate: [BattleGuard],
+    canActivate: [battleGuard],
     loadComponent: () =>
       import('./views/view-map/view-map.component').then(
         (m) => m.ViewMapComponent,
@@ -21,7 +21,7 @@ export const routes: Routes = [
   },
   {
     path: 'shop',
-    canActivate: [BattleGuard],
+    canActivate: [battleGuard],
     loadComponent: () =>
       import('./views/view-shop/view-shop.component').then(
         (m) => m.ViewShopComponent,
@@ -29,7 +29,7 @@ export const routes: Routes = [
   },
   {
     path: 'equip',
-    canActivate: [BattleGuard],
+    canActivate: [battleGuard],
     loadComponent: () =>
       import('./views/view-equip/view-equip.component').then(
         (m) => m.ViewEquipComponent,
@@ -37,7 +37,7 @@ export const routes: Routes = [
   },
   {
     path: 'materia',
-    canActivate: [BattleGuard],
+    canActivate: [battleGuard],
     loadComponent: () =>
       import('./views/view-materia/view-materia.component').then(
         (m) => m.ViewMateriaComponent,
@@ -45,7 +45,7 @@ export const routes: Routes = [
   },
   {
     path: 'items',
-    canActivate: [BattleGuard],
+    canActivate: [battleGuard],
     loadComponent: () =>
       import('./views/view-items/view-items.component').then(
         (m) => m.ViewItemsComponent,
@@ -53,7 +53,7 @@ export const routes: Routes = [
   },
   {
     path: 'config',
-    canActivate: [BattleGuard],
+    canActivate: [battleGuard],
     loadComponent: () =>
       import('./views/view-config/view-config.component').then(
         (m) => m.ViewConfigComponent,
@@ -61,7 +61,7 @@ export const routes: Routes = [
   },
   {
     path: 'phs',
-    canActivate: [BattleGuard, ZoneGuard],
+    canActivate: [battleGuard, zoneGuard],
     loadComponent: () =>
       import('./views/view-phs/view-phs.component').then(
         (m) => m.ViewPhsComponent,
@@ -69,7 +69,7 @@ export const routes: Routes = [
   },
   {
     path: 'save',
-    canActivate: [BattleGuard],
+    canActivate: [battleGuard],
     loadComponent: () =>
       import('./views/view-save/view-save.component').then(
         (m) => m.ViewSaveComponent,

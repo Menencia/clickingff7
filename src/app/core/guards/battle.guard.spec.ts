@@ -1,26 +1,34 @@
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { GameService } from '../services/game.service';
-import { BattleGuard } from './battle.guard';
+import type {
+  ActivatedRouteSnapshot,
+  RouterStateSnapshot,
+} from '@angular/router';
+import type { Battle } from '../../models/battle';
+import { BattleService } from '../services/battle.service';
+import { battleGuard } from './battle.guard';
 
-describe('BattleGuard', () => {
-  let guard: BattleGuard;
+describe('battleGuard', () => {
+  const battle = signal<Battle | undefined>(undefined);
+
+  const run = () =>
+    TestBed.runInInjectionContext(() =>
+      battleGuard({} as ActivatedRouteSnapshot, {} as RouterStateSnapshot),
+    );
 
   beforeEach(() => {
+    battle.set(undefined);
     TestBed.configureTestingModule({
-      imports: [],
-      providers: [
-        {
-          provide: GameService,
-          useValue: {
-            run: () => {},
-          },
-        },
-      ],
+      providers: [{ provide: BattleService, useValue: { battle } }],
     });
-    guard = TestBed.inject(BattleGuard);
   });
 
-  it('should create', () => {
-    expect(guard).toBeTruthy();
+  it('allows navigation when no battle is ongoing', () => {
+    expect(run()).toBe(true);
+  });
+
+  it('blocks navigation during a battle', () => {
+    battle.set({} as Battle);
+    expect(run()).toBe(false);
   });
 });

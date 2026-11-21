@@ -51,7 +51,7 @@ Each collection class (`models/units/characters.ts`, `models/zones.ts`, `models/
 Player actions are in `models/actions/` (attack, cure). Materia and item subclasses (`models/materias/`, `models/items/`) implement specific effects.
 
 ### Routing and views
-`app.routes.ts` lazy-loads one standalone component per screen from `views/view-*`. `BattleGuard` blocks leaving `/game` while a battle is ongoing, and `ZoneGuard` gates `/phs`. Shared presentational components live in `shared/ui/`, and stateful shared components (sidemenu, theme-picker) in `shared/components/`.
+`app.routes.ts` lazy-loads one standalone component per screen from `views/view-*`. The functional guard `battleGuard` blocks leaving `/game` while a battle is ongoing, and `zoneGuard` gates `/phs`. Shared presentational components live in `shared/ui/`, and stateful shared components (sidemenu, theme-picker) in `shared/components/`.
 
 ### Change detection
 The app is **zoneless** (`provideZonelessChangeDetection`), and components use OnPush, which is the Angular 22 default. State changed by timers is held in signals: `Units.hp`, `Characters.mp` / `limit`, `GameService.gils` / `time` and `BattleService.battle`. `Characters.team` is a signal set by `refresh()`, and the team stats (`hpMax`, `mpMax`, `limitMax`, `hits`, `levelMax`, `levelSum`) are `computed` from it, so call `characters.refresh()` after changing the team, levels or weapons. The rest of the game state (inventories, zones, character XP) is still plain mutable fields, so a mutation from a timer or service won't re-render the view unless it goes through a signal, an input change, or an event handler. Keep this in mind when UI fails to update.
