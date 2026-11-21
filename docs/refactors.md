@@ -90,7 +90,7 @@ Changement : `DataService` garde les données JSON brutes, et `StoreService` con
 
 **Risque** : moyen. Il faut vérifier toutes les comparaisons par identité (`===`), par exemple `ViewEquipComponent` (`team.find(c => c === selected)`), les ventes en boutique (`filter(e => e !== weapon)`) et `useItem`. Elles restent valides tant qu'elles comparent des objets du stock du joueur entre eux. Les tests du commit 2 servent de filet. Ce commit doit précéder le rebranchement de Réinitialiser et d'Importer.
 
-### 8. `refactor(shop): single source for shop catalog` 🟠
+### 8. `refactor(shop): single source for shop catalog` 🟠 ✅ fait
 
 Le catalogue de la boutique (listes de refs, filtre `zoneAvailable <= levelMax`) est dupliqué entre `ShopService.refresh()` et `ViewShopComponent.refresh()`. L'écran Boutique n'utilise pas `ShopService` : l'appel `shopService.refresh()` dans `ViewMapComponent.goNextZone()` ne sert à rien. De plus, `sortWeapons` ne connaît que 3 types d'armes sur 6.
 

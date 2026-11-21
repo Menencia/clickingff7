@@ -7,71 +7,106 @@ import { WeaponRef } from '../../models/refs/weapons';
 import { Weapon } from '../../models/weapon';
 import { StoreService } from './store.service';
 
+const SHOP_WEAPONS: WeaponRef[] = [
+  WeaponRef.BusterSword,
+  WeaponRef.GatlingGun,
+  WeaponRef.AssaultGun,
+  WeaponRef.LeatherGlove,
+  WeaponRef.MetalKnuckle,
+  WeaponRef.GuardStick,
+  WeaponRef.MythrilRod,
+  WeaponRef.MythrilSaber,
+  WeaponRef.CannonBall,
+  WeaponRef.MythrilClaw,
+  WeaponRef.FullMetalStaff,
+  WeaponRef.FPtShuriken,
+];
+
+const SHOP_MATERIAS: MateriaRef[] = [
+  MateriaRef.Restore,
+  MateriaRef.Bolt,
+  MateriaRef.Ice,
+  MateriaRef.Fire,
+  MateriaRef.Poison,
+  MateriaRef.Earth,
+  MateriaRef.ChocoMog,
+];
+
+const SHOP_ITEMS: ItemRef[] = [
+  ItemRef.Potion,
+  ItemRef.Ether,
+  ItemRef.HiPotion,
+  ItemRef.HiEther,
+];
+
+/**
+ * Display order of weapon types, following the characters' order.
+ */
+const WEAPON_TYPE_ORDER: string[] = [
+  'broadsword',
+  'gun-arm',
+  'knuckle',
+  'stave',
+  'headdresse',
+  'shuriken',
+];
+
+/**
+ * Single source for the shop catalog and the shop sort orders.
+ * Every call returns fresh instances, never the player's stock.
+ */
 @Injectable({
   providedIn: 'root',
 })
 export class ShopService {
-  weapons: Weapon[] = [];
-
-  materias: Materia[] = [];
-
-  items: Item[] = [];
-
   constructor(private store: StoreService) {}
 
-  refresh(levelMax: number): void {
-    this.weapons = [];
-    this.materias = [];
-    this.items = [];
+  getWeapons(levelMax: number): Weapon[] {
+    return this.sortWeapons(
+      SHOP_WEAPONS.map((ref) => this.store.getWeapon(ref)).filter(
+        (w) => w.zoneAvailable <= levelMax,
+      ),
+    );
+  }
 
-    const weapons = [
-      WeaponRef.BusterSword,
-      WeaponRef.GatlingGun,
-      WeaponRef.AssaultGun,
-      WeaponRef.LeatherGlove,
-      WeaponRef.MetalKnuckle,
-      WeaponRef.GuardStick,
-      WeaponRef.MythrilRod,
-      WeaponRef.MythrilSaber,
-      WeaponRef.CannonBall,
-      WeaponRef.MythrilClaw,
-      WeaponRef.FullMetalStaff,
-      WeaponRef.FPtShuriken,
-    ];
-    weapons.forEach((w) => {
-      const weapon = this.store.getWeapon(w);
-      if (weapon.zoneAvailable <= levelMax) {
-        this.weapons.push(weapon);
-      }
-    });
+  getMaterias(levelMax: number): Materia[] {
+    return this.sortMaterias(
+      SHOP_MATERIAS.map((ref) => this.store.getMateria(ref)).filter(
+        (m) => m.zoneAvailable <= levelMax,
+      ),
+    );
+  }
 
-    const materias = [
-      MateriaRef.Restore,
-      MateriaRef.Bolt,
-      MateriaRef.Ice,
-      MateriaRef.Fire,
-      MateriaRef.Poison,
-      MateriaRef.Earth,
-      MateriaRef.ChocoMog,
-    ];
-    materias.forEach((m) => {
-      const materia = this.store.getMateria(m);
-      if (materia.zoneAvailable <= levelMax) {
-        this.materias.push(materia);
-      }
-    });
+  getItems(levelMax: number): Item[] {
+    return this.sortItems(
+      SHOP_ITEMS.map((ref) => this.store.getItem(ref)).filter((i) =>
+        i.available(levelMax),
+      ),
+    );
+  }
 
-    const items = [
-      ItemRef.Potion,
-      ItemRef.Ether,
-      ItemRef.HiPotion,
-      ItemRef.HiEther,
-    ];
-    items.forEach((i) => {
-      const item = this.store.getItem(i);
-      if (item.available(levelMax)) {
-        this.items.push(item);
-      }
-    });
+  /**
+   * By weapon type, then by hits. Returns a new array.
+   */
+  sortWeapons(weapons: Weapon[]): Weapon[] {
+    return [...weapons].sort(
+      (a, b) =>
+        WEAPON_TYPE_ORDER.indexOf(a.type) - WEAPON_TYPE_ORDER.indexOf(b.type) ||
+        a.hits - b.hits,
+    );
+  }
+
+  /**
+   * By power. Returns a new array.
+   */
+  sortMaterias(materias: Materia[]): Materia[] {
+    return [...materias].sort((a, b) => a.pwr - b.pwr);
+  }
+
+  /**
+   * By ref. Returns a new array.
+   */
+  sortItems(items: Item[]): Item[] {
+    return [...items].sort((a, b) => a.ref.localeCompare(b.ref));
   }
 }

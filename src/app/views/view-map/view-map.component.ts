@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
-import { ShopService } from '../../core/services/shop.service';
 import { Zone } from '../../models/zone';
 import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
 
@@ -18,10 +17,7 @@ export class ViewMapComponent {
 
   list: Zone[];
 
-  constructor(
-    private gameService: GameService,
-    private shopService: ShopService,
-  ) {
+  constructor(private gameService: GameService) {
     this.current = this.gameService.zones.current();
     this.level = this.gameService.zones.level;
     this.list = this.gameService.zones.list;
@@ -51,8 +47,6 @@ export class ViewMapComponent {
       this.gameService.zones.nextZone = false;
       this.gameService.buildLevel(this.gameService.zones.level);
       this.gameService.characters.refresh();
-      const zoneLevelMax = this.gameService.zones.levelMax;
-      this.shopService.refresh(zoneLevelMax);
       this.goZone(this.gameService.zones.level);
     }
   }

@@ -82,7 +82,7 @@ Le jeu compte 9 zones (`MAX_ZONES = 9`). Chacune a 4 ennemis ordinaires et 1 bos
 - Chaque zone suit son nombre de combats gagnés (`nbFights`). Le boss est disponible quand `nbFights ≥ 15` (`MAX_FIGHTS`) et que la zone n'est pas encore terminée. Le bouton de combat aléatoire affiche le nombre de combats restants avant le boss.
 - Battre le boss termine la zone, à condition que ce soit la zone la plus avancée atteinte.
 - Quand la zone courante est terminée et que `levelMax < 9`, l'écran Carte propose d'aller à la zone suivante. Le menu affiche alors un `*` à côté de « Carte ».
-- Aller à une zone jamais visitée augmente `levelMax`, applique les déblocages (§4.3) et rafraîchit la boutique.
+- Aller à une zone jamais visitée augmente `levelMax` et applique les déblocages (§4.3). Le catalogue de la boutique en dépend (§10).
 - Le joueur peut revenir à tout moment dans une zone déjà débloquée, depuis la Carte.
 
 ### 4.3 Déblocages par zone (`GameService.buildLevel`)
@@ -252,12 +252,12 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 
 ## 10. Boutique
 
-- **Catalogue** : armes, materias et objets dont la zone de disponibilité est inférieure ou égale à la zone max atteinte.
+- **Catalogue** (`ShopService`) : armes, materias et objets dont la zone de disponibilité est inférieure ou égale à la zone max atteinte. Il est recalculé à chaque ouverture de l'écran.
 - **Achat d'arme** : possible seulement si le joueur n'en possède aucun exemplaire et a assez de gils. L'arme achetée n'est pas équipée.
 - **Achat de materia** : possible seulement si elle n'est pas déjà possédée et que le joueur a assez de gils. Elle n'est pas équipée.
 - **Achat d'objet** : sans limite de quantité. Un nouveau type d'objet est équipé automatiquement s'il reste une place (moins de 2 équipés).
 - **Revente** : au **prix d'achat / 2**. Impossible de vendre le dernier exemplaire d'une arme équipée.
-- **Tri** : armes par type (broadsword, gun-arm, knuckle) puis par dégâts ; materias par puissance ; objets par identifiant.
+- **Tri** : armes par type (broadsword, gun-arm, knuckle, stave, headdresse, shuriken) puis par dégâts ; materias par puissance ; objets par identifiant.
 
 ## 11. Sauvegarde et paramètres
 
@@ -279,8 +279,6 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 Ces écarts ont été constatés dans le code actuel. Ce sont probablement des bugs ou des fonctionnalités inachevées, à corriger ou à confirmer :
 
 1. Après une **défaite**, les HP restent à 0. Le combat suivant est perdu dès la première attaque ennemie, sauf si le joueur se soigne avant.
-2. Le tri des armes en boutique ne connaît que 3 types. Les types stave, headdresse et shuriken obtiennent un rang indéfini.
-3. `ShopService.refresh()` est appelé depuis la Carte, mais l'écran Boutique n'utilise pas ses résultats : il recalcule son propre catalogue.
-4. Les personnages n'attaquent pas automatiquement : `autoFighting()` existe mais n'est jamais appelé.
-5. La vente d'une materia ne vérifie pas si elle est équipée.
-6. Le niveau maximum de 100 (personnages et materias) n'est vérifié qu'**avant** la boucle de montée de niveau dans `Character.setXp` et `Materia.setAp`. Un gros gain d'XP ou d'AP au niveau 99 fait donc dépasser le niveau 100.
+2. Les personnages n'attaquent pas automatiquement : `autoFighting()` existe mais n'est jamais appelé.
+3. La vente d'une materia ne vérifie pas si elle est équipée.
+4. Le niveau maximum de 100 (personnages et materias) n'est vérifié qu'**avant** la boucle de montée de niveau dans `Character.setXp` et `Materia.setAp`. Un gros gain d'XP ou d'AP au niveau 99 fait donc dépasser le niveau 100.

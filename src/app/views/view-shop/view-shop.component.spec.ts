@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
+import { ShopService } from '../../core/services/shop.service';
 import { StoreService } from '../../core/services/store.service';
 import { ItemRef } from '../../models/refs/items';
 import { MateriaRef } from '../../models/refs/materias';
@@ -111,5 +112,26 @@ describe('ViewShopComponent (real catalog)', () => {
     expect(owned).not.toBe(item);
     expect(owned?.nbr).toBe(2);
     expect(item.nbr).toBe(1);
+  });
+
+  it('shows the shared catalog for the max zone reached', () => {
+    const refs = shop.shopWeapons.map((w) => w.ref);
+    expect(refs).toEqual(
+      TestBed.inject(ShopService)
+        .getWeapons(2)
+        .map((w) => w.ref),
+    );
+    expect(shop.shopWeapons.every((w) => w.zoneAvailable <= 2)).toBe(true);
+  });
+
+  it('sorts player weapons without reordering the player stock', () => {
+    const before = [...game.weapons.list];
+    shop.buyWeapon(shop.shopWeapons[shop.shopWeapons.length - 1]);
+    shop.buyWeapon(shop.shopWeapons[0]);
+    const stock = [...game.weapons.list];
+    shop.refresh();
+    expect(game.weapons.list).toEqual(stock);
+    expect(stock.slice(0, before.length)).toEqual(before);
+    expect(shop.playerWeapons).toHaveLength(stock.length);
   });
 });

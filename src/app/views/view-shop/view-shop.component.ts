@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
+import { ShopService } from '../../core/services/shop.service';
 import { StoreService } from '../../core/services/store.service';
 import { Item, MAX_ITEMS } from '../../models/item';
 import { Materia } from '../../models/materia';
-import { ItemRef } from '../../models/refs/items';
-import { MateriaRef } from '../../models/refs/materias';
-import { WeaponRef } from '../../models/refs/weapons';
 import { Weapon } from '../../models/weapon';
 import { ItemIconComponent } from '../../shared/ui/item-icon/item-icon.component';
 import { MateriaIconComponent } from '../../shared/ui/materia-icon/materia-icon.component';
@@ -44,6 +42,7 @@ export class ViewShopComponent {
   constructor(
     private gameService: GameService,
     private store: StoreService,
+    private shop: ShopService,
   ) {
     this.refresh();
   }
@@ -147,95 +146,23 @@ export class ViewShopComponent {
 
   refresh(): void {
     const { levelMax } = this.gameService.zones;
-    this.shopWeapons = [];
-    this.shopMaterias = [];
-    this.shopItems = [];
-
-    const weapons = [
-      WeaponRef.BusterSword,
-      WeaponRef.GatlingGun,
-      WeaponRef.AssaultGun,
-      WeaponRef.LeatherGlove,
-      WeaponRef.MetalKnuckle,
-      WeaponRef.GuardStick,
-      WeaponRef.MythrilRod,
-      WeaponRef.MythrilSaber,
-      WeaponRef.CannonBall,
-      WeaponRef.MythrilClaw,
-      WeaponRef.FullMetalStaff,
-      WeaponRef.FPtShuriken,
-    ];
-    weapons.forEach((w) => {
-      const weapon = this.store.getWeapon(w);
-      if (weapon.zoneAvailable <= levelMax) {
-        this.shopWeapons.push(weapon);
-      }
-    });
-    this.shopWeapons = this.sortWeapons(this.shopWeapons);
+    this.shopWeapons = this.shop.getWeapons(levelMax);
+    this.shopMaterias = this.shop.getMaterias(levelMax);
+    this.shopItems = this.shop.getItems(levelMax);
     this.refreshPlayerWeapons();
-
-    const materias = [
-      MateriaRef.Restore,
-      MateriaRef.Bolt,
-      MateriaRef.Ice,
-      MateriaRef.Fire,
-      MateriaRef.Poison,
-      MateriaRef.Earth,
-      MateriaRef.ChocoMog,
-    ];
-    materias.forEach((m) => {
-      const materia = this.store.getMateria(m);
-      if (materia.zoneAvailable <= levelMax) {
-        this.shopMaterias.push(materia);
-      }
-    });
-    this.shopMaterias = this.sortMaterias(this.shopMaterias);
     this.refreshPlayerMaterias();
-
-    const items = [
-      ItemRef.Potion,
-      ItemRef.Ether,
-      ItemRef.HiPotion,
-      ItemRef.HiEther,
-    ];
-    items.forEach((i) => {
-      const item = this.store.getItem(i);
-      if (item.available(levelMax)) {
-        this.shopItems.push(item);
-      }
-    });
-    this.shopItems = this.sortItems(this.shopItems);
     this.refreshPlayerItems();
   }
 
   private refreshPlayerWeapons(): void {
-    this.playerWeapons = this.sortWeapons(this.gameService.weapons.list);
-  }
-
-  private sortWeapons(weapons: Weapon[]): Weapon[] {
-    const types: { [type: string]: number } = {
-      broadsword: 1,
-      'gun-arm': 2,
-      knuckle: 3,
-    };
-    return weapons
-      .sort((a, b) => a.hits - b.hits)
-      .sort((a, b) => types[a.type] - types[b.type]);
+    this.playerWeapons = this.shop.sortWeapons(this.gameService.weapons.list);
   }
 
   private refreshPlayerMaterias(): void {
     this.playerMaterias = this.gameService.materias.list;
   }
 
-  private sortMaterias(materias: Materia[]): Materia[] {
-    return materias.sort((a, b) => a.pwr - b.pwr);
-  }
-
   private refreshPlayerItems(): void {
-    this.playerItems = this.sortItems(this.gameService.items.list);
-  }
-
-  private sortItems(items: Item[]): Item[] {
-    return items.sort((a, b) => a.ref.localeCompare(b.ref));
+    this.playerItems = this.shop.sortItems(this.gameService.items.list);
   }
 }
