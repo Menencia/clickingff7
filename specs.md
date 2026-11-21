@@ -262,10 +262,10 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 - **Contenu** (`models/save.ts`) : personnages (niveau, XP, équipe, arme), HP / MP / Limite de l'équipe, zones visitées (combats, terminée), zone courante et zone max, armes, materias (niveau, AP, équipée), objets, gils, langue, difficulté, temps de jeu, version.
 - **Stockage** : JSON encodé en base64 dans `localStorage['save1']`. Il n'y a qu'un seul emplacement.
 - **Sauvegarde manuelle uniquement**, depuis l'écran Sauvegarde. Il n'y a pas de sauvegarde automatique.
-- **Au démarrage** : la sauvegarde est chargée si elle existe et que sa version est ≥ 1.1.0. Sinon, une nouvelle partie démarre en zone 1. La version enregistrée est celle de `package.json`.
+- **Au démarrage** : la sauvegarde est chargée si elle existe, qu'elle est valide et que sa version est ≥ 1.1.0. Sinon, elle est effacée et une nouvelle partie démarre en zone 1. Une sauvegarde est invalide si elle n'est pas du JSON en base64, s'il lui manque un champ obligatoire de `Save` (ou si son type est incorrect), ou si elle référence un personnage, une arme, une materia, un objet ou une zone inconnus. La version enregistrée est celle de `package.json`.
 - **Exporter la sauvegarde** : affiche la dernière sauvegarde en base64.
 - **Exporter la partie** : affiche l'état courant en base64, même s'il n'est pas sauvegardé.
-- **Importer** : charge une chaîne base64 (sans contrôle de version) et renvoie à l'écran Jeu. *Actuellement inaccessible (voir §12).*
+- **Importer** : charge une chaîne base64 (sans contrôle de version) et renvoie à l'écran Jeu. Une chaîne invalide est ignorée. *Actuellement inaccessible (voir §12).*
 - **Réinitialiser** : *actuellement inaccessible (voir §12).* Possible seulement si une sauvegarde existe. Efface la sauvegarde, recommence en zone 1 et renvoie à l'écran Jeu.
 - **Temps de jeu** : compteur incrémenté chaque seconde, affiché au format `h:mm:ss`.
 - **Langue** : par défaut, celle du navigateur si elle vaut en, fr ou es, sinon en. Elle est enregistrée dans la sauvegarde. Le français est la langue source des traductions (Crowdin).
@@ -284,5 +284,4 @@ Ces écarts ont été constatés dans le code actuel. Ce sont probablement des b
 6. Les personnages n'attaquent pas automatiquement : `autoFighting()` existe mais n'est jamais appelé.
 7. La vente d'une materia ne vérifie pas si elle est équipée.
 8. Les boutons **Réinitialiser** et **Importer** sont commentés dans `view-save.component.html`, depuis la disparition de la directive de confirmation PrimeNG. Ces deux fonctions ne sont donc plus accessibles au joueur.
-9. Une sauvegarde corrompue dans `localStorage` empêche le jeu de démarrer : `JSON.parse(atob(...))` n'est pas protégé par un `try/catch`.
-10. Le niveau maximum de 100 (personnages et materias) n'est vérifié qu'**avant** la boucle de montée de niveau dans `Character.setXp` et `Materia.setAp`. Un gros gain d'XP ou d'AP au niveau 99 fait donc dépasser le niveau 100.
+9. Le niveau maximum de 100 (personnages et materias) n'est vérifié qu'**avant** la boucle de montée de niveau dans `Character.setXp` et `Materia.setAp`. Un gros gain d'XP ou d'AP au niveau 99 fait donc dépasser le niveau 100.

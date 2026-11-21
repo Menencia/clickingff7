@@ -12,6 +12,7 @@ import { Save } from '../../models/save';
 import { Characters } from '../../models/units/characters';
 import { Weapons } from '../../models/weapons';
 import { Zones } from '../../models/zones';
+import { decodeSave, encodeSave } from '../../shared/utils/save.utils';
 import { compareVersions } from '../../shared/utils/version.utils';
 import { StoreService } from './store.service';
 
@@ -88,31 +89,33 @@ export class GameService {
     this.preload();
 
     // search for save
-    let save: Save | null = null;
     const s = localStorage[SAVE_1];
-    if (s) {
-      save = JSON.parse(atob(s));
-      if (save) {
-        if (compareVersions(save.version, '1.1.0')) {
-          this.saves.push(save);
-        } else {
-          save = null;
-          this.reset();
-        }
-      }
-    }
+    const save = s ? decodeSave(s) : null;
 
-    // load save
-    if (save) {
-      this.load(save);
+    if (save && compareVersions(save.version, '1.1.0') && this.tryLoad(save)) {
+      this.saves.push(save);
       this.zones.checkLastZone();
     } else {
+      // no save, corrupted, too old or unloadable: new game
+      this.preload();
       this.reset();
       this.buildLevel(1);
     }
 
     // POSTLOAD
     this.postload();
+  }
+
+  /**
+   * Load a save, returns false if it references unknown data
+   */
+  private tryLoad(save: Save): boolean {
+    try {
+      this.load(save);
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   /**
@@ -328,7 +331,7 @@ export class GameService {
     const s = this.export();
     this.saves[0] = s;
 
-    const ss = btoa(JSON.stringify(s));
+    const ss = encodeSave(s);
     localStorage[SAVE_1] = ss;
     this.lastExport = ss;
   }

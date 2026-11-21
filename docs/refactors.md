@@ -46,7 +46,7 @@ Fournir à `DataService` des données en mémoire pour ne pas passer par HTTP.
 
 ## Lot 2 — Fiabilité
 
-### 3. `fix(save): do not crash on corrupted or invalid save` 🔴
+### 3. `fix(save): do not crash on corrupted or invalid save` 🔴 ✅ fait
 
 `GameService.run()` fait `JSON.parse(atob(localStorage['save1']))` sans `try/catch`, directement dans le constructeur. Une sauvegarde corrompue empêche donc l'application de démarrer (écran blanc dès qu'une vue injecte `GameService`). `ViewSaveComponent.importSave()` a le même problème. L'encodage base64 est par ailleurs dupliqué dans `GameService.save()`, `ViewSaveComponent.exportLastSave()` et `exportCurrentGame()`.
 

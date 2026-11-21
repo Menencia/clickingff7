@@ -263,11 +263,38 @@ describe('GameService', () => {
       expect(game.zones.nextZone).toBe(true);
     });
 
-    // Known bug (refactors.md, commit 3): a corrupted save crashes startup.
-    it.fails('starts a new game when the save is corrupted', async () => {
-      localStorage.setItem('save1', 'not base64 JSON');
+    it.each([
+      ['not base64', 'not base64 JSON'],
+      ['not JSON', btoa('{oops')],
+      ['missing fields', btoa(JSON.stringify({ version: '9.9.9' }))],
+    ])('starts a new game when the save is corrupted (%s)', async (_, s) => {
+      localStorage.setItem('save1', s);
       game = await startGame();
+
       expect(game.gils).toBe(200);
+      expect(refs(game.zones.list)).toEqual([ZoneRef.Zone1]);
+      expect(game.saves).toEqual([]);
+      expect(localStorage.getItem('save1')).toBeNull();
+    });
+
+    it('starts a clean new game when the save references unknown data', async () => {
+      game = await startGame();
+      unlockNextZone(game);
+      game.gils = 9999;
+      const save = structuredClone(game.export());
+      save.items.push({ ref: 'unknown' as ItemRef, nbr: 1, equipped: false });
+      localStorage.setItem('save1', btoa(JSON.stringify(save)));
+      clearTimeout(game.timer);
+
+      game = await startGame();
+
+      expect(game.gils).toBe(200);
+      expect(refs(game.zones.list)).toEqual([ZoneRef.Zone1]);
+      expect(refs(game.characters.list)).toEqual([
+        CharacterRef.Cloud,
+        CharacterRef.Barret,
+      ]);
+      expect(game.saves).toEqual([]);
     });
   });
 });

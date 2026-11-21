@@ -6,6 +6,7 @@ import { GameService } from '../../core/services/game.service';
 import { Save } from '../../models/save';
 import { PipeTimePipe } from '../../shared/pipes/pipe-time.pipe';
 import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
+import { decodeSave, encodeSave } from '../../shared/utils/save.utils';
 
 @Component({
   selector: 'app-view-save',
@@ -67,7 +68,7 @@ export class ViewSaveComponent {
     if (save) {
       this.showAreaImport = false;
       this.showAreaExport = true;
-      this.areaExport = btoa(JSON.stringify(save));
+      this.areaExport = encodeSave(save);
     }
   }
 
@@ -75,7 +76,7 @@ export class ViewSaveComponent {
    * Export the current game
    */
   exportCurrentGame(): void {
-    this.areaExport = btoa(JSON.stringify(this.gameService.export()));
+    this.areaExport = encodeSave(this.gameService.export());
     this.showAreaImport = false;
     this.showAreaExport = true;
   }
@@ -92,8 +93,12 @@ export class ViewSaveComponent {
    * Import a save
    */
   importSave(confirm: boolean): void {
-    if (this.areaImport && confirm) {
-      const save = JSON.parse(atob(this.areaImport));
+    if (!this.areaImport || !confirm) {
+      return;
+    }
+
+    const save = decodeSave(this.areaImport);
+    if (save) {
       this.gameService.preload();
       this.gameService.load(save);
       this.gameService.postload();
