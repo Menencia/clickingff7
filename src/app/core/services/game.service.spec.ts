@@ -7,6 +7,7 @@ import { MateriaRef } from '../../models/refs/materias';
 import { WeaponRef } from '../../models/refs/weapons';
 import { ZoneRef } from '../../models/refs/zones';
 import { Save } from '../../models/save';
+import { MAX_ZONES } from '../../models/zones';
 import {
   loadGameData,
   MemoryStorage,
@@ -33,11 +34,10 @@ async function startGame(): Promise<GameService> {
   return startGameFromCatalog();
 }
 
-/** Unlocks the next zone, as ViewMapComponent.goNextZone() does. */
+/** Completes the current zone and unlocks the next one. */
 function unlockNextZone(game: GameService): void {
-  game.zones.level += 1;
-  game.zones.levelMax += 1;
-  game.buildLevel(game.zones.level);
+  game.zones.complete();
+  game.goNextZone();
 }
 
 const refs = <T extends { ref: string }>(list: T[]) => list.map((e) => e.ref);
@@ -472,6 +472,73 @@ describe('GameService', () => {
 
       vi.advanceTimersByTime(3000);
       expect(game.time()).toBe(save.time + 3);
+    });
+  });
+
+  describe('goNextZone', () => {
+    beforeEach(async () => {
+      game = await startGame();
+    });
+
+    it('does nothing while the current zone is not completed', () => {
+      game.goNextZone();
+
+      expect(game.zones.level).toBe(1);
+      expect(game.zones.levelMax).toBe(1);
+      expect(game.zones.list).toHaveLength(1);
+    });
+
+    it('builds and unlocks a new zone', () => {
+      game.zones.complete();
+      game.goNextZone();
+
+      expect(game.zones.level).toBe(2);
+      expect(game.zones.levelMax).toBe(2);
+      expect(game.zones.current().level).toBe(2);
+      expect(refs(game.characters.list)).toContain(CharacterRef.Tifa);
+    });
+
+    it('moves to a known zone without rebuilding it', () => {
+      unlockNextZone(game);
+      const zone2 = game.zones.current();
+      const nbCharacters = game.characters.list.length;
+
+      game.zones.goTo(1);
+      game.goNextZone();
+
+      expect(game.zones.level).toBe(2);
+      expect(game.zones.current()).toBe(zone2);
+      expect(game.zones.list).toHaveLength(2);
+      expect(game.characters.list).toHaveLength(nbCharacters);
+    });
+
+    it('does nothing after the last zone', () => {
+      while (game.zones.levelMax < MAX_ZONES) unlockNextZone(game);
+      game.zones.complete();
+      game.goNextZone();
+
+      expect(game.zones.level).toBe(MAX_ZONES);
+      expect(game.zones.levelMax).toBe(MAX_ZONES);
+      expect(game.zones.list).toHaveLength(MAX_ZONES);
+    });
+  });
+
+  describe('Zones.goTo', () => {
+    beforeEach(async () => {
+      game = await startGame();
+      unlockNextZone(game);
+    });
+
+    it('moves to an unlocked zone', () => {
+      game.zones.goTo(1);
+      expect(game.zones.level).toBe(1);
+    });
+
+    it('ignores a zone that is not unlocked', () => {
+      game.zones.goTo(3);
+      expect(game.zones.level).toBe(2);
+      game.zones.goTo(0);
+      expect(game.zones.level).toBe(2);
     });
   });
 

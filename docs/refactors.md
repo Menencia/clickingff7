@@ -46,7 +46,7 @@ Changement : `Characters.join()` / `leave()`, `GameService.equipWeapon(character
 
 **Risque** : moyen, car cinq écrans sont touchés. Le commit 1 sert de filet. Découper par écran si besoin. Ce commit prépare la correction du bug n°1 et les commits 5 et 9.
 
-### 4. `refactor(zones): move zone navigation and unlock out of ViewMapComponent` 🟠
+### 4. `refactor(zones): move zone navigation and unlock out of ViewMapComponent` 🟠 ✅ fait
 
 `ViewMapComponent.goNextZone()` incrémente `zones.level` et `zones.levelMax`, puis appelle `buildLevel()` et `characters.refresh()`. Ce dernier appel est redondant, puisque `buildLevel()` le fait déjà. `goZone()` modifie `zones.level` directement. La progression du jeu dépend donc d'un composant.
 

@@ -262,6 +262,22 @@ export class GameService {
   }
 
   /**
+   * Moves to the next zone, and builds and unlocks it if it is new. Does
+   * nothing if the current zone is not completed or the last zone is reached.
+   */
+  goNextZone(): void {
+    if (!this.zones.isNextZone()) {
+      return;
+    }
+    const next = this.zones.level + 1;
+    if (next > this.zones.levelMax) {
+      this.zones.levelMax = next;
+      this.buildLevel(next);
+    }
+    this.zones.goTo(next);
+  }
+
+  /**
    * Points each character to the owned weapon of the same ref, so that
    * equipping and selling act on the player's stock.
    */

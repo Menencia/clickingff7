@@ -37,6 +37,15 @@ export class Zones {
   }
 
   /**
+   * Moves to an unlocked zone. Does nothing if the zone is not unlocked.
+   */
+  goTo(level: number): void {
+    if (level <= this.levelMax && this.list.some((z) => z.level === level)) {
+      this.level = level;
+    }
+  }
+
+  /**
    * Complete the current level zone
    */
   complete(): void {

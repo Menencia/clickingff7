@@ -19,11 +19,10 @@ describe('ViewSaveComponent', () => {
   let component: ViewSaveComponent;
   let navigate: ReturnType<typeof vi.fn>;
 
-  /** Moves the current game to zone 2, as ViewMapComponent.goNextZone() does */
+  /** Completes the current zone and moves the game to the next one */
   function unlockNextZone(): void {
-    game.zones.level += 1;
-    game.zones.levelMax += 1;
-    game.buildLevel(game.zones.level);
+    game.zones.complete();
+    game.goNextZone();
   }
 
   beforeEach(async () => {

@@ -26,9 +26,8 @@ export class ViewMapComponent {
   }
 
   goZone(zoneLevel: number): void {
-    this.gameService.zones.level = zoneLevel;
-    this.current = this.gameService.zones.current();
-    this.level = this.gameService.zones.level;
+    this.gameService.zones.goTo(zoneLevel);
+    this.refresh();
   }
 
   canGoNextZone(): boolean {
@@ -36,19 +35,12 @@ export class ViewMapComponent {
   }
 
   goNextZone(): void {
-    this.gameService.zones.level += 1;
+    this.gameService.goNextZone();
+    this.refresh();
+  }
 
-    // Known level
-    if (this.gameService.zones.level <= this.gameService.zones.levelMax) {
-      this.goZone(this.gameService.zones.level);
-    }
-
-    // New level
-    else {
-      this.gameService.zones.levelMax += 1;
-      this.gameService.buildLevel(this.gameService.zones.level);
-      this.gameService.characters.refresh();
-      this.goZone(this.gameService.zones.level);
-    }
+  private refresh(): void {
+    this.current = this.gameService.zones.current();
+    this.level = this.gameService.zones.level;
   }
 }
