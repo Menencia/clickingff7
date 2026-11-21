@@ -2,14 +2,7 @@ import { Materia } from './materia';
 import { MateriaSave } from './save';
 
 export class Materias {
-  list: Materia[];
-
-  /**
-   * Init
-   */
-  constructor() {
-    this.list = [];
-  }
+  list: Materia[] = [];
 
   /**
    * Add a materia
@@ -64,10 +57,6 @@ export class Materias {
    * Export all materias
    */
   export(): MateriaSave[] {
-    const json: MateriaSave[] = [];
-    this.list.forEach((m) => {
-      json.push(m.export());
-    });
-    return json;
+    return this.list.map((m) => m.export());
   }
 }

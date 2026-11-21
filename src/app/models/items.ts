@@ -1,27 +1,17 @@
 import { Item, MAX_ITEMS } from './item';
 import { ItemSave } from './save';
+import { Stock } from './stock';
 
-export class Items {
-  list: Item[];
-
+export class Items extends Stock<Item> {
   /**
-   * Init
+   * Adds an item. {equipped} only applies to an item not owned yet.
    */
-  constructor() {
-    this.list = [];
-  }
-
-  /**
-   * Add an item
-   */
-  add(item: Item, equipped = false): void {
-    const i = this.list.find((e) => e.ref === item.ref);
-    if (i) {
-      i.nbr += 1;
-    } else {
+  override add(item: Item, equipped = false): Item {
+    const owned = super.add(item);
+    if (owned === item) {
       item.equipped = equipped;
-      this.list.push(item);
     }
+    return owned;
   }
 
   /**
@@ -58,10 +48,6 @@ export class Items {
    * Export all items
    */
   export(): ItemSave[] {
-    const json: ItemSave[] = [];
-    this.list.forEach((i) => {
-      json.push(i.export());
-    });
-    return json;
+    return this.list.map((i) => i.export());
   }
 }

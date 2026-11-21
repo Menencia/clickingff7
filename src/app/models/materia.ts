@@ -1,6 +1,7 @@
 import { ItAction } from '../core/interfaces/it-action';
 import { MAX_LEVEL, statFactor } from '../shared/utils/game.utils';
 import { Context } from './context';
+import { Purchasable } from './purchasable';
 
 import { MateriaRef } from './refs/materias';
 import { MateriaSave } from './save';
@@ -15,7 +16,7 @@ export interface MateriaJson {
   zoneAvailable: number;
 }
 
-export abstract class Materia {
+export abstract class Materia extends Purchasable {
   level = 1;
 
   ap = 0;
@@ -28,8 +29,6 @@ export abstract class Materia {
 
   color: string;
 
-  price: number;
-
   apBase: number;
 
   pwr: number;
@@ -40,10 +39,10 @@ export abstract class Materia {
    * Init
    */
   constructor(data: MateriaJson) {
+    super(data.price);
     this.ref = data.ref;
     this.type = data.type;
     this.color = data.color;
-    this.price = data.price;
     this.apBase = data.ap;
     this.pwr = data.pwr;
     this.zoneAvailable = data.zoneAvailable;
@@ -68,20 +67,6 @@ export abstract class Materia {
 
   use(context: Context) {
     this.getSkill(context).map((action) => action.use(context));
-  }
-
-  /**
-   * Returns the price of the materia
-   */
-  getPrice(): number {
-    return this.price;
-  }
-
-  /**
-   * Returns the sell price of the materia
-   */
-  getSellPrice(): number {
-    return this.price / 2;
   }
 
   /**

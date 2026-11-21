@@ -1,29 +1,9 @@
 import { Character } from './character';
 import { WeaponSave } from './save';
+import { Stock } from './stock';
 import { Weapon } from './weapon';
 
-export class Weapons {
-  list: Weapon[];
-
-  /**
-   * Init
-   */
-  constructor() {
-    this.list = [];
-  }
-
-  /**
-   * Add a weapon
-   */
-  add(weapon: Weapon): void {
-    const w = this.list.find((e) => e.ref === weapon.ref);
-    if (w) {
-      w.nbr += 1;
-    } else {
-      this.list.push(weapon);
-    }
-  }
-
+export class Weapons extends Stock<Weapon> {
   /**
    * Returns true if one of the characters wields the weapon
    */

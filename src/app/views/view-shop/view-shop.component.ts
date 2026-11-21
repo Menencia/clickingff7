@@ -58,7 +58,7 @@ export class ViewShopComponent {
   }
 
   inStockWeapon(weapon: Weapon): number {
-    return weapon.inStock(this.gameService.weapons.list);
+    return this.gameService.weapons.inStock(weapon);
   }
 
   canBuyWeapon(weapon: Weapon): boolean {
@@ -98,7 +98,7 @@ export class ViewShopComponent {
   }
 
   inStockItem(item: Item): number {
-    return item.inStock(this.gameService.items.list);
+    return this.gameService.items.inStock(item);
   }
 
   canBuyItem(item: Item): boolean {

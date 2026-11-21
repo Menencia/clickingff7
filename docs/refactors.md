@@ -62,7 +62,7 @@ Changement : une seule source, `Character.weapon`. `Weapons.isEquipped(weapon, c
 
 **Risque** : moyen, car le format de sauvegarde est concerné : mettre à jour `specs.md` §11, garder le test d'aller-retour `export()` / `load()` et charger une sauvegarde 1.5.0. Dépend du commit 3.
 
-### 6. `refactor(models): share stock logic between weapons, materias and items` 🟢
+### 6. `refactor(models): share stock logic between weapons, materias and items` 🟢 ✅ fait
 
 Plusieurs logiques sont dupliquées :
 - `getPrice()` / `getSellPrice()` dans `Weapon`, `Materia` et `Item`

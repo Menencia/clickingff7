@@ -91,7 +91,7 @@ export class ShopService {
 
   canBuyWeapon(weapon: Weapon): boolean {
     return (
-      weapon.inStock(this.game.weapons.list) === 0 &&
+      this.game.weapons.inStock(weapon) === 0 &&
       this.game.gils() >= weapon.getPrice()
     );
   }

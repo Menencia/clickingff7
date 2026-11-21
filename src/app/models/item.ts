@@ -1,5 +1,6 @@
 import { ItAction } from '../core/interfaces/it-action';
 import { Context } from './context';
+import { Purchasable } from './purchasable';
 
 import { ItemRef } from './refs/items';
 import { ItemSave } from './save';
@@ -14,7 +15,7 @@ export interface ItemJson {
   zoneAvailable: number;
 }
 
-export abstract class Item {
+export abstract class Item extends Purchasable {
   nbr = 1;
 
   equipped = false;
@@ -22,8 +23,6 @@ export abstract class Item {
   ref: ItemRef;
 
   type: string;
-
-  price: number;
 
   pwr: number;
 
@@ -33,9 +32,9 @@ export abstract class Item {
    * Init
    */
   constructor(data: ItemJson) {
+    super(data.price);
     this.ref = data.ref;
     this.type = data.type;
-    this.price = data.price;
     this.pwr = data.pwr;
     this.zoneAvailable = data.zoneAvailable;
   }
@@ -62,34 +61,7 @@ export abstract class Item {
   }
 
   /**
-   * Returns the price of the item
-   */
-  getPrice(): number {
-    return this.price;
-  }
-
-  /**
-   * Returns the sell price of the item
-   */
-  getSellPrice(): number {
-    return this.price / 2;
-  }
-
-  /**
-   * Returns the number of owned
-   */
-  inStock(items: Item[]): number {
-    let sum = 0;
-    items.forEach((i) => {
-      if (i.ref === this.ref) {
-        sum += i.nbr;
-      }
-    });
-    return sum;
-  }
-
-  /**
-   * Save materia data
+   * Save item data
    */
   export(): ItemSave {
     const { ref, nbr, equipped } = this;
