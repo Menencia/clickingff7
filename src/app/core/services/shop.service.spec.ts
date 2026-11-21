@@ -146,8 +146,10 @@ describe('ShopService (buy and sell)', () => {
       const owned = game.weapons.list.find((w) => w.ref === weapon.ref);
       expect(owned).toBeDefined();
       expect(owned).not.toBe(weapon);
-      expect(owned?.equipped).toBe(false);
-      expect(weapon).toMatchObject({ nbr: 1, equipped: false });
+      expect(
+        owned && game.weapons.isEquipped(owned, game.characters.list),
+      ).toBe(false);
+      expect(weapon.nbr).toBe(1);
       expect(game.gils()).toBe(100000 - weapon.getPrice());
     });
 
@@ -174,7 +176,9 @@ describe('ShopService (buy and sell)', () => {
     });
 
     it('cannot sell the last equipped copy', () => {
-      const weapon = game.weapons.list.find((w) => w.equipped);
+      const weapon = game.weapons.list.find((w) =>
+        game.weapons.isEquipped(w, game.characters.list),
+      );
       if (!weapon) throw new Error('no equipped weapon');
       expect(weapon.nbr).toBe(1);
       expect(service.sellWeapon(weapon)).toBe(false);
@@ -186,6 +190,22 @@ describe('ShopService (buy and sell)', () => {
       expect(weapon.nbr).toBe(1);
       expect(game.weapons.list).toContain(weapon);
       expect(game.gils()).toBe(100000 + weapon.getSellPrice());
+    });
+
+    it('a weapon replaced by another one can be sold', () => {
+      const cloud = game.characters.list[0];
+      const busterSword = cloud.weapon;
+      const saber = TestBed.inject(StoreService).getWeapon(
+        WeaponRef.MythrilSaber,
+      );
+      game.weapons.add(saber);
+      expect(service.canSellWeapon(busterSword)).toBe(false);
+      expect(service.canSellWeapon(saber)).toBe(true);
+
+      game.equipWeapon(cloud, saber);
+
+      expect(service.canSellWeapon(busterSword)).toBe(true);
+      expect(service.canSellWeapon(saber)).toBe(false);
     });
 
     it('selling the last unequipped copy removes it from the stock', () => {

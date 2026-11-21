@@ -13,8 +13,6 @@ export interface WeaponJson {
 export class Weapon {
   nbr = 1;
 
-  equipped = false;
-
   ref: WeaponRef;
 
   type: string;
@@ -41,7 +39,6 @@ export class Weapon {
    */
   load(data: WeaponSave): Weapon {
     this.nbr = data.nbr;
-    this.equipped = data.equipped;
     return this;
   }
 
@@ -73,11 +70,12 @@ export class Weapon {
     return sum;
   }
 
-  /*
-   * Save weapon
+  /**
+   * Save weapon. {equipped} is derived from the characters (see
+   * Weapons.isEquipped) and only written for 1.5.0 compatibility.
    */
-  export(): WeaponSave {
-    const { ref, nbr, equipped } = this;
+  export(equipped: boolean): WeaponSave {
+    const { ref, nbr } = this;
     return { ref, nbr, equipped };
   }
 }

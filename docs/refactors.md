@@ -54,7 +54,7 @@ Changement : `Zones.goTo(level)` et `GameService.goNextZone()` (débloque et con
 
 **Risque** : faible. Vérifier le passage en zone 5 (Red XIII, accès au PHS) et en zone 9 (Yuffie). Le commit 1 couvre `goNextZone`.
 
-### 5. `refactor(weapons): derive equipped state from characters` 🟢
+### 5. `refactor(weapons): derive equipped state from characters` 🟢 ✅ fait
 
 L'arme portée est stockée deux fois : `Character.weapon` et `Weapon.equipped`. `GameService.linkWeapons()` doit les réaligner après `buildLevel()` et `load()`. La sauvegarde contient les deux (`characters[].weaponRef` et `weapons[].equipped`), qui peuvent se contredire dans une sauvegarde modifiée à la main.
 

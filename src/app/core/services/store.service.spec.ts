@@ -65,11 +65,7 @@ describe('StoreService', () => {
 
     const weapon = store.getWeapon(WeaponRef.BusterSword);
     weapon.nbr = 2;
-    weapon.equipped = true;
-    expect(store.getWeapon(WeaponRef.BusterSword)).toMatchObject({
-      nbr: 1,
-      equipped: false,
-    });
+    expect(store.getWeapon(WeaponRef.BusterSword).nbr).toBe(1);
 
     const materia = store.getMateria(MateriaRef.Bolt);
     materia.setAp(1000);

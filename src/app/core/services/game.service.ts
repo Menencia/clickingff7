@@ -189,14 +189,14 @@ export class GameService {
           this.store.getCharacter(CharacterRef.Cloud).setLevel(levelMax),
           true,
         );
-        this.weapons.add(this.store.getWeapon(WeaponRef.BusterSword), true);
+        this.weapons.add(this.store.getWeapon(WeaponRef.BusterSword));
 
         // add barret in the team
         this.characters.add(
           this.store.getCharacter(CharacterRef.Barret).setLevel(levelMax),
           true,
         );
-        this.weapons.add(this.store.getWeapon(WeaponRef.GatlingGun), true);
+        this.weapons.add(this.store.getWeapon(WeaponRef.GatlingGun));
 
         // add materias
         this.materias.add(this.store.getMateria(MateriaRef.Restore), true);
@@ -213,7 +213,7 @@ export class GameService {
           this.store.getCharacter(CharacterRef.Tifa).setLevel(levelMax),
           true,
         );
-        this.weapons.add(this.store.getWeapon(WeaponRef.LeatherGlove), true);
+        this.weapons.add(this.store.getWeapon(WeaponRef.LeatherGlove));
         break;
       case 3:
         // add aerith in the team
@@ -221,7 +221,7 @@ export class GameService {
           this.store.getCharacter(CharacterRef.Aerith).setLevel(levelMax),
           true,
         );
-        this.weapons.add(this.store.getWeapon(WeaponRef.GuardStick), true);
+        this.weapons.add(this.store.getWeapon(WeaponRef.GuardStick));
         break;
       case 4:
         // add barret & tifa in the team
@@ -237,7 +237,7 @@ export class GameService {
           this.store.getCharacter(CharacterRef.RedXIII).setLevel(levelMax),
           false,
         );
-        this.weapons.add(this.store.getWeapon(WeaponRef.MythrilClip), true);
+        this.weapons.add(this.store.getWeapon(WeaponRef.MythrilClip));
         break;
       case 9:
         // add yuffie in the team
@@ -245,7 +245,7 @@ export class GameService {
           this.store.getCharacter(CharacterRef.Yuffie).setLevel(levelMax),
           false,
         );
-        this.weapons.add(this.store.getWeapon(WeaponRef.FPtShuriken), true);
+        this.weapons.add(this.store.getWeapon(WeaponRef.FPtShuriken));
         break;
       default:
       // do nothing
@@ -294,24 +294,20 @@ export class GameService {
    * Returns true if the character can wield the weapon and it is not worn
    */
   canEquipWeapon(character: Character, weapon: Weapon): boolean {
-    return weapon.type === character.weaponType && !weapon.equipped;
+    return (
+      weapon.type === character.weaponType &&
+      !this.weapons.isEquipped(weapon, this.characters.list)
+    );
   }
 
   /**
-   * The character wields the weapon, the previous weapon of the same type is
-   * unequipped and the team stats are recomputed. Does nothing if the weapon
-   * cannot be equipped.
+   * The character wields the weapon instead of the previous one, and the team
+   * stats are recomputed. Does nothing if the weapon cannot be equipped.
    */
   equipWeapon(character: Character, weapon: Weapon): void {
     if (!this.canEquipWeapon(character, weapon)) {
       return;
     }
-    this.weapons.list
-      .filter((w) => w.type === weapon.type && w.equipped)
-      .forEach((w) => {
-        w.equipped = false;
-      });
-    weapon.equipped = true;
     character.setWeapon(weapon);
     this.characters.refresh();
     this.fitMaterias();
@@ -351,7 +347,7 @@ export class GameService {
     return {
       characters: this.characters.export(),
       zones: this.zones.export(),
-      weapons: this.weapons.export(),
+      weapons: this.weapons.export(this.characters.list),
       materias: this.materias.export(),
       items: this.items.export(),
       gils: this.gils(),
@@ -366,10 +362,9 @@ export class GameService {
    * Load a save
    */
   load(save: Save): void {
-    // weapons
+    // weapons (w.equipped is ignored: characters hold the worn weapons)
     save.weapons.forEach((w) => {
-      const weapon = this.store.getWeapon(w.ref).load(w);
-      this.weapons.add(weapon, w.equipped);
+      this.weapons.add(this.store.getWeapon(w.ref).load(w));
     });
 
     // characters

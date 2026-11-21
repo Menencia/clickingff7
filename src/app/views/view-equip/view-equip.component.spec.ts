@@ -4,6 +4,7 @@ import { GameService } from '../../core/services/game.service';
 import { StoreService } from '../../core/services/store.service';
 import { CharacterRef } from '../../models/refs/characters';
 import { WeaponRef } from '../../models/refs/weapons';
+import { Weapon } from '../../models/weapon';
 import {
   MemoryStorage,
   provideInMemoryGameData,
@@ -46,6 +47,9 @@ describe('ViewEquipComponent (real data)', () => {
     if (!found) throw new Error(`${ref} not found`);
     return found;
   };
+
+  const isEquipped = (w: Weapon) =>
+    game.weapons.isEquipped(w, game.characters.list);
 
   const weapon = (ref: WeaponRef) => {
     const found = game.weapons.list.find((w) => w.ref === ref);
@@ -111,8 +115,8 @@ describe('ViewEquipComponent (real data)', () => {
     view.equipWeapon(saber);
 
     expect(cloud.weapon).toBe(saber);
-    expect(saber.equipped).toBe(true);
-    expect(busterSword.equipped).toBe(false);
+    expect(isEquipped(saber)).toBe(true);
+    expect(isEquipped(busterSword)).toBe(false);
     expect(view.canEquipWeapon(busterSword)).toBe(true);
     expect(view.canEquipWeapon(saber)).toBe(false);
   });
@@ -124,7 +128,7 @@ describe('ViewEquipComponent (real data)', () => {
     view.equipWeapon(weapon(WeaponRef.MythrilSaber));
 
     expect(character(CharacterRef.Barret).weapon).toBe(gatlingGun);
-    expect(gatlingGun.equipped).toBe(true);
+    expect(isEquipped(gatlingGun)).toBe(true);
   });
 
   it('equipping a weapon recomputes the team stats', () => {

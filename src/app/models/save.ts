@@ -35,7 +35,11 @@ export interface ZoneSave {
 export interface WeaponSave {
   ref: WeaponRef;
   nbr: number;
-  equipped: boolean;
+  /**
+   * Written for 1.5.0 compatibility, ignored on load: the equipped weapons
+   * are the ones referenced by `CharacterSave.weaponRef`.
+   */
+  equipped?: boolean;
 }
 
 export interface MateriaSave {

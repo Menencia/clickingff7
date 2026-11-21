@@ -118,11 +118,12 @@ describe('ViewMapComponent (real data)', () => {
     reachZone(5);
 
     expect(refs(game.characters.getBackup())).toEqual([CharacterRef.RedXIII]);
+    const weapon = game.weapons.list.find(
+      (w) => w.ref === WeaponRef.MythrilClip,
+    );
     expect(
-      game.weapons.list.find((w) => w.ref === WeaponRef.MythrilClip),
-    ).toMatchObject({
-      equipped: true,
-    });
+      weapon && game.weapons.isEquipped(weapon, game.characters.list),
+    ).toBe(true);
   });
 
   it('zone 9: Yuffie joins the backup, and there is no next zone', () => {
@@ -130,11 +131,12 @@ describe('ViewMapComponent (real data)', () => {
 
     expect(game.zones.levelMax).toBe(MAX_ZONES);
     expect(refs(game.characters.getBackup())).toContain(CharacterRef.Yuffie);
+    const weapon = game.weapons.list.find(
+      (w) => w.ref === WeaponRef.FPtShuriken,
+    );
     expect(
-      game.weapons.list.find((w) => w.ref === WeaponRef.FPtShuriken),
-    ).toMatchObject({
-      equipped: true,
-    });
+      weapon && game.weapons.isEquipped(weapon, game.characters.list),
+    ).toBe(true);
 
     game.zones.complete();
     expect(map.canGoNextZone()).toBe(false);

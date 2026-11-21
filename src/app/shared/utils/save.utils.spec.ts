@@ -48,6 +48,12 @@ describe('save utils', () => {
     expect(decodeSave(encode(old))).toEqual(old);
   });
 
+  it('accepts a weapon without the equipped field', () => {
+    const { ref, nbr } = save.weapons[0];
+    const without = { ...save, weapons: [{ ref, nbr }] };
+    expect(decodeSave(encode(without))).toEqual(without);
+  });
+
   it.each([
     ['empty string', ''],
     ['not base64', 'not base64 JSON'],

@@ -7,6 +7,7 @@ import { MateriaRef } from '../../models/refs/materias';
 import { WeaponRef } from '../../models/refs/weapons';
 import { ZoneRef } from '../../models/refs/zones';
 import { Save } from '../../models/save';
+import { Weapon } from '../../models/weapon';
 import { MAX_ZONES } from '../../models/zones';
 import {
   loadGameData,
@@ -93,7 +94,11 @@ describe('GameService', () => {
         WeaponRef.BusterSword,
         WeaponRef.GatlingGun,
       ]);
-      expect(game.weapons.list.every((w) => w.equipped)).toBe(true);
+      expect(
+        game.weapons.list.every((w) =>
+          game.weapons.isEquipped(w, game.characters.list),
+        ),
+      ).toBe(true);
 
       expect(refs(game.materias.getEquipped())).toEqual([
         MateriaRef.Restore,
@@ -268,6 +273,55 @@ describe('GameService', () => {
       expect(game.gils()).toBe(200);
       expect(game.saves).toEqual([]);
       expect(localStorage.getItem('save1')).toBeNull();
+    });
+
+    it('derives the equipped weapons from the characters on load', async () => {
+      game = await startGame();
+      game.weapons.add(
+        TestBed.inject(StoreService).getWeapon(WeaponRef.MythrilSaber),
+      );
+      // 1.5.0 format, with weapons[].equipped contradicting the characters
+      const old = {
+        ...game.export(),
+        version: '1.5.0',
+        weapons: [
+          { ref: WeaponRef.BusterSword, nbr: 1, equipped: false },
+          { ref: WeaponRef.GatlingGun, nbr: 1, equipped: false },
+          { ref: WeaponRef.MythrilSaber, nbr: 1, equipped: true },
+        ],
+      };
+      localStorage.setItem('save1', btoa(JSON.stringify(old)));
+      clearTimeout(game.timer);
+
+      game = await startGame();
+
+      const owned = (ref: WeaponRef) =>
+        game.weapons.list.find((w) => w.ref === ref) as Weapon;
+      const cloud = game.characters.list.find(
+        (c) => c.ref === CharacterRef.Cloud,
+      );
+      expect(cloud?.weapon).toBe(owned(WeaponRef.BusterSword));
+      expect(game.export().weapons).toEqual([
+        { ref: WeaponRef.BusterSword, nbr: 1, equipped: true },
+        { ref: WeaponRef.GatlingGun, nbr: 1, equipped: true },
+        { ref: WeaponRef.MythrilSaber, nbr: 1, equipped: false },
+      ]);
+    });
+
+    it('loads a save without weapons[].equipped', async () => {
+      game = await startGame();
+      const save = game.export();
+      const old = {
+        ...save,
+        weapons: save.weapons.map(({ ref, nbr }) => ({ ref, nbr })),
+      };
+      localStorage.setItem('save1', btoa(JSON.stringify(old)));
+      clearTimeout(game.timer);
+
+      game = await startGame();
+
+      expect(game.saves).toHaveLength(1);
+      expect(game.export()).toEqual(save);
     });
 
     it('converts a difficulty stored as a string to a number', async () => {
@@ -548,6 +602,8 @@ describe('GameService', () => {
       if (!found) throw new Error(`${ref} not owned`);
       return found;
     };
+    const isEquipped = (w: Weapon) =>
+      game.weapons.isEquipped(w, game.characters.list);
 
     beforeEach(async () => {
       game = await startGame(); // zone 1: Cloud and Barret
@@ -566,8 +622,8 @@ describe('GameService', () => {
       game.equipWeapon(cloud, saber);
 
       expect(cloud.weapon).toBe(saber);
-      expect(saber.equipped).toBe(true);
-      expect(busterSword.equipped).toBe(false);
+      expect(isEquipped(saber)).toBe(true);
+      expect(isEquipped(busterSword)).toBe(false);
       expect(game.characters.hits()).toBeGreaterThan(hits);
       expect(game.canEquipWeapon(cloud, saber)).toBe(false);
       expect(game.canEquipWeapon(cloud, busterSword)).toBe(true);
@@ -582,8 +638,8 @@ describe('GameService', () => {
       game.equipWeapon(barret, saber);
 
       expect(barret.weapon).toBe(gatlingGun);
-      expect(gatlingGun.equipped).toBe(true);
-      expect(saber.equipped).toBe(false);
+      expect(isEquipped(gatlingGun)).toBe(true);
+      expect(isEquipped(saber)).toBe(false);
     });
 
     it('ignores a weapon that is already worn', () => {
@@ -593,7 +649,7 @@ describe('GameService', () => {
       game.equipWeapon(cloud, busterSword);
 
       expect(cloud.weapon).toBe(busterSword);
-      expect(busterSword.equipped).toBe(true);
+      expect(isEquipped(busterSword)).toBe(true);
     });
   });
 

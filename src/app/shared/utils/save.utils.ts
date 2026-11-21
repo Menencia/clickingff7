@@ -53,7 +53,10 @@ const isListOf = <T extends { ref: string }>(
   Array.isArray(v) &&
   v.every((e) => isObject<T>(e) && isString(e.ref) && fields(e));
 
-const isOwned = (e: Unchecked<WeaponSave | ItemSave>): boolean =>
+/** `WeaponSave.equipped` is ignored on load, so it is not checked. */
+const isOwnedWeapon = (e: Unchecked<WeaponSave>): boolean => isNumber(e.nbr);
+
+const isOwnedItem = (e: Unchecked<ItemSave>): boolean =>
   isNumber(e.nbr) && isBoolean(e.equipped);
 
 function isSave(v: unknown): v is Save {
@@ -82,12 +85,12 @@ function isSave(v: unknown): v is Save {
     ) &&
     isNumber(zones.level) &&
     isNumber(zones.levelMax) &&
-    isListOf<WeaponSave>(v.weapons, isOwned) &&
+    isListOf<WeaponSave>(v.weapons, isOwnedWeapon) &&
     isListOf<MateriaSave>(
       v.materias,
       (m) => isNumber(m.ap) && isNumber(m.level) && isBoolean(m.equipped),
     ) &&
-    isListOf<ItemSave>(v.items, isOwned) &&
+    isListOf<ItemSave>(v.items, isOwnedItem) &&
     isString(v.language) &&
     isNumeric(v.difficulty) &&
     isNumber(v.time) &&

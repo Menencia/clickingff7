@@ -229,7 +229,8 @@ Ensuite, `nbFights` de la zone courante augmente de 1 (une victoire contre un bo
 ### 8.2 Règles
 
 - Un personnage ne peut porter qu'une arme de son type.
-- Équiper une arme déséquipe l'arme du même type qui était portée, puis recalcule les statistiques d'équipe.
+- Une arme est équipée si un personnage (de l'équipe ou de la réserve) la porte. L'arme portée par chaque personnage est la seule source de cet état.
+- Équiper une arme remplace l'arme que le personnage portait, qui redevient libre, puis recalcule les statistiques d'équipe.
 
 ## 9. Écrans
 
@@ -265,7 +266,9 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 
 ## 11. Sauvegarde et paramètres
 
-- **Contenu** (`models/save.ts`) : personnages (niveau, XP, équipe, arme), HP / MP / Limite de l'équipe, zones visitées (combats, terminée), zone courante et zone max, armes, materias (niveau, AP, équipée), objets, gils, langue, difficulté, temps de jeu, version.
+- **Contenu** (`models/save.ts`) : personnages (niveau, XP, équipe, arme), HP / MP / Limite de l'équipe, zones visitées (combats, terminée), zone courante et zone max, armes (quantité), materias (niveau, AP, équipée), objets, gils, langue, difficulté, temps de jeu, version.
+- **Armes équipées** : elles se déduisent de l'arme de chaque personnage. Le champ `weapons[].equipped` est encore écrit (calculé à partir des personnages) pour rester lisible par la 1.5.0, mais il est facultatif et ignoré au chargement.
+- **Compatibilité** : tous les cas d'anciennes versions gérés sont listés dans `docs/compatibilite.md`.
 - **Stockage** : JSON encodé en base64 dans `localStorage['save1']`. Il n'y a qu'un seul emplacement.
 - **Sauvegarde manuelle uniquement**, depuis l'écran Sauvegarde. Il n'y a pas de sauvegarde automatique.
 - **Au démarrage** : la sauvegarde est chargée si elle existe, qu'elle est valide et que sa version est ≥ 1.1.0. Sinon, elle est effacée et une nouvelle partie démarre en zone 1. Une sauvegarde est invalide si elle n'est pas du JSON en base64, s'il lui manque un champ obligatoire de `Save` (ou si son type est incorrect), ou si elle référence un personnage, une arme, une materia, un objet ou une zone inconnus. La version enregistrée est celle de `package.json`.

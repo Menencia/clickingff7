@@ -102,7 +102,7 @@ export class ShopService {
   buyWeapon(weapon: Weapon): boolean {
     if (!this.canBuyWeapon(weapon)) return false;
     this.game.gils.update((gils) => gils - weapon.getPrice());
-    this.game.weapons.add(this.store.getWeapon(weapon.ref), false);
+    this.game.weapons.add(this.store.getWeapon(weapon.ref));
     return true;
   }
 
@@ -112,7 +112,8 @@ export class ShopService {
   canSellWeapon(weapon: Weapon): boolean {
     return (
       this.game.weapons.list.includes(weapon) &&
-      (!weapon.equipped || weapon.nbr > 1)
+      (!this.game.weapons.isEquipped(weapon, this.game.characters.list) ||
+        weapon.nbr > 1)
     );
   }
 
