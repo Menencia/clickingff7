@@ -9,8 +9,6 @@ import { Units } from '../units';
 export class Enemies extends Units {
   list: Enemy[];
 
-  timer: number;
-
   hits: number;
 
   readonly hpMax = signal(0);
@@ -21,8 +19,6 @@ export class Enemies extends Units {
   constructor() {
     super();
     this.list = [];
-    this.arrHits = [];
-    this.timer = 0;
 
     this.hits = 0;
     this.hp.set(0);
@@ -36,7 +32,6 @@ export class Enemies extends Units {
   refresh(): void {
     let hpMax = 0;
     this.hits = 0;
-    this.arrHits = [];
     this.weakness = [];
     this.resistance = [];
 
@@ -106,13 +101,5 @@ export class Enemies extends Units {
    */
   hpProgress(pixelsMax: number): number {
     return (this.hp() / this.hpMax()) * pixelsMax;
-  }
-
-  /**
-   * Remove all the enemy
-   */
-  remove(): void {
-    this.list = [];
-    this.refresh();
   }
 }

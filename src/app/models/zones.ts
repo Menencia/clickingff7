@@ -10,8 +10,6 @@ export class Zones {
 
   levelMax: number;
 
-  nextZone: boolean;
-
   /**
    * Init
    */
@@ -19,7 +17,6 @@ export class Zones {
     this.list = [];
     this.level = 1;
     this.levelMax = 1;
-    this.nextZone = false;
   }
 
   /**
@@ -27,16 +24,6 @@ export class Zones {
    */
   add(zone: Zone): void {
     this.list.push(zone);
-  }
-
-  /**
-   * Checks if all zones are complete and there is another
-   */
-  checkLastZone(): void {
-    const zone = this.list.find((e) => e.level === this.levelMax);
-    if (zone?.completed && this.level < MAX_ZONES) {
-      this.nextZone = true;
-    }
   }
 
   /**
@@ -50,28 +37,12 @@ export class Zones {
   }
 
   /**
-   * Return all undiscovered zones
-   */
-  getOthers(): Zone[] {
-    const { level } = this;
-    return this.list.filter((z) => {
-      return z.level !== level;
-    });
-  }
-
-  /**
    * Complete the current level zone
    */
   complete(): void {
     const zone = this.current();
     if (zone) {
       zone.completed = true;
-      if (this.level < MAX_ZONES) {
-        // this.level++;
-        // this.levelMax++;
-        this.nextZone = true;
-        // this.game.buildLevel(this.levelMax);
-      }
     }
   }
 

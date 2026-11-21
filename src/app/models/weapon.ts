@@ -73,13 +73,6 @@ export class Weapon {
     return sum;
   }
 
-  /**
-   * Returns true if weapon can be equipped
-   */
-  canEquip(): boolean {
-    return true;
-  }
-
   /*
    * Save weapon
    */

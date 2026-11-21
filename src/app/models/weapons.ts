@@ -20,7 +20,7 @@ export class Weapons {
     if (w) {
       w.nbr += 1;
     } else {
-      weapon.equipped = weapon.canEquip() ? equipped : false;
+      weapon.equipped = equipped;
       this.list.push(weapon);
     }
   }

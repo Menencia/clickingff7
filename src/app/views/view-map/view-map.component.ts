@@ -46,7 +46,6 @@ export class ViewMapComponent {
     // New level
     else {
       this.gameService.zones.levelMax += 1;
-      this.gameService.zones.nextZone = false;
       this.gameService.buildLevel(this.gameService.zones.level);
       this.gameService.characters.refresh();
       this.goZone(this.gameService.zones.level);

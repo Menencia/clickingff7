@@ -4,8 +4,6 @@ import { ItActionAttack } from '../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../core/interfaces/it-display-hits';
 
 export abstract class Units {
-  arrHits: number[] = [];
-
   hp = signal(0);
 
   abstract readonly hpMax: Signal<number>;

@@ -39,9 +39,6 @@ export class GameService {
   /** List of saves */
   saves: Save[] = [];
 
-  /** Last export */
-  lastExport = '';
-
   /**
    * Save settings
    */
@@ -94,7 +91,6 @@ export class GameService {
 
     if (save && isVersionAtLeast(save.version, '1.1.0') && this.tryLoad(save)) {
       this.saves.push(save);
-      this.zones.checkLastZone();
       this.postload();
     } else {
       // no save, corrupted, too old or unloadable: new game
@@ -371,9 +367,7 @@ export class GameService {
     const s = this.export();
     this.saves[0] = s;
 
-    const ss = encodeSave(s);
-    localStorage[SAVE_1] = ss;
-    this.lastExport = ss;
+    localStorage[SAVE_1] = encodeSave(s);
   }
 
   /**

@@ -162,7 +162,7 @@ intro.js est chargé comme script global (`angular.json` → `scripts`) et typé
 
 ## Lot 5 — Nettoyage
 
-### 16. `chore: remove dead code` 🟢
+### 16. `chore: remove dead code` 🟢 ✅ fait
 
 À supprimer :
 - `Characters.autoFighting`, et les anciennes versions de `hasWeakness` / `hasResistance` commentées dans `models/units/characters.ts`

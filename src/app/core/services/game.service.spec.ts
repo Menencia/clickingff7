@@ -282,7 +282,7 @@ describe('GameService', () => {
 
       game = await startGame();
 
-      expect(game.zones.nextZone).toBe(true);
+      expect(game.zones.isNextZone()).toBe(true);
     });
 
     it.each([

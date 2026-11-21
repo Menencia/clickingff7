@@ -96,7 +96,6 @@ export class Characters extends Units {
    * Refresh characters stats: recomputes the team and clamps HP, MP and limit
    */
   refresh(): void {
-    this.arrHits = [];
     this.team.set(this.getTeam());
 
     this.hp.update((hp) => Math.min(hp, this.hpMax()));
@@ -161,10 +160,6 @@ export class Characters extends Units {
     return (this.limit() / this.limitMax()) * pixelsMax;
   }
 
-  autoFighting(): ItActionAttack {
-    return this.getAttackSkill();
-  }
-
   /**
    * Characters are under attack
    */
@@ -197,36 +192,6 @@ export class Characters extends Units {
 
     return true;
   }
-
-  // /**
-  //  * Returns true if the enemy has this type in weakness
-  //  */
-  // hasWeakness(types: string[]): boolean {
-  //   let res = false;
-  //   let i = 0;
-  //   while (!res && i < types.length) {
-  //     if (this.weakness.includes(types[i])) {
-  //       res = true;
-  //     }
-  //     i += 1;
-  //   }
-  //   return res;
-  // }
-
-  // /**
-  //  * Returns true if the enemy has this type in weakness
-  //  */
-  // hasResistance(types: string[]): boolean {
-  //   let res = false;
-  //   let i = 0;
-  //   while (!res && i < types.length) {
-  //     if (this.resistance.includes(types[i])) {
-  //       res = true;
-  //     }
-  //     i += 1;
-  //   }
-  //   return res;
-  // }
 
   /**
    * Returns if it is possible to execute a limit (powerful attack)
