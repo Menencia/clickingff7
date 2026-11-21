@@ -9,6 +9,7 @@ import materias from '../../assets/data/materias.json';
 import weapons from '../../assets/data/weapons.json';
 import zones from '../../assets/data/zones.json';
 import { DataService } from '../core/services/data.service';
+import { GameService } from '../core/services/game.service';
 
 const GAME_DATA: Record<string, unknown> = {
   'assets/data/characters.json': characters,
@@ -36,10 +37,21 @@ export function provideInMemoryGameData(): Provider {
 
 /**
  * Builds the game catalog, as the app initializer does.
- * Must run before injecting GameService.
+ * Must run before GameService.run().
  */
 export function loadGameData(): Promise<void> {
   return firstValueFrom(TestBed.inject(DataService).preloadAll());
+}
+
+/**
+ * Starts the game as the app initializer does: loads the catalog,
+ * then runs GameService (stored save or new game).
+ */
+export async function startGame(): Promise<GameService> {
+  await loadGameData();
+  const game = TestBed.inject(GameService);
+  game.run();
+  return game;
 }
 
 /**

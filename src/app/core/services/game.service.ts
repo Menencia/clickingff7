@@ -74,9 +74,6 @@ export class GameService {
 
     // language
     this.language = this.getLanguage(this.translate.getBrowserLang());
-
-    // load all resources
-    this.run();
   }
 
   getLanguage(language: string | undefined, defaultLanguage = 'en'): string {
@@ -84,8 +81,11 @@ export class GameService {
     return languages.find((l) => l === language) || defaultLanguage;
   }
 
+  /**
+   * Starts the game from the stored save, or a new game if there is none.
+   * Called once by the app initializer, after the game data is loaded.
+   */
   run(): void {
-    // PRELOAD
     this.preload();
 
     // search for save
@@ -95,15 +95,39 @@ export class GameService {
     if (save && isVersionAtLeast(save.version, '1.1.0') && this.tryLoad(save)) {
       this.saves.push(save);
       this.zones.checkLastZone();
+      this.postload();
     } else {
       // no save, corrupted, too old or unloadable: new game
-      this.preload();
-      this.reset();
-      this.buildLevel(1);
+      this.newGame();
     }
+  }
 
-    // POSTLOAD
+  /**
+   * Erases the stored save and starts a new game in zone 1
+   */
+  newGame(): void {
+    this.preload();
+    this.reset();
+    this.buildLevel(1);
     this.postload();
+  }
+
+  /**
+   * Replaces the current game with a save, without writing it to storage.
+   * If the save references unknown data, the current game is kept and
+   * false is returned.
+   */
+  importGame(save: Save): boolean {
+    const current = this.export();
+    this.preload();
+    if (!this.tryLoad(save)) {
+      this.preload();
+      this.load(current);
+      this.postload();
+      return false;
+    }
+    this.postload();
+    return true;
   }
 
   /**

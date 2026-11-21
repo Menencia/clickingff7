@@ -7,9 +7,9 @@ import { ItemRef } from '../../models/refs/items';
 import { MateriaRef } from '../../models/refs/materias';
 import { WeaponRef } from '../../models/refs/weapons';
 import {
-  loadGameData,
   MemoryStorage,
   provideInMemoryGameData,
+  startGame,
 } from '../../testing/game-data.testing';
 import { ViewShopComponent } from './view-shop.component';
 
@@ -68,8 +68,7 @@ describe('ViewShopComponent (real catalog)', () => {
         provideTranslateService({ fallbackLang: 'en' }),
       ],
     });
-    await loadGameData();
-    game = TestBed.inject(GameService);
+    game = await startGame();
     game.gils = 100000;
     game.zones.levelMax = 2;
     shop = TestBed.createComponent(ViewShopComponent).componentInstance;

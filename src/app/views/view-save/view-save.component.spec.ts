@@ -6,9 +6,9 @@ import { CharacterRef } from '../../models/refs/characters';
 import { ZoneRef } from '../../models/refs/zones';
 import { encodeSave } from '../../shared/utils/save.utils';
 import {
-  loadGameData,
   MemoryStorage,
   provideInMemoryGameData,
+  startGame,
 } from '../../testing/game-data.testing';
 import { ViewSaveComponent } from './view-save.component';
 
@@ -39,8 +39,7 @@ describe('ViewSaveComponent', () => {
         { provide: Router, useValue: { navigateByUrl: navigate } },
       ],
     });
-    await loadGameData();
-    game = TestBed.inject(GameService);
+    game = await startGame();
 
     const fixture = TestBed.createComponent(ViewSaveComponent);
     fixture.detectChanges();
@@ -87,10 +86,7 @@ describe('ViewSaveComponent', () => {
       unlockNextZone();
       game.gils = 1234;
       const save = structuredClone(game.export());
-      game.preload();
-      game.reset();
-      game.buildLevel(1);
-      game.postload();
+      game.newGame();
 
       component.areaImport = encodeSave(save);
       expect(component.checkImport()).toBe(true);

@@ -110,7 +110,7 @@ Changement : créer `shared/utils/game.utils.ts` (`statFactor`, `withVariance`, 
 
 **Risque** : très faible si le commit 1 est en place. Attention à garder les arrondis (`Math.ceil` ou `Math.round`) au même endroit.
 
-### 10. `refactor(game): move bootstrap side effects out of GameService constructor` 🟠
+### 10. `refactor(game): move bootstrap side effects out of GameService constructor` 🟠 ✅ fait
 
 Le constructeur de `GameService` lance `run()` : il lit `localStorage`, charge la sauvegarde et démarre le timer. Cela rend le service difficile à tester (voir les mocks du commit 2), et la logique de réinitialisation est éparpillée dans `ViewSaveComponent.resetGame()`, qui enchaîne `preload`, `reset`, `buildLevel(1)` et `postload`.
 

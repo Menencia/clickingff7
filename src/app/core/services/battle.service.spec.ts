@@ -3,9 +3,9 @@ import { provideTranslateService } from '@ngx-translate/core';
 import { MateriaRef } from '../../models/refs/materias';
 import { MAX_FIGHTS } from '../../models/zone';
 import {
-  loadGameData,
   MemoryStorage,
   provideInMemoryGameData,
+  startGame,
 } from '../../testing/game-data.testing';
 import { BattleService } from './battle.service';
 import { GameService } from './game.service';
@@ -23,8 +23,7 @@ describe('BattleService', () => {
         provideTranslateService({ fallbackLang: 'en' }),
       ],
     });
-    await loadGameData();
-    game = TestBed.inject(GameService); // new game: buildLevel(1)
+    game = await startGame(); // new game: buildLevel(1)
     service = TestBed.inject(BattleService);
   });
 

@@ -11,6 +11,7 @@ import { provideTranslateService } from '@ngx-translate/core';
 import { provideTranslateMultiHttpLoader } from '@ngx-translate/http-loader';
 import { routes } from './app.routes';
 import { DataService } from './core/services/data.service';
+import { GameService } from './core/services/game.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -29,11 +30,11 @@ export const appConfig: ApplicationConfig = {
       lang: 'fr',
     }),
     provideAppInitializer(() => {
-      const initializerFn = (
-        (data: DataService) => () =>
-          data.preloadAll().toPromise()
-      )(inject(DataService));
-      return initializerFn();
+      const game = inject(GameService);
+      return inject(DataService)
+        .preloadAll()
+        .toPromise()
+        .then(() => game.run());
     }),
   ],
 };

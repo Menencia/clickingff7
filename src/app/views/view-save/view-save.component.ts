@@ -51,10 +51,7 @@ export class ViewSaveComponent {
    */
   resetGame(): void {
     if (this.gameService.saves[0]) {
-      this.gameService.preload();
-      this.gameService.reset();
-      this.gameService.buildLevel(1);
-      this.gameService.postload();
+      this.gameService.newGame();
       this.router.navigateByUrl('game');
     }
   }
@@ -104,23 +101,10 @@ export class ViewSaveComponent {
    */
   importSave(): void {
     const save = decodeSave(this.areaImport);
-    if (!save) {
+    if (!save || !this.gameService.importGame(save)) {
       this.importError = true;
       return;
     }
-
-    const current = this.gameService.export();
-    this.gameService.preload();
-    try {
-      this.gameService.load(save);
-    } catch {
-      this.gameService.preload();
-      this.gameService.load(current);
-      this.gameService.postload();
-      this.importError = true;
-      return;
-    }
-    this.gameService.postload();
     this.router.navigateByUrl('game');
   }
 }

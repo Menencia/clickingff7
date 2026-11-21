@@ -11,11 +11,12 @@ import {
   loadGameData,
   MemoryStorage,
   provideInMemoryGameData,
+  startGame as startGameFromCatalog,
 } from '../../testing/game-data.testing';
 import { Difficulty, GameService } from './game.service';
 
-/** Starts the app: fresh catalog, then GameService (which runs run()). */
-async function startGame(): Promise<GameService> {
+/** Fresh injector with the in-memory catalog. */
+function configure(): void {
   TestBed.resetTestingModule();
   TestBed.configureTestingModule({
     providers: [
@@ -23,8 +24,12 @@ async function startGame(): Promise<GameService> {
       provideTranslateService({ fallbackLang: 'en' }),
     ],
   });
-  await loadGameData();
-  return TestBed.inject(GameService);
+}
+
+/** Starts the app: fresh catalog, then GameService.run(). */
+async function startGame(): Promise<GameService> {
+  configure();
+  return startGameFromCatalog();
 }
 
 /** Unlocks the next zone, as ViewMapComponent.goNextZone() does. */
@@ -48,6 +53,23 @@ describe('GameService', () => {
     clearTimeout(game?.timer);
     vi.useRealTimers();
     vi.unstubAllGlobals();
+  });
+
+  describe('constructor', () => {
+    it('has no side effect until run() is called', async () => {
+      const save = { getItem: vi.fn(), setItem: vi.fn() };
+      vi.stubGlobal('localStorage', save);
+      configure();
+      await loadGameData();
+
+      game = TestBed.inject(GameService);
+      vi.advanceTimersByTime(3000);
+
+      expect(save.getItem).not.toHaveBeenCalled();
+      expect(game.zones.list).toEqual([]);
+      expect(game.characters.list).toEqual([]);
+      expect(game.time).toBe(0);
+    });
   });
 
   describe('new game', () => {
@@ -303,14 +325,6 @@ describe('GameService', () => {
       game = await startGame();
     });
 
-    /** Same sequence as ViewSaveComponent.resetGame() */
-    function resetGame(): void {
-      game.preload();
-      game.reset();
-      game.buildLevel(1);
-      game.postload();
-    }
-
     it('characters use the owned weapon instances', () => {
       unlockNextZone(game);
       for (const c of game.characters.list) {
@@ -331,6 +345,19 @@ describe('GameService', () => {
       }
     });
 
+    it('newGame erases the stored save and restarts the play time', () => {
+      game.save();
+      vi.advanceTimersByTime(5000);
+
+      game.newGame();
+
+      expect(localStorage.getItem('save1')).toBeNull();
+      expect(game.saves).toEqual([]);
+      expect(game.time).toBe(0);
+      vi.advanceTimersByTime(2000);
+      expect(game.time).toBe(2);
+    });
+
     it('a reset starts from clean instances', () => {
       unlockNextZone(game);
       unlockNextZone(game);
@@ -342,7 +369,7 @@ describe('GameService', () => {
       game.weapons.list[0].nbr = 3;
       game.items.list[0].nbr = 9;
 
-      resetGame();
+      game.newGame();
 
       expect(game.zones.list[0]).not.toBe(zone1);
       expect(game.zones.list[0]).toMatchObject({
@@ -375,9 +402,7 @@ describe('GameService', () => {
         item: game.items.list[0],
       };
 
-      game.preload();
-      game.load(save);
-      game.postload();
+      expect(game.importGame(save)).toBe(true);
       previous.zone.nbFights = 7;
       previous.character.setXp(1000);
       previous.weapon.nbr = 5;
@@ -390,6 +415,50 @@ describe('GameService', () => {
       expect(game.materias.list[0]).not.toBe(previous.materia);
       expect(game.items.list[0]).not.toBe(previous.item);
       expect(game.export()).toEqual(save);
+    });
+  });
+
+  describe('importGame', () => {
+    beforeEach(async () => {
+      game = await startGame();
+    });
+
+    it('replaces the current game without writing to storage', () => {
+      unlockNextZone(game);
+      game.gils = 1234;
+      game.language = 'fr';
+      const save = structuredClone(game.export());
+      game.newGame();
+
+      expect(game.importGame(save)).toBe(true);
+
+      expect(game.export()).toEqual(save);
+      expect(localStorage.getItem('save1')).toBeNull();
+    });
+
+    it('keeps the current game when the save references unknown data', () => {
+      unlockNextZone(game);
+      game.gils = 777;
+      const before = structuredClone(game.export());
+      const save = structuredClone(before);
+      save.gils = 1;
+      save.zones.list.push({
+        ...save.zones.list[0],
+        ref: 'unknown' as ZoneRef,
+      });
+
+      expect(game.importGame(save)).toBe(false);
+
+      expect(game.export()).toEqual(before);
+    });
+
+    it('keeps a single play-time timer', () => {
+      const save = structuredClone(game.export());
+      game.importGame(save);
+      game.importGame(save);
+
+      vi.advanceTimersByTime(3000);
+      expect(game.time).toBe(save.time + 3);
     });
   });
 });
