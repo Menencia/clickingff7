@@ -43,7 +43,7 @@ Le processus a deux phases. Elles peuvent être lancées séparément : « prép
    `gh release create vX.Y.Z --verify-tag --title vX.Y.Z --notes-file <fichier>`.
    Vérifier avec `gh release list --limit 2` qu'elle est marquée « Latest ».
 7. **Déploiement**, toujours sur `main` : `pnpm deploy:hosting` (build de production puis `firebase deploy --only hosting`). Attendre « Deploy complete! ». Vérifier ensuite que le site sert la nouvelle version : le numéro `X.Y.Z` doit apparaître dans un des chunks JS listés par `https://clickingff7.web.app/ngsw.json`.
-8. **Retour sur `next`** : `git checkout next`. Ajouter en haut de `docs/changelog.md` (sous `# Changelog`) une section vide :
+8. **Retour sur `next`** : `git checkout next`. Dans `docs/changelog.md`, **supprimer toute la section `## X.Y.Z`** qui vient d'être livrée (son contenu est conservé dans la release GitHub et dans l'historique Git), puis la remplacer, sous `# Changelog`, par une section vide :
 
    ````
    ## Prochaine version
