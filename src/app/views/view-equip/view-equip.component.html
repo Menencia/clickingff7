@@ -46,27 +46,43 @@
     </div>
     } @if (selected) {
     <div class="col-span-2">
-      <table style="width: 100%">
-        <tr>
-          <th>{{ "Name" | translate }}</th>
-          <th></th>
-        </tr>
-        @for (weapon of weapons; track weapon) {
-        <tr class="weapon">
-          <td>{{ weapon.ref }}</td>
-          <td>
-            <button
-              type="button"
-              class="btn"
-              (click)="equipWeapon(weapon)"
-              [disabled]="!canEquipWeapon(weapon)"
-            >
-              {{ "Equip" | translate }}
-            </button>
-          </td>
-        </tr>
-        }
-      </table>
+      <div
+        class="overflow-x-auto rounded-box border border-base-300 bg-base-100"
+      >
+        <table class="table">
+          <thead>
+            <tr>
+              <th>{{ "Name" | translate }}</th>
+              <th class="w-px"></th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (weapon of weapons; track weapon) {
+            <tr class="hover:bg-base-200">
+              <td>
+                <div class="flex items-center gap-2">
+                  <app-weapon-icon [type]="weapon.type"></app-weapon-icon>
+                  {{ weapon.ref }}
+                </div>
+                <div class="text-xs italic opacity-70">
+                  {{ "Power" | translate }} {{ weapon.hits }}
+                </div>
+              </td>
+              <td class="w-px whitespace-nowrap text-right">
+                <button
+                  type="button"
+                  class="btn btn-sm btn-primary"
+                  (click)="equipWeapon(weapon)"
+                  [disabled]="!canEquipWeapon(weapon)"
+                >
+                  {{ "Equip" | translate }}
+                </button>
+              </td>
+            </tr>
+            }
+          </tbody>
+        </table>
+      </div>
     </div>
     }
   </div>

@@ -4,6 +4,7 @@ import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Materia } from '../../models/materia';
 import { MateriaIconComponent } from '../../shared/ui/materia-icon/materia-icon.component';
+import { ProgressBarComponent } from '../../shared/ui/progress-bar/progress-bar.component';
 import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
@@ -14,6 +15,7 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
     MateriaIconComponent,
     LucidePlus,
     LucideX,
+    ProgressBarComponent,
   ],
   templateUrl: './view-materia.component.html',
   styleUrls: ['./view-materia.component.scss'],

@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { LucidePlus, LucideX } from '@lucide/angular';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Item, MAX_ITEMS } from '../../models/item';
@@ -7,7 +8,13 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
 
 @Component({
   selector: 'app-view-items',
-  imports: [UiLayoutDefaultComponent, TranslatePipe, ItemIconComponent],
+  imports: [
+    UiLayoutDefaultComponent,
+    TranslatePipe,
+    ItemIconComponent,
+    LucidePlus,
+    LucideX,
+  ],
   templateUrl: './view-items.component.html',
   styleUrls: ['./view-items.component.scss'],
 })

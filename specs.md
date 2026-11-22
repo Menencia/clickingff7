@@ -254,7 +254,7 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 
 **Bandeau de mise à jour** : quand une nouvelle version du jeu a été téléchargée en arrière-plan, un bandeau en bas de l'écran invite à sauvegarder puis à recharger (voir §12).
 
-**Thème** : clair (cupcake) ou sombre (dark). Le thème par défaut est sombre, et le choix est mémorisé dans `localStorage['theme']`. Une ancienne valeur `light` est convertie en `cupcake` au chargement.
+**Thème** : clair (cupcake) ou sombre (dark). Les deux thèmes daisyUI sont redéfinis dans `src/styles.scss` avec la palette du jeu (surfaces bleu ardoise, vert Mako en couleur principale, cyan en secondaire, ambre en accent) mais gardent leur nom. Le thème par défaut est sombre, et le choix est mémorisé dans `localStorage['theme']`. Une ancienne valeur `light` est convertie en `cupcake` au chargement.
 
 ## 10. Boutique
 

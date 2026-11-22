@@ -7,6 +7,9 @@
 ```
 - The game can now be installed as an app and played fully offline (PWA), with a new sword icon
 - Fix materias staying equipped beyond the available slots when a character leaves the team
+- Restyle the item, materia, equipment and shop tables
+- Fix the materia AP bar not showing progress
+- New color theme (dark and light), with Mako green, cyan and amber on slate blue
 ```
 
 ### Détail des changements
@@ -19,6 +22,12 @@
 #### Corrections
 
 - Les materias en trop sont déséquipées quand le nombre d'emplacements diminue (un personnage quitte l'équipe dans le PHS, devient indisponible ou change pour une arme qui a moins d'emplacements). Une sauvegarde qui équipe trop de materias est corrigée au chargement.
+- La barre d'AP des materias se remplit de nouveau (elle restait vide).
+
+#### Changements
+
+- Les tableaux des écrans Objets, Materia, Équipement et Boutique ont un nouveau style : présentés dans une carte arrondie, ligne surlignée au survol, en-tête distinct, chiffres et prix alignés à droite, description en dessous du nom, message centré quand la liste est vide. Les boutons équiper / déséquiper utilisent partout les mêmes icônes (au lieu d'emojis dans l'écran Objets), et les boutons de la Boutique et de l'Équipement sont plus compacts et colorés (achat, vente, équiper). L'écran Équipement affiche aussi l'icône et la puissance de chaque arme.
+- Nouvelles couleurs pour les thèmes sombre et clair : surfaces bleu ardoise, vert Mako pour les actions principales (Acheter, barre d'AP), cyan pour les onglets sélectionnés, ambre en accent. Le fond des pages est un ton plus foncé que les tableaux et les boutons, qui ressortent mieux. Les dégâts affichés et le badge « NEW » suivent la couleur d'erreur du thème. La barre du navigateur et l'écran de lancement de l'application installée prennent le nouveau bleu nuit.
 
 #### Côté technique
 

@@ -85,7 +85,10 @@ describe('ViewMateriaComponent (real data)', () => {
     const fixture = TestBed.createComponent(ViewMateriaComponent);
     fixture.detectChanges();
     const total = () =>
-      fixture.nativeElement.querySelector('th.total').textContent.trim();
+      fixture.nativeElement
+        .querySelector('thead th:last-child')
+        .textContent.replace(/\s+/g, ' ')
+        .trim();
     expect(total()).toBe('2 / 3');
 
     const aerith = game.characters.list.find(

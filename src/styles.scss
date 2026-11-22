@@ -7,6 +7,106 @@
     dark --prefersdark;
 }
 
+/* Game palette ("Mako / Midgar"): slate blue surfaces, Mako green primary,
+   cyan secondary, amber accent. It overrides the built-in dark and cupcake
+   themes but keeps their names, so the theme saved in localStorage['theme']
+   by older versions still applies. Surfaces: base-300 navbar and borders,
+   base-200 page, base-100 cards and tables (lightest in both themes). */
+@plugin "daisyui/theme" {
+  name: "dark";
+  prefersdark: true;
+  color-scheme: dark;
+  --color-base-100: oklch(26% 0.03 245);
+  --color-base-200: oklch(21% 0.028 245);
+  --color-base-300: oklch(17% 0.025 245);
+  --color-base-content: oklch(92% 0.015 240);
+  --color-primary: oklch(80% 0.17 160);
+  --color-primary-content: oklch(22% 0.05 160);
+  --color-secondary: oklch(76% 0.13 230);
+  --color-secondary-content: oklch(20% 0.04 235);
+  --color-accent: oklch(82% 0.15 75);
+  --color-accent-content: oklch(25% 0.05 75);
+  --color-neutral: oklch(14% 0.02 245);
+  --color-neutral-content: oklch(85% 0.02 240);
+  --color-info: oklch(72% 0.14 235);
+  --color-info-content: oklch(20% 0.04 235);
+  --color-success: oklch(76% 0.17 150);
+  --color-success-content: oklch(22% 0.05 150);
+  --color-warning: oklch(83% 0.16 85);
+  --color-warning-content: oklch(25% 0.05 85);
+  --color-error: oklch(68% 0.19 22);
+  --color-error-content: oklch(20% 0.05 22);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+@plugin "daisyui/theme" {
+  name: "cupcake";
+  default: true;
+  color-scheme: light;
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(95.5% 0.012 240);
+  --color-base-300: oklch(90% 0.018 240);
+  --color-base-content: oklch(27% 0.03 250);
+  --color-primary: oklch(60% 0.15 160);
+  --color-primary-content: oklch(98% 0.01 160);
+  --color-secondary: oklch(55% 0.15 240);
+  --color-secondary-content: oklch(98% 0.01 240);
+  --color-accent: oklch(72% 0.16 65);
+  --color-accent-content: oklch(22% 0.04 65);
+  --color-neutral: oklch(27% 0.03 250);
+  --color-neutral-content: oklch(94% 0.01 240);
+  --color-info: oklch(60% 0.15 240);
+  --color-info-content: oklch(98% 0.01 240);
+  --color-success: oklch(62% 0.16 150);
+  --color-success-content: oklch(98% 0.01 150);
+  --color-warning: oklch(75% 0.16 75);
+  --color-warning-content: oklch(25% 0.05 75);
+  --color-error: oklch(58% 0.21 22);
+  --color-error-content: oklch(98% 0.01 22);
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 1;
+  --noise: 0;
+}
+
+/* Page background one step darker than base-100, so that cards and tables
+   (bg-base-100) stand out from the page in every theme. */
+:where(:root, [data-theme]) {
+  --root-bg: var(--color-base-200);
+}
+
+/* Plain daisyUI buttons default to base-200, the page color: give them the
+   card color so they stand out. Variants keep their own color (--btn-color
+   also sets the text color of the outline, soft, dash and ghost styles). */
+.btn:not(
+    .btn-primary,
+    .btn-secondary,
+    .btn-accent,
+    .btn-neutral,
+    .btn-info,
+    .btn-success,
+    .btn-warning,
+    .btn-error,
+    .btn-ghost,
+    .btn-link,
+    .btn-outline,
+    .btn-soft,
+    .btn-dash
+  ) {
+  --btn-color: var(--color-base-100);
+}
+
 /* intro.js hardcodes a white tooltip while its text inherits the page color:
    follow the active daisyUI theme instead (unreadable in dark mode otherwise). */
 .introjs-tooltip {

@@ -1,43 +1,57 @@
 <app-ui-layout-default>
-  <table style="width: 100%">
-    <tr>
-      <th>{{ "Name" | translate }}</th>
-      <th>{{ "In stock" | translate }}</th>
-      <th class="total">
-        {{ getNbrItems() }} <span class="b">/ {{ MAX_ITEMS }}</span>
-      </th>
-    </tr>
-
-    @for (item of list; track item) {
-    <tr class="item">
-      <td>
-        <app-item-icon></app-item-icon>
-        {{ "It. " + item.ref + " name" | translate }}<br>
-        <span class="text-xs italic">{{
-          "It. " + item.ref + " desc" | translate
-        }}</span>
-      </td>
-      <td>{{ item.nbr }}</td>
-      <td class="total">
-        @if (item.equipped) {
-        <button
-          type="button"
-          class="cursor-pointer"
-          (click)="unequipItem(item)"
-        >
-          ❌
-        </button>
-        } @if (canEquipItem(item)) {
-        <button type="button" class="cursor-pointer" (click)="equipItem(item)">
-          ➕
-        </button>
+  <div class="overflow-x-auto rounded-box border border-base-300 bg-base-100">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>{{ "Name" | translate }}</th>
+          <th class="text-right">{{ "In stock" | translate }}</th>
+          <th class="w-px whitespace-nowrap text-right tabular-nums">
+            {{ getNbrItems() }}
+            <span class="opacity-60">/ {{ MAX_ITEMS }}</span>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (item of list; track item) {
+        <tr class="hover:bg-base-200">
+          <td>
+            <div class="flex items-center gap-2">
+              <app-item-icon></app-item-icon>
+              {{ "It. " + item.ref + " name" | translate }}
+            </div>
+            <div class="text-xs italic opacity-70">
+              {{ "It. " + item.ref + " desc" | translate }}
+            </div>
+          </td>
+          <td class="text-right tabular-nums">{{ item.nbr }}</td>
+          <td class="w-px whitespace-nowrap text-right">
+            @if (item.equipped) {
+            <button
+              type="button"
+              class="btn btn-ghost btn-sm btn-square"
+              (click)="unequipItem(item)"
+            >
+              <svg lucideX class="text-error"><title>X</title></svg>
+            </button>
+            } @if (canEquipItem(item)) {
+            <button
+              type="button"
+              class="btn btn-ghost btn-sm btn-square"
+              (click)="equipItem(item)"
+            >
+              <svg lucidePlus class="text-success"><title>Plus</title></svg>
+            </button>
+            }
+          </td>
+        </tr>
+        } @empty {
+        <tr>
+          <td colspan="3" class="text-center italic opacity-60">
+            {{ "No items" | translate }}
+          </td>
+        </tr>
         }
-      </td>
-    </tr>
-    } @if (list.length === 0) {
-    <tr class="nothing">
-      <td colspan="4">{{ "No items" | translate }}</td>
-    </tr>
-    }
-  </table>
+      </tbody>
+    </table>
+  </div>
 </app-ui-layout-default>

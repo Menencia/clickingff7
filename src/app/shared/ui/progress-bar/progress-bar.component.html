@@ -7,7 +7,7 @@
   <div class="label">{{ text() }}</div>
   @for (hits of arrHits; track hits) {
   <div
-    class="hits absolute right-0 top-0 text-red-600 text-3xl"
+    class="hits absolute right-0 top-0 text-error text-3xl"
     (animationend)="onAnimationEvent()"
   >
     {{ hits.hits }}

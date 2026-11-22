@@ -1,4 +1,5 @@
 import { Component, inject } from '@angular/core';
+import { LucideCheck } from '@lucide/angular';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { ShopService } from '../../core/services/shop.service';
@@ -17,6 +18,7 @@ import { WeaponIconComponent } from '../../shared/ui/weapon-icon/weapon-icon.com
     WeaponIconComponent,
     MateriaIconComponent,
     ItemIconComponent,
+    LucideCheck,
   ],
   templateUrl: './view-shop.component.html',
   styleUrls: ['./view-shop.component.scss'],
