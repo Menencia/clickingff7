@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../../core/services/game.service';
@@ -11,8 +11,6 @@ import { PHS_UNLOCK_ZONE } from '../../utils/game.utils';
 })
 export class SidemenuComponent {
   private gameService = inject(GameService);
-
-  horizontal = input(false);
 
   displayNextZone() {
     return this.gameService.zones.isNextZone();

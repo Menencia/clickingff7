@@ -81,7 +81,7 @@ Le jeu compte 9 zones (`MAX_ZONES = 9`). Chacune a 4 ennemis ordinaires et 1 bos
 
 - Chaque zone suit son nombre de combats gagnés (`nbFights`). Le boss est disponible quand `nbFights ≥ 15` (`MAX_FIGHTS`) et que la zone n'est pas encore terminée. Le bouton de combat aléatoire affiche le nombre de combats restants avant le boss.
 - Battre le boss termine la zone, à condition que ce soit la zone la plus avancée atteinte.
-- Quand la zone courante est terminée et que `levelMax < 9`, l'écran Carte propose d'aller à la zone suivante. Le menu affiche alors un `*` à côté de « Carte ».
+- Quand la zone courante est terminée et que `levelMax < 9`, l'écran Carte propose d'aller à la zone suivante. Le menu affiche alors un `*` à côté de « Carte » (une pastille sur l'icône Carte du dock, sur mobile).
 - Aller à une zone jamais visitée augmente `levelMax` et applique les déblocages (§4.3). Le catalogue de la boutique en dépend (§10).
 - Le joueur peut revenir à tout moment dans une zone déjà débloquée, depuis la Carte.
 
@@ -234,7 +234,7 @@ Ensuite, `nbFights` de la zone courante augmente de 1 (une victoire contre un bo
 
 ## 9. Écrans
 
-Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, Objets, Config, PHS (seulement si zone max ≥ 5) et Sauvegarde. Sur mobile, le menu est un tiroir qui se referme après chaque navigation.
+Le menu donne accès à : Jeu, Carte, Boutique, Équipement, Materia, Objets, Config, PHS (seulement si zone max ≥ 5) et Sauvegarde. À partir de 768 px de large (`md`), c'est un menu horizontal dans la barre de navigation (compact sous 1024 px). Sur mobile, c'est un dock fixé en bas de l'écran (`DockComponent`) avec cinq boutons à icône : Jeu, Carte, Boutique, Équipement et « Plus ». « Plus » ouvre vers le haut un menu avec les autres écrans (Materia, Objets, PHS, Config, Sauvegarde) ; il est mis en évidence quand l'un d'eux est affiché et se referme après chaque navigation. Les barres d'actions collées en bas de certains écrans se placent juste au-dessus du dock.
 
 | Écran | Route | Contenu |
 |---|---|---|
@@ -248,7 +248,7 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 | PHS | `/phs` | Échange de personnages entre l'équipe et la réserve : 3 membres au maximum, 1 au minimum (compteur membres / maximum à côté du titre Équipe). Chaque personnage est présenté dans une carte (portrait, niveau, HP / MP / puissance, barre d'EXP) avec un bouton flèche pour le mettre en soutien ou le faire entrer dans l'équipe, grisé quand l'échange est impossible. Sur grand écran, l'équipe et le soutien sont en deux colonnes ; sur mobile, l'un sous l'autre. |
 | Sauvegarde | `/save` | Voir §11. Deux cartes : « Dernière sauvegarde » (portraits de l'équipe, temps de jeu, gils, boutons Enregistrer et Réinitialiser) et « Transfert » (Exporter sauvegarde, Exporter jeu, Importer). Sur grand écran, elles sont en deux colonnes ; sur mobile, l'une sous l'autre. |
 
-**Tutoriel** : visite guidée avec intro.js, lancée par le bouton d'aide (point d'interrogation dans un rond) de la barre de navigation (`HelpButtonComponent`, désactivé pendant un combat) et chargée à la demande. Elle renvoie d'abord à l'écran Jeu. Les étapes sont définies dans `models/help.ts` et ancrées sur les éléments `#step1` à `#step13` : équipe, barres HP/MP/Limit, ennemis, boutons Combat aléa./Attaquer/Fuir, materias utilisables, menu principal (`#step10-menu` sur grand écran, bouton du tiroir `#step10-burger` sur mobile : le tutoriel retient le premier élément visible), zone, lien de version et lien « New Issue » du pied de page. Leurs textes sont les clés `step1`…`step15` de `help.json` (la première et la dernière étape n'ont pas d'élément cible).
+**Tutoriel** : visite guidée avec intro.js, lancée par le bouton d'aide (point d'interrogation dans un rond) de la barre de navigation (`HelpButtonComponent`, désactivé pendant un combat) et chargée à la demande. Elle renvoie d'abord à l'écran Jeu. Les étapes sont définies dans `models/help.ts` et ancrées sur les éléments `#step1` à `#step13` : équipe, barres HP/MP/Limit, ennemis, boutons Combat aléa./Attaquer/Fuir, materias utilisables, menu principal (`#step10-menu` sur grand écran, dock `#step10-dock` sur mobile : le tutoriel retient le premier élément visible), zone, lien de version et lien « New Issue » du pied de page. Leurs textes sont les clés `step1`…`step15` de `help.json` (la première et la dernière étape n'ont pas d'élément cible).
 
 **Répliques** : chaque personnage affiche une réplique qui dépend de la zone max atteinte (clé i18n `Line {levelMax} {ref}`).
 

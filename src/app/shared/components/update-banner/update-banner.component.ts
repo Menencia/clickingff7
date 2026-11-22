@@ -8,7 +8,7 @@ import { PwaUpdateService } from '../../../core/services/pwa-update.service';
   imports: [TranslatePipe],
   template: `
     @if (pwaUpdate.state() !== 'none') {
-      <div class="toast toast-center z-50">
+      <div class="toast toast-top toast-center z-50 md:toast-bottom">
         <div role="alert" class="alert alert-info alert-vertical sm:alert-horizontal">
           <span>
             {{

@@ -6,7 +6,7 @@ interface Step {
   /**
    * CSS selector of the highlighted element. When it matches several
    * elements, the first visible one is used (e.g. the horizontal menu on
-   * desktop, the drawer button on mobile).
+   * desktop, the dock on mobile).
    */
   element?: string;
   intro?: string;
@@ -53,7 +53,7 @@ export const helpData: HelpData = {
       position: 'right',
     },
     {
-      element: '#step10-menu, #step10-burger',
+      element: '#step10-menu, #step10-dock',
       position: 'left',
     },
     {

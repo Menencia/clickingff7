@@ -7,6 +7,7 @@
 ```
 - The game can now be installed as an app and played fully offline (PWA), with a new sword icon
 - Every screen reworked for mobile: the main actions in a bar at the bottom of the screen (game, shop, zones, equipment), more compact tables, clearer cards and buttons, and a button to copy an exported save
+- New navigation bar at the bottom of the screen on mobile, replacing the side menu
 - New color theme (dark and light), with Mako green, cyan and amber on slate blue
 - Restyle the item, materia, equipment and shop tables
 - Fix materias staying equipped beyond the available slots when a character leaves the team
@@ -18,7 +19,7 @@
 #### Nouveautés
 
 - Le jeu peut être installé comme une application (PWA) et fonctionne entièrement hors ligne : dès la première visite, toute l'application et toutes les images, données et traductions sont mises en cache. Le jeu a une nouvelle icône (une épée), aussi utilisée comme favicon.
-- Quand une nouvelle version est disponible, un bandeau propose de recharger le jeu (après avoir sauvegardé) ; sinon, elle s'applique au prochain lancement.
+- Quand une nouvelle version est disponible, un bandeau (en haut de l'écran sur mobile) propose de recharger le jeu (après avoir sauvegardé) ; sinon, elle s'applique au prochain lancement.
 
 #### Corrections
 
@@ -27,6 +28,7 @@
 
 #### Changements
 
+- Sur mobile, le menu latéral (ouvert par le bouton ☰) est remplacé par un dock fixé en bas de l'écran, à portée de pouce : Jeu, Zones, Boutique et Équipement ont chacun un bouton avec une icône, et le bouton « Plus » ouvre un menu avec Matéria, Objets, PHS, Config et Enregistrer. Une pastille sur Zones signale qu'une nouvelle zone est accessible. Sur tablette en paysage et sur ordinateur (à partir de 768 px de large), le menu reste horizontal, en plus compact sous 1024 px. Le pied de page prend la couleur des cartes, plus claire que le fond en thème sombre, au lieu d'un fond très sombre.
 - Les tableaux des écrans Objets, Materia, Équipement et Boutique ont un nouveau style : présentés dans une carte arrondie, ligne surlignée au survol, en-tête distinct, chiffres et prix alignés à droite, description en dessous du nom, message centré quand la liste est vide. Les boutons équiper / déséquiper utilisent partout les mêmes icônes (au lieu d'emojis dans l'écran Objets), et les boutons de la Boutique et de l'Équipement sont plus compacts et colorés (achat, vente, équiper). L'écran Équipement affiche aussi l'icône et la puissance de chaque arme.
 - Nouvelles couleurs pour les thèmes sombre et clair : surfaces bleu ardoise, vert Mako pour les actions principales (Acheter, barre d'AP), cyan pour les onglets sélectionnés, ambre en accent. Le fond des pages est un ton plus foncé que les tableaux et les boutons, qui ressortent mieux. Les dégâts affichés et le badge « NEW » suivent la couleur d'erreur du thème. La barre du navigateur et l'écran de lancement de l'application installée prennent le nouveau bleu nuit.
 
