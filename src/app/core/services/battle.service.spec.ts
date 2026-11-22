@@ -1,13 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
 import { MateriaRef } from '../../models/refs/materias';
-import { MAX_FIGHTS } from '../../models/zone';
+import { MAX_FIGHTS, Zone } from '../../models/zone';
 import {
   MemoryStorage,
   provideInMemoryGameData,
   startGame,
 } from '../../testing/game-data.testing';
-import { BattleService } from './battle.service';
+import {
+  BattleService,
+  bossLevelSum,
+  enemyLevelSum,
+  enemyRange,
+} from './battle.service';
 import { GameService } from './game.service';
 
 describe('BattleService', () => {
@@ -241,13 +246,13 @@ describe('BattleService', () => {
     it('levels the boss from the zone level and team size', () => {
       const zone = game.zones.current();
       zone.nbFights = MAX_FIGHTS;
-      const nbCharacters = game.characters.getTeam().length;
+      const nbCharacters = game.characters.team().length;
 
       service.startBoss();
 
       const [boss] = zone.boss;
       const expected = boss.level;
-      boss.toLevel(zone.level * (nbCharacters + 1) * 3 * 1.4, game.difficulty);
+      boss.toLevel(bossLevelSum(zone, nbCharacters), game.difficulty);
       expect(boss.level).toBe(expected);
     });
 
@@ -496,6 +501,32 @@ describe('BattleService', () => {
       service.useItem(potion);
 
       expect(service.battle()).toBe(battle);
+    });
+  });
+
+  describe('scaling rules', () => {
+    const zoneAt = (level: number, nbFights = 0) =>
+      ({ level, nbFights }) as Zone;
+
+    it('levels the boss as zone × (team size + 1) × 3 × 1.4', () => {
+      expect(bossLevelSum(zoneAt(1), 3)).toBe(1 * 4 * 3 * 1.4);
+      expect(bossLevelSum(zoneAt(5), 2)).toBe(5 * 3 * 3 * 1.4);
+      expect(bossLevelSum(zoneAt(9), 1)).toBe(9 * 2 * 3 * 1.4);
+    });
+
+    it('widens the enemy range with the fights won, up to the 4th enemy', () => {
+      expect(enemyRange(zoneAt(1, 0))).toBe(0);
+      expect(enemyRange(zoneAt(1, Math.ceil(MAX_FIGHTS / 4) - 1))).toBe(0);
+      expect(enemyRange(zoneAt(1, Math.ceil(MAX_FIGHTS / 4)))).toBe(1);
+      expect(enemyRange(zoneAt(1, Math.ceil(MAX_FIGHTS / 2)))).toBe(2);
+      expect(enemyRange(zoneAt(1, MAX_FIGHTS - 1))).toBe(3);
+      expect(enemyRange(zoneAt(1, MAX_FIGHTS))).toBe(3);
+      expect(enemyRange(zoneAt(1, MAX_FIGHTS * 3))).toBe(3);
+    });
+
+    it('raises the level of a mini-boss by 20%', () => {
+      expect(enemyLevelSum(10, false)).toBe(10);
+      expect(enemyLevelSum(10, true)).toBe(10 * 1.2);
     });
   });
 });

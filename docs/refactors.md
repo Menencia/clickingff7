@@ -90,7 +90,7 @@ Changement : `Zones.isPhsUnlocked()`, appelée aux trois endroits.
 
 **Risque** : très faible. `zone.guard.spec.ts` couvre la règle, mais simule `zones` par un objet `{ levelMax }` : le passer à une vraie instance de `Zones`. Ni le dock ni le menu latéral ne testent l'affichage du PHS : en ajouter un.
 
-### 10. `refactor(battle): name the enemy scaling rules` 🟢
+### 10. `refactor(battle): name the enemy scaling rules` 🟢 ✅ fait
 
 `BattleService` contient des formules d'équilibrage sans nom : niveau du boss `zone.level * (nbCharacters + 1) * 3 * 1.4` dans `startBoss()`, bonus ×1,2 des mini-boss et plage d'ennemis `nbFights / MAX_FIGHTS * 4` (bornée à 3) dans `getRandomEnemy()`. `startBoss()` et `onTeamVictory()` relisent l'équipe avec `getTeam()` au lieu du signal `team()`, et `onTeamVictory()` est public sans raison.
 

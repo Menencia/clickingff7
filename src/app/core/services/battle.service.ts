@@ -8,6 +8,46 @@ import { MAX_FIGHTS, Zone } from '../../models/zone';
 import { random } from '../../shared/utils/math.utils';
 import { Difficulty, GameService } from './game.service';
 
+/** Boss levels per zone and per team slot (team size + 1) */
+const BOSS_LEVELS_PER_SLOT = 3;
+
+/** Extra difficulty of a boss over its base level */
+const BOSS_LEVEL_FACTOR = 1.4;
+
+/** Level bonus of a mini-boss over a regular enemy */
+const MINIBOSS_LEVEL_FACTOR = 1.2;
+
+/** Number of extra enemies of the zone that become reachable as fights are won */
+const ENEMY_RANGE_STEPS = 4;
+
+/** Index of the last enemy of the zone that can be picked */
+const MAX_ENEMY_INDEX = 3;
+
+/**
+ * Base level of a zone boss: zone × (team size + 1) × 3 × 1.4
+ */
+export function bossLevelSum(zone: Zone, teamSize: number): number {
+  return zone.level * (teamSize + 1) * BOSS_LEVELS_PER_SLOT * BOSS_LEVEL_FACTOR;
+}
+
+/**
+ * Index of the last enemy that can be picked in a zone: grows with the fights
+ * won, up to the 4th enemy
+ */
+export function enemyRange(zone: Zone): number {
+  return Math.min(
+    Math.floor((zone.nbFights / MAX_FIGHTS) * ENEMY_RANGE_STEPS),
+    MAX_ENEMY_INDEX,
+  );
+}
+
+/**
+ * Base level of a random enemy: the team level sum, raised for a mini-boss
+ */
+export function enemyLevelSum(teamLevelSum: number, miboss: boolean): number {
+  return miboss ? teamLevelSum * MINIBOSS_LEVEL_FACTOR : teamLevelSum;
+}
+
 @Injectable({
   providedIn: 'root',
 })
@@ -43,14 +83,14 @@ export class BattleService {
 
     // get random boss
     const zone = this.gameService.zones.current();
-    const nbCharacters = this.gameService.characters.getTeam().length;
+    const levelSum = bossLevelSum(
+      zone,
+      this.gameService.characters.team().length,
+    );
 
     const enemies = zone.boss;
     enemies.forEach((e) => {
-      e.toLevel(
-        zone.level * (nbCharacters + 1) * 3 * 1.4,
-        this.gameService.difficulty,
-      );
+      e.toLevel(levelSum, this.gameService.difficulty);
     });
     const res = new Enemies();
     res.list = enemies;
@@ -64,18 +104,8 @@ export class BattleService {
     zone: Zone,
     difficulty: Difficulty,
   ) {
-    let range: number;
-    range = Math.floor((zone.nbFights / MAX_FIGHTS) * 4);
-    range = Math.min(range, 3);
-
-    const enemy = zone.enemies[random(0, range)];
-
-    let levelSum = levelSumBase;
-    if (enemy.miboss) {
-      levelSum *= 1.2;
-    }
-
-    enemy.toLevel(levelSum, difficulty);
+    const enemy = zone.enemies[random(0, enemyRange(zone))];
+    enemy.toLevel(enemyLevelSum(levelSumBase, enemy.miboss), difficulty);
     const res = new Enemies();
     res.list = [enemy];
     return res;
@@ -204,9 +234,9 @@ export class BattleService {
     }
   }
 
-  onTeamVictory(battle: Battle) {
+  private onTeamVictory(battle: Battle) {
     const enemies = battle.enemies.list;
-    const characters = this.gameService.characters.getTeam();
+    const characters = this.gameService.characters.team();
     const materias = this.gameService.materias.getEquipped();
 
     enemies.forEach((enemy) => {
