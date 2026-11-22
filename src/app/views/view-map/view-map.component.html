@@ -1,45 +1,76 @@
 <app-ui-layout-default>
-  <div class="flex flex-col gap-5 sm:flex-row">
-    <div class="flex flex-row flex-wrap gap-1 basis-1/5 sm:flex-col">
-      @for (zone of list; track zone) {
+  <!-- Mobile: the zone card on top, and the zone picker in a bar stuck to the
+       bottom of the screen (like the game and shop screens). From sm: a
+       column of buttons on the left. -->
+  <div class="flex flex-col gap-3 sm:grid sm:grid-cols-5 sm:gap-x-4">
+    <div
+      class="sticky bottom-0 z-10 order-2 -mx-2 flex flex-col gap-2 border-t border-base-300 bg-base-200/95 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] backdrop-blur sm:static sm:order-none sm:mx-0 sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none"
+    >
+      @if (current.completed && canGoNextZone()) {
       <button
         type="button"
-        class="btn"
-        [class.btn-secondary]="level === zone.level"
-        (click)="goZone(zone.level)"
+        class="btn btn-sm btn-primary sm:hidden"
+        (click)="goNextZone()"
       >
-        {{ "Zone" | translate }} {{ zone.level }}
+        {{ "Go next zone" | translate }}
       </button>
       }
-    </div>
 
-    <div class="flex flex-row gap-4 basis-4/5">
-      <img class="w-32" [src]="current.image" alt="current_zone">
-
-      <div>
-        <div class="">
-          {{ "Zone " + current.level + " name" | translate }}
-          <strong>(#{{ current.level }})</strong>
-        </div>
-
-        <div class="text-sm">
-          {{ "Zone " + current.level + " desc" | translate }}
-        </div>
-      </div>
-
-      @if (!current.completed) {
-      <div class="text-center text-gray-400 uppercase">
-        {{ "Not completed" | translate }}
-      </div>
-      } @if (current.completed) {
-      <div class="no-data">
-        <div>{{ "Completed" | translate }}</div>
-        @if (canGoNextZone()) {
-        <button type="button" class="btn" (click)="goNextZone()">
-          {{ "Go next zone" | translate }}
+      <div class="grid grid-cols-5 gap-1 sm:flex sm:flex-col">
+        @for (zone of list; track zone) {
+        <button
+          type="button"
+          class="btn btn-sm sm:btn-md"
+          [class.btn-secondary]="level === zone.level"
+          [attr.aria-label]="('Zone' | translate) + ' ' + zone.level"
+          (click)="goZone(zone.level)"
+        >
+          <span class="hidden sm:inline">{{ "Zone" | translate }}</span>
+          {{ zone.level }}
         </button>
         }
       </div>
+    </div>
+
+    <div
+      class="order-1 col-span-4 flex flex-col gap-3 rounded-box border border-base-300 bg-base-100 p-3 sm:order-none sm:p-4"
+    >
+      <div class="flex items-start gap-3 sm:gap-4">
+        <img
+          class="size-20 shrink-0 rounded-box object-cover sm:size-32"
+          [src]="current.image"
+          alt=""
+        >
+
+        <div class="flex min-w-0 flex-col gap-1">
+          <div class="text-xs uppercase opacity-60">
+            {{ "Zone" | translate }} {{ current.level }}
+          </div>
+          <h2 class="font-bold leading-tight">
+            {{ "Zone " + current.level + " name" | translate }}
+          </h2>
+          @if (current.completed) {
+          <span class="badge badge-success badge-sm">
+            {{ "Completed" | translate }}
+          </span>
+          } @else {
+          <span class="badge badge-ghost badge-sm">
+            {{ "Not completed" | translate }}
+          </span>
+          }
+        </div>
+      </div>
+
+      <p class="text-sm">{{ "Zone " + current.level + " desc" | translate }}</p>
+
+      @if (current.completed && canGoNextZone()) {
+      <button
+        type="button"
+        class="btn btn-primary hidden self-start sm:inline-flex"
+        (click)="goNextZone()"
+      >
+        {{ "Go next zone" | translate }}
+      </button>
       }
     </div>
   </div>

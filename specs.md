@@ -239,7 +239,7 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 | Écran | Route | Contenu |
 |---|---|---|
 | Jeu | `/game` | Barres HP / MP / Limite de l'équipe, liste des membres (portrait, niveau, barre d'XP, réplique), panneau ennemi (« Aucun ennemi » hors combat), actions de combat, gils et zone courante. C'est l'écran par défaut. Sur grand écran, trois colonnes : actions, équipe, ennemis. Sur mobile : ennemis en haut, puis l'équipe, et les actions dans une barre collée en bas de l'écran (zone et gils, materias et objets sur une ligne défilante, boutons de combat en grille 2×2). |
-| Carte | `/map` | Choix de la zone parmi les zones débloquées ; passage à la zone suivante. |
+| Carte | `/map` | Choix de la zone parmi les zones débloquées ; passage à la zone suivante. La zone choisie est présentée dans une carte (image, numéro, nom, état terminé ou non, description). Sur grand écran, les boutons de zone sont en colonne à gauche ; sur mobile, ce sont des boutons numérotés (5 par ligne) dans une barre collée en bas de l'écran, avec le bouton « Aller à la zone suivante » au-dessus. |
 | Boutique | `/shop` | Onglets Acheter / Vendre × Armes / Materias / Objets (voir §10). Sur grand écran, les onglets sont en colonne à gauche du tableau ; sur mobile, ils sont sur deux lignes dans une barre collée en bas de l'écran (Acheter / Vendre et gils, puis Armes / Materias / Objets) et le prix et le stock sont affichés sous le nom au lieu de colonnes. |
 | Équipement | `/equip` | Sélection d'un membre de l'équipe et choix de son arme parmi les armes possédées de son type. |
 | Materia | `/materia` | Équiper / déséquiper les materias selon les emplacements disponibles. |
