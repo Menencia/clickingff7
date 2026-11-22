@@ -391,13 +391,19 @@ export class GameService {
   }
 
   /**
-   *
+   * Write the current game to localStorage.
+   * Returns false if the storage refuses it (quota, storage disabled), in which
+   * case the last save is left unchanged.
    */
-  save(): void {
+  save(): boolean {
     const s = this.export();
+    try {
+      localStorage.setItem(SAVE_1, encodeSave(s));
+    } catch {
+      return false;
+    }
     this.saves[0] = s;
-
-    localStorage[SAVE_1] = encodeSave(s);
+    return true;
   }
 
   /**

@@ -39,7 +39,7 @@ Changement : `arrHits` devient un `signal<ItDisplayHits[]>`, mis à jour avec `u
 
 **Risque** : très faible. Vérifier en combat que les dégâts et soins flottants apparaissent et disparaissent. `progress-bar.component.spec.ts` couvre l'ajout et le retrait.
 
-### 4. `fix(save): report a failed save to the player` 🟢
+### 4. `fix(save): report a failed save to the player` 🟢 ✅ fait
 
 `GameService.save()` écrit dans `localStorage` sans `try`/`catch`. Si l'écriture échoue (quota, stockage désactivé), l'erreur part dans le listener global et l'écran Sauvegarde ne dit rien : le joueur croit avoir sauvegardé.
 

@@ -251,11 +251,37 @@ describe('GameService', () => {
 
     it('writes the export as base64 JSON in localStorage', () => {
       game.gils.set(1234);
-      game.save();
+      expect(game.save()).toBe(true);
 
       const saved = JSON.parse(atob(localStorage.getItem('save1') ?? ''));
       expect(saved).toEqual(game.export());
       expect(game.saves[0]).toEqual(saved);
+    });
+
+    it('returns false and keeps the last save when the storage refuses it', () => {
+      game.gils.set(1000);
+      game.save();
+      const stored = localStorage.getItem('save1');
+      const lastSave = game.saves[0];
+
+      vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
+        throw new DOMException('Quota exceeded', 'QuotaExceededError');
+      });
+      game.gils.set(2000);
+
+      expect(game.save()).toBe(false);
+      expect(localStorage.getItem('save1')).toBe(stored);
+      expect(game.saves).toEqual([lastSave]);
+    });
+
+    it('returns false without a previous save when the storage refuses it', () => {
+      vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
+        throw new DOMException('Storage disabled', 'SecurityError');
+      });
+
+      expect(game.save()).toBe(false);
+      expect(localStorage.getItem('save1')).toBeNull();
+      expect(game.saves).toEqual([]);
     });
 
     it('reset removes the save', () => {

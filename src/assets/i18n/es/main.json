@@ -57,6 +57,7 @@
   "Shop": "Tienda",
   "Reset": "Reiniciar",
   "Save": "Guardar",
+  "Save failed": "Error al guardar: almacenamiento lleno o desactivado",
   "Team": "Equipo",
   "Time": "Tiempo",
   "Weakness": "Debilidad:",

@@ -37,6 +37,10 @@
       >
         {{ "No saves" | translate }}
       </div>
+      } @if (saveError) {
+      <div role="alert" class="text-sm text-error">
+        {{ "Save failed" | translate }}
+      </div>
       }
 
       <div class="grid grid-cols-2 gap-2">

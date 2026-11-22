@@ -57,6 +57,7 @@
   "Shop": "Shop",
   "Reset": "Reset",
   "Save": "Save",
+  "Save failed": "Save failed: storage is full or disabled",
   "Team": "Team",
   "Time": "Time",
   "Weakness": "Weakness:",

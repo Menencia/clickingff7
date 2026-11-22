@@ -28,6 +28,9 @@ export class ViewSaveComponent {
 
   showAreaImport: boolean;
 
+  /** True when the last save could not be written to the storage */
+  saveError = false;
+
   /** True when the last import attempt was rejected */
   importError = false;
 
@@ -46,7 +49,7 @@ export class ViewSaveComponent {
    * Save the game
    */
   saveGame(): void {
-    this.gameService.save();
+    this.saveError = !this.gameService.save();
   }
 
   /**

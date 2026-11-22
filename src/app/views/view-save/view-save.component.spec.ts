@@ -51,6 +51,33 @@ describe('ViewSaveComponent', () => {
     vi.unstubAllGlobals();
   });
 
+  describe('save', () => {
+    it('saves the game without error message', () => {
+      component.saveGame();
+
+      expect(component.saveError).toBe(false);
+      expect(localStorage.getItem('save1')).not.toBeNull();
+      expect(game.saves.length).toBe(1);
+    });
+
+    it('reports a save the storage refuses, then clears the message on success', () => {
+      const setItem = vi
+        .spyOn(localStorage, 'setItem')
+        .mockImplementation(() => {
+          throw new DOMException('Quota exceeded', 'QuotaExceededError');
+        });
+
+      component.saveGame();
+      expect(component.saveError).toBe(true);
+      expect(game.saves).toEqual([]);
+
+      setItem.mockRestore();
+      component.saveGame();
+      expect(component.saveError).toBe(false);
+      expect(game.saves.length).toBe(1);
+    });
+  });
+
   describe('reset', () => {
     it('erases the save and starts a new game in zone 1', () => {
       unlockNextZone();

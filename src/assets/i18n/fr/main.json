@@ -57,6 +57,7 @@
   "Shop": "Boutique",
   "Reset": "Réinitialiser",
   "Save": "Enregistrer",
+  "Save failed": "Échec de la sauvegarde : stockage plein ou désactivé",
   "Team": "Équipe",
   "Time": "Tps",
   "Weakness": "Vulnérable : ",
