@@ -152,4 +152,31 @@ describe('ViewSaveComponent', () => {
       expect(component.importError).toBe(false);
     });
   });
+
+  describe('export', () => {
+    it('copies the exported string to the clipboard', async () => {
+      const writeText = vi.fn().mockResolvedValue(undefined);
+      vi.stubGlobal('navigator', { clipboard: { writeText } });
+
+      component.exportCurrentGame();
+      await component.copyExport();
+
+      expect(writeText).toHaveBeenCalledWith(encodeSave(game.export()));
+      expect(component.copied()).toBe(true);
+
+      component.exportCurrentGame();
+      expect(component.copied()).toBe(false);
+    });
+
+    it('does not report a copy when the clipboard is unavailable', async () => {
+      vi.stubGlobal('navigator', {
+        clipboard: { writeText: vi.fn().mockRejectedValue(new Error()) },
+      });
+
+      component.exportCurrentGame();
+      await component.copyExport();
+
+      expect(component.copied()).toBe(false);
+    });
+  });
 });

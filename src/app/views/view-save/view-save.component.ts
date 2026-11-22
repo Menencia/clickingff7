@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
@@ -30,6 +30,9 @@ export class ViewSaveComponent {
 
   /** True when the last import attempt was rejected */
   importError = false;
+
+  /** True once the export string has been copied to the clipboard */
+  copied = signal(false);
 
   constructor() {
     this.saves = this.gameService.saves;
@@ -65,6 +68,7 @@ export class ViewSaveComponent {
       this.showAreaImport = false;
       this.showAreaExport = true;
       this.areaExport = encodeSave(save);
+      this.copied.set(false);
     }
   }
 
@@ -75,6 +79,19 @@ export class ViewSaveComponent {
     this.areaExport = encodeSave(this.gameService.export());
     this.showAreaImport = false;
     this.showAreaExport = true;
+    this.copied.set(false);
+  }
+
+  /**
+   * Copy the export string to the clipboard
+   */
+  async copyExport(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(this.areaExport);
+      this.copied.set(true);
+    } catch {
+      this.copied.set(false);
+    }
   }
 
   /**

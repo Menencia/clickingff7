@@ -139,5 +139,11 @@
   "Update ready": "Une nouvelle version est disponible. Sauvegardez votre partie avant de recharger.",
   "Update broken": "Le jeu doit être rechargé pour fonctionner correctement. Sauvegardez votre partie avant de recharger.",
   "Reload": "Recharger",
-  "Later": "Plus tard"
+  "Later": "Plus tard",
+  "Copied": "Copié !",
+  "Copy": "Copier",
+  "Export": "Exporter",
+  "Last save": "Dernière sauvegarde",
+  "Paste save": "Collez une sauvegarde ici",
+  "Transfer": "Transfert"
 }

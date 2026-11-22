@@ -139,5 +139,11 @@
   "Update ready": "A new version is available. Save your game before reloading.",
   "Update broken": "The game needs to be reloaded to work properly. Save your game before reloading.",
   "Reload": "Reload",
-  "Later": "Later"
+  "Later": "Later",
+  "Copied": "Copied!",
+  "Copy": "Copy",
+  "Export": "Export",
+  "Last save": "Last save",
+  "Paste save": "Paste a save here",
+  "Transfer": "Transfer"
 }
