@@ -15,6 +15,11 @@ export abstract class Units {
   weakness: string[] = [];
   resistance: string[] = [];
 
+  /**
+   * Hits are divided by this when the unit resists the attack
+   */
+  protected abstract readonly resistanceDivisor: number;
+
   abstract getAttackSkill(): ItActionAttack;
   abstract isAlive(): boolean;
 
@@ -30,5 +35,19 @@ export abstract class Units {
    */
   hasResistance(types: string[]): boolean {
     return this.resistance.filter((x) => types.includes(x)).length > 0;
+  }
+
+  /**
+   * Applies weakness (x3) then resistance (/ resistanceDivisor) to the hits
+   */
+  protected applyAffinities(hits: number, elements: string[]): number {
+    let result = hits;
+    if (this.hasWeakness(elements)) {
+      result *= 3;
+    }
+    if (this.hasResistance(elements)) {
+      result = Math.floor(result / this.resistanceDivisor);
+    }
+    return result;
   }
 }

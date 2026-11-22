@@ -57,7 +57,7 @@ Changement : `Stock.remove(entry)` dans `models/stock.ts`, appelé aux trois end
 
 **Risque** : très faible. `stock.spec.ts`, `shop.service.spec.ts` et `battle.service.spec.ts` couvrent les trois cas (plusieurs copies, dernière copie).
 
-### 6. `refactor(units): share elemental damage between characters and enemies` 🟢
+### 6. `refactor(units): share elemental damage between characters and enemies` 🟢 ✅ fait
 
 `Characters.getAttacked()` et `Enemies.getAttacked()` dupliquent le calcul faiblesse / résistance. Seul le diviseur change (÷10 pour l'équipe, ÷3 pour les ennemis), écrit en dur dans chaque méthode.
 

@@ -10,6 +10,8 @@ import { Units } from '../units';
 export const MAX_TEAM = 3;
 
 export class Characters extends Units {
+  protected readonly resistanceDivisor = 10;
+
   list: Character[] = [];
 
   selected!: Character;
@@ -166,17 +168,7 @@ export class Characters extends Units {
    * Characters are under attack
    */
   getAttacked(baseHits: number, context: ItActionAttack): void {
-    let hits = baseHits;
-
-    // weakness
-    if (this.hasWeakness(context.type)) {
-      hits *= 3;
-    }
-
-    // resistance
-    if (this.hasResistance(context.type)) {
-      hits = Math.floor(hits / 10);
-    }
+    const hits = this.applyAffinities(baseHits, context.type);
 
     this.hp.update((hp) => Math.max(hp - hits, 0));
     this.source.hp.next({ hits } as ItDisplayHits);

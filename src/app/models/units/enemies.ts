@@ -13,6 +13,8 @@ export class Enemies extends Units {
 
   readonly hpMax = signal(0);
 
+  protected readonly resistanceDivisor = 3;
+
   /**
    * Init
    */
@@ -71,17 +73,7 @@ export class Enemies extends Units {
    * Enemies are under manual attack
    */
   getAttacked(baseHits: number, context: ItActionAttack): void {
-    let hits = baseHits;
-
-    // weakness
-    if (this.hasWeakness(context.type)) {
-      hits *= 3;
-    }
-
-    // resistance
-    if (this.hasResistance(context.type)) {
-      hits = Math.floor(hits / 3);
-    }
+    const hits = this.applyAffinities(baseHits, context.type);
 
     this.hp.update((hp) => Math.max(hp - hits, 0));
     this.source.hp.next({ hits } as ItDisplayHits);
