@@ -37,8 +37,8 @@ export class GameService {
   /** time counter */
   timer: number;
 
-  /** List of saves */
-  saves: Save[] = [];
+  /** Last save written to or read from the storage, if any */
+  readonly lastSave = signal<Save | undefined>(undefined);
 
   /**
    * Save settings
@@ -91,7 +91,7 @@ export class GameService {
     const save = s ? decodeSave(s) : null;
 
     if (save && isVersionAtLeast(save.version, '1.1.0') && this.tryLoad(save)) {
-      this.saves.push(save);
+      this.lastSave.set(save);
       this.postload();
     } else {
       // no save, corrupted, too old or unloadable: new game
@@ -402,7 +402,7 @@ export class GameService {
     } catch {
       return false;
     }
-    this.saves[0] = s;
+    this.lastSave.set(s);
     return true;
   }
 
@@ -410,7 +410,7 @@ export class GameService {
    * Remove the COOKIE & reset the game
    */
   reset(): void {
-    this.saves = [];
+    this.lastSave.set(undefined);
 
     localStorage.removeItem(SAVE_1);
   }

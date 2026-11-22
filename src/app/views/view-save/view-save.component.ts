@@ -3,7 +3,6 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
-import { Save } from '../../models/save';
 import { PipeTimePipe } from '../../shared/pipes/pipe-time.pipe';
 import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
 import { decodeSave, encodeSave } from '../../shared/utils/save.utils';
@@ -18,7 +17,8 @@ export class ViewSaveComponent {
   private gameService = inject(GameService);
   private router = inject(Router);
 
-  saves: Save[];
+  /** Last save, shown in the summary card */
+  readonly lastSave = this.gameService.lastSave;
 
   areaExport: string;
 
@@ -38,7 +38,6 @@ export class ViewSaveComponent {
   copied = signal(false);
 
   constructor() {
-    this.saves = this.gameService.saves;
     this.areaExport = '';
     this.areaImport = '';
     this.showAreaExport = false;
@@ -56,7 +55,7 @@ export class ViewSaveComponent {
    * Reset the game (after confirmation)
    */
   resetGame(): void {
-    if (this.gameService.saves[0]) {
+    if (this.lastSave()) {
       this.gameService.newGame();
       this.router.navigateByUrl('game');
     }
@@ -66,7 +65,7 @@ export class ViewSaveComponent {
    * Export the current save
    */
   exportLastSave(): void {
-    const save = this.gameService.saves[0];
+    const save = this.lastSave();
     if (save) {
       this.showAreaImport = false;
       this.showAreaExport = true;

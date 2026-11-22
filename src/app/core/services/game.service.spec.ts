@@ -255,14 +255,14 @@ describe('GameService', () => {
 
       const saved = JSON.parse(atob(localStorage.getItem('save1') ?? ''));
       expect(saved).toEqual(game.export());
-      expect(game.saves[0]).toEqual(saved);
+      expect(game.lastSave()).toEqual(saved);
     });
 
     it('returns false and keeps the last save when the storage refuses it', () => {
       game.gils.set(1000);
       game.save();
       const stored = localStorage.getItem('save1');
-      const lastSave = game.saves[0];
+      const lastSave = game.lastSave();
 
       vi.spyOn(localStorage, 'setItem').mockImplementation(() => {
         throw new DOMException('Quota exceeded', 'QuotaExceededError');
@@ -271,7 +271,7 @@ describe('GameService', () => {
 
       expect(game.save()).toBe(false);
       expect(localStorage.getItem('save1')).toBe(stored);
-      expect(game.saves).toEqual([lastSave]);
+      expect(game.lastSave()).toBe(lastSave);
     });
 
     it('returns false without a previous save when the storage refuses it', () => {
@@ -281,14 +281,14 @@ describe('GameService', () => {
 
       expect(game.save()).toBe(false);
       expect(localStorage.getItem('save1')).toBeNull();
-      expect(game.saves).toEqual([]);
+      expect(game.lastSave()).toBeUndefined();
     });
 
     it('reset removes the save', () => {
       game.save();
       game.reset();
       expect(localStorage.getItem('save1')).toBeNull();
-      expect(game.saves).toEqual([]);
+      expect(game.lastSave()).toBeUndefined();
     });
   });
 
@@ -317,7 +317,7 @@ describe('GameService', () => {
       game = await startGame();
 
       expect(game.export()).toEqual(exported);
-      expect(game.saves).toEqual([exported]);
+      expect(game.lastSave()).toEqual(exported);
     });
 
     it('discards a save older than 1.1.0 and starts a new game', async () => {
@@ -330,7 +330,7 @@ describe('GameService', () => {
       game = await startGame();
 
       expect(game.gils()).toBe(200);
-      expect(game.saves).toEqual([]);
+      expect(game.lastSave()).toBeUndefined();
       expect(localStorage.getItem('save1')).toBeNull();
     });
 
@@ -379,7 +379,7 @@ describe('GameService', () => {
 
       game = await startGame();
 
-      expect(game.saves).toHaveLength(1);
+      expect(game.lastSave()).toBeDefined();
       expect(game.export()).toEqual(save);
     });
 
@@ -416,7 +416,7 @@ describe('GameService', () => {
 
       expect(game.gils()).toBe(200);
       expect(refs(game.zones.list)).toEqual([ZoneRef.Zone1]);
-      expect(game.saves).toEqual([]);
+      expect(game.lastSave()).toBeUndefined();
       expect(localStorage.getItem('save1')).toBeNull();
     });
 
@@ -437,7 +437,7 @@ describe('GameService', () => {
         CharacterRef.Cloud,
         CharacterRef.Barret,
       ]);
-      expect(game.saves).toEqual([]);
+      expect(game.lastSave()).toBeUndefined();
     });
   });
 
@@ -473,7 +473,7 @@ describe('GameService', () => {
       game.newGame();
 
       expect(localStorage.getItem('save1')).toBeNull();
-      expect(game.saves).toEqual([]);
+      expect(game.lastSave()).toBeUndefined();
       expect(game.time()).toBe(0);
       vi.advanceTimersByTime(2000);
       expect(game.time()).toBe(2);

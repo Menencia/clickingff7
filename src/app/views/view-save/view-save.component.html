@@ -6,9 +6,9 @@
     >
       <h2 class="font-bold">{{ "Last save" | translate }}</h2>
 
-      @if (saves.length > 0) {
+      @if (lastSave(); as save) {
       <div class="flex flex-wrap gap-2">
-        @for (character of saves[0].characters.list; track character) { @if
+        @for (character of save.characters.list; track character) { @if
         (character.inTeam) {
         <img
           class="size-14 object-contain sm:size-16"
@@ -22,13 +22,13 @@
           <span class="text-xs uppercase opacity-60">{{
             "Time" | translate
           }}</span>
-          <span class="tabular-nums">{{ saves[0].time | time }}</span>
+          <span class="tabular-nums">{{ save.time | time }}</span>
         </span>
         <span>
           <span class="text-xs uppercase opacity-60">{{
             "Gil" | translate
           }}</span>
-          <span class="tabular-nums">{{ saves[0].gils }}</span>
+          <span class="tabular-nums">{{ save.gils }}</span>
         </span>
       </div>
       } @else {
@@ -50,7 +50,7 @@
         <button
           type="button"
           class="btn btn-error btn-outline"
-          [disabled]="saves.length === 0"
+          [disabled]="!lastSave()"
           (click)="resetDialog.showModal()"
         >
           {{ "Reset" | translate }}
@@ -67,7 +67,7 @@
         <button
           type="button"
           class="btn btn-sm flex-1"
-          [disabled]="saves.length === 0"
+          [disabled]="!lastSave()"
           (click)="exportLastSave()"
         >
           {{ "Export save" | translate }}

@@ -108,7 +108,7 @@ Changement : une table déclarative `ZONE_UNLOCKS` (personnage et entrée dans l
 
 **Risque** : moyen, c'est la progression du jeu. Dépend du commit 1 (zone 9). Les tests `buildLevel` des zones 1 à 5 et 9 doivent passer sans modification. `specs.md` reste valable, car les règles ne changent pas.
 
-### 12. `refactor(save): keep a single last save in GameService` 🟢
+### 12. `refactor(save): keep a single last save in GameService` 🟢 ✅ fait
 
 `GameService.saves: Save[]` ne sert qu'à l'indice 0 (`saves[0] = s` dans `save()`, `saves.push()` dans `run()`). `ViewSaveComponent` recopie la référence du tableau dans son constructeur, alors que `reset()` le remplace par un nouveau.
 

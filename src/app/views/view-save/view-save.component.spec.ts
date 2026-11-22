@@ -1,4 +1,4 @@
-import { TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
@@ -16,6 +16,7 @@ const refs = <T extends { ref: string }>(list: T[]) => list.map((e) => e.ref);
 
 describe('ViewSaveComponent', () => {
   let game: GameService;
+  let fixture: ComponentFixture<ViewSaveComponent>;
   let component: ViewSaveComponent;
   let navigate: ReturnType<typeof vi.fn>;
 
@@ -40,7 +41,7 @@ describe('ViewSaveComponent', () => {
     });
     game = await startGame();
 
-    const fixture = TestBed.createComponent(ViewSaveComponent);
+    fixture = TestBed.createComponent(ViewSaveComponent);
     fixture.detectChanges();
     component = fixture.componentInstance;
   });
@@ -57,7 +58,27 @@ describe('ViewSaveComponent', () => {
 
       expect(component.saveError).toBe(false);
       expect(localStorage.getItem('save1')).not.toBeNull();
-      expect(game.saves.length).toBe(1);
+      expect(game.lastSave()).toEqual(game.export());
+    });
+
+    it('shows the summary of the new save without leaving the screen', () => {
+      const el: HTMLElement = fixture.nativeElement;
+      const exportSave = () =>
+        [...el.querySelectorAll<HTMLButtonElement>('.save-transfer button')][0];
+      expect(el.querySelector('.save-last')?.textContent).toContain('No saves');
+      expect(exportSave().disabled).toBe(true);
+
+      game.gils.set(4321);
+      el.querySelector<HTMLButtonElement>('.save-last .btn-primary')?.click();
+      fixture.detectChanges();
+
+      const card = el.querySelector('.save-last');
+      expect(card?.textContent).not.toContain('No saves');
+      expect(card?.textContent).toContain('4321');
+      expect(card?.querySelectorAll('img').length).toBe(
+        game.characters.team().length,
+      );
+      expect(exportSave().disabled).toBe(false);
     });
 
     it('reports a save the storage refuses, then clears the message on success', () => {
@@ -69,12 +90,12 @@ describe('ViewSaveComponent', () => {
 
       component.saveGame();
       expect(component.saveError).toBe(true);
-      expect(game.saves).toEqual([]);
+      expect(game.lastSave()).toBeUndefined();
 
       setItem.mockRestore();
       component.saveGame();
       expect(component.saveError).toBe(false);
-      expect(game.saves.length).toBe(1);
+      expect(game.lastSave()).toEqual(game.export());
     });
   });
 
@@ -87,7 +108,7 @@ describe('ViewSaveComponent', () => {
       component.resetGame();
 
       expect(localStorage.getItem('save1')).toBeNull();
-      expect(game.saves).toEqual([]);
+      expect(game.lastSave()).toBeUndefined();
       expect(refs(game.zones.list)).toEqual([ZoneRef.Zone1]);
       expect(refs(game.characters.list)).toEqual([
         CharacterRef.Cloud,
@@ -181,6 +202,32 @@ describe('ViewSaveComponent', () => {
   });
 
   describe('export', () => {
+    it('exports the last save, not the current game', () => {
+      game.gils.set(1000);
+      game.save();
+      const saved = encodeSave(game.export());
+      game.gils.set(2000);
+
+      component.exportLastSave();
+
+      expect(component.showAreaExport).toBe(true);
+      expect(component.areaExport).toBe(saved);
+    });
+
+    it('does not export without a save', () => {
+      component.exportLastSave();
+
+      expect(component.showAreaExport).toBe(false);
+      expect(component.areaExport).toBe('');
+    });
+
+    it('follows the save when the game is reset', () => {
+      game.save();
+      game.reset();
+
+      expect(component.lastSave()).toBeUndefined();
+    });
+
     it('copies the exported string to the clipboard', async () => {
       const writeText = vi.fn().mockResolvedValue(undefined);
       vi.stubGlobal('navigator', { clipboard: { writeText } });
