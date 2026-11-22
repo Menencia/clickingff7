@@ -134,7 +134,7 @@ Changement : `Battle` reçoit un rappel `onEnd(victory)` (ou expose un signal `e
 
 **Risque** : moyen, c'est la boucle de combat. `battle.spec.ts` et `battle.service.spec.ts` couvrent victoire, défaite, fuite et Limite. Vérifier en jeu qu'un combat se termine une seule fois (victoire par materia pendant une attaque ennemie).
 
-### 15. `refactor(theme): read the saved theme when the picker is created` 🟢
+### 15. `refactor(theme): read the saved theme when the picker is created` 🟢 ✅ fait
 
 `ThemePickerComponent` écrit le thème deux fois au démarrage : `ngOnInit()` (sans `implements OnInit`) puis l'`effect` du constructeur. La conversion de l'ancienne valeur `light` (entrée n°4 de `docs/compatibilite.md`) n'a aucun test.
 

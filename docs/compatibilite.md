@@ -43,7 +43,7 @@ Pour chaque entrée : ce qui est géré, depuis quand, où dans le code, comment
 ### 5. Thème `light`
 
 - **Ce qui est géré** : les anciennes versions enregistraient le thème clair sous la valeur `light`, qui n'est plus un thème daisyUI configuré. Elle est convertie en `cupcake` au chargement.
-- **Code** : `ThemePickerComponent.ngOnInit()` (`src/app/shared/components/theme-picker/theme-picker.component.ts`), clé `localStorage['theme']`.
-- **Tests** : aucun.
+- **Code** : `isSavedThemeLight()` et la constante `LEGACY_LIGHT_THEME` (`src/app/shared/components/theme-picker/theme-picker.component.ts`), clé `localStorage['theme']`.
+- **Tests** : `theme-picker.component.spec.ts` (« converts the legacy light theme to cupcake »).
 - **Spécification** : `specs.md` §9, « Thème ».
 - **Retrait** : à tout moment, au prix d'un retour au thème par défaut pour les joueurs concernés.

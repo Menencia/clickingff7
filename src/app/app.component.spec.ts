@@ -5,12 +5,14 @@ import { SwUpdate } from '@angular/service-worker';
 import { provideTranslateService } from '@ngx-translate/core';
 import { AppComponent } from './app.component';
 import { GameService } from './core/services/game.service';
+import { MemoryStorage } from './testing/game-data.testing';
 
 @Component({ template: '' })
 class DummyComponent {}
 
 describe('AppComponent', () => {
   beforeEach(async () => {
+    vi.stubGlobal('localStorage', new MemoryStorage());
     await TestBed.configureTestingModule({
       imports: [AppComponent],
       providers: [
@@ -23,6 +25,10 @@ describe('AppComponent', () => {
         },
       ],
     }).compileComponents();
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
   });
 
   it('should create', () => {

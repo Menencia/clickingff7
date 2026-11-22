@@ -25,6 +25,7 @@ describe('ThemePickerComponent', () => {
     const component = create();
     expect(component.isLightTheme()).toBe(false);
     expect(theme()).toBe('dark');
+    expect(localStorage.getItem('theme')).toBe('dark');
   });
 
   it('restores the saved light theme', () => {
@@ -32,6 +33,38 @@ describe('ThemePickerComponent', () => {
     const component = create();
     expect(component.isLightTheme()).toBe(true);
     expect(theme()).toBe('cupcake');
+  });
+
+  it('converts the legacy light theme to cupcake', () => {
+    localStorage.setItem('theme', 'light');
+    const component = create();
+    expect(component.isLightTheme()).toBe(true);
+    expect(theme()).toBe('cupcake');
+    expect(localStorage.getItem('theme')).toBe('cupcake');
+  });
+
+  it('keeps the saved dark theme', () => {
+    localStorage.setItem('theme', 'dark');
+    const component = create();
+    expect(component.isLightTheme()).toBe(false);
+    expect(theme()).toBe('dark');
+  });
+
+  it('falls back to the dark theme for an unknown saved value', () => {
+    localStorage.setItem('theme', 'retro');
+    const component = create();
+    expect(component.isLightTheme()).toBe(false);
+    expect(theme()).toBe('dark');
+    expect(localStorage.getItem('theme')).toBe('dark');
+  });
+
+  it('switches back to the dark theme when isLightTheme is false', () => {
+    localStorage.setItem('theme', 'cupcake');
+    const component = create();
+    component.isLightTheme.set(false);
+    TestBed.tick();
+    expect(theme()).toBe('dark');
+    expect(localStorage.getItem('theme')).toBe('dark');
   });
 
   it('switches to the light theme when isLightTheme is true', () => {
