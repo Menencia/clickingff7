@@ -1,10 +1,17 @@
 <app-ui-layout-default>
-  <div class="grid grid-cols-5 gap-x-4">
-    <div>
-      <div class="flex flex-col gap-1">
+  <!-- Mobile: the type and buy / sell toggles in compact rows, in a bar
+       stuck to the bottom of the screen (like the game screen). From sm: a
+       column of buttons on the left. -->
+  <div class="flex flex-col gap-3 sm:grid sm:grid-cols-5 sm:gap-x-4">
+    <div
+      class="sticky bottom-0 z-10 order-2 -mx-2 flex flex-col gap-2 border-t border-base-300 bg-base-200/95 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] backdrop-blur sm:static sm:order-none sm:mx-0 sm:gap-5 sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none"
+    >
+      <div
+        class="order-2 grid grid-cols-3 gap-1 sm:order-none sm:flex sm:flex-col"
+      >
         <button
           type="button"
-          class="btn"
+          class="btn btn-sm sm:btn-md"
           [class.btn-secondary]="type === 'weapons'"
           (click)="changeType('weapons')"
         >
@@ -12,7 +19,7 @@
         </button>
         <button
           type="button"
-          class="btn"
+          class="btn btn-sm sm:btn-md"
           [class.btn-secondary]="type === 'materias'"
           (click)="changeType('materias')"
         >
@@ -20,7 +27,7 @@
         </button>
         <button
           type="button"
-          class="btn"
+          class="btn btn-sm sm:btn-md"
           [class.btn-secondary]="type === 'items'"
           (click)="changeType('items')"
         >
@@ -28,42 +35,50 @@
         </button>
       </div>
 
-      <div class="flex flex-col gap-1 mt-5">
-        <button
-          type="button"
-          class="btn"
-          [class.btn-secondary]="section === 'buy'"
-          (click)="changeSection('buy')"
-        >
-          {{ "Buy" | translate }}
-        </button>
-        <button
-          type="button"
-          class="btn"
-          [class.btn-secondary]="section === 'sell'"
-          (click)="changeSection('sell')"
-        >
-          {{ "Sell" | translate }}
-        </button>
-      </div>
+      <div
+        class="order-1 flex items-center gap-2 sm:flex-col sm:items-stretch sm:gap-5 sm:order-none"
+      >
+        <div class="grid flex-1 grid-cols-2 gap-1 sm:flex sm:flex-col">
+          <button
+            type="button"
+            class="btn btn-sm sm:btn-md"
+            [class.btn-secondary]="section === 'buy'"
+            (click)="changeSection('buy')"
+          >
+            {{ "Buy" | translate }}
+          </button>
+          <button
+            type="button"
+            class="btn btn-sm sm:btn-md"
+            [class.btn-secondary]="section === 'sell'"
+            (click)="changeSection('sell')"
+          >
+            {{ "Sell" | translate }}
+          </button>
+        </div>
 
-      <div class="flex flex-col gap-1 mt-5 italic text-center">
-        <p>Gils: {{ getGils() }}</p>
+        <p class="shrink-0 text-right italic tabular-nums sm:text-center">
+          Gils: {{ getGils() }}
+        </p>
       </div>
     </div>
 
-    <div class="col-span-4">
+    <div class="order-1 col-span-4 sm:order-none">
       @if (section === 'buy') {
       <section>
         <div
           class="overflow-x-auto rounded-box border border-base-300 bg-base-100"
         >
-          <table class="table">
+          <table class="table table-sm sm:table-md">
             <thead>
               <tr>
                 <th>{{ "Name" | translate }}</th>
-                <th class="text-right">{{ "In stock" | translate }}</th>
-                <th class="text-right">{{ "Price" | translate }}</th>
+                <th class="hidden text-right sm:table-cell">
+                  {{ "In stock" | translate }}
+                </th>
+                <th class="hidden text-right sm:table-cell">
+                  {{ "Price" | translate }}
+                </th>
                 <th class="w-px"></th>
               </tr>
             </thead>
@@ -79,11 +94,23 @@
                   <div class="text-xs italic opacity-70">
                     {{ "Power" | translate }} {{ weapon.hits }}
                   </div>
+                  <!-- Mobile: the stock and price columns are hidden -->
+                  <div
+                    class="mt-1 flex items-center gap-2 text-xs tabular-nums sm:hidden"
+                  >
+                    <span class="font-semibold"
+                      >{{ weapon.price }} {{ "Gils" | translate }}</span
+                    >
+                    <span class="opacity-70"
+                      >{{ "In stock" | translate }}:
+                      {{ inStockWeapon(weapon) }}</span
+                    >
+                  </div>
                 </td>
-                <td class="text-right tabular-nums">
+                <td class="hidden text-right tabular-nums sm:table-cell">
                   {{ inStockWeapon(weapon) }}
                 </td>
-                <td class="text-right tabular-nums">
+                <td class="hidden text-right tabular-nums sm:table-cell">
                   {{ weapon.price }} {{ "Gils" | translate }}
                 </td>
                 <td class="w-px whitespace-nowrap text-right">
@@ -110,15 +137,28 @@
                   <div class="text-xs italic opacity-70">
                     {{ "Mat. " + materia.ref + " desc" | translate }}
                   </div>
+                  <!-- Mobile: the stock and price columns are hidden -->
+                  <div
+                    class="mt-1 flex items-center gap-2 text-xs tabular-nums sm:hidden"
+                  >
+                    <span class="font-semibold"
+                      >{{ materia.price }} {{ "Gils" | translate }}</span
+                    >
+                    @if (materia.isOwned(playerMaterias)) {
+                    <svg lucideCheck class="inline size-4 text-success">
+                      <title>{{ "In stock" | translate }}</title>
+                    </svg>
+                    }
+                  </div>
                 </td>
-                <td class="text-right">
+                <td class="hidden text-right sm:table-cell">
                   @if (materia.isOwned(playerMaterias)) {
                   <svg lucideCheck class="inline text-success">
                     <title>{{ "In stock" | translate }}</title>
                   </svg>
                   }
                 </td>
-                <td class="text-right tabular-nums">
+                <td class="hidden text-right tabular-nums sm:table-cell">
                   {{ materia.price }} {{ "Gils" | translate }}
                 </td>
                 <td class="w-px whitespace-nowrap text-right">
@@ -143,9 +183,23 @@
                   <div class="text-xs italic opacity-70">
                     {{ "It. " + item.ref + " desc" | translate }}
                   </div>
+                  <!-- Mobile: the stock and price columns are hidden -->
+                  <div
+                    class="mt-1 flex items-center gap-2 text-xs tabular-nums sm:hidden"
+                  >
+                    <span class="font-semibold"
+                      >{{ item.price }} {{ "Gils" | translate }}</span
+                    >
+                    <span class="opacity-70"
+                      >{{ "In stock" | translate }}:
+                      {{ inStockItem(item) }}</span
+                    >
+                  </div>
                 </td>
-                <td class="text-right tabular-nums">{{ inStockItem(item) }}</td>
-                <td class="text-right tabular-nums">
+                <td class="hidden text-right tabular-nums sm:table-cell">
+                  {{ inStockItem(item) }}
+                </td>
+                <td class="hidden text-right tabular-nums sm:table-cell">
                   {{ item.price }} {{ "Gils" | translate }}
                 </td>
                 <td class="w-px whitespace-nowrap text-right">
@@ -169,12 +223,16 @@
         <div
           class="overflow-x-auto rounded-box border border-base-300 bg-base-100"
         >
-          <table class="table">
+          <table class="table table-sm sm:table-md">
             <thead>
               <tr>
                 <th>{{ "Name" | translate }}</th>
-                <th class="text-right">{{ "In stock" | translate }}</th>
-                <th class="text-right">{{ "Price" | translate }}</th>
+                <th class="hidden text-right sm:table-cell">
+                  {{ "In stock" | translate }}
+                </th>
+                <th class="hidden text-right sm:table-cell">
+                  {{ "Price" | translate }}
+                </th>
                 <th class="w-px"></th>
               </tr>
             </thead>
@@ -190,11 +248,24 @@
                   <div class="text-xs italic opacity-70">
                     {{ "Power" | translate }} {{ weapon.hits }}
                   </div>
+                  <!-- Mobile: the stock and price columns are hidden -->
+                  <div
+                    class="mt-1 flex items-center gap-2 text-xs tabular-nums sm:hidden"
+                  >
+                    <span class="font-semibold"
+                      >{{ weapon.getSellPrice() }}
+                      {{ "Gils" | translate }}</span
+                    >
+                    <span class="opacity-70"
+                      >{{ "In stock" | translate }}:
+                      {{ inStockWeapon(weapon) }}</span
+                    >
+                  </div>
                 </td>
-                <td class="text-right tabular-nums">
+                <td class="hidden text-right tabular-nums sm:table-cell">
                   {{ inStockWeapon(weapon) }}
                 </td>
-                <td class="text-right tabular-nums">
+                <td class="hidden text-right tabular-nums sm:table-cell">
                   {{ weapon.getSellPrice() }} {{ "Gils" | translate }}
                 </td>
                 <td class="w-px whitespace-nowrap text-right">
@@ -221,15 +292,29 @@
                   <div class="text-xs italic opacity-70">
                     {{ "Mat. " + materia.ref + " desc" | translate }}
                   </div>
+                  <!-- Mobile: the stock and price columns are hidden -->
+                  <div
+                    class="mt-1 flex items-center gap-2 text-xs tabular-nums sm:hidden"
+                  >
+                    <span class="font-semibold"
+                      >{{ materia.getSellPrice() }}
+                      {{ "Gils" | translate }}</span
+                    >
+                    @if (materia.equipped) {
+                    <span class="badge badge-xs">{{
+                      "Equipped" | translate
+                    }}</span>
+                    }
+                  </div>
                 </td>
-                <td class="text-right">
+                <td class="hidden text-right sm:table-cell">
                   @if (materia.equipped) {
                   <span class="badge badge-sm">{{
                     "Equipped" | translate
                   }}</span>
                   }
                 </td>
-                <td class="text-right tabular-nums">
+                <td class="hidden text-right tabular-nums sm:table-cell">
                   {{ materia.getSellPrice() }} {{ "Gils" | translate }}
                 </td>
                 <td class="w-px whitespace-nowrap text-right">
@@ -254,9 +339,23 @@
                   <div class="text-xs italic opacity-70">
                     {{ "It. " + item.ref + " desc" | translate }}
                   </div>
+                  <!-- Mobile: the stock and price columns are hidden -->
+                  <div
+                    class="mt-1 flex items-center gap-2 text-xs tabular-nums sm:hidden"
+                  >
+                    <span class="font-semibold"
+                      >{{ item.getSellPrice() }} {{ "Gils" | translate }}</span
+                    >
+                    <span class="opacity-70"
+                      >{{ "In stock" | translate }}:
+                      {{ inStockItem(item) }}</span
+                    >
+                  </div>
                 </td>
-                <td class="text-right tabular-nums">{{ inStockItem(item) }}</td>
-                <td class="text-right tabular-nums">
+                <td class="hidden text-right tabular-nums sm:table-cell">
+                  {{ inStockItem(item) }}
+                </td>
+                <td class="hidden text-right tabular-nums sm:table-cell">
                   {{ item.getSellPrice() }} {{ "Gils" | translate }}
                 </td>
                 <td class="w-px whitespace-nowrap text-right">

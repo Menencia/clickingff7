@@ -11,6 +11,7 @@
 - Fix the materia AP bar not showing progress
 - New color theme (dark and light), with Mako green, cyan and amber on slate blue
 - Better game screen on mobile: enemies on top, compact team, and the battle buttons in a bar at the bottom of the screen
+- Better shop on mobile: compact tabs in a bar at the bottom of the screen, with the price and stock under each name
 ```
 
 ### Détail des changements
@@ -32,6 +33,7 @@
 
 - L'écran de jeu est réorganisé sur mobile : les ennemis sont en haut, l'équipe est plus compacte (portraits plus petits, réplique sur une ligne), et les actions sont regroupées dans une barre collée en bas de l'écran, à portée de pouce : zone et gils, puis les materias et objets sur une ligne qui défile horizontalement, puis les quatre boutons de combat en grille (Attaquer mis en avant en vert). Sur ordinateur, la disposition en trois colonnes ne change pas, à part le bouton Attaquer coloré.
 - Les libellés des barres (HP, MP, LIMIT, EXP, AP) sont affichés au-dessus de la barre au lieu de la chevaucher.
+- La Boutique est plus lisible sur mobile : les onglets Armes / Materia / Objets et Acheter / Vendre sont sur deux lignes compactes dans une barre collée en bas de l'écran, comme sur l'écran de jeu : Acheter / Vendre et les gils, puis les catégories en dessous, à portée de pouce, et les colonnes Stock et Prix sont remplacées par une ligne sous le nom (prix, quantité en stock, materia possédée ou équipée). Sur ordinateur, la disposition ne change pas.
 
 #### Côté technique
 

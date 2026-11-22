@@ -240,7 +240,7 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 |---|---|---|
 | Jeu | `/game` | Barres HP / MP / Limite de l'équipe, liste des membres (portrait, niveau, barre d'XP, réplique), panneau ennemi (« Aucun ennemi » hors combat), actions de combat, gils et zone courante. C'est l'écran par défaut. Sur grand écran, trois colonnes : actions, équipe, ennemis. Sur mobile : ennemis en haut, puis l'équipe, et les actions dans une barre collée en bas de l'écran (zone et gils, materias et objets sur une ligne défilante, boutons de combat en grille 2×2). |
 | Carte | `/map` | Choix de la zone parmi les zones débloquées ; passage à la zone suivante. |
-| Boutique | `/shop` | Onglets Acheter / Vendre × Armes / Materias / Objets (voir §10). |
+| Boutique | `/shop` | Onglets Acheter / Vendre × Armes / Materias / Objets (voir §10). Sur grand écran, les onglets sont en colonne à gauche du tableau ; sur mobile, ils sont sur deux lignes dans une barre collée en bas de l'écran (Acheter / Vendre et gils, puis Armes / Materias / Objets) et le prix et le stock sont affichés sous le nom au lieu de colonnes. |
 | Équipement | `/equip` | Sélection d'un membre de l'équipe et choix de son arme parmi les armes possédées de son type. |
 | Materia | `/materia` | Équiper / déséquiper les materias selon les emplacements disponibles. |
 | Objets | `/items` | Équiper / déséquiper les objets (2 maximum). |
