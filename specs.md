@@ -270,6 +270,7 @@ Le menu donne accès à : Jeu, Carte, Boutique, Équipement, Materia, Objets, Co
 
 - **Contenu** (`models/save.ts`) : personnages (niveau, XP, équipe, arme), HP / MP / Limite de l'équipe, zones visitées (combats, terminée), zone courante et zone max, armes (quantité), materias (niveau, AP, équipée), objets, gils, langue, difficulté, temps de jeu, version.
 - **Armes équipées** : elles se déduisent de l'arme de chaque personnage. Le champ `weapons[].equipped` est encore écrit (calculé à partir des personnages) pour rester lisible par la 1.5.0, mais il est facultatif et ignoré au chargement.
+- **Portraits** : l'image d'un personnage vient toujours du catalogue (`characters.json`), y compris pour les portraits de l'écran Sauvegarde. Le champ `characters[].image` est encore écrit pour rester lisible par la 1.6.0, mais il est facultatif et ignoré au chargement.
 - **Compatibilité** : tous les cas d'anciennes versions gérés sont listés dans `docs/compatibilite.md`.
 - **Stockage** : JSON encodé en base64 dans `localStorage['save1']`. Il n'y a qu'un seul emplacement.
 - **Sauvegarde manuelle uniquement**, depuis l'écran Sauvegarde. Il n'y a pas de sauvegarde automatique. Si le navigateur refuse l'écriture (stockage plein ou désactivé), le message « Échec de la sauvegarde : stockage plein ou désactivé » s'affiche sous le résumé, et la dernière sauvegarde affichée reste la précédente. Le message disparaît à la sauvegarde suivante réussie.

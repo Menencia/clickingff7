@@ -56,6 +56,11 @@ export class StoreService {
     });
   }
 
+  /** Returns the portrait of a character, without building it */
+  getCharacterImage(ref: CharacterRef): string {
+    return this.find(this.data.characters, ref, 'Character').image;
+  }
+
   getItem(ref: ItemRef): Item {
     const json = this.find(this.data.items, ref, 'Item');
     switch (json.type) {

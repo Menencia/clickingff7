@@ -383,6 +383,58 @@ describe('GameService', () => {
       expect(game.export()).toEqual(save);
     });
 
+    it('takes the character images from the catalog, not from the save', async () => {
+      game = await startGame();
+      const save = game.export();
+      const old = {
+        ...save,
+        characters: {
+          ...save.characters,
+          list: save.characters.list.map((c) => ({
+            ...c,
+            image: '/assets/images/characters/renamed.png',
+          })),
+        },
+      };
+      localStorage.setItem('save1', btoa(JSON.stringify(old)));
+      clearTimeout(game.timer);
+
+      game = await startGame();
+
+      const store = TestBed.inject(StoreService);
+      for (const c of game.characters.list) {
+        expect(c.image).toBe(store.getCharacter(c.ref).image);
+      }
+      expect(game.export()).toEqual(save);
+    });
+
+    it('loads a save without characters[].image', async () => {
+      game = await startGame();
+      const save = game.export();
+      const old = {
+        ...save,
+        characters: {
+          ...save.characters,
+          list: save.characters.list.map(({ image: _, ...c }) => c),
+        },
+      };
+      localStorage.setItem('save1', btoa(JSON.stringify(old)));
+      clearTimeout(game.timer);
+
+      game = await startGame();
+
+      expect(game.lastSave()).toBeDefined();
+      expect(game.export()).toEqual(save);
+    });
+
+    it('still writes characters[].image for 1.6.0', async () => {
+      game = await startGame();
+      const store = TestBed.inject(StoreService);
+      for (const c of game.export().characters.list) {
+        expect(c.image).toBe(store.getCharacter(c.ref).image);
+      }
+    });
+
     it('converts a difficulty stored as a string to a number', async () => {
       game = await startGame();
       const old = { ...game.export(), difficulty: '3' };

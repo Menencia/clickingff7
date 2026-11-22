@@ -16,7 +16,11 @@ export interface CharacterSave {
   inTeam: boolean;
   level: number;
   xp: number;
-  image: string;
+  /**
+   * Written for 1.6.0 compatibility, ignored on load: the portrait comes
+   * from the catalog (`characters.json`).
+   */
+  image?: string;
   weaponRef: WeaponRef;
 }
 

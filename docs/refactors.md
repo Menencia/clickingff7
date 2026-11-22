@@ -116,7 +116,7 @@ Changement : `readonly lastSave = signal<Save | undefined>(undefined)`, lu direc
 
 **Risque** : faible. `view-save.component.spec.ts` couvre la réinitialisation ; vérifier aussi l'export de la dernière sauvegarde et l'affichage du résumé après « Sauvegarder », sans changer d'écran.
 
-### 13. `refactor(characters): take character images from the catalog` 🟢
+### 13. `refactor(characters): take character images from the catalog` 🟢 ✅ fait
 
 `CharacterSave.image` est écrit dans la sauvegarde, et `Character.load()` écrase avec lui l'image de `characters.json`. Le jour où une image est renommée ou convertie (par exemple en `.webp`), les anciennes sauvegardes afficheraient une image cassée.
 

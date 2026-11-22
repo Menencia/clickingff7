@@ -2,6 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Router } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
+import { StoreService } from '../../core/services/store.service';
 import { CharacterRef } from '../../models/refs/characters';
 import { ZoneRef } from '../../models/refs/zones';
 import { encodeSave } from '../../shared/utils/save.utils';
@@ -79,6 +80,28 @@ describe('ViewSaveComponent', () => {
         game.characters.team().length,
       );
       expect(exportSave().disabled).toBe(false);
+    });
+
+    it('shows the team portraits from the catalog', () => {
+      const el: HTMLElement = fixture.nativeElement;
+      game.save();
+      game.lastSave.update((save) => {
+        if (save) {
+          for (const c of save.characters.list) {
+            c.image = '/assets/images/characters/renamed.png';
+          }
+        }
+        return save && structuredClone(save);
+      });
+      fixture.detectChanges();
+
+      const store = TestBed.inject(StoreService);
+      const srcs = [...el.querySelectorAll('.save-last img')].map((img) =>
+        img.getAttribute('src'),
+      );
+      expect(srcs).toEqual(
+        game.characters.team().map((c) => store.getCharacter(c.ref).image),
+      );
     });
 
     it('reports a save the storage refuses, then clears the message on success', () => {

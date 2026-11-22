@@ -63,12 +63,14 @@ export class Character {
     this.notA = data.notA ?? [];
   }
 
-  /** Updates all CharacterSave data except weapon */
+  /**
+   * Updates all CharacterSave data except weapon.
+   * `image` is ignored: the portrait always comes from the catalog.
+   */
   load(data: CharacterSave): Character {
     this.level = data.level;
     this.xp = data.xp;
     this.inTeam = data.inTeam;
-    this.image = data.image;
     return this;
   }
 

@@ -1,8 +1,9 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
+import { StoreService } from '../../core/services/store.service';
 import { PipeTimePipe } from '../../shared/pipes/pipe-time.pipe';
 import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
 import { decodeSave, encodeSave } from '../../shared/utils/save.utils';
@@ -15,10 +16,18 @@ import { decodeSave, encodeSave } from '../../shared/utils/save.utils';
 })
 export class ViewSaveComponent {
   private gameService = inject(GameService);
+  private store = inject(StoreService);
   private router = inject(Router);
 
   /** Last save, shown in the summary card */
   readonly lastSave = this.gameService.lastSave;
+
+  /** Portraits of the team of the last save, taken from the catalog */
+  readonly teamImages = computed(() =>
+    (this.lastSave()?.characters.list ?? [])
+      .filter((c) => c.inTeam)
+      .map((c) => this.store.getCharacterImage(c.ref)),
+  );
 
   areaExport: string;
 

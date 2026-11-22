@@ -8,14 +8,9 @@
 
       @if (lastSave(); as save) {
       <div class="flex flex-wrap gap-2">
-        @for (character of save.characters.list; track character) { @if
-        (character.inTeam) {
-        <img
-          class="size-14 object-contain sm:size-16"
-          [src]="character.image"
-          alt=""
-        >
-        } }
+        @for (image of teamImages(); track $index) {
+        <img class="size-14 object-contain sm:size-16" [src]="image" alt="">
+        }
       </div>
       <div class="flex flex-wrap gap-x-4 text-sm">
         <span>

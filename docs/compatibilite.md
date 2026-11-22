@@ -30,9 +30,17 @@ Pour chaque entrée : ce qui est géré, depuis quand, où dans le code, comment
 - **Spécification** : `specs.md` §11, « Contenu ».
 - **Retrait** : quand la compatibilité descendante avec la 1.5.0 (import d'une sauvegarde récente dans la 1.5.0) n'est plus souhaitée, cesser d'écrire le champ et le retirer de `WeaponSave`.
 
+### 4. Champ `characters[].image`
+
+- **Ce qui est géré** : depuis la version qui suit la 1.6.0, le portrait d'un personnage vient toujours du catalogue (`characters.json`), pour qu'une image renommée ou convertie ne casse pas les anciennes sauvegardes. Le champ `characters[].image` est encore **écrit** pour qu'une sauvegarde reste lisible par la 1.6.0, mais il est **ignoré** au chargement et facultatif (il n'a jamais été vérifié à la validation). L'écran Sauvegarde cherche lui aussi les portraits dans le catalogue, par `ref`.
+- **Code** : `CharacterSave.image` (`src/app/models/save.ts`), `Character.load()` et `Character.export()` (`src/app/models/character.ts`), `StoreService.getCharacterImage()`, `ViewSaveComponent.teamImages`.
+- **Tests** : `game.service.spec.ts` (« takes the character images from the catalog, not from the save », « loads a save without characters[].image », « still writes characters[].image for 1.6.0 »), `view-save.component.spec.ts` (« shows the team portraits from the catalog »).
+- **Spécification** : `specs.md` §11, « Contenu ».
+- **Retrait** : quand la compatibilité descendante avec la 1.6.0 n'est plus souhaitée, cesser d'écrire le champ et le retirer de `CharacterSave`.
+
 ## Paramètres hors sauvegarde
 
-### 4. Thème `light`
+### 5. Thème `light`
 
 - **Ce qui est géré** : les anciennes versions enregistraient le thème clair sous la valeur `light`, qui n'est plus un thème daisyUI configuré. Elle est convertie en `cupcake` au chargement.
 - **Code** : `ThemePickerComponent.ngOnInit()` (`src/app/shared/components/theme-picker/theme-picker.component.ts`), clé `localStorage['theme']`.
