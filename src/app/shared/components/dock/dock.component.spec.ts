@@ -3,6 +3,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import { GameService } from '../../../core/services/game.service';
+import { Zones } from '../../../models/zones';
 import { PHS_UNLOCK_ZONE } from '../../utils/game.utils';
 import { DockComponent } from './dock.component';
 
@@ -10,10 +11,11 @@ import { DockComponent } from './dock.component';
 class DummyComponent {}
 
 describe('DockComponent', () => {
-  let zones: { isNextZone: () => boolean; levelMax: number };
+  let zones: Zones;
 
   beforeEach(async () => {
-    zones = { isNextZone: () => false, levelMax: 1 };
+    zones = new Zones();
+    zones.isNextZone = () => false;
     await TestBed.configureTestingModule({
       imports: [DockComponent],
       providers: [

@@ -3,12 +3,13 @@ import type {
   ActivatedRouteSnapshot,
   RouterStateSnapshot,
 } from '@angular/router';
+import { Zones } from '../../models/zones';
 import { PHS_UNLOCK_ZONE } from '../../shared/utils/game.utils';
 import { GameService } from '../services/game.service';
 import { zoneGuard } from './zone.guard';
 
 describe('zoneGuard', () => {
-  const zones = { levelMax: 1 };
+  let zones: Zones;
 
   const run = () =>
     TestBed.runInInjectionContext(() =>
@@ -16,6 +17,7 @@ describe('zoneGuard', () => {
     );
 
   beforeEach(() => {
+    zones = new Zones();
     TestBed.configureTestingModule({
       providers: [{ provide: GameService, useValue: { zones } }],
     });

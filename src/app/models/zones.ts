@@ -1,3 +1,4 @@
+import { PHS_UNLOCK_ZONE } from '../shared/utils/game.utils';
 import { ZonesSave } from './save';
 import { Zone } from './zone';
 
@@ -67,6 +68,13 @@ export class Zones {
       return zone.completed && this.levelMax < MAX_ZONES;
     }
     return false;
+  }
+
+  /**
+   * Whether the PHS screen is unlocked (highest zone reached)
+   */
+  isPhsUnlocked(): boolean {
+    return this.levelMax >= PHS_UNLOCK_ZONE;
   }
 
   /**

@@ -9,7 +9,6 @@ import {
 import { TranslatePipe } from '@ngx-translate/core';
 import { filter } from 'rxjs';
 import { GameService } from '../../../core/services/game.service';
-import { PHS_UNLOCK_ZONE } from '../../utils/game.utils';
 
 /**
  * Bottom navigation bar shown on small screens, in place of the navbar menu.
@@ -40,7 +39,7 @@ export class DockComponent {
   }
 
   displayPhs() {
-    return this.gameService.zones.levelMax >= PHS_UNLOCK_ZONE;
+    return this.gameService.zones.isPhsUnlocked();
   }
 
   private closeMore() {

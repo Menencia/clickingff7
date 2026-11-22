@@ -82,7 +82,7 @@ Changement : `zoneAvailable` et `isAvailable(levelMax)` dans `Purchasable`, util
 
 **Risque** : très faible. `shop.service.spec.ts` couvre le filtrage du catalogue par zone, `materia.spec.ts` le coût en PM.
 
-### 9. `refactor(zones): expose the PHS unlock from Zones` 🟢
+### 9. `refactor(zones): expose the PHS unlock from Zones` 🟢 ✅ fait
 
 La règle `zones.levelMax >= PHS_UNLOCK_ZONE` est recopiée dans `zoneGuard`, `DockComponent.displayPhs()` et `SidemenuComponent.displayPhs()`.
 

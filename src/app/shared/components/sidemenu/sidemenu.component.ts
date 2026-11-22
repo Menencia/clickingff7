@@ -2,7 +2,6 @@ import { Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../../core/services/game.service';
-import { PHS_UNLOCK_ZONE } from '../../utils/game.utils';
 
 @Component({
   selector: 'app-sidemenu',
@@ -17,6 +16,6 @@ export class SidemenuComponent {
   }
 
   displayPhs() {
-    return this.gameService.zones.levelMax >= PHS_UNLOCK_ZONE;
+    return this.gameService.zones.isPhsUnlocked();
   }
 }
