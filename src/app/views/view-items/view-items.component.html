@@ -1,10 +1,12 @@
 <app-ui-layout-default>
   <div class="overflow-x-auto rounded-box border border-base-300 bg-base-100">
-    <table class="table">
+    <table class="table table-sm sm:table-md">
       <thead>
         <tr>
           <th>{{ "Name" | translate }}</th>
-          <th class="text-right">{{ "In stock" | translate }}</th>
+          <th class="hidden text-right sm:table-cell">
+            {{ "In stock" | translate }}
+          </th>
           <th class="w-px whitespace-nowrap text-right tabular-nums">
             {{ getNbrItems() }}
             <span class="opacity-60">/ {{ MAX_ITEMS }}</span>
@@ -13,22 +15,34 @@
       </thead>
       <tbody>
         @for (item of list; track item) {
-        <tr class="hover:bg-base-200">
+        <tr
+          [class]="
+            item.equipped ? 'bg-primary/10 hover:bg-primary/15' : 'hover:bg-base-200'
+          "
+        >
           <td>
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
               <app-item-icon></app-item-icon>
-              {{ "It. " + item.ref + " name" | translate }}
+              <span class="font-semibold sm:font-normal">
+                {{ "It. " + item.ref + " name" | translate }}
+              </span>
+              <!-- Mobile: the In stock column is hidden -->
+              <span class="badge badge-sm badge-ghost tabular-nums sm:hidden">
+                ×{{ item.nbr }}
+              </span>
             </div>
             <div class="text-xs italic opacity-70">
               {{ "It. " + item.ref + " desc" | translate }}
             </div>
           </td>
-          <td class="text-right tabular-nums">{{ item.nbr }}</td>
+          <td class="hidden text-right tabular-nums sm:table-cell">
+            {{ item.nbr }}
+          </td>
           <td class="w-px whitespace-nowrap text-right">
             @if (item.equipped) {
             <button
               type="button"
-              class="btn btn-ghost btn-sm btn-square"
+              class="btn btn-ghost btn-square sm:btn-sm"
               (click)="unequipItem(item)"
             >
               <svg lucideX class="text-error"><title>X</title></svg>
@@ -36,7 +50,7 @@
             } @if (canEquipItem(item)) {
             <button
               type="button"
-              class="btn btn-ghost btn-sm btn-square"
+              class="btn btn-ghost btn-square sm:btn-sm"
               (click)="equipItem(item)"
             >
               <svg lucidePlus class="text-success"><title>Plus</title></svg>

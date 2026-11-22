@@ -15,6 +15,7 @@
 - Better zone screen on mobile: the zone card on top and the zone buttons in a bar at the bottom of the screen
 - Better equipment screen on mobile: the character card on top and the character buttons in a bar at the bottom of the screen
 - Better materia screen on mobile: the AP bar under each materia, no more sideways scrolling, and equipped materias highlighted
+- Better items screen on mobile: more compact, with the quantity next to each name, and equipped items highlighted
 ```
 
 ### Détail des changements
@@ -40,6 +41,7 @@
 - L'écran Zones est réorganisé : la zone choisie est présentée dans une carte (image, numéro, nom, badge « Terminé ! » ou « Non terminé », description), avec le bouton « Aller à la zone suivante » mis en avant. Sur mobile, la carte est en haut et les zones sont des boutons numérotés compacts (5 par ligne) dans une barre collée en bas de l'écran, avec le bouton de zone suivante au-dessus ; sur ordinateur, les boutons restent en colonne à gauche.
 - L'écran Équipement est réorganisé : le personnage choisi est présenté dans une carte (portrait, niveau, HP / MP / puissance) avec son arme équipée dans un encadré, et la liste des armes indique aussi le nombre d'emplacements de materia ; l'arme équipée y porte un badge « Équipée » au lieu d'un bouton grisé. Sur mobile, la carte est en haut, la liste des armes en dessous et les personnages sont des boutons dans une barre collée en bas de l'écran ; sur ordinateur, les boutons restent en colonne à gauche.
 - L'écran Materia est plus lisible sur mobile : la colonne Évolution est remplacée par la barre d'AP sous la description, ce qui évite le défilement horizontal du tableau, le tableau est plus compact et les boutons d'équipement sont plus grands. Sur tous les écrans, les materias équipées sont surlignées.
+- L'écran Objets est plus lisible sur mobile : la colonne En stock est remplacée par un badge de quantité à côté du nom, le tableau est plus compact et les boutons d'équipement sont plus grands. Sur tous les écrans, les objets équipés sont surlignés.
 
 #### Côté technique
 
