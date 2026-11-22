@@ -15,7 +15,7 @@ Les 10 entrées de l'analyse précédente (filet de tests des vues, logique mét
 
 ## Lot 1 — Filet de tests
 
-### 1. `test(units): cover enemy damage and the zone 9 unlock` 🟠
+### 1. `test(units): cover enemy damage and the zone 9 unlock` 🟠 ✅ fait
 
 `Enemies` (`models/units/enemies.ts`) n'a pas de spec : `getAttacked()` (faiblesse ×3, résistance ÷3) et `refresh()` (union des faiblesses et résistances du groupe, PV max) ne sont testés qu'indirectement. Dans `game.service.spec.ts`, `buildLevel` est testé pour les zones 1 à 5, pas pour la zone 9 (Yuffie et le 4-pt Shuriken).
 

@@ -185,6 +185,38 @@ describe('GameService', () => {
       expect(refs(game.zones.list)).toHaveLength(5);
     });
 
+    it('zone 9: adds Yuffie as a backup character', () => {
+      for (let i = 0; i < 8; i++) unlockNextZone(game);
+
+      expect(refs(game.zones.list)).toHaveLength(MAX_ZONES);
+      // Aerith is back after zone 5, out of the team
+      expect(refs(game.characters.getBackup())).toEqual([
+        CharacterRef.Aerith,
+        CharacterRef.RedXIII,
+        CharacterRef.Yuffie,
+      ]);
+      expect(refs(game.characters.getTeam())).not.toContain(
+        CharacterRef.Yuffie,
+      );
+      expect(refs(game.weapons.list)).toContain(WeaponRef.FPtShuriken);
+      const yuffie = game.characters.list.find(
+        (c) => c.ref === CharacterRef.Yuffie,
+      );
+      expect(yuffie?.weapon.ref).toBe(WeaponRef.FPtShuriken);
+    });
+
+    it('zones 6 to 8: unlock nothing but the zone', () => {
+      for (let i = 0; i < 4; i++) unlockNextZone(game);
+      const characters = refs(game.characters.list);
+      const weapons = refs(game.weapons.list);
+
+      for (let i = 0; i < 3; i++) unlockNextZone(game);
+
+      expect(refs(game.zones.list)).toHaveLength(8);
+      expect(refs(game.characters.list)).toEqual(characters);
+      expect(refs(game.weapons.list)).toEqual(weapons);
+    });
+
     it('adds new characters at the highest team level', () => {
       game.characters.list.forEach((c) => {
         c.setLevel(7);
