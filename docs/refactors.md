@@ -1,140 +1,174 @@
 # Refactors prioritaires
 
+Analyse du 22/11/2026, commit `c5d5cb0` (version 1.6.0). Tout le code de `src/app` a été lu (services, modèles, vues, composants partagés, utilitaires, specs survolées). Les templates HTML et les styles n'ont été consultés que pour vérifier des usages.
+
 **Légende** : 🔴 haute · 🟠 moyenne · 🟢 basse
 
-**Vérifications après chaque commit** (identiques à la CI) : `pnpm build`, `pnpm test:ci`, `pnpm lint`. Chaque commit doit les laisser au vert. Si un commit change une règle de jeu ou le format de sauvegarde, il met aussi à jour `specs.md` (voir CLAUDE.md).
+**Vérifications après chaque commit** (identiques à la CI) : `pnpm build`, `pnpm test:ci`, `pnpm lint`. Chaque commit doit les laisser au vert. Si un commit change une règle de jeu ou le format de sauvegarde, il met aussi à jour `specs.md`, et s'il touche du code de compatibilité, `docs/compatibilite.md` (voir CLAUDE.md).
+
+Les 10 entrées de l'analyse précédente (filet de tests des vues, logique métier sortie des vues, armes portées dérivées des personnages, `Stock`, typage des armes, signal `team`, nettoyage) sont toutes livrées.
 
 ## Hors refactor
 
-- **Emplacements de materia dépassés** 🟠 ✅ fait (bug n°1 de `docs/bugs.md`) : le nombre d'emplacements (`Characters.getMaxMaterias()`) dépend des armes de l'équipe, mais rien ne déséquipe les materias en trop quand il diminue. Exemple : Aerith (bâton, 2 emplacements) quitte l'équipe dans le PHS, et les materias équipées restent au-dessus de la limite. Plus simple à corriger après le commit 3, qui regroupe les règles d'équipement.
-- **Sécurité** : rien à signaler. L'application tourne uniquement côté client, sans backend. Le joueur peut modifier sa sauvegarde en base64, ce qui est acceptable pour un jeu solo.
+- **Sauvegarde incohérente acceptée au chargement** 🟠 (bug n°2 de `docs/bugs.md`) : `decodeSave()` ne vérifie que la forme du JSON, et `GameService.load()` recopie `zones.level` / `levelMax` sans contrôle. Une sauvegarde modifiée à la main avec une zone courante absente de `zones.list` est acceptée par `importGame()` (rien n'appelle `zones.current()` pendant `tryLoad()`), puis `UiActionsComponent.remainingBattles()` lève « Zone not found » à chaque rendu de l'écran Jeu. Même chose si aucun personnage n'est dans l'équipe : `characters.select()` laisse `selected` à `undefined` et l'écran Équipement plante. Une difficulté hors de 1 à 3 et plus de `MAX_ITEMS` objets équipés passent aussi. Corrigé par le commit 2.
+- **Sécurité** : rien à signaler. Le jeu tourne uniquement côté client, sans backend ni appel externe. Le joueur peut modifier sa sauvegarde en base64, ce qui est acceptable pour un jeu solo, du moment qu'elle ne fait pas planter le jeu (point précédent).
 
 ## Lot 1 — Filet de tests
 
-### 1. `test(views): cover team, equipment and zone rules` 🟠 ✅ fait
+### 1. `test(units): cover enemy damage and the zone 9 unlock` 🟠
 
-Les specs de `ViewEquipComponent`, `ViewPhsComponent`, `ViewMapComponent`, `ViewMateriaComponent`, `ViewItemsComponent` et `UiActionsComponent` ne contiennent que `should create`. Or ces vues portent des règles de jeu que les commits 2 à 4 vont déplacer.
+`Enemies` (`models/units/enemies.ts`) n'a pas de spec : `getAttacked()` (faiblesse ×3, résistance ÷3) et `refresh()` (union des faiblesses et résistances du groupe, PV max) ne sont testés qu'indirectement. Dans `game.service.spec.ts`, `buildLevel` est testé pour les zones 1 à 5, pas pour la zone 9 (Yuffie et le 4-pt Shuriken).
 
-Tester avec les données réelles (`testing/game-data.testing.ts`) :
-- `equipWeapon` (l'arme précédente du même type est déséquipée, les stats de l'équipe sont recalculées)
-- `joinTeam` / `leaveTeam` et leurs limites (`MAX_TEAM`, au moins 1 personnage)
-- `goNextZone` (zone connue ou nouvelle zone, avec déblocages de `buildLevel`) et `goZone`
-- l'équipement des materias et des objets (limites d'emplacements et `MAX_ITEMS`)
-- `escape`
+Ajouter `enemies.spec.ts` et un cas `zone 9` dans `game.service.spec.ts`.
 
-**Risque** : nul pour le code de production. Écrire ces tests au niveau du service ou du modèle quand c'est possible, pour qu'ils survivent aux commits suivants.
+**Risque** : nul pour le code de production. Sert de filet aux commits 6 et 11.
 
-## Lot 2 — Logique métier hors des vues
+## Lot 2 — Fiabilité
 
-### 2. `refactor(shop): move buy and sell rules to ShopService` 🟠 ✅ fait
+### 2. `fix(save): reject saves whose zone or team cannot be played` 🟠
 
-`ViewShopComponent` (`buyWeapon`, `sellWeapon`, `buyMateria`, `sellMateria`, `buyItem`, `sellItem`) débite et crédite les gils, ajoute au stock et retire de `gameService.*.list`. Les méthodes d'achat ne vérifient pas les gils : seul le `[disabled]` du template l'empêche. C'est le même problème que celui que le commit 5 de l'analyse précédente a réglé pour les actions de combat.
+Voir « Hors refactor ». À la fin de `GameService.load()`, vérifier ce que `decodeSave()` ne peut pas savoir : `zones.current()` existe, `levelMax` ne dépasse ni `MAX_ZONES` ni la dernière zone de la liste, l'équipe compte au moins un personnage disponible, `difficulty` est une valeur de `Difficulty`. En cas d'écart, lever une erreur : `tryLoad()` la transforme déjà en refus (import refusé, ou nouvelle partie au démarrage). Ramener les objets équipés à `MAX_ITEMS`, comme `fitMaterias()` le fait pour les materias.
 
-Changement : `ShopService.buy*()` / `sell*()` vérifient `canBuy*` / `canSell*`, appliquent l'opération et ne font rien si elle est impossible. La vue délègue puis rafraîchit ses listes.
+**Risque** : faible. Une sauvegarde valide ne doit pas être refusée : tester l'aller-retour `export()` / `load()` en zones 3 et 4 (personnages indisponibles) et en zone 9. Mettre à jour `specs.md` §11, `docs/bugs.md` (retirer le n°2) et le changelog.
 
-**Risque** : faible. Les tests existants de `view-shop.component.spec.ts` (copie et non objet du catalogue, materia équipée invendable, empilement des objets) passent dans `shop.service.spec.ts`.
+### 3. `refactor(progress-bar): hold the floating hits in a signal` 🟢
 
-### 3. `refactor(game): move team and equipment rules out of views` 🟠 ✅ fait
+`ProgressBarComponent.arrHits` est un tableau mutable rempli dans un `subscribe` à `Units.source.hp`, qui émet depuis le `setTimeout` de `Battle.start()`. En zoneless, les dégâts flottants ne s'affichent que parce que `hp` change dans la même tâche et rafraîchit la vue : c'est un couplage caché.
 
-Ces règles sont écrites dans les vues, et leurs limites ne sont vérifiées que par le template :
-- `ViewPhsComponent.joinTeam` / `leaveTeam` modifient `character.inTeam` (limites `MAX_TEAM` et 1 personnage minimum)
-- `ViewEquipComponent.equipWeapon` déséquipe l'arme du même type, modifie `selected.weapon` et appelle `refresh()`
-- `ViewMateriaComponent.equip` (limite `getMaxMaterias()`) et `ViewItemsComponent.equipItem` (limite `MAX_ITEMS`)
-- `UiActionsComponent.escape` appelle directement `battle.end(false)`
+Changement : `arrHits` devient un `signal<ItDisplayHits[]>`, mis à jour avec `update()` dans le `subscribe` et dans `onAnimationEvent()`.
 
-Changement : `Characters.join()` / `leave()`, `GameService.equipWeapon(character, weapon)`, `Materias.equip(m, max)`, `Items.equip(i)` et `BattleService.escape()`. Chaque méthode vérifie sa limite et appelle `refresh()` si besoin. Les vues délèguent.
+**Risque** : très faible. Vérifier en combat que les dégâts et soins flottants apparaissent et disparaissent. `progress-bar.component.spec.ts` couvre l'ajout et le retrait.
 
-**Risque** : moyen, car cinq écrans sont touchés. Le commit 1 sert de filet. Découper par écran si besoin. Ce commit prépare la correction du bug n°1 et les commits 5 et 9.
+### 4. `fix(save): report a failed save to the player` 🟢
 
-### 4. `refactor(zones): move zone navigation and unlock out of ViewMapComponent` 🟠 ✅ fait
+`GameService.save()` écrit dans `localStorage` sans `try`/`catch`. Si l'écriture échoue (quota, stockage désactivé), l'erreur part dans le listener global et l'écran Sauvegarde ne dit rien : le joueur croit avoir sauvegardé.
 
-`ViewMapComponent.goNextZone()` incrémente `zones.level` et `zones.levelMax`, puis appelle `buildLevel()` et `characters.refresh()`. Ce dernier appel est redondant, puisque `buildLevel()` le fait déjà. `goZone()` modifie `zones.level` directement. La progression du jeu dépend donc d'un composant.
+Changement : `save()` renvoie `false` en cas d'échec et `ViewSaveComponent` affiche un message (nouvelle clé dans `fr`, `en`, `es`).
 
-Changement : `Zones.goTo(level)` et `GameService.goNextZone()` (débloque et construit la zone si elle est nouvelle). La vue délègue.
+**Risque** : faible. Tester avec un `localStorage.setItem` qui lève. Entrée au changelog.
 
-**Risque** : faible. Vérifier le passage en zone 5 (Red XIII, accès au PHS) et en zone 9 (Yuffie). Le commit 1 couvre `goNextZone`.
+## Lot 3 — Dé-duplication du domaine
 
-### 5. `refactor(weapons): derive equipped state from characters` 🟢 ✅ fait
+### 5. `refactor(models): add Stock.remove for selling and consuming` 🟠
 
-L'arme portée est stockée deux fois : `Character.weapon` et `Weapon.equipped`. `GameService.linkWeapons()` doit les réaligner après `buildLevel()` et `load()`. La sauvegarde contient les deux (`characters[].weaponRef` et `weapons[].equipped`), qui peuvent se contredire dans une sauvegarde modifiée à la main.
+La même logique (« décrémenter `nbr`, ou retirer l'entrée de la liste à la dernière copie ») est écrite trois fois : `ShopService.sellWeapon()`, `ShopService.sellItem()` et `BattleService.useItem()`.
 
-Changement : une seule source, `Character.weapon`. `Weapons.isEquipped(weapon, characters)` remplace le champ `equipped`. Continuer d'écrire `equipped` dans la sauvegarde pour rester compatible avec la 1.5.0, mais l'ignorer au chargement.
+Changement : `Stock.remove(entry)` dans `models/stock.ts`, appelé aux trois endroits.
 
-**Risque** : moyen, car le format de sauvegarde est concerné : mettre à jour `specs.md` §11, garder le test d'aller-retour `export()` / `load()` et charger une sauvegarde 1.5.0. Dépend du commit 3.
+**Risque** : très faible. `stock.spec.ts`, `shop.service.spec.ts` et `battle.service.spec.ts` couvrent les trois cas (plusieurs copies, dernière copie).
 
-### 6. `refactor(models): share stock logic between weapons, materias and items` 🟢 ✅ fait
+### 6. `refactor(units): share elemental damage between characters and enemies` 🟢
 
-Plusieurs logiques sont dupliquées :
-- `getPrice()` / `getSellPrice()` dans `Weapon`, `Materia` et `Item`
-- `inStock()`, identique dans `Weapon` et `Item`
-- `Weapons.add()` et `Items.add()`, identiques (empilement par `ref`)
-- la boucle de `export()` dans les trois collections
-- `getEquipped()` dans `Materias` et `Items`
+`Characters.getAttacked()` et `Enemies.getAttacked()` dupliquent le calcul faiblesse / résistance. Seul le diviseur change (÷10 pour l'équipe, ÷3 pour les ennemis), écrit en dur dans chaque méthode.
 
-Changement : une classe de base pour les objets achetables (prix et revente) et une pour les collections empilables (`add`, `inStock`, `export`).
+Changement : une méthode protégée `Units.applyAffinities(hits, elements)` et un diviseur de résistance déclaré par sous-classe. Chaque `getAttacked()` garde ses effets propres (jauge de Limite pour l'équipe).
 
-**Risque** : faible, la refactorisation est mécanique. À faire après le commit 2 pour ne déplacer la logique de boutique qu'une fois.
+**Risque** : faible, aucun chiffre ne doit changer. Dépend du commit 1 (`characters.spec.ts` couvre déjà l'équipe).
 
-## Lot 3 — Lisibilité
+### 7. `refactor(models): type elements and rename attack types to elements` 🟢
 
-### 7. `refactor(units): separate queries from side effects and fix misleading names` 🟢 ✅ fait
+Les éléments (`'bolt'`, `'fire'`, `'wind'`…) sont des `string[]` libres dans `EnemyJson.weakness` / `resistance`, `Units`, `AttackMateriaJson.elements` et `Attack`. Dans `ItActionAttack`, ils s'appellent `type`, alors que `Materia.type` / `Item.type` désignent la sous-classe à instancier.
 
-- `Characters.isAlive()` remet `hp` et `limit` à 0, et `Enemies.isAlive()` remet `hp` à 0, alors que `getAttacked()` borne déjà les HP à 0.
-- `Characters.getAttackSkill()` vide la jauge de Limite : un simple « get » consomme une ressource.
-- `ThemePickerComponent.isDarkMode` vaut `true` quand le thème est **clair** (`cupcake`). La valeur `'dark'` est écrite en dur à côté de `DEFAULT_THEME`.
-- Le commentaire de `CureMateria.getSkill` annonce « +30% to +60% », alors que Restaurer soigne 20 % des HP max au niveau 1.
-- `BattleService` contient un commentaire orphelin (« Returns true if zone boss is available ») au-dessus de `canFightRandom`.
+Changement : un type union `Element` (sur le modèle de `WeaponType`), `ItActionAttack.type` renommé `elements`. Un test de `store.service.spec.ts` vérifie que chaque élément des JSON est connu.
 
-Changement : `isAlive()` sans effet de bord, et remise à zéro de la Limite à la défaite dans `Battle.end` ou `BattleService`. La Limite est consommée dans `BattleService.attack()`. Renommer `isDarkMode` en `isLightTheme`. Corriger les commentaires.
+**Risque** : très faible, le compilateur signale les écarts. Plus simple après le commit 6, qui regroupe les usages.
 
-**Risque** : faible. `characters.spec.ts` et `battle.spec.ts` couvrent la Limite et la défaite. Vérifier en jeu que la Limite repart à 0 après une défaite.
+### 8. `refactor(models): move zone availability and power to base classes` 🟢
 
-### 8. `refactor(models): type weapon types and enemy refs` 🟢 ✅ fait
+- `zoneAvailable` est déclaré dans `Weapon`, `Materia` et `Item`. Seul `Item` a une méthode `available()` ; `ShopService.getWeapons()` / `getMaterias()` recopient le test `zoneAvailable <= levelMax`.
+- `getPwr()` est identique dans `AttackMateria` et `CureMateria`.
 
-Les types d'arme (`'broadsword'`, `'gun-arm'`…) sont des chaînes libres dans `WeaponJson.type`, `CharacterBase.weaponType` et `WEAPON_TYPE_ORDER` (`shop.service.ts`), ainsi que dans `WeaponIconComponent`. C'est une faute de frappe de ce genre (`yuffie` au lieu de `shuriken`) qui empêchait Yuffie de changer d'arme. De même, `ZoneJson.enemies` / `boss` sont des `string[]`, et `StoreService.getEnemy(ref: string)` n'utilise pas `EnemyRef`.
+Changement : `zoneAvailable` et `isAvailable(levelMax)` dans `Purchasable`, utilisés par les trois getters de `ShopService` ; `getPwr()` dans `Materia`.
 
-Changement : un type union `WeaponType`, et `EnemyRef` dans `ZoneJson` et `getEnemy`. Un test de `store.service.spec.ts` vérifie que chaque type d'arme des JSON est connu.
+**Risque** : très faible. `shop.service.spec.ts` couvre le filtrage du catalogue par zone, `materia.spec.ts` le coût en PM.
 
-**Risque** : très faible, le compilateur signale les écarts.
+### 9. `refactor(zones): expose the PHS unlock from Zones` 🟢
 
-## Lot 4 — Modernisation
+La règle `zones.levelMax >= PHS_UNLOCK_ZONE` est recopiée dans `zoneGuard`, `DockComponent.displayPhs()` et `SidemenuComponent.displayPhs()`.
 
-### 9. `refactor(views): read the team from the Characters.team signal` 🟢 ✅ fait
+Changement : `Zones.isPhsUnlocked()`, appelée aux trois endroits.
 
-`ViewEquipComponent`, `ViewPhsComponent` et `ViewMateriaComponent` recopient l'équipe (`getTeam()`, `getBackup()`) ou `getMaxMaterias()` dans des champs au constructeur, puis les recalculent à la main après chaque action. `Characters.team` est déjà un signal.
+**Risque** : très faible. `zone.guard.spec.ts` couvre la règle, mais simule `zones` par un objet `{ levelMax }` : le passer à une vraie instance de `Zones`. Ni le dock ni le menu latéral ne testent l'affichage du PHS : en ajouter un.
 
-Changement : `computed` sur `characters.team()` pour l'équipe, la réserve et le nombre d'emplacements. Supprimer les `refresh()` locaux des vues.
+### 10. `refactor(battle): name the enemy scaling rules` 🟢
 
-**Risque** : faible. Dépend du commit 3. Rester en OnPush et vérifier que le PHS et l'Équipement se mettent à jour sans changer d'écran.
+`BattleService` contient des formules d'équilibrage sans nom : niveau du boss `zone.level * (nbCharacters + 1) * 3 * 1.4` dans `startBoss()`, bonus ×1,2 des mini-boss et plage d'ennemis `nbFights / MAX_FIGHTS * 4` (bornée à 3) dans `getRandomEnemy()`. `startBoss()` et `onTeamVictory()` relisent l'équipe avec `getTeam()` au lieu du signal `team()`, et `onTeamVictory()` est public sans raison.
 
-## Lot 5 — Nettoyage
+Changement : constantes nommées et petites fonctions (`bossLevelSum(zone, teamSize)`), `team()` partout, `onTeamVictory()` privé.
 
-### 10. `chore: remove dead code and unused scripts` 🟢 ✅ fait
+**Risque** : faible, aucun chiffre ne doit changer. `battle.service.spec.ts` couvre le niveau du boss et la plage d'ennemis. Vérifier que `specs.md` décrit toujours les mêmes formules.
+
+## Lot 4 — Lisibilité
+
+### 11. `refactor(game): describe zone unlocks as a table` 🟢
+
+`GameService.buildLevel()` (≈ 80 lignes, le plus gros bloc du plus gros fichier) code les déblocages dans un `switch` : personnages, armes, materias et objets ajoutés, et retour de Barret et Tifa en zone 4.
+
+Changement : une table déclarative `ZONE_UNLOCKS` (personnage et entrée dans l'équipe, armes, materias, objets, personnages qui rejoignent l'équipe) lue par `buildLevel()`. La remise à niveau et la restauration des PV / PM restent dans la méthode.
+
+**Risque** : moyen, c'est la progression du jeu. Dépend du commit 1 (zone 9). Les tests `buildLevel` des zones 1 à 5 et 9 doivent passer sans modification. `specs.md` reste valable, car les règles ne changent pas.
+
+### 12. `refactor(save): keep a single last save in GameService` 🟢
+
+`GameService.saves: Save[]` ne sert qu'à l'indice 0 (`saves[0] = s` dans `save()`, `saves.push()` dans `run()`). `ViewSaveComponent` recopie la référence du tableau dans son constructeur, alors que `reset()` le remplace par un nouveau.
+
+Changement : `readonly lastSave = signal<Save | undefined>(undefined)`, lu directement par la vue et son template.
+
+**Risque** : faible. `view-save.component.spec.ts` couvre la réinitialisation ; vérifier aussi l'export de la dernière sauvegarde et l'affichage du résumé après « Sauvegarder », sans changer d'écran.
+
+### 13. `refactor(characters): take character images from the catalog` 🟢
+
+`CharacterSave.image` est écrit dans la sauvegarde, et `Character.load()` écrase avec lui l'image de `characters.json`. Le jour où une image est renommée ou convertie (par exemple en `.webp`), les anciennes sauvegardes afficheraient une image cassée.
+
+Changement : ignorer `image` au chargement et prendre celle du catalogue. Continuer à l'écrire pour que la 1.6.0 puisse lire une sauvegarde récente. L'écran Sauvegarde, qui affiche les portraits depuis la sauvegarde, les cherche dans le catalogue par `ref`.
+
+**Risque** : faible, mais c'est du code de compatibilité : ajouter l'entrée dans `docs/compatibilite.md` et mettre à jour `specs.md` §11. Plus simple après le commit 12, qui touche le même écran.
+
+## Lot 5 — Modernisation
+
+### 14. `refactor(battle): replace the state subject with an end callback` 🟢
+
+`Battle` publie un `BehaviorSubject<BattleState>` pour une seule transition (`Started` → `Ended`), auquel `BattleService.startBattle()` s'abonne. Le constructeur de `Battle` lance aussi le premier `setTimeout`, ce qui oblige les tests à créer le combat au bon moment.
+
+Changement : `Battle` reçoit un rappel `onEnd(victory)` (ou expose un signal `ended`), et `start()` est appelé explicitement par `BattleService`. `BattleState` disparaît s'il n'a plus d'usage.
+
+**Risque** : moyen, c'est la boucle de combat. `battle.spec.ts` et `battle.service.spec.ts` couvrent victoire, défaite, fuite et Limite. Vérifier en jeu qu'un combat se termine une seule fois (victoire par materia pendant une attaque ennemie).
+
+### 15. `refactor(theme): read the saved theme when the picker is created` 🟢
+
+`ThemePickerComponent` écrit le thème deux fois au démarrage : `ngOnInit()` (sans `implements OnInit`) puis l'`effect` du constructeur. La conversion de l'ancienne valeur `light` (entrée n°4 de `docs/compatibilite.md`) n'a aucun test.
+
+Changement : initialiser `isLightTheme` depuis `localStorage` à la création, garder l'`effect` comme seule écriture, supprimer `ngOnInit()` et `DEFAULT_THEME`. Ajouter les tests de la conversion `light` → `cupcake` et mettre à jour la ligne « Tests » de l'entrée n°4.
+
+**Risque** : faible. Vérifier au premier lancement (sans clé `theme`) que le thème sombre s'applique, et qu'un thème clair enregistré est conservé.
+
+## Lot 6 — Nettoyage
+
+### 16. `chore: remove dead code and redundant options` 🟢
 
 À supprimer :
-- dans `ProgressBarComponent` : `progressBg`, `time`, son `setTimeout` et son `clearTimeout`, `Math` et l'input `name`, qui ne sont pas lus par le template (adapter le test « updates the background after 300 ms » et retirer `[name]` des appelants)
-- `Characters.hpProgress`, `mpProgress`, `limitProgress` et `Enemies.hpProgress`, jamais appelés
-- `Zones.getAll`, `Materias.getUnequipped`, `Items.getUnequipped` et le champ `Items.equipped`
-- le paramètre `confirm` de `GameService.load()` et `save()`, vestige de l'ancienne confirmation PrimeNG
-- l'`async` inutile du `subscribe` dans `BattleService.startBattle`
-- dans `package.json`, le script `check` (il lance `ng lint`, qui n'est plus configuré) et `lint:ci`, que la CI n'utilise pas (ou faire utiliser `lint:ci` par la CI)
+- `Characters.getBackup()`, remplacé par le `computed` `backup`
+- `Attack.critical`, écrit mais jamais lu
+- l'affectation de `ref` dans `Materia.load()` (déjà fixé par le catalogue)
+- `standalone: true` de `PipeTimePipe` (valeur par défaut en Angular 22)
+- la valeur par défaut `'0.1.0'` de `UiFooterComponent.version`, toujours fournie par `AppComponent`
+- les deux méthodes `round()` de `CharactersPanelComponent` et `EnemiesPanelComponent`, à remplacer par des pourcentages calculés (`computed`) dans chaque panneau
 
 **Risque** : très faible. Le build et le lint détectent les références restantes.
 
 ## Graphe des dépendances
 
 ```
-1 ─┬─> 2 ──> 6
-   ├─> 3 ─┬─> 5
-   │      ├─> 9
-   │      └─> [corriger le bug n°1]
-   └─> 4
-7, 8, 10 : indépendants
+1 ─┬─> 6 ──> 7
+   └─> 11
+2, 3, 4, 5, 8, 9, 10, 14, 15, 16 : indépendants
+12 ──> 13
 ```
 
 ## Ordre conseillé si le temps est limité
 
-1. **1** : les vues n'ont aucun test, alors que les commits 2 à 4 déplacent leur logique.
-2. **3**, puis la correction du bug n°1 : règles d'équipement regroupées, et un bug visible par le joueur.
-3. **2, 4** : le reste de la logique métier quitte les vues.
-4. **10** : nettoyage rapide et sans risque.
+1. **2** : seul bug visible (sauvegarde modifiée qui fait planter le jeu), et correction courte.
+2. **5** : la dé-duplication la plus utile, sans risque.
+3. **1, puis 11** : filet de tests, puis la table des déblocages, qui rend la progression lisible et facilite l'ajout de zones.
+4. **3** : supprime un couplage caché avec le zoneless.
+5. **16** : nettoyage rapide et sans risque.
