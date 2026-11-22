@@ -42,6 +42,23 @@ describe('Stock', () => {
     expect(weapons.inStock(store.getWeapon(WeaponRef.MythrilSaber))).toBe(0);
   });
 
+  it('removes one copy, then drops the entry at the last copy', () => {
+    const weapons = new Weapons();
+    const owned = weapons.add(store.getWeapon(WeaponRef.BusterSword));
+    weapons.add(store.getWeapon(WeaponRef.BusterSword));
+    const other = weapons.add(store.getWeapon(WeaponRef.MythrilSaber));
+    const before = weapons.list;
+
+    weapons.remove(owned);
+    expect(owned.nbr).toBe(1);
+    expect(weapons.list).toEqual([owned, other]);
+
+    weapons.remove(owned);
+    expect(weapons.list).toEqual([other]);
+    expect(weapons.list).not.toBe(before);
+    expect(weapons.inStock(owned)).toBe(0);
+  });
+
   it('only applies the equipped flag to an item not owned yet', () => {
     const items = new Items();
     const potion = store.getItem(ItemRef.Potion);

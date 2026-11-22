@@ -49,7 +49,7 @@ Changement : `save()` renvoie `false` en cas d'échec et `ViewSaveComponent` aff
 
 ## Lot 3 — Dé-duplication du domaine
 
-### 5. `refactor(models): add Stock.remove for selling and consuming` 🟠
+### 5. `refactor(models): add Stock.remove for selling and consuming` 🟠 ✅ fait
 
 La même logique (« décrémenter `nbr`, ou retirer l'entrée de la liste à la dernière copie ») est écrite trois fois : `ShopService.sellWeapon()`, `ShopService.sellItem()` et `BattleService.useItem()`.
 

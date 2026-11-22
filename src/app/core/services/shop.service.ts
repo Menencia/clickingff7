@@ -109,13 +109,7 @@ export class ShopService {
   sellWeapon(weapon: Weapon): boolean {
     if (!this.canSellWeapon(weapon)) return false;
     this.game.gils.update((gils) => gils + weapon.getSellPrice());
-    if (weapon.nbr > 1) {
-      weapon.nbr -= 1;
-    } else {
-      this.game.weapons.list = this.game.weapons.list.filter(
-        (e) => e !== weapon,
-      );
-    }
+    this.game.weapons.remove(weapon);
     return true;
   }
 
@@ -174,11 +168,7 @@ export class ShopService {
   sellItem(item: Item): boolean {
     if (!this.canSellItem(item)) return false;
     this.game.gils.update((gils) => gils + item.getSellPrice());
-    if (item.nbr > 1) {
-      item.nbr -= 1;
-    } else {
-      this.game.items.list = this.game.items.list.filter((e) => e !== item);
-    }
+    this.game.items.remove(item);
     return true;
   }
 

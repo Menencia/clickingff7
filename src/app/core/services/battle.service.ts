@@ -185,12 +185,7 @@ export class BattleService {
     if (!item.canUse(context)) {
       return;
     }
-    const { items } = this.gameService;
-    if (item.nbr > 1) {
-      item.nbr -= 1;
-    } else {
-      items.list = items.list.filter((e) => e !== item);
-    }
+    this.gameService.items.remove(item);
     item.use(context);
     this.endIfEnemiesDefeated();
   }

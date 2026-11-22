@@ -27,6 +27,18 @@ export class Stock<T extends Stackable> {
   }
 
   /**
+   * Removes one copy of the owned {entry}: decrements its count, or drops it
+   * from the list (as a new array) when it was the last copy
+   */
+  remove(entry: T): void {
+    if (entry.nbr > 1) {
+      entry.nbr -= 1;
+    } else {
+      this.list = this.list.filter((e) => e !== entry);
+    }
+  }
+
+  /**
    * Returns the number of owned copies with the same ref as {entry}
    */
   inStock(entry: Stackable): number {
