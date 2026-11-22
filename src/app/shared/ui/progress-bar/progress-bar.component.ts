@@ -1,4 +1,11 @@
-import { Component, DestroyRef, inject, input, OnInit } from '@angular/core';
+import {
+  Component,
+  DestroyRef,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EMPTY, Observable } from 'rxjs';
 import { ItDisplayHits } from '../../../core/interfaces/it-display-hits';
@@ -21,17 +28,17 @@ export class ProgressBarComponent implements OnInit {
 
   readonly hits = input<Observable<ItDisplayHits>>(EMPTY);
 
-  public arrHits: ItDisplayHits[] = [];
+  readonly arrHits = signal<ItDisplayHits[]>([]);
 
   ngOnInit() {
     this.hits()
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe((hits) => {
-        this.arrHits.unshift(hits);
+        this.arrHits.update((arr) => [hits, ...arr]);
       });
   }
 
   onAnimationEvent() {
-    this.arrHits.pop();
+    this.arrHits.update((arr) => arr.slice(0, -1));
   }
 }

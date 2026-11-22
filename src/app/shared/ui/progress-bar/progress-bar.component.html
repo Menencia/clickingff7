@@ -7,7 +7,7 @@
     [value]="progress()"
     max="100"
   ></progress>
-  @for (hits of arrHits; track hits) {
+  @for (hits of arrHits(); track hits) {
   <div
     class="hits absolute right-0 top-0 text-error text-3xl"
     (animationend)="onAnimationEvent()"

@@ -31,7 +31,7 @@ Voir « Hors refactor ». À la fin de `GameService.load()`, vérifier ce que `d
 
 **Risque** : faible. Une sauvegarde valide ne doit pas être refusée : tester l'aller-retour `export()` / `load()` en zones 3 et 4 (personnages indisponibles) et en zone 9. Mettre à jour `specs.md` §11, `docs/bugs.md` (retirer le n°2) et le changelog.
 
-### 3. `refactor(progress-bar): hold the floating hits in a signal` 🟢
+### 3. `refactor(progress-bar): hold the floating hits in a signal` 🟢 ✅ fait
 
 `ProgressBarComponent.arrHits` est un tableau mutable rempli dans un `subscribe` à `Units.source.hp`, qui émet depuis le `setTimeout` de `Battle.start()`. En zoneless, les dégâts flottants ne s'affichent que parce que `hp` change dans la même tâche et rafraîchit la vue : c'est un couplage caché.
 

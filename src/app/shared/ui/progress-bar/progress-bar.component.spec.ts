@@ -29,7 +29,7 @@ describe('ProgressBarComponent', () => {
     hits.next({ hits: 30 });
     hits.next({ hits: 12 });
 
-    expect(component.arrHits).toEqual([{ hits: 12 }, { hits: 30 }]);
+    expect(component.arrHits()).toEqual([{ hits: 12 }, { hits: 30 }]);
   });
 
   it('removes the oldest hit when its animation ends', () => {
@@ -37,7 +37,27 @@ describe('ProgressBarComponent', () => {
     hits.next({ hits: 12 });
     component.onAnimationEvent();
 
-    expect(component.arrHits).toEqual([{ hits: 12 }]);
+    expect(component.arrHits()).toEqual([{ hits: 12 }]);
+  });
+
+  it('renders a hit emitted outside of any event handler', () => {
+    const el: HTMLElement = fixture.nativeElement;
+    hits.next({ hits: 30 });
+    fixture.detectChanges();
+
+    expect(el.querySelectorAll('.hits').length).toBe(1);
+    expect(el.querySelector('.hits')?.textContent).toContain('30');
+
+    component.onAnimationEvent();
+    fixture.detectChanges();
+
+    expect(el.querySelectorAll('.hits').length).toBe(0);
+  });
+
+  it('ignores an animation end when no hit is displayed', () => {
+    component.onAnimationEvent();
+
+    expect(component.arrHits()).toEqual([]);
   });
 
   it('unsubscribes from the hits stream on destroy', () => {
@@ -45,12 +65,14 @@ describe('ProgressBarComponent', () => {
 
     expect(hits.observed).toBe(false);
     hits.next({ hits: 30 });
-    expect(component.arrHits.length).toBe(0);
+    expect(component.arrHits().length).toBe(0);
   });
 
   it('leaves no pending timer', () => {
     vi.useFakeTimers();
     hits.next({ hits: 30 });
+    // Let Angular's zoneless scheduler run the change detection it queued.
+    vi.advanceTimersByTime(16);
     expect(vi.getTimerCount()).toBe(0);
     vi.useRealTimers();
   });
@@ -77,6 +99,6 @@ describe('ProgressBarComponent without hits input', () => {
     const fixture = TestBed.createComponent(ProgressBarComponent);
     fixture.detectChanges();
 
-    expect(fixture.componentInstance.arrHits).toEqual([]);
+    expect(fixture.componentInstance.arrHits()).toEqual([]);
   });
 });
