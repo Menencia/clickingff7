@@ -75,6 +75,17 @@ describe('CharactersPanelComponent', () => {
     expect(labels().slice(0, 3)).toEqual(['HP 10', 'MP 2', 'LIMIT 50%']);
   });
 
+  it('fills the bars with rounded percentages', async () => {
+    characters.hp.set(10);
+    characters.mp.set(2);
+    await fixture.whenStable();
+
+    const values = Array.from(
+      (fixture.nativeElement as HTMLElement).querySelectorAll('progress'),
+    ).map((e) => e.value);
+    expect(values).toEqual([25, 33, 0, 0]);
+  });
+
   it('re-renders XP and level after a refresh', async () => {
     const [cloud] = characters.list;
     cloud.setXp(250);

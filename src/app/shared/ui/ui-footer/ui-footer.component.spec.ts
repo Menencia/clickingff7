@@ -13,10 +13,16 @@ describe('UiFooterComponent', () => {
 
     fixture = TestBed.createComponent(UiFooterComponent);
     component = fixture.componentInstance;
+    fixture.componentRef.setInput('version', '1.2.3');
     fixture.detectChanges();
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('displays the given version', () => {
+    const el: HTMLElement = fixture.nativeElement;
+    expect(el.querySelector('#step12')?.textContent?.trim()).toBe('1.2.3');
   });
 });

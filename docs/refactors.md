@@ -144,7 +144,7 @@ Changement : initialiser `isLightTheme` depuis `localStorage` à la création, g
 
 ## Lot 6 — Nettoyage
 
-### 16. `chore: remove dead code and redundant options` 🟢
+### 16. `chore: remove dead code and redundant options` 🟢 ✅ fait
 
 À supprimer :
 - `Characters.getBackup()`, remplacé par le `computed` `backup`

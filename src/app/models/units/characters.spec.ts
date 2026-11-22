@@ -120,7 +120,7 @@ describe('Characters', () => {
 
   describe('join / leave', () => {
     it('a backup character joins the team and the stats are recomputed', () => {
-      const backup = characters.getBackup()[0];
+      const backup = characters.backup()[0];
       expect(characters.canJoin()).toBe(true);
 
       characters.join(backup);
@@ -131,7 +131,7 @@ describe('Characters', () => {
     });
 
     it(`cannot join a team of ${MAX_TEAM}`, () => {
-      characters.join(characters.getBackup()[0]);
+      characters.join(characters.backup()[0]);
       const extra = makeCharacter(1);
       characters.add(extra, false);
 
@@ -143,7 +143,7 @@ describe('Characters', () => {
     });
 
     it('an unavailable character cannot join', () => {
-      const backup = characters.getBackup()[0];
+      const backup = characters.backup()[0];
       backup.isNotAvailable = true;
 
       characters.join(backup);
@@ -311,7 +311,6 @@ describe('Characters', () => {
 
       const attack = characters.getAttackSkill() as Attack;
       expect(attack.calculateHits()).toBe(200);
-      expect(attack.critical).toBe(true);
     });
 
     it('stays within ±10% of the base damage', () => {

@@ -159,7 +159,7 @@ describe('GameService', () => {
         CharacterRef.Cloud,
         CharacterRef.Aerith,
       ]);
-      expect(refs(game.characters.getBackup())).toEqual([]);
+      expect(refs(game.characters.backup())).toEqual([]);
       expect(refs(game.weapons.list)).toContain(WeaponRef.GuardStick);
     });
 
@@ -171,13 +171,13 @@ describe('GameService', () => {
         CharacterRef.Barret,
         CharacterRef.Tifa,
       ]);
-      expect(refs(game.characters.getBackup())).toEqual([]);
+      expect(refs(game.characters.backup())).toEqual([]);
     });
 
     it('zone 5: adds Red XIII as a backup character', () => {
       for (let i = 0; i < 4; i++) unlockNextZone(game);
 
-      expect(refs(game.characters.getBackup())).toEqual([CharacterRef.RedXIII]);
+      expect(refs(game.characters.backup())).toEqual([CharacterRef.RedXIII]);
       expect(refs(game.characters.getTeam())).not.toContain(
         CharacterRef.RedXIII,
       );
@@ -190,7 +190,7 @@ describe('GameService', () => {
 
       expect(refs(game.zones.list)).toHaveLength(MAX_ZONES);
       // Aerith is back after zone 5, out of the team
-      expect(refs(game.characters.getBackup())).toEqual([
+      expect(refs(game.characters.backup())).toEqual([
         CharacterRef.Aerith,
         CharacterRef.RedXIII,
         CharacterRef.Yuffie,

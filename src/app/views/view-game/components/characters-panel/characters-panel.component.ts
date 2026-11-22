@@ -1,9 +1,10 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, computed, inject, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../../../core/services/game.service';
 import { Character } from '../../../../models/character';
 import { Characters } from '../../../../models/units/characters';
 import { ProgressBarComponent } from '../../../../shared/ui/progress-bar/progress-bar.component';
+import { percent } from '../../../../shared/utils/math.utils';
 
 @Component({
   selector: 'app-characters-panel',
@@ -16,12 +17,20 @@ export class CharactersPanelComponent {
 
   readonly characters = input<Characters>(new Characters());
 
+  readonly hpPercent = computed(() =>
+    percent(this.characters().hp(), this.characters().hpMax()),
+  );
+
+  readonly mpPercent = computed(() =>
+    percent(this.characters().mp(), this.characters().mpMax()),
+  );
+
+  readonly limitPercent = computed(() =>
+    percent(this.characters().limit(), this.characters().limitMax()),
+  );
+
   public getLine(character: Character): string {
     const { levelMax } = this.gameService.zones;
     return `Line ${levelMax} ${character.ref}`;
-  }
-
-  public round(value: number): number {
-    return Math.round(value);
   }
 }

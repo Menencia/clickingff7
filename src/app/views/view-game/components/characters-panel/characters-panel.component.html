@@ -2,7 +2,7 @@
   <!-- characters bars -->
   <app-progress-bar
     id="step2"
-    [progress]="round((characters().hp() / characters().hpMax()) * 100)"
+    [progress]="hpPercent()"
     [style]="'progress-success'"
     [text]="'HP ' + characters().hp()"
     [hits]="characters().source.hp"
@@ -10,18 +10,16 @@
 
   <app-progress-bar
     id="step3"
-    [progress]="round((characters().mp() / characters().mpMax()) * 100)"
+    [progress]="mpPercent()"
     [style]="'progress-info'"
     [text]="'MP ' + characters().mp()"
   ></app-progress-bar>
 
   <app-progress-bar
     id="step4"
-    [progress]="round((characters().limit() / characters().limitMax()) * 100)"
+    [progress]="limitPercent()"
     [style]="'progress-warning'"
-    [text]="
-      'LIMIT ' + round((characters().limit() / characters().limitMax()) * 100) + '%'
-    "
+    [text]="'LIMIT ' + limitPercent() + '%'"
   ></app-progress-bar>
 
   <!-- characters list -->
@@ -42,7 +40,7 @@
       </div>
       <div class="min-w-0 grow">
         <app-progress-bar
-          [progress]="round((character.xp / character.getXpMax()) * 100)"
+          [progress]="character.xpProgress(100)"
           [text]="character.xp + ' / ' + character.getXpMax() + 'EXP'"
         ></app-progress-bar>
         <div class="text-lg leading-tight sm:text-2xl">{{ character.ref }}</div>

@@ -4,8 +4,6 @@ import { random } from '../../shared/utils/math.utils';
 import { Context } from '../context';
 
 export class Attack implements ItAction {
-  public critical = false;
-
   constructor(
     public baseHits: number,
     public pwr: number,
@@ -20,7 +18,6 @@ export class Attack implements ItAction {
     // critical hits (<10%)
     if (random(0, 100) <= 10) {
       hits *= 2;
-      this.critical = true;
     }
 
     return hits;

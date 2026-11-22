@@ -7,5 +7,5 @@ import { Component, input } from '@angular/core';
   styleUrls: ['./ui-footer.component.scss'],
 })
 export class UiFooterComponent {
-  readonly version = input('0.1.0');
+  readonly version = input.required<string>();
 }

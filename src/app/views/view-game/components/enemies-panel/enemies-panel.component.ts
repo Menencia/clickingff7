@@ -1,7 +1,8 @@
-import { Component, input } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { Enemies } from '../../../../models/units/enemies';
 import { ProgressBarComponent } from '../../../../shared/ui/progress-bar/progress-bar.component';
+import { percent } from '../../../../shared/utils/math.utils';
 
 @Component({
   selector: 'app-enemies-panel',
@@ -12,7 +13,7 @@ import { ProgressBarComponent } from '../../../../shared/ui/progress-bar/progres
 export class EnemiesPanelComponent {
   readonly enemies = input<Enemies>(new Enemies());
 
-  public round(value: number): number {
-    return Math.round(value);
-  }
+  readonly hpPercent = computed(() =>
+    percent(this.enemies().hp(), this.enemies().hpMax()),
+  );
 }

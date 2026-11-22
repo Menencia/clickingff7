@@ -85,13 +85,6 @@ export class Characters extends Units {
   }
 
   /**
-   * Returns the backup (not in team) characters
-   */
-  getBackup(): Character[] {
-    return this.list.filter((e) => !e.inTeam && !e.isNotAvailable);
-  }
-
-  /**
    * Returns true if the team has room for another character
    */
   canJoin(): boolean {

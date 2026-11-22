@@ -52,7 +52,6 @@ export abstract class Materia extends Purchasable {
    * Extends
    */
   load(data: MateriaSave): Materia {
-    this.ref = data.ref;
     this.level = data.level;
     this.ap = data.ap;
     this.equipped = data.equipped;

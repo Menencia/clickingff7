@@ -117,7 +117,7 @@ describe('ViewMapComponent (real data)', () => {
   it('zone 5: Red XIII joins the backup with his weapon', () => {
     reachZone(5);
 
-    expect(refs(game.characters.getBackup())).toEqual([CharacterRef.RedXIII]);
+    expect(refs(game.characters.backup())).toEqual([CharacterRef.RedXIII]);
     const weapon = game.weapons.list.find(
       (w) => w.ref === WeaponRef.MythrilClip,
     );
@@ -130,7 +130,7 @@ describe('ViewMapComponent (real data)', () => {
     reachZone(MAX_ZONES);
 
     expect(game.zones.levelMax).toBe(MAX_ZONES);
-    expect(refs(game.characters.getBackup())).toContain(CharacterRef.Yuffie);
+    expect(refs(game.characters.backup())).toContain(CharacterRef.Yuffie);
     const weapon = game.weapons.list.find(
       (w) => w.ref === WeaponRef.FPtShuriken,
     );
