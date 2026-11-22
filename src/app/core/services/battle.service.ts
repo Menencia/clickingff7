@@ -1,5 +1,5 @@
 import { Injectable, inject, signal } from '@angular/core';
-import { Battle, BattleState } from '../../models/battle';
+import { Battle } from '../../models/battle';
 import { Context } from '../../models/context';
 import { Item } from '../../models/item';
 import { Materia } from '../../models/materia';
@@ -112,23 +112,19 @@ export class BattleService {
   }
 
   private startBattle(enemies: Enemies) {
-    // new battle
-    const battle = new Battle(this.gameService.characters, enemies);
-
-    // watch battle state
-    battle.state.subscribe((state) => {
-      switch (state) {
-        case BattleState.Ended:
-          // rewards on victory
-          if (battle.victory) {
-            this.onTeamVictory(battle);
-          }
-          // clean battle
-          this.battle.set(undefined);
-      }
-    });
+    const battle = new Battle(
+      this.gameService.characters,
+      enemies,
+      (victory) => {
+        if (victory) {
+          this.onTeamVictory(battle);
+        }
+        this.battle.set(undefined);
+      },
+    );
 
     this.battle.set(battle);
+    battle.start();
   }
 
   /**

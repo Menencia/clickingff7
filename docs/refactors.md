@@ -126,7 +126,7 @@ Changement : ignorer `image` au chargement et prendre celle du catalogue. Contin
 
 ## Lot 5 — Modernisation
 
-### 14. `refactor(battle): replace the state subject with an end callback` 🟢
+### 14. `refactor(battle): replace the state subject with an end callback` 🟢 ✅ fait
 
 `Battle` publie un `BehaviorSubject<BattleState>` pour une seule transition (`Started` → `Ended`), auquel `BattleService.startBattle()` s'abonne. Le constructeur de `Battle` lance aussi le premier `setTimeout`, ce qui oblige les tests à créer le combat au bon moment.
 

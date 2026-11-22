@@ -1,4 +1,4 @@
-import { Battle, BattleState } from './battle';
+import { Battle } from './battle';
 import { Character } from './character';
 import { Enemy } from './enemy';
 import { CharacterRef } from './refs/characters';
@@ -55,13 +55,16 @@ function makeEnemies(): Enemies {
 describe('Battle', () => {
   let characters: Characters;
   let battle: Battle;
+  let onEnd: ReturnType<typeof vi.fn<(victory: boolean) => void>>;
 
   beforeEach(() => {
     vi.useFakeTimers();
     // random(a, b) returns the middle of the range: no damage variance
     vi.spyOn(Math, 'random').mockReturnValue(0.5);
     characters = makeCharacters();
-    battle = new Battle(characters, makeEnemies());
+    onEnd = vi.fn<(victory: boolean) => void>();
+    battle = new Battle(characters, makeEnemies(), onEnd);
+    battle.start();
   });
 
   afterEach(() => {
@@ -70,9 +73,39 @@ describe('Battle', () => {
     vi.restoreAllMocks();
   });
 
-  it('starts in the Started state', () => {
-    expect(battle.state.value).toBe(BattleState.Started);
+  it('starts ongoing', () => {
+    expect(battle.ended).toBe(false);
     expect(battle.victory).toBe(false);
+    expect(onEnd).not.toHaveBeenCalled();
+  });
+
+  it('does not attack before start() is called', () => {
+    const other = makeCharacters();
+    const idle = new Battle(other, makeEnemies());
+
+    vi.advanceTimersByTime(5000);
+
+    expect(other.hp()).toBe(100);
+    idle.stop();
+  });
+
+  it('ignores a second call to start()', () => {
+    battle.start();
+
+    vi.advanceTimersByTime(1000);
+
+    expect(characters.hp()).toBe(90);
+  });
+
+  it('does not start after it has ended', () => {
+    const other = makeCharacters();
+    const idle = new Battle(other, makeEnemies());
+    idle.end(false);
+    idle.start();
+
+    vi.advanceTimersByTime(5000);
+
+    expect(other.hp()).toBe(100);
   });
 
   it('makes enemies attack once per second', () => {
@@ -93,15 +126,13 @@ describe('Battle', () => {
 
   it('ends in defeat when the team reaches 0 HP', () => {
     characters.hp.set(15);
-    const states: BattleState[] = [];
-    battle.state.subscribe((s) => states.push(s));
 
     vi.advanceTimersByTime(2000);
 
     expect(characters.hp()).toBe(0);
     expect(battle.victory).toBe(false);
-    expect(states).toEqual([BattleState.Started, BattleState.Ended]);
-    expect(battle.state.isStopped).toBe(true);
+    expect(battle.ended).toBe(true);
+    expect(onEnd).toHaveBeenCalledExactlyOnceWith(false);
     expect(characters.limit()).toBe(0);
   });
 
@@ -118,9 +149,18 @@ describe('Battle', () => {
     battle.end(true);
 
     expect(battle.victory).toBe(true);
-    expect(battle.state.value).toBe(BattleState.Ended);
+    expect(battle.ended).toBe(true);
+    expect(onEnd).toHaveBeenCalledExactlyOnceWith(true);
 
     vi.advanceTimersByTime(5000);
     expect(characters.hp()).toBe(100);
+  });
+
+  it('only ends once', () => {
+    battle.end(true);
+    battle.end(false);
+
+    expect(battle.victory).toBe(true);
+    expect(onEnd).toHaveBeenCalledExactlyOnceWith(true);
   });
 });

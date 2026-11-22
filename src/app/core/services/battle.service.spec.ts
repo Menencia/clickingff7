@@ -362,6 +362,40 @@ describe('BattleService', () => {
     });
   });
 
+  describe('battle end', () => {
+    it('starts the enemy attack loop', () => {
+      startBattle();
+      const hp = game.characters.hp();
+
+      vi.advanceTimersByTime(1000);
+
+      expect(game.characters.hp()).toBeLessThan(hp);
+    });
+
+    it('gives the rewards only once', () => {
+      const battle = startBattle();
+      battle.enemies.hp.set(1);
+
+      service.attack();
+      const gils = game.gils();
+      battle.end(true);
+
+      expect(game.gils()).toBe(gils);
+      expect(game.zones.current().nbFights).toBe(1);
+    });
+
+    it('clears the battle on defeat', () => {
+      startBattle();
+      game.characters.hp.set(1);
+
+      vi.advanceTimersByTime(1000);
+
+      expect(game.characters.hp()).toBe(0);
+      expect(service.battle()).toBeUndefined();
+      expect(game.zones.current().nbFights).toBe(0);
+    });
+  });
+
   describe('escape', () => {
     it('ends the battle as a defeat, without rewards', () => {
       service.startRandom();
