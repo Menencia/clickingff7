@@ -147,5 +147,13 @@
   "Export": "Exporter",
   "Last save": "Dernière sauvegarde",
   "Paste save": "Collez une sauvegarde ici",
-  "Transfer": "Transfert"
+  "Transfer": "Transfert",
+  "About": "À propos",
+  "App icon:": "Icône de l'application :",
+  "Browse issues": "Tickets ouverts",
+  "Credits": "Crédits",
+  "Report a bug or suggest an idea": "Signaler un bug ou proposer une idée",
+  "Source code": "Code source",
+  "Version": "Version",
+  "What's new": "Nouveautés"
 }

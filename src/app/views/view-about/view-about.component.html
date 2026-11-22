@@ -1,0 +1,94 @@
+<app-ui-layout-default>
+  <div
+    class="mx-auto flex max-w-md flex-col gap-4 rounded-box border border-base-300 bg-base-100 p-4"
+  >
+    <section class="flex flex-col gap-1">
+      <h2 class="font-bold">ClickingFF7</h2>
+      <p class="text-sm">
+        {{ "Version" | translate }}
+        <span class="version tabular-nums">{{ version }}</span>
+        ·
+        <a
+          class="link"
+          href="https://github.com/Menencia/clickingff7/releases"
+          target="_blank"
+          rel="noopener"
+          >{{
+            "What's new" | translate
+          }}</a
+        >
+      </p>
+      <p class="text-sm">
+        ©2014–2026
+        <a
+          class="link"
+          href="http://menencia.com"
+          target="_blank"
+          rel="noopener"
+          >menencia.com</a
+        >
+      </p>
+    </section>
+
+    <section class="flex flex-col gap-1">
+      <h2 class="font-bold">GitHub</h2>
+      <ul class="flex flex-col gap-1 text-sm">
+        <li>
+          <a
+            class="link"
+            href="https://github.com/Menencia/clickingff7"
+            target="_blank"
+            rel="noopener"
+            >{{
+              "Source code" | translate
+            }}</a
+          >
+        </li>
+        <li>
+          <a
+            class="link"
+            href="https://github.com/Menencia/clickingff7/issues"
+            target="_blank"
+            rel="noopener"
+            >{{
+              "Browse issues" | translate
+            }}</a
+          >
+        </li>
+        <li>
+          <a
+            class="link"
+            href="https://github.com/Menencia/clickingff7/issues/new"
+            target="_blank"
+            rel="noopener"
+            >{{
+              "Report a bug or suggest an idea" | translate
+            }}</a
+          >
+        </li>
+      </ul>
+    </section>
+
+    <section class="flex flex-col gap-1">
+      <h2 class="font-bold">{{ "Credits" | translate }}</h2>
+      <p class="text-sm">
+        {{ "App icon:" | translate }}
+        <a
+          class="link"
+          href="https://thenounproject.com/icon/sword-25239/"
+          target="_blank"
+          rel="noopener"
+          >Sword</a
+        >
+        by Geoffrey Joe from Noun Project,
+        <a
+          class="link"
+          href="https://creativecommons.org/licenses/by/3.0/"
+          target="_blank"
+          rel="noopener"
+          >CC BY 3.0</a
+        >, recolored
+      </p>
+    </section>
+  </div>
+</app-ui-layout-default>

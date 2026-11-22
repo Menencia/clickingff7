@@ -5,6 +5,7 @@
 ### Notes de release (anglais)
 
 ```
+- New About screen with the game version, GitHub links and credits, replacing the page footer
 - Fix the game crashing after importing an edited save with a missing zone or an empty team: such saves are now refused
 - Fix saving silently failing when the browser storage is full or disabled: an error message is now shown
 - Fix the help tour on phones: the right element is highlighted and tooltips no longer go off screen
@@ -12,6 +13,10 @@
 ```
 
 ### Détail des changements
+
+#### Nouveautés
+
+- Nouvel écran À propos (dernière entrée du menu, et du menu « Plus » sur mobile) avec la version du jeu, le lien vers les nouveautés, les liens GitHub (code source, tickets, signaler un bug ou proposer une idée) et les crédits.
 
 #### Corrections
 
@@ -22,3 +27,4 @@
 #### Changements
 
 - Le tutoriel est plus court : les boutons Attaquer et Fuir sont présentés avec le bouton de combat, et les liens du pied de page (version, signaler un bug) n'en font plus partie.
+- Le pied de page disparaît : son contenu est dans le nouvel écran À propos. Sur téléphone, il prenait beaucoup de place sous chaque écran.

@@ -75,5 +75,13 @@ export const routes: Routes = [
         (m) => m.ViewSaveComponent,
       ),
   },
+  {
+    path: 'about',
+    canActivate: [battleGuard],
+    loadComponent: () =>
+      import('./views/view-about/view-about.component').then(
+        (m) => m.ViewAboutComponent,
+      ),
+  },
   { path: '', redirectTo: '/game', pathMatch: 'full' },
 ];
