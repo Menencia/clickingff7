@@ -30,13 +30,13 @@ describe('ViewShopComponent', () => {
           provide: StoreService,
           useValue: {
             getWeapon: () => {
-              return {};
+              return { isAvailable: () => false };
             },
             getMateria: () => {
-              return {};
+              return { isAvailable: () => false };
             },
             getItem: () => {
-              return { ref: 'a', available: () => true };
+              return { ref: 'a', isAvailable: () => true };
             },
           },
         },

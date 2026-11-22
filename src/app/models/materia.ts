@@ -33,19 +33,16 @@ export abstract class Materia extends Purchasable {
 
   pwr: number;
 
-  zoneAvailable: number;
-
   /**
    * Init
    */
   constructor(data: MateriaJson) {
-    super(data.price);
+    super(data);
     this.ref = data.ref;
     this.type = data.type;
     this.color = data.color;
     this.apBase = data.ap;
     this.pwr = data.pwr;
-    this.zoneAvailable = data.zoneAvailable;
   }
 
   /**
@@ -56,6 +53,13 @@ export abstract class Materia extends Purchasable {
     this.ap = data.ap;
     this.equipped = data.equipped;
     return this;
+  }
+
+  /**
+   * Power, raised by one per level above 1
+   */
+  getPwr(): number {
+    return this.pwr + this.level - 1;
   }
 
   abstract getMpCost(): number;

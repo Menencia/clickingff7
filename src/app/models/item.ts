@@ -26,17 +26,14 @@ export abstract class Item extends Purchasable {
 
   pwr: number;
 
-  zoneAvailable: number;
-
   /**
    * Init
    */
   constructor(data: ItemJson) {
-    super(data.price);
+    super(data);
     this.ref = data.ref;
     this.type = data.type;
     this.pwr = data.pwr;
-    this.zoneAvailable = data.zoneAvailable;
   }
 
   /**
@@ -46,10 +43,6 @@ export abstract class Item extends Purchasable {
     this.nbr = data.nbr;
     this.equipped = data.equipped;
     return this;
-  }
-
-  available(zoneLevelMax: number): boolean {
-    return zoneLevelMax >= this.zoneAvailable;
   }
 
   abstract canUse(context: Context): boolean;

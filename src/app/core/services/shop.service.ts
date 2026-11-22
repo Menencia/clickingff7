@@ -56,16 +56,16 @@ export class ShopService {
 
   getWeapons(levelMax: number): Weapon[] {
     return this.sortWeapons(
-      SHOP_WEAPONS.map((ref) => this.store.getWeapon(ref)).filter(
-        (w) => w.zoneAvailable <= levelMax,
+      SHOP_WEAPONS.map((ref) => this.store.getWeapon(ref)).filter((w) =>
+        w.isAvailable(levelMax),
       ),
     );
   }
 
   getMaterias(levelMax: number): Materia[] {
     return this.sortMaterias(
-      SHOP_MATERIAS.map((ref) => this.store.getMateria(ref)).filter(
-        (m) => m.zoneAvailable <= levelMax,
+      SHOP_MATERIAS.map((ref) => this.store.getMateria(ref)).filter((m) =>
+        m.isAvailable(levelMax),
       ),
     );
   }
@@ -73,7 +73,7 @@ export class ShopService {
   getItems(levelMax: number): Item[] {
     return this.sortItems(
       SHOP_ITEMS.map((ref) => this.store.getItem(ref)).filter((i) =>
-        i.available(levelMax),
+        i.isAvailable(levelMax),
       ),
     );
   }

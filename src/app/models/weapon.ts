@@ -23,15 +23,12 @@ export class Weapon extends Purchasable {
 
   maxMaterias: number;
 
-  zoneAvailable: number;
-
   constructor(data: WeaponJson) {
-    super(data.price);
+    super(data);
     this.ref = data.ref;
     this.type = data.type;
     this.hits = data.hits;
     this.maxMaterias = data.maxMaterias;
-    this.zoneAvailable = data.zoneAvailable;
   }
 
   /**

@@ -92,6 +92,7 @@ describe('Materia', () => {
     ])('costs $cost MP at power $pwr, level $level', ({ pwr, level, cost }) => {
       const m = makeCure({ pwr });
       m.level = level;
+      expect(m.getPwr()).toBe(pwr + level - 1);
       expect(m.getMpCost()).toBe(cost);
     });
   });

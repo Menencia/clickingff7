@@ -24,13 +24,6 @@ export class AttackMateria extends Materia {
   }
 
   /**
-   * Return materia power
-   */
-  getPwr(): number {
-    return this.pwr + this.level - 1;
-  }
-
-  /**
    * Can use the materia?
    */
   canUse(context: Context): boolean {

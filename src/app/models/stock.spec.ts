@@ -96,4 +96,19 @@ describe('Purchasable', () => {
       expect(product.getSellPrice()).toBe(product.getPrice() / 2);
     }
   });
+
+  it('is available from the zone it is sold from', () => {
+    const store = TestBed.inject(StoreService);
+    const products = [
+      store.getWeapon(WeaponRef.MythrilSaber),
+      store.getMateria(MateriaRef.Bolt),
+      store.getItem(ItemRef.Ether),
+    ];
+
+    for (const product of products) {
+      expect(product.isAvailable(product.zoneAvailable - 1)).toBe(false);
+      expect(product.isAvailable(product.zoneAvailable)).toBe(true);
+      expect(product.isAvailable(product.zoneAvailable + 1)).toBe(true);
+    }
+  });
 });

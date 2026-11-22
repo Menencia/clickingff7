@@ -73,7 +73,7 @@ Changement : un type union `Element` (sur le modèle de `WeaponType`), `ItAction
 
 **Risque** : très faible, le compilateur signale les écarts. Plus simple après le commit 6, qui regroupe les usages.
 
-### 8. `refactor(models): move zone availability and power to base classes` 🟢
+### 8. `refactor(models): move zone availability and power to base classes` 🟢 ✅ fait
 
 - `zoneAvailable` est déclaré dans `Weapon`, `Materia` et `Item`. Seul `Item` a une méthode `available()` ; `ShopService.getWeapons()` / `getMaterias()` recopient le test `zoneAvailable <= levelMax`.
 - `getPwr()` est identique dans `AttackMateria` et `CureMateria`.

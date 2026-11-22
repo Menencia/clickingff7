@@ -37,7 +37,7 @@ describe('ShopService', () => {
         service.getMaterias(levelMax).every((m) => m.zoneAvailable <= levelMax),
       ).toBe(true);
       expect(
-        service.getItems(levelMax).every((i) => i.available(levelMax)),
+        service.getItems(levelMax).every((i) => i.isAvailable(levelMax)),
       ).toBe(true);
     }
   });
