@@ -66,6 +66,13 @@ export abstract class Materia extends Purchasable {
 
   abstract canUse(context: Context): boolean;
 
+  /**
+   * Only shown in the action bar during a battle (offensive magic)
+   */
+  isBattleOnly(): boolean {
+    return false;
+  }
+
   abstract getSkill(context: Context): ItAction[];
 
   use(context: Context) {

@@ -47,6 +47,13 @@ export abstract class Item extends Purchasable {
 
   abstract canUse(context: Context): boolean;
 
+  /**
+   * Only shown in the action bar during a battle (offensive item)
+   */
+  isBattleOnly(): boolean {
+    return false;
+  }
+
   abstract getSkill(context: Context): ItAction[];
 
   use(context: Context) {

@@ -21,12 +21,19 @@ export class UiActionsComponent {
     return remain > 0 ? `(${remain})` : '';
   }
 
+  // Outside a battle, offensive materias and items are hidden.
   public getMaterias(): Materia[] {
-    return this.gameService.materias.getEquipped();
+    const battle = this.isBattle();
+    return this.gameService.materias
+      .getEquipped()
+      .filter((materia) => battle || !materia.isBattleOnly());
   }
 
   public getItems(): Item[] {
-    return this.gameService.items.getEquipped();
+    const battle = this.isBattle();
+    return this.gameService.items
+      .getEquipped()
+      .filter((item) => battle || !item.isBattleOnly());
   }
 
   public getGils(): number {

@@ -30,6 +30,10 @@ export class AttackMateria extends Materia {
     return !!context.battle && context.characters.mp() >= this.getMpCost();
   }
 
+  override isBattleOnly(): boolean {
+    return true;
+  }
+
   /**
    * Get skill containing battle actions
    */

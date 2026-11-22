@@ -106,13 +106,13 @@ Un seul combat peut avoir lieu à la fois. Pendant un combat, tous les écrans s
 
 Actions disponibles :
 
-- **Combat aléatoire** : lance un combat contre un ennemi de la zone courante (hors combat uniquement).
-- **Combat de boss** : lance un combat contre le boss, quand il est disponible.
+- **Combat aléatoire** : lance un combat contre un ennemi de la zone courante (affiché hors combat uniquement).
+- **Combat de boss** : lance un combat contre le boss, quand il est disponible (affiché hors combat uniquement).
 
 Ces deux boutons sont désactivés tant que les HP de l'équipe sont à 0 : le joueur doit d'abord se soigner (materia de soin ou objet, utilisables hors combat).
-- **Attaque** (ou **Limite** quand la jauge est pleine) : inflige des dégâts aux ennemis. Le joueur peut cliquer autant qu'il veut.
-- **Fuite** : termine le combat sans récompense et sans pénalité. Le combat ne compte pas dans `nbFights`.
-- **Materias** équipées et **objets** équipés (voir §6 et §7).
+- **Attaque** (ou **Limite** quand la jauge est pleine) : inflige des dégâts aux ennemis. Le joueur peut cliquer autant qu'il veut. Affiché en combat uniquement.
+- **Fuite** : termine le combat sans récompense et sans pénalité. Le combat ne compte pas dans `nbFights`. Affiché en combat uniquement.
+- **Materias** équipées et **objets** équipés (voir §6 et §7). Hors combat, les materias d'attaque (et les objets offensifs) sont masquées.
 
 Ces actions du joueur sont appliquées par `BattleService` (`attack`, `useMateria`, `useItem`). Une materia ou un objet inutilisable (bouton désactivé) est ignoré, sans coût.
 
@@ -185,7 +185,7 @@ Ensuite, `nbFights` de la zone courante augmente de 1 (une victoire contre un bo
 - Quand le nombre d'emplacements diminue (un personnage quitte l'équipe ou devient indisponible, arme avec moins d'emplacements, sauvegarde incohérente au chargement), les materias en trop sont déséquipées : les premières materias équipées de la liste sont conservées.
 - AP requis pour le niveau suivant = ⌈F(ap) × 60 × niveau⌉. Le gain de niveau s'arrête au niveau 100.
 - Puissance effective = puissance de base + niveau − 1
-- **Materia d'attaque** : coûte ⌈(puissance + 1) / 50⌉ − 1 MP. Utilisable seulement en combat, si l'équipe a assez de MP. Elle inflige une attaque de puissance d'équipe × puissance effective / 100, avec l'élément de la materia (variation et critique comme une attaque normale).
+- **Materia d'attaque** : coûte ⌈(puissance + 1) / 50⌉ − 1 MP. Utilisable seulement en combat, si l'équipe a assez de MP. Hors combat, elle n'apparaît pas dans la barre d'actions. Elle inflige une attaque de puissance d'équipe × puissance effective / 100, avec l'élément de la materia (variation et critique comme une attaque normale).
 - **Materia de soin** : coûte ⌈(puissance + 1) / 20⌉ − 1 MP. Utilisable si les HP ne sont pas au maximum, **même hors combat**. Elle soigne HP max équipe × puissance effective / 100, ±10 %.
 - On ne peut posséder qu'un exemplaire de chaque materia.
 
@@ -204,7 +204,7 @@ Ensuite, `nbFights` de la zone courante augmente de 1 (une victoire contre un bo
 
 - Un objet restaure ⌈puissance × max⌉ HP ou MP de l'équipe.
 - Il est utilisable si la jauge concernée n'est pas pleine, en combat comme hors combat. Chaque utilisation consomme un exemplaire.
-- Au maximum **2 types d'objets** (`MAX_ITEMS`) peuvent être équipés, c'est-à-dire affichés dans la barre d'actions.
+- Au maximum **2 types d'objets** (`MAX_ITEMS`) peuvent être équipés, c'est-à-dire affichés dans la barre d'actions. Un objet offensif (il n'y en a pas pour l'instant) n'y apparaîtrait qu'en combat.
 
 ## 8. Armes
 
@@ -238,7 +238,7 @@ Le menu donne accès à : Jeu, Carte, Boutique, Équipement, Materia, Objets, Co
 
 | Écran | Route | Contenu |
 |---|---|---|
-| Jeu | `/game` | Barres HP / MP / Limite de l'équipe, liste des membres (portrait, niveau, barre d'XP, réplique), panneau ennemi (« Aucun ennemi » hors combat), actions de combat, gils et zone courante. C'est l'écran par défaut. Sur grand écran, trois colonnes : actions, équipe, ennemis. Sur mobile : ennemis en haut, puis l'équipe, et les actions dans une barre collée en bas de l'écran (zone et gils, materias et objets sur une ligne défilante, boutons de combat en grille 2×2). |
+| Jeu | `/game` | Barres HP / MP / Limite de l'équipe, liste des membres (portrait, niveau, barre d'XP, réplique), panneau ennemi (« Aucun ennemi » hors combat), actions de combat, gils et zone courante. C'est l'écran par défaut. Sur grand écran, trois colonnes : actions, équipe, ennemis. Sur mobile : ennemis en haut, puis l'équipe, et les actions dans une barre collée en bas de l'écran (zone et gils, materias et objets sur une ligne défilante, boutons de combat en grille de deux colonnes). En combat, les boutons Attaquer et Fuir remplacent les boutons Combat aléatoire et Combat de boss, et les materias d'attaque n'apparaissent qu'en combat. |
 | Carte | `/map` | Choix de la zone parmi les zones débloquées ; passage à la zone suivante. La zone choisie est présentée dans une carte (image, numéro, nom, état terminé ou non, description). Sur grand écran, les boutons de zone sont en colonne à gauche ; sur mobile, ce sont des boutons numérotés (5 par ligne) dans une barre collée en bas de l'écran, avec le bouton « Aller à la zone suivante » au-dessus. |
 | Boutique | `/shop` | Onglets Acheter / Vendre × Armes / Materias / Objets (voir §10). Sur grand écran, les onglets sont en colonne à gauche du tableau ; sur mobile, ils sont sur deux lignes dans une barre collée en bas de l'écran (Acheter / Vendre et gils, puis Armes / Materias / Objets) et le prix et le stock sont affichés sous le nom au lieu de colonnes. |
 | Équipement | `/equip` | Sélection d'un membre de l'équipe et choix de son arme parmi les armes possédées de son type. Le personnage choisi est présenté dans une carte (portrait, niveau, HP / MP / puissance, arme équipée avec sa puissance et ses emplacements de materia) ; dans la liste, l'arme équipée porte un badge « Équipée » au lieu du bouton. Sur grand écran, les boutons des personnages sont en colonne à gauche ; sur mobile, la carte est en haut, la liste des armes en dessous et les personnages sont dans une barre collée en bas de l'écran. |

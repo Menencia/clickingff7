@@ -89,6 +89,37 @@ describe('UiActionsComponent (real data)', () => {
     expect(game.characters.hp()).toBe(hp);
   });
 
+  it('hides offensive materias outside a battle', () => {
+    const refs = () => actions.getMaterias().map((m) => m.ref);
+    const equipped = game.materias.getEquipped();
+    const offensive = equipped.filter((m) => m.isBattleOnly());
+    expect(offensive.length).toBeGreaterThan(0);
+
+    expect(refs()).toEqual(
+      equipped.filter((m) => !m.isBattleOnly()).map((m) => m.ref),
+    );
+
+    actions.fightRandom();
+    expect(refs()).toEqual(equipped.map((m) => m.ref));
+  });
+
+  it('swaps the fight buttons for Attack and Escape during a battle', () => {
+    const fixture = TestBed.createComponent(UiActionsComponent);
+    const labels = () =>
+      [...fixture.nativeElement.querySelectorAll('button')].map(
+        (b: HTMLButtonElement) => b.textContent?.trim(),
+      );
+    fixture.detectChanges();
+    expect(labels()).toContain('Fight boss');
+    expect(labels()).not.toContain('Attack');
+    expect(labels()).not.toContain('Escape');
+
+    fixture.componentInstance.fightRandom();
+    fixture.detectChanges();
+    expect(labels()).toEqual(['Attack', 'Escape', ...labels().slice(2)]);
+    expect(labels()).not.toContain('Fight boss');
+  });
+
   it('escaping outside a battle does nothing', () => {
     expect(() => actions.escape()).not.toThrow();
     expect(battleService.battle()).toBeUndefined();
