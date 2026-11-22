@@ -1,10 +1,10 @@
 <app-ui-layout-default>
   <div class="overflow-x-auto rounded-box border border-base-300 bg-base-100">
-    <table class="table">
+    <table class="table table-sm sm:table-md">
       <thead>
         <tr>
           <th>{{ "Name" | translate }}</th>
-          <th>{{ "Evolution" | translate }}</th>
+          <th class="hidden sm:table-cell">{{ "Evolution" | translate }}</th>
           <th class="w-px whitespace-nowrap text-right tabular-nums">
             {{ getNbrEquipped() }}
             <span class="opacity-60">/ {{ maxMaterias() }}</span>
@@ -13,11 +13,17 @@
       </thead>
       <tbody>
         @for (materia of list; track materia) {
-        <tr class="hover:bg-base-200">
+        <tr
+          [class]="
+            materia.equipped ? 'bg-primary/10 hover:bg-primary/15' : 'hover:bg-base-200'
+          "
+        >
           <td>
-            <div class="flex items-center gap-2">
+            <div class="flex flex-wrap items-center gap-x-2 gap-y-1">
               <app-materia-icon [color]="materia.color"></app-materia-icon>
-              {{ "Mat. " + materia.ref + " name" | translate }}
+              <span class="font-semibold sm:font-normal">
+                {{ "Mat. " + materia.ref + " name" | translate }}
+              </span>
               <span class="badge badge-sm badge-ghost">
                 LVL{{ materia.level }}
               </span>
@@ -26,8 +32,15 @@
             <div class="text-xs italic opacity-70">
               {{ "Mat. " + materia.ref + " desc" | translate }}
             </div>
+            <!-- Mobile: the Evolution column is hidden -->
+            <app-progress-bar
+              class="mt-1 block sm:hidden [&>div]:mb-0"
+              [progress]="materia.apProgress(100)"
+              [style]="'progress-primary'"
+              [text]="materia.ap + ' / ' + materia.getApMax() + ' AP'"
+            />
           </td>
-          <td class="min-w-48">
+          <td class="hidden min-w-48 sm:table-cell">
             <app-progress-bar
               class="[&>div]:mb-0"
               [progress]="materia.apProgress(100)"
@@ -39,7 +52,7 @@
             @if (materia.equipped) {
             <button
               type="button"
-              class="btn btn-ghost btn-sm btn-square"
+              class="btn btn-ghost btn-square sm:btn-sm"
               (click)="unequip(materia)"
             >
               <svg lucideX class="text-error"><title>X</title></svg>
@@ -47,7 +60,7 @@
             } @if (canEquip(materia)) {
             <button
               type="button"
-              class="btn btn-ghost btn-sm btn-square"
+              class="btn btn-ghost btn-square sm:btn-sm"
               (click)="equip(materia)"
             >
               <svg lucidePlus class="text-success"><title>Plus</title></svg>
