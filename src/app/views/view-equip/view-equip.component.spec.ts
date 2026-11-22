@@ -96,7 +96,7 @@ describe('ViewEquipComponent (real data)', () => {
     const fixture = TestBed.createComponent(ViewEquipComponent);
     fixture.detectChanges();
     const buttons = () =>
-      [...fixture.nativeElement.querySelectorAll('.flex-col button')].map(
+      [...fixture.nativeElement.querySelectorAll('.team-picker button')].map(
         (b: HTMLElement) => b.textContent?.trim(),
       );
     expect(buttons()).toEqual([CharacterRef.Cloud, CharacterRef.Barret]);

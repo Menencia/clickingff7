@@ -1,11 +1,16 @@
 <app-ui-layout-default>
-  <div class="grid grid-cols-5 gap-x-4">
-    <div>
-      <div class="flex flex-col gap-1">
+  <!-- Mobile: the character card on top, the weapon list below, and the
+       character picker in a bar stuck to the bottom of the screen (like the
+       game, shop and zone screens). From sm: a column of buttons on the left. -->
+  <div class="flex flex-col gap-3 sm:grid sm:grid-cols-5 sm:gap-x-4">
+    <div
+      class="sticky bottom-0 z-10 order-3 -mx-2 border-t border-base-300 bg-base-200/95 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] backdrop-blur sm:static sm:order-none sm:mx-0 sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none"
+    >
+      <div class="team-picker grid grid-cols-3 gap-1 sm:flex sm:flex-col">
         @for (character of team(); track character) {
         <button
           type="button"
-          class="btn"
+          class="btn btn-sm sm:btn-md"
           [class.btn-secondary]="selected?.ref === character.ref"
           (click)="selectCharacter(character)"
         >
@@ -16,36 +21,58 @@
     </div>
 
     @if (selected) {
-    <div class="col-span-2">
-      <img
-        [src]="selected.image"
-        width="80"
-        alt="current_character"
-        class="float-left"
-      >
-      <div class="ml-24">
-        <div>
-          {{ selected.ref }} <strong>(LVL{{ selected.level }})</strong>
+    <div
+      class="order-1 col-span-2 flex flex-col gap-3 self-start rounded-box border border-base-300 bg-base-100 p-3 sm:order-none sm:p-4"
+    >
+      <div class="flex items-start gap-3">
+        <img
+          class="size-16 shrink-0 object-contain sm:size-20"
+          [src]="selected.image"
+          alt=""
+        >
+
+        <div class="flex min-w-0 flex-col gap-1">
+          <h2 class="font-bold leading-tight">
+            {{ selected.ref }}
+            <span class="badge badge-ghost badge-sm align-middle">
+              LVL {{ selected.level }}
+            </span>
+          </h2>
+          @if (selected.level > 0) {
+          <div class="flex flex-wrap gap-x-3 text-sm">
+            <span>
+              <span class="text-xs uppercase opacity-60">hp</span>
+              {{ selected.getHpMax() }}
+            </span>
+            <span>
+              <span class="text-xs uppercase opacity-60">mp</span>
+              {{ selected.getMpMax() }}
+            </span>
+            <span>
+              <span class="text-xs uppercase opacity-60">pwr</span>
+              {{ selected.getHits() }}
+            </span>
+          </div>
+          }
         </div>
-        @if (selected.level > 0) {
-        <div>
-          <span class="label">hp</span> {{ selected.getHpMax() }}
-          <span class="label">mp</span> {{ selected.getMpMax() }}
-          <span class="label">pwr</span> {{ selected.getHits() }}
+      </div>
+
+      <div class="rounded-box bg-base-200 px-3 py-2">
+        <div class="text-xs uppercase opacity-60">
+          {{ "Equipped weapon" | translate }}
         </div>
-        }
-        <p class="mt-3">
+        <div class="flex items-center gap-2 font-semibold">
           <app-weapon-icon [type]="selected.weapon.type"></app-weapon-icon>
           {{ selected.weapon.ref }}
-        </p>
-        <p class="ml-4 text-xs italic">
-          {{ "Power" | translate }} {{ selected.weapon.hits }}<br>
+        </div>
+        <div class="text-xs italic opacity-70">
+          {{ "Power" | translate }} {{ selected.weapon.hits }} ·
           {{ "Nb materia" | translate }} +{{ selected.weapon.maxMaterias }}
-        </p>
+        </div>
       </div>
     </div>
-    } @if (selected) {
-    <div class="col-span-2">
+
+    <div class="order-2 col-span-2 sm:order-none">
       <div
         class="overflow-x-auto rounded-box border border-base-300 bg-base-100"
       >
@@ -65,10 +92,16 @@
                   {{ weapon.ref }}
                 </div>
                 <div class="text-xs italic opacity-70">
-                  {{ "Power" | translate }} {{ weapon.hits }}
+                  {{ "Power" | translate }} {{ weapon.hits }} ·
+                  {{ "Nb materia" | translate }} +{{ weapon.maxMaterias }}
                 </div>
               </td>
               <td class="w-px whitespace-nowrap text-right">
+                @if (weapon === selected.weapon) {
+                <span class="badge badge-success badge-sm">
+                  {{ "Equipped" | translate }}
+                </span>
+                } @else {
                 <button
                   type="button"
                   class="btn btn-sm btn-primary"
@@ -77,6 +110,7 @@
                 >
                   {{ "Equip" | translate }}
                 </button>
+                }
               </td>
             </tr>
             }

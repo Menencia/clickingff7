@@ -13,6 +13,7 @@
 - Better game screen on mobile: enemies on top, compact team, and the battle buttons in a bar at the bottom of the screen
 - Better shop on mobile: compact tabs in a bar at the bottom of the screen, with the price and stock under each name
 - Better zone screen on mobile: the zone card on top and the zone buttons in a bar at the bottom of the screen
+- Better equipment screen on mobile: the character card on top and the character buttons in a bar at the bottom of the screen
 ```
 
 ### Détail des changements
@@ -36,6 +37,7 @@
 - Les libellés des barres (HP, MP, LIMIT, EXP, AP) sont affichés au-dessus de la barre au lieu de la chevaucher.
 - La Boutique est plus lisible sur mobile : les onglets Armes / Materia / Objets et Acheter / Vendre sont sur deux lignes compactes dans une barre collée en bas de l'écran, comme sur l'écran de jeu : Acheter / Vendre et les gils, puis les catégories en dessous, à portée de pouce, et les colonnes Stock et Prix sont remplacées par une ligne sous le nom (prix, quantité en stock, materia possédée ou équipée). Sur ordinateur, la disposition ne change pas.
 - L'écran Zones est réorganisé : la zone choisie est présentée dans une carte (image, numéro, nom, badge « Terminé ! » ou « Non terminé », description), avec le bouton « Aller à la zone suivante » mis en avant. Sur mobile, la carte est en haut et les zones sont des boutons numérotés compacts (5 par ligne) dans une barre collée en bas de l'écran, avec le bouton de zone suivante au-dessus ; sur ordinateur, les boutons restent en colonne à gauche.
+- L'écran Équipement est réorganisé : le personnage choisi est présenté dans une carte (portrait, niveau, HP / MP / puissance) avec son arme équipée dans un encadré, et la liste des armes indique aussi le nombre d'emplacements de materia ; l'arme équipée y porte un badge « Équipée » au lieu d'un bouton grisé. Sur mobile, la carte est en haut, la liste des armes en dessous et les personnages sont des boutons dans une barre collée en bas de l'écran ; sur ordinateur, les boutons restent en colonne à gauche.
 
 #### Côté technique
 
