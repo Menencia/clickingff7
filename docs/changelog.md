@@ -1,5 +1,14 @@
 # Changelog
 
+## Prochaine version
+
+### Notes de release (anglais)
+
+```
+```
+
+### Détail des changements
+
 ## 1.6.0
 
 ### Notes de release (anglais)
