@@ -47,6 +47,19 @@ describe('DockComponent', () => {
     expect(more(fixture).open).toBe(false);
   });
 
+  it('closes the More menu on a click outside it', async () => {
+    const fixture = await render();
+    more(fixture).open = true;
+
+    more(fixture)
+      .querySelector('ul')
+      ?.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    expect(more(fixture).open).toBe(true);
+
+    document.body.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+    expect(more(fixture).open).toBe(false);
+  });
+
   it('stops listening to the router once destroyed', async () => {
     const fixture = await render();
     const details = more(fixture);

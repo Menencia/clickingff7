@@ -19,6 +19,7 @@ import { GameService } from '../../../core/services/game.service';
   selector: 'app-dock',
   imports: [RouterLink, RouterLinkActive, TranslatePipe],
   templateUrl: './dock.component.html',
+  host: { '(document:click)': 'onDocumentClick($event)' },
 })
 export class DockComponent {
   private gameService = inject(GameService);
@@ -40,6 +41,12 @@ export class DockComponent {
 
   displayPhs() {
     return this.gameService.zones.isPhsUnlocked();
+  }
+
+  /** Closes the More menu when the player clicks anywhere outside it. */
+  onDocumentClick(event: MouseEvent) {
+    const more = this.more()?.nativeElement;
+    if (more?.open && !more.contains(event.target as Node)) this.closeMore();
   }
 
   private closeMore() {

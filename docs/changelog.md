@@ -11,6 +11,7 @@
 - Fix saving silently failing when the browser storage is full or disabled: an error message is now shown
 - Fix the help tour on phones: the right element is highlighted and tooltips no longer go off screen
 - Shorter help tour
+- The "More" menu of the phone menu bar now closes when tapping outside it
 - Fix the active page marker not being centered under "More" in the phone menu bar
 ```
 
@@ -29,6 +30,7 @@
 
 #### Changements
 
+- Le menu « Plus » de la barre de navigation sur téléphone se ferme maintenant quand on touche l'écran en dehors du menu.
 - La barre d'actions n'affiche plus que les boutons utiles : en combat, Attaquer et Fuir remplacent les boutons Combat aléatoire et Combat de boss ; hors combat, les materias d'attaque (Foudre…) sont masquées, seules les materias de soin et les objets restent.
 - Le tutoriel est plus court : les boutons Attaquer et Fuir sont présentés avec le bouton de combat, et les liens du pied de page (version, signaler un bug) n'en font plus partie.
 - Le pied de page disparaît : son contenu est dans le nouvel écran À propos. Sur téléphone, il prenait beaucoup de place sous chaque écran.

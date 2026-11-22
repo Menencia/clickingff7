@@ -234,7 +234,7 @@ Ensuite, `nbFights` de la zone courante augmente de 1 (une victoire contre un bo
 
 ## 9. Écrans
 
-Le menu donne accès à : Jeu, Carte, Boutique, Équipement, Materia, Objets, Config, PHS (seulement si zone max ≥ 5), Sauvegarde et À propos. À partir de 768 px de large (`md`), c'est un menu horizontal dans la barre de navigation (compact sous 1024 px). Sur mobile, c'est un dock fixé en bas de l'écran (`DockComponent`) avec cinq boutons à icône : Jeu, Carte, Boutique, Équipement et « Plus ». « Plus » ouvre vers le haut un menu avec les autres écrans (Materia, Objets, PHS, Config, Sauvegarde, À propos) ; il est mis en évidence quand l'un d'eux est affiché et se referme après chaque navigation. Les barres d'actions collées en bas de certains écrans se placent juste au-dessus du dock.
+Le menu donne accès à : Jeu, Carte, Boutique, Équipement, Materia, Objets, Config, PHS (seulement si zone max ≥ 5), Sauvegarde et À propos. À partir de 768 px de large (`md`), c'est un menu horizontal dans la barre de navigation (compact sous 1024 px). Sur mobile, c'est un dock fixé en bas de l'écran (`DockComponent`) avec cinq boutons à icône : Jeu, Carte, Boutique, Équipement et « Plus ». « Plus » ouvre vers le haut un menu avec les autres écrans (Materia, Objets, PHS, Config, Sauvegarde, À propos) ; il est mis en évidence quand l'un d'eux est affiché et se referme après chaque navigation ou sur un clic en dehors. Les barres d'actions collées en bas de certains écrans se placent juste au-dessus du dock.
 
 | Écran | Route | Contenu |
 |---|---|---|
