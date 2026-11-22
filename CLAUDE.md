@@ -30,7 +30,7 @@ CI (`.github/workflows/main.yml`, on `main`/`next`) runs build, `test:ci`, then 
 `docs/compatibilite.md` (in French) lists every place that handles data written by an older version (save fields, `localStorage` values, version thresholds). **Keep it in sync**: any backward-compatibility code added or removed must add or remove its entry in the same change.
 
 `docs/changelog.md` (in French) records changes version by version. **Keep the « Prochaine version » section up to date**: any change a player can notice (new feature, bug fix, gameplay, UI or save change) must add an entry there in the same change. Don't put a version number on that section until asked.
-- « Notes de release (anglais) »: short English bullets for the GitHub release, in the style of the previous releases (`Fix …` for fixes, one optional `Note:` line at the end for notable technical changes). Nothing too technical.
+- « Notes de release (anglais) »: short English bullets for the GitHub release, in the style of the previous releases (`Fix …` for fixes, one optional `Note:` line at the end for notable technical changes). Nothing too technical. Keep the list sorted from most to least important for players (major features first, minor fixes last), and re-sort it whenever you add an entry.
 - « Détail des changements »: French details, under `#### Nouveautés`, `#### Corrections`, `#### Changements`, `#### Disparitions` or `#### Côté technique` (create a subsection when it gets its first entry). Pure refactors, tests and docs only go in « Côté technique », and only when significant.
 
 ## Code style

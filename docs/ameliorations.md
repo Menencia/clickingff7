@@ -7,3 +7,4 @@ Idées d'évolution du jeu, à discuter avant implémentation. Les bugs sont lis
    - remettre automatiquement un pourcentage des HP max après une défaite ;
    - ajouter une action « Se reposer », gratuite ou payante en gils, qui restaure l'équipe.
 2. **Attaque automatique des personnages.** En combat, seuls les ennemis ont une boucle d'attaque (`Battle.start`). Les personnages n'attaquent que sur action du joueur.
+3. **Pied de page plus compact sur mobile.** Le pied de page (`ui-footer`) a une marge intérieure `p-10` sur toutes les tailles d'écran, ce qui prend beaucoup de place sur un téléphone pour trois lignes de liens. Piste : une marge réduite sur mobile (par exemple `p-4 sm:p-10`) et un texte plus petit.

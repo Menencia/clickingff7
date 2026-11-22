@@ -6,19 +6,11 @@
 
 ```
 - The game can now be installed as an app and played fully offline (PWA), with a new sword icon
-- Fix materias staying equipped beyond the available slots when a character leaves the team
-- Restyle the item, materia, equipment and shop tables
-- Fix the materia AP bar not showing progress
+- Every screen reworked for mobile: the main actions in a bar at the bottom of the screen (game, shop, zones, equipment), more compact tables, clearer cards and buttons, and a button to copy an exported save
 - New color theme (dark and light), with Mako green, cyan and amber on slate blue
-- Better game screen on mobile: enemies on top, compact team, and the battle buttons in a bar at the bottom of the screen
-- Better shop on mobile: compact tabs in a bar at the bottom of the screen, with the price and stock under each name
-- Better zone screen on mobile: the zone card on top and the zone buttons in a bar at the bottom of the screen
-- Better equipment screen on mobile: the character card on top and the character buttons in a bar at the bottom of the screen
-- Better materia screen on mobile: the AP bar under each materia, no more sideways scrolling, and equipped materias highlighted
-- Better items screen on mobile: more compact, with the quantity next to each name, and equipped items highlighted
-- Better config screen on mobile: difficulty and language are picked with clickable badges instead of dropdowns
-- Better PHS screen on mobile: team and backup stacked, each character in a card with stats, an EXP bar and a clear move button
-- Better save screen on mobile: the last save and the export / import tools in two cards, and a button to copy the exported save
+- Restyle the item, materia, equipment and shop tables
+- Fix materias staying equipped beyond the available slots when a character leaves the team
+- Fix the materia AP bar not showing progress
 ```
 
 ### Détail des changements
