@@ -49,10 +49,10 @@ export class HelpButtonComponent {
     await this.router.navigateByUrl('/game');
     await this.appRef.whenStable();
 
-    const steps = helpData.steps.map((step, index) => ({
-      ...step,
-      element: step.element ? firstVisible(step.element) : undefined,
-      intro: this.translateService.instant(`step${index + 1}`),
+    const steps = helpData.steps.map(({ key, element, position }) => ({
+      position,
+      element: element ? firstVisible(`[data-tour="${element}"]`) : undefined,
+      intro: this.translateService.instant(`tour.${key}`),
     }));
 
     // Loaded on demand to keep intro.js out of the initial bundle.

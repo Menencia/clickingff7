@@ -23,6 +23,8 @@ describe('UiFooterComponent', () => {
 
   it('displays the given version', () => {
     const el: HTMLElement = fixture.nativeElement;
-    expect(el.querySelector('#step12')?.textContent?.trim()).toBe('1.2.3');
+    expect(el.querySelector('a[href$="/releases"]')?.textContent?.trim()).toBe(
+      '1.2.3',
+    );
   });
 });

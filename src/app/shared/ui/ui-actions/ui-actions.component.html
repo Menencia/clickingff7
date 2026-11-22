@@ -10,7 +10,7 @@
       class="btn"
       (click)="fightRandom()"
       [disabled]="!canFightRandom()"
-      id="step6"
+      data-tour="fight"
     >
       {{ "Fight random" | translate }}{{ remainingBattles() }}
     </button>
@@ -30,7 +30,6 @@
       class="btn btn-primary"
       (click)="attack()"
       [disabled]="!isBattle()"
-      id="step7"
     >
       @if (!canLimit()) {
       <span>{{ "Attack" | translate }}</span>
@@ -43,7 +42,6 @@
       class="btn"
       (click)="escape()"
       [disabled]="!isBattle()"
-      id="step8"
     >
       {{ "Escape" | translate }}
     </button>
@@ -52,7 +50,7 @@
   <div
     class="flex gap-1 overflow-x-auto order-2 sm:mt-3 sm:flex-col sm:gap-3 sm:overflow-visible"
   >
-    <div id="step9" class="flex flex-none gap-1 sm:flex-col">
+    <div data-tour="materias" class="flex flex-none gap-1 sm:flex-col">
       @for (materia of getMaterias(); track materia) {
       <button
         type="button"
@@ -97,7 +95,7 @@
   >
     <div
       class="min-w-0 truncate sm:whitespace-normal sm:text-center"
-      id="step11"
+      data-tour="zone"
     >
       {{ "Zone " + getZoneLvl() + " name" | translate }}
       <strong> (#{{ getZoneLvl() }}) </strong>

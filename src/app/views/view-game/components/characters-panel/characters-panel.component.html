@@ -1,7 +1,7 @@
 <div class="col-span-2">
   <!-- characters bars -->
   <app-progress-bar
-    id="step2"
+    data-tour="hp"
     [progress]="hpPercent()"
     [style]="'progress-success'"
     [text]="'HP ' + characters().hp()"
@@ -9,21 +9,21 @@
   ></app-progress-bar>
 
   <app-progress-bar
-    id="step3"
+    data-tour="mp"
     [progress]="mpPercent()"
     [style]="'progress-info'"
     [text]="'MP ' + characters().mp()"
   ></app-progress-bar>
 
   <app-progress-bar
-    id="step4"
+    data-tour="limit"
     [progress]="limitPercent()"
     [style]="'progress-warning'"
     [text]="'LIMIT ' + limitPercent() + '%'"
   ></app-progress-bar>
 
   <!-- characters list -->
-  <div id="step1">
+  <div data-tour="team">
     @for (character of characters().team(); track character) {
     <div class="flex gap-3 mt-3 sm:gap-4 sm:mt-5">
       <div

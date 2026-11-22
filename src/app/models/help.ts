@@ -3,71 +3,29 @@ interface HelpData {
 }
 
 interface Step {
+  /** Key of the step text, under `tour` in help.json. */
+  key: string;
   /**
-   * CSS selector of the highlighted element. When it matches several
-   * elements, the first visible one is used (e.g. the horizontal menu on
-   * desktop, the dock on mobile).
+   * Value of the `data-tour` attribute of the highlighted element (none for
+   * a centered step). When several elements have it, the first visible one
+   * is used (e.g. the horizontal menu on desktop, the dock on mobile).
    */
   element?: string;
-  intro?: string;
   position?: 'top' | 'bottom' | 'left' | 'right';
 }
 
 export const helpData: HelpData = {
   steps: [
-    {},
-    {
-      element: '#step1',
-      position: 'right',
-    },
-    {
-      element: '#step2',
-      position: 'bottom',
-    },
-    {
-      element: '#step3',
-      position: 'bottom',
-    },
-    {
-      element: '#step4',
-      position: 'bottom',
-    },
-    {
-      element: '#step5',
-      position: 'left',
-    },
-    {
-      element: '#step6',
-      position: 'right',
-    },
-    {
-      element: '#step7',
-      position: 'right',
-    },
-    {
-      element: '#step8',
-      position: 'right',
-    },
-    {
-      element: '#step9',
-      position: 'right',
-    },
-    {
-      element: '#step10-menu, #step10-dock',
-      position: 'left',
-    },
-    {
-      element: '#step11',
-      position: 'top',
-    },
-    {
-      element: '#step12',
-      position: 'top',
-    },
-    {
-      element: '#step13',
-      position: 'top',
-    },
-    {},
+    { key: 'welcome' },
+    { key: 'team', element: 'team', position: 'right' },
+    { key: 'hp', element: 'hp', position: 'bottom' },
+    { key: 'mp', element: 'mp', position: 'bottom' },
+    { key: 'limit', element: 'limit', position: 'bottom' },
+    { key: 'enemies', element: 'enemies', position: 'left' },
+    { key: 'fight', element: 'fight', position: 'right' },
+    { key: 'materias', element: 'materias', position: 'right' },
+    { key: 'menu', element: 'menu', position: 'left' },
+    { key: 'zone', element: 'zone', position: 'top' },
+    { key: 'end' },
   ],
 };

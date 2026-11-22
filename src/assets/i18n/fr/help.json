@@ -1,17 +1,15 @@
 {
-  "step1": "Bienvenue dans ce tutorial. Voyons comment jouer à ce jeu.",
-  "step2": "Voici votre équipe ! Vous commencez avec 2 personnages. Lorsque vous affrontez des ennemis, vos personnages montent de niveau et deviennent plus forts.",
-  "step3": "Voici les points de vie de votre équipe (HP) : s'ils sont réduits à 0, vous perdez le combat.",
-  "step4": "Voici les points de magie de votre équipe (MP). Vous en aurez besoin pour lancer de la magie.",
-  "step5": "Lorsque vous subissez des dégats, cette barre se remplit petit à petit. Lorsqu'elle est pleine, votre prochaine attaque devient surpuissante !",
-  "step6": "Les ennemis apparaissent ici. Pour gagner le combat, vous devez les vaincre avant qu'ils ne le fassent.",
-  "step7": "Cliquez ici pour affronter les ennemis. Aussi simple  que ça !",
-  "step8": "Durant le combat, vous pouvez cliquer sur ce bouton autant de fois que vous le souhaitez, Les HP des ennemis baisseront plus rapidement.",
-  "step9": "Si vous trouvez le combat trop difficile, vous avez la possibilité de fuir.",
-  "step10": "Voici votre magie ! N'oubliez pas qu'il faut des MP pour vous en servir. Par exemple, vous pouvez utiliser 'Restaurer' pour soigner votre équipe.",
-  "step11": "Voici le menu principal. Vous pouvez acheter de nouveaux objets à la boutique, gérer votre inventaire, enregistrer votre partie, etc.",
-  "step12": "Vous vous trouvez actuellement dans cette zone. Un boss caché se trouve dans chacune des zones. Trouvez-le et affrontez-le pour passer à la zone suivante.",
-  "step13": "Chaque fois que le jeu est mis à jour, vous pouvez vérifier les nouveautés en cliquant ici.",
-  "step14": "Si vous voulez reporter une anomalie, ou demander une fonctionnalité qui pourrait rendre le jeu encore plus génial, allez-ici.",
-  "step15": "Voilà, c'est fini ! Merci de votre attention ! Bonne chance et bon jeu ;)"
+  "tour": {
+    "welcome": "Bienvenue dans ce tutorial. Voyons comment jouer à ce jeu.",
+    "team": "Voici votre équipe ! Vous commencez avec 2 personnages. Lorsque vous affrontez des ennemis, vos personnages montent de niveau et deviennent plus forts.",
+    "hp": "Voici les points de vie de votre équipe (HP) : s'ils sont réduits à 0, vous perdez le combat.",
+    "mp": "Voici les points de magie de votre équipe (MP). Vous en aurez besoin pour lancer de la magie.",
+    "limit": "Lorsque vous subissez des dégats, cette barre se remplit petit à petit. Lorsqu'elle est pleine, votre prochaine attaque devient surpuissante !",
+    "enemies": "Les ennemis apparaissent ici. Pour gagner le combat, vous devez les vaincre avant qu'ils ne le fassent.",
+    "fight": "Cliquez ici pour affronter les ennemis. Pendant le combat, cliquez sur Attaquer autant de fois que vous le souhaitez pour vaincre les ennemis plus vite, ou fuyez si le combat est trop difficile.",
+    "materias": "Voici votre magie ! N'oubliez pas qu'il faut des MP pour vous en servir. Par exemple, vous pouvez utiliser 'Restaurer' pour soigner votre équipe.",
+    "menu": "Voici le menu principal. Vous pouvez acheter de nouveaux objets à la boutique, gérer votre inventaire, enregistrer votre partie, etc.",
+    "zone": "Vous vous trouvez actuellement dans cette zone. Un boss caché se trouve dans chacune des zones. Trouvez-le et affrontez-le pour passer à la zone suivante.",
+    "end": "Voilà, c'est fini ! Merci de votre attention ! Bonne chance et bon jeu ;)"
+  }
 }

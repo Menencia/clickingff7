@@ -28,7 +28,7 @@ export class ViewGameComponent {
   public enemies: Signal<Enemies>;
 
   // Without a battle, an empty group keeps the panel (and the tutorial's
-  // #step5 anchor) displayed with its "No enemies" state. Built outside the
+  // enemies anchor) displayed with its "No enemies" state. Built outside the
   // computed: the Enemies constructor writes to signals.
   private readonly noEnemies = new Enemies();
 
