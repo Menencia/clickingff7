@@ -19,7 +19,11 @@
           "options": {
             "browser": "src/main.ts",
             "tsConfig": "tsconfig.app.json",
-            "assets": ["src/favicon.ico", "src/assets"],
+            "assets": [
+              "src/favicon.ico",
+              "src/manifest.webmanifest",
+              "src/assets"
+            ],
             "styles": ["node_modules/intro.js/introjs.css", "src/styles.scss"]
           },
           "configurations": {
@@ -36,7 +40,8 @@
                   "maximumError": "4kb"
                 }
               ],
-              "outputHashing": "all"
+              "outputHashing": "all",
+              "serviceWorker": "ngsw-config.json"
             },
             "development": {
               "optimization": false,

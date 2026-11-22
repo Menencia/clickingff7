@@ -15,3 +15,7 @@ Run `ng s` for a dev server.
 Navigate to `http://localhost:4200`.
 
 The app will automatically reload if you change any of the source files.
+
+## Credits
+
+App icon: [Sword](https://thenounproject.com/icon/sword-25239/) by Geoffrey Joe from Noun Project, [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/), recolored.

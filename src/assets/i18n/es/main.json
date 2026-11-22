@@ -132,5 +132,9 @@
   "Zone 8 name": "Rumbo a Junon",
   "Zone 8 desc": "Parece ser que Sephiroth es un poderoso enemigo. Según los Turcos, se dirige hacia Junon. Sin embargo, alguien les está siguiendo…",
   "Zone 9 name": "Junon",
-  "Zone 9 desc": "Yuffie, la misteriosa ninja que les estaba siguiendo, se une al grupo. Finalmente llegan a Junon. Al mismo tiempo, una pequeña niña es atacada por un monstruo."
+  "Zone 9 desc": "Yuffie, la misteriosa ninja que les estaba siguiendo, se une al grupo. Finalmente llegan a Junon. Al mismo tiempo, una pequeña niña es atacada por un monstruo.",
+  "Update ready": "Hay una nueva versión disponible. Guarda tu partida antes de recargar.",
+  "Update broken": "El juego debe recargarse para funcionar correctamente. Guarda tu partida antes de recargar.",
+  "Reload": "Recargar",
+  "Later": "Más tarde"
 }

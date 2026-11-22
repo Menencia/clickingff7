@@ -132,5 +132,9 @@
   "Zone 8 name": "Route vers Junon",
   "Zone 8 desc": "Sephiroth semble être un ennemi d'une puissance redoutable. Ils apprennent par les Turks qu'il se dirige en direction de Junon. Cependant, quelqu'un semble les suivre..",
   "Zone 9 name": "Junon",
-  "Zone 9 desc": "Yuffie, la ninja mystérieuse qui les suivait, s'est jointe au groupe. Finalement, ils arrivent à Junon au moment même où une petite fille est attaquée par un monstre."
+  "Zone 9 desc": "Yuffie, la ninja mystérieuse qui les suivait, s'est jointe au groupe. Finalement, ils arrivent à Junon au moment même où une petite fille est attaquée par un monstre.",
+  "Update ready": "Une nouvelle version est disponible. Sauvegardez votre partie avant de recharger.",
+  "Update broken": "Le jeu doit être rechargé pour fonctionner correctement. Sauvegardez votre partie avant de recharger.",
+  "Reload": "Recharger",
+  "Later": "Plus tard"
 }

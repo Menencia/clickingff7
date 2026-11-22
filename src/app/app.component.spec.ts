@@ -1,6 +1,7 @@
 import { Component, NO_ERRORS_SCHEMA } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter, Router, RouterOutlet } from '@angular/router';
+import { SwUpdate } from '@angular/service-worker';
 import { provideTranslateService } from '@ngx-translate/core';
 import { AppComponent } from './app.component';
 import { GameService } from './core/services/game.service';
@@ -15,6 +16,7 @@ describe('AppComponent', () => {
       providers: [
         provideRouter([{ path: 'other', component: DummyComponent }]),
         provideTranslateService({ fallbackLang: 'en' }),
+        { provide: SwUpdate, useValue: { isEnabled: false } },
         {
           provide: GameService,
           useValue: { run: () => {}, zones: { isNextZone: () => 1 } },

@@ -252,6 +252,8 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 
 **Répliques** : chaque personnage affiche une réplique qui dépend de la zone max atteinte (clé i18n `Line {levelMax} {ref}`).
 
+**Bandeau de mise à jour** : quand une nouvelle version du jeu a été téléchargée en arrière-plan, un bandeau en bas de l'écran invite à sauvegarder puis à recharger (voir §12).
+
 **Thème** : clair (cupcake) ou sombre (dark). Le thème par défaut est sombre, et le choix est mémorisé dans `localStorage['theme']`. Une ancienne valeur `light` est convertie en `cupcake` au chargement.
 
 ## 10. Boutique
@@ -280,3 +282,10 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 - **Langue** : par défaut, celle du navigateur si elle vaut en, fr ou es, sinon en. Elle est enregistrée dans la sauvegarde. Le français est la langue source des traductions (Crowdin).
 - **Difficulté** : Normal par défaut. Elle s'applique aux ennemis générés ensuite (§5.2). Elle est enregistrée comme un nombre (1 Facile, 2 Normal, 3 Difficile). Une ancienne sauvegarde où elle est stockée en chaîne (« 2 ») reste valide et est convertie en nombre au chargement.
 - **Argent de départ** : 200 gils.
+
+## 12. Application installable et mode hors ligne (PWA)
+
+- **Installation** : le jeu est une PWA (`src/manifest.webmanifest`). Le navigateur propose de l'installer comme une application (nom « ClickingFF7 », affichage plein écran sans barre d'adresse, couleur `#1d232a`). Les icônes (192 et 512 px, 512 px *maskable* pour Android, 180 px `apple-touch-icon` pour iOS) sont dans `src/assets/icons/`, et le favicon (`src/favicon.ico`, 16/32/48 px) reprend le même motif. Tous sont générés à partir de `resources/icon/sword.png` : icône « Sword » de Geoffrey Joe (The Noun Project) sous licence CC BY 3.0, recolorée. L'attribution, avec un lien vers la licence et la mention de la modification, est dans le pied de page et le README.
+- **Hors ligne** : un service worker Angular (`ngsw-config.json`) met en cache dès la première visite toute l'application et **tous** les fichiers de `src/assets` (données, traductions, images). Le jeu fonctionne ensuite entièrement sans réseau, toutes zones confondues. Il n'y a pas de serveur : la sauvegarde reste dans `localStorage`.
+- **Actif en production seulement** : le service worker n'est enregistré que dans un build de production (`pnpm build`), pas avec `pnpm start`.
+- **Mises à jour** : à chaque lancement, et toutes les heures pendant une partie (`UPDATE_CHECK_INTERVAL`), le service worker cherche une nouvelle version et la télécharge en arrière-plan. Elle n'est jamais appliquée de force, puisqu'il n'y a pas de sauvegarde automatique. Un bandeau (`UpdateBannerComponent`) propose « Recharger » (désactivé pendant un combat) ou « Plus tard ». Sans rechargement, la nouvelle version s'applique au prochain lancement. Si la version en cache ne peut plus être servie, le bandeau demande de recharger.
