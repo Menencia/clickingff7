@@ -64,7 +64,7 @@ describe('ProgressBarComponent', () => {
     const progress = el.querySelector('progress') as HTMLProgressElement;
     expect(progress.value).toBe(80);
     expect(progress.classList).toContain('progress-success');
-    expect(el.querySelector('.label')?.textContent).toContain('HP 42');
+    expect(el.querySelector('.progress-label')?.textContent).toContain('HP 42');
   });
 });
 

@@ -10,26 +10,30 @@
     ></app-progress-bar>
   </div>
   } @if (enemies().list.length === 0) {
-  <div class="mt-10 text-center text-gray-300 uppercase">
+  <div
+    class="py-4 text-center uppercase opacity-60 rounded-box border border-dashed border-base-300 sm:mt-10 sm:py-0 sm:border-0"
+  >
     {{ "No enemies" | translate }}
   </div>
   }
 
   <!-- enemies list -->
   @for (enemy of enemies().list; track enemy) {
-  <div class="flex gap-4 mt-5">
+  <div class="flex gap-3 mt-3 sm:gap-4 sm:mt-5">
     <div
       [style]="{ 'background-image': 'url(' + enemy.image + ')' }"
-      class="relative flex-none w-20 h-20 bg-center bg-cover border border-black"
+      class="relative flex-none w-14 h-14 bg-center bg-cover border border-black sm:w-20 sm:h-20"
     >
       <div
-        class="absolute bottom-0 left-0 right-0 h-5 text-center bg-black opacity-75"
+        class="absolute bottom-0 left-0 right-0 text-center bg-black opacity-75 leading-tight sm:h-5"
       >
-        <span class="text-sm text-white"> LVL{{ enemy.level }} </span>
+        <span class="text-xs text-white sm:text-sm">
+          LVL{{ enemy.level }}
+        </span>
       </div>
     </div>
     <div>
-      <div class="text-2xl">
+      <div class="text-lg sm:text-2xl">
         {{ enemy.ref }}
         @if (enemy.boss) {
         <span class="boss">ZONE BOSS</span>

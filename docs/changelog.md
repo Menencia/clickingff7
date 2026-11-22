@@ -10,6 +10,7 @@
 - Restyle the item, materia, equipment and shop tables
 - Fix the materia AP bar not showing progress
 - New color theme (dark and light), with Mako green, cyan and amber on slate blue
+- Better game screen on mobile: enemies on top, compact team, and the battle buttons in a bar at the bottom of the screen
 ```
 
 ### Détail des changements
@@ -28,6 +29,9 @@
 
 - Les tableaux des écrans Objets, Materia, Équipement et Boutique ont un nouveau style : présentés dans une carte arrondie, ligne surlignée au survol, en-tête distinct, chiffres et prix alignés à droite, description en dessous du nom, message centré quand la liste est vide. Les boutons équiper / déséquiper utilisent partout les mêmes icônes (au lieu d'emojis dans l'écran Objets), et les boutons de la Boutique et de l'Équipement sont plus compacts et colorés (achat, vente, équiper). L'écran Équipement affiche aussi l'icône et la puissance de chaque arme.
 - Nouvelles couleurs pour les thèmes sombre et clair : surfaces bleu ardoise, vert Mako pour les actions principales (Acheter, barre d'AP), cyan pour les onglets sélectionnés, ambre en accent. Le fond des pages est un ton plus foncé que les tableaux et les boutons, qui ressortent mieux. Les dégâts affichés et le badge « NEW » suivent la couleur d'erreur du thème. La barre du navigateur et l'écran de lancement de l'application installée prennent le nouveau bleu nuit.
+
+- L'écran de jeu est réorganisé sur mobile : les ennemis sont en haut, l'équipe est plus compacte (portraits plus petits, réplique sur une ligne), et les actions sont regroupées dans une barre collée en bas de l'écran, à portée de pouce : zone et gils, puis les materias et objets sur une ligne qui défile horizontalement, puis les quatre boutons de combat en grille (Attaquer mis en avant en vert). Sur ordinateur, la disposition en trois colonnes ne change pas, à part le bouton Attaquer coloré.
+- Les libellés des barres (HP, MP, LIMIT, EXP, AP) sont affichés au-dessus de la barre au lieu de la chevaucher.
 
 #### Côté technique
 

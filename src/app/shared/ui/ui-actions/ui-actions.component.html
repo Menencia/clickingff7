@@ -1,94 +1,107 @@
-<div class="flex flex-row flex-wrap gap-1 sm:flex-col">
-  <button
-    type="button"
-    class="btn"
-    (click)="fightRandom()"
-    [disabled]="!canFightRandom()"
-    id="step6"
+<!-- Mobile order: zone and gils, materias and items (one scrollable row), then
+     the battle buttons at the bottom. From sm: one column, battle buttons
+     first and zone and gils last. -->
+<div class="flex flex-col gap-2 sm:gap-1">
+  <div
+    class="grid grid-cols-2 gap-2 order-4 sm:order-1 sm:flex sm:flex-col sm:gap-1"
   >
-    {{ "Fight random" | translate }}{{ remainingBattles() }}
-  </button>
-  <button
-    class="btn"
-    type="button"
-    (click)="fightBoss()"
-    [disabled]="!canFightBoss()"
-  >
-    @if (canFightBoss()) {
-    <div class="float-right text-error">NEW</div>
-    }
-    {{ "Fight boss" | translate }}
-  </button>
-  <button
-    type="button"
-    class="btn"
-    (click)="attack()"
-    [disabled]="!isBattle()"
-    id="step7"
-  >
-    @if (!canLimit()) {
-    <span>{{ "Attack" | translate }}</span>
-    } @if (canLimit()) {
-    <span>{{ "Limit" | translate }}</span>
-    }
-  </button>
-  <button
-    type="button"
-    class="btn"
-    (click)="escape()"
-    [disabled]="!isBattle()"
-    id="step8"
-  >
-    {{ "Escape" | translate }}
-  </button>
-
-  <div class="h-3"></div>
-
-  <div id="step9" class="flex w-full flex-row flex-wrap gap-1 sm:flex-col">
-    @for (materia of getMaterias(); track materia) {
     <button
       type="button"
-      class="btn flex flex-row items-center"
-      (click)="useMateria(materia)"
-      [disabled]="!canUseMateria(materia)"
+      class="btn"
+      (click)="fightRandom()"
+      [disabled]="!canFightRandom()"
+      id="step6"
     >
-      <img
-        class="flex-none"
-        src="/assets/images/icons/materias/{{ materia.color }}.webp"
-        alt="materia"
+      {{ "Fight random" | translate }}{{ remainingBattles() }}
+    </button>
+    <button
+      class="btn"
+      type="button"
+      (click)="fightBoss()"
+      [disabled]="!canFightBoss()"
+    >
+      {{ "Fight boss" | translate }}
+      @if (canFightBoss()) {
+      <span class="text-error">NEW</span>
+      }
+    </button>
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="attack()"
+      [disabled]="!isBattle()"
+      id="step7"
+    >
+      @if (!canLimit()) {
+      <span>{{ "Attack" | translate }}</span>
+      } @if (canLimit()) {
+      <span>{{ "Limit" | translate }}</span>
+      }
+    </button>
+    <button
+      type="button"
+      class="btn"
+      (click)="escape()"
+      [disabled]="!isBattle()"
+      id="step8"
+    >
+      {{ "Escape" | translate }}
+    </button>
+  </div>
+
+  <div
+    class="flex gap-1 overflow-x-auto order-2 sm:mt-3 sm:flex-col sm:gap-3 sm:overflow-visible"
+  >
+    <div id="step9" class="flex flex-none gap-1 sm:flex-col">
+      @for (materia of getMaterias(); track materia) {
+      <button
+        type="button"
+        class="btn btn-sm flex-none sm:btn-md"
+        (click)="useMateria(materia)"
+        [disabled]="!canUseMateria(materia)"
       >
-      <div class="grow">
-        {{ "Mat. " + materia.ref + " name" | translate }}
-      </div>
-      <span class="flex-none">{{ materia.getMpCost() }}</span>
-    </button>
+        <img
+          class="flex-none"
+          src="/assets/images/icons/materias/{{ materia.color }}.webp"
+          alt="materia"
+        >
+        <span class="grow text-left">
+          {{ "Mat. " + materia.ref + " name" | translate }}
+        </span>
+        <span class="flex-none opacity-70">{{ materia.getMpCost() }}</span>
+      </button>
+      }
+    </div>
+
+    @if (getItems().length > 0) {
+    <div class="flex flex-none gap-1 sm:flex-col">
+      @for (item of getItems(); track item) {
+      <button
+        type="button"
+        class="btn btn-sm flex-none sm:btn-md"
+        (click)="useItem(item)"
+        [disabled]="!canUseItem(item)"
+      >
+        <span class="grow text-left">
+          {{ "It. " + item.ref + " name" | translate }}
+        </span>
+        <span class="flex-none opacity-70">{{ item.nbr }}</span>
+      </button>
+      }
+    </div>
     }
   </div>
 
-  @if (getItems().length > 0) {
-  <div class="contents">
-    <div class="h-3"></div>
-    @for (item of getItems(); track item) {
-    <button
-      type="button"
-      class="btn flex flex-row items-center button"
-      (click)="useItem(item)"
-      [disabled]="!canUseItem(item)"
+  <div
+    class="flex items-baseline justify-between gap-2 order-1 text-sm sm:order-4 sm:mt-3 sm:flex-col-reverse sm:items-center sm:text-base"
+  >
+    <div
+      class="min-w-0 truncate sm:whitespace-normal sm:text-center"
+      id="step11"
     >
-      <div class="grow">
-        {{ "It. " + item.ref + " name" | translate }}
-      </div>
-      <div class="flex-none">{{ item.nbr }}</div>
-    </button>
-    }
-  </div>
-  }
-
-  <div class="h-3"></div>
-
-  <div class="text-center">{{ "Gil" | translate }}: {{ getGils() }}</div>
-  <div class="text-center" id="step11">
-    {{ "Zone " + getZoneLvl() + " name" | translate }}
-    <strong> (#{{ getZoneLvl() }}) </strong>
+      {{ "Zone " + getZoneLvl() + " name" | translate }}
+      <strong> (#{{ getZoneLvl() }}) </strong>
+    </div>
+    <div class="flex-none">{{ "Gil" | translate }}: {{ getGils() }}</div>
   </div>
 </div>

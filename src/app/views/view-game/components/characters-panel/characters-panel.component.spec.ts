@@ -34,7 +34,9 @@ describe('CharactersPanelComponent', () => {
 
   function labels(): string[] {
     return Array.from(
-      (fixture.nativeElement as HTMLElement).querySelectorAll('.label'),
+      (fixture.nativeElement as HTMLElement).querySelectorAll(
+        '.progress-label',
+      ),
     ).map((e) => e.textContent?.trim() ?? '');
   }
 

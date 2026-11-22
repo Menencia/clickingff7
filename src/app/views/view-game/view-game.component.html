@@ -1,10 +1,15 @@
 <app-ui-layout-default>
-  <div class="flex flex-col gap-5 sm:flex-row">
-    <app-ui-actions class="basis-1/5"></app-ui-actions>
-    <div class="basis-2/5">
+  <!-- Mobile: enemies on top, then the team, and the actions in a bar stuck
+       to the bottom of the screen (within thumb reach). From sm: three
+       columns in DOM order. -->
+  <div class="flex flex-col gap-4 sm:flex-row sm:gap-5">
+    <app-ui-actions
+      class="sticky bottom-0 z-10 order-3 -mx-2 border-t border-base-300 bg-base-200/95 px-2 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] backdrop-blur sm:static sm:order-none sm:mx-0 sm:basis-1/5 sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none"
+    ></app-ui-actions>
+    <div class="order-2 sm:order-none sm:basis-2/5">
       <app-characters-panel [characters]="characters"></app-characters-panel>
     </div>
-    <div class="basis-2/5">
+    <div class="order-1 sm:order-none sm:basis-2/5">
       <app-enemies-panel [enemies]="enemies()"></app-enemies-panel>
     </div>
   </div>

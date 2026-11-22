@@ -27,24 +27,28 @@
   <!-- characters list -->
   <div id="step1">
     @for (character of characters().team(); track character) {
-    <div class="flex gap-4 mt-5">
+    <div class="flex gap-3 mt-3 sm:gap-4 sm:mt-5">
       <div
         [style]="{ 'background-image': 'url(' + character.image + ')' }"
-        class="relative flex-none w-20 h-20 bg-center bg-cover border border-black"
+        class="relative flex-none w-14 h-14 bg-center bg-cover border border-black sm:w-20 sm:h-20"
       >
         <div
-          class="absolute bottom-0 left-0 right-0 h-5 text-center bg-black opacity-75"
+          class="absolute bottom-0 left-0 right-0 text-center bg-black opacity-75 leading-tight sm:h-5"
         >
-          <span class="text-sm text-white"> LVL{{ character.level }} </span>
+          <span class="text-xs text-white sm:text-sm">
+            LVL{{ character.level }}
+          </span>
         </div>
       </div>
-      <div class="grow">
+      <div class="min-w-0 grow">
         <app-progress-bar
           [progress]="round((character.xp / character.getXpMax()) * 100)"
           [text]="character.xp + ' / ' + character.getXpMax() + 'EXP'"
         ></app-progress-bar>
-        <div class="text-2xl">{{ character.ref }}</div>
-        <div class="text-sm italic">"{{ getLine(character) | translate }}"</div>
+        <div class="text-lg leading-tight sm:text-2xl">{{ character.ref }}</div>
+        <div class="text-xs italic truncate sm:text-sm sm:whitespace-normal">
+          "{{ getLine(character) | translate }}"
+        </div>
       </div>
     </div>
     }
