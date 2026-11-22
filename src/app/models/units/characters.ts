@@ -168,7 +168,7 @@ export class Characters extends Units {
    * Characters are under attack
    */
   getAttacked(baseHits: number, context: ItActionAttack): void {
-    const hits = this.applyAffinities(baseHits, context.type);
+    const hits = this.applyAffinities(baseHits, context.elements);
 
     this.hp.update((hp) => Math.max(hp - hits, 0));
     this.source.hp.next({ hits } as ItDisplayHits);

@@ -1,4 +1,5 @@
 import { statFactor } from '../shared/utils/game.utils';
+import { ElementType } from './element-type';
 import { EnemyRef } from './refs/enemy';
 
 export interface EnemyJson {
@@ -9,8 +10,8 @@ export interface EnemyJson {
   xp: number;
   ap: number;
   gils: number;
-  weakness?: string[];
-  resistance?: string[];
+  weakness?: ElementType[];
+  resistance?: ElementType[];
   boss?: boolean;
   miboss?: boolean;
 }
@@ -42,9 +43,9 @@ export class Enemy {
 
   baseGils: number;
 
-  weakness: string[];
+  weakness: ElementType[];
 
-  resistance: string[];
+  resistance: ElementType[];
 
   boss: boolean;
 

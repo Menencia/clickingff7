@@ -2,6 +2,7 @@ import { Signal, signal } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ItActionAttack } from '../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../core/interfaces/it-display-hits';
+import { ElementType } from './element-type';
 
 export abstract class Units {
   hp = signal(0);
@@ -12,8 +13,8 @@ export abstract class Units {
     hp: new Subject<ItDisplayHits>(), // health points
   };
 
-  weakness: string[] = [];
-  resistance: string[] = [];
+  weakness: ElementType[] = [];
+  resistance: ElementType[] = [];
 
   /**
    * Hits are divided by this when the unit resists the attack
@@ -24,23 +25,23 @@ export abstract class Units {
   abstract isAlive(): boolean;
 
   /**
-   * Returns true if the unit is weak to one of these types
+   * Returns true if the unit is weak to one of these elements
    */
-  hasWeakness(types: string[]): boolean {
-    return this.weakness.filter((x) => types.includes(x)).length > 0;
+  hasWeakness(elements: ElementType[]): boolean {
+    return this.weakness.some((x) => elements.includes(x));
   }
 
   /**
-   * Returns true if the unit resists one of these types
+   * Returns true if the unit resists one of these elements
    */
-  hasResistance(types: string[]): boolean {
-    return this.resistance.filter((x) => types.includes(x)).length > 0;
+  hasResistance(elements: ElementType[]): boolean {
+    return this.resistance.some((x) => elements.includes(x));
   }
 
   /**
    * Applies weakness (x3) then resistance (/ resistanceDivisor) to the hits
    */
-  protected applyAffinities(hits: number, elements: string[]): number {
+  protected applyAffinities(hits: number, elements: ElementType[]): number {
     let result = hits;
     if (this.hasWeakness(elements)) {
       result *= 3;

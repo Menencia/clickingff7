@@ -65,7 +65,7 @@ Changement : une méthode protégée `Units.applyAffinities(hits, elements)` et 
 
 **Risque** : faible, aucun chiffre ne doit changer. Dépend du commit 1 (`characters.spec.ts` couvre déjà l'équipe).
 
-### 7. `refactor(models): type elements and rename attack types to elements` 🟢
+### 7. `refactor(models): type elements and rename attack types to elements` 🟢 ✅ fait
 
 Les éléments (`'bolt'`, `'fire'`, `'wind'`…) sont des `string[]` libres dans `EnemyJson.weakness` / `resistance`, `Units`, `AttackMateriaJson.elements` et `Attack`. Dans `ItActionAttack`, ils s'appellent `type`, alors que `Materia.type` / `Item.type` désignent la sous-classe à instancier.
 

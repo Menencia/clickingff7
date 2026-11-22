@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { ELEMENTS } from '../../models/element-type';
 import { HpPotion } from '../../models/items/hp-potion';
 import { MpPotion } from '../../models/items/mp-potion';
 import { AttackMateria } from '../../models/materias/attack-materia';
@@ -118,6 +119,28 @@ describe('StoreService', () => {
       TestBed.inject(DataService).weapons.map((w) => w.type),
     );
     expect([...types].sort()).toEqual([...WEAPON_TYPES].sort());
+  });
+
+  it('only uses known elements', () => {
+    const data = TestBed.inject(DataService);
+    const known: readonly string[] = ELEMENTS;
+    for (const enemy of data.enemies) {
+      for (const element of [
+        ...(enemy.weakness ?? []),
+        ...(enemy.resistance ?? []),
+      ]) {
+        expect(known, enemy.ref).toContain(element);
+      }
+    }
+    for (const ref of Object.values(MateriaRef)) {
+      const materia = store.getMateria(ref);
+      if (materia instanceof AttackMateria) {
+        expect(materia.elements.length, ref).toBeGreaterThan(0);
+        for (const element of materia.elements) {
+          expect(known, ref).toContain(element);
+        }
+      }
+    }
   });
 
   it('only uses known enemy refs in zones', () => {

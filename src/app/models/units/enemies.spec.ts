@@ -1,5 +1,6 @@
 import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
+import { ElementType } from '../element-type';
 import { Enemy, EnemyJson } from '../enemy';
 import { EnemyRef } from '../refs/enemy';
 import { Enemies } from './enemies';
@@ -19,8 +20,8 @@ function makeEnemy(data: Partial<EnemyJson> = {}): Enemy {
   return enemy;
 }
 
-function attackOf(type: string[]): ItActionAttack {
-  return { type, use: () => {} };
+function attackOf(elements: ElementType[]): ItActionAttack {
+  return { elements, use: () => {} };
 }
 
 describe('Enemies', () => {
@@ -155,7 +156,7 @@ describe('Enemies', () => {
 
       skill.use({ characters: { getAttacked } } as never);
 
-      expect(skill.type).toEqual([]);
+      expect(skill.elements).toEqual([]);
       expect(getAttacked).toHaveBeenCalledWith(50, skill);
     });
   });

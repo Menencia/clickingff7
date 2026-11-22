@@ -1,13 +1,14 @@
-import { ItAction } from '../../core/interfaces/it-action';
+import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { withVariance } from '../../shared/utils/game.utils';
 import { random } from '../../shared/utils/math.utils';
 import { Context } from '../context';
+import { ElementType } from '../element-type';
 
-export class Attack implements ItAction {
+export class Attack implements ItActionAttack {
   constructor(
     public baseHits: number,
     public pwr: number,
-    public type: string[] = [],
+    public elements: ElementType[] = [],
   ) {}
 
   /** Calculate raw damages */

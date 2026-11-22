@@ -1,14 +1,15 @@
 import { ItAction } from '../../core/interfaces/it-action';
 import { Attack } from '../actions/attack';
 import { Context } from '../context';
+import { ElementType } from '../element-type';
 import { Materia, MateriaJson } from '../materia';
 
 export interface AttackMateriaJson extends MateriaJson {
-  elements: string[];
+  elements: ElementType[];
 }
 
 export class AttackMateria extends Materia {
-  elements: string[];
+  elements: ElementType[];
 
   constructor(data: AttackMateriaJson) {
     super(data);

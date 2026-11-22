@@ -2,6 +2,7 @@ import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
 import { Attack } from '../actions/attack';
 import { Character } from '../character';
+import { ElementType } from '../element-type';
 import { CharacterRef } from '../refs/characters';
 import { WeaponRef } from '../refs/weapons';
 import { Weapon } from '../weapon';
@@ -35,8 +36,8 @@ function teamWithHits(hits: number): Characters {
   return team;
 }
 
-function attackOf(type: string[]): ItActionAttack {
-  return { type, use: () => {} };
+function attackOf(elements: ElementType[]): ItActionAttack {
+  return { elements, use: () => {} };
 }
 
 describe('Characters', () => {
