@@ -1,16 +1,15 @@
 # Changelog
 
-## Prochaine version
+## 1.6.0
 
 ### Notes de release (anglais)
 
 ```
-- The game can now be installed as an app and played fully offline (PWA), with a new sword icon
-- Every screen reworked for mobile: the main actions in a bar at the bottom of the screen (game, shop, zones, equipment), more compact tables, clearer cards and buttons, and a button to copy an exported save
-- New navigation bar at the bottom of the screen on mobile, replacing the side menu
-- New color theme (dark and light), with Mako green, cyan and amber on slate blue
+- Installable as an app and playable offline (PWA)
+- Mobile-friendly screens, with a bottom navigation bar and actions within thumb reach
+- New dark and light color theme
 - Restyle the item, materia, equipment and shop tables
-- Fix materias staying equipped beyond the available slots when a character leaves the team
+- Fix materias staying equipped beyond the available slots
 - Fix the materia AP bar not showing progress
 ```
 

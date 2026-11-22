@@ -24,7 +24,7 @@ Pour chaque entrée : ce qui est géré, depuis quand, où dans le code, comment
 
 ### 3. Champ `weapons[].equipped`
 
-- **Ce qui est géré** : depuis la version qui suit la 1.5.0, l'arme portée ne vient que de `characters[].weaponRef`. Le champ `weapons[].equipped` est encore **écrit** (calculé à partir des personnages) pour qu'une sauvegarde reste lisible par la 1.5.0, mais il est **ignoré** au chargement et facultatif à la validation.
+- **Ce qui est géré** : depuis la 1.6.0, l'arme portée ne vient que de `characters[].weaponRef`. Le champ `weapons[].equipped` est encore **écrit** (calculé à partir des personnages) pour qu'une sauvegarde reste lisible par la 1.5.0, mais il est **ignoré** au chargement et facultatif à la validation.
 - **Code** : `WeaponSave.equipped` (`src/app/models/save.ts`), `Weapon.export()` (`src/app/models/weapon.ts`), `Weapons.export()` (`src/app/models/weapons.ts`), `isOwnedWeapon()` dans `src/app/shared/utils/save.utils.ts`, `GameService.load()`.
 - **Tests** : `game.service.spec.ts` (« derives the equipped weapons from the characters on load », « loads a save without weapons[].equipped »), `save.utils.spec.ts` (« accepts a weapon without the equipped field »).
 - **Spécification** : `specs.md` §11, « Contenu ».
