@@ -17,6 +17,7 @@
 - Better materia screen on mobile: the AP bar under each materia, no more sideways scrolling, and equipped materias highlighted
 - Better items screen on mobile: more compact, with the quantity next to each name, and equipped items highlighted
 - Better config screen on mobile: difficulty and language are picked with clickable badges instead of dropdowns
+- Better PHS screen on mobile: team and backup stacked, each character in a card with stats, an EXP bar and a clear move button
 ```
 
 ### Détail des changements
@@ -44,6 +45,7 @@
 - L'écran Materia est plus lisible sur mobile : la colonne Évolution est remplacée par la barre d'AP sous la description, ce qui évite le défilement horizontal du tableau, le tableau est plus compact et les boutons d'équipement sont plus grands. Sur tous les écrans, les materias équipées sont surlignées.
 - L'écran Objets est plus lisible sur mobile : la colonne En stock est remplacée par un badge de quantité à côté du nom, le tableau est plus compact et les boutons d'équipement sont plus grands. Sur tous les écrans, les objets équipés sont surlignés.
 - L'écran Config est plus pratique sur mobile : la difficulté et la langue se choisissent en cliquant sur des badges (le choix actif est en couleur) au lieu de listes déroulantes, dans une carte centrée.
+- L'écran PHS est réorganisé : chaque personnage, dans l'équipe comme en soutien, est présenté dans une carte (portrait, niveau, HP / MP / puissance, barre d'EXP qui s'affiche enfin correctement) avec un bouton flèche pour le changer de groupe, au lieu d'un clic sur le portrait ; le bouton est grisé quand l'échange est impossible (équipe pleine, dernier membre). Un compteur indique le nombre de membres de l'équipe. Sur mobile, l'équipe et le soutien sont l'un sous l'autre.
 
 #### Côté technique
 

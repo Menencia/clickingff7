@@ -125,21 +125,20 @@ describe('ViewPhsComponent (real data)', () => {
     const fixture = TestBed.createComponent(ViewPhsComponent);
     fixture.detectChanges();
     const el: HTMLElement = fixture.nativeElement;
-    const count = (col: number) =>
-      el.querySelectorAll(`.col-span-2:nth-child(${col}) .phs_character`)
-        .length;
-    expect(count(1)).toBe(3);
-    expect(count(2)).toBe(0);
+    const count = (col: string) =>
+      el.querySelectorAll(`.${col} .phs_character`).length;
+    expect(count('phs-team')).toBe(3);
+    expect(count('phs-backup')).toBe(0);
 
     fixture.componentInstance.leaveTeam(character(CharacterRef.Tifa));
     fixture.detectChanges();
-    expect(count(1)).toBe(2);
-    expect(count(2)).toBe(1);
+    expect(count('phs-team')).toBe(2);
+    expect(count('phs-backup')).toBe(1);
 
     fixture.componentInstance.joinTeam(character(CharacterRef.Tifa));
     fixture.detectChanges();
-    expect(count(1)).toBe(3);
-    expect(count(2)).toBe(0);
+    expect(count('phs-team')).toBe(3);
+    expect(count('phs-backup')).toBe(0);
   });
 
   it('unequips the materias that no longer have a slot', () => {

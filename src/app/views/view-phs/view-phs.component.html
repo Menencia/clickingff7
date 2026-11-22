@@ -1,58 +1,104 @@
 <app-ui-layout-default>
-  <div class="grid grid-cols-5 gap-x-4">
-    <div class="col-span-2">
-      <h3>{{ "Team" | translate }}</h3>
+  <!-- Mobile: the team then the backup, stacked. From sm: two columns. -->
+  <div class="grid gap-4 sm:grid-cols-2">
+    <section class="phs-team flex flex-col gap-2">
+      <h2 class="flex items-center gap-2 font-bold">
+        {{ "Team" | translate }}
+        <span class="badge badge-ghost badge-sm tabular-nums">
+          {{ team().length }}
+          / {{ MAX_TEAM }}
+        </span>
+      </h2>
 
       @for (character of team(); track character) {
-      <div class="phs_character">
-        <button
-          type="button"
-          class="float-left cursor-pointer"
-          (click)="leaveTeam(character)"
-        >
-          <img [src]="character.image" alt="character" width="80">
-        </button>
-        <div class="main">
-          <div class="progress characters_xp">
-            <div
-              class="xp_progress"
-              [style.width]="character.xpProgress(200) + 'px'"
-            ></div>
-            <span class="bar-label"
-              >{{ character.xp }}
-              / {{ character.getXpMax() }} EXP</span
-            >
-          </div>
-          <div>
-            {{ character.ref }} <strong>(LVL{{ character.level }})</strong>
-          </div>
-          @if (character.level > 0) {
-          <div>
-            <span class="label">hp</span> {{ character.getHpMax() }}
-            <span class="label">mp</span> {{ character.getMpMax() }}
-            <span class="label">pwr</span> {{ character.getHits() }}
-          </div>
-          }
-        </div>
-        <div style="clear: left"></div>
-      </div>
+      <ng-container
+        *ngTemplateOutlet="card; context: { $implicit: character, inTeam: true }"
+      />
       }
-    </div>
+    </section>
 
-    <div class="col-span-2">
-      <h3>{{ "Backup" | translate }}</h3>
+    <section class="phs-backup flex flex-col gap-2">
+      <h2 class="font-bold">{{ "Backup" | translate }}</h2>
 
       @for (character of backup(); track character) {
-      <span class="phs_character">
-        <button
-          type="button"
-          class="float-left cursor-pointer"
-          (click)="joinTeam(character)"
-        >
-          <img [src]="character.image" alt="character" width="80">
-        </button>
-      </span>
+      <ng-container
+        *ngTemplateOutlet="card; context: { $implicit: character, inTeam: false }"
+      />
+      } @empty {
+      <div
+        class="rounded-box border border-dashed border-base-300 p-4 text-center text-sm opacity-60"
+      >
+        {{ "No character in backup" | translate }}
+      </div>
+      }
+    </section>
+  </div>
+
+  <ng-template #card let-character let-inTeam="inTeam">
+    <div
+      class="phs_character flex items-center gap-3 rounded-box border border-base-300 p-3"
+      [class]="inTeam ? 'bg-base-100' : 'bg-base-200/50'"
+    >
+      <img
+        class="size-14 shrink-0 object-contain sm:size-16"
+        [src]="character.image"
+        alt=""
+      >
+
+      <div class="flex min-w-0 flex-1 flex-col gap-1">
+        <div class="flex flex-wrap items-center gap-x-2">
+          <span class="font-bold leading-tight">{{ character.ref }}</span>
+          <span class="badge badge-ghost badge-sm">
+            LVL {{ character.level }}
+          </span>
+        </div>
+        @if (character.level > 0) {
+        <div class="flex flex-wrap gap-x-3 text-sm">
+          <span>
+            <span class="text-xs uppercase opacity-60">hp</span>
+            {{ character.getHpMax() }}
+          </span>
+          <span>
+            <span class="text-xs uppercase opacity-60">mp</span>
+            {{ character.getMpMax() }}
+          </span>
+          <span>
+            <span class="text-xs uppercase opacity-60">pwr</span>
+            {{ character.getHits() }}
+          </span>
+        </div>
+        }
+        <app-progress-bar
+          class="[&>div]:mb-0"
+          [progress]="character.xpProgress(100)"
+          [style]="'progress-primary'"
+          [text]="character.xp + ' / ' + character.getXpMax() + ' EXP'"
+        />
+      </div>
+
+      @if (inTeam) {
+      <button
+        type="button"
+        class="btn btn-square btn-ghost shrink-0 disabled:bg-transparent [&:disabled_svg]:opacity-30"
+        [disabled]="!canLeaveTeam()"
+        [title]="'Leave team' | translate"
+        [attr.aria-label]="'Leave team' | translate"
+        (click)="leaveTeam(character)"
+      >
+        <svg lucideArrowDown class="text-error"><title>Arrow down</title></svg>
+      </button>
+      } @else {
+      <button
+        type="button"
+        class="btn btn-square btn-ghost shrink-0 disabled:bg-transparent [&:disabled_svg]:opacity-30"
+        [disabled]="!canJoinTeam()"
+        [title]="'Join team' | translate"
+        [attr.aria-label]="'Join team' | translate"
+        (click)="joinTeam(character)"
+      >
+        <svg lucideArrowUp class="text-success"><title>Arrow up</title></svg>
+      </button>
       }
     </div>
-  </div>
+  </ng-template>
 </app-ui-layout-default>
