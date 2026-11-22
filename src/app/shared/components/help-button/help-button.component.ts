@@ -57,8 +57,39 @@ export class HelpButtonComponent {
 
     // Loaded on demand to keep intro.js out of the initial bundle.
     const { default: introJs } = await import('intro.js');
-    introJs().setOptions({ steps }).start();
+    // See the help-tour variant in styles.scss.
+    document.body.classList.add('help-tour');
+    const end = () => document.body.classList.remove('help-tour');
+    introJs()
+      .setOptions({ steps })
+      .onbeforechange((element) => {
+        scrollToTop(element);
+        return true;
+      })
+      .oncomplete(end)
+      .onexit(end)
+      .start();
   }
+}
+
+/**
+ * On a phone, scrolls the element to the top of the screen before intro.js
+ * shows its step. intro.js picks the tooltip position (above, below...) from
+ * where the element is before scrolling to it, so a tooltip placed above an
+ * element further down ends up off screen once scrolled. With the element at
+ * the top (or as high as the page allows), the tooltip fits below it, or
+ * above it at the bottom of the page.
+ */
+function scrollToTop(element: HTMLElement | undefined): void {
+  if (
+    !element ||
+    element.classList.contains('introjsFloatingElement') ||
+    !window.matchMedia('(max-width: 639.98px)').matches
+  ) {
+    return;
+  }
+  const top = element.getBoundingClientRect().top + window.scrollY - 8;
+  window.scrollTo({ top, behavior: 'instant' });
 }
 
 /** First element matching the selector that is rendered (not display: none). */

@@ -107,6 +107,12 @@
   --btn-color: var(--color-base-100);
 }
 
+/* Set on <body> by HelpButtonComponent while the help tour runs. intro.js
+   measures an element, then scrolls to it: a sticky element moves during
+   that scroll and would be highlighted at the wrong place. Use
+   `help-tour:static` on sticky elements targeted by the tour. */
+@custom-variant help-tour (body.help-tour &);
+
 /* intro.js hardcodes a white tooltip while its text inherits the page color:
    follow the active daisyUI theme instead (unreadable in dark mode otherwise). */
 .introjs-tooltip {
@@ -168,4 +174,34 @@
   border-color: var(--color-base-300);
   color: var(--color-base-content);
   opacity: 0.4;
+}
+
+/* intro.js centers the tooltip of steps without an element on a node placed
+   at the middle of the page top: keep it in the middle of the screen when the
+   page is scrolled. */
+.introjsFloatingElement {
+  position: fixed;
+}
+
+/* Phones: more compact tooltips, so that they fit above or below the
+   highlighted element on short screens. */
+@media (max-width: 639.98px) {
+  .introjs-tooltip {
+    max-width: min(340px, calc(100vw - 20px));
+    font-size: 0.9375rem;
+    line-height: 1.4;
+  }
+
+  .introjs-tooltiptext {
+    padding: 4px 16px 8px;
+  }
+
+  .introjs-bullets {
+    padding-top: 4px;
+    padding-bottom: 8px;
+  }
+
+  .introjs-tooltipbuttons {
+    padding: 8px;
+  }
 }
