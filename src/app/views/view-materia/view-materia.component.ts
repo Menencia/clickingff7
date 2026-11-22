@@ -23,11 +23,10 @@ export class ViewMateriaComponent {
 
   list: Materia[] = [];
 
-  maxMaterias = 0;
+  readonly maxMaterias = this.gameService.characters.maxMaterias;
 
   constructor() {
     this.list = this.gameService.materias.list;
-    this.maxMaterias = this.gameService.characters.getMaxMaterias();
   }
 
   getNbrEquipped(): number {
@@ -35,11 +34,11 @@ export class ViewMateriaComponent {
   }
 
   canEquip(materia: Materia): boolean {
-    return this.gameService.materias.canEquip(materia, this.maxMaterias);
+    return this.gameService.materias.canEquip(materia, this.maxMaterias());
   }
 
   equip(materia: Materia): void {
-    this.gameService.materias.equip(materia, this.maxMaterias);
+    this.gameService.materias.equip(materia, this.maxMaterias());
   }
 
   unequip(materia: Materia): void {

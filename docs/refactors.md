@@ -99,7 +99,7 @@ Changement : un type union `WeaponType`, et `EnemyRef` dans `ZoneJson` et `getEn
 
 ## Lot 4 — Modernisation
 
-### 9. `refactor(views): read the team from the Characters.team signal` 🟢
+### 9. `refactor(views): read the team from the Characters.team signal` 🟢 ✅ fait
 
 `ViewEquipComponent`, `ViewPhsComponent` et `ViewMateriaComponent` recopient l'équipe (`getTeam()`, `getBackup()`) ou `getMaxMaterias()` dans des champs au constructeur, puis les recalculent à la main après chaque action. `Characters.team` est déjà un signal.
 

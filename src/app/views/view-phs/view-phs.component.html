@@ -3,7 +3,7 @@
     <div class="col-span-2">
       <h3>{{ "Team" | translate }}</h3>
 
-      @for (character of team; track character) {
+      @for (character of team(); track character) {
       <div class="phs_character">
         <button
           type="button"
@@ -42,7 +42,7 @@
     <div class="col-span-2">
       <h3>{{ "Backup" | translate }}</h3>
 
-      @for (character of backup; track character) {
+      @for (character of backup(); track character) {
       <span class="phs_character">
         <button
           type="button"

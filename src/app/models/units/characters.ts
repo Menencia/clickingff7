@@ -39,6 +39,17 @@ export class Characters extends Units {
     this.team().reduce((sum, c) => sum + c.level, 0),
   );
 
+  /** available characters out of the team, as of the last refresh() */
+  readonly backup = computed(() => {
+    const team = this.team();
+    return this.list.filter((c) => !c.isNotAvailable && !team.includes(c));
+  });
+
+  /** materia slots: sum of the team's weapon slots */
+  readonly maxMaterias = computed(() =>
+    this.team().reduce((sum, c) => sum + (c.weapon?.maxMaterias ?? 0), 0),
+  );
+
   readonly mp = signal(0);
 
   readonly limit = signal(0);
@@ -115,18 +126,6 @@ export class Characters extends Units {
     }
     character.inTeam = false;
     this.refresh();
-  }
-
-  getMaxMaterias(): number {
-    let maxMaterias = 0;
-
-    this.getTeam().forEach((character) => {
-      // max materias
-      if (character.weapon) {
-        maxMaterias += character.weapon.maxMaterias;
-      }
-    });
-    return maxMaterias;
   }
 
   /*

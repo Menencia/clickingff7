@@ -1,8 +1,10 @@
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { StoreService } from '../../core/services/store.service';
 import { Materia } from '../../models/materia';
+import { CharacterRef } from '../../models/refs/characters';
 import { MateriaRef } from '../../models/refs/materias';
 import {
   MemoryStorage,
@@ -22,7 +24,7 @@ describe('ViewMateriaComponent', () => {
           useValue: {
             run: () => {},
             materias: { list: [] },
-            characters: { getMaxMaterias: () => 0 },
+            characters: { maxMaterias: signal(0) },
           },
         },
       ],
@@ -71,8 +73,29 @@ describe('ViewMateriaComponent (real data)', () => {
 
   it('has one slot per weapon slot of the team', () => {
     // Buster Sword (1) + Gatling Gun (1)
-    expect(game.characters.getMaxMaterias()).toBe(2);
-    expect(view.maxMaterias).toBe(2);
+    expect(game.characters.maxMaterias()).toBe(2);
+    expect(view.maxMaterias()).toBe(2);
+  });
+
+  it('shows the slots of the current team', () => {
+    // zone 3: Cloud (Buster Sword, 1) and Aerith (Guard Stick, 2)
+    game.zones.level = 3;
+    game.zones.levelMax = 3;
+    game.buildLevel(3);
+    const fixture = TestBed.createComponent(ViewMateriaComponent);
+    fixture.detectChanges();
+    const total = () =>
+      fixture.nativeElement.querySelector('th.total').textContent.trim();
+    expect(total()).toBe('2 / 3');
+
+    const aerith = game.characters.list.find(
+      (c) => c.ref === CharacterRef.Aerith,
+    );
+    if (!aerith) throw new Error('Aerith not found');
+    game.leaveTeam(aerith);
+    fixture.detectChanges();
+    // the materia in excess is unequipped
+    expect(total()).toBe('1 / 1');
   });
 
   it('counts the weapon slots of the current team only', () => {
@@ -80,7 +103,7 @@ describe('ViewMateriaComponent (real data)', () => {
     game.zones.level = 3;
     game.zones.levelMax = 3;
     game.buildLevel(3);
-    expect(game.characters.getMaxMaterias()).toBe(3);
+    expect(game.characters.maxMaterias()).toBe(3);
   });
 
   it('cannot equip a materia when all slots are used', () => {

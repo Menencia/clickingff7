@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
@@ -21,7 +22,7 @@ describe('ViewEquipComponent', () => {
           provide: GameService,
           useValue: {
             run: () => {},
-            characters: { getTeam: () => [] },
+            characters: { team: signal([]) },
             weapons: { getAllWeapons: () => [] },
           },
         },
@@ -88,7 +89,21 @@ describe('ViewEquipComponent (real data)', () => {
 
     const view = create();
     expect(view.selected).toBe(cloud);
-    expect(view.team).toEqual([cloud]);
+    expect(view.team()).toEqual([cloud]);
+  });
+
+  it('shows the current team', () => {
+    const fixture = TestBed.createComponent(ViewEquipComponent);
+    fixture.detectChanges();
+    const buttons = () =>
+      [...fixture.nativeElement.querySelectorAll('.flex-col button')].map(
+        (b: HTMLElement) => b.textContent?.trim(),
+      );
+    expect(buttons()).toEqual([CharacterRef.Cloud, CharacterRef.Barret]);
+
+    game.characters.leave(character(CharacterRef.Barret));
+    fixture.detectChanges();
+    expect(buttons()).toEqual([CharacterRef.Cloud]);
   });
 
   it('lists only the weapons of the selected character type', () => {

@@ -13,14 +13,9 @@ import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-l
 export class ViewPhsComponent {
   private gameService = inject(GameService);
 
-  team: Character[];
+  readonly team = this.gameService.characters.team;
 
-  backup: Character[];
-
-  constructor() {
-    this.team = this.gameService.characters.getTeam();
-    this.backup = this.gameService.characters.getBackup();
-  }
+  readonly backup = this.gameService.characters.backup;
 
   canJoinTeam(): boolean {
     return this.gameService.characters.canJoin();
@@ -28,7 +23,6 @@ export class ViewPhsComponent {
 
   joinTeam(character: Character): void {
     this.gameService.characters.join(character);
-    this.refresh();
   }
 
   canLeaveTeam(): boolean {
@@ -37,11 +31,5 @@ export class ViewPhsComponent {
 
   leaveTeam(character: Character): void {
     this.gameService.leaveTeam(character);
-    this.refresh();
-  }
-
-  private refresh(): void {
-    this.team = this.gameService.characters.getTeam();
-    this.backup = this.gameService.characters.getBackup();
   }
 }

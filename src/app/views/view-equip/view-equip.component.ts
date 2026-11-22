@@ -17,16 +17,15 @@ export class ViewEquipComponent {
 
   selected: Character;
 
-  team: Character[];
+  readonly team = this.gameService.characters.team;
 
   weapons: Weapon[] = [];
 
   constructor() {
-    this.team = this.gameService.characters.getTeam();
     this.selected = this.gameService.characters.selected;
-    const found = this.team.find((character) => character === this.selected);
+    const found = this.team().find((character) => character === this.selected);
     if (!found) {
-      const [first] = this.team;
+      const [first] = this.team();
       this.selected = first;
     }
     this.weapons = this.gameService.weapons.getAllWeapons(this.selected);

@@ -1,3 +1,4 @@
+import { signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
@@ -23,8 +24,8 @@ describe('ViewPhsComponent', () => {
           useValue: {
             run: () => {},
             characters: {
-              getTeam: () => [],
-              getBackup: () => [],
+              team: signal([]),
+              backup: signal([]),
             },
           },
         },
@@ -74,8 +75,8 @@ describe('ViewPhsComponent (real data)', () => {
   });
 
   it('cannot join a full team', () => {
-    expect(phs.team).toHaveLength(MAX_TEAM);
-    expect(phs.backup).toEqual([]);
+    expect(phs.team()).toHaveLength(MAX_TEAM);
+    expect(phs.backup()).toEqual([]);
     expect(phs.canJoinTeam()).toBe(false);
   });
 
@@ -85,15 +86,15 @@ describe('ViewPhsComponent (real data)', () => {
     phs.leaveTeam(tifa);
     expect(tifa.inTeam).toBe(false);
     expect(game.characters.team()).not.toContain(tifa);
-    expect(phs.team).not.toContain(tifa);
-    expect(phs.backup).toEqual([tifa]);
+    expect(phs.team()).not.toContain(tifa);
+    expect(phs.backup()).toEqual([tifa]);
     expect(phs.canJoinTeam()).toBe(true);
 
     phs.joinTeam(tifa);
     expect(tifa.inTeam).toBe(true);
     expect(game.characters.team()).toContain(tifa);
-    expect(phs.team).toContain(tifa);
-    expect(phs.backup).toEqual([]);
+    expect(phs.team()).toContain(tifa);
+    expect(phs.backup()).toEqual([]);
   });
 
   it('keeps at least one character in the team', () => {
@@ -102,7 +103,7 @@ describe('ViewPhsComponent (real data)', () => {
     expect(phs.canLeaveTeam()).toBe(true);
     phs.leaveTeam(character(CharacterRef.Barret));
 
-    expect(phs.team.map((c) => c.ref)).toEqual([CharacterRef.Cloud]);
+    expect(phs.team().map((c) => c.ref)).toEqual([CharacterRef.Cloud]);
     expect(phs.canLeaveTeam()).toBe(false);
   });
 
@@ -120,6 +121,27 @@ describe('ViewPhsComponent (real data)', () => {
     expect(game.characters.hpMax()).toBe(hpMax);
   });
 
+  it('updates the team and backup on screen without leaving the PHS', () => {
+    const fixture = TestBed.createComponent(ViewPhsComponent);
+    fixture.detectChanges();
+    const el: HTMLElement = fixture.nativeElement;
+    const count = (col: number) =>
+      el.querySelectorAll(`.col-span-2:nth-child(${col}) .phs_character`)
+        .length;
+    expect(count(1)).toBe(3);
+    expect(count(2)).toBe(0);
+
+    fixture.componentInstance.leaveTeam(character(CharacterRef.Tifa));
+    fixture.detectChanges();
+    expect(count(1)).toBe(2);
+    expect(count(2)).toBe(1);
+
+    fixture.componentInstance.joinTeam(character(CharacterRef.Tifa));
+    fixture.detectChanges();
+    expect(count(1)).toBe(3);
+    expect(count(2)).toBe(0);
+  });
+
   it('unequips the materias that no longer have a slot', () => {
     // Restore, Bolt + Fire: 3 slots with Cloud, Barret and Tifa
     game.materias.add(
@@ -129,7 +151,7 @@ describe('ViewPhsComponent (real data)', () => {
 
     phs.leaveTeam(character(CharacterRef.Tifa));
 
-    expect(game.characters.getMaxMaterias()).toBe(2);
+    expect(game.characters.maxMaterias()).toBe(2);
     expect(game.materias.getEquipped().map((m) => m.ref)).toEqual([
       MateriaRef.Restore,
       MateriaRef.Bolt,

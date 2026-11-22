@@ -176,6 +176,41 @@ describe('Characters', () => {
     });
   });
 
+  describe('backup / maxMaterias', () => {
+    it('follows the team on each refresh', () => {
+      const [first, second, third] = characters.list;
+      expect(characters.backup()).toEqual([third]);
+      expect(characters.maxMaterias()).toBe(2);
+
+      characters.leave(second);
+
+      expect(characters.backup()).toEqual([second, third]);
+      expect(characters.maxMaterias()).toBe(1);
+
+      characters.join(third);
+
+      expect(characters.backup()).toEqual([second]);
+      expect(characters.team()).toEqual([first, third]);
+    });
+
+    it('ignores unavailable characters', () => {
+      const [, , third] = characters.list;
+      third.isNotAvailable = true;
+      characters.refresh();
+      expect(characters.backup()).toEqual([]);
+    });
+
+    it('follows a weapon change after refresh', () => {
+      const [first] = characters.list;
+      expect(characters.maxMaterias()).toBe(2);
+      first.weapon.maxMaterias = 3;
+      expect(characters.maxMaterias()).toBe(2);
+
+      characters.refresh();
+      expect(characters.maxMaterias()).toBe(4);
+    });
+  });
+
   describe('getAttacked', () => {
     beforeEach(() => {
       characters.hp.set(120);

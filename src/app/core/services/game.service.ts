@@ -326,7 +326,7 @@ export class GameService {
    * Unequips the materias beyond the slots of the team's weapons
    */
   private fitMaterias(): void {
-    this.materias.fit(this.characters.getMaxMaterias());
+    this.materias.fit(this.characters.maxMaterias());
   }
 
   /**

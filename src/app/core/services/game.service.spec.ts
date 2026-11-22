@@ -672,7 +672,7 @@ describe('GameService', () => {
     });
 
     it('all 3 slots are used in zone 3', () => {
-      expect(game.characters.getMaxMaterias()).toBe(3);
+      expect(game.characters.maxMaterias()).toBe(3);
       expect(equipped()).toEqual([
         MateriaRef.Restore,
         MateriaRef.Bolt,
@@ -683,7 +683,7 @@ describe('GameService', () => {
     it('a character leaving the team unequips the materias in excess', () => {
       game.leaveTeam(character(CharacterRef.Aerith));
 
-      expect(game.characters.getMaxMaterias()).toBe(1);
+      expect(game.characters.maxMaterias()).toBe(1);
       expect(equipped()).toEqual([MateriaRef.Restore]);
     });
 
@@ -703,7 +703,7 @@ describe('GameService', () => {
 
       game.equipWeapon(aerith, rod);
 
-      expect(game.characters.getMaxMaterias()).toBe(2);
+      expect(game.characters.maxMaterias()).toBe(2);
       expect(equipped()).toEqual([MateriaRef.Restore, MateriaRef.Bolt]);
     });
 
@@ -717,7 +717,7 @@ describe('GameService', () => {
 
       game = await startGame();
 
-      expect(game.characters.getMaxMaterias()).toBe(1);
+      expect(game.characters.maxMaterias()).toBe(1);
       expect(equipped()).toEqual([MateriaRef.Restore]);
     });
   });
