@@ -100,7 +100,7 @@ Changement : constantes nommées et petites fonctions (`bossLevelSum(zone, teamS
 
 ## Lot 4 — Lisibilité
 
-### 11. `refactor(game): describe zone unlocks as a table` 🟢
+### 11. `refactor(game): describe zone unlocks as a table` 🟢 ✅ fait
 
 `GameService.buildLevel()` (≈ 80 lignes, le plus gros bloc du plus gros fichier) code les déblocages dans un `switch` : personnages, armes, materias et objets ajoutés, et retour de Barret et Tifa en zone 4.
 

@@ -4,15 +4,12 @@ import packageJson from '../../../../package.json';
 import { Character } from '../../models/character';
 import { Items } from '../../models/items';
 import { Materias } from '../../models/materias';
-import { CharacterRef } from '../../models/refs/characters';
-import { ItemRef } from '../../models/refs/items';
-import { MateriaRef } from '../../models/refs/materias';
-import { WeaponRef } from '../../models/refs/weapons';
 import { ZoneRef } from '../../models/refs/zones';
 import { Save } from '../../models/save';
 import { Characters } from '../../models/units/characters';
 import { Weapon } from '../../models/weapon';
 import { Weapons } from '../../models/weapons';
+import { ZONE_UNLOCKS } from '../../models/zone-unlocks';
 import { MAX_ZONES, Zones } from '../../models/zones';
 import { decodeSave, encodeSave } from '../../shared/utils/save.utils';
 import { isVersionAtLeast } from '../../shared/utils/version.utils';
@@ -171,8 +168,9 @@ export class GameService {
     this.autoTimer();
   }
 
-  /*
-   * Basic inventory
+  /**
+   * Adds the zone of this level and what it unlocks (see ZONE_UNLOCKS), then
+   * restores the team's HP and MP
    */
   buildLevel(level: number): void {
     // build zone
@@ -181,77 +179,31 @@ export class GameService {
     const zonelevelMax = this.zones.levelMax;
     this.characters.available(zonelevelMax);
 
-    // data to load characters
+    // new characters join at the highest team level
     const levelMax = this.characters.levelMax() || 1;
+    const unlock = ZONE_UNLOCKS[level] ?? {};
 
-    switch (level) {
-      case 1:
-        // add cloud in the team
-        this.characters.add(
-          this.store.getCharacter(CharacterRef.Cloud).setLevel(levelMax),
-          true,
-        );
-        this.weapons.add(this.store.getWeapon(WeaponRef.BusterSword));
-
-        // add barret in the team
-        this.characters.add(
-          this.store.getCharacter(CharacterRef.Barret).setLevel(levelMax),
-          true,
-        );
-        this.weapons.add(this.store.getWeapon(WeaponRef.GatlingGun));
-
-        // add materias
-        this.materias.add(this.store.getMateria(MateriaRef.Restore), true);
-        this.materias.add(this.store.getMateria(MateriaRef.Bolt), true);
-
-        // add items
-        this.items.add(this.store.getItem(ItemRef.Potion), true);
-        this.items.add(this.store.getItem(ItemRef.Potion), true);
-
-        break;
-      case 2:
-        // add tifa in the team
-        this.characters.add(
-          this.store.getCharacter(CharacterRef.Tifa).setLevel(levelMax),
-          true,
-        );
-        this.weapons.add(this.store.getWeapon(WeaponRef.LeatherGlove));
-        break;
-      case 3:
-        // add aerith in the team
-        this.characters.add(
-          this.store.getCharacter(CharacterRef.Aerith).setLevel(levelMax),
-          true,
-        );
-        this.weapons.add(this.store.getWeapon(WeaponRef.GuardStick));
-        break;
-      case 4:
-        // add barret & tifa in the team
-        this.characters.list.forEach((c) => {
-          if (c.ref === CharacterRef.Barret || c.ref === CharacterRef.Tifa) {
-            c.inTeam = true;
-          }
-        });
-        break;
-      case 5:
-        // add redxiii in the team
-        this.characters.add(
-          this.store.getCharacter(CharacterRef.RedXIII).setLevel(levelMax),
-          false,
-        );
-        this.weapons.add(this.store.getWeapon(WeaponRef.MythrilClip));
-        break;
-      case 9:
-        // add yuffie in the team
-        this.characters.add(
-          this.store.getCharacter(CharacterRef.Yuffie).setLevel(levelMax),
-          false,
-        );
-        this.weapons.add(this.store.getWeapon(WeaponRef.FPtShuriken));
-        break;
-      default:
-      // do nothing
-    }
+    unlock.characters?.forEach(({ ref, inTeam }) => {
+      this.characters.add(
+        this.store.getCharacter(ref).setLevel(levelMax),
+        inTeam,
+      );
+    });
+    unlock.joinTeam?.forEach((ref) => {
+      const character = this.characters.list.find((c) => c.ref === ref);
+      if (character) {
+        character.inTeam = true;
+      }
+    });
+    unlock.weapons?.forEach((ref) => {
+      this.weapons.add(this.store.getWeapon(ref));
+    });
+    unlock.materias?.forEach(({ ref, equipped }) => {
+      this.materias.add(this.store.getMateria(ref), equipped);
+    });
+    unlock.items?.forEach(({ ref, equipped }) => {
+      this.items.add(this.store.getItem(ref), equipped);
+    });
 
     this.linkWeapons();
 

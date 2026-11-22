@@ -49,7 +49,7 @@ Biome is the only linter/formatter (no ESLint/Prettier). It uses single quotes a
 1. loads the save from `localStorage['save1']` (base64-encoded JSON, shaped like the `Save` interface in `models/save.ts`); saves older than `1.1.0` are discarded
 2. otherwise resets and calls `buildLevel(1)`
 
-`buildLevel(n)` hardcodes how characters, weapons, materias and items are unlocked as zones progress. The save version comes from `package.json` `version`.
+`buildLevel(n)` adds zone n and what it unlocks, read from the `ZONE_UNLOCKS` table (`models/zone-unlocks.ts`: new characters, characters rejoining the team, weapons, materias, items), then restores HP and MP. The save version comes from `package.json` `version`.
 
 Each collection class (`models/units/characters.ts`, `models/zones.ts`, `models/weapons.ts`, `models/materias.ts`, `models/items.ts`) has `export()` / load logic that maps to `Save`. When you add a persisted field, update the `Save` interfaces, the `export()` methods and `GameService.load()` together.
 

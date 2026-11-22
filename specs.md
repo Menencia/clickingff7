@@ -85,7 +85,7 @@ Le jeu compte 9 zones (`MAX_ZONES = 9`). Chacune a 4 ennemis ordinaires et 1 bos
 - Aller à une zone jamais visitée augmente `levelMax` et applique les déblocages (§4.3). Le catalogue de la boutique en dépend (§10).
 - Le joueur peut revenir à tout moment dans une zone déjà débloquée, depuis la Carte.
 
-### 4.3 Déblocages par zone (`GameService.buildLevel`)
+### 4.3 Déblocages par zone (`ZONE_UNLOCKS`, lu par `GameService.buildLevel`)
 
 | Zone | Déblocage |
 |---|---|
