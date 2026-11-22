@@ -13,7 +13,7 @@ import { Save } from '../../models/save';
 import { Characters } from '../../models/units/characters';
 import { Weapon } from '../../models/weapon';
 import { Weapons } from '../../models/weapons';
-import { Zones } from '../../models/zones';
+import { MAX_ZONES, Zones } from '../../models/zones';
 import { decodeSave, encodeSave } from '../../shared/utils/save.utils';
 import { isVersionAtLeast } from '../../shared/utils/version.utils';
 import { StoreService } from './store.service';
@@ -27,6 +27,8 @@ export enum Difficulty {
   Normal = 2,
   Hard = 3,
 }
+
+const DIFFICULTIES = [Difficulty.Easy, Difficulty.Normal, Difficulty.Hard];
 
 @Injectable({
   providedIn: 'root',
@@ -402,6 +404,7 @@ export class GameService {
       const item = this.store.getItem(i.ref).load(i);
       this.items.add(item, i.equipped);
     });
+    this.items.fit();
 
     this.language = save.language;
     // Older saves store the difficulty as a string ("2").
@@ -409,6 +412,30 @@ export class GameService {
 
     this.time.set(save.time);
     this.gils.set(save.gils);
+
+    this.checkPlayable();
+  }
+
+  /**
+   * Throws if the loaded game cannot be played: current zone or last
+   * unlocked zone missing, empty team or unknown difficulty. Completes the
+   * shape checks of decodeSave(), which cannot see the game data.
+   */
+  private checkPlayable(): void {
+    const { level, levelMax, list } = this.zones;
+    const lastZone = Math.max(0, ...list.map((z) => z.level));
+    if (level > levelMax || levelMax > MAX_ZONES || levelMax > lastZone) {
+      throw new Error('Invalid zone progress');
+    }
+    this.zones.current();
+
+    if (this.characters.getTeam().length === 0) {
+      throw new Error('Empty team');
+    }
+
+    if (!DIFFICULTIES.includes(this.difficulty)) {
+      throw new Error('Unknown difficulty');
+    }
   }
 
   /**

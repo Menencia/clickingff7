@@ -25,7 +25,7 @@ Ajouter `enemies.spec.ts` et un cas `zone 9` dans `game.service.spec.ts`.
 
 ## Lot 2 — Fiabilité
 
-### 2. `fix(save): reject saves whose zone or team cannot be played` 🟠
+### 2. `fix(save): reject saves whose zone or team cannot be played` 🟠 ✅ fait
 
 Voir « Hors refactor ». À la fin de `GameService.load()`, vérifier ce que `decodeSave()` ne peut pas savoir : `zones.current()` existe, `levelMax` ne dépasse ni `MAX_ZONES` ni la dernière zone de la liste, l'équipe compte au moins un personnage disponible, `difficulty` est une valeur de `Difficulty`. En cas d'écart, lever une erreur : `tryLoad()` la transforme déjà en refus (import refusé, ou nouvelle partie au démarrage). Ramener les objets équipés à `MAX_ITEMS`, comme `fitMaterias()` le fait pour les materias.
 

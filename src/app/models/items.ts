@@ -45,6 +45,17 @@ export class Items extends Stock<Item> {
   }
 
   /**
+   * Unequips the last equipped items until at most MAX_ITEMS remain
+   */
+  fit(): void {
+    this.getEquipped()
+      .slice(MAX_ITEMS)
+      .forEach((i) => {
+        i.equipped = false;
+      });
+  }
+
+  /**
    * Export all items
    */
   export(): ItemSave[] {

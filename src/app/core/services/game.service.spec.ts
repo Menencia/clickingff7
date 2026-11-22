@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
 import packageJson from '../../../../package.json';
+import { MAX_ITEMS } from '../../models/item';
 import { CharacterRef } from '../../models/refs/characters';
 import { ItemRef } from '../../models/refs/items';
 import { MateriaRef } from '../../models/refs/materias';
@@ -512,6 +513,125 @@ describe('GameService', () => {
       expect(game.importGame(save)).toBe(false);
 
       expect(game.export()).toEqual(before);
+    });
+
+    it.each([
+      [
+        'current zone missing',
+        (s: Save) => {
+          s.zones.level = 0;
+        },
+      ],
+      [
+        'current zone beyond the last unlocked one',
+        (s: Save) => {
+          s.zones.level = 2;
+        },
+      ],
+      [
+        'last unlocked zone missing',
+        (s: Save) => {
+          s.zones.levelMax = 2;
+        },
+      ],
+      [
+        'no zone',
+        (s: Save) => {
+          s.zones.list = [];
+        },
+      ],
+      [
+        'last unlocked zone beyond MAX_ZONES',
+        (s: Save) => {
+          s.zones.levelMax = MAX_ZONES + 1;
+        },
+      ],
+      [
+        'empty team',
+        (s: Save) => {
+          s.characters.list.forEach((c) => {
+            c.inTeam = false;
+          });
+        },
+      ],
+      [
+        'no character',
+        (s: Save) => {
+          s.characters.list = [];
+        },
+      ],
+      [
+        'difficulty 0',
+        (s: Save) => {
+          s.difficulty = 0;
+        },
+      ],
+      [
+        'difficulty 4',
+        (s: Save) => {
+          s.difficulty = 4;
+        },
+      ],
+      [
+        'non-numeric difficulty',
+        (s: Save) => {
+          s.difficulty = 'hard' as unknown as number;
+        },
+      ],
+    ])('refuses a save that cannot be played (%s)', (_, alter) => {
+      game.gils.set(777);
+      const before = structuredClone(game.export());
+      const save = structuredClone(before);
+      alter(save);
+
+      expect(game.importGame(save)).toBe(false);
+
+      expect(game.export()).toEqual(before);
+      expect(() => game.zones.current()).not.toThrow();
+    });
+
+    it('refuses an empty team once the unavailable characters leave it', () => {
+      unlockNextZone(game);
+      unlockNextZone(game); // zone 3: Barret and Tifa are unavailable
+      const save = structuredClone(game.export());
+      save.characters.list.forEach((c) => {
+        c.inTeam = c.ref === CharacterRef.Barret || c.ref === CharacterRef.Tifa;
+      });
+
+      expect(game.importGame(save)).toBe(false);
+    });
+
+    it.each([3, 4, MAX_ZONES])(
+      'accepts an exported game in zone %i (round trip)',
+      (zone) => {
+        while (game.zones.levelMax < zone) {
+          unlockNextZone(game);
+        }
+        const save = structuredClone(game.export());
+        game.newGame();
+
+        expect(game.importGame(save)).toBe(true);
+
+        expect(game.export()).toEqual(save);
+        expect(game.characters.selected).toBeDefined();
+      },
+    );
+
+    it(`unequips the items beyond ${MAX_ITEMS} on load`, () => {
+      const store = TestBed.inject(StoreService);
+      game.items.add(store.getItem(ItemRef.Ether));
+      game.items.add(store.getItem(ItemRef.HiPotion));
+      const save = structuredClone(game.export());
+      save.items.forEach((i) => {
+        i.equipped = true;
+      });
+
+      expect(game.importGame(save)).toBe(true);
+
+      expect(refs(game.items.getEquipped())).toEqual([
+        ItemRef.Potion,
+        ItemRef.Ether,
+      ]);
     });
 
     it('keeps a single play-time timer', () => {

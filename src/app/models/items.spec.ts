@@ -41,6 +41,24 @@ describe('Items', () => {
     expect(items.getEquipped()).toHaveLength(MAX_ITEMS);
   });
 
+  it(`fit unequips the last equipped items beyond ${MAX_ITEMS}`, () => {
+    items.list.forEach((i) => {
+      i.equipped = true;
+    });
+
+    items.fit();
+
+    expect(items.getEquipped().map((i) => i.ref)).toEqual([
+      ItemRef.Potion,
+      ItemRef.Ether,
+    ]);
+  });
+
+  it('fit keeps the items when the slots are enough', () => {
+    items.fit();
+    expect(items.getEquipped().map((i) => i.ref)).toEqual([ItemRef.Potion]);
+  });
+
   it('unequipping frees a slot', () => {
     const [potion, ether, hiPotion] = items.list;
     items.equip(ether);
