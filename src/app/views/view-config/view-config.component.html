@@ -1,19 +1,45 @@
 <app-ui-layout-default>
-  <p>
-    {{ "Difficulty" | translate }} :
-    <select [(ngModel)]="difficulty" (change)="changeDifficulty()">
-      <option [ngValue]="Difficulty.Easy">{{ "Easy" | translate }}</option>
-      <option [ngValue]="Difficulty.Normal">{{ "Normal" | translate }}</option>
-      <option [ngValue]="Difficulty.Hard">{{ "Hard" | translate }}</option>
-    </select>
-  </p>
+  <div
+    class="mx-auto flex max-w-md flex-col gap-4 rounded-box border border-base-300 bg-base-100 p-4"
+  >
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend text-sm">
+        {{ "Difficulty" | translate }}
+      </legend>
+      <div class="flex flex-wrap gap-2">
+        @for (option of difficulties; track option.value) {
+        <button
+          type="button"
+          class="badge badge-lg cursor-pointer"
+          [class.badge-primary]="difficulty === option.value"
+          [class.badge-ghost]="difficulty !== option.value"
+          [attr.aria-pressed]="difficulty === option.value"
+          (click)="changeDifficulty(option.value)"
+        >
+          {{ option.label | translate }}
+        </button>
+        }
+      </div>
+    </fieldset>
 
-  <p>
-    {{ "Language" | translate }} :
-    <select [(ngModel)]="language" (change)="changeLanguage()">
-      <option value="fr">Français</option>
-      <option value="en">English</option>
-      <option value="es">Español</option>
-    </select>
-  </p>
+    <fieldset class="fieldset">
+      <legend class="fieldset-legend text-sm">
+        {{ "Language" | translate }}
+      </legend>
+      <div class="flex flex-wrap gap-2">
+        @for (option of languages; track option.value) {
+        <button
+          type="button"
+          class="badge badge-lg cursor-pointer"
+          [class.badge-primary]="language === option.value"
+          [class.badge-ghost]="language !== option.value"
+          [attr.aria-pressed]="language === option.value"
+          (click)="changeLanguage(option.value)"
+        >
+          {{ option.label }}
+        </button>
+        }
+      </div>
+    </fieldset>
+  </div>
 </app-ui-layout-default>

@@ -27,14 +27,13 @@ describe('ViewConfigComponent', () => {
     [0, Difficulty.Easy],
     [1, Difficulty.Normal],
     [2, Difficulty.Hard],
-  ])('stores option %i as the number %i', async (index, expected) => {
+  ])('stores choice %i as the number %i', async (index, expected) => {
     const fixture = TestBed.createComponent(ViewConfigComponent);
     await fixture.whenStable();
-    const select: HTMLSelectElement =
-      fixture.nativeElement.querySelector('select');
+    const badges: NodeListOf<HTMLButtonElement> =
+      fixture.nativeElement.querySelectorAll('fieldset:first-of-type button');
 
-    select.selectedIndex = index;
-    select.dispatchEvent(new Event('change'));
+    badges[index].click();
 
     expect(game.difficulty).toBe(expected);
     expect(typeof game.difficulty).toBe('number');
@@ -44,9 +43,11 @@ describe('ViewConfigComponent', () => {
     game.difficulty = Difficulty.Hard;
     const fixture = TestBed.createComponent(ViewConfigComponent);
     await fixture.whenStable();
-    const select: HTMLSelectElement =
-      fixture.nativeElement.querySelector('select');
+    const badges: NodeListOf<HTMLButtonElement> =
+      fixture.nativeElement.querySelectorAll('fieldset:first-of-type button');
 
-    expect(select.selectedIndex).toBe(2);
+    expect(
+      [...badges].map((badge) => badge.getAttribute('aria-pressed')),
+    ).toEqual(['false', 'false', 'true']);
   });
 });

@@ -244,7 +244,7 @@ Le menu latéral donne accès à : Jeu, Carte, Boutique, Équipement, Materia, O
 | Équipement | `/equip` | Sélection d'un membre de l'équipe et choix de son arme parmi les armes possédées de son type. Le personnage choisi est présenté dans une carte (portrait, niveau, HP / MP / puissance, arme équipée avec sa puissance et ses emplacements de materia) ; dans la liste, l'arme équipée porte un badge « Équipée » au lieu du bouton. Sur grand écran, les boutons des personnages sont en colonne à gauche ; sur mobile, la carte est en haut, la liste des armes en dessous et les personnages sont dans une barre collée en bas de l'écran. |
 | Materia | `/materia` | Équiper / déséquiper les materias selon les emplacements disponibles (compteur équipées / emplacements dans l'en-tête du tableau). Les materias équipées sont surlignées. Sur mobile, la barre d'AP est affichée sous la description au lieu d'une colonne Évolution. |
 | Objets | `/items` | Équiper / déséquiper les objets (2 maximum, compteur équipés / maximum dans l'en-tête du tableau). Les objets équipés sont surlignés. Sur mobile, la quantité en stock est affichée dans un badge à côté du nom au lieu d'une colonne. |
-| Config | `/config` | Difficulté (Facile / Normal / Difficile) et langue (FR / EN / ES). |
+| Config | `/config` | Difficulté (Facile / Normal / Difficile) et langue (Français / English / Español), chacune choisie en cliquant sur un badge (le choix actif est en couleur) au lieu d'une liste déroulante. |
 | PHS | `/phs` | Échange de personnages entre l'équipe et la réserve : 3 membres au maximum, 1 au minimum. |
 | Sauvegarde | `/save` | Voir §11. |
 

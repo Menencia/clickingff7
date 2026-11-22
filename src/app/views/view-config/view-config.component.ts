@@ -1,12 +1,11 @@
 import { Component, inject } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Difficulty, GameService } from '../../core/services/game.service';
 import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
   selector: 'app-view-config',
-  imports: [UiLayoutDefaultComponent, TranslatePipe, FormsModule],
+  imports: [UiLayoutDefaultComponent, TranslatePipe],
   templateUrl: './view-config.component.html',
   styleUrls: ['./view-config.component.scss'],
 })
@@ -14,7 +13,17 @@ export class ViewConfigComponent {
   private gameService = inject(GameService);
   private translateService = inject(TranslateService);
 
-  protected readonly Difficulty = Difficulty;
+  protected readonly difficulties = [
+    { value: Difficulty.Easy, label: 'Easy' },
+    { value: Difficulty.Normal, label: 'Normal' },
+    { value: Difficulty.Hard, label: 'Hard' },
+  ];
+
+  protected readonly languages = [
+    { value: 'fr', label: 'Français' },
+    { value: 'en', label: 'English' },
+    { value: 'es', label: 'Español' },
+  ];
 
   difficulty: Difficulty;
 
@@ -25,12 +34,14 @@ export class ViewConfigComponent {
     this.language = this.gameService.language;
   }
 
-  changeDifficulty(): void {
-    this.gameService.difficulty = this.difficulty;
+  changeDifficulty(difficulty: Difficulty): void {
+    this.difficulty = difficulty;
+    this.gameService.difficulty = difficulty;
   }
 
-  changeLanguage(): void {
-    this.gameService.language = this.language;
-    this.translateService.use(this.gameService.language);
+  changeLanguage(language: string): void {
+    this.language = language;
+    this.gameService.language = language;
+    this.translateService.use(language);
   }
 }
