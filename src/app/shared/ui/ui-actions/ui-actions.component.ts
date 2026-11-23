@@ -14,12 +14,20 @@ import { ActionIconComponent } from '../action-icon/action-icon.component';
  */
 export const FIGHT_COOLDOWN = 1000;
 
+/** Elements whose own keyboard behavior (Space, Enter) must be left alone */
+const INTERACTIVE =
+  'button, a, input, select, textarea, summary, [contenteditable]';
+
+/** Elements where typing must never trigger a shortcut */
+const TEXT_FIELDS = 'input, select, textarea, [contenteditable]';
+
 export type ActionsTab = 'items' | 'magic' | 'battle';
 
 @Component({
   selector: 'app-ui-actions',
   imports: [ActionIconComponent, TranslatePipe],
   templateUrl: './ui-actions.component.html',
+  host: { '(document:keydown)': 'onKeydown($event)' },
   styleUrls: ['./ui-actions.component.scss'],
 })
 export class UiActionsComponent {
@@ -129,5 +137,52 @@ export class UiActionsComponent {
 
   public canLimit(): boolean {
     return this.gameService.characters.canLimit();
+  }
+
+  /**
+   * Keyboard shortcuts of the battle actions: Space or A to attack, L for the
+   * Limit, Escape to flee, R for a random fight and B for the boss. Held keys
+   * (repeats) and keys with a modifier are ignored.
+   */
+  onKeydown(event: KeyboardEvent): void {
+    if (event.repeat || event.ctrlKey || event.altKey || event.metaKey) {
+      return;
+    }
+    const target = event.target instanceof Element ? event.target : null;
+    if (target?.closest(TEXT_FIELDS)) {
+      return;
+    }
+    const key = event.key.toLowerCase();
+    // Space on a focused button already clicks it.
+    if (key === ' ' && target?.closest(INTERACTIVE)) {
+      return;
+    }
+    const action = this.shortcut(key);
+    if (action) {
+      event.preventDefault();
+      action();
+    }
+  }
+
+  private shortcut(key: string): (() => void) | undefined {
+    if (this.isBattle()) {
+      switch (key) {
+        case ' ':
+        case 'a':
+          return () => this.attack();
+        case 'l':
+          return this.canLimit() ? () => this.limit() : undefined;
+        case 'escape':
+          return () => this.escape();
+      }
+      return undefined;
+    }
+    switch (key) {
+      case 'r':
+        return () => this.fightRandom();
+      case 'b':
+        return () => this.fightBoss();
+    }
+    return undefined;
   }
 }

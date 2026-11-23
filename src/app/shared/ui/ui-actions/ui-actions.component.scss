@@ -30,7 +30,18 @@
   opacity: 0.6;
 }
 
+// Keyboard shortcut of a battle action, only shown on large screens.
+.shortcut {
+  display: none;
+  flex: none;
+  opacity: 0.7;
+}
+
 @media (min-width: 64rem) {
+  .shortcut {
+    display: inline-flex;
+  }
+
   .action-groups {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));

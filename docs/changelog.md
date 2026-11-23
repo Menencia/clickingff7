@@ -8,12 +8,17 @@
 - Battle screen redesign: the team faces the enemy, with portraits and circular gauges, and actions in Battle, Magic and Items tabs
 - Gils are now shown in the header on every screen
 - The Limit gets its own button: Attack no longer uses it automatically
+- Keyboard shortcuts on the game screen: Space/A to attack, L for the Limit, Esc to flee, R and B to start a fight
 - Fix a new fight starting by accident when clicking Attack right as a battle ends
 - Fix random damage and healing variance going well beyond ±10% on small values
 - Fix a save with an unknown language loading without translations
 ```
 
 ### Détail des changements
+
+#### Nouveautés
+
+- Raccourcis clavier sur l'écran Jeu : Espace ou A pour attaquer, L pour la Limite, Échap pour fuir, R pour un combat aléatoire et B pour le boss. Sur grand écran, chaque bouton affiche sa touche. Garder une touche enfoncée n'attaque pas en boucle.
 
 #### Corrections
 

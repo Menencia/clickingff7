@@ -314,4 +314,75 @@ describe('UiActionsComponent (real data)', () => {
     expect(game.characters.limit()).toBe(0);
     expect(names()).toEqual(['Attack', 'Escape']);
   });
+
+  describe('keyboard shortcuts', () => {
+    function press(
+      key: string,
+      init: KeyboardEventInit = {},
+      target?: Element,
+    ) {
+      const event = new KeyboardEvent('keydown', {
+        key,
+        bubbles: true,
+        cancelable: true,
+        ...init,
+      });
+      (target ?? document.body).dispatchEvent(event);
+      return event;
+    }
+
+    beforeEach(() => {
+      TestBed.createComponent(UiActionsComponent).detectChanges();
+    });
+
+    it('starts a random fight with R, then attacks with Space and A', () => {
+      press('r');
+      const battle = battleService.battle();
+      expect(battle).toBeDefined();
+      battle?.enemies.hp.set(1_000_000);
+
+      press(' ');
+      press('a');
+      expect(battle?.enemies.hp()).toBeLessThan(1_000_000);
+    });
+
+    it('uses the Limit with L only when the gauge is full', () => {
+      press('r');
+      battleService.battle()?.enemies.hp.set(1_000_000);
+
+      const ignored = press('l');
+      expect(ignored.defaultPrevented).toBe(false);
+
+      game.characters.limit.set(game.characters.limitMax());
+      press('L');
+      expect(game.characters.limit()).toBe(0);
+    });
+
+    it('flees with Escape', () => {
+      press('r');
+      press('Escape');
+      expect(battleService.battle()).toBeUndefined();
+    });
+
+    it('ignores held keys, modifiers and text fields', () => {
+      press('r', { repeat: true });
+      press('r', { ctrlKey: true });
+      const input = document.createElement('input');
+      document.body.append(input);
+      press('r', {}, input);
+      input.remove();
+
+      expect(battleService.battle()).toBeUndefined();
+    });
+
+    it('leaves Space to a focused button', () => {
+      press('r');
+      const button = document.createElement('button');
+      document.body.append(button);
+      const event = press(' ', {}, button);
+      button.remove();
+
+      expect(event.defaultPrevented).toBe(false);
+    });
+  });
 });
