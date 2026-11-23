@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
 import { Character } from '../../models/character';
@@ -15,33 +15,29 @@ import { WeaponIconComponent } from '../../shared/ui/weapon-icon/weapon-icon.com
 export class ViewEquipComponent {
   private gameService = inject(GameService);
 
-  selected: Character;
-
   readonly team = this.gameService.characters.team;
 
-  weapons: Weapon[] = [];
+  readonly selected = this.gameService.characters.selected;
 
-  constructor() {
-    this.selected = this.gameService.characters.selected;
-    const found = this.team().find((character) => character === this.selected);
-    if (!found) {
-      const [first] = this.team();
-      this.selected = first;
-    }
-    this.weapons = this.gameService.weapons.getAllWeapons(this.selected);
-  }
+  /** owned weapons of the selected character's type */
+  readonly weapons = computed(() => {
+    const selected = this.selected();
+    return selected ? this.gameService.weapons.getAllWeapons(selected) : [];
+  });
 
   canEquipWeapon(weapon: Weapon): boolean {
-    return this.gameService.canEquipWeapon(this.selected, weapon);
+    const selected = this.selected();
+    return !!selected && this.gameService.canEquipWeapon(selected, weapon);
   }
 
   equipWeapon(weapon: Weapon): void {
-    this.gameService.equipWeapon(this.selected, weapon);
+    const selected = this.selected();
+    if (selected) {
+      this.gameService.equipWeapon(selected, weapon);
+    }
   }
 
   selectCharacter(character: Character): void {
     this.gameService.characters.select(character);
-    this.selected = character;
-    this.weapons = this.gameService.weapons.getAllWeapons(character);
   }
 }

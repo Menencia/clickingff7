@@ -197,6 +197,47 @@ describe('Characters', () => {
     });
   });
 
+  describe('select / selected', () => {
+    it('defaults to the first team member', () => {
+      expect(characters.selected()).toBe(characters.list[0]);
+    });
+
+    it('returns the picked team member', () => {
+      characters.select(characters.list[1]);
+      expect(characters.selected()).toBe(characters.list[1]);
+    });
+
+    it('falls back to the first team member once the picked one leaves', () => {
+      const [first, second] = characters.list;
+      characters.select(second);
+      characters.leave(second);
+      expect(characters.selected()).toBe(first);
+    });
+
+    it('returns the picked character again when it rejoins the team', () => {
+      const second = characters.list[1];
+      characters.select(second);
+      characters.leave(second);
+      characters.join(second);
+      expect(characters.selected()).toBe(second);
+    });
+
+    it('ignores a picked character out of the team', () => {
+      characters.select(characters.list[2]); // backup
+      expect(characters.selected()).toBe(characters.list[0]);
+    });
+
+    it('is undefined while the team is empty, and forgets the pick on clear', () => {
+      characters.select(characters.list[1]);
+      characters.clear();
+      expect(characters.selected()).toBeUndefined();
+
+      characters.add(makeCharacter(1), true);
+      characters.refresh();
+      expect(characters.selected()).toBe(characters.list[0]);
+    });
+  });
+
   describe('backup / maxMaterias', () => {
     it('follows the team on each refresh', () => {
       const [first, second, third] = characters.list;

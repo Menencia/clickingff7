@@ -22,7 +22,7 @@ describe('ViewEquipComponent', () => {
           provide: GameService,
           useValue: {
             run: () => {},
-            characters: { team: signal([]) },
+            characters: { team: signal([]), selected: signal(undefined) },
             weapons: { getAllWeapons: () => [] },
           },
         },
@@ -88,7 +88,7 @@ describe('ViewEquipComponent (real data)', () => {
     game.characters.refresh();
 
     const view = create();
-    expect(view.selected).toBe(cloud);
+    expect(view.selected()).toBe(cloud);
     expect(view.team()).toEqual([cloud]);
   });
 
@@ -108,15 +108,37 @@ describe('ViewEquipComponent (real data)', () => {
 
   it('lists only the weapons of the selected character type', () => {
     const view = create();
-    expect(view.selected.ref).toBe(CharacterRef.Cloud);
-    expect(view.weapons.map((w) => w.ref)).toEqual([
+    expect(view.selected()?.ref).toBe(CharacterRef.Cloud);
+    expect(view.weapons().map((w) => w.ref)).toEqual([
       WeaponRef.BusterSword,
       WeaponRef.MythrilSaber,
     ]);
 
     view.selectCharacter(character(CharacterRef.Barret));
-    expect(game.characters.selected.ref).toBe(CharacterRef.Barret);
-    expect(view.weapons.map((w) => w.ref)).toEqual([WeaponRef.GatlingGun]);
+    expect(game.characters.selected()?.ref).toBe(CharacterRef.Barret);
+    expect(view.weapons().map((w) => w.ref)).toEqual([WeaponRef.GatlingGun]);
+  });
+
+  it('follows the team when the selected character leaves it', () => {
+    const fixture = TestBed.createComponent(ViewEquipComponent);
+    const view = fixture.componentInstance;
+    const barret = character(CharacterRef.Barret);
+    view.selectCharacter(barret);
+    fixture.detectChanges();
+    expect(view.weapons().map((w) => w.ref)).toEqual([WeaponRef.GatlingGun]);
+
+    game.characters.leave(barret);
+    fixture.detectChanges();
+
+    expect(view.selected()).toBe(character(CharacterRef.Cloud));
+    expect(view.weapons().map((w) => w.ref)).toEqual([
+      WeaponRef.BusterSword,
+      WeaponRef.MythrilSaber,
+    ]);
+    const active = fixture.nativeElement.querySelector(
+      '.team-picker .btn-secondary',
+    );
+    expect(active?.textContent?.trim()).toBe(CharacterRef.Cloud);
   });
 
   it('equipping a weapon unequips the previous one of the same type', () => {

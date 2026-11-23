@@ -157,7 +157,6 @@ export class GameService {
 
     this.characters.refresh();
     this.fitMaterias();
-    this.characters.select();
 
     this.autoTimer();
   }

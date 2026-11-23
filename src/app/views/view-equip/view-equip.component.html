@@ -11,7 +11,7 @@
         <button
           type="button"
           class="btn btn-sm sm:btn-md"
-          [class.btn-secondary]="selected?.ref === character.ref"
+          [class.btn-secondary]="selected() === character"
           (click)="selectCharacter(character)"
         >
           {{ character.ref }}
@@ -20,7 +20,7 @@
       </div>
     </div>
 
-    @if (selected) {
+    @if (selected(); as selected) {
     <div
       class="order-1 col-span-2 flex flex-col gap-3 self-start rounded-box border border-base-300 bg-base-100 p-3 sm:order-none sm:p-4"
     >
@@ -84,7 +84,7 @@
             </tr>
           </thead>
           <tbody>
-            @for (weapon of weapons; track weapon) {
+            @for (weapon of weapons(); track weapon) {
             <tr class="hover:bg-base-200">
               <td>
                 <div class="flex items-center gap-2">

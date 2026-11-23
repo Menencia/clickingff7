@@ -14,10 +14,21 @@ export class Characters extends Units {
 
   list: Character[] = [];
 
-  selected!: Character;
-
   /** in-team characters, as of the last refresh() */
   readonly team = signal<Character[]>([]);
+
+  /** character last picked in the menus, see select() */
+  private readonly picked = signal<Character | undefined>(undefined);
+
+  /**
+   * Character shown in the menus: the picked one while it is in the team,
+   * otherwise the first team member (undefined if the team is empty)
+   */
+  readonly selected = computed(() => {
+    const team = this.team();
+    const picked = this.picked();
+    return picked && team.includes(picked) ? picked : team[0];
+  });
 
   readonly hpMax = computed(() =>
     this.team().reduce((sum, c) => sum + c.getHpMax(), 0),
@@ -63,6 +74,7 @@ export class Characters extends Units {
   clear(): void {
     this.list.length = 0;
     this.team.set([]);
+    this.picked.set(undefined);
     this.hp.set(0);
     this.mp.set(0);
     this.limit.set(0);
@@ -161,10 +173,10 @@ export class Characters extends Units {
   }
 
   /**
-   * Select a character in menus
+   * Picks a character in the menus (see selected)
    */
-  select(character: null | Character = null): void {
-    this.selected = character || this.getTeam()[0];
+  select(character: Character): void {
+    this.picked.set(character);
   }
 
   /**

@@ -122,7 +122,7 @@ describe('GameService', () => {
       expect(game.characters.hp()).toBe(game.characters.hpMax());
       expect(game.characters.mp()).toBe(game.characters.mpMax());
       expect(game.characters.limit()).toBe(0);
-      expect(game.characters.selected.ref).toBe(CharacterRef.Cloud);
+      expect(game.characters.selected()?.ref).toBe(CharacterRef.Cloud);
     });
 
     it('counts play time every second', () => {
@@ -813,7 +813,7 @@ describe('GameService', () => {
         expect(game.importGame(save)).toBe(true);
 
         expect(game.export()).toEqual(save);
-        expect(game.characters.selected).toBeDefined();
+        expect(game.characters.selected()).toBeDefined();
       },
     );
 

@@ -73,7 +73,7 @@ Changement : `Materias.remove(materia)`, appelé par `ShopService`.
 
 **Risque** : très faible. `shop.service.spec.ts` couvre la vente ; ajouter un cas à `materias.spec.ts`.
 
-### 8. `refactor(characters): keep the selected character in the team` 🟢
+### 8. `refactor(characters): keep the selected character in the team` 🟢 ✅ fait
 
 `Characters.selected` (assertion `!`) n'est fixé que par `select()`, et peut désigner un personnage sorti de l'équipe depuis le PHS. `ViewEquipComponent` rattrape le cas dans son constructeur en recopiant la logique « premier de l'équipe ».
 
