@@ -1,174 +1,132 @@
 # Refactors prioritaires
 
-Analyse du 22/11/2026, commit `c5d5cb0` (version 1.6.0). Tout le code de `src/app` a été lu (services, modèles, vues, composants partagés, utilitaires, specs survolées). Les templates HTML et les styles n'ont été consultés que pour vérifier des usages.
+Analyse du 23/11/2026, commit `df63b0c` (version 1.7.0). Tout le code TypeScript de `src/app` a été lu (services, modèles, vues, composants partagés, utilitaires, guards). Les templates HTML n'ont été consultés que pour vérifier des usages, les specs seulement pour mesurer la couverture.
 
 **Légende** : 🔴 haute · 🟠 moyenne · 🟢 basse
 
-**Vérifications après chaque commit** (identiques à la CI) : `pnpm build`, `pnpm test:ci`, `pnpm lint`. Chaque commit doit les laisser au vert. Si un commit change une règle de jeu ou le format de sauvegarde, il met aussi à jour `specs.md`, et s'il touche du code de compatibilité, `docs/compatibilite.md` (voir CLAUDE.md).
+**Vérifications après chaque commit** (identiques à la CI) : `pnpm build`, `pnpm test:ci`, `pnpm lint`. Chaque commit doit les laisser au vert. Si un commit change une règle de jeu ou le format de sauvegarde, il met aussi à jour `specs.md`, s'il touche du code de compatibilité `docs/compatibilite.md`, et s'il change quelque chose de visible pour le joueur le changelog (voir CLAUDE.md).
 
-Les 10 entrées de l'analyse précédente (filet de tests des vues, logique métier sortie des vues, armes portées dérivées des personnages, `Stock`, typage des armes, signal `team`, nettoyage) sont toutes livrées.
+Les 16 entrées de l'analyse précédente (commit `c5d5cb0`) sont toutes livrées. Le code est désormais propre dans l'ensemble : les entrées ci-dessous sont surtout des fiabilisations ciblées et de petites dé-duplications.
 
 ## Hors refactor
 
-- **Sauvegarde incohérente acceptée au chargement** 🟠 (bug n°2 de `docs/bugs.md`) : `decodeSave()` ne vérifie que la forme du JSON, et `GameService.load()` recopie `zones.level` / `levelMax` sans contrôle. Une sauvegarde modifiée à la main avec une zone courante absente de `zones.list` est acceptée par `importGame()` (rien n'appelle `zones.current()` pendant `tryLoad()`), puis `UiActionsComponent.remainingBattles()` lève « Zone not found » à chaque rendu de l'écran Jeu. Même chose si aucun personnage n'est dans l'équipe : `characters.select()` laisse `selected` à `undefined` et l'écran Équipement plante. Une difficulté hors de 1 à 3 et plus de `MAX_ITEMS` objets équipés passent aussi. Corrigé par le commit 2.
-- **Sécurité** : rien à signaler. Le jeu tourne uniquement côté client, sans backend ni appel externe. Le joueur peut modifier sa sauvegarde en base64, ce qui est acceptable pour un jeu solo, du moment qu'elle ne fait pas planter le jeu (point précédent).
+- **Variation aléatoire hors de ±10 % sur les petites valeurs** 🟠 (bug n°1 de `docs/bugs.md`) : `withVariance()` (`shared/utils/game.utils.ts`) appelle `random(a, b)` avec des bornes non entières, alors que `random()` (`math.utils.ts`) est conçu pour des entiers (`floor(Math.random() * (max - min + 1) + min)`). Pour 5 dégâts, on obtient 4, 5 ou 6 (±20 %) ; pour 1, on obtient 0, 1 ou 2. Touche surtout les attaques ennemies du début de partie et les soins faibles, alors que `specs.md` §5.3 annonce ±10 %. Corrigé par le commit 2.
+- **Langue de la sauvegarde non vérifiée** 🟢 (bug n°2) : `GameService.load()` recopie `save.language` tel quel, sans passer par `getLanguage()`. Une sauvegarde modifiée avec une langue inconnue fait charger `assets/i18n/<langue>/*.json`, qui n'existe pas, et l'écran Options n'affiche aucune langue sélectionnée. Corrigé par le commit 3.
+- **Sécurité** : rien à signaler. Jeu uniquement côté client, sans backend ni appel externe ; une sauvegarde modifiée à la main est refusée si elle n'est pas jouable (`checkPlayable()`).
 
 ## Lot 1 — Filet de tests
 
-### 1. `test(units): cover enemy damage and the zone 9 unlock` 🟠 ✅ fait
+### 1. `test(actions): cover attack, cure and potion amounts` 🟠
 
-`Enemies` (`models/units/enemies.ts`) n'a pas de spec : `getAttacked()` (faiblesse ×3, résistance ÷3) et `refresh()` (union des faiblesses et résistances du groupe, PV max) ne sont testés qu'indirectement. Dans `game.service.spec.ts`, `buildLevel` est testé pour les zones 1 à 5, pas pour la zone 9 (Yuffie et le 4-pt Shuriken).
+`Attack` et `Cure` (`models/actions/`) n'ont pas de spec : la variation, le critique et la puissance ne sont testés qu'indirectement par `battle.service.spec.ts` et `materia.spec.ts`. Les montants de `HpPotion` / `MpPotion` non plus.
 
-Ajouter `enemies.spec.ts` et un cas `zone 9` dans `game.service.spec.ts`.
+Ajouter `attack.spec.ts`, `cure.spec.ts` et des cas de potions, avec `Math.random` simulé aux bornes (0 et 0,999…), y compris pour de petites valeurs.
 
-**Risque** : nul pour le code de production. Sert de filet aux commits 6 et 11.
+**Risque** : nul pour le code de production. Sert de filet au commit 2 : les cas « petites valeurs » documentent le comportement actuel et seront ajustés par lui.
 
 ## Lot 2 — Fiabilité
 
-### 2. `fix(save): reject saves whose zone or team cannot be played` 🟠 ✅ fait
+### 2. `fix(battle): keep damage variance within ±10%` 🟠
 
-Voir « Hors refactor ». À la fin de `GameService.load()`, vérifier ce que `decodeSave()` ne peut pas savoir : `zones.current()` existe, `levelMax` ne dépasse ni `MAX_ZONES` ni la dernière zone de la liste, l'équipe compte au moins un personnage disponible, `difficulty` est une valeur de `Difficulty`. En cas d'écart, lever une erreur : `tryLoad()` la transforme déjà en refus (import refusé, ou nouvelle partie au démarrage). Ramener les objets équipés à `MAX_ITEMS`, comme `fitMaterias()` le fait pour les materias.
+Voir « Hors refactor ». `withVariance()` calcule directement `Math.round(value * (1 + VARIANCE * (2 * Math.random() - 1)))`, sans passer par `random()`, qui reste réservé aux entiers (choix de l'ennemi, critique).
 
-**Risque** : faible. Une sauvegarde valide ne doit pas être refusée : tester l'aller-retour `export()` / `load()` en zones 3 et 4 (personnages indisponibles) et en zone 9. Mettre à jour `specs.md` §11, `docs/bugs.md` (retirer le n°2) et le changelog.
+**Risque** : faible, mais c'est de l'équilibrage : les dégâts ennemis du début de partie deviennent moins dispersés. Dépend du commit 1. Mettre à jour `game.utils.spec.ts`, `specs.md` §2 et §5.3 si la formule y est détaillée, `docs/bugs.md` (retirer le n°1, renuméroter) et le changelog.
 
-### 3. `refactor(progress-bar): hold the floating hits in a signal` 🟢 ✅ fait
+### 3. `fix(save): fall back to a supported language on load` 🟢
 
-`ProgressBarComponent.arrHits` est un tableau mutable rempli dans un `subscribe` à `Units.source.hp`, qui émet depuis le `setTimeout` de `Battle.start()`. En zoneless, les dégâts flottants ne s'affichent que parce que `hp` change dans la même tâche et rafraîchit la vue : c'est un couplage caché.
+Voir « Hors refactor ». Dans `GameService.load()`, passer `save.language` par `getLanguage()` (langue du navigateur, puis `en`).
 
-Changement : `arrHits` devient un `signal<ItDisplayHits[]>`, mis à jour avec `update()` dans le `subscribe` et dans `onAnimationEvent()`.
+**Risque** : très faible. Tester qu'une sauvegarde en `de` charge en anglais et qu'une sauvegarde en `es` reste en espagnol. `specs.md` §11, `docs/bugs.md` et changelog.
 
-**Risque** : très faible. Vérifier en combat que les dégâts et soins flottants apparaissent et disparaissent. `progress-bar.component.spec.ts` couvre l'ajout et le retrait.
+### 4. `refactor(progress-bar): follow changes of the hits input` 🟢
 
-### 4. `fix(save): report a failed save to the player` 🟢 ✅ fait
+`ProgressBarComponent` ne lit l'input `hits` qu'une fois, dans `ngOnInit()`. Les dégâts flottants des ennemis ne s'affichent à chaque combat que parce que le `@if (enemies().list.length > 0)` d'`EnemiesPanelComponent` détruit et recrée la barre entre deux combats : couplage caché avec le template parent.
 
-`GameService.save()` écrit dans `localStorage` sans `try`/`catch`. Si l'écriture échoue (quota, stockage désactivé), l'erreur part dans le listener global et l'écran Sauvegarde ne dit rien : le joueur croit avoir sauvegardé.
+Changement : s'abonner via `toObservable(this.hits).pipe(switchMap(...))` (ou un `effect` qui gère l'abonnement), et supprimer `OnInit`.
 
-Changement : `save()` renvoie `false` en cas d'échec et `ViewSaveComponent` affiche un message (nouvelle clé dans `fr`, `en`, `es`).
+**Risque** : très faible. Ajouter à `progress-bar.component.spec.ts` un cas où l'input change d'observable. Vérifier en jeu deux combats d'affilée.
 
-**Risque** : faible. Tester avec un `localStorage.setItem` qui lève. Entrée au changelog.
+### 5. `refactor(game): keep the same collections across games` 🟢
+
+`GameService.preload()` remplace `characters`, `zones`, `weapons`, `materias` et `items` par de nouvelles instances. Tout ce qui a gardé une référence devient obsolète : `ViewGameComponent.characters`, `ViewPhsComponent.team` / `backup`, `ViewMateriaComponent.maxMaterias`, `ViewEquipComponent.team`, les `list` copiées par `ViewItemsComponent` et `ViewMateriaComponent`. Ça marche aujourd'hui parce que `newGame()` et `importGame()` sont suivis d'une navigation vers `/game`, qui recrée les vues. Un futur bouton « Recommencer » sur l'écran Jeu (cf. `docs/ameliorations.md` n°1) afficherait l'ancienne partie.
+
+Changement : une méthode `clear()` par collection (vider `list`, remettre `team`, `hp`, `mp`, `limit`, `level`… à zéro), appelée par `preload()` à la place des `new`.
+
+**Risque** : moyen, `importGame()` restaure la partie courante en cas d'échec et doit continuer à le faire. `game.service.spec.ts` couvre `newGame`, `importGame` (succès et échec) ; ajouter un test qui vérifie que `game.characters` est la même instance avant et après.
 
 ## Lot 3 — Dé-duplication du domaine
 
-### 5. `refactor(models): add Stock.remove for selling and consuming` 🟠 ✅ fait
+### 6. `refactor(models): move difficulties and languages out of GameService` 🟢
 
-La même logique (« décrémenter `nbr`, ou retirer l'entrée de la liste à la dernière copie ») est écrite trois fois : `ShopService.sellWeapon()`, `ShopService.sellItem()` et `BattleService.useItem()`.
+- `Difficulty` est déclaré dans `core/services/game.service.ts`, la liste `DIFFICULTIES` y est aussi, et `ViewConfigComponent.difficulties` la recopie avec les libellés. `Enemy.toLevel()` prend la difficulté en `number`, faute de pouvoir importer un service depuis un modèle.
+- Les langues sont listées deux fois : `GameService.getLanguage()` (`['en', 'fr', 'es']`) et `ViewConfigComponent.languages`.
 
-Changement : `Stock.remove(entry)` dans `models/stock.ts`, appelé aux trois endroits.
+Changement : `models/difficulty.ts` (enum, liste avec libellés) et une constante `LANGUAGES` (code, libellé), utilisées par `GameService`, `BattleService`, `Enemy.toLevel(…, difficulty: Difficulty)` et `ViewConfigComponent`.
 
-**Risque** : très faible. `stock.spec.ts`, `shop.service.spec.ts` et `battle.service.spec.ts` couvrent les trois cas (plusieurs copies, dernière copie).
+**Risque** : très faible, le compilateur signale les imports. `view-config.component.spec.ts` couvre les deux listes. Plus simple après le commit 3, qui touche `getLanguage()`.
 
-### 6. `refactor(units): share elemental damage between characters and enemies` 🟢 ✅ fait
+### 7. `refactor(materias): add Materias.remove for selling` 🟢
 
-`Characters.getAttacked()` et `Enemies.getAttacked()` dupliquent le calcul faiblesse / résistance. Seul le diviseur change (÷10 pour l'équipe, ÷3 pour les ennemis), écrit en dur dans chaque méthode.
+`ShopService.sellMateria()` filtre lui-même `game.materias.list`, alors que les armes et objets passent par `Stock.remove()`. C'est le seul endroit hors des collections qui réécrit une `list`.
 
-Changement : une méthode protégée `Units.applyAffinities(hits, elements)` et un diviseur de résistance déclaré par sous-classe. Chaque `getAttacked()` garde ses effets propres (jauge de Limite pour l'équipe).
+Changement : `Materias.remove(materia)`, appelé par `ShopService`.
 
-**Risque** : faible, aucun chiffre ne doit changer. Dépend du commit 1 (`characters.spec.ts` couvre déjà l'équipe).
+**Risque** : très faible. `shop.service.spec.ts` couvre la vente ; ajouter un cas à `materias.spec.ts`.
 
-### 7. `refactor(models): type elements and rename attack types to elements` 🟢 ✅ fait
+### 8. `refactor(characters): keep the selected character in the team` 🟢
 
-Les éléments (`'bolt'`, `'fire'`, `'wind'`…) sont des `string[]` libres dans `EnemyJson.weakness` / `resistance`, `Units`, `AttackMateriaJson.elements` et `Attack`. Dans `ItActionAttack`, ils s'appellent `type`, alors que `Materia.type` / `Item.type` désignent la sous-classe à instancier.
+`Characters.selected` (assertion `!`) n'est fixé que par `select()`, et peut désigner un personnage sorti de l'équipe depuis le PHS. `ViewEquipComponent` rattrape le cas dans son constructeur en recopiant la logique « premier de l'équipe ».
 
-Changement : un type union `Element` (sur le modèle de `WeaponType`), `ItActionAttack.type` renommé `elements`. Un test de `store.service.spec.ts` vérifie que chaque élément des JSON est connu.
+Changement : `Characters.getSelected()` (ou un `computed` sur `team`) qui renvoie le personnage choisi s'il est dans l'équipe, sinon le premier ; la vue le lit sans logique propre.
 
-**Risque** : très faible, le compilateur signale les écarts. Plus simple après le commit 6, qui regroupe les usages.
-
-### 8. `refactor(models): move zone availability and power to base classes` 🟢 ✅ fait
-
-- `zoneAvailable` est déclaré dans `Weapon`, `Materia` et `Item`. Seul `Item` a une méthode `available()` ; `ShopService.getWeapons()` / `getMaterias()` recopient le test `zoneAvailable <= levelMax`.
-- `getPwr()` est identique dans `AttackMateria` et `CureMateria`.
-
-Changement : `zoneAvailable` et `isAvailable(levelMax)` dans `Purchasable`, utilisés par les trois getters de `ShopService` ; `getPwr()` dans `Materia`.
-
-**Risque** : très faible. `shop.service.spec.ts` couvre le filtrage du catalogue par zone, `materia.spec.ts` le coût en PM.
-
-### 9. `refactor(zones): expose the PHS unlock from Zones` 🟢 ✅ fait
-
-La règle `zones.levelMax >= PHS_UNLOCK_ZONE` est recopiée dans `zoneGuard`, `DockComponent.displayPhs()` et `SidemenuComponent.displayPhs()`.
-
-Changement : `Zones.isPhsUnlocked()`, appelée aux trois endroits.
-
-**Risque** : très faible. `zone.guard.spec.ts` couvre la règle, mais simule `zones` par un objet `{ levelMax }` : le passer à une vraie instance de `Zones`. Ni le dock ni le menu latéral ne testent l'affichage du PHS : en ajouter un.
-
-### 10. `refactor(battle): name the enemy scaling rules` 🟢 ✅ fait
-
-`BattleService` contient des formules d'équilibrage sans nom : niveau du boss `zone.level * (nbCharacters + 1) * 3 * 1.4` dans `startBoss()`, bonus ×1,2 des mini-boss et plage d'ennemis `nbFights / MAX_FIGHTS * 4` (bornée à 3) dans `getRandomEnemy()`. `startBoss()` et `onTeamVictory()` relisent l'équipe avec `getTeam()` au lieu du signal `team()`, et `onTeamVictory()` est public sans raison.
-
-Changement : constantes nommées et petites fonctions (`bossLevelSum(zone, teamSize)`), `team()` partout, `onTeamVictory()` privé.
-
-**Risque** : faible, aucun chiffre ne doit changer. `battle.service.spec.ts` couvre le niveau du boss et la plage d'ennemis. Vérifier que `specs.md` décrit toujours les mêmes formules.
+**Risque** : faible. `view-equip.component.spec.ts` couvre la sélection ; ajouter le cas « sélectionné puis retiré de l'équipe » à `characters.spec.ts`.
 
 ## Lot 4 — Lisibilité
 
-### 11. `refactor(game): describe zone unlocks as a table` 🟢 ✅ fait
+### 9. `refactor(save): move save loading and export out of GameService` 🟢
 
-`GameService.buildLevel()` (≈ 80 lignes, le plus gros bloc du plus gros fichier) code les déblocages dans un `switch` : personnages, armes, materias et objets ajoutés, et retour de Barret et Tifa en zone 4.
+`GameService` (417 lignes, le plus gros fichier) mélange l'état de jeu, la progression (`buildLevel`, `goNextZone`), l'équipement, le chrono et la persistance (`run`, `importGame`, `tryLoad`, `load`, `checkPlayable`, `export`, `save`, `reset`, accès à `localStorage`).
 
-Changement : une table déclarative `ZONE_UNLOCKS` (personnage et entrée dans l'équipe, armes, materias, objets, personnages qui rejoignent l'équipe) lue par `buildLevel()`. La remise à niveau et la restauration des PV / PM restent dans la méthode.
+Changement : sortir la conversion `Save` ⇄ état (`load`, `checkPlayable`, `export`) dans un module dédié (`models/game-save.ts` ou un `SaveService`), `GameService` gardant l'orchestration (`run`, `newGame`, `importGame`, `save`).
 
-**Risque** : moyen, c'est la progression du jeu. Dépend du commit 1 (zone 9). Les tests `buildLevel` des zones 1 à 5 et 9 doivent passer sans modification. `specs.md` reste valable, car les règles ne changent pas.
-
-### 12. `refactor(save): keep a single last save in GameService` 🟢 ✅ fait
-
-`GameService.saves: Save[]` ne sert qu'à l'indice 0 (`saves[0] = s` dans `save()`, `saves.push()` dans `run()`). `ViewSaveComponent` recopie la référence du tableau dans son constructeur, alors que `reset()` le remplace par un nouveau.
-
-Changement : `readonly lastSave = signal<Save | undefined>(undefined)`, lu directement par la vue et son template.
-
-**Risque** : faible. `view-save.component.spec.ts` couvre la réinitialisation ; vérifier aussi l'export de la dernière sauvegarde et l'affichage du résumé après « Sauvegarder », sans changer d'écran.
-
-### 13. `refactor(characters): take character images from the catalog` 🟢 ✅ fait
-
-`CharacterSave.image` est écrit dans la sauvegarde, et `Character.load()` écrase avec lui l'image de `characters.json`. Le jour où une image est renommée ou convertie (par exemple en `.webp`), les anciennes sauvegardes afficheraient une image cassée.
-
-Changement : ignorer `image` au chargement et prendre celle du catalogue. Continuer à l'écrire pour que la 1.6.0 puisse lire une sauvegarde récente. L'écran Sauvegarde, qui affiche les portraits depuis la sauvegarde, les cherche dans le catalogue par `ref`.
-
-**Risque** : faible, mais c'est du code de compatibilité : ajouter l'entrée dans `docs/compatibilite.md` et mettre à jour `specs.md` §11. Plus simple après le commit 12, qui touche le même écran.
+**Risque** : moyen, c'est le chargement des sauvegardes et tout le code de compatibilité : mettre à jour les chemins dans `docs/compatibilite.md` (entrées 1 à 4). `game.service.spec.ts` doit passer sans changer d'assertions. À faire après 3, 5 et 6, qui touchent les mêmes méthodes.
 
 ## Lot 5 — Modernisation
 
-### 14. `refactor(battle): replace the state subject with an end callback` 🟢 ✅ fait
+### 10. `refactor(models): move action interfaces into models` 🟢
 
-`Battle` publie un `BehaviorSubject<BattleState>` pour une seule transition (`Started` → `Ended`), auquel `BattleService.startBattle()` s'abonne. Le constructeur de `Battle` lance aussi le premier `setTimeout`, ce qui oblige les tests à créer le combat au bon moment.
+Les modèles importent `ItAction`, `ItActionAttack` et `ItDisplayHits` depuis `core/interfaces/` (15 imports) : dépendance inversée entre couches. `Units.source.hp` est un nom peu parlant pour le flux des dégâts flottants, et `{ hits } as ItDisplayHits` est casté partout.
 
-Changement : `Battle` reçoit un rappel `onEnd(victory)` (ou expose un signal `ended`), et `start()` est appelé explicitement par `BattleService`. `BattleState` disparaît s'il n'a plus d'usage.
+Changement : déplacer les interfaces dans `models/actions/` (et `models/units.ts`), renommer `source.hp` en `hitEvents`, typer les `next()` sans cast.
 
-**Risque** : moyen, c'est la boucle de combat. `battle.spec.ts` et `battle.service.spec.ts` couvrent victoire, défaite, fuite et Limite. Vérifier en jeu qu'un combat se termine une seule fois (victoire par materia pendant une attaque ennemie).
-
-### 15. `refactor(theme): read the saved theme when the picker is created` 🟢 ✅ fait
-
-`ThemePickerComponent` écrit le thème deux fois au démarrage : `ngOnInit()` (sans `implements OnInit`) puis l'`effect` du constructeur. La conversion de l'ancienne valeur `light` (entrée n°4 de `docs/compatibilite.md`) n'a aucun test.
-
-Changement : initialiser `isLightTheme` depuis `localStorage` à la création, garder l'`effect` comme seule écriture, supprimer `ngOnInit()` et `DEFAULT_THEME`. Ajouter les tests de la conversion `light` → `cupcake` et mettre à jour la ligne « Tests » de l'entrée n°4.
-
-**Risque** : faible. Vérifier au premier lancement (sans clé `theme`) que le thème sombre s'applique, et qu'un thème clair enregistré est conservé.
+**Risque** : très faible, renommage vérifié par le compilateur. Plus simple après le commit 4, qui touche l'input `hits` de la barre.
 
 ## Lot 6 — Nettoyage
 
-### 16. `chore: remove dead code and redundant options` 🟢 ✅ fait
+### 11. `chore: remove trivial getters and redundant code` 🟢
 
-À supprimer :
-- `Characters.getBackup()`, remplacé par le `computed` `backup`
-- `Attack.critical`, écrit mais jamais lu
-- l'affectation de `ref` dans `Materia.load()` (déjà fixé par le catalogue)
-- `standalone: true` de `PipeTimePipe` (valeur par défaut en Angular 22)
-- la valeur par défaut `'0.1.0'` de `UiFooterComponent.version`, toujours fournie par `AppComponent`
-- les deux méthodes `round()` de `CharactersPanelComponent` et `EnemiesPanelComponent`, à remplacer par des pourcentages calculés (`computed`) dans chaque panneau
+- `Enemy.getHpMax()`, `getHits()`, `xpReward()`, `apReward()`, `gilsReward()` ne font que renvoyer un champ public.
+- Le constructeur d'`Enemies` réinitialise des champs déjà initialisés par `Units`.
+- `Character.xpProgress(pixelsMax)` et `Materia.apProgress(pixelsMax)` sont toujours appelés avec `100` : les remplacer par `percent()` (`math.utils.ts`).
+- `Materia.isOwned()` : `if`/`return true`/`return false` autour d'un `some()`.
+- Dans `BattleService.onTeamVictory()`, la condition `zones.level + 1 > zones.levelMax` est toujours vraie quand un boss est vaincu (`canFightBoss()` exige une zone non terminée, donc la dernière débloquée).
 
-**Risque** : très faible. Le build et le lint détectent les références restantes.
+**Risque** : très faible. Le build et les specs existantes (`enemy.spec.ts`, `character.spec.ts`, `materia.spec.ts`, `battle.service.spec.ts`) détectent les écarts.
 
 ## Graphe des dépendances
 
 ```
-1 ─┬─> 6 ──> 7
-   └─> 11
-2, 3, 4, 5, 8, 9, 10, 14, 15, 16 : indépendants
-12 ──> 13
+1 ──> 2
+3 ──> 6 ──> 9
+5 ────────> 9
+4 ──> 10
+7, 8, 11 : indépendants
 ```
 
 ## Ordre conseillé si le temps est limité
 
-1. **2** : seul bug visible (sauvegarde modifiée qui fait planter le jeu), et correction courte.
-2. **5** : la dé-duplication la plus utile, sans risque.
-3. **1, puis 11** : filet de tests, puis la table des déblocages, qui rend la progression lisible et facilite l'ajout de zones.
-4. **3** : supprime un couplage caché avec le zoneless.
-5. **16** : nettoyage rapide et sans risque.
+1. **1, puis 2** : seul bug de gameplay (dégâts dispersés à ±20 % et plus en début de partie), avec son filet de tests.
+2. **3** : correction en une ligne.
+3. **4** : supprime un couplage caché dans l'affichage des dégâts.
+4. **5** : rend `newGame()` / `importGame()` sûrs quelle que soit la vue affichée, avant d'ajouter un bouton « Recommencer ».
+5. **6 et 7** : dé-duplications rapides et sans risque.
