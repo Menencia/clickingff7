@@ -20,6 +20,8 @@ Les données de base (`src/assets/data/*.json`) notent les statistiques sur une 
 
 Les tirages aléatoires utilisent `random(min, max)`, qui renvoie un entier entre `min` et `max` inclus (`shared/utils/math.utils.ts`).
 
+La **variation aléatoire de ±10 %** des dégâts et des soins (`withVariance()`, `shared/utils/game.utils.ts`) tire une valeur continue entre −10 % et +10 %, puis l'arrondit au hasard : la partie décimale donne la chance d'arrondir au-dessus (4,3 donne 5 dans 30 % des cas, 4 sinon). Le résultat reste entre l'entier inférieur à 90 % et l'entier supérieur à 110 % de la valeur, ne descend jamais sous 1 (sauf pour une valeur nulle) et vaut en moyenne la valeur. Les petites valeurs varient donc aussi, mais rarement : 1 donne 2 dans 2,5 % des cas, 5 donne 4 ou 6 dans 12,5 % des cas chacun, 10 donne 9 ou 11 dans 25 % des cas chacun.
+
 ## 3. Personnages
 
 ### 3.1 Liste

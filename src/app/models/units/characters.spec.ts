@@ -291,7 +291,7 @@ describe('Characters', () => {
     });
 
     it('deals 5 times the damage of a normal attack with a limit', () => {
-      // random(a, b) = floor(0.5 * (b - a + 1) + a): middle of the range,
+      // 0.5: no variance, rounding to the nearest integer,
       // and random(0, 100) = 50, so no critical hit.
       vi.spyOn(Math, 'random').mockReturnValue(0.5);
       characters = teamWithHits(100);
@@ -306,7 +306,8 @@ describe('Characters', () => {
 
     it('doubles damage on a critical hit', () => {
       vi.spyOn(Math, 'random')
-        .mockReturnValueOnce(0.5) // damage roll
+        .mockReturnValueOnce(0.5) // variance roll
+        .mockReturnValueOnce(0.5) // rounding roll
         .mockReturnValueOnce(0); // critical roll: random(0, 100) = 0 <= 10
       characters = teamWithHits(100);
 
@@ -318,11 +319,15 @@ describe('Characters', () => {
       characters = teamWithHits(100);
       const attack = characters.getAttackSkill() as Attack;
 
-      vi.spyOn(Math, 'random').mockReturnValueOnce(0).mockReturnValueOnce(0.99);
+      vi.spyOn(Math, 'random')
+        .mockReturnValueOnce(0)
+        .mockReturnValueOnce(0.5)
+        .mockReturnValueOnce(0.99);
       expect(attack.calculateHits()).toBe(90);
 
       vi.spyOn(Math, 'random')
         .mockReturnValueOnce(0.9999)
+        .mockReturnValueOnce(0.5)
         .mockReturnValueOnce(0.99);
       expect(attack.calculateHits()).toBe(110);
     });

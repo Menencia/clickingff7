@@ -59,7 +59,7 @@ describe('Battle', () => {
 
   beforeEach(() => {
     vi.useFakeTimers();
-    // random(a, b) returns the middle of the range: no damage variance
+    // 0.5: no damage variance, rounding to the nearest integer
     vi.spyOn(Math, 'random').mockReturnValue(0.5);
     characters = makeCharacters();
     onEnd = vi.fn<(victory: boolean) => void>();

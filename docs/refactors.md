@@ -26,7 +26,7 @@ Ajouter `attack.spec.ts`, `cure.spec.ts` et des cas de potions, avec `Math.rando
 
 ## Lot 2 — Fiabilité
 
-### 2. `fix(battle): keep damage variance within ±10%` 🟠
+### 2. `fix(battle): keep damage variance within ±10%` 🟠 ✅ fait
 
 Voir « Hors refactor ». `withVariance()` calcule directement `Math.round(value * (1 + VARIANCE * (2 * Math.random() - 1)))`, sans passer par `random()`, qui reste réservé aux entiers (choix de l'ennemi, critique).
 

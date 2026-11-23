@@ -22,17 +22,20 @@ describe('Cure', () => {
       expect(new Cure(100, 100).calculateHits()).toBe(90);
     });
 
-    // Current behaviour on small values: the spread exceeds ±10%
-    // (refactors.md n°2 will narrow it).
     it.each([
-      { base: 5, draw: 0, hits: 4 },
-      { base: 5, draw: 0.999999, hits: 6 },
-      { base: 1, draw: 0, hits: 0 },
-      { base: 1, draw: 0.999999, hits: 2 },
+      // 5 × (1 ± 10%) = 4.5 to 5.5: the rounding draw picks 4, 5 or 6
+      { base: 5, variance: 0, rounding: 0.4, hits: 4 },
+      { base: 5, variance: 0, rounding: 0.5, hits: 5 },
+      { base: 5, variance: 0.999999, rounding: 0.51, hits: 6 },
+      // 1 × (1 ± 10%) = 0.9 to 1.1: 2 is possible, 0 is not
+      { base: 1, variance: 0.999999, rounding: 0.95, hits: 2 },
+      { base: 1, variance: 0, rounding: 0, hits: 1 },
     ])(
-      'returns $hits for $base base hits at draw $draw',
-      ({ base, draw, hits }) => {
-        vi.spyOn(Math, 'random').mockReturnValue(draw);
+      'returns $hits for $base base hits (variance $variance, rounding $rounding)',
+      ({ base, variance, rounding, hits }) => {
+        vi.spyOn(Math, 'random')
+          .mockReturnValueOnce(variance)
+          .mockReturnValueOnce(rounding);
         expect(new Cure(base, 100).calculateHits()).toBe(hits);
       },
     );

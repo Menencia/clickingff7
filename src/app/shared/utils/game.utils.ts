@@ -1,5 +1,3 @@
-import { random } from './math.utils';
-
 /** Level cap for characters and materias */
 export const MAX_LEVEL = 100;
 
@@ -25,9 +23,16 @@ export function inverseStatFactor(stat: number): number {
   return statFactor(6 - stat);
 }
 
-/** Returns a random rounded value within ±VARIANCE of the given value */
+/**
+ * Returns a random integer within ±VARIANCE of the given value.
+ * The fractional part is rounded up with a probability equal to it,
+ * so small values still vary while the average stays the value.
+ * A positive value never drops to 0.
+ */
 export function withVariance(value: number): number {
-  const a = value * (1 - VARIANCE);
-  const b = value * (1 + VARIANCE);
-  return Math.round(random(a, b));
+  if (value <= 0) {
+    return 0;
+  }
+  const varied = value * (1 + VARIANCE * (2 * Math.random() - 1));
+  return Math.max(1, Math.floor(varied + Math.random()));
 }
