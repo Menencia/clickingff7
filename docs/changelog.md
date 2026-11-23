@@ -1,18 +1,17 @@
 # Changelog
 
-## Prochaine version
+## Prochaine version (1.7.0)
 
 ### Notes de release (anglais)
 
 ```
-- New About screen with the game version, GitHub links and credits, replacing the page footer
-- The action bar only shows useful buttons: Attack and Escape replace the fight buttons during battles, and attack materias are hidden outside battles
-- Fix the game crashing after importing an edited save with a missing zone or an empty team: such saves are now refused
-- Fix saving silently failing when the browser storage is full or disabled: an error message is now shown
-- Fix the help tour on phones: the right element is highlighted and tooltips no longer go off screen
+- New About screen
+- Action bar only shows usable buttons
 - Shorter help tour
-- The "More" menu of the phone menu bar now closes when tapping outside it
-- Fix the active page marker not being centered under "More" in the phone menu bar
+- Improve the "More" menu on phones
+- Fix a crash when importing an invalid save
+- Fix saving failing silently
+- Fix the help tour on phones
 ```
 
 ### Détail des changements
