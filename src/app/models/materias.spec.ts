@@ -83,4 +83,14 @@ describe('Materias', () => {
       expect(materias.getEquipped()).toEqual([]);
     });
   });
+
+  it('clear empties the same list', () => {
+    const list = materias.list;
+
+    materias.clear();
+
+    expect(materias.list).toBe(list);
+    expect(list).toEqual([]);
+    expect(materias.getEquipped()).toEqual([]);
+  });
 });

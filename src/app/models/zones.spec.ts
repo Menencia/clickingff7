@@ -1,4 +1,5 @@
 import { PHS_UNLOCK_ZONE } from '../shared/utils/game.utils';
+import { Zone } from './zone';
 import { Zones } from './zones';
 
 describe('Zones', () => {
@@ -23,6 +24,23 @@ describe('Zones', () => {
       zones.levelMax = PHS_UNLOCK_ZONE;
       zones.level = 1;
       expect(zones.isPhsUnlocked()).toBe(true);
+    });
+  });
+
+  describe('clear', () => {
+    it('empties the same list and goes back to zone 1', () => {
+      const zones = new Zones();
+      const list = zones.list;
+      list.push({ level: 1 } as Zone, { level: 2 } as Zone);
+      zones.level = 2;
+      zones.levelMax = 2;
+
+      zones.clear();
+
+      expect(zones.list).toBe(list);
+      expect(list).toEqual([]);
+      expect(zones.level).toBe(1);
+      expect(zones.levelMax).toBe(1);
     });
   });
 });

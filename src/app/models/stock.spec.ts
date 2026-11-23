@@ -111,4 +111,17 @@ describe('Purchasable', () => {
       expect(product.isAvailable(product.zoneAvailable + 1)).toBe(true);
     }
   });
+
+  it('clear empties the same list', () => {
+    const store = TestBed.inject(StoreService);
+    const weapons = new Weapons();
+    weapons.add(store.getWeapon(WeaponRef.BusterSword));
+    const list = weapons.list;
+
+    weapons.clear();
+
+    expect(weapons.list).toBe(list);
+    expect(list).toEqual([]);
+    expect(weapons.inStock(store.getWeapon(WeaponRef.BusterSword))).toBe(0);
+  });
 });

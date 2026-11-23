@@ -57,6 +57,18 @@ export class Characters extends Units {
   readonly limit = signal(0);
 
   /**
+   * Empties the collection in place and resets the team gauges, for a new
+   * game. The team stays empty until the next refresh().
+   */
+  clear(): void {
+    this.list.length = 0;
+    this.team.set([]);
+    this.hp.set(0);
+    this.mp.set(0);
+    this.limit.set(0);
+  }
+
+  /**
    *
    */
   addHp(value: number): void {

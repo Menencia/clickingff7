@@ -21,6 +21,15 @@ export class Zones {
   }
 
   /**
+   * Empties the collection in place and goes back to zone 1, for a new game
+   */
+  clear(): void {
+    this.list.length = 0;
+    this.level = 1;
+    this.levelMax = 1;
+  }
+
+  /**
    * Add a zone
    */
   add(zone: Zone): void {

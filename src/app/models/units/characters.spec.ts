@@ -55,6 +55,26 @@ describe('Characters', () => {
     vi.restoreAllMocks();
   });
 
+  describe('clear', () => {
+    it('empties the same list and resets the team and gauges', () => {
+      const list = characters.list;
+      characters.hp.set(50);
+      characters.mp.set(5);
+      characters.limit.set(10);
+
+      characters.clear();
+
+      expect(characters.list).toBe(list);
+      expect(list).toEqual([]);
+      expect(characters.team()).toEqual([]);
+      expect(characters.backup()).toEqual([]);
+      expect(characters.hpMax()).toBe(0);
+      expect(characters.hp()).toBe(0);
+      expect(characters.mp()).toBe(0);
+      expect(characters.limit()).toBe(0);
+    });
+  });
+
   describe('refresh', () => {
     it('sums team stats and ignores backup characters', () => {
       expect(characters.hpMax()).toBe(40 + 80);

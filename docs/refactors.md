@@ -46,7 +46,7 @@ Changement : s'abonner via `toObservable(this.hits).pipe(switchMap(...))` (ou un
 
 **Risque** : très faible. Ajouter à `progress-bar.component.spec.ts` un cas où l'input change d'observable. Vérifier en jeu deux combats d'affilée.
 
-### 5. `refactor(game): keep the same collections across games` 🟢
+### 5. `refactor(game): keep the same collections across games` 🟢 ✅ fait
 
 `GameService.preload()` remplace `characters`, `zones`, `weapons`, `materias` et `items` par de nouvelles instances. Tout ce qui a gardé une référence devient obsolète : `ViewGameComponent.characters`, `ViewPhsComponent.team` / `backup`, `ViewMateriaComponent.maxMaterias`, `ViewEquipComponent.team`, les `list` copiées par `ViewItemsComponent` et `ViewMateriaComponent`. Ça marche aujourd'hui parce que `newGame()` et `importGame()` sont suivis d'une navigation vers `/game`, qui recrée les vues. Un futur bouton « Recommencer » sur l'écran Jeu (cf. `docs/ameliorations.md` n°1) afficherait l'ancienne partie.
 

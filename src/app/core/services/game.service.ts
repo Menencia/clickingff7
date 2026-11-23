@@ -43,15 +43,15 @@ export class GameService {
   /**
    * Save settings
    */
-  characters = new Characters();
+  readonly characters = new Characters();
 
-  zones = new Zones();
+  readonly zones = new Zones();
 
-  weapons = new Weapons();
+  readonly weapons = new Weapons();
 
-  materias = new Materias();
+  readonly materias = new Materias();
 
-  items = new Items();
+  readonly items = new Items();
 
   readonly gils = signal(BASE_GILS);
 
@@ -140,14 +140,15 @@ export class GameService {
   }
 
   /**
-   * Preload all savable variables
+   * Resets all savable variables. The collections are emptied, not replaced,
+   * so that the views and services holding them see the new game.
    */
   preload(): void {
-    this.characters = new Characters();
-    this.zones = new Zones();
-    this.weapons = new Weapons();
-    this.materias = new Materias();
-    this.items = new Items();
+    this.characters.clear();
+    this.zones.clear();
+    this.weapons.clear();
+    this.materias.clear();
+    this.items.clear();
     this.gils.set(BASE_GILS);
     this.language = this.getLanguage(this.translate.getBrowserLang());
     this.difficulty = Difficulty.Normal;

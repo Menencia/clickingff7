@@ -588,6 +588,72 @@ describe('GameService', () => {
       expect(game.items.list[0].nbr).toBe(2);
     });
 
+    describe('keeps the same collections across games', () => {
+      const collections = (g: GameService) => ({
+        characters: g.characters,
+        zones: g.zones,
+        weapons: g.weapons,
+        materias: g.materias,
+        items: g.items,
+        lists: [
+          g.characters.list,
+          g.zones.list,
+          g.weapons.list,
+          g.materias.list,
+          g.items.list,
+        ],
+      });
+
+      it('after a new game', () => {
+        unlockNextZone(game);
+        const before = collections(game);
+
+        game.newGame();
+
+        const after = collections(game);
+        expect(after.characters).toBe(before.characters);
+        expect(after.zones).toBe(before.zones);
+        expect(after.weapons).toBe(before.weapons);
+        expect(after.materias).toBe(before.materias);
+        expect(after.items).toBe(before.items);
+        after.lists.forEach((list, i) => {
+          expect(list).toBe(before.lists[i]);
+        });
+        expect(refs(before.zones.list)).toEqual([ZoneRef.Zone1]);
+        expect(before.characters.team().length).toBe(2);
+      });
+
+      it('after an import, successful or not', () => {
+        const save = structuredClone(game.export());
+        unlockNextZone(game);
+        const current = structuredClone(game.export());
+        const before = collections(game);
+
+        expect(game.importGame(save)).toBe(true);
+        expect(game.characters).toBe(before.characters);
+        expect(game.zones).toBe(before.zones);
+        expect(game.weapons).toBe(before.weapons);
+        expect(game.materias).toBe(before.materias);
+        expect(game.items).toBe(before.items);
+        expect(game.characters.list).toBe(before.lists[0]);
+        expect(game.zones.list).toBe(before.lists[1]);
+        expect(refs(before.zones.list)).toEqual([ZoneRef.Zone1]);
+
+        expect(game.importGame(current)).toBe(true);
+        const broken = structuredClone(save);
+        broken.zones.list.push({
+          ...broken.zones.list[0],
+          ref: 'unknown' as ZoneRef,
+        });
+        expect(game.importGame(broken)).toBe(false);
+        expect(game.characters).toBe(before.characters);
+        expect(game.zones).toBe(before.zones);
+        expect(game.characters.list).toBe(before.lists[0]);
+        expect(game.zones.list).toBe(before.lists[1]);
+        expect(game.export()).toEqual(current);
+      });
+    });
+
     it('an import does not reuse the previous game objects', () => {
       const save = structuredClone(game.export());
       const previous = {

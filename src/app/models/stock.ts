@@ -13,6 +13,13 @@ export class Stock<T extends Stackable> {
   list: T[] = [];
 
   /**
+   * Empties the collection in place, for a new game
+   */
+  clear(): void {
+    this.list.length = 0;
+  }
+
+  /**
    * Adds one copy: stacks on the owned entry with the same ref, or adds
    * {entry} to the list. Returns the entry that holds the copy.
    */

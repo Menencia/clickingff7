@@ -5,6 +5,13 @@ export class Materias {
   list: Materia[] = [];
 
   /**
+   * Empties the collection in place, for a new game
+   */
+  clear(): void {
+    this.list.length = 0;
+  }
+
+  /**
    * Add a materia
    */
   add(materia: Materia, equipped = false): void {
