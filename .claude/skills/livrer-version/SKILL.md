@@ -18,11 +18,11 @@ Le processus a deux phases. Elles peuvent être lancées séparément : « prép
 ## Phase 1 : préparer (sur `next`)
 
 1. **Notes de release** : relire le bloc « Notes de release (anglais) » de `## Prochaine version` dans `docs/changelog.md`.
-   - Les lignes sont courtes et concrètes. Fusionner les entrées qui parlent du même sujet (par ex. plusieurs écrans retravaillés pour le mobile).
+   - Les lignes sont courtes et concrètes (appliquer les règles du skill `raccourcir-notes`). Fusionner les entrées qui parlent du même sujet (par ex. plusieurs écrans retravaillés pour le mobile).
    - Elles sont triées du plus au moins important pour les joueurs, avec les corrections (`Fix …`) à la fin et une ligne `Note:` facultative tout en bas.
    - Rien de technique : les détails restent dans « Détail des changements », en français.
    - Montrer les notes à l'utilisateur avant de continuer.
-2. Renommer `## Prochaine version` en `## X.Y.Z`.
+2. Renommer `## Prochaine version` (ou `## Prochaine version (X.Y.Z)` si le numéro y est déjà) en `## X.Y.Z`. Si le titre porte un autre numéro que `X.Y.Z`, s'arrêter et demander.
 3. Chercher les mentions de la version à venir (`grep -rni "version qui suit\|prochaine version" docs specs.md`) et les remplacer par `X.Y.Z`, en particulier dans `docs/compatibilite.md`.
 4. Passer `"version"` à `X.Y.Z` dans `package.json`. Ce numéro est écrit dans les sauvegardes et affiché dans le pied de page.
 5. Lancer `pnpm test:ci` et `pnpm lint`.
