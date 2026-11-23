@@ -1,4 +1,4 @@
-<!-- Three tabs: Battle (open by default), Magic and Items. Each button takes
+<!-- Three tabs below lg: Battle (open by default), Magic and Items. Each button takes
      the full width, with a short description under its name. During a
      battle, Attack and Escape replace the fight buttons, with Limit between
      them when the gauge is full. Fight boss only
@@ -8,7 +8,7 @@
 <div class="flex flex-col gap-2">
   <div
     role="tablist"
-    class="tabs tabs-border grid grid-cols-3 border-b border-base-300"
+    class="tabs tabs-border grid grid-cols-3 border-b border-base-300 lg:hidden"
   >
     <button
       type="button"
@@ -44,130 +44,151 @@
     </button>
   </div>
 
-  @switch (tab()) { @case ('items') {
-  <section class="action-group" role="tabpanel" data-group="items">
-    @for (item of getItems(); track item) {
-    <button
-      type="button"
-      class="action-btn btn"
-      (click)="useItem(item)"
-      [disabled]="!canUseItem(item)"
+  <!-- All the groups are rendered: below lg, only the open tab shows; from lg,
+       the three groups are side by side, with their title, and the tabs are
+       hidden. -->
+  <div class="action-groups">
+    <section
+      class="action-group"
+      role="tabpanel"
+      data-group="battle"
+      [class.inactive]="tab() !== 'battle'"
+      data-tour="fight"
     >
-      @if (item.type === 'hp-potion') {
-      <app-action-icon name="flask-round" class="text-success" />
-      }
-      <span class="action-text">
-        <span class="action-name">
-          {{ "It. " + item.ref + " name" | translate }}
-        </span>
-        <span class="action-desc">
-          {{ "It. " + item.ref + " desc" | translate }}
-        </span>
-      </span>
-      <span class="action-value">{{ item.nbr }}</span>
-    </button>
-    } @empty {
-    <span class="action-empty">—</span>
-    }
-  </section>
-
-  } @case ('magic') {
-  <section class="action-group" role="tabpanel" data-group="magic">
-    @for (materia of getMaterias(); track materia) {
-    <button
-      type="button"
-      class="action-btn btn"
-      (click)="useMateria(materia)"
-      [disabled]="!canUseMateria(materia)"
-    >
-      @if (materia.color === 'green') {
-      <app-action-icon name="orb" class="text-success" />
-      } @else {
-      <img
-        class="size-5 flex-none"
-        src="/assets/images/icons/materias/{{ materia.color }}.webp"
-        alt=""
+      <h2 class="action-title">{{ "Battle" | translate }}</h2>
+      @if (!isBattle()) {
+      <button
+        type="button"
+        class="action-btn btn"
+        (click)="fightRandom()"
+        [disabled]="!canFightRandom()"
       >
+        <app-action-icon name="swords" />
+        <span class="action-text">
+          <span class="action-name">{{ "Fight random" | translate }}</span>
+          <span class="action-desc">{{ "Fight random desc" | translate }}</span>
+        </span>
+      </button>
+      @if (remainingFights() > 0) {
+      <div
+        role="note"
+        class="boss-hint alert alert-info alert-soft border-info/30 bg-info/15"
+        data-testid="boss-hint"
+      >
+        <app-action-icon name="lightbulb" class="size-4!" />
+        <span>
+          @if (remainingFights() === 1) {
+          {{ "Boss after 1 victory" | translate }}
+          } @else {
+          {{ "Boss after victories" | translate: { count: remainingFights() } }}
+          }
+        </span>
+      </div>
+      } @if (canFightBoss()) {
+      <button class="action-btn btn" type="button" (click)="fightBoss()">
+        <app-action-icon name="skull" class="text-error" />
+        <span class="action-text">
+          <span class="action-name">{{ "Fight boss" | translate }}</span>
+          <span class="action-desc">{{ "Fight boss desc" | translate }}</span>
+        </span>
+        <span class="action-value text-error">NEW</span>
+      </button>
+      } } @else {
+      <button type="button" class="action-btn btn" (click)="attack()">
+        <app-action-icon name="sword" />
+        <span class="action-text">
+          <span class="action-name">{{ "Attack" | translate }}</span>
+          <span class="action-desc">{{ "Attack desc" | translate }}</span>
+        </span>
+      </button>
+      @if (canLimit()) {
+      <button type="button" class="action-btn btn" (click)="limit()">
+        <app-action-icon name="zap" class="text-warning" />
+        <span class="action-text">
+          <span class="action-name">{{ "Limit" | translate }}</span>
+          <span class="action-desc">{{ "Limit desc" | translate }}</span>
+        </span>
+      </button>
       }
-      <span class="action-text">
-        <span class="action-name">
-          {{ "Mat. " + materia.ref + " name" | translate }}
+      <button type="button" class="action-btn btn" (click)="escape()">
+        <app-action-icon name="footprints" />
+        <span class="action-text">
+          <span class="action-name">{{ "Escape" | translate }}</span>
+          <span class="action-desc">{{ "Escape desc" | translate }}</span>
         </span>
-        <span class="action-desc">
-          {{ "Mat. " + materia.ref + " desc" | translate }}
-        </span>
-      </span>
-      <span class="action-value">{{ materia.getMpCost() }} MP</span>
-    </button>
-    } @empty {
-    <span class="action-empty">—</span>
-    }
-  </section>
+      </button>
+      }
+    </section>
 
-  } @case ('battle') {
-  <section class="action-group" role="tabpanel" data-group="battle">
-    @if (!isBattle()) {
-    <button
-      type="button"
-      class="action-btn btn"
-      (click)="fightRandom()"
-      [disabled]="!canFightRandom()"
+    <section
+      class="action-group"
+      role="tabpanel"
+      data-group="magic"
+      [class.inactive]="tab() !== 'magic'"
+      data-tour="materias"
     >
-      <app-action-icon name="swords" />
-      <span class="action-text">
-        <span class="action-name">{{ "Fight random" | translate }}</span>
-        <span class="action-desc">{{ "Fight random desc" | translate }}</span>
-      </span>
-    </button>
-    @if (remainingFights() > 0) {
-    <div
-      role="note"
-      class="boss-hint alert alert-info alert-soft border-info/30 bg-info/15"
-      data-testid="boss-hint"
-    >
-      <app-action-icon name="lightbulb" class="size-4!" />
-      <span>
-        @if (remainingFights() === 1) {
-        {{ "Boss after 1 victory" | translate }}
+      <h2 class="action-title">{{ "Magic" | translate }}</h2>
+      @for (materia of getMaterias(); track materia) {
+      <button
+        type="button"
+        class="action-btn btn"
+        (click)="useMateria(materia)"
+        [disabled]="!canUseMateria(materia)"
+      >
+        @if (materia.color === 'green') {
+        <app-action-icon name="orb" class="text-success" />
         } @else {
-        {{ "Boss after victories" | translate: { count: remainingFights() } }}
+        <img
+          class="size-5 flex-none"
+          src="/assets/images/icons/materias/{{ materia.color }}.webp"
+          alt=""
+        >
         }
-      </span>
-    </div>
-    } @if (canFightBoss()) {
-    <button class="action-btn btn" type="button" (click)="fightBoss()">
-      <app-action-icon name="skull" class="text-error" />
-      <span class="action-text">
-        <span class="action-name">{{ "Fight boss" | translate }}</span>
-        <span class="action-desc">{{ "Fight boss desc" | translate }}</span>
-      </span>
-      <span class="action-value text-error">NEW</span>
-    </button>
-    } } @else {
-    <button type="button" class="action-btn btn" (click)="attack()">
-      <app-action-icon name="sword" />
-      <span class="action-text">
-        <span class="action-name">{{ "Attack" | translate }}</span>
-        <span class="action-desc">{{ "Attack desc" | translate }}</span>
-      </span>
-    </button>
-    @if (canLimit()) {
-    <button type="button" class="action-btn btn" (click)="limit()">
-      <app-action-icon name="zap" class="text-warning" />
-      <span class="action-text">
-        <span class="action-name">{{ "Limit" | translate }}</span>
-        <span class="action-desc">{{ "Limit desc" | translate }}</span>
-      </span>
-    </button>
-    }
-    <button type="button" class="action-btn btn" (click)="escape()">
-      <app-action-icon name="footprints" />
-      <span class="action-text">
-        <span class="action-name">{{ "Escape" | translate }}</span>
-        <span class="action-desc">{{ "Escape desc" | translate }}</span>
-      </span>
-    </button>
-    }
-  </section>
-  } }
+        <span class="action-text">
+          <span class="action-name">
+            {{ "Mat. " + materia.ref + " name" | translate }}
+          </span>
+          <span class="action-desc">
+            {{ "Mat. " + materia.ref + " desc" | translate }}
+          </span>
+        </span>
+        <span class="action-value">{{ materia.getMpCost() }} MP</span>
+      </button>
+      } @empty {
+      <span class="action-empty">—</span>
+      }
+    </section>
+
+    <section
+      class="action-group"
+      role="tabpanel"
+      data-group="items"
+      [class.inactive]="tab() !== 'items'"
+    >
+      <h2 class="action-title">{{ "Items" | translate }}</h2>
+      @for (item of getItems(); track item) {
+      <button
+        type="button"
+        class="action-btn btn"
+        (click)="useItem(item)"
+        [disabled]="!canUseItem(item)"
+      >
+        @if (item.type === 'hp-potion') {
+        <app-action-icon name="flask-round" class="text-success" />
+        }
+        <span class="action-text">
+          <span class="action-name">
+            {{ "It. " + item.ref + " name" | translate }}
+          </span>
+          <span class="action-desc">
+            {{ "It. " + item.ref + " desc" | translate }}
+          </span>
+        </span>
+        <span class="action-value">{{ item.nbr }}</span>
+      </button>
+      } @empty {
+      <span class="action-empty">—</span>
+      }
+    </section>
+  </div>
 </div>

@@ -6,3 +6,9 @@
   font-weight: 700;
   line-height: 1;
 }
+
+@media (min-width: 48rem) {
+  .gauge-text {
+    font-size: 0.8rem;
+  }
+}

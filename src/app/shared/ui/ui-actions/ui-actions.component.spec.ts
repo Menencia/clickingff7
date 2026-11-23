@@ -156,12 +156,34 @@ describe('UiActionsComponent (real data)', () => {
     expect(battleService.battle()).toBeDefined();
   });
 
+  it('renders the three groups, with their title, for large screens', () => {
+    const fixture = TestBed.createComponent(UiActionsComponent);
+    fixture.detectChanges();
+    const el: HTMLElement = fixture.nativeElement;
+    const groups = [...el.querySelectorAll('[role="tabpanel"]')];
+
+    expect(groups.map((g) => g.getAttribute('data-group'))).toEqual([
+      'battle',
+      'magic',
+      'items',
+    ]);
+    expect(
+      groups.map((g) => g.querySelector('h2')?.textContent?.trim()),
+    ).toEqual(['Battle', 'Magic', 'Items']);
+    expect(groups.map((g) => g.classList.contains('inactive'))).toEqual([
+      false,
+      true,
+      true,
+    ]);
+  });
+
   it('sorts the actions into the Battle, Magic and Items tabs', () => {
     const fixture = TestBed.createComponent(UiActionsComponent);
     fixture.detectChanges();
     const el: HTMLElement = fixture.nativeElement;
     const tabs = [...el.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
-    const panel = () => el.querySelector('[role="tabpanel"]');
+    // All the groups are rendered; below lg, only the open one shows.
+    const panel = () => el.querySelector('[role="tabpanel"]:not(.inactive)');
     const count = () => panel()?.querySelectorAll('button').length;
 
     expect(tabs.map((t) => t.textContent?.trim())).toEqual([

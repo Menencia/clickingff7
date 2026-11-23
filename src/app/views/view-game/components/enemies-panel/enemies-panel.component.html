@@ -4,7 +4,7 @@
   @if (enemies().list.length > 0) {
   <!-- enemies portraits, with their HP around -->
   <app-radial-gauge
-    class="size-32"
+    class="size-32 md:size-48"
     color="text-error"
     [progress]="hpPercent()"
     [label]="'HP ' + enemies().hp()"
@@ -24,7 +24,7 @@
   </app-radial-gauge>
   } @else {
   <div
-    class="flex size-32 items-center justify-center rounded-full border-2 border-dashed border-base-300 p-4 text-center text-xs uppercase opacity-60"
+    class="flex size-32 items-center md:size-48 justify-center rounded-full border-2 border-dashed border-base-300 p-4 text-center text-xs uppercase opacity-60"
   >
     {{ "No enemies" | translate }}
   </div>

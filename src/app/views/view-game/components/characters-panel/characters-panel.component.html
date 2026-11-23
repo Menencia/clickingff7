@@ -1,42 +1,42 @@
-<div class="mx-auto flex w-fit flex-col items-start gap-3">
+<div class="mx-auto flex w-fit flex-col items-start gap-3 md:gap-4">
   <!-- team gauges -->
-  <div class="flex gap-1.5">
+  <div class="flex gap-1.5 md:gap-2">
     <app-radial-gauge
       data-tour="hp"
-      class="size-12"
+      class="size-12 md:size-16"
       color="text-success"
       [progress]="hpPercent()"
       [label]="'HP ' + characters().hp()"
       [hits]="characters().hitEvents"
     >
       <span class="gauge-text">
-        <span class="text-[0.5rem] opacity-70">HP</span>
+        <span class="text-[0.5rem] opacity-70 md:text-[0.6rem]">HP</span>
         {{ characters().hp() }}
       </span>
     </app-radial-gauge>
 
     <app-radial-gauge
       data-tour="mp"
-      class="size-12"
+      class="size-12 md:size-16"
       color="text-info"
       [progress]="mpPercent()"
       [label]="'MP ' + characters().mp()"
     >
       <span class="gauge-text">
-        <span class="text-[0.5rem] opacity-70">MP</span>
+        <span class="text-[0.5rem] opacity-70 md:text-[0.6rem]">MP</span>
         {{ characters().mp() }}
       </span>
     </app-radial-gauge>
 
     <app-radial-gauge
       data-tour="limit"
-      class="size-12"
+      class="size-12 md:size-16"
       color="text-warning"
       [progress]="limitPercent()"
       [label]="'LIMIT ' + limitPercent() + '%'"
     >
       <span class="gauge-text">
-        <span class="text-[0.5rem] opacity-70">LIMIT</span>
+        <span class="text-[0.5rem] opacity-70 md:text-[0.6rem]">LIMIT</span>
         {{ limitPercent() }}%
       </span>
     </app-radial-gauge>
@@ -44,10 +44,10 @@
 
   <!-- team portraits on one row, under the gauges and as big, with their XP
        around -->
-  <div data-tour="team" class="flex gap-1.5">
+  <div data-tour="team" class="flex gap-1.5 md:gap-2">
     @for (character of characters().team(); track character) {
     <app-radial-gauge
-      class="size-12"
+      class="size-12 md:size-16"
       color="text-violet-500"
       [thickness]="2.5"
       [progress]="character.xpProgress()"
