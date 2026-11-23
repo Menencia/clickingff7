@@ -152,19 +152,27 @@ export class BattleService {
   }
 
   /**
-   * Team attacks the enemies (Limit when the gauge is full)
+   * Team attacks the enemies. Does nothing outside a battle.
    */
   attack(): void {
-    const battle = this.battle();
-    if (!battle) {
+    if (!this.battle()) {
       return;
     }
+    this.gameService.characters.getAttackSkill().use(this.getContext());
+    this.endIfEnemiesDefeated();
+  }
+
+  /**
+   * Team uses its Limit and empties the gauge. Does nothing outside a battle
+   * or when the gauge is not full.
+   */
+  limit(): void {
     const { characters } = this.gameService;
-    const skill = characters.getAttackSkill();
-    if (characters.canLimit()) {
-      characters.limit.set(0);
+    if (!this.battle() || !characters.canLimit()) {
+      return;
     }
-    skill.use(this.getContext());
+    characters.limit.set(0);
+    characters.getLimitSkill().use(this.getContext());
     this.endIfEnemiesDefeated();
   }
 

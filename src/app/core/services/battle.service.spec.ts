@@ -298,43 +298,14 @@ describe('BattleService', () => {
       expect(service.battle()).toBe(battle);
     });
 
-    it('uses the Limit and resets the gauge when full', () => {
+    it('keeps the gauge, even when full', () => {
       const battle = startBattle();
       battle.enemies.hp.set(battle.enemies.hpMax() * 1000);
       game.characters.limit.set(game.characters.limitMax());
 
       service.attack();
 
-      expect(game.characters.limit()).toBe(0);
-    });
-
-    it('deals about 5 times more damage with the Limit', () => {
-      vi.spyOn(Math, 'random').mockReturnValue(0.5); // no variance, no critical
-      const battle = startBattle();
-      const hpStart = battle.enemies.hpMax() * 1000;
-
-      battle.enemies.hp.set(hpStart);
-      service.attack();
-      const normal = hpStart - battle.enemies.hp();
-
-      battle.enemies.hp.set(hpStart);
-      game.characters.limit.set(game.characters.limitMax());
-      service.attack();
-      const limit = hpStart - battle.enemies.hp();
-
-      // exact ×5 is covered in characters.spec.ts; here hits are small and rounded
-      expect(limit).toBeGreaterThanOrEqual(normal * 4);
-      expect(limit).toBeLessThanOrEqual(normal * 6);
-    });
-
-    it('keeps the gauge when it is not full', () => {
-      const battle = startBattle();
-      battle.enemies.hp.set(battle.enemies.hpMax() * 1000);
-      game.characters.limit.set(1);
-
-      service.attack();
-
-      expect(game.characters.limit()).toBe(1);
+      expect(game.characters.limit()).toBe(game.characters.limitMax());
     });
 
     it('wins the battle when the enemies reach 0 HP', () => {
@@ -346,6 +317,68 @@ describe('BattleService', () => {
       expect(battle.victory).toBe(true);
       expect(service.battle()).toBeUndefined();
       expect(game.zones.current().nbFights).toBe(1);
+    });
+  });
+
+  describe('limit', () => {
+    it('does nothing outside a battle', () => {
+      game.characters.limit.set(game.characters.limitMax());
+      expect(() => service.limit()).not.toThrow();
+      expect(game.characters.limit()).toBe(game.characters.limitMax());
+    });
+
+    it('does nothing when the gauge is not full', () => {
+      const battle = startBattle();
+      battle.enemies.hp.set(battle.enemies.hpMax() * 1000);
+      const hp = battle.enemies.hp();
+      game.characters.limit.set(1);
+
+      service.limit();
+
+      expect(battle.enemies.hp()).toBe(hp);
+      expect(game.characters.limit()).toBe(1);
+    });
+
+    it('uses the Limit and resets the gauge when full', () => {
+      const battle = startBattle();
+      battle.enemies.hp.set(battle.enemies.hpMax() * 1000);
+      const hp = battle.enemies.hp();
+      game.characters.limit.set(game.characters.limitMax());
+
+      service.limit();
+
+      expect(battle.enemies.hp()).toBeLessThan(hp);
+      expect(game.characters.limit()).toBe(0);
+    });
+
+    it('deals about 5 times more damage than an attack', () => {
+      vi.spyOn(Math, 'random').mockReturnValue(0.5); // no variance, no critical
+      const battle = startBattle();
+      const hpStart = battle.enemies.hpMax() * 1000;
+
+      battle.enemies.hp.set(hpStart);
+      service.attack();
+      const normal = hpStart - battle.enemies.hp();
+
+      battle.enemies.hp.set(hpStart);
+      game.characters.limit.set(game.characters.limitMax());
+      service.limit();
+      const limit = hpStart - battle.enemies.hp();
+
+      // exact ×5 is covered in characters.spec.ts; here hits are small and rounded
+      expect(limit).toBeGreaterThanOrEqual(normal * 4);
+      expect(limit).toBeLessThanOrEqual(normal * 6);
+    });
+
+    it('wins the battle when the enemies reach 0 HP', () => {
+      const battle = startBattle();
+      battle.enemies.hp.set(1);
+      game.characters.limit.set(game.characters.limitMax());
+
+      service.limit();
+
+      expect(battle.victory).toBe(true);
+      expect(service.battle()).toBeUndefined();
     });
   });
 

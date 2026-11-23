@@ -4,7 +4,7 @@
     "team": "This is your team ! You begin with 2 characters. If they win battles, characters will level up and get stronger.",
     "hp": "This is the life points of your team : if it comes to 0, you fail the battle.",
     "mp": "This is the magic points of your team. You need them to use magic.",
-    "limit": "When you get damaged, this gauge will fill up. When it gets full, your next attack will be overkill !",
+    "limit": "When you get damaged, this gauge will fill up. When it gets full, a Limit button shows up under Attack: use it for an overkill attack !",
     "enemies": "This is where the enemy will appears. To win the battle, you have to kill them before they do.",
     "fight": "In the Battle tab, start a fight to face enemies. During the battle, click Attack as many times as you want to defeat them faster, or escape if the enemies are too strong.",
     "materias": "Your magic is in the Magic tab ! Don't forget you need MP to use them. For example, you can use 'Restore' to cure your characters.",

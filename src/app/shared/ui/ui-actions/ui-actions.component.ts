@@ -103,6 +103,10 @@ export class UiActionsComponent {
     this.battleService.attack();
   }
 
+  public limit(): void {
+    this.battleService.limit();
+  }
+
   public escape(): void {
     this.battleService.escape();
   }

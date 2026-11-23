@@ -9,6 +9,12 @@ import { Weapon } from '../weapon';
 // maximum characters in the team
 export const MAX_TEAM = 3;
 
+/** Power of a normal attack of the team */
+export const ATTACK_POWER = 100;
+
+/** Power of the team Limit */
+export const LIMIT_POWER = 500;
+
 export class Characters extends Units {
   protected readonly resistanceDivisor = 10;
 
@@ -180,12 +186,18 @@ export class Characters extends Units {
   }
 
   /**
-   * Team attack: a Limit (power 500) when the gauge is full, otherwise a normal
-   * attack (power 100). Does not consume the gauge.
+   * Normal attack of the team (power 100), whatever the Limit gauge
    */
   getAttackSkill(): ItActionAttack {
-    const pwr = this.canLimit() ? 500 : 100;
-    return new Attack(this.hits(), pwr);
+    return new Attack(this.hits(), ATTACK_POWER);
+  }
+
+  /**
+   * Limit of the team: an attack 5 times stronger, usable when the gauge is
+   * full. It doesn't empty the gauge: the caller does.
+   */
+  getLimitSkill(): ItActionAttack {
+    return new Attack(this.hits(), LIMIT_POWER);
   }
 
   /**

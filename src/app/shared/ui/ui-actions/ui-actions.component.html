@@ -1,6 +1,7 @@
 <!-- Three tabs: Battle (open by default), Magic and Items. Each button takes
      the full width, with a short description under its name. During a
-     battle, Attack and Escape replace the fight buttons. Fight boss only
+     battle, Attack and Escape replace the fight buttons, with Limit between
+     them when the gauge is full. Fight boss only
      shows when the boss can be fought; until then, a hint under Fight random
      tells how many victories are left. Outside a battle, offensive materias
      and items are hidden. -->
@@ -144,17 +145,21 @@
     </button>
     } } @else {
     <button type="button" class="action-btn btn" (click)="attack()">
-      <app-action-icon [name]="canLimit() ? 'zap' : 'sword'" />
+      <app-action-icon name="sword" />
       <span class="action-text">
-        @if (!canLimit()) {
         <span class="action-name">{{ "Attack" | translate }}</span>
         <span class="action-desc">{{ "Attack desc" | translate }}</span>
-        } @else {
-        <span class="action-name">{{ "Limit" | translate }}</span>
-        <span class="action-desc">{{ "Limit desc" | translate }}</span>
-        }
       </span>
     </button>
+    @if (canLimit()) {
+    <button type="button" class="action-btn btn" (click)="limit()">
+      <app-action-icon name="zap" class="text-warning" />
+      <span class="action-text">
+        <span class="action-name">{{ "Limit" | translate }}</span>
+        <span class="action-desc">{{ "Limit desc" | translate }}</span>
+      </span>
+    </button>
+    }
     <button type="button" class="action-btn btn" (click)="escape()">
       <app-action-icon name="footprints" />
       <span class="action-text">

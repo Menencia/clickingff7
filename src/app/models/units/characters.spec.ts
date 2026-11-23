@@ -380,6 +380,16 @@ describe('Characters', () => {
     });
   });
 
+  describe('getLimitSkill', () => {
+    it('returns a limit (power 500) without emptying the gauge', () => {
+      characters.limit.set(characters.limitMax());
+      const limit = characters.getLimitSkill() as Attack;
+      expect(limit.baseHits).toBe(characters.hits());
+      expect(limit.pwr).toBe(500);
+      expect(characters.limit()).toBe(characters.limitMax());
+    });
+  });
+
   describe('getAttackSkill', () => {
     it('returns a normal attack (power 100) when the limit is not full', () => {
       characters.limit.set(10);
@@ -389,11 +399,10 @@ describe('Characters', () => {
       expect(characters.limit()).toBe(10);
     });
 
-    it('returns a limit (power 500) without emptying the gauge when full', () => {
+    it('returns a normal attack even when the limit is full', () => {
       characters.limit.set(characters.limitMax());
       const attack = characters.getAttackSkill() as Attack;
-      expect(attack.pwr).toBe(500);
-      expect(characters.limit()).toBe(characters.limitMax());
+      expect(attack.pwr).toBe(100);
     });
 
     it('deals 5 times the damage of a normal attack with a limit', () => {
@@ -403,8 +412,7 @@ describe('Characters', () => {
       characters = teamWithHits(100);
 
       const normal = characters.getAttackSkill() as Attack;
-      characters.limit.set(characters.limitMax());
-      const limit = characters.getAttackSkill() as Attack;
+      const limit = characters.getLimitSkill() as Attack;
 
       expect(normal.calculateHits()).toBe(100);
       expect(limit.calculateHits()).toBe(500);

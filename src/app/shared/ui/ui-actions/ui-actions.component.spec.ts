@@ -265,4 +265,31 @@ describe('UiActionsComponent (real data)', () => {
     fixture.componentInstance.fightRandom();
     expect(icons()).toEqual(['sword', 'footprints']);
   });
+
+  it('adds a Limit button under Attack when the gauge is full', () => {
+    const fixture = TestBed.createComponent(UiActionsComponent);
+    const names = () => {
+      fixture.detectChanges();
+      return [
+        ...(fixture.nativeElement as HTMLElement).querySelectorAll(
+          '[data-group="battle"] .action-name',
+        ),
+      ].map((e) => e.textContent?.trim());
+    };
+    fixture.componentInstance.fightRandom();
+    battleService.battle()?.enemies.hp.set(1_000_000);
+    expect(names()).toEqual(['Attack', 'Escape']);
+
+    game.characters.limit.set(game.characters.limitMax());
+    expect(names()).toEqual(['Attack', 'Limit', 'Escape']);
+
+    const limit = [
+      ...(
+        fixture.nativeElement as HTMLElement
+      ).querySelectorAll<HTMLButtonElement>('[data-group="battle"] button'),
+    ][1];
+    limit.click();
+    expect(game.characters.limit()).toBe(0);
+    expect(names()).toEqual(['Attack', 'Escape']);
+  });
 });
