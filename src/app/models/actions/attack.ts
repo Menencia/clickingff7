@@ -1,8 +1,8 @@
-import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { withVariance } from '../../shared/utils/game.utils';
 import { random } from '../../shared/utils/math.utils';
 import { Context } from '../context';
 import { ElementType } from '../element-type';
+import { ItActionAttack } from './action';
 
 export class Attack implements ItActionAttack {
   constructor(

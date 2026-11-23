@@ -1,7 +1,7 @@
 import { Component, input, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { EMPTY, Observable, switchMap } from 'rxjs';
-import { ItDisplayHits } from '../../../core/interfaces/it-display-hits';
+import { ItDisplayHits } from '../../../models/units';
 
 @Component({
   selector: 'app-progress-bar',

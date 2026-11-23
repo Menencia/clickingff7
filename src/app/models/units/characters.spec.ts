@@ -1,10 +1,10 @@
-import { ItActionAttack } from '../../core/interfaces/it-action-attack';
-import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
+import { ItActionAttack } from '../actions/action';
 import { Attack } from '../actions/attack';
 import { Character } from '../character';
 import { ElementType } from '../element-type';
 import { CharacterRef } from '../refs/characters';
 import { WeaponRef } from '../refs/weapons';
+import { ItDisplayHits } from '../units';
 import { Weapon } from '../weapon';
 import { Characters, MAX_TEAM } from './characters';
 
@@ -308,7 +308,7 @@ describe('Characters', () => {
 
     it('removes HP, fills the limit gauge and emits the hits', () => {
       const emitted: ItDisplayHits[] = [];
-      characters.source.hp.subscribe((h) => emitted.push(h));
+      characters.hitEvents.subscribe((h) => emitted.push(h));
 
       characters.getAttacked(30, attackOf([]));
 

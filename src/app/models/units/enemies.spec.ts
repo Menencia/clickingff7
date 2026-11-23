@@ -1,9 +1,9 @@
-import { ItActionAttack } from '../../core/interfaces/it-action-attack';
-import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
+import { ItActionAttack } from '../actions/action';
 import { Difficulty } from '../difficulty';
 import { ElementType } from '../element-type';
 import { Enemy, EnemyJson } from '../enemy';
 import { EnemyRef } from '../refs/enemy';
+import { ItDisplayHits } from '../units';
 import { Enemies } from './enemies';
 
 function makeEnemy(data: Partial<EnemyJson> = {}): Enemy {
@@ -89,7 +89,7 @@ describe('Enemies', () => {
 
     it('removes HP and emits the hits', () => {
       const emitted: ItDisplayHits[] = [];
-      enemies.source.hp.subscribe((h) => emitted.push(h));
+      enemies.hitEvents.subscribe((h) => emitted.push(h));
 
       enemies.getAttacked(30, attackOf([]));
 
@@ -107,7 +107,7 @@ describe('Enemies', () => {
     it('triples damage on weakness', () => {
       enemies.weakness = ['fire'];
       const emitted: ItDisplayHits[] = [];
-      enemies.source.hp.subscribe((h) => emitted.push(h));
+      enemies.hitEvents.subscribe((h) => emitted.push(h));
 
       enemies.getAttacked(10, attackOf(['bolt', 'fire']));
 

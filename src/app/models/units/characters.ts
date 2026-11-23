@@ -1,6 +1,5 @@
 import { computed, signal } from '@angular/core';
-import { ItActionAttack } from '../../core/interfaces/it-action-attack';
-import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
+import { ItActionAttack } from '../actions/action';
 import { Attack } from '../actions/attack';
 import { Character } from '../character';
 import { CharactersSave } from '../save';
@@ -86,7 +85,7 @@ export class Characters extends Units {
    */
   addHp(value: number): void {
     this.hp.update((hp) => Math.min(hp + value, this.hpMax()));
-    this.source.hp.next({ hits: value } as ItDisplayHits);
+    this.hitEvents.next({ hits: value });
   }
 
   /**
@@ -196,7 +195,7 @@ export class Characters extends Units {
     const hits = this.applyAffinities(baseHits, context.elements);
 
     this.hp.update((hp) => Math.max(hp - hits, 0));
-    this.source.hp.next({ hits } as ItDisplayHits);
+    this.hitEvents.next({ hits });
 
     this.limit.update((limit) => Math.min(limit + hits, this.limitMax()));
   }

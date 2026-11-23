@@ -1,7 +1,6 @@
 import { signal } from '@angular/core';
-import { ItActionAttack } from '../../core/interfaces/it-action-attack';
-import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
 import { withVariance } from '../../shared/utils/game.utils';
+import { ItActionAttack } from '../actions/action';
 import { Context } from '../context';
 import { Enemy } from '../enemy';
 import { Units } from '../units';
@@ -76,7 +75,7 @@ export class Enemies extends Units {
     const hits = this.applyAffinities(baseHits, context.elements);
 
     this.hp.update((hp) => Math.max(hp - hits, 0));
-    this.source.hp.next({ hits } as ItDisplayHits);
+    this.hitEvents.next({ hits });
   }
 
   isAlive(): boolean {

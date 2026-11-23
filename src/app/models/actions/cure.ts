@@ -1,6 +1,6 @@
-import { ItAction } from '../../core/interfaces/it-action';
 import { withVariance } from '../../shared/utils/game.utils';
 import { Context } from '../context';
+import { ItAction } from './action';
 
 export class Cure implements ItAction {
   constructor(

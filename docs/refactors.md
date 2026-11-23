@@ -93,7 +93,7 @@ Changement : sortir la conversion `Save` ⇄ état (`load`, `checkPlayable`, `ex
 
 ## Lot 5 — Modernisation
 
-### 10. `refactor(models): move action interfaces into models` 🟢
+### 10. `refactor(models): move action interfaces into models` 🟢 ✅ fait
 
 Les modèles importent `ItAction`, `ItActionAttack` et `ItDisplayHits` depuis `core/interfaces/` (15 imports) : dépendance inversée entre couches. `Units.source.hp` est un nom peu parlant pour le flux des dégâts flottants, et `{ hits } as ItDisplayHits` est casté partout.
 

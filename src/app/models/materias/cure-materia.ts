@@ -1,4 +1,4 @@
-import { ItAction } from '../../core/interfaces/it-action';
+import { ItAction } from '../actions/action';
 import { Cure } from '../actions/cure';
 import { Context } from '../context';
 import { Materia } from '../materia';

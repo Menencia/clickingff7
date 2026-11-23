@@ -1,17 +1,21 @@
 import { Signal, signal } from '@angular/core';
 import { Subject } from 'rxjs';
-import { ItActionAttack } from '../core/interfaces/it-action-attack';
-import { ItDisplayHits } from '../core/interfaces/it-display-hits';
+import { ItActionAttack } from './actions/action';
 import { ElementType } from './element-type';
+
+export interface ItDisplayHits {
+  hits: number;
+}
 
 export abstract class Units {
   hp = signal(0);
 
   abstract readonly hpMax: Signal<number>;
 
-  source = {
-    hp: new Subject<ItDisplayHits>(), // health points
-  };
+  /**
+   * Hits received or healed, shown as floating numbers on the HP bar
+   */
+  readonly hitEvents = new Subject<ItDisplayHits>();
 
   weakness: ElementType[] = [];
   resistance: ElementType[] = [];

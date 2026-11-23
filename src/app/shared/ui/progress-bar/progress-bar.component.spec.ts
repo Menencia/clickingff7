@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { Subject } from 'rxjs';
-import { ItDisplayHits } from '../../../core/interfaces/it-display-hits';
+import { ItDisplayHits } from '../../../models/units';
 import { ProgressBarComponent } from './progress-bar.component';
 
 describe('ProgressBarComponent', () => {

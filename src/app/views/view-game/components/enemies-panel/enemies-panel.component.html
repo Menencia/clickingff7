@@ -6,7 +6,7 @@
       [progress]="hpPercent()"
       [style]="'progress-error'"
       [text]="'HP ' + enemies().hp()"
-      [hits]="enemies().source.hp"
+      [hits]="enemies().hitEvents"
     ></app-progress-bar>
   </div>
   } @if (enemies().list.length === 0) {
