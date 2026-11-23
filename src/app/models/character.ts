@@ -3,6 +3,7 @@ import {
   MAX_LEVEL,
   statFactor,
 } from '../shared/utils/game.utils';
+import { percent } from '../shared/utils/math.utils';
 import { CharacterRef } from './refs/characters';
 import { WeaponRef } from './refs/weapons';
 import { CharacterSave } from './save';
@@ -114,8 +115,8 @@ export class Character {
   }
 
   /** Returns the percentage of XP progression */
-  xpProgress(pixelsMax: number): number {
-    return this.xp === 0 ? 0 : (this.xp / this.getXpMax()) * pixelsMax;
+  xpProgress(): number {
+    return percent(this.xp, this.getXpMax());
   }
 
   /** Updates xp and can trigger character level up */

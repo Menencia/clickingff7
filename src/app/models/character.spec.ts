@@ -59,6 +59,15 @@ describe('Character', () => {
     });
   });
 
+  describe('xpProgress', () => {
+    it('returns the rounded percentage of XP toward the next level', () => {
+      const c = makeCharacter();
+      expect(c.xpProgress()).toBe(0);
+      c.xp = Math.floor(c.getXpMax() / 3);
+      expect(c.xpProgress()).toBe(Math.round((c.xp / c.getXpMax()) * 100));
+    });
+  });
+
   describe('setXp', () => {
     it('accumulates XP without leveling below the threshold', () => {
       const c = makeCharacter();

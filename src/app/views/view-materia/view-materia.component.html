@@ -35,7 +35,7 @@
             <!-- Mobile: the Evolution column is hidden -->
             <app-progress-bar
               class="mt-1 block sm:hidden [&>div]:mb-0"
-              [progress]="materia.apProgress(100)"
+              [progress]="materia.apProgress()"
               [style]="'progress-primary'"
               [text]="materia.ap + ' / ' + materia.getApMax() + ' AP'"
             />
@@ -43,7 +43,7 @@
           <td class="hidden min-w-48 sm:table-cell">
             <app-progress-bar
               class="[&>div]:mb-0"
-              [progress]="materia.apProgress(100)"
+              [progress]="materia.apProgress()"
               [style]="'progress-primary'"
               [text]="materia.ap + ' / ' + materia.getApMax() + ' AP'"
             />

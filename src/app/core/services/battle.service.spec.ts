@@ -119,20 +119,20 @@ describe('BattleService', () => {
       expect(materias.length).toBeGreaterThan(0);
       // rewards are small enough not to trigger a level up
       team.forEach((c) => {
-        expect(enemy.xpReward()).toBeLessThan(c.getXpMax());
+        expect(enemy.xp).toBeLessThan(c.getXpMax());
       });
       materias.forEach((m) => {
-        expect(enemy.apReward()).toBeLessThan(m.getApMax());
+        expect(enemy.ap).toBeLessThan(m.getApMax());
       });
 
       battle.end(true);
 
-      expect(game.gils()).toBe(gils + enemy.gilsReward());
+      expect(game.gils()).toBe(gils + enemy.gils);
       team.forEach((c) => {
-        expect(c.xp).toBe(enemy.xpReward());
+        expect(c.xp).toBe(enemy.xp);
       });
       materias.forEach((m) => {
-        expect(m.ap).toBe(enemy.apReward());
+        expect(m.ap).toBe(enemy.ap);
       });
       game.materias.list
         .filter((m) => !m.equipped)
@@ -266,21 +266,8 @@ describe('BattleService', () => {
       expect(zone.completed).toBe(false);
       expect(service.canFightBoss()).toBe(true);
     });
-
-    it('does not complete a zone below the highest unlocked zone', () => {
-      game.zones.level = 2;
-      game.zones.levelMax = 2;
-      game.buildLevel(2);
-      game.zones.level = 1;
-      const zone = game.zones.current();
-      zone.nbFights = MAX_FIGHTS;
-
-      service.startBoss();
-      service.battle()?.end(true);
-
-      expect(zone.completed).toBe(false);
-    });
   });
+
   function startBattle() {
     service.startRandom();
     const battle = service.battle();

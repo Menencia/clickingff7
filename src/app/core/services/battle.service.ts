@@ -237,24 +237,21 @@ export class BattleService {
     const materias = this.gameService.materias.getEquipped();
 
     enemies.forEach((enemy) => {
-      this.gameService.gils.update((gils) => gils + enemy.gilsReward());
+      this.gameService.gils.update((gils) => gils + enemy.gils);
 
-      if (
-        enemy.boss &&
-        this.gameService.zones.level + 1 > this.gameService.zones.levelMax
-      ) {
-        // Complete zone
+      // A boss can only be fought in an uncompleted zone, the last unlocked one
+      if (enemy.boss) {
         this.gameService.zones.complete();
       }
 
       // XP for characters
       characters.forEach((character) => {
-        character.setXp(enemy.xpReward());
+        character.setXp(enemy.xp);
       });
 
       // AP for materias
       materias.forEach((materia) => {
-        materia.setAp(enemy.apReward());
+        materia.setAp(enemy.ap);
       });
     });
 

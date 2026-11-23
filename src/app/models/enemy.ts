@@ -87,39 +87,4 @@ export class Enemy {
     this.ap = Math.ceil(statFactor(this.baseAp) * 2 * levelSum);
     this.gils = Math.ceil(statFactor(this.baseGils) * (30 + levelSum));
   }
-
-  /**
-   * Returns enemy HP
-   */
-  getHpMax(): number {
-    return this.hpMax;
-  }
-
-  /**
-   * Returns enemy pwr
-   */
-  getHits(): number {
-    return this.hits;
-  }
-
-  /**
-   * returns enemy XP reward
-   */
-  xpReward(): number {
-    return this.xp;
-  }
-
-  /**
-   * returns enemy AP reward
-   */
-  apReward(): number {
-    return this.ap;
-  }
-
-  /**
-   * returns enemy gils reward
-   */
-  gilsReward(): number {
-    return this.gils;
-  }
 }

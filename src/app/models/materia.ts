@@ -1,4 +1,5 @@
 import { MAX_LEVEL, statFactor } from '../shared/utils/game.utils';
+import { percent } from '../shared/utils/math.utils';
 import { ItAction } from './actions/action';
 import { Context } from './context';
 import { Purchasable } from './purchasable';
@@ -83,11 +84,7 @@ export abstract class Materia extends Purchasable {
    * Returns true if a materia with the same ref is in {materias}
    */
   isOwned(materias: Materia[]): boolean {
-    const materia = materias.find((e) => e.ref === this.ref);
-    if (materia) {
-      return true;
-    }
-    return false;
+    return materias.some((e) => e.ref === this.ref);
   }
 
   /**
@@ -98,10 +95,10 @@ export abstract class Materia extends Purchasable {
   }
 
   /**
-   *
+   * Returns the percentage of AP progression
    */
-  apProgress(pixelsMax: number): number {
-    return this.ap === 0 ? 0 : (this.ap / this.getApMax()) * pixelsMax;
+  apProgress(): number {
+    return percent(this.ap, this.getApMax());
   }
 
   /**

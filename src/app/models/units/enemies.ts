@@ -6,26 +6,13 @@ import { Enemy } from '../enemy';
 import { Units } from '../units';
 
 export class Enemies extends Units {
-  list: Enemy[];
+  list: Enemy[] = [];
 
-  hits: number;
+  hits = 0;
 
   readonly hpMax = signal(0);
 
   protected readonly resistanceDivisor = 3;
-
-  /**
-   * Init
-   */
-  constructor() {
-    super();
-    this.list = [];
-
-    this.hits = 0;
-    this.hp.set(0);
-    this.resistance = [];
-    this.weakness = [];
-  }
 
   /**
    * Refresh all the enemy
@@ -38,8 +25,8 @@ export class Enemies extends Units {
 
     this.list.forEach((enemy) => {
       // HP
-      hpMax += enemy.getHpMax();
-      this.hits += enemy.getHits();
+      hpMax += enemy.hpMax;
+      this.hits += enemy.hits;
       this.weakness = [...new Set([...this.weakness, ...enemy.weakness])];
       this.resistance = [...new Set([...this.resistance, ...enemy.resistance])];
     });

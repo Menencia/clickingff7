@@ -35,6 +35,24 @@ describe('Materia', () => {
     });
   });
 
+  describe('apProgress', () => {
+    it('returns the rounded percentage of AP toward the next level', () => {
+      const m = makeAttack();
+      expect(m.apProgress()).toBe(0);
+      m.ap = Math.floor(m.getApMax() / 3);
+      expect(m.apProgress()).toBe(Math.round((m.ap / m.getApMax()) * 100));
+    });
+  });
+
+  describe('isOwned', () => {
+    it('is true only when a materia with the same ref is in the list', () => {
+      const fire = makeAttack();
+      expect(fire.isOwned([])).toBe(false);
+      expect(fire.isOwned([makeCure()])).toBe(false);
+      expect(fire.isOwned([makeCure(), makeAttack()])).toBe(true);
+    });
+  });
+
   describe('setAp', () => {
     it('accumulates AP without leveling below the threshold', () => {
       const m = makeAttack();

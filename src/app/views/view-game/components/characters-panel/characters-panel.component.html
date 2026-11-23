@@ -40,7 +40,7 @@
       </div>
       <div class="min-w-0 grow">
         <app-progress-bar
-          [progress]="character.xpProgress(100)"
+          [progress]="character.xpProgress()"
           [text]="character.xp + ' / ' + character.getXpMax() + 'EXP'"
         ></app-progress-bar>
         <div class="text-lg leading-tight sm:text-2xl">{{ character.ref }}</div>

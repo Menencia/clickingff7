@@ -103,7 +103,7 @@ Changement : déplacer les interfaces dans `models/actions/` (et `models/units.t
 
 ## Lot 6 — Nettoyage
 
-### 11. `chore: remove trivial getters and redundant code` 🟢
+### 11. `chore: remove trivial getters and redundant code` 🟢 ✅ fait
 
 - `Enemy.getHpMax()`, `getHits()`, `xpReward()`, `apReward()`, `gilsReward()` ne font que renvoyer un champ public.
 - Le constructeur d'`Enemies` réinitialise des champs déjà initialisés par `Units`.
