@@ -2,9 +2,9 @@ import { Injectable, inject, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import packageJson from '../../../../package.json';
 import { Character } from '../../models/character';
-import { Difficulty, isDifficulty } from '../../models/difficulty';
+import { Difficulty } from '../../models/difficulty';
 import { Items } from '../../models/items';
-import { isLanguage } from '../../models/language';
+import { getLanguage } from '../../models/language';
 import { Materias } from '../../models/materias';
 import { ZoneRef } from '../../models/refs/zones';
 import { Save } from '../../models/save';
@@ -12,9 +12,10 @@ import { Characters } from '../../models/units/characters';
 import { Weapon } from '../../models/weapon';
 import { Weapons } from '../../models/weapons';
 import { ZONE_UNLOCKS } from '../../models/zone-unlocks';
-import { MAX_ZONES, Zones } from '../../models/zones';
+import { Zones } from '../../models/zones';
 import { decodeSave, encodeSave } from '../../shared/utils/save.utils';
 import { isVersionAtLeast } from '../../shared/utils/version.utils';
+import { GameState, SaveService } from './save.service';
 import { StoreService } from './store.service';
 
 const SAVE_1 = 'save1';
@@ -24,9 +25,10 @@ const BASE_GILS = 200;
 @Injectable({
   providedIn: 'root',
 })
-export class GameService {
+export class GameService implements GameState {
   private translate = inject(TranslateService);
   private store = inject(StoreService);
+  private saves = inject(SaveService);
 
   /** time counter */
   timer: number;
@@ -65,11 +67,7 @@ export class GameService {
     this.timer = 0;
 
     // language
-    this.language = this.getLanguage(this.translate.getBrowserLang());
-  }
-
-  getLanguage(language: string | undefined, defaultLanguage = 'en'): string {
-    return isLanguage(language) ? language : defaultLanguage;
+    this.language = getLanguage(this.translate.getBrowserLang());
   }
 
   /**
@@ -112,7 +110,7 @@ export class GameService {
     this.preload();
     if (!this.tryLoad(save)) {
       this.preload();
-      this.load(current);
+      this.saves.load(this, current);
       this.postload();
       return false;
     }
@@ -125,7 +123,7 @@ export class GameService {
    */
   private tryLoad(save: Save): boolean {
     try {
-      this.load(save);
+      this.saves.load(this, save);
       return true;
     } catch {
       return false;
@@ -143,7 +141,7 @@ export class GameService {
     this.materias.clear();
     this.items.clear();
     this.gils.set(BASE_GILS);
-    this.language = this.getLanguage(this.translate.getBrowserLang());
+    this.language = getLanguage(this.translate.getBrowserLang());
     this.difficulty = Difficulty.Normal;
     this.time.set(0);
     this.version = CURRENT_VERSION;
@@ -198,7 +196,7 @@ export class GameService {
       this.items.add(this.store.getItem(ref), equipped);
     });
 
-    this.linkWeapons();
+    this.characters.linkWeapons(this.weapons.list);
 
     // restore hp & mp
     this.characters.refresh();
@@ -222,19 +220,6 @@ export class GameService {
       this.buildLevel(next);
     }
     this.zones.goTo(next);
-  }
-
-  /**
-   * Points each character to the owned weapon of the same ref, so that
-   * equipping and selling act on the player's stock.
-   */
-  private linkWeapons(): void {
-    this.characters.list.forEach((c) => {
-      const owned = this.weapons.list.find((w) => w.ref === c.weapon.ref);
-      if (owned) {
-        c.setWeapon(owned);
-      }
-    });
   }
 
   /**
@@ -291,100 +276,7 @@ export class GameService {
    * Export the game
    */
   export(): Save {
-    return {
-      characters: this.characters.export(),
-      zones: this.zones.export(),
-      weapons: this.weapons.export(this.characters.list),
-      materias: this.materias.export(),
-      items: this.items.export(),
-      gils: this.gils(),
-      language: this.language,
-      difficulty: this.difficulty,
-      time: this.time(),
-      version: this.version,
-    };
-  }
-
-  /**
-   * Load a save
-   */
-  load(save: Save): void {
-    // weapons (w.equipped is ignored: characters hold the worn weapons)
-    save.weapons.forEach((w) => {
-      this.weapons.add(this.store.getWeapon(w.ref).load(w));
-    });
-
-    // characters
-    save.characters.list.forEach((c) => {
-      const character = this.store.getCharacter(c.ref).load(c);
-      character.setWeapon(this.store.getWeapon(c.weaponRef));
-      this.characters.add(character, c.inTeam);
-    });
-    this.linkWeapons();
-
-    this.characters.hp.set(save.characters.hp);
-    this.characters.mp.set(save.characters.mp);
-    this.characters.limit.set(save.characters.limit);
-
-    // zones
-    save.zones.list.forEach((z) => {
-      const zone = this.store.getZone(z.ref).load(z);
-      this.zones.add(zone);
-    });
-
-    this.zones.level = save.zones.level;
-    this.zones.levelMax = save.zones.levelMax;
-
-    const zonelevelMax = this.zones.levelMax;
-    this.characters.available(zonelevelMax);
-
-    // materias
-    save.materias.forEach((m) => {
-      const materia = this.store.getMateria(m.ref).load(m);
-      this.materias.add(materia, m.equipped);
-    });
-
-    // items
-    save.items.forEach((i) => {
-      const item = this.store.getItem(i.ref).load(i);
-      this.items.add(item, i.equipped);
-    });
-    this.items.fit();
-
-    // An unknown language falls back to the browser's, then to English.
-    this.language = this.getLanguage(
-      save.language,
-      this.getLanguage(this.translate.getBrowserLang()),
-    );
-    // Older saves store the difficulty as a string ("2").
-    this.difficulty = Number(save.difficulty);
-
-    this.time.set(save.time);
-    this.gils.set(save.gils);
-
-    this.checkPlayable();
-  }
-
-  /**
-   * Throws if the loaded game cannot be played: current zone or last
-   * unlocked zone missing, empty team or unknown difficulty. Completes the
-   * shape checks of decodeSave(), which cannot see the game data.
-   */
-  private checkPlayable(): void {
-    const { level, levelMax, list } = this.zones;
-    const lastZone = Math.max(0, ...list.map((z) => z.level));
-    if (level > levelMax || levelMax > MAX_ZONES || levelMax > lastZone) {
-      throw new Error('Invalid zone progress');
-    }
-    this.zones.current();
-
-    if (this.characters.getTeam().length === 0) {
-      throw new Error('Empty team');
-    }
-
-    if (!isDifficulty(this.difficulty)) {
-      throw new Error('Unknown difficulty');
-    }
+    return this.saves.export(this);
   }
 
   /**

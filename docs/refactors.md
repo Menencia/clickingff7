@@ -83,7 +83,7 @@ Changement : `Characters.getSelected()` (ou un `computed` sur `team`) qui renvoi
 
 ## Lot 4 — Lisibilité
 
-### 9. `refactor(save): move save loading and export out of GameService` 🟢
+### 9. `refactor(save): move save loading and export out of GameService` 🟢 ✅ fait
 
 `GameService` (417 lignes, le plus gros fichier) mélange l'état de jeu, la progression (`buildLevel`, `goNextZone`), l'équipement, le chrono et la persistance (`run`, `importGame`, `tryLoad`, `load`, `checkPlayable`, `export`, `save`, `reset`, accès à `localStorage`).
 

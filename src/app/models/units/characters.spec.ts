@@ -273,6 +273,34 @@ describe('Characters', () => {
     });
   });
 
+  describe('linkWeapons', () => {
+    it('points each character to the owned weapon of the same ref', () => {
+      const [first] = characters.list;
+      const owned = new Weapon({
+        ref: WeaponRef.BusterSword,
+        type: 'broadsword',
+        hits: 10,
+        price: 0,
+        maxMaterias: 1,
+        zoneAvailable: 1,
+      });
+
+      characters.linkWeapons([owned]);
+
+      expect(characters.list.every((c) => c.weapon === owned)).toBe(true);
+      expect(first.weapon).toBe(owned);
+    });
+
+    it('keeps the weapon when none of the same ref is owned', () => {
+      const [first] = characters.list;
+      const weapon = first.weapon;
+
+      characters.linkWeapons([]);
+
+      expect(first.weapon).toBe(weapon);
+    });
+  });
+
   describe('getAttacked', () => {
     beforeEach(() => {
       characters.hp.set(120);

@@ -17,7 +17,7 @@ Pour chaque entrée : ce qui est géré, depuis quand, où dans le code, comment
 ### 2. Difficulté enregistrée en chaîne
 
 - **Ce qui est géré** : les anciennes sauvegardes stockent la difficulté en chaîne (`"2"`). Elle est acceptée à la validation et convertie en nombre au chargement.
-- **Code** : `isNumeric()` dans `src/app/shared/utils/save.utils.ts`, `Number(save.difficulty)` dans `GameService.load()`.
+- **Code** : `isNumeric()` dans `src/app/shared/utils/save.utils.ts`, `Number(save.difficulty)` dans `SaveService.load()` (`src/app/core/services/save.service.ts`).
 - **Tests** : `save.utils.spec.ts` (« accepts a difficulty stored as a numeric string »), `game.service.spec.ts` (« converts a difficulty stored as a string to a number »).
 - **Spécification** : `specs.md` §11, « Difficulté ».
 - **Retrait** : quand les sauvegardes antérieures à la conversion en nombre ne sont plus chargées (seuil du point 1).
@@ -25,7 +25,7 @@ Pour chaque entrée : ce qui est géré, depuis quand, où dans le code, comment
 ### 3. Champ `weapons[].equipped`
 
 - **Ce qui est géré** : depuis la 1.6.0, l'arme portée ne vient que de `characters[].weaponRef`. Le champ `weapons[].equipped` est encore **écrit** (calculé à partir des personnages) pour qu'une sauvegarde reste lisible par la 1.5.0, mais il est **ignoré** au chargement et facultatif à la validation.
-- **Code** : `WeaponSave.equipped` (`src/app/models/save.ts`), `Weapon.export()` (`src/app/models/weapon.ts`), `Weapons.export()` (`src/app/models/weapons.ts`), `isOwnedWeapon()` dans `src/app/shared/utils/save.utils.ts`, `GameService.load()`.
+- **Code** : `WeaponSave.equipped` (`src/app/models/save.ts`), `Weapon.export()` (`src/app/models/weapon.ts`), `Weapons.export()` (`src/app/models/weapons.ts`), `isOwnedWeapon()` dans `src/app/shared/utils/save.utils.ts`, `SaveService.load()` (`src/app/core/services/save.service.ts`).
 - **Tests** : `game.service.spec.ts` (« derives the equipped weapons from the characters on load », « loads a save without weapons[].equipped »), `save.utils.spec.ts` (« accepts a weapon without the equipped field »).
 - **Spécification** : `specs.md` §11, « Contenu ».
 - **Retrait** : quand la compatibilité descendante avec la 1.5.0 (import d'une sauvegarde récente dans la 1.5.0) n'est plus souhaitée, cesser d'écrire le champ et le retirer de `WeaponSave`.

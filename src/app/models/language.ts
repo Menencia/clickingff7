@@ -11,3 +11,13 @@ export const LANGUAGES: readonly { value: string; label: string }[] = [
 export function isLanguage(value: string | undefined): value is string {
   return LANGUAGES.some((l) => l.value === value);
 }
+
+/**
+ * Returns the language if it is supported, otherwise the default one
+ */
+export function getLanguage(
+  language: string | undefined,
+  defaultLanguage = 'en',
+): string {
+  return isLanguage(language) ? language : defaultLanguage;
+}

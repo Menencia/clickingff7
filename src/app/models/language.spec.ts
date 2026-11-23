@@ -1,4 +1,4 @@
-import { isLanguage, LANGUAGES } from './language';
+import { getLanguage, isLanguage, LANGUAGES } from './language';
 
 describe('Language', () => {
   it('lists the supported languages', () => {
@@ -14,5 +14,14 @@ describe('Language', () => {
     [undefined, false],
   ])('isLanguage(%s) is %s', (value, expected) => {
     expect(isLanguage(value)).toBe(expected);
+  });
+
+  it('getLanguage() keeps a supported language', () => {
+    expect(getLanguage('es')).toBe('es');
+  });
+
+  it('getLanguage() falls back to the default language', () => {
+    expect(getLanguage('de')).toBe('en');
+    expect(getLanguage(undefined, 'fr')).toBe('fr');
   });
 });

@@ -51,7 +51,7 @@ Biome is the only linter/formatter (no ESLint/Prettier). It uses single quotes a
 
 `buildLevel(n)` adds zone n and what it unlocks, read from the `ZONE_UNLOCKS` table (`models/zone-unlocks.ts`: new characters, characters rejoining the team, weapons, materias, items), then restores HP and MP. The save version comes from `package.json` `version`.
 
-Each collection class (`models/units/characters.ts`, `models/zones.ts`, `models/weapons.ts`, `models/materias.ts`, `models/items.ts`) has `export()` / load logic that maps to `Save`. When you add a persisted field, update the `Save` interfaces, the `export()` methods and `GameService.load()` together.
+Each collection class (`models/units/characters.ts`, `models/zones.ts`, `models/weapons.ts`, `models/materias.ts`, `models/items.ts`) has `export()` / load logic that maps to `Save`. `SaveService` (`core/services/save.service.ts`) converts the whole game state to a `Save` and back (`export()`, `load()`, playability checks); `GameService` keeps the storage and the game life cycle (`run`, `newGame`, `importGame`, `save`). When you add a persisted field, update the `Save` interfaces, the `export()` methods and `SaveService.load()` together.
 
 ### Battles
 `BattleService` holds the current battle in a `signal<Battle | undefined>`. `Battle` (`models/battle.ts`) runs the enemy attack loop on `setTimeout` and reports state through an RxJS `BehaviorSubject<BattleState>`. On `Ended`, the service applies rewards (gils, XP to the team, AP to equipped materias, zone completion on boss defeat) and clears the signal. A zone's boss becomes available after `MAX_FIGHTS` fights.

@@ -5,6 +5,7 @@ import { Attack } from '../actions/attack';
 import { Character } from '../character';
 import { CharactersSave } from '../save';
 import { Units } from '../units';
+import { Weapon } from '../weapon';
 
 // maximum characters in the team
 export const MAX_TEAM = 3;
@@ -209,6 +210,19 @@ export class Characters extends Units {
    */
   canLimit(): boolean {
     return this.limit() === this.limitMax();
+  }
+
+  /**
+   * Points each character to the owned weapon of the same ref, so that
+   * equipping and selling act on the player's stock.
+   */
+  linkWeapons(owned: Weapon[]): void {
+    this.list.forEach((c) => {
+      const weapon = owned.find((w) => w.ref === c.weapon.ref);
+      if (weapon) {
+        c.setWeapon(weapon);
+      }
+    });
   }
 
   /**
