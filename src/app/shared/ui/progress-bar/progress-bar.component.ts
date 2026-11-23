@@ -1,13 +1,6 @@
-import {
-  Component,
-  DestroyRef,
-  inject,
-  input,
-  OnInit,
-  signal,
-} from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { EMPTY, Observable } from 'rxjs';
+import { Component, input, signal } from '@angular/core';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { EMPTY, Observable, switchMap } from 'rxjs';
 import { ItDisplayHits } from '../../../core/interfaces/it-display-hits';
 
 @Component({
@@ -17,9 +10,7 @@ import { ItDisplayHits } from '../../../core/interfaces/it-display-hits';
   styleUrls: ['./progress-bar.component.scss'],
   host: { class: 'block' },
 })
-export class ProgressBarComponent implements OnInit {
-  private readonly destroyRef = inject(DestroyRef);
-
+export class ProgressBarComponent {
   readonly progress = input(0);
 
   readonly style = input('progress-neutral');
@@ -30,9 +21,13 @@ export class ProgressBarComponent implements OnInit {
 
   readonly arrHits = signal<ItDisplayHits[]>([]);
 
-  ngOnInit() {
-    this.hits()
-      .pipe(takeUntilDestroyed(this.destroyRef))
+  constructor() {
+    // Follow the latest stream given to the input, dropping the previous one.
+    toObservable(this.hits)
+      .pipe(
+        switchMap((hits) => hits),
+        takeUntilDestroyed(),
+      )
       .subscribe((hits) => {
         this.arrHits.update((arr) => [hits, ...arr]);
       });

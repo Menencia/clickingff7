@@ -38,7 +38,7 @@ Voir « Hors refactor ». Dans `GameService.load()`, passer `save.language` par 
 
 **Risque** : très faible. Tester qu'une sauvegarde en `de` charge en anglais et qu'une sauvegarde en `es` reste en espagnol. `specs.md` §11, `docs/bugs.md` et changelog.
 
-### 4. `refactor(progress-bar): follow changes of the hits input` 🟢
+### 4. `refactor(progress-bar): follow changes of the hits input` 🟢 ✅ fait
 
 `ProgressBarComponent` ne lit l'input `hits` qu'une fois, dans `ngOnInit()`. Les dégâts flottants des ennemis ne s'affichent à chaque combat que parce que le `@if (enemies().list.length > 0)` d'`EnemiesPanelComponent` détruit et recrée la barre entre deux combats : couplage caché avec le template parent.
 

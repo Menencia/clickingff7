@@ -32,6 +32,19 @@ describe('ProgressBarComponent', () => {
     expect(component.arrHits()).toEqual([{ hits: 12 }, { hits: 30 }]);
   });
 
+  it('follows a new hits stream given to the input', () => {
+    hits.next({ hits: 30 });
+    const next = new Subject<ItDisplayHits>();
+    fixture.componentRef.setInput('hits', next);
+    fixture.detectChanges();
+
+    expect(hits.observed).toBe(false);
+    hits.next({ hits: 99 });
+    next.next({ hits: 12 });
+
+    expect(component.arrHits()).toEqual([{ hits: 12 }, { hits: 30 }]);
+  });
+
   it('removes the oldest hit when its animation ends', () => {
     hits.next({ hits: 30 });
     hits.next({ hits: 12 });
