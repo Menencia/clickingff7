@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
 import packageJson from '../../../../package.json';
+import { Difficulty } from '../../models/difficulty';
 import { MAX_ITEMS } from '../../models/item';
 import { CharacterRef } from '../../models/refs/characters';
 import { ItemRef } from '../../models/refs/items';
@@ -16,7 +17,7 @@ import {
   provideInMemoryGameData,
   startGame as startGameFromCatalog,
 } from '../../testing/game-data.testing';
-import { Difficulty, GameService } from './game.service';
+import { GameService } from './game.service';
 import { StoreService } from './store.service';
 
 /** Fresh injector with the in-memory catalog. */

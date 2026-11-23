@@ -56,7 +56,7 @@ Changement : une méthode `clear()` par collection (vider `list`, remettre `team
 
 ## Lot 3 — Dé-duplication du domaine
 
-### 6. `refactor(models): move difficulties and languages out of GameService` 🟢
+### 6. `refactor(models): move difficulties and languages out of GameService` 🟢 ✅ fait
 
 - `Difficulty` est déclaré dans `core/services/game.service.ts`, la liste `DIFFICULTIES` y est aussi, et `ViewConfigComponent.difficulties` la recopie avec les libellés. `Enemy.toLevel()` prend la difficulté en `number`, faute de pouvoir importer un service depuis un modèle.
 - Les langues sont listées deux fois : `GameService.getLanguage()` (`['en', 'fr', 'es']`) et `ViewConfigComponent.languages`.

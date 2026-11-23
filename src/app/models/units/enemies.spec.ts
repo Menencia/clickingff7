@@ -1,5 +1,6 @@
 import { ItActionAttack } from '../../core/interfaces/it-action-attack';
 import { ItDisplayHits } from '../../core/interfaces/it-display-hits';
+import { Difficulty } from '../difficulty';
 import { ElementType } from '../element-type';
 import { Enemy, EnemyJson } from '../enemy';
 import { EnemyRef } from '../refs/enemy';
@@ -16,7 +17,7 @@ function makeEnemy(data: Partial<EnemyJson> = {}): Enemy {
     gils: 3,
     ...data,
   });
-  enemy.toLevel(3, 2); // stat 3: 75 HP, 3 hits
+  enemy.toLevel(3, Difficulty.Normal); // stat 3: 75 HP, 3 hits
   return enemy;
 }
 

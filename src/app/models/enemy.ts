@@ -1,4 +1,5 @@
 import { statFactor } from '../shared/utils/game.utils';
+import { Difficulty } from './difficulty';
 import { ElementType } from './element-type';
 import { EnemyRef } from './refs/enemy';
 
@@ -71,7 +72,7 @@ export class Enemy {
   /**
    * Get the enemy to the given level
    */
-  toLevel(levelSumBase: number, difficulty: number): void {
+  toLevel(levelSumBase: number, difficulty: Difficulty): void {
     let levelSum = levelSumBase;
 
     // Difficulty

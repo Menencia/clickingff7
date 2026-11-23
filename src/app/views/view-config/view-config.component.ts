@@ -1,6 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
-import { Difficulty, GameService } from '../../core/services/game.service';
+import { GameService } from '../../core/services/game.service';
+import { DIFFICULTIES, Difficulty } from '../../models/difficulty';
+import { LANGUAGES } from '../../models/language';
 import { UiLayoutDefaultComponent } from '../../shared/ui/ui-layout-default/ui-layout-default.component';
 
 @Component({
@@ -13,17 +15,9 @@ export class ViewConfigComponent {
   private gameService = inject(GameService);
   private translateService = inject(TranslateService);
 
-  protected readonly difficulties = [
-    { value: Difficulty.Easy, label: 'Easy' },
-    { value: Difficulty.Normal, label: 'Normal' },
-    { value: Difficulty.Hard, label: 'Hard' },
-  ];
+  protected readonly difficulties = DIFFICULTIES;
 
-  protected readonly languages = [
-    { value: 'fr', label: 'Français' },
-    { value: 'en', label: 'English' },
-    { value: 'es', label: 'Español' },
-  ];
+  protected readonly languages = LANGUAGES;
 
   difficulty: Difficulty;
 

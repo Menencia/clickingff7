@@ -1,6 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
-import { Difficulty, GameService } from '../../core/services/game.service';
+import { GameService } from '../../core/services/game.service';
+import { Difficulty } from '../../models/difficulty';
 import { ViewConfigComponent } from './view-config.component';
 
 describe('ViewConfigComponent', () => {

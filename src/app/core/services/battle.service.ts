@@ -1,12 +1,13 @@
 import { Injectable, inject, signal } from '@angular/core';
 import { Battle } from '../../models/battle';
 import { Context } from '../../models/context';
+import { Difficulty } from '../../models/difficulty';
 import { Item } from '../../models/item';
 import { Materia } from '../../models/materia';
 import { Enemies } from '../../models/units/enemies';
 import { MAX_FIGHTS, Zone } from '../../models/zone';
 import { random } from '../../shared/utils/math.utils';
-import { Difficulty, GameService } from './game.service';
+import { GameService } from './game.service';
 
 /** Boss levels per zone and per team slot (team size + 1) */
 const BOSS_LEVELS_PER_SLOT = 3;

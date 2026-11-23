@@ -1,5 +1,6 @@
 import { Battle } from './battle';
 import { Character } from './character';
+import { Difficulty } from './difficulty';
 import { Enemy } from './enemy';
 import { CharacterRef } from './refs/characters';
 import { EnemyRef } from './refs/enemy';
@@ -45,7 +46,7 @@ function makeEnemies(): Enemies {
     ap: 3,
     gils: 3,
   });
-  enemy.toLevel(10, 2); // 10 hits
+  enemy.toLevel(10, Difficulty.Normal); // 10 hits
   const enemies = new Enemies();
   enemies.list = [enemy];
   enemies.refresh();

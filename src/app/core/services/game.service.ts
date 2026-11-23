@@ -2,7 +2,9 @@ import { Injectable, inject, signal } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import packageJson from '../../../../package.json';
 import { Character } from '../../models/character';
+import { Difficulty, isDifficulty } from '../../models/difficulty';
 import { Items } from '../../models/items';
+import { isLanguage } from '../../models/language';
 import { Materias } from '../../models/materias';
 import { ZoneRef } from '../../models/refs/zones';
 import { Save } from '../../models/save';
@@ -18,14 +20,6 @@ import { StoreService } from './store.service';
 const SAVE_1 = 'save1';
 const CURRENT_VERSION = packageJson.version;
 const BASE_GILS = 200;
-
-export enum Difficulty {
-  Easy = 1,
-  Normal = 2,
-  Hard = 3,
-}
-
-const DIFFICULTIES = [Difficulty.Easy, Difficulty.Normal, Difficulty.Hard];
 
 @Injectable({
   providedIn: 'root',
@@ -75,8 +69,7 @@ export class GameService {
   }
 
   getLanguage(language: string | undefined, defaultLanguage = 'en'): string {
-    const languages = ['en', 'fr', 'es'];
-    return languages.find((l) => l === language) || defaultLanguage;
+    return isLanguage(language) ? language : defaultLanguage;
   }
 
   /**
@@ -390,7 +383,7 @@ export class GameService {
       throw new Error('Empty team');
     }
 
-    if (!DIFFICULTIES.includes(this.difficulty)) {
+    if (!isDifficulty(this.difficulty)) {
       throw new Error('Unknown difficulty');
     }
   }

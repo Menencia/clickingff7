@@ -1,4 +1,5 @@
 import { TestBed } from '@angular/core/testing';
+import { Difficulty } from '../../models/difficulty';
 import { ELEMENTS } from '../../models/element-type';
 import { HpPotion } from '../../models/items/hp-potion';
 import { MpPotion } from '../../models/items/mp-potion';
@@ -48,7 +49,7 @@ describe('StoreService', () => {
     const zone = store.getZone(ZoneRef.Zone1);
     zone.nbFights = 15;
     zone.completed = true;
-    zone.enemies[0].toLevel(30, 2);
+    zone.enemies[0].toLevel(30, Difficulty.Normal);
     const fresh = store.getZone(ZoneRef.Zone1);
     expect(fresh).not.toBe(zone);
     expect(fresh.nbFights).toBe(0);
