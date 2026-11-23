@@ -1,10 +1,17 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, effect, inject, signal } from '@angular/core';
 import { TranslatePipe } from '@ngx-translate/core';
 import { BattleService } from '../../../core/services/battle.service';
 import { GameService } from '../../../core/services/game.service';
 import { Item } from '../../../models/item';
 import { Materia } from '../../../models/materia';
 import { MAX_FIGHTS } from '../../../models/zone';
+
+/**
+ * Delay (ms) during which the fight buttons stay disabled after a battle:
+ * they replace Attack and Escape at the same place, so the last clicks of a
+ * battle would otherwise start a new one.
+ */
+export const FIGHT_COOLDOWN = 1000;
 
 @Component({
   selector: 'app-ui-actions',
@@ -15,6 +22,32 @@ import { MAX_FIGHTS } from '../../../models/zone';
 export class UiActionsComponent {
   private battleService = inject(BattleService);
   private gameService = inject(GameService);
+
+  /** True right after a battle, while the fight buttons are disabled */
+  readonly cooldown = signal(false);
+
+  private cooldownTimer?: ReturnType<typeof setTimeout>;
+
+  constructor() {
+    let wasBattle = false;
+    effect(() => {
+      const battle = this.isBattle();
+      if (wasBattle && !battle) {
+        this.startCooldown();
+      }
+      wasBattle = battle;
+    });
+    inject(DestroyRef).onDestroy(() => clearTimeout(this.cooldownTimer));
+  }
+
+  private startCooldown(): void {
+    clearTimeout(this.cooldownTimer);
+    this.cooldown.set(true);
+    this.cooldownTimer = setTimeout(
+      () => this.cooldown.set(false),
+      FIGHT_COOLDOWN,
+    );
+  }
 
   public remainingBattles() {
     const remain = MAX_FIGHTS - this.gameService.zones.current().nbFights;
@@ -45,7 +78,7 @@ export class UiActionsComponent {
   }
 
   public canFightRandom(): boolean {
-    return this.battleService.canFightRandom();
+    return !this.cooldown() && this.battleService.canFightRandom();
   }
 
   public fightRandom(): void {
@@ -55,11 +88,11 @@ export class UiActionsComponent {
   }
 
   public canFightBoss(): boolean {
-    return this.battleService.canFightBoss();
+    return !this.cooldown() && this.battleService.canFightBoss();
   }
 
   public fightBoss(): void {
-    if (this.battleService.canFightBoss()) {
+    if (this.canFightBoss()) {
       this.battleService.startBoss();
     }
   }

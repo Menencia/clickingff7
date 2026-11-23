@@ -7,7 +7,7 @@ import {
   provideInMemoryGameData,
   startGame,
 } from '../../../testing/game-data.testing';
-import { UiActionsComponent } from './ui-actions.component';
+import { FIGHT_COOLDOWN, UiActionsComponent } from './ui-actions.component';
 
 describe('UiActionsComponent', () => {
   beforeEach(async () => {
@@ -123,5 +123,31 @@ describe('UiActionsComponent (real data)', () => {
   it('escaping outside a battle does nothing', () => {
     expect(() => actions.escape()).not.toThrow();
     expect(battleService.battle()).toBeUndefined();
+  });
+
+  it('disables the fight buttons for a moment after a battle', () => {
+    const fixture = TestBed.createComponent(UiActionsComponent);
+    const first = () =>
+      fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+    fixture.detectChanges();
+
+    first().click();
+    fixture.detectChanges();
+    expect(battleService.battle()).toBeDefined();
+
+    // The battle ends: a click left over on Attack lands on Fight random.
+    battleService.battle()?.end(true);
+    fixture.detectChanges();
+    expect(first().textContent).toContain('Fight random');
+    expect(first().disabled).toBe(true);
+    first().click();
+    expect(battleService.battle()).toBeUndefined();
+    expect(fixture.componentInstance.canFightBoss()).toBe(false);
+
+    vi.advanceTimersByTime(FIGHT_COOLDOWN);
+    fixture.detectChanges();
+    expect(first().disabled).toBe(false);
+    first().click();
+    expect(battleService.battle()).toBeDefined();
   });
 });
