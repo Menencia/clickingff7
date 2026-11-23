@@ -1,6 +1,6 @@
 # Changelog
 
-## Prochaine version (1.7.0)
+## 1.7.0
 
 ### Notes de release (anglais)
 

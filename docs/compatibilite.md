@@ -32,7 +32,7 @@ Pour chaque entrée : ce qui est géré, depuis quand, où dans le code, comment
 
 ### 4. Champ `characters[].image`
 
-- **Ce qui est géré** : depuis la version qui suit la 1.6.0, le portrait d'un personnage vient toujours du catalogue (`characters.json`), pour qu'une image renommée ou convertie ne casse pas les anciennes sauvegardes. Le champ `characters[].image` est encore **écrit** pour qu'une sauvegarde reste lisible par la 1.6.0, mais il est **ignoré** au chargement et facultatif (il n'a jamais été vérifié à la validation). L'écran Sauvegarde cherche lui aussi les portraits dans le catalogue, par `ref`.
+- **Ce qui est géré** : depuis la 1.7.0, le portrait d'un personnage vient toujours du catalogue (`characters.json`), pour qu'une image renommée ou convertie ne casse pas les anciennes sauvegardes. Le champ `characters[].image` est encore **écrit** pour qu'une sauvegarde reste lisible par la 1.6.0, mais il est **ignoré** au chargement et facultatif (il n'a jamais été vérifié à la validation). L'écran Sauvegarde cherche lui aussi les portraits dans le catalogue, par `ref`.
 - **Code** : `CharacterSave.image` (`src/app/models/save.ts`), `Character.load()` et `Character.export()` (`src/app/models/character.ts`), `StoreService.getCharacterImage()`, `ViewSaveComponent.teamImages`.
 - **Tests** : `game.service.spec.ts` (« takes the character images from the catalog, not from the save », « loads a save without characters[].image », « still writes characters[].image for 1.6.0 »), `view-save.component.spec.ts` (« shows the team portraits from the catalog »).
 - **Spécification** : `specs.md` §11, « Contenu ».
