@@ -1,8 +1,8 @@
+.ring {
+  transition: stroke-dasharray 0.3s ease-out;
+}
+
 .hits {
-  position: absolute;
-  right: 0;
-  top: 0;
-  z-index: 20;
   animation: hit-fade 1s ease-out forwards;
 }
 

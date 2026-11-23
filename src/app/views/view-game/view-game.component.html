@@ -1,15 +1,16 @@
 <app-ui-layout-default>
-  <!-- Mobile: enemies on top, then the team, and the actions in a bar stuck
-       to the bottom of the screen (within thumb reach). From sm: three
-       columns in DOM order. -->
+  <!-- Mobile: the team (left) faces the enemy (right), and the actions are
+       in a bar stuck to the bottom of the screen (within thumb reach). From
+       sm: the actions in a column on the left. -->
   <div class="flex flex-col gap-4 sm:flex-row sm:gap-5">
     <app-ui-actions
       class="sticky bottom-[calc(4rem+env(safe-area-inset-bottom))] z-10 order-3 -mx-2 border-t border-base-300 bg-base-200/95 px-2 pt-2 pb-2 backdrop-blur sm:static sm:order-none sm:mx-0 sm:basis-1/5 sm:border-0 sm:bg-transparent sm:p-0 sm:backdrop-blur-none help-tour:static"
     ></app-ui-actions>
-    <div class="order-2 sm:order-none sm:basis-2/5">
+    <!-- Battle stage: the team and the enemy face each other -->
+    <div
+      class="order-1 grid grid-cols-2 items-center gap-2 py-2 sm:order-none sm:basis-4/5"
+    >
       <app-characters-panel [characters]="characters"></app-characters-panel>
-    </div>
-    <div class="order-1 sm:order-none sm:basis-2/5">
       <app-enemies-panel [enemies]="enemies()"></app-enemies-panel>
     </div>
   </div>

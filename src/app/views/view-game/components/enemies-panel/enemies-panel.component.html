@@ -1,47 +1,45 @@
-<div class="col-span-2" data-tour="enemies">
-  <!-- enemies bars -->
+<!-- The HP and badges rows are always there (hidden without an enemy), so that
+     the panel keeps its height when an enemy shows up. -->
+<div class="flex flex-col items-center gap-2" data-tour="enemies">
   @if (enemies().list.length > 0) {
-  <div>
-    <app-progress-bar
-      [progress]="hpPercent()"
-      [style]="'progress-error'"
-      [text]="'HP ' + enemies().hp()"
-      [hits]="enemies().hitEvents"
-    ></app-progress-bar>
-  </div>
-  } @if (enemies().list.length === 0) {
+  <!-- enemies portraits, with their HP around -->
+  <app-radial-gauge
+    class="size-32"
+    color="text-error"
+    [progress]="hpPercent()"
+    [label]="'HP ' + enemies().hp()"
+    [hits]="enemies().hitEvents"
+  >
+    <div class="flex size-[86%] overflow-hidden rounded-full">
+      @for (enemy of enemies().list; track enemy) {
+      <div
+        class="h-full flex-1 bg-cover bg-center"
+        [style.background-image]="'url(' + enemy.image + ')'"
+      ></div>
+      }
+    </div>
+  </app-radial-gauge>
+  } @else {
   <div
-    class="py-4 text-center uppercase opacity-60 rounded-box border border-dashed border-base-300 sm:mt-10 sm:py-0 sm:border-0"
+    class="flex size-32 items-center justify-center rounded-full border-2 border-dashed border-base-300 p-4 text-center text-xs uppercase opacity-60"
   >
     {{ "No enemies" | translate }}
   </div>
   }
-
-  <!-- enemies list -->
-  @for (enemy of enemies().list; track enemy) {
-  <div class="flex gap-3 mt-3 sm:gap-4 sm:mt-5">
-    <div
-      [style]="{ 'background-image': 'url(' + enemy.image + ')' }"
-      class="relative flex-none w-14 h-14 bg-center bg-cover border border-black sm:w-20 sm:h-20"
-    >
-      <div
-        class="absolute bottom-0 left-0 right-0 text-center bg-black opacity-75 leading-tight sm:h-5"
-      >
-        <span class="text-xs text-white sm:text-sm">
-          LVL{{ enemy.level }}
-        </span>
-      </div>
-    </div>
-    <div>
-      <div class="text-lg sm:text-2xl">
-        {{ enemy.ref }}
-        @if (enemy.boss) {
-        <span class="boss">ZONE BOSS</span>
-        } @if (enemy.miboss) {
-        <span class="boss">BOSS</span>
-        }
-      </div>
-    </div>
+  <div
+    class="text-sm font-bold leading-none"
+    [class.invisible]="enemies().list.length === 0"
+    data-testid="enemies-hp"
+  >
+    HP {{ enemies().hp() }}
   </div>
-  }
+  <div class="flex min-h-4 flex-wrap justify-center gap-1">
+    @for (enemy of enemies().list; track enemy) {
+    <span class="badge badge-xs badge-neutral">LVL{{ enemy.level }}</span>
+    @if (enemy.boss) {
+    <span class="badge badge-xs badge-error">ZONE BOSS</span>
+    } @if (enemy.miboss) {
+    <span class="badge badge-xs badge-error">BOSS</span>
+    } }
+  </div>
 </div>

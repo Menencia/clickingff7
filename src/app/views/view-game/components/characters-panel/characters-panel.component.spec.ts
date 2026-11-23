@@ -1,6 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideTranslateService } from '@ngx-translate/core';
-import { GameService } from '../../../../core/services/game.service';
 import { Character } from '../../../../models/character';
 import { CharacterRef } from '../../../../models/refs/characters';
 import { WeaponRef } from '../../../../models/refs/weapons';
@@ -32,21 +30,21 @@ describe('CharactersPanelComponent', () => {
   let fixture: ComponentFixture<CharactersPanelComponent>;
   let characters: Characters;
 
-  function labels(): string[] {
+  function gauges(): HTMLElement[] {
     return Array.from(
       (fixture.nativeElement as HTMLElement).querySelectorAll(
-        '.progress-label',
+        'app-radial-gauge',
       ),
-    ).map((e) => e.textContent?.trim() ?? '');
+    );
+  }
+
+  function labels(): string[] {
+    return gauges().map((e) => e.getAttribute('aria-label') ?? '');
   }
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CharactersPanelComponent],
-      providers: [
-        provideTranslateService({ fallbackLang: 'en' }),
-        { provide: GameService, useValue: { zones: { levelMax: 1 } } },
-      ],
     }).compileComponents();
 
     characters = new Characters();
@@ -61,7 +59,7 @@ describe('CharactersPanelComponent', () => {
   });
 
   it('displays HP, MP, limit and the team', () => {
-    expect(labels()).toEqual(['HP 40', 'MP 6', 'LIMIT 0%', '0 / 200EXP']);
+    expect(labels()).toEqual(['HP 40', 'MP 6', 'LIMIT 0%', 'cloud 0 / 200EXP']);
   });
 
   // Battle and timers change these signals outside of any event handler:
@@ -75,15 +73,13 @@ describe('CharactersPanelComponent', () => {
     expect(labels().slice(0, 3)).toEqual(['HP 10', 'MP 2', 'LIMIT 50%']);
   });
 
-  it('fills the bars with rounded percentages', async () => {
+  it('fills the gauges with rounded percentages', async () => {
     characters.hp.set(10);
     characters.mp.set(2);
     await fixture.whenStable();
 
-    const values = Array.from(
-      (fixture.nativeElement as HTMLElement).querySelectorAll('progress'),
-    ).map((e) => e.value);
-    expect(values).toEqual([25, 33, 0, 0]);
+    const values = gauges().map((e) => e.getAttribute('aria-valuenow'));
+    expect(values).toEqual(['25', '33', '0', '0']);
   });
 
   it('re-renders XP and level after a refresh', async () => {
@@ -94,6 +90,6 @@ describe('CharactersPanelComponent', () => {
 
     const el = fixture.nativeElement as HTMLElement;
     expect(el.textContent).toContain('LVL3');
-    expect(labels()[3]).toBe('50 / 300EXP');
+    expect(labels()[3]).toBe('cloud 50 / 300EXP');
   });
 });

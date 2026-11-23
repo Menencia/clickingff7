@@ -1,54 +1,71 @@
-<div class="col-span-2">
-  <!-- characters bars -->
-  <app-progress-bar
-    data-tour="hp"
-    [progress]="hpPercent()"
-    [style]="'progress-success'"
-    [text]="'HP ' + characters().hp()"
-    [hits]="characters().hitEvents"
-  ></app-progress-bar>
+<div class="mx-auto flex w-fit flex-col items-start gap-3">
+  <!-- team gauges -->
+  <div class="flex gap-1.5">
+    <app-radial-gauge
+      data-tour="hp"
+      class="size-12"
+      color="text-success"
+      [progress]="hpPercent()"
+      [label]="'HP ' + characters().hp()"
+      [hits]="characters().hitEvents"
+    >
+      <span class="gauge-text">
+        <span class="text-[0.5rem] opacity-70">HP</span>
+        {{ characters().hp() }}
+      </span>
+    </app-radial-gauge>
 
-  <app-progress-bar
-    data-tour="mp"
-    [progress]="mpPercent()"
-    [style]="'progress-info'"
-    [text]="'MP ' + characters().mp()"
-  ></app-progress-bar>
+    <app-radial-gauge
+      data-tour="mp"
+      class="size-12"
+      color="text-info"
+      [progress]="mpPercent()"
+      [label]="'MP ' + characters().mp()"
+    >
+      <span class="gauge-text">
+        <span class="text-[0.5rem] opacity-70">MP</span>
+        {{ characters().mp() }}
+      </span>
+    </app-radial-gauge>
 
-  <app-progress-bar
-    data-tour="limit"
-    [progress]="limitPercent()"
-    [style]="'progress-warning'"
-    [text]="'LIMIT ' + limitPercent() + '%'"
-  ></app-progress-bar>
+    <app-radial-gauge
+      data-tour="limit"
+      class="size-12"
+      color="text-warning"
+      [progress]="limitPercent()"
+      [label]="'LIMIT ' + limitPercent() + '%'"
+    >
+      <span class="gauge-text">
+        <span class="text-[0.5rem] opacity-70">LIMIT</span>
+        {{ limitPercent() }}%
+      </span>
+    </app-radial-gauge>
+  </div>
 
-  <!-- characters list -->
-  <div data-tour="team">
+  <!-- team portraits on one row, under the gauges and as big, with their XP
+       around -->
+  <div data-tour="team" class="flex gap-1.5">
     @for (character of characters().team(); track character) {
-    <div class="flex gap-3 mt-3 sm:gap-4 sm:mt-5">
+    <app-radial-gauge
+      class="size-12"
+      color="text-violet-500"
+      [thickness]="2.5"
+      [progress]="character.xpProgress()"
+      [label]="
+        character.ref + ' ' + character.xp + ' / ' + character.getXpMax() + 'EXP'
+      "
+    >
       <div
-        [style]="{ 'background-image': 'url(' + character.image + ')' }"
-        class="relative flex-none w-14 h-14 bg-center bg-cover border border-black sm:w-20 sm:h-20"
+        class="relative size-[84%] rounded-full bg-cover bg-top"
+        [style.background-image]="'url(' + character.image + ')'"
       >
-        <div
-          class="absolute bottom-0 left-0 right-0 text-center bg-black opacity-75 leading-tight sm:h-5"
+        <span
+          class="badge badge-xs badge-neutral absolute -bottom-1.5 left-1/2 -translate-x-1/2 whitespace-nowrap"
         >
-          <span class="text-xs text-white sm:text-sm">
-            LVL{{ character.level }}
-          </span>
-        </div>
+          LVL{{ character.level }}
+        </span>
       </div>
-      <div class="min-w-0 grow">
-        <app-progress-bar
-          [progress]="character.xpProgress()"
-          [text]="character.xp + ' / ' + character.getXpMax() + 'EXP'"
-        ></app-progress-bar>
-        <div class="text-lg leading-tight sm:text-2xl">{{ character.ref }}</div>
-        <div class="text-xs italic truncate sm:text-sm sm:whitespace-normal">
-          "{{ getLine(character) | translate }}"
-        </div>
-      </div>
-    </div>
+    </app-radial-gauge>
     }
   </div>
 </div>

@@ -4,7 +4,7 @@
     "team": "Voici votre équipe ! Vous commencez avec 2 personnages. Lorsque vous affrontez des ennemis, vos personnages montent de niveau et deviennent plus forts.",
     "hp": "Voici les points de vie de votre équipe (HP) : s'ils sont réduits à 0, vous perdez le combat.",
     "mp": "Voici les points de magie de votre équipe (MP). Vous en aurez besoin pour lancer de la magie.",
-    "limit": "Lorsque vous subissez des dégats, cette barre se remplit petit à petit. Lorsqu'elle est pleine, votre prochaine attaque devient surpuissante !",
+    "limit": "Lorsque vous subissez des dégats, cette jauge se remplit petit à petit. Lorsqu'elle est pleine, votre prochaine attaque devient surpuissante !",
     "enemies": "Les ennemis apparaissent ici. Pour gagner le combat, vous devez les vaincre avant qu'ils ne le fassent.",
     "fight": "Cliquez ici pour affronter les ennemis. Pendant le combat, cliquez sur Attaquer autant de fois que vous le souhaitez pour vaincre les ennemis plus vite, ou fuyez si le combat est trop difficile.",
     "materias": "Voici votre magie ! N'oubliez pas qu'il faut des MP pour vous en servir. Par exemple, vous pouvez utiliser 'Restaurer' pour soigner votre équipe.",

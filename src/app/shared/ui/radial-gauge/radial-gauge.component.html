@@ -1,0 +1,37 @@
+<svg
+  class="col-start-1 row-start-1 size-full -rotate-90"
+  viewBox="0 0 36 36"
+  aria-hidden="true"
+>
+  <circle
+    cx="18"
+    cy="18"
+    fill="none"
+    class="stroke-base-content/15"
+    [attr.r]="radius()"
+    [attr.stroke-width]="thickness()"
+  />
+  <circle
+    cx="18"
+    cy="18"
+    fill="none"
+    pathLength="100"
+    class="ring stroke-current {{ color() }}"
+    [attr.r]="radius()"
+    [attr.stroke-width]="thickness()"
+    [attr.stroke-dasharray]="progress() + ' 100'"
+  />
+</svg>
+<div class="col-start-1 row-start-1 flex size-full items-center justify-center">
+  <ng-content></ng-content>
+</div>
+@for (hits of arrHits(); track hits) {
+<div class="pointer-events-none absolute inset-x-0 top-0 z-20 text-center">
+  <span
+    class="hits inline-block text-3xl font-bold text-error"
+    (animationend)="onAnimationEvent()"
+  >
+    {{ hits.hits }}
+  </span>
+</div>
+}

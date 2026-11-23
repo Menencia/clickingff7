@@ -27,7 +27,11 @@ describe('EnemiesPanelComponent', () => {
     fixture.detectChanges();
 
     const el: HTMLElement = fixture.nativeElement;
-    expect(el.querySelector('app-progress-bar')).toBeNull();
+    expect(el.querySelector('app-radial-gauge')).toBeNull();
     expect(el.textContent).toContain('No enemies');
+    // The HP row keeps its room, hidden, so the panel keeps its height.
+    expect(el.querySelector('[data-testid="enemies-hp"]')?.classList).toContain(
+      'invisible',
+    );
   });
 });

@@ -4,7 +4,7 @@
     "team": "¡Éste es tu grupo! Empiezas con dos personajes. Si ganan batallas, subirán de nivel y se volverán más poderosos.",
     "hp": "Éstos son los puntos de vida de tu grupo: si llegan a 0, habrás perdido la batalla.",
     "mp": "Aquí puedes ver los puntos mágicos de tu grupo. Los necesitas para utilizar hechizos.",
-    "limit": "Cuando recibas daño, ésta barra irá creciendo. ¡Cuando esté llena, tu siguiente ataque hará muchísimo más daño!",
+    "limit": "Cuando recibas daño, este indicador se irá llenando. ¡Cuando esté llena, tu siguiente ataque hará muchísimo más daño!",
     "enemies": "Aquí aparece el enemigo. Para ganar la batalla, debes matarlo antes de que él te liquide a tí.",
     "fight": "Haz click aquí para luchar contra enemigos. Durante la batalla, pulsa Atacar tantas veces como desees para vencerlos más rápido, o escapa si son demasiado fuertes.",
     "materias": "¡Éstas son tus magias! Recuerda que necesitas MP para utilizarlas. Por ejemplo, puedes usar 'Recuperar' para curar a tus personajes.",
