@@ -16,7 +16,7 @@ Les 16 entrées de l'analyse précédente (commit `c5d5cb0`) sont toutes livrée
 
 ## Lot 1 — Filet de tests
 
-### 1. `test(actions): cover attack, cure and potion amounts` 🟠
+### 1. `test(actions): cover attack, cure and potion amounts` 🟠 ✅ fait
 
 `Attack` et `Cure` (`models/actions/`) n'ont pas de spec : la variation, le critique et la puissance ne sont testés qu'indirectement par `battle.service.spec.ts` et `materia.spec.ts`. Les montants de `HpPotion` / `MpPotion` non plus.
 
