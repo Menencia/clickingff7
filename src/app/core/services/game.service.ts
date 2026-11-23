@@ -358,7 +358,11 @@ export class GameService {
     });
     this.items.fit();
 
-    this.language = save.language;
+    // An unknown language falls back to the browser's, then to English.
+    this.language = this.getLanguage(
+      save.language,
+      this.getLanguage(this.translate.getBrowserLang()),
+    );
     // Older saves store the difficulty as a string ("2").
     this.difficulty = Number(save.difficulty);
 

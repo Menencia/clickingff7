@@ -32,7 +32,7 @@ Voir « Hors refactor ». `withVariance()` calcule directement `Math.round(value
 
 **Risque** : faible, mais c'est de l'équilibrage : les dégâts ennemis du début de partie deviennent moins dispersés. Dépend du commit 1. Mettre à jour `game.utils.spec.ts`, `specs.md` §2 et §5.3 si la formule y est détaillée, `docs/bugs.md` (retirer le n°1, renuméroter) et le changelog.
 
-### 3. `fix(save): fall back to a supported language on load` 🟢
+### 3. `fix(save): fall back to a supported language on load` 🟢 ✅ fait
 
 Voir « Hors refactor ». Dans `GameService.load()`, passer `save.language` par `getLanguage()` (langue du navigateur, puis `en`).
 

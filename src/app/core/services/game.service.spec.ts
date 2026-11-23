@@ -320,6 +320,29 @@ describe('GameService', () => {
       expect(game.lastSave()).toEqual(exported);
     });
 
+    it('falls back to a supported language for an unknown saved one', async () => {
+      game = await startGame();
+      const save: Save = { ...game.export(), language: 'de' };
+      localStorage.setItem('save1', btoa(JSON.stringify(save)));
+      clearTimeout(game.timer);
+
+      game = await startGame();
+
+      expect(game.lastSave()).toBeDefined();
+      expect(game.language).toBe('en');
+    });
+
+    it('keeps a supported saved language', async () => {
+      game = await startGame();
+      const save: Save = { ...game.export(), language: 'es' };
+      localStorage.setItem('save1', btoa(JSON.stringify(save)));
+      clearTimeout(game.timer);
+
+      game = await startGame();
+
+      expect(game.language).toBe('es');
+    });
+
     it('discards a save older than 1.1.0 and starts a new game', async () => {
       game = await startGame();
       game.gils.set(9999);
