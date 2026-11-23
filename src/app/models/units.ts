@@ -5,6 +5,12 @@ import { ElementType } from './element-type';
 
 export interface ItDisplayHits {
   hits: number;
+  /** Critical hit, displayed bigger and in another color */
+  critical?: boolean;
+  /** Hit on a weakness, labelled as such */
+  weakness?: boolean;
+  /** Healing rather than damage, displayed in green */
+  heal?: boolean;
 }
 
 export abstract class Units {

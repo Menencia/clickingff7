@@ -4,16 +4,39 @@
 
 .hits {
   animation: hit-fade 1s ease-out forwards;
+  // Readable over the portrait inside the gauge.
+  text-shadow:
+    0 1px 2px rgb(0 0 0 / 0.8),
+    0 0 4px rgb(0 0 0 / 0.6);
 }
 
+.weakness {
+  margin-bottom: 0.125rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+// A critical hit pops out more.
+.critical {
+  --pop: 1.5;
+}
+
+// The number starts at the center of the gauge, then rises and drifts to its
+// side (--dx), slowing down.
 @keyframes hit-fade {
   0% {
     opacity: 1;
-    transform: translateY(-20px);
+    transform: translate(0, 0) scale(var(--pop, 1.15));
+  }
+
+  30% {
+    opacity: 1;
+    transform: translate(calc(var(--dx, 0px) * 0.6), -18px) scale(1);
   }
 
   100% {
     opacity: 0;
-    transform: translateY(-40px);
+    transform: translate(var(--dx, 0px), -40px);
   }
 }

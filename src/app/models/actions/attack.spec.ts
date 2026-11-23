@@ -83,7 +83,20 @@ describe('Attack', () => {
 
       attack.use(context);
 
-      expect(getAttacked).toHaveBeenCalledWith(100, attack);
+      expect(getAttacked).toHaveBeenCalledWith(100, attack, false);
+    });
+
+    it('tells the enemies when the hit is critical', () => {
+      mockRandom(0.5, CRITICAL);
+      const getAttacked = vi.fn();
+      const attack = new Attack(100, 100);
+      const context = {
+        battle: { enemies: { getAttacked } },
+      } as unknown as Context;
+
+      attack.use(context);
+
+      expect(getAttacked).toHaveBeenCalledWith(200, attack, true);
     });
 
     it('does nothing outside a battle', () => {

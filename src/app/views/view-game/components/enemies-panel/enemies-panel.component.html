@@ -10,7 +10,10 @@
     [label]="'HP ' + enemies().hp()"
     [hits]="enemies().hitEvents"
   >
-    <div class="flex size-[86%] overflow-hidden rounded-full">
+    <div
+      class="flex size-[86%] overflow-hidden rounded-full transition duration-700"
+      [class.defeated]="enemies().hp() === 0"
+    >
       @for (enemy of enemies().list; track enemy) {
       <div
         class="h-full flex-1 bg-cover bg-center"

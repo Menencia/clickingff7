@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideTranslateService } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
 import { ItDisplayHits } from '../../../models/units';
 import { RadialGaugeComponent } from './radial-gauge.component';
@@ -11,6 +12,7 @@ describe('RadialGaugeComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [RadialGaugeComponent],
+      providers: [provideTranslateService({ fallbackLang: 'en' })],
     }).compileComponents();
 
     hits = new Subject<ItDisplayHits>();
@@ -29,7 +31,7 @@ describe('RadialGaugeComponent', () => {
     hits.next({ hits: 30 });
     hits.next({ hits: 12 });
 
-    expect(component.arrHits()).toEqual([{ hits: 12 }, { hits: 30 }]);
+    expect(component.arrHits().map((h) => h.hits)).toEqual([12, 30]);
   });
 
   it('follows a new hits stream given to the input', () => {
@@ -42,7 +44,73 @@ describe('RadialGaugeComponent', () => {
     hits.next({ hits: 99 });
     next.next({ hits: 12 });
 
-    expect(component.arrHits()).toEqual([{ hits: 12 }, { hits: 30 }]);
+    expect(component.arrHits().map((h) => h.hits)).toEqual([12, 30]);
+  });
+
+  it('sends the hit numbers to the right and the left in turn', () => {
+    hits.next({ hits: 1 });
+    hits.next({ hits: 2 });
+    hits.next({ hits: 3 });
+
+    const [third, second, first] = component.arrHits().map((h) => h.dx);
+    expect(first).toBeGreaterThanOrEqual(15);
+    expect(first).toBeLessThanOrEqual(45);
+    expect(second).toBeLessThanOrEqual(-15);
+    expect(second).toBeGreaterThanOrEqual(-45);
+    expect(third).toBeGreaterThan(0);
+  });
+
+  it('gives each hit number its drift', () => {
+    hits.next({ hits: 30 });
+    fixture.detectChanges();
+
+    const el: HTMLElement = fixture.nativeElement;
+    const hit = el.querySelector<HTMLElement>('.hits');
+    expect(hit?.style.getPropertyValue('--dx')).toBe(
+      `${component.arrHits()[0].dx}px`,
+    );
+  });
+
+  it('shows a critical hit bigger and in another color', () => {
+    hits.next({ hits: 30 });
+    hits.next({ hits: 60, critical: true });
+    fixture.detectChanges();
+
+    const el: HTMLElement = fixture.nativeElement;
+    const [critical, normal] = el.querySelectorAll('.hits');
+    expect(critical.classList).toContain('critical');
+    expect(critical.classList).toContain('text-warning');
+    expect(critical.classList).toContain('text-4xl');
+    expect(critical.classList).toContain('hits');
+    expect(normal.classList).not.toContain('critical');
+    expect(normal.classList).toContain('text-error');
+  });
+
+  it('shows a heal in green, with a plus sign', () => {
+    hits.next({ hits: 30 });
+    hits.next({ hits: 12, heal: true });
+    fixture.detectChanges();
+
+    const el: HTMLElement = fixture.nativeElement;
+    const [heal, damage] = el.querySelectorAll('.hits');
+    expect(heal.classList).toContain('text-success');
+    expect(heal.textContent?.trim()).toBe('+12');
+    expect(damage.classList).toContain('text-error');
+    expect(damage.textContent?.trim()).toBe('30');
+  });
+
+  it('labels a hit on a weakness', () => {
+    hits.next({ hits: 30 });
+    hits.next({ hits: 90, weakness: true });
+    fixture.detectChanges();
+
+    const el: HTMLElement = fixture.nativeElement;
+    const [weak, normal] = el.querySelectorAll('.hits');
+    expect(weak.querySelector('.weakness')?.textContent).toContain(
+      'Weakness hit',
+    );
+    expect(weak.textContent).toContain('90');
+    expect(normal.querySelector('.weakness')).toBeNull();
   });
 
   it('removes the oldest hit when its animation ends', () => {
@@ -50,7 +118,7 @@ describe('RadialGaugeComponent', () => {
     hits.next({ hits: 12 });
     component.onAnimationEvent();
 
-    expect(component.arrHits()).toEqual([{ hits: 12 }]);
+    expect(component.arrHits().map((h) => h.hits)).toEqual([12]);
   });
 
   it('renders a hit emitted outside of any event handler', () => {

@@ -26,12 +26,19 @@
   <ng-content></ng-content>
 </div>
 @for (hits of arrHits(); track hits) {
-<div class="pointer-events-none absolute inset-x-0 top-0 z-20 text-center">
+<div
+  class="pointer-events-none absolute inset-0 z-20 flex items-center justify-center"
+>
   <span
-    class="hits inline-block text-3xl font-bold text-error"
+    class="hits inline-flex flex-col items-center font-bold leading-none"
+    [class]="hitClass(hits)"
+    [style.--dx]="hits.dx + 'px'"
     (animationend)="onAnimationEvent()"
   >
-    {{ hits.hits }}
+    @if (hits.weakness) {
+    <span class="weakness">{{ "Weakness hit" | translate }}</span>
+    }
+    {{ hits.heal ? "+" : "" }}{{ hits.hits }}
   </span>
 </div>
 }

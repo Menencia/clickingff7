@@ -363,6 +363,23 @@ describe('Characters', () => {
     });
   });
 
+  describe('addHp', () => {
+    it('heals up to the max HP and emits the heal', () => {
+      const emitted: ItDisplayHits[] = [];
+      characters.hitEvents.subscribe((h) => emitted.push(h));
+      characters.hp.set(characters.hpMax() - 5);
+
+      characters.addHp(3);
+      characters.addHp(10);
+
+      expect(characters.hp()).toBe(characters.hpMax());
+      expect(emitted).toEqual([
+        { hits: 3, heal: true },
+        { hits: 10, heal: true },
+      ]);
+    });
+  });
+
   describe('getAttackSkill', () => {
     it('returns a normal attack (power 100) when the limit is not full', () => {
       characters.limit.set(10);

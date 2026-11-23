@@ -13,19 +13,23 @@ export class Attack implements ItActionAttack {
 
   /** Calculate raw damages */
   calculateHits(): number {
+    return this.roll().hits;
+  }
+
+  /** Calculate raw damages, telling whether the hit is critical */
+  roll(): { hits: number; critical: boolean } {
     // base hits with variance (-+10%)
-    let hits = withVariance(this.baseHits * (this.pwr / 100));
+    const hits = withVariance(this.baseHits * (this.pwr / 100));
 
     // critical hits (<10%)
-    if (random(0, 100) <= 10) {
-      hits *= 2;
-    }
+    const critical = random(0, 100) <= 10;
 
-    return hits;
+    return { hits: critical ? hits * 2 : hits, critical };
   }
 
   /** How to resolve an materia action attack */
   use(context: Context): void {
-    context.battle?.enemies.getAttacked(this.calculateHits(), this);
+    const { hits, critical } = this.roll();
+    context.battle?.enemies.getAttacked(hits, this, critical);
   }
 }

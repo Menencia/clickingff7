@@ -1,7 +1,18 @@
 import { Component, computed, input, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { TranslatePipe } from '@ngx-translate/core';
 import { EMPTY, Observable, switchMap } from 'rxjs';
 import { ItDisplayHits } from '../../../models/units';
+import { random } from '../../utils/math.utils';
+
+/** Horizontal drift of a hit number, in px (its side alternates) */
+const HIT_DRIFT_MIN = 15;
+const HIT_DRIFT_MAX = 45;
+
+/** A displayed hit, with the horizontal drift (px) of its number */
+export interface DisplayedHit extends ItDisplayHits {
+  dx: number;
+}
 
 /**
  * Circular gauge. Its size comes from the host classes (e.g. `size-12`) and
@@ -9,7 +20,7 @@ import { ItDisplayHits } from '../../../models/units';
  */
 @Component({
   selector: 'app-radial-gauge',
-  imports: [],
+  imports: [TranslatePipe],
   templateUrl: './radial-gauge.component.html',
   styleUrl: './radial-gauge.component.scss',
   host: {
@@ -36,7 +47,10 @@ export class RadialGaugeComponent {
 
   readonly hits = input<Observable<ItDisplayHits>>(EMPTY);
 
-  readonly arrHits = signal<ItDisplayHits[]>([]);
+  readonly arrHits = signal<DisplayedHit[]>([]);
+
+  /** Side of the next hit number: 1 for right, -1 for left */
+  private side = 1;
 
   readonly radius = computed(() => 18 - this.thickness() / 2);
 
@@ -48,8 +62,20 @@ export class RadialGaugeComponent {
         takeUntilDestroyed(),
       )
       .subscribe((hits) => {
-        this.arrHits.update((arr) => [hits, ...arr]);
+        const dx = this.side * random(HIT_DRIFT_MIN, HIT_DRIFT_MAX);
+        this.side = -this.side;
+        this.arrHits.update((arr) => [{ ...hits, dx }, ...arr]);
       });
+  }
+
+  /** Size and color of a hit number: green for a heal, yellow and bigger for a critical */
+  hitClass(hit: DisplayedHit): string {
+    if (hit.heal) {
+      return 'text-3xl text-success';
+    }
+    return hit.critical
+      ? 'critical text-4xl text-warning'
+      : 'text-3xl text-error';
   }
 
   onAnimationEvent() {

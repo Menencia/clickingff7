@@ -58,11 +58,16 @@ export class Enemies extends Units {
   /**
    * Enemies are under manual attack
    */
-  getAttacked(baseHits: number, context: ItActionAttack): void {
+  getAttacked(
+    baseHits: number,
+    context: ItActionAttack,
+    critical = false,
+  ): void {
     const hits = this.applyAffinities(baseHits, context.elements);
 
     this.hp.update((hp) => Math.max(hp - hits, 0));
-    this.hitEvents.next({ hits });
+    const weakness = this.hasWeakness(context.elements);
+    this.hitEvents.next({ hits, critical, weakness });
   }
 
   isAlive(): boolean {

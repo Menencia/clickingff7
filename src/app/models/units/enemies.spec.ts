@@ -94,7 +94,16 @@ describe('Enemies', () => {
       enemies.getAttacked(30, attackOf([]));
 
       expect(enemies.hp()).toBe(70);
-      expect(emitted).toEqual([{ hits: 30 }]);
+      expect(emitted).toEqual([{ hits: 30, critical: false, weakness: false }]);
+    });
+
+    it('emits a critical hit as such', () => {
+      const emitted: ItDisplayHits[] = [];
+      enemies.hitEvents.subscribe((h) => emitted.push(h));
+
+      enemies.getAttacked(30, attackOf([]), true);
+
+      expect(emitted).toEqual([{ hits: 30, critical: true, weakness: false }]);
     });
 
     it('ignores elements the group is not weak to or resistant to', () => {
@@ -112,7 +121,7 @@ describe('Enemies', () => {
       enemies.getAttacked(10, attackOf(['bolt', 'fire']));
 
       expect(enemies.hp()).toBe(70);
-      expect(emitted).toEqual([{ hits: 30 }]);
+      expect(emitted).toEqual([{ hits: 30, critical: false, weakness: true }]);
     });
 
     it('divides damage by 3 (rounded down) on resistance', () => {

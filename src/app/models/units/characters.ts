@@ -85,7 +85,7 @@ export class Characters extends Units {
    */
   addHp(value: number): void {
     this.hp.update((hp) => Math.min(hp + value, this.hpMax()));
-    this.hitEvents.next({ hits: value });
+    this.hitEvents.next({ hits: value, heal: true });
   }
 
   /**
