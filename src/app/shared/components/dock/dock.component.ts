@@ -35,10 +35,6 @@ export class DockComponent {
       .subscribe(() => this.closeMore());
   }
 
-  displayNextZone() {
-    return this.gameService.zones.isNextZone();
-  }
-
   displayPhs() {
     return this.gameService.zones.isPhsUnlocked();
   }

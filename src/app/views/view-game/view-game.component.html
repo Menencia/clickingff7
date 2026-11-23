@@ -1,4 +1,52 @@
 <app-ui-layout-default>
+  <header class="mb-2" data-tour="zone">
+    <!-- The whole block leads to the zones screen -->
+    <a
+      href="map"
+      routerLink="/map"
+      class="flex items-center gap-2.5 rounded-box border border-primary/25 bg-primary/10 px-2 py-1.5 transition-colors hover:bg-primary/20 active:bg-primary/25"
+      [title]="'Change zone' | translate"
+      data-testid="change-zone"
+    >
+      <div
+        class="flex size-8 flex-none items-center justify-center rounded-md bg-primary/80 text-sm font-bold text-primary-content"
+      >
+        #{{ zoneLevel() }}
+      </div>
+      <div class="min-w-0 flex-1">
+        <h1 class="truncate text-base font-semibold leading-tight">
+          {{ "Zone " + zoneLevel() + " name" | translate }}
+        </h1>
+        <p class="text-xs opacity-60">{{ "Current zone" | translate }}</p>
+      </div>
+      <span class="indicator flex-none p-1 opacity-60">
+        @if (displayNextZone()) {
+        <span
+          class="indicator-item badge badge-xs badge-secondary"
+          data-testid="next-zone"
+        ></span>
+        }
+        <!-- Lucide "map", as in the dock -->
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="size-5"
+          aria-hidden="true"
+        >
+          <path
+            d="M14.106 5.553a2 2 0 0 0 1.788 0l3.659-1.83A1 1 0 0 1 21 4.619v12.764a1 1 0 0 1-.553.894l-4.553 2.277a2 2 0 0 1-1.788 0l-4.212-2.106a2 2 0 0 0-1.788 0l-3.659 1.83A1 1 0 0 1 3 19.381V6.618a1 1 0 0 1 .553-.894l4.553-2.277a2 2 0 0 1 1.788 0z"
+          />
+          <path d="M15 5.764v15" />
+          <path d="M9 3.236v15" />
+        </svg>
+      </span>
+      <span class="sr-only">{{ "Change zone" | translate }}</span>
+    </a>
+  </header>
   <!-- Mobile: the team (left) faces the enemy (right), and the actions are
        in a bar stuck to the bottom of the screen (within thumb reach). From
        sm: the actions in a column on the left. -->

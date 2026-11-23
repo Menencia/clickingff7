@@ -25,7 +25,7 @@ export const helpData: HelpData = {
     { key: 'fight', element: 'fight', position: 'right' },
     { key: 'materias', element: 'materias', position: 'right' },
     { key: 'menu', element: 'menu', position: 'left' },
-    { key: 'zone', element: 'zone', position: 'top' },
+    { key: 'zone', element: 'zone', position: 'bottom' },
     { key: 'end' },
   ],
 };

@@ -1,6 +1,12 @@
 import { TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 import { provideTranslateService } from '@ngx-translate/core';
 import { GameService } from '../../core/services/game.service';
+import {
+  MemoryStorage,
+  provideInMemoryGameData,
+  startGame,
+} from '../../testing/game-data.testing';
 import { ViewGameComponent } from './view-game.component';
 
 describe('ViewGameComponent', () => {
@@ -8,6 +14,7 @@ describe('ViewGameComponent', () => {
     await TestBed.configureTestingModule({
       imports: [ViewGameComponent],
       providers: [
+        provideRouter([]),
         provideTranslateService({ fallbackLang: 'en' }),
         {
           provide: GameService,
@@ -23,5 +30,61 @@ describe('ViewGameComponent', () => {
     const fixture = TestBed.createComponent(ViewGameComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
+  });
+});
+
+describe('ViewGameComponent (real data)', () => {
+  beforeEach(async () => {
+    vi.stubGlobal('localStorage', new MemoryStorage());
+    TestBed.configureTestingModule({
+      imports: [ViewGameComponent],
+      providers: [
+        provideInMemoryGameData(),
+        provideRouter([]),
+        provideTranslateService({ fallbackLang: 'en' }),
+      ],
+    });
+    const game = await startGame();
+    clearTimeout(game.timer);
+  });
+
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+
+  it('displays the current zone', async () => {
+    const fixture = TestBed.createComponent(ViewGameComponent);
+    await fixture.whenStable();
+
+    const el: HTMLElement = fixture.nativeElement;
+    const zone = el.querySelector('[data-tour="zone"]')?.textContent;
+    expect(el.querySelector('h1')?.textContent).toContain('Zone 1 name');
+    expect(zone).toContain('#1');
+    expect(zone).toContain('Current zone');
+  });
+
+  it('links to the zones screen', async () => {
+    const fixture = TestBed.createComponent(ViewGameComponent);
+    await fixture.whenStable();
+
+    const link = (fixture.nativeElement as HTMLElement).querySelector(
+      '[data-testid="change-zone"]',
+    );
+    expect(link?.getAttribute('href')).toBe('/map');
+    expect(link?.textContent).toContain('Change zone');
+  });
+
+  it('flags the zone button when the next zone is available', async () => {
+    const flagged = async () => {
+      const fixture = TestBed.createComponent(ViewGameComponent);
+      await fixture.whenStable();
+      return !!(fixture.nativeElement as HTMLElement).querySelector(
+        '[data-testid="change-zone"] [data-testid="next-zone"]',
+      );
+    };
+    expect(await flagged()).toBe(false);
+
+    TestBed.inject(GameService).zones.isNextZone = () => true;
+    expect(await flagged()).toBe(true);
   });
 });

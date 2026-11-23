@@ -82,16 +82,4 @@ describe('DockComponent', () => {
     fixture = await render();
     expect(hasPhs()).toBe(true);
   });
-
-  it('flags the map when the next zone is available', async () => {
-    let fixture = await render();
-    const flagged = () =>
-      !!fixture.nativeElement.querySelector('[data-testid="next-zone"]');
-    expect(flagged()).toBe(false);
-
-    fixture.destroy();
-    zones.isNextZone = () => true;
-    fixture = await render();
-    expect(flagged()).toBe(true);
-  });
 });

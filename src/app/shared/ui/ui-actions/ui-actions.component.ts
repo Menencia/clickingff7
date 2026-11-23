@@ -69,10 +69,6 @@ export class UiActionsComponent {
       .filter((item) => battle || !item.isBattleOnly());
   }
 
-  public getGils(): number {
-    return this.gameService.gils();
-  }
-
   public isBattle(): boolean {
     return !!this.battleService.battle();
   }
@@ -123,9 +119,5 @@ export class UiActionsComponent {
 
   public canLimit(): boolean {
     return this.gameService.characters.canLimit();
-  }
-
-  public getZoneLvl(): number {
-    return this.gameService.zones.level;
   }
 }

@@ -1,6 +1,5 @@
-<!-- Mobile order: zone and gils, materias and items (one scrollable row), then
-     the battle buttons at the bottom. From sm: one column, battle buttons
-     first and zone and gils last. During a battle, Attack and Escape replace
+<!-- Mobile order: materias and items (one scrollable row), then the battle
+     buttons at the bottom. From sm: one column, battle buttons first. During a battle, Attack and Escape replace
      the fight buttons. Outside a battle, offensive materias and items are
      hidden. -->
 <div class="flex flex-col gap-2 sm:gap-1">
@@ -83,18 +82,5 @@
       }
     </div>
     }
-  </div>
-
-  <div
-    class="flex items-baseline justify-between gap-2 order-1 text-sm sm:order-4 sm:mt-3 sm:flex-col-reverse sm:items-center sm:text-base"
-  >
-    <div
-      class="min-w-0 truncate sm:whitespace-normal sm:text-center"
-      data-tour="zone"
-    >
-      {{ "Zone " + getZoneLvl() + " name" | translate }}
-      <strong> (#{{ getZoneLvl() }}) </strong>
-    </div>
-    <div class="flex-none">{{ "Gil" | translate }}: {{ getGils() }}</div>
   </div>
 </div>

@@ -1,4 +1,6 @@
 import { Component, computed, inject, Signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
+import { TranslatePipe } from '@ngx-translate/core';
 import { BattleService } from '../../core/services/battle.service';
 import { GameService } from '../../core/services/game.service';
 import { Characters } from '../../models/units/characters';
@@ -15,6 +17,8 @@ import { EnemiesPanelComponent } from './components/enemies-panel/enemies-panel.
     UiActionsComponent,
     CharactersPanelComponent,
     EnemiesPanelComponent,
+    RouterLink,
+    TranslatePipe,
   ],
   templateUrl: './view-game.component.html',
   styleUrls: ['./view-game.component.scss'],
@@ -31,6 +35,15 @@ export class ViewGameComponent {
   // enemies anchor) displayed with its "No enemies" state. Built outside the
   // computed: the Enemies constructor writes to signals.
   private readonly noEnemies = new Enemies();
+
+  public zoneLevel(): number {
+    return this.gameService.zones.level;
+  }
+
+  /** True when the next zone can be reached */
+  public displayNextZone(): boolean {
+    return this.gameService.zones.isNextZone();
+  }
 
   constructor() {
     this.characters = this.gameService.characters;

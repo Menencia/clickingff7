@@ -22,8 +22,8 @@
 
 #### Changements
 
-- Écran de combat repensé (pensé d'abord pour mobile) : l'équipe, à gauche, fait face à l'ennemi, à droite. Les jauges HP, MP et Limite deviennent circulaires, l'XP de chaque personnage entoure son portrait et les HP de l'ennemi entourent le sien.
-- Les gils sont affichés dans la barre du haut, sur tous les écrans, à gauche du bouton d'aide (pièce « G » suivie du montant).
+- Écran de combat repensé (pensé d'abord pour mobile) : l'équipe, à gauche, fait face à l'ennemi, à droite. Les jauges HP, MP et Limite deviennent circulaires, l'XP de chaque personnage entoure son portrait et les HP de l'ennemi entourent le sien. Un bandeau en haut de l'écran affiche la zone en cours (numéro et nom) ; le toucher ouvre l'écran Zones. Sur mobile, ce bandeau remplace l'entrée Zones du dock, et son icône de carte porte la pastille signalant qu'une nouvelle zone est disponible.
+- Les gils sont affichés dans la barre du haut, sur tous les écrans, à gauche du bouton d'aide (pièce « G » suivie du montant) ; ils ne sont plus dans la barre d'actions de l'écran Jeu.
 
 #### Disparitions
 
