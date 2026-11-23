@@ -1,6 +1,6 @@
 # Changelog
 
-## Prochaine version (1.8.0)
+## 1.8.0
 
 ### Notes de release (anglais)
 
