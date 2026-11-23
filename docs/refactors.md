@@ -65,7 +65,7 @@ Changement : `models/difficulty.ts` (enum, liste avec libellés) et une constant
 
 **Risque** : très faible, le compilateur signale les imports. `view-config.component.spec.ts` couvre les deux listes. Plus simple après le commit 3, qui touche `getLanguage()`.
 
-### 7. `refactor(materias): add Materias.remove for selling` 🟢
+### 7. `refactor(materias): add Materias.remove for selling` 🟢 ✅ fait
 
 `ShopService.sellMateria()` filtre lui-même `game.materias.list`, alors que les armes et objets passent par `Stock.remove()`. C'est le seul endroit hors des collections qui réécrit une `list`.
 

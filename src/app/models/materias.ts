@@ -20,6 +20,13 @@ export class Materias {
   }
 
   /**
+   * Removes the materia from the list (as a new array)
+   */
+  remove(materia: Materia): void {
+    this.list = this.list.filter((e) => e !== materia);
+  }
+
+  /**
    * Returns equipped materias
    */
   getEquipped(): Materia[] {

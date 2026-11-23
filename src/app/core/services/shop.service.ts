@@ -140,9 +140,7 @@ export class ShopService {
   sellMateria(materia: Materia): boolean {
     if (!this.canSellMateria(materia)) return false;
     this.game.gils.update((gils) => gils + materia.getSellPrice());
-    this.game.materias.list = this.game.materias.list.filter(
-      (e) => e !== materia,
-    );
+    this.game.materias.remove(materia);
     return true;
   }
 

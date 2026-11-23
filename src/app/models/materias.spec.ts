@@ -22,6 +22,22 @@ describe('Materias', () => {
     materias.add(store.getMateria(MateriaRef.Bolt));
   });
 
+  it('removes only the given materia', () => {
+    const [restore, bolt] = materias.list;
+
+    materias.remove(restore);
+
+    expect(materias.list).toEqual([bolt]);
+  });
+
+  it('ignores a materia it does not hold', () => {
+    const [restore, bolt] = materias.list;
+
+    materias.remove(store.getMateria(MateriaRef.Restore));
+
+    expect(materias.list).toEqual([restore, bolt]);
+  });
+
   it('equips a materia while a slot is free', () => {
     const [, bolt] = materias.list;
     expect(materias.canEquip(bolt, 2)).toBe(true);
