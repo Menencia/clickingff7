@@ -1,17 +1,17 @@
 # Changelog
 
-## Prochaine version
+## Prochaine version (1.8.0)
 
 ### Notes de release (anglais)
 
 ```
-- Battle screen redesign (the Game screen is renamed Battle): the team faces the enemy, with portraits and circular gauges, and actions in Actions, Magic and Items tabs
-- Gils are now shown in the header on every screen
-- The Limit gets its own button: Attack no longer uses it automatically
-- Keyboard shortcuts on the battle screen: Space/A to attack, L for the Limit, Esc to flee, R and B to start a fight
-- Fix a new fight starting by accident when clicking Attack right as a battle ends
-- Fix random damage and healing variance going well beyond ±10% on small values
-- Fix a save with an unknown language loading without translations
+- Redesigned Battle section, formerly Game section
+- Gils shown in the header
+- Limit has its own button
+- New keyboard shortcuts in Battle section
+- Fix a new fight starting right after a battle
+- Fix damage variance on small values
+- Fix missing translations with an unsupported language
 ```
 
 ### Détail des changements
