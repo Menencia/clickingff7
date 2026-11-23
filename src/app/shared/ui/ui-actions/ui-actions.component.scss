@@ -1,0 +1,66 @@
+// Underlined tabs with a light background, so that they don't look like the
+// action buttons.
+[role='tablist'] .tab-active {
+  border-radius: var(--radius-field) var(--radius-field) 0 0;
+  background-color: color-mix(in oklab, var(--color-primary) 12%, transparent);
+  color: var(--color-primary);
+  font-weight: 600;
+}
+
+// Room for two buttons, so that the bar keeps its height between tabs.
+.action-group {
+  display: flex;
+  min-height: 6rem;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+// Full-width button: name and description on the left, value on the right.
+.action-btn {
+  width: 100%;
+  height: auto;
+  min-height: 2.75rem;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 0.5rem;
+  padding-block: 0.375rem;
+  text-align: left;
+}
+
+.action-text {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 0.125rem;
+}
+
+.action-name {
+  font-size: 0.875rem;
+  line-height: 1.15;
+}
+
+.action-desc {
+  font-size: 0.7rem;
+  font-weight: 400;
+  line-height: 1.2;
+  opacity: 0.7;
+}
+
+.action-value {
+  flex: none;
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+.boss-hint {
+  gap: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.75rem;
+  line-height: 1.2;
+}
+
+.action-empty {
+  padding-inline: 0.5rem;
+  opacity: 0.4;
+}

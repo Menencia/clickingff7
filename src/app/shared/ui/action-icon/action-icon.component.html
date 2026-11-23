@@ -1,0 +1,66 @@
+<svg
+  class="size-full"
+  aria-hidden="true"
+  viewBox="0 0 24 24"
+  [attr.fill]="name() === 'orb' ? 'currentColor' : 'none'"
+  [attr.fill-opacity]="name() === 'orb' ? 0.35 : null"
+  stroke="currentColor"
+  stroke-width="2"
+  stroke-linecap="round"
+  stroke-linejoin="round"
+  [attr.data-icon]="name()"
+>
+  @switch (name()) { @case ('flask-round') {
+  <path d="M10 2v6.292a7 7 0 1 0 4 0V2" />
+  <path d="M5 15h14" />
+  <path d="M8.5 2h7" />
+  } @case ('orb') {
+  <circle cx="12" cy="12" r="10" />
+  } @case ('swords') {
+  <path d="m13 19 6-6" />
+  <path
+    d="M14.5 17.5 3.586 6.586A2 2 0 013 5.172V3h2.172a2 2 0 011.414.586L17.5 14.5"
+  />
+  <path
+    d="m14.828 6.172 2.586-2.586A2 2 0 0118.828 3H21v2.172a2 2 0 01-.586 1.414l-2.586 2.586"
+  />
+  <path d="m16 16 4 4" />
+  <path d="m19 21 2-2" />
+  <path d="m5 14 4 4" />
+  <path d="m5 21-2-2" />
+  <path d="M7.5 16.5 4 20" />
+  } @case ('skull') {
+  <path d="m12.5 17-.5-1-.5 1h1z" />
+  <path
+    d="M15 22a1 1 0 0 0 1-1v-1a2 2 0 0 0 1.56-3.25 8 8 0 1 0-11.12 0A2 2 0 0 0 8 20v1a1 1 0 0 0 1 1z"
+  />
+  <circle cx="15" cy="12" r="1" />
+  <circle cx="9" cy="12" r="1" />
+  } @case ('sword') {
+  <path d="m11 19-6-6" />
+  <path d="m5 21-2-2" />
+  <path d="m8 16-4 4" />
+  <path
+    d="M9.5 17.5 20.414 6.586A2 2 0 0021 5.172V3h-2.172a2 2 0 00-1.414.586L6.5 14.5"
+  />
+  } @case ('zap') {
+  <path
+    d="M15.914 4a1.5 1.5 0 00-2.474-1.561l-9 9A1.5 1.5 0 005.5 14h4.002a.5.5 0 01.471.666L8.086 20a1.5 1.5 0 002.475 1.56l9-9A1.5 1.5 0 0018.5 10h-3.997a.5.5 0 01-.472-.667z"
+  />
+  } @case ('footprints') {
+  <path
+    d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5.5c0 3.11-2 5.66-2 8.68V16a2 2 0 1 1-4 0Z"
+  />
+  <path
+    d="M20 20v-2.38c0-2.12 1.03-3.12 1-5.62-.03-2.72-1.49-6-4.5-6C14.63 6 14 7.8 14 9.5c0 3.11 2 5.66 2 8.68V20a2 2 0 1 0 4 0Z"
+  />
+  <path d="M16 17h4" />
+  <path d="M4 13h4" />
+  } @case ('lightbulb') {
+  <path d="M9 18h6" />
+  <path d="M10 22h4" />
+  <path
+    d="M12 2a7 7 0 0 0-4 12.7c.6.5 1 1.2 1 2V17h6v-.3c0-.8.4-1.5 1-2A7 7 0 0 0 12 2z"
+  />
+  } }
+</svg>

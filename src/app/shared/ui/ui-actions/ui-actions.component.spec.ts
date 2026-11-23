@@ -2,6 +2,7 @@ import { TestBed } from '@angular/core/testing';
 import { provideTranslateService } from '@ngx-translate/core';
 import { BattleService } from '../../../core/services/battle.service';
 import { GameService } from '../../../core/services/game.service';
+import { MAX_FIGHTS } from '../../../models/zone';
 import {
   MemoryStorage,
   provideInMemoryGameData,
@@ -106,17 +107,19 @@ describe('UiActionsComponent (real data)', () => {
   it('swaps the fight buttons for Attack and Escape during a battle', () => {
     const fixture = TestBed.createComponent(UiActionsComponent);
     const labels = () =>
-      [...fixture.nativeElement.querySelectorAll('button')].map(
-        (b: HTMLButtonElement) => b.textContent?.trim(),
-      );
+      [
+        ...fixture.nativeElement.querySelectorAll(
+          '[data-group="battle"] .action-name',
+        ),
+      ].map((b: HTMLElement) => b.textContent?.trim());
     fixture.detectChanges();
-    expect(labels()).toContain('Fight boss');
+    expect(labels().some((l) => l?.startsWith('Fight random'))).toBe(true);
     expect(labels()).not.toContain('Attack');
     expect(labels()).not.toContain('Escape');
 
     fixture.componentInstance.fightRandom();
     fixture.detectChanges();
-    expect(labels()).toEqual(['Attack', 'Escape', ...labels().slice(2)]);
+    expect(labels()).toEqual(['Attack', 'Escape']);
     expect(labels()).not.toContain('Fight boss');
   });
 
@@ -128,7 +131,9 @@ describe('UiActionsComponent (real data)', () => {
   it('disables the fight buttons for a moment after a battle', () => {
     const fixture = TestBed.createComponent(UiActionsComponent);
     const first = () =>
-      fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+      fixture.nativeElement.querySelector(
+        '[data-group="battle"] button',
+      ) as HTMLButtonElement;
     fixture.detectChanges();
 
     first().click();
@@ -149,5 +154,115 @@ describe('UiActionsComponent (real data)', () => {
     expect(first().disabled).toBe(false);
     first().click();
     expect(battleService.battle()).toBeDefined();
+  });
+
+  it('sorts the actions into the Battle, Magic and Items tabs', () => {
+    const fixture = TestBed.createComponent(UiActionsComponent);
+    fixture.detectChanges();
+    const el: HTMLElement = fixture.nativeElement;
+    const tabs = [...el.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+    const panel = () => el.querySelector('[role="tabpanel"]');
+    const count = () => panel()?.querySelectorAll('button').length;
+
+    expect(tabs.map((t) => t.textContent?.trim())).toEqual([
+      'Battle',
+      'Magic',
+      'Items',
+    ]);
+    expect(panel()?.getAttribute('data-group')).toBe('battle');
+    expect(tabs[0].getAttribute('aria-selected')).toBe('true');
+    expect(count()).toBe(1);
+
+    tabs[2].click();
+    fixture.detectChanges();
+    expect(panel()?.getAttribute('data-group')).toBe('items');
+    expect(tabs[2].classList).toContain('tab-active');
+    expect(count()).toBe(actions.getItems().length);
+
+    tabs[1].click();
+    fixture.detectChanges();
+    expect(panel()?.getAttribute('data-group')).toBe('magic');
+    expect(count()).toBe(actions.getMaterias().length);
+  });
+
+  it('shows Fight boss only when the boss can be fought', () => {
+    const boss = () => {
+      const fixture = TestBed.createComponent(UiActionsComponent);
+      fixture.detectChanges();
+      return [
+        ...(fixture.nativeElement as HTMLElement).querySelectorAll('button'),
+      ].find((b) => b.textContent?.includes('Fight boss'));
+    };
+    expect(boss()).toBeUndefined();
+
+    game.zones.current().nbFights = MAX_FIGHTS;
+    const button = boss();
+    expect(button?.disabled).toBe(false);
+
+    button?.click();
+    expect(battleService.battle()?.enemies.list[0].boss).toBe(true);
+  });
+
+  it('tells how many victories are left before the boss', () => {
+    const hint = () => {
+      const fixture = TestBed.createComponent(UiActionsComponent);
+      fixture.detectChanges();
+      const el: HTMLElement = fixture.nativeElement;
+      return el.querySelector('[data-testid="boss-hint"]')?.textContent?.trim();
+    };
+    const zone = game.zones.current();
+
+    expect(hint()).toBe('Boss after victories');
+    expect(actions.remainingFights()).toBe(MAX_FIGHTS);
+
+    zone.nbFights = MAX_FIGHTS - 1;
+    expect(hint()).toBe('Boss after 1 victory');
+
+    zone.nbFights = MAX_FIGHTS;
+    expect(hint()).toBeUndefined();
+    expect(actions.remainingFights()).toBe(0);
+  });
+
+  it('shows a flask icon on the potion', () => {
+    const fixture = TestBed.createComponent(UiActionsComponent);
+    fixture.componentInstance.tab.set('items');
+    fixture.detectChanges();
+    const el: HTMLElement = fixture.nativeElement;
+    const potion = [
+      ...el.querySelectorAll<HTMLButtonElement>('[data-group="items"] button'),
+    ].find((b) => b.textContent?.includes('It. potion name'));
+
+    expect(potion?.querySelector('svg')).not.toBeNull();
+  });
+
+  it('shows a wand icon on the green materias', () => {
+    const fixture = TestBed.createComponent(UiActionsComponent);
+    fixture.componentInstance.tab.set('magic');
+    fixture.detectChanges();
+    const el: HTMLElement = fixture.nativeElement;
+    const buttons = el.querySelectorAll('[data-group="magic"] button');
+
+    expect(buttons.length).toBeGreaterThan(0);
+    for (const button of buttons) {
+      expect(button.querySelector('svg')).not.toBeNull();
+      expect(button.querySelector('img')).toBeNull();
+    }
+  });
+
+  it('shows an icon on each battle action', () => {
+    const fixture = TestBed.createComponent(UiActionsComponent);
+    const icons = () => {
+      fixture.detectChanges();
+      return [
+        ...(fixture.nativeElement as HTMLElement).querySelectorAll(
+          '[data-group="battle"] button svg',
+        ),
+      ].map((svg) => svg.getAttribute('data-icon'));
+    };
+
+    expect(icons()).toEqual(['swords']);
+
+    fixture.componentInstance.fightRandom();
+    expect(icons()).toEqual(['sword', 'footprints']);
   });
 });

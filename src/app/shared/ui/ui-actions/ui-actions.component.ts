@@ -5,6 +5,7 @@ import { GameService } from '../../../core/services/game.service';
 import { Item } from '../../../models/item';
 import { Materia } from '../../../models/materia';
 import { MAX_FIGHTS } from '../../../models/zone';
+import { ActionIconComponent } from '../action-icon/action-icon.component';
 
 /**
  * Delay (ms) during which the fight buttons stay disabled after a battle:
@@ -13,15 +14,20 @@ import { MAX_FIGHTS } from '../../../models/zone';
  */
 export const FIGHT_COOLDOWN = 1000;
 
+export type ActionsTab = 'items' | 'magic' | 'battle';
+
 @Component({
   selector: 'app-ui-actions',
-  imports: [TranslatePipe],
+  imports: [ActionIconComponent, TranslatePipe],
   templateUrl: './ui-actions.component.html',
   styleUrls: ['./ui-actions.component.scss'],
 })
 export class UiActionsComponent {
   private battleService = inject(BattleService);
   private gameService = inject(GameService);
+
+  /** Open tab of the actions */
+  readonly tab = signal<ActionsTab>('battle');
 
   /** True right after a battle, while the fight buttons are disabled */
   readonly cooldown = signal(false);
@@ -49,9 +55,9 @@ export class UiActionsComponent {
     );
   }
 
-  public remainingBattles() {
-    const remain = MAX_FIGHTS - this.gameService.zones.current().nbFights;
-    return remain > 0 ? `(${remain})` : '';
+  /** Victories still needed in the current zone before the boss shows up */
+  public remainingFights(): number {
+    return Math.max(MAX_FIGHTS - this.gameService.zones.current().nbFights, 0);
   }
 
   // Outside a battle, offensive materias and items are hidden.

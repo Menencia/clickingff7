@@ -6,8 +6,8 @@
     "mp": "Aquí puedes ver los puntos mágicos de tu grupo. Los necesitas para utilizar hechizos.",
     "limit": "Cuando recibas daño, este indicador se irá llenando. ¡Cuando esté llena, tu siguiente ataque hará muchísimo más daño!",
     "enemies": "Aquí aparece el enemigo. Para ganar la batalla, debes matarlo antes de que él te liquide a tí.",
-    "fight": "Haz click aquí para luchar contra enemigos. Durante la batalla, pulsa Atacar tantas veces como desees para vencerlos más rápido, o escapa si son demasiado fuertes.",
-    "materias": "¡Éstas son tus magias! Recuerda que necesitas MP para utilizarlas. Por ejemplo, puedes usar 'Recuperar' para curar a tus personajes.",
+    "fight": "En la pestaña Combate, inicia un combate para luchar contra enemigos. Durante la batalla, pulsa Atacar tantas veces como desees para vencerlos más rápido, o escapa si son demasiado fuertes.",
+    "materias": "¡Tus magias están en la pestaña Magia! Recuerda que necesitas MP para utilizarlas. Por ejemplo, puedes usar 'Recuperar' para curar a tus personajes.",
     "menu": "Éste es el menú principal. Puedes comprar objetos en la tienda, administrar tus objetos, guardar tu partida, etc.",
     "zone": "Actualmente estás en ésta zona. Hay un Jefe oculto en cada zona. ¡Encuéntralo y desafíalo para para desbloquear la siguiente zona!",
     "end": "¡Bueno, eso es todo! ¡Gracias por tu atención! Buena suerte y diviértete ;)"
