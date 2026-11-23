@@ -6,7 +6,7 @@
     "mp": "Voici les points de magie de votre équipe (MP). Vous en aurez besoin pour lancer de la magie.",
     "limit": "Lorsque vous subissez des dégats, cette jauge se remplit petit à petit. Lorsqu'elle est pleine, un bouton Limite apparaît sous Attaquer : utilisez-le pour une attaque surpuissante !",
     "enemies": "Les ennemis apparaissent ici. Pour gagner le combat, vous devez les vaincre avant qu'ils ne le fassent.",
-    "fight": "Dans l'onglet Combat, lancez un combat pour affronter les ennemis. Pendant le combat, cliquez sur Attaquer autant de fois que vous le souhaitez pour vaincre les ennemis plus vite, ou fuyez si le combat est trop difficile.",
+    "fight": "Dans l'onglet Actions, lancez un combat pour affronter les ennemis. Pendant le combat, cliquez sur Attaquer autant de fois que vous le souhaitez pour vaincre les ennemis plus vite, ou fuyez si le combat est trop difficile.",
     "materias": "Votre magie est dans l'onglet Magie ! N'oubliez pas qu'il faut des MP pour vous en servir. Par exemple, vous pouvez utiliser 'Restaurer' pour soigner votre équipe.",
     "menu": "Voici le menu principal. Vous pouvez acheter de nouveaux objets à la boutique, gérer votre inventaire, enregistrer votre partie, etc.",
     "zone": "Vous vous trouvez actuellement dans cette zone. Un boss caché se trouve dans chacune des zones. Trouvez-le et affrontez-le pour passer à la zone suivante.",

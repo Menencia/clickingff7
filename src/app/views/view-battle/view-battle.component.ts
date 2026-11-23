@@ -26,7 +26,7 @@ import { EnemiesPanelComponent } from './components/enemies-panel/enemies-panel.
 export const DEFEAT_DISPLAY = 1000;
 
 @Component({
-  selector: 'app-view-game',
+  selector: 'app-view-battle',
   imports: [
     UiLayoutDefaultComponent,
     UiActionsComponent,
@@ -35,10 +35,10 @@ export const DEFEAT_DISPLAY = 1000;
     RouterLink,
     TranslatePipe,
   ],
-  templateUrl: './view-game.component.html',
-  styleUrls: ['./view-game.component.scss'],
+  templateUrl: './view-battle.component.html',
+  styleUrls: ['./view-battle.component.scss'],
 })
-export class ViewGameComponent {
+export class ViewBattleComponent {
   private gameService = inject(GameService);
   private battleService = inject(BattleService);
 

@@ -8,12 +8,12 @@ import {
   provideInMemoryGameData,
   startGame,
 } from '../../testing/game-data.testing';
-import { DEFEAT_DISPLAY, ViewGameComponent } from './view-game.component';
+import { DEFEAT_DISPLAY, ViewBattleComponent } from './view-battle.component';
 
-describe('ViewGameComponent', () => {
+describe('ViewBattleComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ViewGameComponent],
+      imports: [ViewBattleComponent],
       providers: [
         provideRouter([]),
         provideTranslateService({ fallbackLang: 'en' }),
@@ -28,17 +28,17 @@ describe('ViewGameComponent', () => {
   });
 
   it('should create', () => {
-    const fixture = TestBed.createComponent(ViewGameComponent);
+    const fixture = TestBed.createComponent(ViewBattleComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
   });
 });
 
-describe('ViewGameComponent (real data)', () => {
+describe('ViewBattleComponent (real data)', () => {
   beforeEach(async () => {
     vi.stubGlobal('localStorage', new MemoryStorage());
     TestBed.configureTestingModule({
-      imports: [ViewGameComponent],
+      imports: [ViewBattleComponent],
       providers: [
         provideInMemoryGameData(),
         provideRouter([]),
@@ -54,7 +54,7 @@ describe('ViewGameComponent (real data)', () => {
   });
 
   it('displays the current zone', async () => {
-    const fixture = TestBed.createComponent(ViewGameComponent);
+    const fixture = TestBed.createComponent(ViewBattleComponent);
     await fixture.whenStable();
 
     const el: HTMLElement = fixture.nativeElement;
@@ -65,7 +65,7 @@ describe('ViewGameComponent (real data)', () => {
   });
 
   it('links to the zones screen', async () => {
-    const fixture = TestBed.createComponent(ViewGameComponent);
+    const fixture = TestBed.createComponent(ViewBattleComponent);
     await fixture.whenStable();
 
     const link = (fixture.nativeElement as HTMLElement).querySelector(
@@ -77,7 +77,7 @@ describe('ViewGameComponent (real data)', () => {
 
   it('flags the zone button when the next zone is available', async () => {
     const flagged = async () => {
-      const fixture = TestBed.createComponent(ViewGameComponent);
+      const fixture = TestBed.createComponent(ViewBattleComponent);
       await fixture.whenStable();
       return !!(fixture.nativeElement as HTMLElement).querySelector(
         '[data-testid="change-zone"] [data-testid="next-zone"]',
@@ -103,7 +103,7 @@ describe('ViewGameComponent (real data)', () => {
     });
 
     function render() {
-      const fixture = TestBed.createComponent(ViewGameComponent);
+      const fixture = TestBed.createComponent(ViewBattleComponent);
       const gauge = () => {
         fixture.detectChanges();
         return (fixture.nativeElement as HTMLElement).querySelector(

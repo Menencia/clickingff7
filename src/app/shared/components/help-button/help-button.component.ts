@@ -46,7 +46,7 @@ export class HelpButtonComponent {
     }
 
     // The steps target elements of the game screen: wait for it to render.
-    await this.router.navigateByUrl('/game');
+    await this.router.navigateByUrl('/battle');
     await this.appRef.whenStable();
 
     const steps = helpData.steps.map(({ key, element, position }) => ({

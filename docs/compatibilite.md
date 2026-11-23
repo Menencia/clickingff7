@@ -1,6 +1,6 @@
 # Compatibilité avec les anciennes versions
 
-Liste de tous les endroits du code qui gèrent des données écrites par une version précédente du jeu (sauvegarde, `localStorage`). **À tenir à jour** : tout code de compatibilité ajouté ou retiré doit ajouter ou retirer son entrée ici, dans le même changement.
+Liste de tous les endroits du code qui gèrent des données écrites par une version précédente du jeu (sauvegarde, `localStorage`, adresses). **À tenir à jour** : tout code de compatibilité ajouté ou retiré doit ajouter ou retirer son entrée ici, dans le même changement.
 
 Pour chaque entrée : ce qui est géré, depuis quand, où dans le code, comment c'est testé, et quand on pourrait le retirer.
 
@@ -47,3 +47,13 @@ Pour chaque entrée : ce qui est géré, depuis quand, où dans le code, comment
 - **Tests** : `theme-picker.component.spec.ts` (« converts the legacy light theme to cupcake »).
 - **Spécification** : `specs.md` §9, « Thème ».
 - **Retrait** : à tout moment, au prix d'un retour au thème par défaut pour les joueurs concernés.
+
+## Adresses
+
+### 5. Ancienne adresse `/game` de l'écran Combat
+
+- **Ce qui est géré** : jusqu'à la 1.7.0, l'écran Combat s'appelait Jeu et était à `/game`. Cette adresse redirige vers `/battle`, pour les favoris et les liens enregistrés.
+- **Code** : route `{ path: 'game', redirectTo: '/battle' }` dans `src/app/app.routes.ts`.
+- **Tests** : `app.routes.spec.ts` (« redirects the old /game address to /battle »).
+- **Spécification** : `specs.md` §9, ligne Combat du tableau des écrans.
+- **Retrait** : quand les anciens favoris n'ont plus besoin d'être pris en charge.

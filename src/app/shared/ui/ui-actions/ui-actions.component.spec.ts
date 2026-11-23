@@ -169,7 +169,7 @@ describe('UiActionsComponent (real data)', () => {
     ]);
     expect(
       groups.map((g) => g.querySelector('h2')?.textContent?.trim()),
-    ).toEqual(['Battle', 'Magic', 'Items']);
+    ).toEqual(['Actions', 'Magic', 'Items']);
     expect(groups.map((g) => g.classList.contains('inactive'))).toEqual([
       false,
       true,
@@ -187,7 +187,7 @@ describe('UiActionsComponent (real data)', () => {
     const count = () => panel()?.querySelectorAll('button').length;
 
     expect(tabs.map((t) => t.textContent?.trim())).toEqual([
-      'Battle',
+      'Actions',
       'Magic',
       'Items',
     ]);

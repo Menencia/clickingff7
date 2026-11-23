@@ -1,4 +1,4 @@
-<!-- Three tabs below lg: Battle (open by default), Magic and Items. Each button takes
+<!-- Three tabs below lg: Actions (open by default), Magic and Items. Each button takes
      the full width, with a short description under its name. During a
      battle, Attack and Escape replace the fight buttons, with Limit between
      them when the gauge is full. Fight boss only
@@ -19,7 +19,7 @@
       (click)="tab.set('battle')"
       data-tour="fight"
     >
-      {{ "Battle" | translate }}
+      {{ "Actions" | translate }}
     </button>
     <button
       type="button"
@@ -55,7 +55,7 @@
       [class.inactive]="tab() !== 'battle'"
       data-tour="fight"
     >
-      <h2 class="action-title">{{ "Battle" | translate }}</h2>
+      <h2 class="action-title">{{ "Actions" | translate }}</h2>
       @if (!isBattle()) {
       <button
         type="button"

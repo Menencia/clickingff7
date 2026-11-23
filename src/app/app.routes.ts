@@ -5,12 +5,14 @@ import { zoneGuard } from './core/guards/zone.guard';
 
 export const routes: Routes = [
   {
-    path: 'game',
+    path: 'battle',
     loadComponent: () =>
-      import('./views/view-game/view-game.component').then(
-        (m) => m.ViewGameComponent,
+      import('./views/view-battle/view-battle.component').then(
+        (m) => m.ViewBattleComponent,
       ),
   },
+  // The battle screen was at /game up to 1.7 (bookmarks, installed app).
+  { path: 'game', redirectTo: '/battle' },
   {
     path: 'map',
     canActivate: [battleGuard],
@@ -83,5 +85,5 @@ export const routes: Routes = [
         (m) => m.ViewAboutComponent,
       ),
   },
-  { path: '', redirectTo: '/game', pathMatch: 'full' },
+  { path: '', redirectTo: '/battle', pathMatch: 'full' },
 ];

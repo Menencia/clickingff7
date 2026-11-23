@@ -138,7 +138,7 @@ describe('ViewSaveComponent', () => {
         CharacterRef.Barret,
       ]);
       expect(game.gils()).toBe(200);
-      expect(navigate).toHaveBeenCalledWith('game');
+      expect(navigate).toHaveBeenCalledWith('battle');
     });
 
     it('does nothing without a save', () => {
@@ -164,7 +164,7 @@ describe('ViewSaveComponent', () => {
 
       expect(component.importError).toBe(false);
       expect(game.export()).toEqual(save);
-      expect(navigate).toHaveBeenCalledWith('game');
+      expect(navigate).toHaveBeenCalledWith('battle');
     });
 
     it('does not overwrite the stored save', () => {

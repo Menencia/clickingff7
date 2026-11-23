@@ -66,7 +66,7 @@ export class ViewSaveComponent {
   resetGame(): void {
     if (this.lastSave()) {
       this.gameService.newGame();
-      this.router.navigateByUrl('game');
+      this.router.navigateByUrl('battle');
     }
   }
 
@@ -133,6 +133,6 @@ export class ViewSaveComponent {
       this.importError = true;
       return;
     }
-    this.router.navigateByUrl('game');
+    this.router.navigateByUrl('battle');
   }
 }
