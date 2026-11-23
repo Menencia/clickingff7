@@ -9,6 +9,18 @@
     <div class="hidden flex-none md:block" data-tour="menu">
       <app-sidemenu />
     </div>
+    <div
+      class="mx-1 flex flex-none items-center gap-1.5 rounded-full border border-base-content/20 py-0.5 pr-2.5 pl-1 text-sm tabular-nums"
+      data-testid="gils"
+    >
+      <span
+        class="flex size-5 items-center justify-center rounded-full border border-amber-600 bg-yellow-400 text-[0.65rem] font-bold text-amber-800"
+        aria-hidden="true"
+        >G</span
+      >
+      <span class="sr-only">{{ "Gil" | translate }}:</span>
+      {{ gils() }}
+    </div>
     <div><app-help-button /></div>
     <div><app-theme-picker></app-theme-picker></div>
   </div>

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
 import { provideRouter } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
@@ -21,7 +21,11 @@ describe('AppComponent', () => {
         { provide: SwUpdate, useValue: { isEnabled: false } },
         {
           provide: GameService,
-          useValue: { run: () => {}, zones: { isNextZone: () => 1 } },
+          useValue: {
+            run: () => {},
+            zones: { isNextZone: () => 1, isPhsUnlocked: () => false },
+            gils: signal(1234),
+          },
         },
       ],
     }).compileComponents();
@@ -35,5 +39,15 @@ describe('AppComponent', () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
     expect(app).toBeTruthy();
+  });
+
+  it('displays the gils in the header', async () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    await fixture.whenStable();
+
+    const el: HTMLElement = fixture.nativeElement;
+    const gils = el.querySelector('[data-testid="gils"]');
+    expect(gils?.textContent).toContain('1234');
+    expect(gils?.querySelector('.sr-only')?.textContent).toContain('Gil');
   });
 });

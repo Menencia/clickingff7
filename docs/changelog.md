@@ -6,6 +6,7 @@
 
 ```
 - Battle screen redesign: the team faces the enemy, with portraits and circular gauges
+- Gils are now shown in the header on every screen
 - Fix a new fight starting by accident when clicking Attack right as a battle ends
 - Fix random damage and healing variance going well beyond ±10% on small values
 - Fix a save with an unknown language loading without translations
@@ -22,6 +23,7 @@
 #### Changements
 
 - Écran de combat repensé (pensé d'abord pour mobile) : l'équipe, à gauche, fait face à l'ennemi, à droite. Les jauges HP, MP et Limite deviennent circulaires, l'XP de chaque personnage entoure son portrait et les HP de l'ennemi entourent le sien.
+- Les gils sont affichés dans la barre du haut, sur tous les écrans, à gauche du bouton d'aide (pièce « G » suivie du montant).
 
 #### Disparitions
 
